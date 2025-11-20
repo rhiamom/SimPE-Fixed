@@ -1,0 +1,101 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{62E5BE50-2A34-43D0-9ABA-EE3F751C1627}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>pjOBJDTool</RootNamespace>
+    <AssemblyName>pjOBJDTool.plugin</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Debug\Plugins\</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\__Release\Plugins\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GDF, Version=0.69.20.22, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="pjse.coder, Version=4.69.8276.41340, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\pjse.coder.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.helper, Version=0.75.69.24, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.helper.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.interfaces, Version=1.69.7716.34988, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.workspace, Version=1.69.7716.34996, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.workspace.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cOBJDChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cOBJDChooser.Designer.cs">
+      <DependentUpon>cOBJDChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cOBJDTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cOBJDTool.Designer.cs">
+      <DependentUpon>cOBJDTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Factory.cs" />
+    <Compile Include="pfOBJD.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tOBJDTool.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="cOBJDChooser.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>cOBJDChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cOBJDTool.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>cOBJDTool.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
+

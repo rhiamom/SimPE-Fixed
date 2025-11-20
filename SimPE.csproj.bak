@@ -1,0 +1,3464 @@
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{082BA0D0-06CB-61B3-61CD-1F7B82E92A4B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>WindowsApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>SimPE</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bidou Career Editor\CareerIcon.png" />
+    <Content Include="Bidou Career Editor\obj\Debug\Plugin Career Editor.csproj.FileListAbsolute.txt" />
+    <Content Include="ColorBinningTool\ColorBinningTool.options.xml" />
+    <Content Include="ColorBinningTool\ColorBinningTool.png" />
+    <Content Include="ColorBinningTool\ColourBin.htm" />
+    <Content Include="ColorBinningTool\obj\Debug\ColorBinningTool.csproj.FileListAbsolute.txt" />
+    <Content Include="GraphControl\b.png" />
+    <Content Include="GraphControl\bl.png" />
+    <Content Include="GraphControl\br.png" />
+    <Content Include="GraphControl\l.png" />
+    <Content Include="GraphControl\obj\Debug\GraphControl.csproj.FileListAbsolute.txt" />
+    <Content Include="GraphControl\r.png" />
+    <Content Include="GraphControl\t.png" />
+    <Content Include="GraphControl\tl.png" />
+    <Content Include="GraphControl\tr.png" />
+    <Content Include="LICENSE.txt" />
+    <Content Include="README.txt" />
+    <Content Include="SimPe 3D\obj\Debug\Plugin 3D.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe 3IDR\obj\Debug\SimPe 3IDR.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe 3IDR\view_tree.png" />
+    <Content Include="SimPe BHAV\obj\Debug\Plugin BHAV.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe BHAV\search.png" />
+    <Content Include="SimPe Cache\obj\Debug\SimPe Cache.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Clst\clst.png" />
+    <Content Include="SimPe Clst\obj\Debug\SimPe Clst.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Clst\txt.png" />
+    <Content Include="SimPe Commandline\additional_careers.xml" />
+    <Content Include="SimPe Commandline\additional_majors.xml" />
+    <Content Include="SimPe Commandline\additional_schools.xml" />
+    <Content Include="SimPe Commandline\guidindex.txt" />
+    <Content Include="SimPe Commandline\objddefinition.xml" />
+    <Content Include="SimPe Commandline\obj\Debug\SimPe Commandline.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Commandline\semiglobals.xml" />
+    <Content Include="SimPe Commandline\tgi.xml" />
+    <Content Include="SimPe Commandline\txmtdefinition.xml" />
+    <Content Include="SimPe Copyright Plugin\obj\Debug\SimPe Copyright Plugin.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Dockbox\obj\Debug\Plugin Dockbox.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Downloads\obj\Debug\Plugin Downloads.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe FAMH\About.txt" />
+    <Content Include="SimPe FAMH\book.png" />
+    <Content Include="SimPe FAMH\obj\Debug\SimPe famhPlugin.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe FileHandler\cpf.png" />
+    <Content Include="SimPe FileHandler\fami.png" />
+    <Content Include="SimPe FileHandler\objd.png" />
+    <Content Include="SimPe FileHandler\obj\Debug\SimPe FileHandlers.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe FileHandler\pic.png" />
+    <Content Include="SimPe FileHandler\sdsc.png" />
+    <Content Include="SimPe FileHandler\srel.png" />
+    <Content Include="SimPe GameTipPlugin\obj\Debug\simpeGameTipplugin.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Geometry\obj\Debug\SimPe Geometry.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe GMDC Exporter Base\obj\Debug\SimPe GMDC Exporter Base.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe GMDC Exporter\obj\Debug\Plugin GMDC Exporter.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Helper\important.png" />
+    <Content Include="SimPe Helper\obj\Debug\SimPe Helper.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe HGBH\emoticon.png" />
+    <Content Include="SimPe HGBH\idno.png" />
+    <Content Include="SimPe HGBH\kweather.png" />
+    <Content Include="SimPe HGBH\ltxt.png" />
+    <Content Include="SimPe HGBH\ngbh.png" />
+    <Content Include="SimPe HGBH\nothumb.png" />
+    <Content Include="SimPe HGBH\obj\Debug\SimPe HGBH.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe HGBH\subitems.png" />
+    <Content Include="SimPe Interfaces\obj\Debug\SimPe Interfaces.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe LangExtracter\Extractor.png" />
+    <Content Include="SimPe LangExtracter\obj\Debug\language Extractor.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Main\disabled.png" />
+    <Content Include="SimPe Main\enabled.png" />
+    <Content Include="SimPe Main\error.png" />
+    <Content Include="SimPe Main\expand.png" />
+    <Content Include="SimPe Main\FileTable.htm" />
+    <Content Include="SimPe Main\multienabled.png" />
+    <Content Include="SimPe Main\obj\Debug\SimPe Main.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Main\obj\Debug\TempPE\Properties.Resources.Designer.cs.dll" />
+    <Content Include="SimPe Main\shrink.png" />
+    <Content Include="SimPe Main\simpe.html" />
+    <Content Include="SimPe Main\Simpe2.ico" />
+    <Content Include="SimPe Main\Sims2.png" />
+    <Content Include="SimPe Main\smallmultienabled.png" />
+    <Content Include="SimPe More Plugins\obj\Debug\simpeMoreplugin.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Name Provider\binary.png" />
+    <Content Include="SimPe Name Provider\empty.png" />
+    <Content Include="SimPe Name Provider\obj\Debug\SimPe Name Provider.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe NGBH Scanner\obj\Debug\Plugin NGBH Scanner.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Packages\obj\Debug\SimPe Packages.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe RCOL\obj\Debug\SimPe RCOL.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe RCOL\resource.png" />
+    <Content Include="SimPe ResourceControls\obj\Debug\SimPe ResourceControls.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Scenegraph\3didr.png" />
+    <Content Include="SimPe Scenegraph\lifo.png" />
+    <Content Include="SimPe Scenegraph\mmat.png" />
+    <Content Include="SimPe Scenegraph\obj\Debug\SimPe Scenegraph.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Scenegraph\slot.png" />
+    <Content Include="SimPe Scenegraph\txtr.png" />
+    <Content Include="SimPe Sims\dna.png" />
+    <Content Include="SimPe Sims\familyties.png" />
+    <Content Include="SimPe Sims\obj\Debug\SimPe Sims.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Sims\related.png" />
+    <Content Include="SimPe Sims\sdsc.png" />
+    <Content Include="SimPe Sims\srel.png" />
+    <Content Include="SimPe Splash\cancel.png" />
+    <Content Include="SimPe Splash\img\bottom.png" />
+    <Content Include="SimPe Splash\img\center.png" />
+    <Content Include="SimPe Splash\img\splash.png" />
+    <Content Include="SimPe Splash\img\splashao.png" />
+    <Content Include="SimPe Splash\img\top.png" />
+    <Content Include="SimPe Splash\img\topao.png" />
+    <Content Include="SimPe Splash\obj\Debug\SimPe Splash.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPE Toolbox Scanner\obj\Debug\SimPE Toolbox Scanner.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPE Toolbox Scanner\scanfolder.png" />
+    <Content Include="SimPe Toolbox Scenegraph\obj\Debug\Plugin Toolbox Scenegraph.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Toolbox Scenegraph\scenegrapher.png" />
+    <Content Include="SimPe Toolbox Workshops\custom.png" />
+    <Content Include="SimPe Toolbox Workshops\nothumb.png" />
+    <Content Include="SimPe Toolbox Workshops\obj\Debug\SimPe Toolbox Workshops.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Toolbox Workshops\repair.png" />
+    <Content Include="SimPe Toolbox Workshops\subitems.png" />
+    <Content Include="SimPe Toolbox Workshops\timer.gif" />
+    <Content Include="SimPe Toolbox\obj\Debug\SimPe Toolbox.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Toolbox\tbsurg.ico" />
+    <Content Include="SimPe Toolbox\Tit.ico" />
+    <Content Include="SimPe Wants\obj\Debug\SimPe Wants.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Wizardbase\obj\Debug\SimPe Wizardbase.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Workspace Helper\agt_support.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgclone.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgcreate.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgdelete.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgexport.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgfilter.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgfixtgi.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgimport.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgreplace.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgrestore.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acbgstart.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acchecktable.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acclone.png" />
+    <Content Include="SimPe Workspace Helper\Icons\accreate.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acdelete.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acexport.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acfilter.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acfixtgi.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acimport.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acreplace.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acrestore.png" />
+    <Content Include="SimPe Workspace Helper\Icons\acstart.png" />
+    <Content Include="SimPe Workspace Helper\Icons\anibgcamera.png" />
+    <Content Include="SimPe Workspace Helper\Icons\anicamera.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgacchecktable.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgbookmark.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgbutflie.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgdebug.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgDelete.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgdeletesim.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgExtractSt.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgfinder.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bghoodtool.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgKey.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgLinkSt.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgNew.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgOpen.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgPhpGuid.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgpjobjdtool.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgReset.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgSave.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bgSaveAs.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bhbgimport.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bhbglua.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bhimport.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bhlua.png" />
+    <Content Include="SimPe Workspace Helper\Icons\blDelete.png" />
+    <Content Include="SimPe Workspace Helper\Icons\blNew.png" />
+    <Content Include="SimPe Workspace Helper\Icons\blOpen.png" />
+    <Content Include="SimPe Workspace Helper\Icons\blReset.png" />
+    <Content Include="SimPe Workspace Helper\Icons\blSave.png" />
+    <Content Include="SimPe Workspace Helper\Icons\blSaveAs.png" />
+    <Content Include="SimPe Workspace Helper\Icons\bookmark.png" />
+    <Content Include="SimPe Workspace Helper\Icons\butflie.png" />
+    <Content Include="SimPe Workspace Helper\Icons\cbgpreview.png" />
+    <Content Include="SimPe Workspace Helper\Icons\copyright.png" />
+    <Content Include="SimPe Workspace Helper\Icons\copyrightbg.png" />
+    <Content Include="SimPe Workspace Helper\Icons\cpreview.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbagent.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbbgagent.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbbgoS2pack.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbbgos2pc.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbbgpackage.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbbgrecur.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbbgS2pack.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbbgs2pc.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbbgselected.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbpackage.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbrecur.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbS2pack.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbs2pc.png" />
+    <Content Include="SimPe Workspace Helper\Icons\dbselected.png" />
+    <Content Include="SimPe Workspace Helper\Icons\debug.png" />
+    <Content Include="SimPe Workspace Helper\Icons\deletesim.png" />
+    <Content Include="SimPe Workspace Helper\Icons\ExtractSt.png" />
+    <Content Include="SimPe Workspace Helper\Icons\gametip.png" />
+    <Content Include="SimPe Workspace Helper\Icons\hoodtool.png" />
+    <Content Include="SimPe Workspace Helper\Icons\Info.png" />
+    <Content Include="SimPe Workspace Helper\Icons\Infobg.png" />
+    <Content Include="SimPe Workspace Helper\Icons\LinkSt.png" />
+    <Content Include="SimPe Workspace Helper\Icons\pjfinder.png" />
+    <Content Include="SimPe Workspace Helper\Icons\pjkey.png" />
+    <Content Include="SimPe Workspace Helper\Icons\pjobjdtool.png" />
+    <Content Include="SimPe Workspace Helper\Icons\psDelete.png" />
+    <Content Include="SimPe Workspace Helper\Icons\psNew.png" />
+    <Content Include="SimPe Workspace Helper\Icons\psOpen.png" />
+    <Content Include="SimPe Workspace Helper\Icons\psSave.png" />
+    <Content Include="SimPe Workspace Helper\Icons\readim.png" />
+    <Content Include="SimPe Workspace Helper\Icons\stxt.png" />
+    <Content Include="SimPe Workspace Helper\Icons\support.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgcamera.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgcontents.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgcreatepackage.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbggenerator.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgintegrity.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgneighboorhood.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgsimbrowser.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgskinn.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgsurg.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbbgwcreatepackage.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbcamera.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbcontents.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbcreatepackage.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbgenerator.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbintegrit.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbneighboorhood.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbPhpGuid.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbsimbrowser.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbskinn.png" />
+    <Content Include="SimPe Workspace Helper\Icons\tbsurg.png" />
+    <Content Include="SimPe Workspace Helper\Icons\whfail.png" />
+    <Content Include="SimPe Workspace Helper\Icons\whok.png" />
+    <Content Include="SimPe Workspace Helper\Icons\whunk.png" />
+    <Content Include="SimPe Workspace Helper\Icons\whwarn.png" />
+    <Content Include="SimPe Workspace Helper\Images\aCAF.png" />
+    <Content Include="SimPe Workspace Helper\Images\beachbabe.png" />
+    <Content Include="SimPe Workspace Helper\Images\CAF.png" />
+    <Content Include="SimPe Workspace Helper\Images\demo.png" />
+    <Content Include="SimPe Workspace Helper\Images\network.png" />
+    <Content Include="SimPe Workspace Helper\Images\noone.png" />
+    <Content Include="SimPe Workspace Helper\Images\sheone.png" />
+    <Content Include="SimPe Workspace Helper\Images\valbabydoll.png" />
+    <Content Include="SimPe Workspace Helper\obj\Debug\SimPe Workspace Helper.csproj.FileListAbsolute.txt" />
+    <Content Include="SimPe Workspace Helper\pattern.gif" />
+    <Content Include="Wizards of SimPe\obj\Debug\Wizards of SimPe.csproj.FileListAbsolute.txt" />
+    <Content Include="Wizards of SimPe\Simpe2.ico" />
+    <Content Include="WOSimPE - Interfaces\obj\Debug\WOSimPE - Interfaces.csproj.FileListAbsolute.txt" />
+    <Content Include="_PJSE\pjHoodTool\Redirect_Contents.htm" />
+    <Content Include="_PJSE\pjse Coder\start.png" />
+    <Content Include="__NonCore\WOSimPe - BSOK\WizardIcon.png" />
+    <Content Include="__NonCore\WOSimPe - Wardrobecleaner\folder_home.png" />
+    <Content Include="__NonCore\WOSimPe - Wardrobecleaner\r3did.png" />
+    <Content Include="__NonCore\WOSimPe - Wardrobecleaner\WizardIcon.png" />
+    <Content Include="__Release\7z.dll" />
+    <Content Include="__Release\7zecmd.dll" />
+    <Content Include="__Release\AdvancedForms.dll" />
+    <Content Include="__Release\ambertation.3D.dll" />
+    <Content Include="__Release\ambertation.3D.mdx.binding.dll" />
+    <Content Include="__Release\ambertation.utilities.dll" />
+    <Content Include="__Release\Eyefinder.dll" />
+    <Content Include="__Release\GDF.dll" />
+    <Content Include="__Release\GPL-LICENSE.txt" />
+    <Content Include="__Release\graphcontrol.dll" />
+    <Content Include="__Release\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="__Release\License-de.txt" />
+    <Content Include="__Release\License.txt" />
+    <Content Include="__Release\NetDocks.dll" />
+    <Content Include="__Release\pjse.coder.dll" />
+    <Content Include="__Release\Plugins\bidou.career.plugin.dll" />
+    <Content Include="__Release\Plugins\languagExtractor.plugin.dll" />
+    <Content Include="__Release\Plugins\optional.simpe.3d.plugin.dll" />
+    <Content Include="__Release\Plugins\pjBodyMeshTool.plugin.dll" />
+    <Content Include="__Release\Plugins\pjHoodTool.plugin.dll" />
+    <Content Include="__Release\Plugins\pjOBJDTool.plugin.dll" />
+    <Content Include="__Release\Plugins\pjObjKeyTool.plugin.dll" />
+    <Content Include="__Release\Plugins\pjse.Wants.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.bhav.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.copyright.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.default.gmdc.exporter.dll" />
+    <Content Include="__Release\Plugins\simpe.dockbox.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.downloads.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.famh.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.GameTip.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.More.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.ngbh.scanner.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.scanfolder.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.scenegrapher.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.toolbox.plugin.dll" />
+    <Content Include="__Release\Plugins\simpe.workshop.plugin.dll" />
+    <Content Include="__Release\Plugins\skankyboy.mesh.importer.exporter.dll" />
+    <Content Include="__Release\Plugins\skankyboy.smd.importer.exporter.dll" />
+    <Content Include="__Release\Plugins\theos.gbct.plugin.dll" />
+    <Content Include="__Release\Plugins\wosimpe.bsok.wizard.dll" />
+    <Content Include="__Release\Plugins\wosimpe.recolor.wizard.dll" />
+    <Content Include="__Release\Plugins\wosimpe.wardrobecleaner.wizard.dll" />
+    <Content Include="__Release\README.txt" />
+    <Content Include="__Release\SandDock.dll" />
+    <Content Include="__Release\simpe.3idr.dll" />
+    <Content Include="__Release\simpe.cache.dll" />
+    <Content Include="__Release\simpe.clst.dll" />
+    <Content Include="__Release\simpe.commandline.dll" />
+    <Content Include="__Release\SimPe.exe" />
+    <Content Include="__Release\simpe.filehandler.dll" />
+    <Content Include="__Release\simpe.geometry.dll" />
+    <Content Include="__Release\simpe.gmdc.exporter.base.dll" />
+    <Content Include="__Release\simpe.helper.dll" />
+    <Content Include="__Release\simpe.interfaces.dll" />
+    <Content Include="__Release\simpe.names.dll" />
+    <Content Include="__Release\simpe.neighbourhood.dll" />
+    <Content Include="__Release\simpe.package.dll" />
+    <Content Include="__Release\simpe.rcol.dll" />
+    <Content Include="__Release\simpe.resourcecontrols.dll" />
+    <Content Include="__Release\simpe.scenegraph.dll" />
+    <Content Include="__Release\simpe.sims.dll" />
+    <Content Include="__Release\simpe.splash.dll" />
+    <Content Include="__Release\simpe.wizardbase.dll" />
+    <Content Include="__Release\simpe.workspace.dll" />
+    <Content Include="__Release\whse.primitivewizards_0_77_69.dll" />
+    <Content Include="__Release\Wizards of SimPE.exe" />
+    <Content Include="__Release\wosimpe.interfaces.dll" />
+    <Content Include="__Release\XPCommonControls.dll" />
+    <Content Include="__Release\xsi.lib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bidou Career Editor\AssemblyInfo.cs" />
+    <Compile Include="Bidou Career Editor\CareerEditor.cs" />
+    <Compile Include="Bidou Career Editor\CareerTool.cs" />
+    <Compile Include="Bidou Career Editor\ChoicePanel.cs" />
+    <Compile Include="Bidou Career Editor\ChoicePanel.Designer.cs">
+      <DependentUpon>ChoicePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bidou Career Editor\EffectPanel.cs" />
+    <Compile Include="Bidou Career Editor\EffectPanel.Designer.cs">
+      <DependentUpon>EffectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bidou Career Editor\Factory.cs" />
+    <Compile Include="Bidou Career Editor\JobDescPanel.cs" />
+    <Compile Include="Bidou Career Editor\JobDescPanel.Designer.cs">
+      <DependentUpon>JobDescPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bidou Career Editor\LabelledNumericUpDown.cs" />
+    <Compile Include="Bidou Career Editor\LabelledNumericUpDown.Designer.cs">
+      <DependentUpon>LabelledNumericUpDown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bidou Career Editor\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="ColorBinningTool\About.cs" />
+    <Compile Include="ColorBinningTool\AbstractCpfInfo.cs" />
+    <Compile Include="ColorBinningTool\ClothingPreferences.cs" />
+    <Compile Include="ColorBinningTool\FilePackageView.cs" />
+    <Compile Include="ColorBinningTool\FilePackageView.designer.cs">
+      <DependentUpon>FilePackageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorBinningTool\GeneticCategorizer.cs" />
+    <Compile Include="ColorBinningTool\GeneticCategorizerTool.cs" />
+    <Compile Include="ColorBinningTool\GeneticColor.cs" />
+    <Compile Include="ColorBinningTool\HairtonePreferences.cs" />
+    <Compile Include="ColorBinningTool\MainForm.cs" />
+    <Compile Include="ColorBinningTool\MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorBinningTool\MaterialDefinitionRcol.cs" />
+    <Compile Include="ColorBinningTool\MeshTable.cs" />
+    <Compile Include="ColorBinningTool\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="ColorBinningTool\PackageInfo.cs" />
+    <Compile Include="ColorBinningTool\PackageSettings.cs" />
+    <Compile Include="ColorBinningTool\PreferencesPanel.cs" />
+    <Compile Include="ColorBinningTool\Properties\AssemblyInfo.cs" />
+    <Compile Include="ColorBinningTool\Properties\Resources.Designer.cs" />
+    <Compile Include="ColorBinningTool\RcolTable.cs" />
+    <Compile Include="ColorBinningTool\RecolorItem.cs" />
+    <Compile Include="ColorBinningTool\ResourceReference.cs" />
+    <Compile Include="ColorBinningTool\Utility.cs" />
+    <Compile Include="ColorBinningTool\WrapperFactory.cs" />
+    <Compile Include="GraphControl\AbstractFloodFiller.cs" />
+    <Compile Include="GraphControl\AssemblyInfo.cs" />
+    <Compile Include="GraphControl\Collections.cs" />
+    <Compile Include="GraphControl\DragPanel.cs" />
+    <Compile Include="GraphControl\EnumComboBox.cs" />
+    <Compile Include="GraphControl\ExtendedImagePanel.cs" />
+    <Compile Include="GraphControl\FloodFiller.cs" />
+    <Compile Include="GraphControl\Graphics.cs" />
+    <Compile Include="GraphControl\GraphItem.cs" />
+    <Compile Include="GraphControl\GraphItemBase.cs" />
+    <Compile Include="GraphControl\GraphPanel.cs" />
+    <Compile Include="GraphControl\GraphPanelElement.cs" />
+    <Compile Include="GraphControl\HexEditControl.cs" />
+    <Compile Include="GraphControl\HexViewControl.cs" />
+    <Compile Include="GraphControl\Highlight.cs" />
+    <Compile Include="GraphControl\ImagePanel.cs" />
+    <Compile Include="GraphControl\LinkGraphic.cs" />
+    <Compile Include="GraphControl\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="GraphControl\PropertyItem.cs" />
+    <Compile Include="GraphControl\PropertyPanel.cs" />
+    <Compile Include="GraphControl\RoundedPanel.cs" />
+    <Compile Include="SimPe 3D\AnimationData.cs" />
+    <Compile Include="SimPe 3D\AnimPreview.cs" />
+    <Compile Include="SimPe 3D\AnimTool.cs" />
+    <Compile Include="SimPe 3D\AssemblyInfo.cs" />
+    <Compile Include="SimPe 3D\DXPanel.cs" />
+    <Compile Include="SimPe 3D\ListedMeshBlocks.cs" />
+    <Compile Include="SimPe 3D\MeshBox.cs" />
+    <Compile Include="SimPe 3D\MeshList.cs" />
+    <Compile Include="SimPe 3D\MeshTransform.cs" />
+    <Compile Include="SimPe 3D\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe 3D\ToolFactory.cs" />
+    <Compile Include="SimPe 3D\ViewportSettings.cs" />
+    <Compile Include="SimPe 3IDR\AssemblyInfo.cs" />
+    <Compile Include="SimPe 3IDR\NmapForm.cs" />
+    <Compile Include="SimPe 3IDR\NmapItem.cs" />
+    <Compile Include="SimPe 3IDR\NmapUI.cs" />
+    <Compile Include="SimPe 3IDR\NmapWrapper.cs" />
+    <Compile Include="SimPe 3IDR\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe 3IDR\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe 3IDR\Subhoods.cs" />
+    <Compile Include="SimPe 3IDR\WrapperFactory.cs" />
+    <Compile Include="SimPe BHAV\AssemblyInfo.cs" />
+    <Compile Include="SimPe BHAV\BconWrapper.cs" />
+    <Compile Include="SimPe BHAV\BuildPackage.cs" />
+    <Compile Include="SimPe BHAV\GenSemiGlobals.cs" />
+    <Compile Include="SimPe BHAV\ImportSemi.cs" />
+    <Compile Include="SimPe BHAV\ImportSemiTool.cs" />
+    <Compile Include="SimPe BHAV\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe BHAV\OpenLuaTool.cs" />
+    <Compile Include="SimPe BHAV\PackedFileWrapper.cs" />
+    <Compile Include="SimPe BHAV\Search.cs" />
+    <Compile Include="SimPe BHAV\SearchItem.cs" />
+    <Compile Include="SimPe BHAV\SearchTool.cs" />
+    <Compile Include="SimPe BHAV\TtabWrapper.cs" />
+    <Compile Include="SimPe BHAV\WrapperFactory.cs" />
+    <Compile Include="SimPe Cache\AssemblyInfo.cs" />
+    <Compile Include="SimPe Cache\CacheContainer.cs" />
+    <Compile Include="SimPe Cache\CacheException.cs" />
+    <Compile Include="SimPe Cache\CacheFile.cs" />
+    <Compile Include="SimPe Cache\CachLists.cs" />
+    <Compile Include="SimPe Cache\GoalCacheItem .cs" />
+    <Compile Include="SimPe Cache\ICacheItem.cs" />
+    <Compile Include="SimPe Cache\MemoryCacheItem.cs" />
+    <Compile Include="SimPe Cache\MMATCacheItem.cs" />
+    <Compile Include="SimPe Cache\ObjectCacheItem.cs" />
+    <Compile Include="SimPe Cache\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Cache\PackageCacheItem.cs" />
+    <Compile Include="SimPe Cache\RcolCacheItem.cs" />
+    <Compile Include="SimPe Cache\WantCacheItem.cs" />
+    <Compile Include="SimPe Clst\AssemblyInfo.cs" />
+    <Compile Include="SimPe Clst\ClstForm.cs" />
+    <Compile Include="SimPe Clst\ClstItem.cs" />
+    <Compile Include="SimPe Clst\ClstWrapper.cs" />
+    <Compile Include="SimPe Clst\DefaultWrapperFactory.cs" />
+    <Compile Include="SimPe Clst\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Clst\StrForm.cs" />
+    <Compile Include="SimPe Clst\StrItem.cs" />
+    <Compile Include="SimPe Clst\StrListViewer.cs" />
+    <Compile Include="SimPe Clst\StrWrapper.cs" />
+    <Compile Include="SimPe Commandline\AssemblyInfo.cs" />
+    <Compile Include="SimPe Commandline\Commandline.cs" />
+    <Compile Include="SimPe Commandline\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Copyright Plugin\ActionAddCopyright.cs" />
+    <Compile Include="SimPe Copyright Plugin\AssemblyInfo.cs" />
+    <Compile Include="SimPe Copyright Plugin\CopyrightToolFactory.cs" />
+    <Compile Include="SimPe Copyright Plugin\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Copyright Plugin\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Copyright Plugin\StringsForm.cs" />
+    <Compile Include="SimPe Dockbox\ActionBuildPhpGUIDList.cs" />
+    <Compile Include="SimPe Dockbox\ActionCheckFiletable.cs" />
+    <Compile Include="SimPe Dockbox\ActionReloadFiletable.cs" />
+    <Compile Include="SimPe Dockbox\ActionUniqueInstance.cs" />
+    <Compile Include="SimPe Dockbox\AssemblyInfo.cs" />
+    <Compile Include="SimPe Dockbox\CreateListFromPackageTool.cs" />
+    <Compile Include="SimPe Dockbox\CreateListFromSelectionTool.cs" />
+    <Compile Include="SimPe Dockbox\CSVSerializer.cs" />
+    <Compile Include="SimPe Dockbox\DebugDock.cs" />
+    <Compile Include="SimPe Dockbox\Factory.cs" />
+    <Compile Include="SimPe Dockbox\FinderDock.cs" />
+    <Compile Include="SimPe Dockbox\FinderDock.Designer.cs">
+      <DependentUpon>FinderDock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\FinderResultItem.cs" />
+    <Compile Include="SimPe Dockbox\Finder\AFinderTool.cs" />
+    <Compile Include="SimPe Dockbox\Finder\AFinderTool.Designer.cs">
+      <DependentUpon>AFinderTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\Finder\FinderToolRegistry.cs" />
+    <Compile Include="SimPe Dockbox\Finder\FindInCpf.cs" />
+    <Compile Include="SimPe Dockbox\Finder\FindInCpf.Designer.cs">
+      <DependentUpon>FindInCpf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\Finder\FindInNmap.cs" />
+    <Compile Include="SimPe Dockbox\Finder\FindInNmap.Designer.cs">
+      <DependentUpon>FindInNmap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\Finder\FindInNref.cs" />
+    <Compile Include="SimPe Dockbox\Finder\FindInNref.Designer.cs">
+      <DependentUpon>FindInNref.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\Finder\FindInSG.cs" />
+    <Compile Include="SimPe Dockbox\Finder\FindInSG.Designer.cs">
+      <DependentUpon>FindInSG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\Finder\FindInStr.cs" />
+    <Compile Include="SimPe Dockbox\Finder\FindInStr.Designer.cs">
+      <DependentUpon>FindInStr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\Finder\FindObj.cs" />
+    <Compile Include="SimPe Dockbox\Finder\FindObj.Designer.cs">
+      <DependentUpon>FindObj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\Finder\FindTGI.cs" />
+    <Compile Include="SimPe Dockbox\Finder\FindTGI.Designer.cs">
+      <DependentUpon>FindTGI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Dockbox\Finder\IFinderResultGui.cs" />
+    <Compile Include="SimPe Dockbox\HexDecConverterTool.cs" />
+    <Compile Include="SimPe Dockbox\HexDockTool.cs" />
+    <Compile Include="SimPe Dockbox\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Dockbox\PackageDockTool.cs" />
+    <Compile Include="SimPe Dockbox\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Dockbox\Report.cs" />
+    <Compile Include="SimPe Dockbox\ResourceDock.cs" />
+    <Compile Include="SimPe Dockbox\ResourceDockTool.cs" />
+    <Compile Include="SimPe Dockbox\WrapperDockTool.cs" />
+    <Compile Include="SimPe Downloads\ArchiveHandler.cs" />
+    <Compile Include="SimPe Downloads\AssemblyInfo.cs" />
+    <Compile Include="SimPe Downloads\DefaultTypeHandler.cs" />
+    <Compile Include="SimPe Downloads\DepSims2Community.cs" />
+    <Compile Include="SimPe Downloads\DownloadsFactory.cs" />
+    <Compile Include="SimPe Downloads\DownloadsSettings.cs" />
+    <Compile Include="SimPe Downloads\HandlerRegistry.cs" />
+    <Compile Include="SimPe Downloads\InstallerControl.cs" />
+    <Compile Include="SimPe Downloads\InstallerForm.cs" />
+    <Compile Include="SimPe Downloads\InstallerTool.cs" />
+    <Compile Include="SimPe Downloads\IPackageHandler.cs" />
+    <Compile Include="SimPe Downloads\IPackageInfo.cs" />
+    <Compile Include="SimPe Downloads\ITypeHandler.cs" />
+    <Compile Include="SimPe Downloads\Loads2cpTool.cs" />
+    <Compile Include="SimPe Downloads\LoadSims2PackTool.cs" />
+    <Compile Include="SimPe Downloads\LotTypeHandler.cs" />
+    <Compile Include="SimPe Downloads\NeighborhoodTypeHandler.cs" />
+    <Compile Include="SimPe Downloads\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Downloads\PackageHandler.cs" />
+    <Compile Include="SimPe Downloads\PackageInfo.cs" />
+    <Compile Include="SimPe Downloads\PackageInfoCollection.cs" />
+    <Compile Include="SimPe Downloads\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Downloads\RecolorTypeHandler.cs" />
+    <Compile Include="SimPe Downloads\Saves2cpTool.cs" />
+    <Compile Include="SimPe Downloads\SaveSims2CommunityPack.cs" />
+    <Compile Include="SimPe Downloads\SaveSims2Pack.cs" />
+    <Compile Include="SimPe Downloads\SaveSims2PackTool.cs" />
+    <Compile Include="SimPe Downloads\SevenZipHandler.cs" />
+    <Compile Include="SimPe Downloads\SimpleTypeHandler.cs" />
+    <Compile Include="SimPe Downloads\Sims2CommunityPack.cs" />
+    <Compile Include="SimPe Downloads\Sims2CommunityPackDescriptor.cs" />
+    <Compile Include="SimPe Downloads\Sims2PackHandler.cs" />
+    <Compile Include="SimPe Downloads\SimTypeHandler.cs" />
+    <Compile Include="SimPe Downloads\WallpaperTypeHandler.cs" />
+    <Compile Include="SimPe Downloads\XTypeHandler.cs" />
+    <Compile Include="SimPe FAMH\AssemblyInfo.cs" />
+    <Compile Include="SimPe FAMH\FamiuPackedFileUI.cs" />
+    <Compile Include="SimPe FAMH\FamiuPackedFileUI.Designer.cs">
+      <DependentUpon>FamiuPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe FAMH\FamiuPackedFileWrapper.cs" />
+    <Compile Include="SimPe FAMH\FamiuWrapperFactory.cs" />
+    <Compile Include="SimPe FAMH\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe FAMH\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe FileHandler\AssemblyInfo.cs" />
+    <Compile Include="SimPe FileHandler\CpfItem.cs" />
+    <Compile Include="SimPe FileHandler\CpfUI.cs" />
+    <Compile Include="SimPe FileHandler\CpfWrapper.cs" />
+    <Compile Include="SimPe FileHandler\DefaultWrapperFactory.cs" />
+    <Compile Include="SimPe FileHandler\Elements.cs" />
+    <Compile Include="SimPe FileHandler\Elements2.cs" />
+    <Compile Include="SimPe FileHandler\ExtObjdForm.cs" />
+    <Compile Include="SimPe FileHandler\ExtObjdWrapper.cs" />
+    <Compile Include="SimPe FileHandler\Fami.cs" />
+    <Compile Include="SimPe FileHandler\FamilyTieItem.cs" />
+    <Compile Include="SimPe FileHandler\FamilyTies.cs" />
+    <Compile Include="SimPe FileHandler\FamilyTiesWrapper.cs" />
+    <Compile Include="SimPe FileHandler\FamiWrapper.cs" />
+    <Compile Include="SimPe FileHandler\FixGuid.cs" />
+    <Compile Include="SimPe FileHandler\GlobCtrl.cs" />
+    <Compile Include="SimPe FileHandler\GlobCtrl.Designer.cs">
+      <DependentUpon>GlobCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe FileHandler\GlobUI.cs" />
+    <Compile Include="SimPe FileHandler\GlobWrapper.cs" />
+    <Compile Include="SimPe FileHandler\IAspirationEditor.cs" />
+    <Compile Include="SimPe FileHandler\NrefUI.cs" />
+    <Compile Include="SimPe FileHandler\NrefWrapper.cs" />
+    <Compile Include="SimPe FileHandler\Objd.cs" />
+    <Compile Include="SimPe FileHandler\ObjdPropertyParser.cs" />
+    <Compile Include="SimPe FileHandler\ObjdWrapper.cs" />
+    <Compile Include="SimPe FileHandler\ObjLuaLoader.cs" />
+    <Compile Include="SimPe FileHandler\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe FileHandler\OLuaOperators.cs" />
+    <Compile Include="SimPe FileHandler\OLuaUI.cs" />
+    <Compile Include="SimPe FileHandler\OLuaWrapper.cs" />
+    <Compile Include="SimPe FileHandler\Picture.cs" />
+    <Compile Include="SimPe FileHandler\PictureWrapper.cs" />
+    <Compile Include="SimPe FileHandler\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe FileHandler\SDesc.cs" />
+    <Compile Include="SimPe FileHandler\SDescWrapper.cs" />
+    <Compile Include="SimPe FileHandler\SdscApartment.cs" />
+    <Compile Include="SimPe FileHandler\SdscExtendedForm.cs" />
+    <Compile Include="SimPe FileHandler\SdscFreetime.cs" />
+    <Compile Include="SimPe FileHandler\SimRelations.cs" />
+    <Compile Include="SimPe FileHandler\SimRelinkForm.cs" />
+    <Compile Include="SimPe FileHandler\SRel.cs" />
+    <Compile Include="SimPe FileHandler\SRelWrapper.cs" />
+    <Compile Include="SimPe FileHandler\UIBase.cs" />
+    <Compile Include="SimPe FileHandler\WantNameLoader.cs" />
+    <Compile Include="SimPe FileHandler\XML.cs" />
+    <Compile Include="SimPe FileHandler\XMLWrapper.cs" />
+    <Compile Include="SimPe GameTipPlugin\AssemblyInfo.cs" />
+    <Compile Include="SimPe GameTipPlugin\FunctionWrapperFactory.cs" />
+    <Compile Include="SimPe GameTipPlugin\GameTipPackedFileUI.cs" />
+    <Compile Include="SimPe GameTipPlugin\GameTipPackedFileUI.Designer.cs">
+      <DependentUpon>GameTipPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe GameTipPlugin\GameTipPackedFileWrapper.cs" />
+    <Compile Include="SimPe GameTipPlugin\GameTipWrapperFactory.cs" />
+    <Compile Include="SimPe GameTipPlugin\GoalCacheFile.cs" />
+    <Compile Include="SimPe GameTipPlugin\GoalLoader.cs" />
+    <Compile Include="SimPe GameTipPlugin\GWInvPackedFileUI.cs" />
+    <Compile Include="SimPe GameTipPlugin\GWInvPackedFileUI.Designer.cs">
+      <DependentUpon>GWInvPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe GameTipPlugin\GWInvPackedFileWrapper.cs" />
+    <Compile Include="SimPe GameTipPlugin\GWInvWrapperFactory.cs" />
+    <Compile Include="SimPe GameTipPlugin\LastEpUsedPackedFileUI.cs" />
+    <Compile Include="SimPe GameTipPlugin\LastEpUsedPackedFileUI.Designer.cs">
+      <DependentUpon>LastEpUsedPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe GameTipPlugin\LastEpUsedPackedFileWrapper.cs" />
+    <Compile Include="SimPe GameTipPlugin\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe GameTipPlugin\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe GameTipPlugin\XgoalWrapper.cs" />
+    <Compile Include="SimPe Geometry\AssemblyInfo.cs" />
+    <Compile Include="SimPe Geometry\GeometryException.cs" />
+    <Compile Include="SimPe Geometry\Matrices.cs" />
+    <Compile Include="SimPe Geometry\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Geometry\Quaternion.cs" />
+    <Compile Include="SimPe Geometry\Vectors.cs" />
+    <Compile Include="SimPe Geometry\VectorTransformations.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AbstractGmdcExporter.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AbstractGmdcImport.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AnimationAxisTransform.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AnimationAxisTransformBlock.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AnimationFrame.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AnimationFrameBlock.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AnimationMeshBlock.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AnimAxisTransformControl.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AnimFrameBlockControl.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AnimMeshBlockControl.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\AssemblyInfo.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\BoneListViewItem.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\BoneListViewItemExt.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cAnimResourceConst.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cAnimResourceConst_Parts.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cGeometryDataContainer.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cGeometryDataContainerExt.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cGmdcElements.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cGmdcGroups.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cGmdcHelper.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cGmdcLinks.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cGmdcModel.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\cGmdcSubset.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ElementOrder.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ExporterLoader.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\fAnimResourceConst.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\fGeometryDataContainer.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\GenericImport.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\GenericMeshImport.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\GmdcImporterBase.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\IGmdcExport.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\IGmdcImport.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ImportedBone.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ImportedFrameBlock.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ImportedGroup.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ImportGmdcGroups.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ImportJointAnim.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ImportOptions.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\ListViewEx.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\MeshListViewItem.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\MeshListViewItemExt.cs" />
+    <Compile Include="SimPe GMDC Exporter Base\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe GMDC Exporter\AssemblyInfo.cs" />
+    <Compile Include="SimPe GMDC Exporter\GmdcExportToMilkShapeAscii.cs" />
+    <Compile Include="SimPe GMDC Exporter\GmdcExportToObj.cs" />
+    <Compile Include="SimPe GMDC Exporter\GmdcExportToX.cs" />
+    <Compile Include="SimPe GMDC Exporter\GmdcExportToXSI.cs" />
+    <Compile Include="SimPe GMDC Exporter\GmdcImportFromMilkShapeAscii.cs" />
+    <Compile Include="SimPe GMDC Exporter\GmdcImportFromObj.cs" />
+    <Compile Include="SimPe GMDC Exporter\GmdcImportFromXsi.cs" />
+    <Compile Include="SimPe GMDC Exporter\NormalMap.cs" />
+    <Compile Include="SimPe GMDC Exporter\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Helper\Alias.cs" />
+    <Compile Include="SimPe Helper\ArgParser.cs" />
+    <Compile Include="SimPe Helper\ASerializeFormater.cs" />
+    <Compile Include="SimPe Helper\AssemblyInfo.cs" />
+    <Compile Include="SimPe Helper\Boolset.cs" />
+    <Compile Include="SimPe Helper\CaseInvariantArrayList.cs" />
+    <Compile Include="SimPe Helper\ColumnSorter.cs" />
+    <Compile Include="SimPe Helper\Containers.cs" />
+    <Compile Include="SimPe Helper\CountedListItem.cs" />
+    <Compile Include="SimPe Helper\CRC.cs" />
+    <Compile Include="SimPe Helper\CRCParameters.cs" />
+    <Compile Include="SimPe Helper\CRCStandard.cs" />
+    <Compile Include="SimPe Helper\DescriptiveSerializer.cs" />
+    <Compile Include="SimPe Helper\ExceptionForm.cs" />
+    <Compile Include="SimPe Helper\ExpansionItem.cs" />
+    <Compile Include="SimPe Helper\FlagBase.cs" />
+    <Compile Include="SimPe Helper\FlagBaseConverter.cs" />
+    <Compile Include="SimPe Helper\FlagObjectBuilder.cs" />
+    <Compile Include="SimPe Helper\GlobalizedObject.cs" />
+    <Compile Include="SimPe Helper\HashAlgorithmParameters.cs" />
+    <Compile Include="SimPe Helper\Hashes.cs" />
+    <Compile Include="SimPe Helper\Helper.cs" />
+    <Compile Include="SimPe Helper\Html2Rtf.cs" />
+    <Compile Include="SimPe Helper\IAlias.cs" />
+    <Compile Include="SimPe Helper\ICacheFileTest.cs" />
+    <Compile Include="SimPe Helper\IniRegistry.cs" />
+    <Compile Include="SimPe Helper\IPackedFileDescriptorBasic.cs" />
+    <Compile Include="SimPe Helper\IPackedFileName.cs" />
+    <Compile Include="SimPe Helper\IPropertyClass.cs" />
+    <Compile Include="SimPe Helper\ISerializeFormater.cs" />
+    <Compile Include="SimPe Helper\IWaitingBarControl.cs" />
+    <Compile Include="SimPe Helper\LabelledBoolsetControl.cs" />
+    <Compile Include="SimPe Helper\LabelledBoolsetControl.Designer.cs">
+      <DependentUpon>LabelledBoolsetControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Helper\LayoutRegistry.cs" />
+    <Compile Include="SimPe Helper\Localization.cs" />
+    <Compile Include="SimPe Helper\LocalizedEnums.cs" />
+    <Compile Include="SimPe Helper\MetaData.cs" />
+    <Compile Include="SimPe Helper\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Helper\Parameters.cs" />
+    <Compile Include="SimPe Helper\PathProvider.cs" />
+    <Compile Include="SimPe Helper\PathSettings.cs" />
+    <Compile Include="SimPe Helper\pjseMsgBox.cs" />
+    <Compile Include="SimPe Helper\pjseMsgBox.Designer.cs">
+      <DependentUpon>pjseMsgBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Helper\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Helper\PropertyObjectBuilder.cs" />
+    <Compile Include="SimPe Helper\PropertyObjectBuilderExt.cs" />
+    <Compile Include="SimPe Helper\PropertyUserTypes.cs" />
+    <Compile Include="SimPe Helper\Registry.cs" />
+    <Compile Include="SimPe Helper\RuntimeCompiler.cs" />
+    <Compile Include="SimPe Helper\SelectSimFolder.cs" />
+    <Compile Include="SimPe Helper\SemiGlobalAlias.cs" />
+    <Compile Include="SimPe Helper\SemiGlobalListing.cs" />
+    <Compile Include="SimPe Helper\Serializer.cs" />
+    <Compile Include="SimPe Helper\StreamHelper.cs" />
+    <Compile Include="SimPe Helper\TGILoader.cs" />
+    <Compile Include="SimPe Helper\Thread.cs" />
+    <Compile Include="SimPe Helper\ThreadConsumer.cs" />
+    <Compile Include="SimPe Helper\TypeAlias.cs" />
+    <Compile Include="SimPe Helper\WaitingBar.cs" />
+    <Compile Include="SimPe Helper\WaitingForm.cs" />
+    <Compile Include="SimPe Helper\WaitingScreen.cs" />
+    <Compile Include="SimPe Helper\WarningException.cs" />
+    <Compile Include="SimPe Helper\XmlRegistry.cs" />
+    <Compile Include="SimPe Helper\zRuntimePathSettings.cs" />
+    <Compile Include="SimPe HGBH\ActionDeleteSim.cs" />
+    <Compile Include="SimPe HGBH\ActionIntriguedNeighborhood.cs" />
+    <Compile Include="SimPe HGBH\AssemblyInfo.cs" />
+    <Compile Include="SimPe HGBH\BnfoCustomerItem.cs" />
+    <Compile Include="SimPe HGBH\BnfoCustomerItems.cs" />
+    <Compile Include="SimPe HGBH\BnfoCustomerItemsUI.cs" />
+    <Compile Include="SimPe HGBH\BnfoCustomerItemUI.cs" />
+    <Compile Include="SimPe HGBH\BnfoUI.cs" />
+    <Compile Include="SimPe HGBH\BnfoWrapper.cs" />
+    <Compile Include="SimPe HGBH\ExtNgbh.cs" />
+    <Compile Include="SimPe HGBH\ExtNgbhUI.cs" />
+    <Compile Include="SimPe HGBH\FixUidTool.cs" />
+    <Compile Include="SimPe HGBH\IdnoForm.cs" />
+    <Compile Include="SimPe HGBH\IdnoUI.cs" />
+    <Compile Include="SimPe HGBH\IdnoWrapper.cs" />
+    <Compile Include="SimPe HGBH\ItemsListView.cs" />
+    <Compile Include="SimPe HGBH\LoteUI.cs" />
+    <Compile Include="SimPe HGBH\LoteUI.designer.cs">
+      <DependentUpon>LoteUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe HGBH\LotWrapper.cs" />
+    <Compile Include="SimPe HGBH\LtxtForm.cs" />
+    <Compile Include="SimPe HGBH\LtxtUI.cs" />
+    <Compile Include="SimPe HGBH\LtxtWrapper.cs" />
+    <Compile Include="SimPe HGBH\MemoryProperties.cs" />
+    <Compile Include="SimPe HGBH\NgbhForm.cs" />
+    <Compile Include="SimPe HGBH\NgbhItem.cs" />
+    <Compile Include="SimPe HGBH\NgbhItems.cs" />
+    <Compile Include="SimPe HGBH\NgbhItemsListView.cs" />
+    <Compile Include="SimPe HGBH\NgbhSkillHelper.cs" />
+    <Compile Include="SimPe HGBH\NgbhSkillHelperElement.cs" />
+    <Compile Include="SimPe HGBH\NgbhSlot.cs" />
+    <Compile Include="SimPe HGBH\NgbhSlotListView.cs" />
+    <Compile Include="SimPe HGBH\NgbhSlots.cs" />
+    <Compile Include="SimPe HGBH\NgbhSlotSelection.cs" />
+    <Compile Include="SimPe HGBH\NgbhUI.cs" />
+    <Compile Include="SimPe HGBH\NgbhValueDescriptor.cs" />
+    <Compile Include="SimPe HGBH\NgbhValueDescriptorSelection.cs" />
+    <Compile Include="SimPe HGBH\NgbhValueDescriptorUI.cs" />
+    <Compile Include="SimPe HGBH\NgbhWrapper.cs" />
+    <Compile Include="SimPe HGBH\Nhtr.cs" />
+    <Compile Include="SimPe HGBH\NhtrBaseItem.cs" />
+    <Compile Include="SimPe HGBH\NhtrBridgeItem.cs" />
+    <Compile Include="SimPe HGBH\NhtrDecorationItem.cs" />
+    <Compile Include="SimPe HGBH\NhtrItem.cs" />
+    <Compile Include="SimPe HGBH\NhtrList.cs" />
+    <Compile Include="SimPe HGBH\NhtrLocation.cs" />
+    <Compile Include="SimPe HGBH\NhtrRoadItem.cs" />
+    <Compile Include="SimPe HGBH\NhtrTreeItem.cs" />
+    <Compile Include="SimPe HGBH\NhtrUI.cs" />
+    <Compile Include="SimPe HGBH\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe HGBH\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe HGBH\RoadTextureControl.cs" />
+    <Compile Include="SimPe HGBH\RoadTextureWrapper.cs" />
+    <Compile Include="SimPe HGBH\SimAspirationEditor.cs" />
+    <Compile Include="SimPe HGBH\SimNookyEditor.cs" />
+    <Compile Include="SimPe HGBH\SimWillyEditor.cs" />
+    <Compile Include="SimPe HGBH\SlotUI.cs" />
+    <Compile Include="SimPe HGBH\TattItem.cs" />
+    <Compile Include="SimPe HGBH\TattUI.cs" />
+    <Compile Include="SimPe HGBH\TattWrapper.cs" />
+    <Compile Include="SimPe HGBH\TheosEnhancedNgbh.cs" />
+    <Compile Include="SimPe HGBH\WantCacheFile.cs" />
+    <Compile Include="SimPe HGBH\WantItem.cs" />
+    <Compile Include="SimPe HGBH\WantItemContainer.cs" />
+    <Compile Include="SimPe HGBH\WantLoader.cs" />
+    <Compile Include="SimPe HGBH\WantNameLoader.cs" />
+    <Compile Include="SimPe HGBH\WantsForm.cs" />
+    <Compile Include="SimPe HGBH\WantUI.cs" />
+    <Compile Include="SimPe HGBH\WantWrapper.cs" />
+    <Compile Include="SimPe HGBH\WrapperFactory.cs" />
+    <Compile Include="SimPe HGBH\XwntWrapper.cs" />
+    <Compile Include="SimPe Interfaces\AssemblyInfo.cs" />
+    <Compile Include="SimPe Interfaces\CollectibleAlias.cs" />
+    <Compile Include="SimPe Interfaces\Events.cs" />
+    <Compile Include="SimPe Interfaces\IAbstractFactory.cs" />
+    <Compile Include="SimPe Interfaces\IAbstractHandler.cs" />
+    <Compile Include="SimPe Interfaces\IAbstractWrapperInfo.cs" />
+    <Compile Include="SimPe Interfaces\ICommandLine.cs" />
+    <Compile Include="SimPe Interfaces\ICommandLineFactory.cs" />
+    <Compile Include="SimPe Interfaces\ICommonPackageProvider.cs" />
+    <Compile Include="SimPe Interfaces\IGroupCache.cs" />
+    <Compile Include="SimPe Interfaces\IGroupCacheItem.cs" />
+    <Compile Include="SimPe Interfaces\ILotProvider.cs" />
+    <Compile Include="SimPe Interfaces\IOpcodeProvider.cs" />
+    <Compile Include="SimPe Interfaces\IPackageFile.cs" />
+    <Compile Include="SimPe Interfaces\IPackageHeader.cs" />
+    <Compile Include="SimPe Interfaces\IPackageHeaderHole.cs" />
+    <Compile Include="SimPe Interfaces\IPackageHeaderIndex.cs" />
+    <Compile Include="SimPe Interfaces\IPackedFile.cs" />
+    <Compile Include="SimPe Interfaces\IPackedFileDescriptor.cs" />
+    <Compile Include="SimPe Interfaces\IPackedFileDescriptorSimple.cs" />
+    <Compile Include="SimPe Interfaces\IPackedFileLoader.cs" />
+    <Compile Include="SimPe Interfaces\IPackedFileSaver.cs" />
+    <Compile Include="SimPe Interfaces\IPackedFileUI.cs" />
+    <Compile Include="SimPe Interfaces\IPluginFileSaver.cs" />
+    <Compile Include="SimPe Interfaces\IPluginFileWrapper.cs" />
+    <Compile Include="SimPe Interfaces\IProviderRegistry.cs" />
+    <Compile Include="SimPe Interfaces\IScenegraphBlock.cs" />
+    <Compile Include="SimPe Interfaces\IScenegraphFileIndex.cs" />
+    <Compile Include="SimPe Interfaces\IScenegraphFileIndexItem.cs" />
+    <Compile Include="SimPe Interfaces\IScenegraphItem.cs" />
+    <Compile Include="SimPe Interfaces\ISDesc.cs" />
+    <Compile Include="SimPe Interfaces\ISettings.cs" />
+    <Compile Include="SimPe Interfaces\ISettingsFactory.cs" />
+    <Compile Include="SimPe Interfaces\ISettingsRegistry.cs" />
+    <Compile Include="SimPe Interfaces\ISimDescriptionProvider.cs" />
+    <Compile Include="SimPe Interfaces\ISimFamilyNames.cs" />
+    <Compile Include="SimPe Interfaces\ISimNames.cs" />
+    <Compile Include="SimPe Interfaces\ISkinProvider.cs" />
+    <Compile Include="SimPe Interfaces\IWrapper.cs" />
+    <Compile Include="SimPe Interfaces\IWrapperFactory.cs" />
+    <Compile Include="SimPe Interfaces\IWrapperInfo.cs" />
+    <Compile Include="SimPe Interfaces\IWrapperReferencedResources.cs" />
+    <Compile Include="SimPe Interfaces\IWrapperRegistry.cs" />
+    <Compile Include="SimPe Interfaces\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Interfaces\TraitAlias.cs" />
+    <Compile Include="SimPe LangExtracter\AssemblyInfo.cs" />
+    <Compile Include="SimPe LangExtracter\ExtractTool.cs" />
+    <Compile Include="SimPe LangExtracter\Factory.cs" />
+    <Compile Include="SimPe LangExtracter\LanguagExtrator.cs" />
+    <Compile Include="SimPe LangExtracter\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Main\About.cs" />
+    <Compile Include="SimPe Main\AbstractActionDefault.cs" />
+    <Compile Include="SimPe Main\ActionAdd.cs" />
+    <Compile Include="SimPe Main\ActionClone.cs" />
+    <Compile Include="SimPe Main\ActionCreate.cs" />
+    <Compile Include="SimPe Main\ActionDelete.cs" />
+    <Compile Include="SimPe Main\ActionExtract.cs" />
+    <Compile Include="SimPe Main\ActionGroupFilter.cs" />
+    <Compile Include="SimPe Main\ActionReplace.cs" />
+    <Compile Include="SimPe Main\ActionRestore.cs" />
+    <Compile Include="SimPe Main\ActionStartExternalTool.cs" />
+    <Compile Include="SimPe Main\ActionToolDescriptor.cs" />
+    <Compile Include="SimPe Main\AddExtTool.cs" />
+    <Compile Include="SimPe Main\AssemblyInfo.cs" />
+    <Compile Include="SimPe Main\FileTableItemForm.cs" />
+    <Compile Include="SimPe Main\Hidden.cs" />
+    <Compile Include="SimPe Main\Main.cs" />
+    <Compile Include="SimPe Main\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Main\Main.Menus.cs" />
+    <Compile Include="SimPe Main\Main.Setup.cs" />
+    <Compile Include="SimPe Main\Main.Theme.cs" />
+    <Compile Include="SimPe Main\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Main\OptionForm.cs" />
+    <Compile Include="SimPe Main\OptionForm.Designer.cs">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Main\PluginManager.cs" />
+    <Compile Include="SimPe Main\ProfileChooser.cs" />
+    <Compile Include="SimPe Main\ProfileChooser.Designer.cs">
+      <DependentUpon>ProfileChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Main\Program.cs" />
+    <Compile Include="SimPe Main\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Main\RemoteHandler.cs" />
+    <Compile Include="SimPe More Plugins\AssemblyInfo.cs" />
+    <Compile Include="SimPe More Plugins\AudioRefPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\AudioRefPackedFileUI.designer.cs">
+      <DependentUpon>AudioRefPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\AudioRefPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\CregUI.cs" />
+    <Compile Include="SimPe More Plugins\CregUI.Designer.cs">
+      <DependentUpon>CregUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\CregWrapper.cs" />
+    <Compile Include="SimPe More Plugins\FunctionPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\FunctionPackedFileUI.Designer.cs">
+      <DependentUpon>FunctionPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\FunctionPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\FunctionWrapperFactory.cs" />
+    <Compile Include="SimPe More Plugins\GUIDIndex.cs" />
+    <Compile Include="SimPe More Plugins\GWInvWrapperFactory.cs" />
+    <Compile Include="SimPe More Plugins\HugBugPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\HugBugPackedFileUI.Designer.cs">
+      <DependentUpon>HugBugPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\HugBugPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\InvenIndexPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\InvenIndexPackedFileUI.designer.cs">
+      <DependentUpon>InvenIndexPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\InvenIndexPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\InventItemPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\InventItemPackedFileUI.designer.cs">
+      <DependentUpon>InventItemPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\InventItemPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\LotexturePackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\LotexturePackedFileUI.Designer.cs">
+      <DependentUpon>LotexturePackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\LotexturePackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\MoreWrapperFactory.cs" />
+    <Compile Include="SimPe More Plugins\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe More Plugins\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe More Plugins\SimIndexPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\SimIndexPackedFileUI.Designer.cs">
+      <DependentUpon>SimIndexPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\SimIndexPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\SimmyListPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\SimmyListPackedFileUI.Designer.cs">
+      <DependentUpon>SimmyListPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\SimmyListPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\SimpleTextPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\SimpleTextPackedFileUI.Designer.cs">
+      <DependentUpon>SimpleTextPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\SimpleTextPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\StringMapPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\StringMapPackedFileUI.designer.cs">
+      <DependentUpon>StringMapPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\StringMapPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\WallLayerPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\WallLayerPackedFileUI.designer.cs">
+      <DependentUpon>WallLayerPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\WallLayerPackedFileWrapper.cs" />
+    <Compile Include="SimPe More Plugins\WinfoPackedFileUI.cs" />
+    <Compile Include="SimPe More Plugins\WinfoPackedFileUI.Designer.cs">
+      <DependentUpon>WinfoPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe More Plugins\WinfoPackedFileWrapper.cs" />
+    <Compile Include="SimPe Name Provider\AssemblyInfo.cs" />
+    <Compile Include="SimPe Name Provider\LotProvider.cs" />
+    <Compile Include="SimPe Name Provider\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Name Provider\OpcodeProvider.cs" />
+    <Compile Include="SimPe Name Provider\SimCommonPackage.cs" />
+    <Compile Include="SimPe Name Provider\SimDescription.cs" />
+    <Compile Include="SimPe Name Provider\SimFamilyNames.cs" />
+    <Compile Include="SimPe Name Provider\SimNames.cs" />
+    <Compile Include="SimPe Name Provider\SkinProvider.cs" />
+    <Compile Include="SimPe Name Provider\TypeRegistry.cs" />
+    <Compile Include="SimPe NGBH Scanner\AssemblyInfo.cs" />
+    <Compile Include="SimPe NGBH Scanner\Identifier.cs" />
+    <Compile Include="SimPe NGBH Scanner\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe NGBH Scanner\Scanner.cs" />
+    <Compile Include="SimPe Packages\AssemblyInfo.cs" />
+    <Compile Include="SimPe Packages\ExtractableFile.cs" />
+    <Compile Include="SimPe Packages\File.cs" />
+    <Compile Include="SimPe Packages\FileTableBase.cs" />
+    <Compile Include="SimPe Packages\FileTableItem.cs" />
+    <Compile Include="SimPe Packages\FileTableItemType.cs" />
+    <Compile Include="SimPe Packages\GeneratableFile.cs" />
+    <Compile Include="SimPe Packages\HeaderData.cs" />
+    <Compile Include="SimPe Packages\HeaderHole.cs" />
+    <Compile Include="SimPe Packages\HeaderIndex.cs" />
+    <Compile Include="SimPe Packages\HoleIndexItem.cs" />
+    <Compile Include="SimPe Packages\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Packages\PackageFiles.cs" />
+    <Compile Include="SimPe Packages\PackageMaintainer.cs" />
+    <Compile Include="SimPe Packages\PackageRepair.cs" />
+    <Compile Include="SimPe Packages\PackedFile.cs" />
+    <Compile Include="SimPe Packages\PackedFileDescription.cs" />
+    <Compile Include="SimPe Packages\PackedFileDescriptors.cs" />
+    <Compile Include="SimPe Packages\ResourceIndex.cs" />
+    <Compile Include="SimPe Packages\Settings.cs" />
+    <Compile Include="SimPe Packages\StreamMaintainer.cs" />
+    <Compile Include="SimPe Packages\XmlPackageReaderBase.cs" />
+    <Compile Include="SimPe RCOL\AbstractCresChildren.cs" />
+    <Compile Include="SimPe RCOL\AbstractRcolBlock.cs" />
+    <Compile Include="SimPe RCOL\AssemblyInfo.cs" />
+    <Compile Include="SimPe RCOL\cAmbientLight.cs" />
+    <Compile Include="SimPe RCOL\cAnimResourceConst.cs" />
+    <Compile Include="SimPe RCOL\cAnimResourceConst_Parts.cs" />
+    <Compile Include="SimPe RCOL\cBoneDataExtension.cs" />
+    <Compile Include="SimPe RCOL\cBoundedNode.cs" />
+    <Compile Include="SimPe RCOL\cBoundingVolumeBuilder.cs" />
+    <Compile Include="SimPe RCOL\cCinematicScene.cs" />
+    <Compile Include="SimPe RCOL\cCompactorBuilder.cs" />
+    <Compile Include="SimPe RCOL\cCompositionTreeNode.cs" />
+    <Compile Include="SimPe RCOL\cDataListExtension.cs" />
+    <Compile Include="SimPe RCOL\cDirectionalLight.cs" />
+    <Compile Include="SimPe RCOL\cExtension.cs" />
+    <Compile Include="SimPe RCOL\cGeometryBuilder.cs" />
+    <Compile Include="SimPe RCOL\cGeometryNode.cs" />
+    <Compile Include="SimPe RCOL\cImageData.cs" />
+    <Compile Include="SimPe RCOL\cIndexedMeshBuilder.cs" />
+    <Compile Include="SimPe RCOL\cLevelInfo.cs" />
+    <Compile Include="SimPe RCOL\cLightRefNode.cs" />
+    <Compile Include="SimPe RCOL\cLightT.cs" />
+    <Compile Include="SimPe RCOL\cMaterialDefinition.cs" />
+    <Compile Include="SimPe RCOL\cObjectGraphNode.cs" />
+    <Compile Include="SimPe RCOL\cPointLight.cs" />
+    <Compile Include="SimPe RCOL\cProcessDeformationsBuilder.cs" />
+    <Compile Include="SimPe RCOL\cReferentNode.cs" />
+    <Compile Include="SimPe RCOL\cRenderableNode.cs" />
+    <Compile Include="SimPe RCOL\cResourceNode.cs" />
+    <Compile Include="SimPe RCOL\cSGResource.cs" />
+    <Compile Include="SimPe RCOL\cShape.cs" />
+    <Compile Include="SimPe RCOL\cShapeRefNode.cs" />
+    <Compile Include="SimPe RCOL\cSpotLight.cs" />
+    <Compile Include="SimPe RCOL\cStandardLightBase.cs" />
+    <Compile Include="SimPe RCOL\cTagExtension.cs" />
+    <Compile Include="SimPe RCOL\cTangentSpaceBuilder.cs" />
+    <Compile Include="SimPe RCOL\cTransformNode.cs" />
+    <Compile Include="SimPe RCOL\cTSFaceGeometryBuilder.cs" />
+    <Compile Include="SimPe RCOL\cViewerRefNode.cs" />
+    <Compile Include="SimPe RCOL\cViewerRefNodeBase.cs" />
+    <Compile Include="SimPe RCOL\cViewerRefNodeRecursive.cs" />
+    <Compile Include="SimPe RCOL\DDSTool.cs" />
+    <Compile Include="SimPe RCOL\fAnimResourceConst.cs" />
+    <Compile Include="SimPe RCOL\fExtension.cs" />
+    <Compile Include="SimPe RCOL\fShapeRefNode.cs" />
+    <Compile Include="SimPe RCOL\GeneralRcolWrapper.cs" />
+    <Compile Include="SimPe RCOL\ICresChildren.cs" />
+    <Compile Include="SimPe RCOL\ImageLoader.cs" />
+    <Compile Include="SimPe RCOL\IRcolBlock.cs" />
+    <Compile Include="SimPe RCOL\MatdForm.cs" />
+    <Compile Include="SimPe RCOL\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe RCOL\RcolForm.cs" />
+    <Compile Include="SimPe RCOL\RcolUI.cs" />
+    <Compile Include="SimPe RCOL\RcolWrapper.cs" />
+    <Compile Include="SimPe RCOL\ScenegraphHelper.cs" />
+    <Compile Include="SimPe RCOL\ShpeForm.cs" />
+    <Compile Include="SimPe RCOL\tCresHierarchy.cs" />
+    <Compile Include="SimPe RCOL\tDirectionalLight.cs" />
+    <Compile Include="SimPe RCOL\tExtension.cs" />
+    <Compile Include="SimPe RCOL\TextureLocator.cs" />
+    <Compile Include="SimPe RCOL\tGenericRcol.cs" />
+    <Compile Include="SimPe RCOL\tGeometryNode.cs" />
+    <Compile Include="SimPe RCOL\tLightT.cs" />
+    <Compile Include="SimPe RCOL\tMaterialDefinition.cs" />
+    <Compile Include="SimPe RCOL\tMaterialDefinitionCategories.cs" />
+    <Compile Include="SimPe RCOL\tMaterialDefinitionFiles.cs" />
+    <Compile Include="SimPe RCOL\tMaterialDefinitionProperties.cs" />
+    <Compile Include="SimPe RCOL\tObjectGraphNode.cs" />
+    <Compile Include="SimPe RCOL\tResourceNode.cs" />
+    <Compile Include="SimPe RCOL\tShapeRefNode.cs" />
+    <Compile Include="SimPe RCOL\tShpeGraphNode.cs" />
+    <Compile Include="SimPe RCOL\tShpeItems.cs" />
+    <Compile Include="SimPe RCOL\tShpeLod.cs" />
+    <Compile Include="SimPe RCOL\tShpeParts.cs" />
+    <Compile Include="SimPe RCOL\tTransformNode.cs" />
+    <Compile Include="SimPe ResourceControls\AResourceTreeNodeBuilder.cs" />
+    <Compile Include="SimPe ResourceControls\IResourceTreeNodeBuilder.cs" />
+    <Compile Include="SimPe ResourceControls\IResourceViewFilter.cs" />
+    <Compile Include="SimPe ResourceControls\ListViewDoubleBuffered.cs" />
+    <Compile Include="SimPe ResourceControls\NamedPackedFileDescriptor.cs" />
+    <Compile Include="SimPe ResourceControls\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe ResourceControls\Properties\AssemblyInfo.cs" />
+    <Compile Include="SimPe ResourceControls\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceListItemExt.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceListViewExt.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceListViewExt.Designer.cs">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe ResourceControls\ResourceListViewExt.Selection.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceListViewExt.Sorting.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceMaps.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceTreeNodeExt.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceTreeNodesByGroup.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceTreeNodesByInstance.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceTreeNodesByType.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceTreeTypeNodeExt.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceTreeViewExt.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceTreeViewExt.Designer.cs">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe ResourceControls\ResourceViewManager.cs" />
+    <Compile Include="SimPe ResourceControls\ResourceViewManager.Designer.cs">
+      <DependentUpon>ResourceViewManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe ResourceControls\ResourceViewManager.HelperClasses.cs" />
+    <Compile Include="SimPe ResourceControls\ResoureNameSorter.cs" />
+    <Compile Include="SimPe ResourceControls\ViewFilter.cs" />
+    <Compile Include="SimPe ResourceControls\WaitBar.cs" />
+    <Compile Include="SimPe ResourceControls\WaitControl.cs" />
+    <Compile Include="SimPe ResourceControls\WaitControl.Designer.cs">
+      <DependentUpon>WaitControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Scenegraph\AssemblyInfo.cs" />
+    <Compile Include="SimPe Scenegraph\BuildTxtr.cs" />
+    <Compile Include="SimPe Scenegraph\ColorOptions.cs" />
+    <Compile Include="SimPe Scenegraph\ColorOptionsItem.cs" />
+    <Compile Include="SimPe Scenegraph\FileIndex.cs" />
+    <Compile Include="SimPe Scenegraph\FileSelect.cs" />
+    <Compile Include="SimPe Scenegraph\FixObject.cs" />
+    <Compile Include="SimPe Scenegraph\FixPackage.cs" />
+    <Compile Include="SimPe Scenegraph\GroupCacheForm.cs" />
+    <Compile Include="SimPe Scenegraph\GroupCacheItem.cs" />
+    <Compile Include="SimPe Scenegraph\GroupCacheUI.cs" />
+    <Compile Include="SimPe Scenegraph\GroupCacheWrapper.cs" />
+    <Compile Include="SimPe Scenegraph\ImageSize.cs" />
+    <Compile Include="SimPe Scenegraph\LifoForm.cs" />
+    <Compile Include="SimPe Scenegraph\LifoUI.cs" />
+    <Compile Include="SimPe Scenegraph\LifoWrapper.cs" />
+    <Compile Include="SimPe Scenegraph\Listing.cs" />
+    <Compile Include="SimPe Scenegraph\MemoryCacheFile.cs" />
+    <Compile Include="SimPe Scenegraph\MMATCacheFile.cs" />
+    <Compile Include="SimPe Scenegraph\MmatListCompare.cs" />
+    <Compile Include="SimPe Scenegraph\MmatWrapper.cs" />
+    <Compile Include="SimPe Scenegraph\ObjectCloner.cs" />
+    <Compile Include="SimPe Scenegraph\ObjectComboBox.cs" />
+    <Compile Include="SimPe Scenegraph\ObjectRecolor.cs" />
+    <Compile Include="SimPe Scenegraph\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Scenegraph\PackedFileForm.cs" />
+    <Compile Include="SimPe Scenegraph\PackedFileItem.cs" />
+    <Compile Include="SimPe Scenegraph\PackedFileUI.cs" />
+    <Compile Include="SimPe Scenegraph\PackedFileWrapper.cs" />
+    <Compile Include="SimPe Scenegraph\PreviewForm.cs" />
+    <Compile Include="SimPe Scenegraph\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Scenegraph\RenameForm.cs" />
+    <Compile Include="SimPe Scenegraph\Scenegraph.cs" />
+    <Compile Include="SimPe Scenegraph\ScenegraphException.cs" />
+    <Compile Include="SimPe Scenegraph\ShpeWrapper.cs" />
+    <Compile Include="SimPe Scenegraph\SlotForm.cs" />
+    <Compile Include="SimPe Scenegraph\SlotItem.cs" />
+    <Compile Include="SimPe Scenegraph\SlotUI.cs" />
+    <Compile Include="SimPe Scenegraph\SlotWrapper.cs" />
+    <Compile Include="SimPe Scenegraph\SubsetSelectForm.cs" />
+    <Compile Include="SimPe Scenegraph\TxtrForm.cs" />
+    <Compile Include="SimPe Scenegraph\TxtrUI.cs" />
+    <Compile Include="SimPe Scenegraph\TxtrWrapper.cs" />
+    <Compile Include="SimPe Scenegraph\WorkshopItems.cs" />
+    <Compile Include="SimPe Scenegraph\WrapperFactory.cs" />
+    <Compile Include="SimPe Sims\AssemblyInfo.cs" />
+    <Compile Include="SimPe Sims\CommonSrelUI.cs" />
+    <Compile Include="SimPe Sims\ExtFamilyTiesUI.cs" />
+    <Compile Include="SimPe Sims\ExtFamilyTiesWrapper.cs" />
+    <Compile Include="SimPe Sims\ExtSDesc.cs" />
+    <Compile Include="SimPe Sims\ExtSDescUI.cs" />
+    <Compile Include="SimPe Sims\ExtSDescUI.Designer.cs">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Sims\ExtSrel.cs" />
+    <Compile Include="SimPe Sims\ExtSrelUI.cs" />
+    <Compile Include="SimPe Sims\FamilyTieGraph.cs" />
+    <Compile Include="SimPe Sims\FamilyTiesForm.cs" />
+    <Compile Include="SimPe Sims\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Sims\PetTraitSelect.cs" />
+    <Compile Include="SimPe Sims\PetTraitSelect.Designer.cs">
+      <DependentUpon>PetTraitSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Sims\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Sims\SCOR\AScorItem.cs" />
+    <Compile Include="SimPe Sims\SCOR\AScorItem.Designer.cs">
+      <DependentUpon>AScorItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Sims\SCOR\IScorItemToken.cs" />
+    <Compile Include="SimPe Sims\SCOR\LearnedBahaviourComboBox.cs" />
+    <Compile Include="SimPe Sims\SCOR\LearnedBahaviourComboBox.Designer.cs">
+      <DependentUpon>LearnedBahaviourComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Sims\SCOR\ScoreItemBusinessRewards.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScoreItemBusinessRewards.Designer.cs">
+      <DependentUpon>ScoreItemBusinessRewards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Sims\SCOR\ScoreItemBusinessRewards.Element.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScoreItemDefault.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScoreItemDefault.Designer.cs">
+      <DependentUpon>ScoreItemDefault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Sims\SCOR\ScoreItemLearnedBehaviour.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScoreItemLearnedBehaviour.Designer.cs">
+      <DependentUpon>ScoreItemLearnedBehaviour.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Sims\SCOR\ScoreItemLearnedBehaviour.Element.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScorItem.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScorItemTokenBusinessRewards.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScorItemTokenDefault.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScorUI.cs" />
+    <Compile Include="SimPe Sims\SCOR\ScorWrapper.cs" />
+    <Compile Include="SimPe Sims\SimBusinessList.cs" />
+    <Compile Include="SimPe Sims\SimComboBox.cs" />
+    <Compile Include="SimPe Sims\SimDNA.cs" />
+    <Compile Include="SimPe Sims\SimDNAUI.cs" />
+    <Compile Include="SimPe Sims\SimFactory.cs" />
+    <Compile Include="SimPe Sims\SimInfo.cs" />
+    <Compile Include="SimPe Sims\SimInfo.Designer.cs">
+      <DependentUpon>SimInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Sims\SimListView.cs" />
+    <Compile Include="SimPe Sims\SimOriGuid.cs" />
+    <Compile Include="SimPe Sims\SimPoolControl.cs" />
+    <Compile Include="SimPe Sims\SimRelationPoolControl.cs" />
+    <Compile Include="SimPe Sims\SimRelationPoolControl.Designer.cs">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Splash\HelpForm.cs" />
+    <Compile Include="SimPe Splash\HelpForm.Designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Splash\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Splash\Properties\AssemblyInfo.cs" />
+    <Compile Include="SimPe Splash\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Splash\SplashForm.cs" />
+    <Compile Include="SimPe Splash\SplashForm.Designer.cs">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Splash\SplashScreen.cs" />
+    <Compile Include="SimPE Toolbox Scanner\AssemblyInfo.cs" />
+    <Compile Include="SimPE Toolbox Scanner\Factory.cs" />
+    <Compile Include="SimPE Toolbox Scanner\Identifiers.cs" />
+    <Compile Include="SimPE Toolbox Scanner\IIdentifier.cs" />
+    <Compile Include="SimPE Toolbox Scanner\IScanner.cs" />
+    <Compile Include="SimPE Toolbox Scanner\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPE Toolbox Scanner\PackageCacheFile.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerCloths.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerCollection.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerCompression.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerEPReady.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerForm.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerItem.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerPanelForm.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerRegistry.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannersBasic.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerShelveReady.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScannerSkins.cs" />
+    <Compile Include="SimPE Toolbox Scanner\ScanTool.cs" />
+    <Compile Include="SimPe Toolbox Scenegraph\AssemblyInfo.cs" />
+    <Compile Include="SimPe Toolbox Scenegraph\Factory.cs" />
+    <Compile Include="SimPe Toolbox Scenegraph\GraphBuilder.cs" />
+    <Compile Include="SimPe Toolbox Scenegraph\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Toolbox Scenegraph\Scenegraph.cs" />
+    <Compile Include="SimPe Toolbox Scenegraph\ScenegraphTool.cs" />
+    <Compile Include="SimPe Toolbox Workshops\AssemblyInfo.cs" />
+    <Compile Include="SimPe Toolbox Workshops\NeighborhoodPreview.cs" />
+    <Compile Include="SimPe Toolbox Workshops\NewObjectPreview.cs" />
+    <Compile Include="SimPe Toolbox Workshops\NewObjectPreview.Designer.cs">
+      <DependentUpon>NewObjectPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Toolbox Workshops\ObjectCacheFile.cs" />
+    <Compile Include="SimPe Toolbox Workshops\ObjectLoader.cs" />
+    <Compile Include="SimPe Toolbox Workshops\ObjectPreview.cs" />
+    <Compile Include="SimPe Toolbox Workshops\Objects.cs" />
+    <Compile Include="SimPe Toolbox Workshops\ObjectsDock.cs" />
+    <Compile Include="SimPe Toolbox Workshops\ObjectsTool.cs" />
+    <Compile Include="SimPe Toolbox Workshops\ObjectWorkshopHelper.cs" />
+    <Compile Include="SimPe Toolbox Workshops\ObjectWorkshopRegistry.cs" />
+    <Compile Include="SimPe Toolbox Workshops\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Toolbox Workshops\OWDockForm.cs" />
+    <Compile Include="SimPe Toolbox Workshops\PackageDetailDock.cs" />
+    <Compile Include="SimPe Toolbox Workshops\PackageDetailDockTool.cs" />
+    <Compile Include="SimPe Toolbox Workshops\PackageRepair.cs" />
+    <Compile Include="SimPe Toolbox Workshops\PackageRepairForm.cs" />
+    <Compile Include="SimPe Toolbox Workshops\PreviewForm.cs" />
+    <Compile Include="SimPe Toolbox Workshops\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Toolbox Workshops\Workshop.cs" />
+    <Compile Include="SimPe Toolbox Workshops\WorkshopTool.cs" />
+    <Compile Include="SimPe Toolbox Workshops\WorkshopToolFactory.cs" />
+    <Compile Include="SimPe Toolbox Workshops\XObjectPreview.cs" />
+    <Compile Include="SimPe Toolbox\ActionBuildNameMap.cs" />
+    <Compile Include="SimPe Toolbox\ActionGlobalFixTGI.cs" />
+    <Compile Include="SimPe Toolbox\AssemblyInfo.cs" />
+    <Compile Include="SimPe Toolbox\DownloadScan.cs" />
+    <Compile Include="SimPe Toolbox\DownloadScanTool.cs" />
+    <Compile Include="SimPe Toolbox\Factory.cs" />
+    <Compile Include="SimPe Toolbox\FixTool.cs" />
+    <Compile Include="SimPe Toolbox\Hash.cs" />
+    <Compile Include="SimPe Toolbox\HashTool.cs" />
+    <Compile Include="SimPe Toolbox\Neighborhood.cs" />
+    <Compile Include="SimPe Toolbox\NeighborhoodTool.cs" />
+    <Compile Include="SimPe Toolbox\NgbBackup.cs" />
+    <Compile Include="SimPe Toolbox\ObjectCacheFile.cs" />
+    <Compile Include="SimPe Toolbox\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Toolbox\PhotoStudio.cs" />
+    <Compile Include="SimPe Toolbox\PhotoStudioTemplate.cs" />
+    <Compile Include="SimPe Toolbox\PhotoStudioTool.cs" />
+    <Compile Include="SimPe Toolbox\PlasticSurgery.cs" />
+    <Compile Include="SimPe Toolbox\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Toolbox\Sims.cs" />
+    <Compile Include="SimPe Toolbox\SimsRegistry.cs" />
+    <Compile Include="SimPe Toolbox\SimsTool.cs" />
+    <Compile Include="SimPe Toolbox\SkinWorkshop.cs" />
+    <Compile Include="SimPe Toolbox\SkinWorkshopTool.cs" />
+    <Compile Include="SimPe Toolbox\Surgery.cs" />
+    <Compile Include="SimPe Toolbox\SurgeryTool.cs" />
+    <Compile Include="SimPe Wants\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Wants\Properties\AssemblyInfo.cs" />
+    <Compile Include="SimPe Wants\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Wants\Settings.cs" />
+    <Compile Include="SimPe Wants\SWAFEditor.cs" />
+    <Compile Include="SimPe Wants\SWAFEditor.Designer.cs">
+      <DependentUpon>SWAFEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Wants\SWAFWrapper.cs" />
+    <Compile Include="SimPe Wants\WrapperFactory.cs" />
+    <Compile Include="SimPe Wants\XWNTEditor.cs" />
+    <Compile Include="SimPe Wants\XWNTEditor.Designer.cs">
+      <DependentUpon>XWNTEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Wants\XWNTWrapper.cs" />
+    <Compile Include="SimPe Wizardbase\AssemblyInfo.cs" />
+    <Compile Include="SimPe Wizardbase\IWizard.cs" />
+    <Compile Include="SimPe Wizardbase\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Wizardbase\Wizard.cs" />
+    <Compile Include="SimPe Wizardbase\WizardDesigner.cs" />
+    <Compile Include="SimPe Wizardbase\WizardStepPanel.cs" />
+    <Compile Include="SimPe Workspace Helper\AbstractTool.cs" />
+    <Compile Include="SimPe Workspace Helper\AbstractToolPlus.cs" />
+    <Compile Include="SimPe Workspace Helper\AssemblyInfo.cs" />
+    <Compile Include="SimPe Workspace Helper\CheckControl.cs" />
+    <Compile Include="SimPe Workspace Helper\CheckItem.cs" />
+    <Compile Include="SimPe Workspace Helper\ErrorWrapper.cs" />
+    <Compile Include="SimPe Workspace Helper\Events.cs" />
+    <Compile Include="SimPe Workspace Helper\ExtensionProvider.cs" />
+    <Compile Include="SimPe Workspace Helper\FileTable.cs" />
+    <Compile Include="SimPe Workspace Helper\ICommandLineRegistry.cs" />
+    <Compile Include="SimPe Workspace Helper\IconRes.cs" />
+    <Compile Include="SimPe Workspace Helper\IDockableTool.cs" />
+    <Compile Include="SimPe Workspace Helper\IHelp.cs" />
+    <Compile Include="SimPe Workspace Helper\IHelpFactory.cs" />
+    <Compile Include="SimPe Workspace Helper\IHelpRegistry.cs" />
+    <Compile Include="SimPe Workspace Helper\IListener.cs" />
+    <Compile Include="SimPe Workspace Helper\ImageRes.cs" />
+    <Compile Include="SimPe Workspace Helper\InfoCheck.cs" />
+    <Compile Include="SimPe Workspace Helper\InfoCheck.designer.cs">
+      <DependentUpon>InfoCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimPe Workspace Helper\ITool.cs" />
+    <Compile Include="SimPe Workspace Helper\IToolAction.cs" />
+    <Compile Include="SimPe Workspace Helper\IToolExt.cs" />
+    <Compile Include="SimPe Workspace Helper\IToolFactory.cs" />
+    <Compile Include="SimPe Workspace Helper\IToolRegistry.cs" />
+    <Compile Include="SimPe Workspace Helper\IToolResult.cs" />
+    <Compile Include="SimPe Workspace Helper\ITreeBuilder.cs" />
+    <Compile Include="SimPe Workspace Helper\LoadedPackage.cs" />
+    <Compile Include="SimPe Workspace Helper\LoadFileWrappers.cs" />
+    <Compile Include="SimPe Workspace Helper\LoadFileWrappersExt.cs" />
+    <Compile Include="SimPe Workspace Helper\LoadHelpTopics.cs" />
+    <Compile Include="SimPe Workspace Helper\MediaPlayerRenderer.cs" />
+    <Compile Include="SimPe Workspace Helper\Message.cs" />
+    <Compile Include="SimPe Workspace Helper\MyButtonItem.cs" />
+    <Compile Include="SimPe Workspace Helper\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="SimPe Workspace Helper\PackedFileDescriptorCollection.cs" />
+    <Compile Include="SimPe Workspace Helper\Properties\Resources.Designer.cs" />
+    <Compile Include="SimPe Workspace Helper\PropertyParser.cs" />
+    <Compile Include="SimPe Workspace Helper\RemoteControl.cs" />
+    <Compile Include="SimPe Workspace Helper\ResourceLoader.cs" />
+    <Compile Include="SimPe Workspace Helper\ShowHelpEventArgs.cs" />
+    <Compile Include="SimPe Workspace Helper\SplashScreen.cs" />
+    <Compile Include="SimPe Workspace Helper\ThemeManager.cs" />
+    <Compile Include="SimPe Workspace Helper\ToolLoader.cs" />
+    <Compile Include="SimPe Workspace Helper\ToolMenuItemExt.cs" />
+    <Compile Include="SimPe Workspace Helper\ToolResult.cs" />
+    <Compile Include="SimPe Workspace Helper\WrapperBaseControl.cs" />
+    <Compile Include="SimPe Workspace Helper\XmlPackageReader.cs" />
+    <Compile Include="Wizards of SimPe\AssemblyInfo.cs" />
+    <Compile Include="Wizards of SimPe\CheckForm.cs" />
+    <Compile Include="Wizards of SimPe\Form1.cs" />
+    <Compile Include="Wizards of SimPe\FormStep1.cs" />
+    <Compile Include="Wizards of SimPe\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="Wizards of SimPe\Option.cs" />
+    <Compile Include="Wizards of SimPe\Properties\Resources.Designer.cs" />
+    <Compile Include="Wizards of SimPe\Stack.cs" />
+    <Compile Include="Wizards of SimPe\WaitBar.cs" />
+    <Compile Include="Wizards of SimPe\WizardSelector.cs" />
+    <Compile Include="WOSimPE - Interfaces\AssemblyInfo.cs" />
+    <Compile Include="WOSimPE - Interfaces\AWizardForm.cs" />
+    <Compile Include="WOSimPE - Interfaces\IWizardEntry.cs" />
+    <Compile Include="WOSimPE - Interfaces\IWizardFinish.cs" />
+    <Compile Include="WOSimPE - Interfaces\IWizardForm.cs" />
+    <Compile Include="WOSimPE - Interfaces\obj\Debug\.NETFramework,Version=v4.0.AssemblyAttributes.cs" />
+    <Compile Include="_PJSE\pjBodyMeshTool\BodyMeshExtractor.cs" />
+    <Compile Include="_PJSE\pjBodyMeshTool\BodyMeshHelp.cs" />
+    <Compile Include="_PJSE\pjBodyMeshTool\BodyMeshLinker.cs" />
+    <Compile Include="_PJSE\pjBodyMeshTool\BodyMeshTool.cs" />
+    <Compile Include="_PJSE\pjBodyMeshTool\GetMeshName.cs" />
+    <Compile Include="_PJSE\pjBodyMeshTool\Localization.cs" />
+    <Compile Include="_PJSE\pjBodyMeshTool\Properties\AssemblyInfo.cs" />
+    <Compile Include="_PJSE\pjBodyMeshTool\Settings.cs" />
+    <Compile Include="_PJSE\pjHoodTool\cHoodTool.cs" />
+    <Compile Include="_PJSE\pjHoodTool\hHoodHelp.cs" />
+    <Compile Include="_PJSE\pjHoodTool\Properties\AssemblyInfo.cs" />
+    <Compile Include="_PJSE\pjHoodTool\Properties\Resources.Designer.cs" />
+    <Compile Include="_PJSE\pjHoodTool\Settims.cs" />
+    <Compile Include="_PJSE\pjHoodTool\Settims.Designer.cs">
+      <DependentUpon>Settims.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjHoodTool\tHoodTool.cs" />
+    <Compile Include="_PJSE\pjOBJDTool\cOBJDChooser.cs" />
+    <Compile Include="_PJSE\pjOBJDTool\cOBJDChooser.Designer.cs">
+      <DependentUpon>cOBJDChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjOBJDTool\cOBJDTool.cs" />
+    <Compile Include="_PJSE\pjOBJDTool\cOBJDTool.Designer.cs">
+      <DependentUpon>cOBJDTool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjOBJDTool\Factory.cs" />
+    <Compile Include="_PJSE\pjOBJDTool\pfOBJD.cs" />
+    <Compile Include="_PJSE\pjOBJDTool\Properties\AssemblyInfo.cs" />
+    <Compile Include="_PJSE\pjOBJDTool\tOBJDTool.cs" />
+    <Compile Include="_PJSE\pjObjKeyTool\cObjKeyTool.cs" />
+    <Compile Include="_PJSE\pjObjKeyTool\hObjKeyHelp.cs" />
+    <Compile Include="_PJSE\pjObjKeyTool\Localization.cs" />
+    <Compile Include="_PJSE\pjObjKeyTool\Properties\AssemblyInfo.cs" />
+    <Compile Include="_PJSE\pjObjKeyTool\tObjKeyTool.cs" />
+    <Compile Include="_PJSE\pjse Coder\AssemblyInfo.cs" />
+    <Compile Include="_PJSE\pjse Coder\BconForm.cs" />
+    <Compile Include="_PJSE\pjse Coder\BconWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavForm.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavInstListControl.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavInstListItemUI.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavOperandWiz.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavOperandWizDefault.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavOperandWizRaw.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavWiz.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavWizBhav.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavWizPrim.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavWizPrimi.cs" />
+    <Compile Include="_PJSE\pjse Coder\BhavWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\CompareButton.cs" />
+    <Compile Include="_PJSE\pjse Coder\CompareButton.Designer.cs">
+      <DependentUpon>CompareButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjse Coder\ExtendedWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\ExtractCurrent.cs" />
+    <Compile Include="_PJSE\pjse Coder\FileTable.cs" />
+    <Compile Include="_PJSE\pjse Coder\GUIDChooser.cs" />
+    <Compile Include="_PJSE\pjse Coder\GUIDChooser.Designer.cs">
+      <DependentUpon>GUIDChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjse Coder\GUIDForm.cs" />
+    <Compile Include="_PJSE\pjse Coder\GUIDIndex.cs" />
+    <Compile Include="_PJSE\pjse Coder\GUIDTool.cs" />
+    <Compile Include="_PJSE\pjse Coder\HelpHelper.cs" />
+    <Compile Include="_PJSE\pjse Coder\LabelledDataOwner.cs" />
+    <Compile Include="_PJSE\pjse Coder\LabelledDataOwner.Designer.cs">
+      <DependentUpon>LabelledDataOwner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjse Coder\Localization.cs" />
+    <Compile Include="_PJSE\pjse Coder\ObjfForm.cs" />
+    <Compile Include="_PJSE\pjse Coder\ObjfWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\PickANumber.cs" />
+    <Compile Include="_PJSE\pjse Coder\PickANumber.Designer.cs">
+      <DependentUpon>PickANumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjse Coder\pjse banner.cs" />
+    <Compile Include="_PJSE\pjse Coder\pjse banner.Designer.cs">
+      <DependentUpon>pjse banner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjse Coder\Properties\Resources.Designer.cs" />
+    <Compile Include="_PJSE\pjse Coder\ResourceChooser.cs" />
+    <Compile Include="_PJSE\pjse Coder\Settings.cs" />
+    <Compile Include="_PJSE\pjse Coder\Str.cs" />
+    <Compile Include="_PJSE\pjse Coder\StrBig.cs" />
+    <Compile Include="_PJSE\pjse Coder\StrChooser.cs" />
+    <Compile Include="_PJSE\pjse Coder\StrForm.cs" />
+    <Compile Include="_PJSE\pjse Coder\StrWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\TPRPForm.cs" />
+    <Compile Include="_PJSE\pjse Coder\TPRPWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\TrcnForm.cs" />
+    <Compile Include="_PJSE\pjse Coder\TrcnWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\TreesPackedFileUI.cs" />
+    <Compile Include="_PJSE\pjse Coder\TreesPackedFileUI.designer.cs">
+      <DependentUpon>TreesPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjse Coder\TreesPackedFileWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\TtabAnimalMotiveUI.cs" />
+    <Compile Include="_PJSE\pjse Coder\TtabAnimalMotiveWiz.cs" />
+    <Compile Include="_PJSE\pjse Coder\TtabAnimalMotiveWiz.Designer.cs">
+      <DependentUpon>TtabAnimalMotiveWiz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjse Coder\TtabForm.cs" />
+    <Compile Include="_PJSE\pjse Coder\TtabItemMotiveTableUI.cs" />
+    <Compile Include="_PJSE\pjse Coder\TtabMotiveGroupUI.cs" />
+    <Compile Include="_PJSE\pjse Coder\TtabSingleMotiveUI.cs" />
+    <Compile Include="_PJSE\pjse Coder\TtabWrapper.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0001.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0002.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0008.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x001b.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x001c.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x001f.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0020.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0024.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x002d.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0032.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0033.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x006d.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0076.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0079.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x007c.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWizAnimate.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWizBhav.cs" />
+    <Compile Include="_PJSE\pjse Coder\Wizzy\BhavOperandWizBhav.Designer.cs">
+      <DependentUpon>BhavOperandWizBhav.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_PJSE\pjse Coder\WrapperFactory.cs" />
+    <Compile Include="__NonCore\WOSimPe - BSOK\AssemblyInfo.cs" />
+    <Compile Include="__NonCore\WOSimPe - BSOK\BSOKWizardForm.cs" />
+    <Compile Include="__NonCore\WOSimPe - BSOK\Properties\Resources.Designer.cs" />
+    <Compile Include="__NonCore\WOSimPe - BSOK\Step1.cs" />
+    <Compile Include="__NonCore\WOSimPe - BSOK\Step2.cs" />
+    <Compile Include="__NonCore\WOSimPe - BSOK\Step3.cs" />
+    <Compile Include="__NonCore\WOSimPe - Recolor\AssemblyInfo.cs" />
+    <Compile Include="__NonCore\WOSimPe - Recolor\RecolorWizardForm.cs" />
+    <Compile Include="__NonCore\WOSimPe - Recolor\Step1.cs" />
+    <Compile Include="__NonCore\WOSimPe - Recolor\Step1b.cs" />
+    <Compile Include="__NonCore\WOSimPe - Recolor\Step2.cs" />
+    <Compile Include="__NonCore\WOSimPe - Recolor\Step3.cs" />
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\AssemblyInfo.cs" />
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\HouseholdBrowser.cs" />
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\HouseholdBrowser.designer.cs">
+      <DependentUpon>HouseholdBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\NeighborhoodBrowser.cs" />
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\NeighborhoodBrowser.Designer.cs">
+      <DependentUpon>NeighborhoodBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\Properties\Resources.Designer.cs" />
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\Step1.cs" />
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\Step2.cs" />
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\Step3.cs" />
+    <Compile Include="__NonCore\WOSimPe - Wardrobecleaner\WizardController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Bidou Career Editor\base.career" />
+    <None Include="Bidou Career Editor\ep9base.career" />
+    <None Include="Bidou Career Editor\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Bidou Career Editor\obj\Debug\Plugin Career Editor.csproj.AssemblyReference.cache" />
+    <None Include="Bidou Career Editor\Plugin Career Editor.csproj" />
+    <None Include="ColorBinningTool\ColorBinningTool.csproj" />
+    <None Include="ColorBinningTool\obj\Debug\ColorBinningTool.csproj.AssemblyReference.cache" />
+    <None Include="ColorBinningTool\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="GraphControl\GraphControl.csproj" />
+    <None Include="GraphControl\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="GraphControl\obj\Debug\GraphControl.csproj.AssemblyReference.cache" />
+    <None Include="SimPe 3D\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe 3D\obj\Debug\Plugin 3D.csproj.AssemblyReference.cache" />
+    <None Include="SimPe 3D\Plugin 3D.csproj" />
+    <None Include="SimPe 3IDR\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe 3IDR\obj\Debug\SimPe 3IDR.csproj.AssemblyReference.cache" />
+    <None Include="SimPe 3IDR\SimPe 3IDR.csproj" />
+    <None Include="SimPe BHAV\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe BHAV\obj\Debug\Plugin BHAV.csproj.AssemblyReference.cache" />
+    <None Include="SimPe BHAV\Plugin BHAV.csproj" />
+    <None Include="SimPe Cache\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Cache\obj\Debug\SimPe Cache.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Cache\SimPe Cache.csproj" />
+    <None Include="SimPe Clst\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Clst\obj\Debug\SimPe Clst.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Clst\SimPe Clst.csproj" />
+    <None Include="SimPe Commandline\beauty" />
+    <None Include="SimPe Commandline\boobs.layout" />
+    <None Include="SimPe Commandline\boobs_layout.xreg" />
+    <None Include="SimPe Commandline\classic.layout" />
+    <None Include="SimPe Commandline\classic_layout.xreg" />
+    <None Include="SimPe Commandline\expansions.xreg" />
+    <None Include="SimPe Commandline\expansions2.xreg" />
+    <None Include="SimPe Commandline\girly.layout" />
+    <None Include="SimPe Commandline\girly_layout.xreg" />
+    <None Include="SimPe Commandline\GLOBALS-AO.package" />
+    <None Include="SimPe Commandline\GLOBALS.package" />
+    <None Include="SimPe Commandline\modern.layout" />
+    <None Include="SimPe Commandline\modern_layout.xreg" />
+    <None Include="SimPe Commandline\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Commandline\obj\Debug\SimPe Commandline.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Commandline\original.layout" />
+    <None Include="SimPe Commandline\original_layout.xreg" />
+    <None Include="SimPe Commandline\Private.package" />
+    <None Include="SimPe Commandline\release.nfo" />
+    <None Include="SimPe Commandline\RelLabels.package" />
+    <None Include="SimPe Commandline\SemiGlobals.package" />
+    <None Include="SimPe Commandline\SimPe Commandline.csproj" />
+    <None Include="SimPe Copyright Plugin\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Copyright Plugin\obj\Debug\SimPe Copyright Plugin.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Copyright Plugin\SimPe Copyright Plugin.csproj" />
+    <None Include="SimPe Dockbox\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Dockbox\obj\Debug\Plugin Dockbox.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Dockbox\Plugin Dockbox.csproj" />
+    <None Include="SimPe Downloads\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Downloads\obj\Debug\Plugin Downloads.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Downloads\Plugin Downloads.csproj" />
+    <None Include="SimPe FAMH\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe FAMH\obj\Debug\SimPe famhPlugin.csproj.AssemblyReference.cache" />
+    <None Include="SimPe FAMH\SimPe famhPlugin.csproj" />
+    <None Include="SimPe FileHandler\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe FileHandler\obj\Debug\SimPe FileHandlers.csproj.AssemblyReference.cache" />
+    <None Include="SimPe FileHandler\SimPe FileHandlers.csproj" />
+    <None Include="SimPe GameTipPlugin\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe GameTipPlugin\obj\Debug\simpeGameTipplugin.csproj.AssemblyReference.cache" />
+    <None Include="SimPe GameTipPlugin\simpeGameTipplugin.csproj" />
+    <None Include="SimPe Geometry\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Geometry\obj\Debug\SimPe Geometry.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Geometry\SimPe Geometry.csproj" />
+    <None Include="SimPe GMDC Exporter Base\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe GMDC Exporter Base\obj\Debug\SimPe GMDC Exporter Base.csproj.AssemblyReference.cache" />
+    <None Include="SimPe GMDC Exporter Base\SimPe GMDC Exporter Base.csproj" />
+    <None Include="SimPe GMDC Exporter\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe GMDC Exporter\obj\Debug\Plugin GMDC Exporter.csproj.AssemblyReference.cache" />
+    <None Include="SimPe GMDC Exporter\Plugin GMDC Exporter.csproj" />
+    <None Include="SimPe Helper\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Helper\obj\Debug\SimPe Helper.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Helper\quaxi_nl_censor_v1.package" />
+    <None Include="SimPe Helper\quaxi_ofb_censor_v1.package" />
+    <None Include="SimPe Helper\quaxi_pets_censor_v1.package" />
+    <None Include="SimPe Helper\SimPe Helper.csproj" />
+    <None Include="SimPe HGBH\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe HGBH\obj\Debug\SimPe HGBH.csproj.AssemblyReference.cache" />
+    <None Include="SimPe HGBH\SimPe HGBH.csproj" />
+    <None Include="SimPe Interfaces\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Interfaces\obj\Debug\SimPe Interfaces.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Interfaces\SimPe Interfaces.csproj" />
+    <None Include="SimPe LangExtracter\language Extractor.csproj" />
+    <None Include="SimPe LangExtracter\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe LangExtracter\obj\Debug\language Extractor.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Main\about-de.rtf" />
+    <None Include="SimPe Main\about-en.rtf" />
+    <None Include="SimPe Main\about-fr.rtf" />
+    <None Include="SimPe Main\about-it.rtf" />
+    <None Include="SimPe Main\about-ru.rtf" />
+    <None Include="SimPe Main\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Main\obj\Debug\SimPe Main.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Main\SimPe Main.csproj" />
+    <None Include="SimPe Main\welcome-de.rtf" />
+    <None Include="SimPe Main\welcome-en.rtf" />
+    <None Include="SimPe Main\welcome-fr.rtf" />
+    <None Include="SimPe Main\welcome-it.rtf" />
+    <None Include="SimPe Main\welcome-ru.rtf" />
+    <None Include="SimPe More Plugins\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe More Plugins\obj\Debug\simpeMoreplugin.csproj.AssemblyReference.cache" />
+    <None Include="SimPe More Plugins\simpeMoreplugin.csproj" />
+    <None Include="SimPe Name Provider\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Name Provider\obj\Debug\SimPe Name Provider.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Name Provider\SimPe Name Provider.csproj" />
+    <None Include="SimPe NGBH Scanner\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe NGBH Scanner\obj\Debug\Plugin NGBH Scanner.csproj.AssemblyReference.cache" />
+    <None Include="SimPe NGBH Scanner\Plugin NGBH Scanner.csproj" />
+    <None Include="SimPe Packages\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Packages\obj\Debug\SimPe Packages.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Packages\SimPe Packages.csproj" />
+    <None Include="SimPe RCOL\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe RCOL\obj\Debug\SimPe RCOL.csproj.AssemblyReference.cache" />
+    <None Include="SimPe RCOL\SimPe RCOL.csproj" />
+    <None Include="SimPe ResourceControls\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe ResourceControls\obj\Debug\SimPe ResourceControls.csproj.AssemblyReference.cache" />
+    <None Include="SimPe ResourceControls\SimPe ResourceControls.csproj" />
+    <None Include="SimPe Scenegraph\mmat.simpe" />
+    <None Include="SimPe Scenegraph\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Scenegraph\obj\Debug\SimPe Scenegraph.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Scenegraph\SimPe Scenegraph.csproj" />
+    <None Include="SimPe Sims\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Sims\obj\Debug\SimPe Sims.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Sims\SimPe Sims.csproj" />
+    <None Include="SimPe Splash\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Splash\obj\Debug\SimPe Splash.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Splash\SimPe Splash.csproj" />
+    <None Include="SimPE Toolbox Scanner\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPE Toolbox Scanner\obj\Debug\SimPE Toolbox Scanner.csproj.AssemblyReference.cache" />
+    <None Include="SimPE Toolbox Scanner\SimPE Toolbox Scanner.csproj" />
+    <None Include="SimPe Toolbox Scenegraph\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Toolbox Scenegraph\obj\Debug\Plugin Toolbox Scenegraph.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Toolbox Scenegraph\Plugin Toolbox Scenegraph.csproj" />
+    <None Include="SimPe Toolbox Workshops\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Toolbox Workshops\obj\Debug\SimPe Toolbox Workshops.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Toolbox Workshops\SimPe Toolbox Workshops.csproj" />
+    <None Include="SimPe Toolbox\3d.simpe" />
+    <None Include="SimPe Toolbox\bin.simpe" />
+    <None Include="SimPe Toolbox\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Toolbox\obj\Debug\SimPe Toolbox.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Toolbox\SimPe Toolbox.csproj" />
+    <None Include="SimPe Wants\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Wants\obj\Debug\SimPe Wants.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Wants\SimPe Wants.csproj" />
+    <None Include="SimPe Wizardbase\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Wizardbase\obj\Debug\SimPe Wizardbase.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Wizardbase\SimPe Wizardbase.csproj" />
+    <None Include="SimPe Workspace Helper\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="SimPe Workspace Helper\obj\Debug\SimPe Workspace Helper.csproj.AssemblyReference.cache" />
+    <None Include="SimPe Workspace Helper\SimPe Workspace Helper.csproj" />
+    <None Include="Wizards of SimPe\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="Wizards of SimPe\obj\Debug\Wizards of SimPe.csproj.AssemblyReference.cache" />
+    <None Include="Wizards of SimPe\Wizards of SimPe.csproj" />
+    <None Include="WOSimPE - Interfaces\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="WOSimPE - Interfaces\obj\Debug\WOSimPE - Interfaces.csproj.AssemblyReference.cache" />
+    <None Include="WOSimPE - Interfaces\WOSimPE - Interfaces.csproj" />
+    <None Include="_PJSE\pjBodyMeshTool\SimPe pjBodyMeshTool.csproj" />
+    <None Include="_PJSE\pjHoodTool\SimPe pjHoodTool.csproj" />
+    <None Include="_PJSE\pjOBJDTool\SimPe pjOBJDTool.csproj" />
+    <None Include="_PJSE\pjObjKeyTool\SimPe pjObjKeyTool.csproj" />
+    <None Include="_PJSE\pjse Coder\SimPe pjse coder.csproj" />
+    <None Include="__NonCore\WOSimPe - BSOK\About.rtf" />
+    <None Include="__NonCore\WOSimPe - BSOK\About2.rtf" />
+    <None Include="__NonCore\WOSimPe - BSOK\WOSimPe - BSOK.csproj" />
+    <None Include="__NonCore\WOSimPe - Recolor\Plugin WOSimPe - Recolor.csproj" />
+    <None Include="__NonCore\WOSimPe - Wardrobecleaner\WOSimPe - Wardrobecleaner.csproj" />
+    <None Include="__Solutions\Build\Build.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Bidou Career Editor\CareerEditor.resx">
+      <DependentUpon>CareerEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bidou Career Editor\ChoicePanel.resx">
+      <DependentUpon>ChoicePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bidou Career Editor\EffectPanel.resx">
+      <DependentUpon>EffectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bidou Career Editor\JobDescPanel.resx">
+      <DependentUpon>JobDescPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bidou Career Editor\LabelledNumericUpDown.resx">
+      <DependentUpon>LabelledNumericUpDown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorBinningTool\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorBinningTool\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColorBinningTool\Properties\Resources.resx" />
+    <EmbeddedResource Include="GraphControl\EnumComboBox.resx">
+      <DependentUpon>EnumComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphControl\GraphPanel.resx">
+      <DependentUpon>GraphPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphControl\HexEditControl.resx">
+      <DependentUpon>HexEditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GraphControl\HexViewControl.resx">
+      <DependentUpon>HexViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3D\AnimPreview.resx">
+      <DependentUpon>AnimPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3D\DXPanel.resx">
+      <DependentUpon>DXPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3IDR\NmapForm.de.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3IDR\NmapForm.fr.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3IDR\NmapForm.it.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3IDR\NmapForm.pl.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3IDR\NmapForm.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3IDR\NmapForm.ru.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe 3IDR\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe BHAV\ImportSemi.resx">
+      <DependentUpon>ImportSemi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe BHAV\Search.resx">
+      <DependentUpon>Search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\ClstForm.de.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\ClstForm.fr.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\ClstForm.it.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\ClstForm.pl.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\ClstForm.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\ClstForm.ru.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\StrForm.de.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\StrForm.es.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\StrForm.fr.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\StrForm.it.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\StrForm.pl.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\StrForm.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\StrForm.ru.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Clst\StrListViewer.resx">
+      <DependentUpon>StrListViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Copyright Plugin\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Copyright Plugin\StringsForm.resx">
+      <DependentUpon>StringsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\DebugDock.resx">
+      <DependentUpon>DebugDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\FinderDock.resx">
+      <DependentUpon>FinderDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\AFinderTool.de.resx">
+      <DependentUpon>AFinderTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\AFinderTool.resx">
+      <DependentUpon>AFinderTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInCpf.de.resx">
+      <DependentUpon>FindInCpf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInCpf.resx">
+      <DependentUpon>FindInCpf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInNmap.de.resx">
+      <DependentUpon>FindInNmap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInNmap.resx">
+      <DependentUpon>FindInNmap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInNref.de.resx">
+      <DependentUpon>FindInNref.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInNref.resx">
+      <DependentUpon>FindInNref.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInSG.de.resx">
+      <DependentUpon>FindInSG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInSG.resx">
+      <DependentUpon>FindInSG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInStr.de.resx">
+      <DependentUpon>FindInStr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindInStr.resx">
+      <DependentUpon>FindInStr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindObj.de.resx">
+      <DependentUpon>FindObj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindObj.resx">
+      <DependentUpon>FindObj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindTGI.de.resx">
+      <DependentUpon>FindTGI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Finder\FindTGI.resx">
+      <DependentUpon>FindTGI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Dockbox\Report.de.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Report.fr.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Report.pl.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\Report.ru.resx">
+      <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\ResourceDock.de.resx">
+      <DependentUpon>ResourceDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\ResourceDock.fr.resx">
+      <DependentUpon>ResourceDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\ResourceDock.it.resx">
+      <DependentUpon>ResourceDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\ResourceDock.pl.resx">
+      <DependentUpon>ResourceDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\ResourceDock.resx">
+      <DependentUpon>ResourceDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Dockbox\ResourceDock.ru.resx">
+      <DependentUpon>ResourceDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\DepSims2Community.resx">
+      <DependentUpon>DepSims2Community.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\DownloadsSettings.de.resx">
+      <DependentUpon>DownloadsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\DownloadsSettings.en-US.resx">
+      <DependentUpon>DownloadsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\DownloadsSettings.fr.resx">
+      <DependentUpon>DownloadsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\DownloadsSettings.it.resx">
+      <DependentUpon>DownloadsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\DownloadsSettings.resx">
+      <DependentUpon>DownloadsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\DownloadsSettings.ru.resx">
+      <DependentUpon>DownloadsSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerControl.de.resx">
+      <DependentUpon>InstallerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerControl.fr.resx">
+      <DependentUpon>InstallerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerControl.it.resx">
+      <DependentUpon>InstallerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerControl.resx">
+      <DependentUpon>InstallerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerControl.ru.resx">
+      <DependentUpon>InstallerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerForm.fr.resx">
+      <DependentUpon>InstallerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerForm.it.resx">
+      <DependentUpon>InstallerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerForm.resx">
+      <DependentUpon>InstallerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\InstallerForm.ru.resx">
+      <DependentUpon>InstallerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Downloads\SaveSims2CommunityPack.resx">
+      <DependentUpon>SaveSims2CommunityPack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Downloads\SaveSims2Pack.resx">
+      <DependentUpon>SaveSims2Pack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FAMH\FamiuPackedFileUI.resx">
+      <DependentUpon>FamiuPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FAMH\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe FileHandler\Elements.de.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements.es.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements.fr.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements.it.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements.pl.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements.ru.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements2.de.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements2.es.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements2.fr.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements2.it.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements2.pl.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements2.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Elements2.ru.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\ExtObjdForm.fr.resx">
+      <DependentUpon>ExtObjdForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\ExtObjdForm.it.resx">
+      <DependentUpon>ExtObjdForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\ExtObjdForm.resx">
+      <DependentUpon>ExtObjdForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\GlobCtrl.resx">
+      <DependentUpon>GlobCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\OLuaUI.resx">
+      <DependentUpon>OLuaUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe FileHandler\SdscExtendedForm.resx">
+      <DependentUpon>SdscExtendedForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe FileHandler\SimRelinkForm.resx">
+      <DependentUpon>SimRelinkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GameTipPlugin\GameTipPackedFileUI.resx">
+      <DependentUpon>GameTipPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GameTipPlugin\GWInvPackedFileUI.resx">
+      <DependentUpon>GWInvPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GameTipPlugin\LastEpUsedPackedFileUI.resx">
+      <DependentUpon>LastEpUsedPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GameTipPlugin\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimAxisTransformControl.de.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimAxisTransformControl.fr.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimAxisTransformControl.it.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimAxisTransformControl.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimAxisTransformControl.ru.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimFrameBlockControl.de.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimFrameBlockControl.fr.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimFrameBlockControl.it.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimFrameBlockControl.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimFrameBlockControl.ru.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\AnimMeshBlockControl.resx">
+      <DependentUpon>AnimMeshBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\fAnimResourceConst.resx">
+      <DependentUpon>fAnimResourceConst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\fGeometryDataContainer.resx">
+      <DependentUpon>fGeometryDataContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\GenericImport.resx">
+      <DependentUpon>GenericImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\ImportGmdcGroups.resx">
+      <DependentUpon>ImportGmdcGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe GMDC Exporter Base\ImportJointAnim.resx">
+      <DependentUpon>ImportJointAnim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\ExceptionForm.de.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\ExceptionForm.fr.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\ExceptionForm.it.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\ExceptionForm.pl.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\ExceptionForm.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\ExceptionForm.ru.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\LabelledBoolsetControl.resx">
+      <DependentUpon>LabelledBoolsetControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\Localization.de.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\Localization.en-US.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\Localization.fr.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\Localization.it.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\Localization.pl.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\Localization.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\Localization.ru.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\pjseMsgBox.resx">
+      <DependentUpon>pjseMsgBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Helper\SelectSimFolder.resx">
+      <DependentUpon>SelectSimFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\WaitingForm.de.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\WaitingForm.es.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\WaitingForm.fr.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\WaitingForm.it.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\WaitingForm.pl.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\WaitingForm.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Helper\WaitingForm.ru.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoCustomerItemsUI.resx">
+      <DependentUpon>BnfoCustomerItemsUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoCustomerItemUI.de.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoCustomerItemUI.fr.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoCustomerItemUI.it.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoCustomerItemUI.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoCustomerItemUI.ru.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoUI.de.resx">
+      <DependentUpon>BnfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoUI.fr.resx">
+      <DependentUpon>BnfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoUI.it.resx">
+      <DependentUpon>BnfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\BnfoUI.resx">
+      <DependentUpon>BnfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\ExtNgbhUI.de.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\ExtNgbhUI.fr.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\ExtNgbhUI.it.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\ExtNgbhUI.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\ExtNgbhUI.ru.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\IdnoForm.resx">
+      <DependentUpon>IdnoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\LoteUI.en-US.resx">
+      <DependentUpon>LoteUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\LoteUI.resx">
+      <DependentUpon>LoteUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\LtxtForm.resx">
+      <DependentUpon>LtxtForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\MemoryProperties.de.resx">
+      <DependentUpon>MemoryProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\MemoryProperties.fr.resx">
+      <DependentUpon>MemoryProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\MemoryProperties.it.resx">
+      <DependentUpon>MemoryProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\MemoryProperties.resx">
+      <DependentUpon>MemoryProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhForm.de.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhForm.fr.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhForm.it.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhForm.pl.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhForm.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhForm.ru.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhItemsListView.de.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhItemsListView.fr.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhItemsListView.it.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhItemsListView.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhItemsListView.ru.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSkillHelper.de.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSkillHelper.fr.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSkillHelper.it.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSkillHelper.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSkillHelper.ru.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSkillHelperElement.resx">
+      <DependentUpon>NgbhSkillHelperElement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSlotListView.resx">
+      <DependentUpon>NgbhSlotListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSlotSelection.de.resx">
+      <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSlotSelection.fr.resx">
+      <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSlotSelection.it.resx">
+      <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhSlotSelection.resx">
+      <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhValueDescriptorSelection.resx">
+      <DependentUpon>NgbhValueDescriptorSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhValueDescriptorUI.de.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhValueDescriptorUI.fr.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhValueDescriptorUI.it.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhValueDescriptorUI.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NgbhValueDescriptorUI.ru.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NhtrUI.en-US.resx">
+      <DependentUpon>NhtrUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\NhtrUI.resx">
+      <DependentUpon>NhtrUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe HGBH\RoadTextureControl.resx">
+      <DependentUpon>RoadTextureControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\SlotUI.resx">
+      <DependentUpon>SlotUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\TattUI.resx">
+      <DependentUpon>TattUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe HGBH\WantsForm.resx">
+      <DependentUpon>WantsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe LangExtracter\LanguagExtrator.resx">
+      <DependentUpon>LanguagExtrator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\AddExtTool.resx">
+      <DependentUpon>AddExtTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\FileTableItemForm.de.resx">
+      <DependentUpon>FileTableItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\FileTableItemForm.fr.resx">
+      <DependentUpon>FileTableItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\FileTableItemForm.it.resx">
+      <DependentUpon>FileTableItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\FileTableItemForm.resx">
+      <DependentUpon>FileTableItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\FileTableItemForm.ru.resx">
+      <DependentUpon>FileTableItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\Hidden.resx">
+      <DependentUpon>Hidden.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\Main.de.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\Main.fr.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\Main.it.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\Main.pl.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\Main.ru.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\OptionForm.de.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\OptionForm.es.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\OptionForm.fr.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\OptionForm.it.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\OptionForm.pl.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\OptionForm.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\OptionForm.ru.resx">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\ProfileChooser.resx">
+      <DependentUpon>ProfileChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Main\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe More Plugins\AudioRefPackedFileUI.resx">
+      <DependentUpon>AudioRefPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\CregUI.resx">
+      <DependentUpon>CregUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\FunctionPackedFileUI.resx">
+      <DependentUpon>FunctionPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\HugBugPackedFileUI.resx">
+      <DependentUpon>HugBugPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\InvenIndexPackedFileUI.en-US.resx">
+      <DependentUpon>InvenIndexPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\InvenIndexPackedFileUI.resx">
+      <DependentUpon>InvenIndexPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\InventItemPackedFileUI.resx">
+      <DependentUpon>InventItemPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\LotexturePackedFileUI.resx">
+      <DependentUpon>LotexturePackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe More Plugins\SimIndexPackedFileUI.resx">
+      <DependentUpon>SimIndexPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\SimmyListPackedFileUI.en-US.resx">
+      <DependentUpon>SimmyListPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\SimmyListPackedFileUI.resx">
+      <DependentUpon>SimmyListPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\SimpleTextPackedFileUI.resx">
+      <DependentUpon>SimpleTextPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\StringMapPackedFileUI.resx">
+      <DependentUpon>StringMapPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\WallLayerPackedFileUI.resx">
+      <DependentUpon>WallLayerPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe More Plugins\WinfoPackedFileUI.resx">
+      <DependentUpon>WinfoPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Packages\PackageFiles.resx">
+      <DependentUpon>PackageFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\DDSTool.resx">
+      <DependentUpon>DDSTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\fAnimResourceConst.resx">
+      <DependentUpon>fAnimResourceConst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\fExtension.resx">
+      <DependentUpon>fExtension.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\fShapeRefNode.resx">
+      <DependentUpon>fShapeRefNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\MatdForm.resx">
+      <DependentUpon>MatdForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\RcolForm.resx">
+      <DependentUpon>RcolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\ShpeForm.resx">
+      <DependentUpon>ShpeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tCresHierarchy.resx">
+      <DependentUpon>tCresHierarchy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tDirectionalLight.resx">
+      <DependentUpon>tDirectionalLight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tExtension.resx">
+      <DependentUpon>tExtension.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tGenericRcol.resx">
+      <DependentUpon>tGenericRcol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tGeometryNode.resx">
+      <DependentUpon>tGeometryNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tLightT.resx">
+      <DependentUpon>tLightT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tMaterialDefinition.resx">
+      <DependentUpon>tMaterialDefinition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tMaterialDefinitionCategories.resx">
+      <DependentUpon>tMaterialDefinitionCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tMaterialDefinitionFiles.resx">
+      <DependentUpon>tMaterialDefinitionFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tMaterialDefinitionProperties.resx">
+      <DependentUpon>tMaterialDefinitionProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tObjectGraphNode.resx">
+      <DependentUpon>tObjectGraphNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tResourceNode.resx">
+      <DependentUpon>tResourceNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tShapeRefNode.resx">
+      <DependentUpon>tShapeRefNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tShpeGraphNode.resx">
+      <DependentUpon>tShpeGraphNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tShpeItems.resx">
+      <DependentUpon>tShpeItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tShpeLod.resx">
+      <DependentUpon>tShpeLod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tShpeParts.resx">
+      <DependentUpon>tShpeParts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe RCOL\tTransformNode.resx">
+      <DependentUpon>tTransformNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceListViewExt.de.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceListViewExt.fr.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceListViewExt.it.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceListViewExt.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceListViewExt.ru.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceTreeViewExt.de.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceTreeViewExt.fr.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceTreeViewExt.it.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceTreeViewExt.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\ResourceTreeViewExt.ru.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe ResourceControls\WaitControl.resx">
+      <DependentUpon>WaitControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\FileSelect.resx">
+      <DependentUpon>FileSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\GroupCacheForm.resx">
+      <DependentUpon>GroupCacheForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\ImageSize.resx">
+      <DependentUpon>ImageSize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\LifoForm.resx">
+      <DependentUpon>LifoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\Listing.resx">
+      <DependentUpon>Listing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\ObjectComboBox.resx">
+      <DependentUpon>ObjectComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\PackedFileForm.de.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\PackedFileForm.es.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\PackedFileForm.fr.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\PackedFileForm.it.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\PackedFileForm.pl.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\PackedFileForm.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\PackedFileForm.ru.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\PreviewForm.resx">
+      <DependentUpon>PreviewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Scenegraph\RenameForm.resx">
+      <DependentUpon>RenameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\SlotForm.resx">
+      <DependentUpon>SlotForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\SubsetSelectForm.resx">
+      <DependentUpon>SubsetSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Scenegraph\TxtrForm.resx">
+      <DependentUpon>TxtrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\CommonSrelUI.de.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\CommonSrelUI.fr.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\CommonSrelUI.it.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\CommonSrelUI.pL.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\CommonSrelUI.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\CommonSrelUI.ru.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSDescUI.de.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSDescUI.fr.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSDescUI.it.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSDescUI.pl.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSDescUI.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSDescUI.ru.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSrelUI.de.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSrelUI.fr.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSrelUI.it.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSrelUI.pl.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSrelUI.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\ExtSrelUI.ru.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\FamilyTiesForm.de.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\FamilyTiesForm.fr.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\FamilyTiesForm.it.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\FamilyTiesForm.pl.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\FamilyTiesForm.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\FamilyTiesForm.ru.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\PetTraitSelect.resx">
+      <DependentUpon>PetTraitSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Sims\SCOR\ScoreItemBusinessRewards.resx">
+      <DependentUpon>ScoreItemBusinessRewards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SCOR\ScoreItemDefault.resx">
+      <DependentUpon>ScoreItemDefault.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SCOR\ScoreItemLearnedBehaviour.de.resx">
+      <DependentUpon>ScoreItemLearnedBehaviour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SCOR\ScoreItemLearnedBehaviour.fr.resx">
+      <DependentUpon>ScoreItemLearnedBehaviour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SCOR\ScoreItemLearnedBehaviour.it.resx">
+      <DependentUpon>ScoreItemLearnedBehaviour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SCOR\ScoreItemLearnedBehaviour.resx">
+      <DependentUpon>ScoreItemLearnedBehaviour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SCOR\ScoreItemLearnedBehaviour.ru.resx">
+      <DependentUpon>ScoreItemLearnedBehaviour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SCOR\ScorUI.resx">
+      <DependentUpon>ScorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimBusinessList.resx">
+      <DependentUpon>SimBusinessList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimComboBox.resx">
+      <DependentUpon>SimComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimDNAUI.resx">
+      <DependentUpon>SimDNAUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimInfo.resx">
+      <DependentUpon>SimInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimListView.resx">
+      <DependentUpon>SimListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimPoolControl.de.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimPoolControl.fr.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimPoolControl.it.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimPoolControl.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimPoolControl.ru.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimRelationPoolControl.de.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimRelationPoolControl.fr.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimRelationPoolControl.it.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimRelationPoolControl.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Sims\SimRelationPoolControl.ru.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Splash\HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Splash\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Splash\SplashForm.resx">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPE Toolbox Scanner\ScannerForm.resx">
+      <DependentUpon>ScannerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPE Toolbox Scanner\ScannerPanelForm.resx">
+      <DependentUpon>ScannerPanelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Scenegraph\Scenegraph.resx">
+      <DependentUpon>Scenegraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\NeighborhoodPreview.de.resx">
+      <DependentUpon>NeighborhoodPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\NeighborhoodPreview.en-US.resx">
+      <DependentUpon>NeighborhoodPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\NeighborhoodPreview.fr.resx">
+      <DependentUpon>NeighborhoodPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\NeighborhoodPreview.it.resx">
+      <DependentUpon>NeighborhoodPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\NeighborhoodPreview.pl.resx">
+      <DependentUpon>NeighborhoodPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\NeighborhoodPreview.resx">
+      <DependentUpon>NeighborhoodPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\NeighborhoodPreview.ru.resx">
+      <DependentUpon>NeighborhoodPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\NewObjectPreview.resx">
+      <DependentUpon>NewObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectPreview.de.resx">
+      <DependentUpon>ObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectPreview.es.resx">
+      <DependentUpon>ObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectPreview.fr.resx">
+      <DependentUpon>ObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectPreview.it.resx">
+      <DependentUpon>ObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectPreview.pl.resx">
+      <DependentUpon>ObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectPreview.resx">
+      <DependentUpon>ObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectPreview.ru.resx">
+      <DependentUpon>ObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectsDock.de.resx">
+      <DependentUpon>ObjectsDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectsDock.en-US.resx">
+      <DependentUpon>ObjectsDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectsDock.fr.resx">
+      <DependentUpon>ObjectsDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectsDock.it.resx">
+      <DependentUpon>ObjectsDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectsDock.resx">
+      <DependentUpon>ObjectsDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectsDock.ru.resx">
+      <DependentUpon>ObjectsDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\ObjectWorkshopDock.resx" />
+    <EmbeddedResource Include="SimPe Toolbox Workshops\OWDockForm.resx">
+      <DependentUpon>OWDockForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\PackageDetailDock.de.resx">
+      <DependentUpon>PackageDetailDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\PackageDetailDock.fr.resx">
+      <DependentUpon>PackageDetailDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\PackageDetailDock.it.resx">
+      <DependentUpon>PackageDetailDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\PackageDetailDock.pl.resx">
+      <DependentUpon>PackageDetailDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\PackageDetailDock.resx">
+      <DependentUpon>PackageDetailDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\PackageDetailDock.ru.resx">
+      <DependentUpon>PackageDetailDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\PackageRepairForm.resx">
+      <DependentUpon>PackageRepairForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\PreviewForm.resx">
+      <DependentUpon>PreviewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Toolbox Workshops\Workshop.resx">
+      <DependentUpon>Workshop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\XObjectPreview.de.resx">
+      <DependentUpon>XObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\XObjectPreview.fr.resx">
+      <DependentUpon>XObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\XObjectPreview.it.resx">
+      <DependentUpon>XObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\XObjectPreview.pl.resx">
+      <DependentUpon>XObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\XObjectPreview.resx">
+      <DependentUpon>XObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox Workshops\XObjectPreview.ru.resx">
+      <DependentUpon>XObjectPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\DownloadScan.resx">
+      <DependentUpon>DownloadScan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Hash.resx">
+      <DependentUpon>Hash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Neighborhood.de.resx">
+      <DependentUpon>Neighborhood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Neighborhood.en-US.resx">
+      <DependentUpon>Neighborhood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Neighborhood.fr.resx">
+      <DependentUpon>Neighborhood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Neighborhood.it.resx">
+      <DependentUpon>Neighborhood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Neighborhood.pl.resx">
+      <DependentUpon>Neighborhood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Neighborhood.resx">
+      <DependentUpon>Neighborhood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Neighborhood.ru.resx">
+      <DependentUpon>Neighborhood.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\NgbBackup.de.resx">
+      <DependentUpon>NgbBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\NgbBackup.es.resx">
+      <DependentUpon>NgbBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\NgbBackup.fr.resx">
+      <DependentUpon>NgbBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\NgbBackup.it.resx">
+      <DependentUpon>NgbBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\NgbBackup.pl.resx">
+      <DependentUpon>NgbBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\NgbBackup.resx">
+      <DependentUpon>NgbBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\NgbBackup.ru.resx">
+      <DependentUpon>NgbBackup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\PhotoStudio.de.resx">
+      <DependentUpon>PhotoStudio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\PhotoStudio.en-US.resx">
+      <DependentUpon>PhotoStudio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\PhotoStudio.fr.resx">
+      <DependentUpon>PhotoStudio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\PhotoStudio.it.resx">
+      <DependentUpon>PhotoStudio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\PhotoStudio.pl.resx">
+      <DependentUpon>PhotoStudio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\PhotoStudio.resx">
+      <DependentUpon>PhotoStudio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\PhotoStudio.ru.resx">
+      <DependentUpon>PhotoStudio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Toolbox\Sims.de.resx">
+      <DependentUpon>Sims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Sims.en-US.resx">
+      <DependentUpon>Sims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Sims.fr.resx">
+      <DependentUpon>Sims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Sims.it.resx">
+      <DependentUpon>Sims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Sims.pl.resx">
+      <DependentUpon>Sims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Sims.resx">
+      <DependentUpon>Sims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Sims.ru.resx">
+      <DependentUpon>Sims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\SkinWorkshop.resx">
+      <DependentUpon>SkinWorkshop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Surgery.de.resx">
+      <DependentUpon>Surgery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Surgery.en-US.resx">
+      <DependentUpon>Surgery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Surgery.es.resx">
+      <DependentUpon>Surgery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Surgery.fr.resx">
+      <DependentUpon>Surgery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Surgery.it.resx">
+      <DependentUpon>Surgery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Surgery.pl.resx">
+      <DependentUpon>Surgery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Surgery.resx">
+      <DependentUpon>Surgery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Toolbox\Surgery.ru.resx">
+      <DependentUpon>Surgery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Wants\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Wants\SWAFEditor.resx">
+      <DependentUpon>SWAFEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Wants\XWNTEditor.resx">
+      <DependentUpon>XWNTEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Wizardbase\Wizard.resx">
+      <DependentUpon>Wizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckControl.de.resx">
+      <DependentUpon>CheckControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckControl.fr.resx">
+      <DependentUpon>CheckControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckControl.it.resx">
+      <DependentUpon>CheckControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckControl.resx">
+      <DependentUpon>CheckControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckControl.ru.resx">
+      <DependentUpon>CheckControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckItem.de.resx">
+      <DependentUpon>CheckItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckItem.fr.resx">
+      <DependentUpon>CheckItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckItem.it.resx">
+      <DependentUpon>CheckItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckItem.resx">
+      <DependentUpon>CheckItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\CheckItem.ru.resx">
+      <DependentUpon>CheckItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\InfoCheck.resx">
+      <DependentUpon>InfoCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\LoadFileWrappers.resx">
+      <DependentUpon>LoadFileWrappers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\LoadFileWrappersExt.resx">
+      <DependentUpon>LoadFileWrappersExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\Message.resx">
+      <DependentUpon>Message.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\Properties\Resources.resx" />
+    <EmbeddedResource Include="SimPe Workspace Helper\WrapperBaseControl.de.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\WrapperBaseControl.fr.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\WrapperBaseControl.it.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\WrapperBaseControl.pl.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\WrapperBaseControl.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe Workspace Helper\WrapperBaseControl.ru.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards of SimPe\CheckForm.resx">
+      <DependentUpon>CheckForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards of SimPe\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards of SimPe\FormStep1.resx">
+      <DependentUpon>FormStep1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards of SimPe\Option.resx">
+      <DependentUpon>Option.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizards of SimPe\Properties\Resources.resx" />
+    <EmbeddedResource Include="_PJSE\pjBodyMeshTool\GetMeshName.resx">
+      <DependentUpon>GetMeshName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjBodyMeshTool\Localization.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjHoodTool\Properties\Resources.resx" />
+    <EmbeddedResource Include="_PJSE\pjHoodTool\Settims.resx">
+      <DependentUpon>Settims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjOBJDTool\cOBJDChooser.resx">
+      <DependentUpon>cOBJDChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjOBJDTool\cOBJDTool.resx">
+      <DependentUpon>cOBJDTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjObjKeyTool\Localization.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\BconForm.resx">
+      <DependentUpon>BconForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\BhavForm.resx">
+      <DependentUpon>BhavForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\BhavInstListControl.resx">
+      <DependentUpon>BhavInstListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\BhavInstListItemUI.resx">
+      <DependentUpon>BhavInstListItemUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\BhavOperandWiz.resx">
+      <DependentUpon>BhavOperandWiz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\BhavOperandWizDefault.resx">
+      <DependentUpon>BhavOperandWizDefault.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\BhavOperandWizRaw.resx">
+      <DependentUpon>BhavOperandWizRaw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\CompareButton.resx">
+      <DependentUpon>CompareButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\GUIDChooser.resx">
+      <DependentUpon>GUIDChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\GUIDForm.resx">
+      <DependentUpon>GUIDForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\LabelledDataOwner.resx">
+      <DependentUpon>LabelledDataOwner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Localization.en-US.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Localization.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\ObjfForm.resx">
+      <DependentUpon>ObjfForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\PickANumber.resx">
+      <DependentUpon>PickANumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\pjse banner.resx">
+      <DependentUpon>pjse banner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Properties\Resources.resx" />
+    <EmbeddedResource Include="_PJSE\pjse Coder\ResourceChooser.resx">
+      <DependentUpon>ResourceChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\StrBig.resx">
+      <DependentUpon>StrBig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\StrChooser.resx">
+      <DependentUpon>StrChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\StrForm.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TPRPForm.resx">
+      <DependentUpon>TPRPForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TrcnForm.resx">
+      <DependentUpon>TrcnForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TreesPackedFileUI.resx">
+      <DependentUpon>TreesPackedFileUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TtabAnimalMotiveUI.resx">
+      <DependentUpon>TtabAnimalMotiveUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TtabAnimalMotiveWiz.resx">
+      <DependentUpon>TtabAnimalMotiveWiz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TtabForm.resx">
+      <DependentUpon>TtabForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TtabItemMotiveTableUI.resx">
+      <DependentUpon>TtabItemMotiveTableUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TtabMotiveGroupUI.resx">
+      <DependentUpon>TtabMotiveGroupUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\TtabSingleMotiveUI.resx">
+      <DependentUpon>TtabSingleMotiveUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0001.resx">
+      <DependentUpon>BhavOperandWiz0x0001.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0002.resx">
+      <DependentUpon>BhavOperandWiz0x0002.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0008.resx">
+      <DependentUpon>BhavOperandWiz0x0008.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x001b.resx">
+      <DependentUpon>BhavOperandWiz0x001b.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x001c.resx">
+      <DependentUpon>BhavOperandWiz0x001c.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x001f.resx">
+      <DependentUpon>BhavOperandWiz0x001f.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0020.resx">
+      <DependentUpon>BhavOperandWiz0x0020.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0024.resx">
+      <DependentUpon>BhavOperandWiz0x0024.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x002d.resx">
+      <DependentUpon>BhavOperandWiz0x002d.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0032.resx">
+      <DependentUpon>BhavOperandWiz0x0032.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0033.resx">
+      <DependentUpon>BhavOperandWiz0x0033.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x006d.resx">
+      <DependentUpon>BhavOperandWiz0x006d.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0076.resx">
+      <DependentUpon>BhavOperandWiz0x0076.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x0079.resx">
+      <DependentUpon>BhavOperandWiz0x0079.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWiz0x007c.resx">
+      <DependentUpon>BhavOperandWiz0x007c.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWizAnimate.resx">
+      <DependentUpon>BhavOperandWizAnimate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_PJSE\pjse Coder\Wizzy\BhavOperandWizBhav.resx">
+      <DependentUpon>BhavOperandWizBhav.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="__NonCore\WOSimPe - BSOK\BSOKWizardForm.resx">
+      <DependentUpon>BSOKWizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="__NonCore\WOSimPe - BSOK\Properties\Resources.resx" />
+    <EmbeddedResource Include="__NonCore\WOSimPe - Recolor\RecolorWizardForm.resx">
+      <DependentUpon>RecolorWizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="__NonCore\WOSimPe - Wardrobecleaner\HouseholdBrowser.resx">
+      <DependentUpon>HouseholdBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="__NonCore\WOSimPe - Wardrobecleaner\NeighborhoodBrowser.resx">
+      <DependentUpon>NeighborhoodBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="__NonCore\WOSimPe - Wardrobecleaner\Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vs\SimPE\v17\" />
+    <Folder Include="Bidou Career Editor\obj\Debug\TempPE\" />
+    <Folder Include="Bidou Career Editor\__Debug\Plugins\" />
+    <Folder Include="ColorBinningTool\bin\Debug\" />
+    <Folder Include="ColorBinningTool\obj\Debug\TempPE\" />
+    <Folder Include="GraphControl\obj\Debug\TempPE\" />
+    <Folder Include="SimPe 3D\obj\Debug\TempPE\" />
+    <Folder Include="SimPe 3IDR\bin\x86\Debug\" />
+    <Folder Include="SimPe 3IDR\bin\x86\Release MAC\" />
+    <Folder Include="SimPe 3IDR\bin\x86\Release\" />
+    <Folder Include="SimPe 3IDR\obj\Debug\TempPE\" />
+    <Folder Include="SimPe BHAV\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Cache\bin\x86\Debug\" />
+    <Folder Include="SimPe Cache\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Cache\bin\x86\Release\" />
+    <Folder Include="SimPe Cache\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Clst\bin\x86\Debug\" />
+    <Folder Include="SimPe Clst\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Clst\bin\x86\Release\" />
+    <Folder Include="SimPe Clst\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Commandline\bin\x86\Debug\" />
+    <Folder Include="SimPe Commandline\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Commandline\bin\x86\Release\" />
+    <Folder Include="SimPe Commandline\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Copyright Plugin\bin\Debug\" />
+    <Folder Include="SimPe Copyright Plugin\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Dockbox\Debug\Plugins\" />
+    <Folder Include="SimPe Dockbox\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Downloads\Debug\" />
+    <Folder Include="SimPe Downloads\obj\Debug\TempPE\" />
+    <Folder Include="SimPe FAMH\Debug\" />
+    <Folder Include="SimPe FAMH\obj\Debug\TempPE\" />
+    <Folder Include="SimPe FileHandler\bin\x86\Release MAC\" />
+    <Folder Include="SimPe FileHandler\bin\x86\Release\" />
+    <Folder Include="SimPe FileHandler\Debug\" />
+    <Folder Include="SimPe FileHandler\obj\Debug\TempPE\" />
+    <Folder Include="SimPe GameTipPlugin\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Geometry\bin\x86\Debug\" />
+    <Folder Include="SimPe Geometry\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Geometry\bin\x86\Release\" />
+    <Folder Include="SimPe Geometry\obj\Debug\TempPE\" />
+    <Folder Include="SimPe GMDC Exporter Base\bin\x86\Debug\" />
+    <Folder Include="SimPe GMDC Exporter Base\bin\x86\Release MAC\" />
+    <Folder Include="SimPe GMDC Exporter Base\bin\x86\Release\" />
+    <Folder Include="SimPe GMDC Exporter Base\obj\Debug\TempPE\" />
+    <Folder Include="SimPe GMDC Exporter\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Helper\bin\x86\Debug\" />
+    <Folder Include="SimPe Helper\bin\x86\Release Mac\" />
+    <Folder Include="SimPe Helper\bin\x86\Release\" />
+    <Folder Include="SimPe Helper\obj\Debug\TempPE\" />
+    <Folder Include="SimPe HGBH\bin\x86\Debug\Plugins\" />
+    <Folder Include="SimPe HGBH\bin\x86\Release MAC\" />
+    <Folder Include="SimPe HGBH\bin\x86\Release\Plugins\" />
+    <Folder Include="SimPe HGBH\Debug\Plugins\" />
+    <Folder Include="SimPe HGBH\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Interfaces\bin\x86\Debug\" />
+    <Folder Include="SimPe Interfaces\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Interfaces\bin\x86\Release\" />
+    <Folder Include="SimPe Interfaces\obj\Debug\TempPE\" />
+    <Folder Include="SimPe LangExtracter\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Main\bin\x86\Debug\" />
+    <Folder Include="SimPe Main\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Main\bin\x86\Release\" />
+    <Folder Include="SimPe More Plugins\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Name Provider\bin\x86\Debug\" />
+    <Folder Include="SimPe Name Provider\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Name Provider\bin\x86\Release\" />
+    <Folder Include="SimPe Name Provider\obj\Debug\TempPE\" />
+    <Folder Include="SimPe NGBH Scanner\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Packages\bin\x86\Debug\" />
+    <Folder Include="SimPe Packages\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Packages\bin\x86\Release\" />
+    <Folder Include="SimPe Packages\obj\Debug\TempPE\" />
+    <Folder Include="SimPe RCOL\bin\x86\Debug\" />
+    <Folder Include="SimPe RCOL\bin\x86\Release MAC\" />
+    <Folder Include="SimPe RCOL\bin\x86\Release\" />
+    <Folder Include="SimPe RCOL\obj\Debug\TempPE\" />
+    <Folder Include="SimPe ResourceControls\bin\x86\Debug\" />
+    <Folder Include="SimPe ResourceControls\bin\x86\Release\" />
+    <Folder Include="SimPe ResourceControls\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Scenegraph\bin\x86\Debug\" />
+    <Folder Include="SimPe Scenegraph\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Scenegraph\bin\x86\Release\" />
+    <Folder Include="SimPe Scenegraph\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Sims\bin\x86\Debug\" />
+    <Folder Include="SimPe Sims\bin\x86\Release\" />
+    <Folder Include="SimPe Sims\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Splash\obj\Debug\TempPE\" />
+    <Folder Include="SimPE Toolbox Scanner\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Toolbox Scenegraph\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Toolbox Workshops\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Toolbox\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Wants\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Wizardbase\obj\Debug\TempPE\" />
+    <Folder Include="SimPe Workspace Helper\bin\x86\Debug\" />
+    <Folder Include="SimPe Workspace Helper\bin\x86\Release MAC\" />
+    <Folder Include="SimPe Workspace Helper\bin\x86\Release\" />
+    <Folder Include="SimPe Workspace Helper\obj\Debug\TempPE\" />
+    <Folder Include="Wizards of SimPe\obj\Debug\TempPE\" />
+    <Folder Include="WOSimPE - Interfaces\obj\Debug\TempPE\" />
+    <Folder Include="__Debug\Plugins\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

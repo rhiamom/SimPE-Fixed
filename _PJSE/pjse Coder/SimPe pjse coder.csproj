@@ -1,0 +1,550 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4B6B73DA-1606-42F2-8774-72428062783A}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>pjse.coder</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>pjse</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <OutputPath>Debug\Plugins</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <OutputPath>..\..\__Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'InProgress|AnyCPU' ">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <OutputPath>bin\InProgress\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>INPROGRESS;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GDF, Version=0.69.20.22, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.filehandler, Version=1.69.7716.35003, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.filehandler.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.helper, Version=0.75.69.24, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.helper.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.interfaces, Version=1.69.7716.34988, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.names, Version=1.69.7716.35006, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.names.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.neighbourhood, Version=1.69.8699.30420, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="simpe.package, Version=1.69.7716.34988, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.package.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.splash, Version=1.69.8012.39304, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.splash.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.workspace, Version=1.69.8098.37833, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\__Release\simpe.workspace.dll</HintPath>
+    </Reference>
+    <Reference Include="whse.primitivewizards_0_77_69, Version=0.77.69.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="BconForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BconWrapper.cs" />
+    <Compile Include="BhavForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BhavInstListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BhavInstListItemUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BhavOperandWiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x0001.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x0002.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x0008.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x001c.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x001f.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x0024.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x0032.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x0033.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x006d.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x0079.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x007c.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWizAnimate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWizBhav.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWizBhav.Designer.cs">
+      <DependentUpon>BhavOperandWizBhav.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BhavOperandWizDefault.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BhavOperandWizRaw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BhavWiz.cs" />
+    <Compile Include="BhavWizBhav.cs" />
+    <Compile Include="BhavWizPrim.cs" />
+    <Compile Include="BhavWizPrimi.cs" />
+    <Compile Include="BhavWrapper.cs" />
+    <Compile Include="Wizzy\BhavOperandWiz0x0076.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x002d.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x001b.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizzy\BhavOperandWiz0x0020.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompareButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CompareButton.Designer.cs">
+      <DependentUpon>CompareButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtendedWrapper.cs" />
+    <Compile Include="ExtractCurrent.cs" />
+    <Compile Include="FileTable.cs" />
+    <Compile Include="GUIDChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUIDChooser.Designer.cs">
+      <DependentUpon>GUIDChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIDForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIDIndex.cs" />
+    <Compile Include="GUIDTool.cs">
+    </Compile>
+    <Compile Include="HelpHelper.cs" />
+    <Compile Include="LabelledDataOwner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LabelledDataOwner.Designer.cs">
+      <DependentUpon>LabelledDataOwner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Localization.cs" />
+    <Compile Include="ObjfForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjfWrapper.cs" />
+    <Compile Include="PickANumber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PickANumber.Designer.cs">
+      <DependentUpon>PickANumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pjse banner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="pjse banner.Designer.cs">
+      <DependentUpon>pjse banner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="Str.cs" />
+    <Compile Include="StrBig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StrChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StrForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StrWrapper.cs" />
+    <Compile Include="TPRPForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TPRPWrapper.cs" />
+    <Compile Include="TrcnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TrcnWrapper.cs" />
+    <Compile Include="TreesPackedFileUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TreesPackedFileUI.designer.cs">
+      <DependentUpon>TreesPackedFileUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TreesPackedFileWrapper.cs" />
+    <Compile Include="TtabAnimalMotiveUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TtabAnimalMotiveWiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TtabAnimalMotiveWiz.Designer.cs">
+      <DependentUpon>TtabAnimalMotiveWiz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TtabForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TtabItemMotiveTableUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TtabMotiveGroupUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TtabSingleMotiveUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TtabWrapper.cs" />
+    <Compile Include="WrapperFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BconForm.resx">
+      <DependentUpon>BconForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BhavForm.resx">
+      <DependentUpon>BhavForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BhavInstListControl.resx">
+      <DependentUpon>BhavInstListControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BhavInstListItemUI.resx">
+      <DependentUpon>BhavInstListItemUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BhavOperandWiz.resx">
+      <DependentUpon>BhavOperandWiz.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0001.resx">
+      <DependentUpon>BhavOperandWiz0x0001.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0002.resx">
+      <DependentUpon>BhavOperandWiz0x0002.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0008.resx">
+      <DependentUpon>BhavOperandWiz0x0008.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x001c.resx">
+      <DependentUpon>BhavOperandWiz0x001c.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x001f.resx">
+      <DependentUpon>BhavOperandWiz0x001f.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0024.resx">
+      <DependentUpon>BhavOperandWiz0x0024.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0032.resx">
+      <DependentUpon>BhavOperandWiz0x0032.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0033.resx">
+      <DependentUpon>BhavOperandWiz0x0033.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x006d.resx">
+      <DependentUpon>BhavOperandWiz0x006d.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0079.resx">
+      <DependentUpon>BhavOperandWiz0x0079.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x007c.resx">
+      <DependentUpon>BhavOperandWiz0x007c.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWizAnimate.resx">
+      <DependentUpon>BhavOperandWizAnimate.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWizBhav.resx">
+      <DependentUpon>BhavOperandWizBhav.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BhavOperandWizDefault.resx">
+      <DependentUpon>BhavOperandWizDefault.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BhavOperandWizRaw.resx">
+      <DependentUpon>BhavOperandWizRaw.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0076.resx">
+      <DependentUpon>BhavOperandWiz0x0076.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x002d.resx">
+      <DependentUpon>BhavOperandWiz0x002d.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x001b.resx">
+      <DependentUpon>BhavOperandWiz0x001b.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizzy\BhavOperandWiz0x0020.resx">
+      <DependentUpon>BhavOperandWiz0x0020.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CompareButton.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CompareButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIDChooser.resx">
+      <DependentUpon>GUIDChooser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIDForm.resx">
+      <DependentUpon>GUIDForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelledDataOwner.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LabelledDataOwner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization.en-US.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjfForm.resx">
+      <DependentUpon>ObjfForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PickANumber.resx">
+      <DependentUpon>PickANumber.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pjse banner.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>pjse banner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceChooser.resx">
+      <DependentUpon>ResourceChooser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StrBig.resx">
+      <DependentUpon>StrBig.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StrChooser.resx">
+      <DependentUpon>StrChooser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StrForm.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TPRPForm.resx">
+      <DependentUpon>TPRPForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrcnForm.resx">
+      <DependentUpon>TrcnForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TreesPackedFileUI.resx">
+      <DependentUpon>TreesPackedFileUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TtabAnimalMotiveUI.resx">
+      <DependentUpon>TtabAnimalMotiveUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TtabAnimalMotiveWiz.resx">
+      <DependentUpon>TtabAnimalMotiveWiz.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TtabForm.resx">
+      <DependentUpon>TtabForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TtabItemMotiveTableUI.resx">
+      <DependentUpon>TtabItemMotiveTableUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TtabMotiveGroupUI.resx">
+      <DependentUpon>TtabMotiveGroupUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TtabSingleMotiveUI.resx">
+      <DependentUpon>TtabSingleMotiveUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
+
+
