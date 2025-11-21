@@ -64,14 +64,16 @@ namespace SimPe
 
 		#region Apply Themes
 
-        void SetTheme(Ambertation.Windows.Forms.HexViewControl sdm)
-        {
-            
-
-        void SetTheme(SimPe.Windows.Forms.WrapperBaseControl gp)
+		void SetTheme(Ambertation.Windows.Forms.HexViewControl sdm)
 		{
-           
+
 		}
+
+		void SetTheme(SimPe.Windows.Forms.WrapperBaseControl gp)
+		{
+
+        }
+	
 
 		public void Theme(object o) 
 		{
@@ -145,7 +147,7 @@ namespace SimPe
 			get 
 			{
                 if (tm == null) tm = new ThemeManager((booby.GuiTheme)Helper.WindowsRegistry.Layout.SelectedTheme);
-				return tm;
+                return tm;
 			}
 		}
 		#region IDisposable Member

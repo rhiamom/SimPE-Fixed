@@ -30,7 +30,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <OutputPath>..\__Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -56,7 +56,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <OutputPath>..\__Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
@@ -144,9 +144,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ambertation.utilities">
-      <Name>ambertation.utilities</Name>
-      <HintPath>..\ambertation.utilities.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
     </Reference>
     <Reference Include="simpe.helper, Version=0.75.69.1, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -197,5 +195,3 @@
     </PostBuildEvent>
   </PropertyGroup>
 </Project>
-
-

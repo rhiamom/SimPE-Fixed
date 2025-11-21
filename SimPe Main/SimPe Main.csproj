@@ -486,6 +486,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPe ResourceControls\SimPe ResourceControls.csproj">
+      <Project>{e4703c3d-a7ca-4e63-90a6-c6e58c121f1d}</Project>
+      <Name>SimPe ResourceControls</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -495,5 +501,3 @@
     </PostBuildEvent>
   </PropertyGroup>
 </Project>
-
-
