@@ -146,10 +146,6 @@
     <Reference Include="ambertation.utilities">
       <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
     </Reference>
-    <Reference Include="simpe.helper, Version=0.75.69.1, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.helper.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -185,6 +181,12 @@
     <Compile Include="VectorTransformations.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
+      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
+      <Name>SimPe Helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

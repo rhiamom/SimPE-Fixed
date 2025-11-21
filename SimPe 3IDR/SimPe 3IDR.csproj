@@ -143,32 +143,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GDF, Version=0.69.20.22, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="pjse.coder, Version=4.69.8900.32385, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.clst, Version=1.69.8672.39210, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.filehandler, Version=1.69.7186.37895, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.helper, Version=0.75.69.1, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.interfaces, Version=1.0.3349.37516, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.neighbourhood, Version=1.69.8735.30703, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.package, Version=1.69.7186.37393, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.workspace, Version=1.69.8170.21186, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="GDF">
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -243,9 +219,37 @@
     <EmbeddedResource Include="view_tree.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SimPe Clst\SimPe Clst.csproj">
+      <Project>{5dd89fd7-1e89-49d4-b48d-cc605d767c3b}</Project>
+      <Name>SimPe Clst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe FileHandler\SimPe FileHandlers.csproj">
+      <Project>{97551c0a-6295-4e32-8e15-a4ff456e65a6}</Project>
+      <Name>SimPe FileHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
+      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
+      <Name>SimPe Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe HGBH\SimPe HGBH.csproj">
+      <Project>{2a67c9c3-9577-4922-991f-291eaa6b4f2d}</Project>
+      <Name>SimPe HGBH</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
       <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
       <Name>SimPe Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Packages\SimPe Packages.csproj">
+      <Project>{1c6c45bf-fe19-4c23-b327-01f45b0f269c}</Project>
+      <Name>SimPe Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Workspace Helper\SimPe Workspace Helper.csproj">
+      <Project>{45021667-bad2-4eca-8423-f4734f914cbb}</Project>
+      <Name>SimPe Workspace Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_PJSE\pjse Coder\SimPe pjse coder.csproj">
+      <Project>{4b6b73da-1606-42f2-8774-72428062783a}</Project>
+      <Name>SimPe pjse coder</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

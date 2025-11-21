@@ -103,40 +103,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="simpe.cache, Version=1.0.2909.39936, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.cache.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="simpe.helper, Version=0.64.5.39932, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.helper.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="simpe.interfaces, Version=1.0.2909.39934, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.interfaces.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="simpe.neighbourhood, Version=1.69.8689.21001, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.neighbourhood.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.package, Version=1.0.2909.39936, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.package.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="simpe.rcol, Version=1.0.2909.39938, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.rcol.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="simpe.scanfolder.plugin, Version=1.0.2909.39954, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\Plugins\simpe.scanfolder.plugin.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -165,6 +131,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SimPe Cache\SimPe Cache.csproj">
+      <Project>{c949fb46-0c06-4c5d-92ae-5dd7f6e53364}</Project>
+      <Name>SimPe Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
+      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
+      <Name>SimPe Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe HGBH\SimPe HGBH.csproj">
+      <Project>{2a67c9c3-9577-4922-991f-291eaa6b4f2d}</Project>
+      <Name>SimPe HGBH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
+      <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
+      <Name>SimPe Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Packages\SimPe Packages.csproj">
+      <Project>{1c6c45bf-fe19-4c23-b327-01f45b0f269c}</Project>
+      <Name>SimPe Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
+      <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
+      <Name>SimPe RCOL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimPE Toolbox Scanner\SimPE Toolbox Scanner.csproj">
       <Project>{2ea51e60-64fa-4822-ae2a-a996ba79aa76}</Project>
       <Name>SimPE Toolbox Scanner</Name>

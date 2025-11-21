@@ -143,23 +143,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\ambertation.3D.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="ambertation.3D">
+      <HintPath>..\Libs\ambertation.3D.dll</HintPath>
     </Reference>
-    <Reference Include="ambertation.3D.mdx.binding, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\ambertation.3D.mdx.binding.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="ambertation.3D.mdx.binding">
+      <HintPath>..\Libs\ambertation.3D.mdx.binding.dll</HintPath>
     </Reference>
-    <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\ambertation.utilities.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="ambertation.utilities">
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
     </Reference>
-    <Reference Include="GDF, Version=0.69.20.22, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="GDF">
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.DirectX">
       <Name>Microsoft.DirectX</Name>
@@ -178,24 +172,6 @@
     </Reference>
     <Reference Include="Microsoft.VisualBasic">
       <Name>Microsoft.VisualBasic</Name>
-    </Reference>
-    <Reference Include="simpe.geometry, Version=1.0.3349.37538, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.helper, Version=0.75.69.1, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.interfaces, Version=1.0.3349.37516, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.package, Version=1.69.7186.37393, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.rcol, Version=1.0.7178.23089, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.workspace, Version=1.69.7186.37669, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -407,6 +383,32 @@
       <DependentUpon>ImportJointAnim.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPe Geometry\SimPe Geometry.csproj">
+      <Project>{60367a6d-8ff1-4289-b546-c68a2c395843}</Project>
+      <Name>SimPe Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
+      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
+      <Name>SimPe Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
+      <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
+      <Name>SimPe Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Packages\SimPe Packages.csproj">
+      <Project>{1c6c45bf-fe19-4c23-b327-01f45b0f269c}</Project>
+      <Name>SimPe Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
+      <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
+      <Name>SimPe RCOL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Workspace Helper\SimPe Workspace Helper.csproj">
+      <Project>{45021667-bad2-4eca-8423-f4734f914cbb}</Project>
+      <Name>SimPe Workspace Helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

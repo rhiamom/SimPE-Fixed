@@ -144,17 +144,14 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GDF, Version=0.69.20.22, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\GDF.dll</HintPath>
+    <Reference Include="GDF">
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic">
       <Name>Microsoft.VisualBasic</Name>
     </Reference>
-    <Reference Include="NetDocks, Version=1.0.2529.20888, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\NetDocks.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="NetDocks">
+      <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

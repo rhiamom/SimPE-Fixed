@@ -106,41 +106,11 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GDF, Version=0.69.20.22, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\GDF.dll</HintPath>
+    <Reference Include="GDF">
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
     </Reference>
-    <Reference Include="graphcontrol, Version=1.69.8610.31885, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\graphcontrol.dll</HintPath>
-    </Reference>
-    <Reference Include="NetDocks, Version=1.0.2476.15790, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\NetDocks.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.clst, Version=1.69.8672.39210, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.clst.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.filehandler, Version=1.69.8671.23707, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.filehandler.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.helper, Version=0.75.69.5, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.helper.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.interfaces, Version=1.0.3349.37516, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.package, Version=1.69.8670.29713, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.package.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.workspace, Version=1.69.7186.37669, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.workspace.dll</HintPath>
+    <Reference Include="NetDocks">
+      <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -191,6 +161,36 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GraphControl\GraphControl.csproj">
+      <Project>{7d2ee6ed-78c1-4738-9ae1-e3c165a81e3d}</Project>
+      <Name>GraphControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Clst\SimPe Clst.csproj">
+      <Project>{5dd89fd7-1e89-49d4-b48d-cc605d767c3b}</Project>
+      <Name>SimPe Clst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe FileHandler\SimPe FileHandlers.csproj">
+      <Project>{97551c0a-6295-4e32-8e15-a4ff456e65a6}</Project>
+      <Name>SimPe FileHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
+      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
+      <Name>SimPe Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
+      <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
+      <Name>SimPe Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Packages\SimPe Packages.csproj">
+      <Project>{1c6c45bf-fe19-4c23-b327-01f45b0f269c}</Project>
+      <Name>SimPe Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Workspace Helper\SimPe Workspace Helper.csproj">
+      <Project>{45021667-bad2-4eca-8423-f4734f914cbb}</Project>
+      <Name>SimPe Workspace Helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

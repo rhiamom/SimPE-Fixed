@@ -104,9 +104,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="7z">
-      <Name>7z</Name>
-      <HintPath>..\__Release\7z.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\ExternalLibs\7z.dll</HintPath>
     </Reference>
     <Reference Include="ambertation.3D">
       <Name>ambertation.3D</Name>
@@ -123,17 +121,11 @@
       <HintPath>..\__Release\ambertation.utilities.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="GDF, Version=0.69.20.22, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\GDF.dll</HintPath>
+    <Reference Include="GDF">
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
     </Reference>
-    <Reference Include="graphcontrol, Version=1.69.8412.24482, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\graphcontrol.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\ExternalLibs\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.DirectX">
       <Name>Microsoft.DirectX</Name>
@@ -149,56 +141,6 @@
       <Name>Microsoft.DirectX.Direct3DX</Name>
       <HintPath>C:\WINDOWS\Microsoft.NET\Managed DirectX\v9.02.2904\Microsoft.DirectX.Direct3DX.dll</HintPath>
       <AssemblyFolderKey>hklm\current managed directx 9.2</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="simpe.3idr, Version=1.69.7186.40899, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.3idr.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.cache, Version=1.69.7186.37596, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.cache.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.clst, Version=1.69.7186.38587, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.clst.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.filehandler, Version=1.69.7199.41483, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.filehandler.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.gmdc.exporter.base, Version=1.69.7186.42105, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.gmdc.exporter.base.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.helper, Version=0.75.69.2, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.helper.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.interfaces, Version=1.0.3349.37516, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.package, Version=1.69.7187.30857, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.package.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.rcol, Version=1.69.7186.42885, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.rcol.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.scanfolder.plugin, Version=1.69.8698.22203, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.scenegraph, Version=1.69.7186.40150, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.scenegraph.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.workshop.plugin, Version=1.69.8839.32757, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.workspace, Version=1.69.7186.37669, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.workspace.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -388,13 +330,61 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GraphControl\GraphControl.csproj">
+      <Project>{7d2ee6ed-78c1-4738-9ae1-e3c165a81e3d}</Project>
+      <Name>GraphControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe 3IDR\SimPe 3IDR.csproj">
+      <Project>{37d97490-dc9f-4db7-9215-998c6bc06078}</Project>
+      <Name>SimPe 3IDR</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Cache\SimPe Cache.csproj">
+      <Project>{c949fb46-0c06-4c5d-92ae-5dd7f6e53364}</Project>
+      <Name>SimPe Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Clst\SimPe Clst.csproj">
+      <Project>{5dd89fd7-1e89-49d4-b48d-cc605d767c3b}</Project>
+      <Name>SimPe Clst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe FileHandler\SimPe FileHandlers.csproj">
+      <Project>{97551c0a-6295-4e32-8e15-a4ff456e65a6}</Project>
+      <Name>SimPe FileHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe GMDC Exporter Base\SimPe GMDC Exporter Base.csproj">
+      <Project>{76d6a8b3-10df-4948-9028-c63a416ab00e}</Project>
+      <Name>SimPe GMDC Exporter Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
+      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
+      <Name>SimPe Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
       <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
       <Name>SimPe Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SimPe Packages\SimPe Packages.csproj">
+      <Project>{1c6c45bf-fe19-4c23-b327-01f45b0f269c}</Project>
+      <Name>SimPe Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
+      <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
+      <Name>SimPe RCOL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Scenegraph\SimPe Scenegraph.csproj">
+      <Project>{1151a88b-47af-41da-bcdf-defed0cc326e}</Project>
+      <Name>SimPe Scenegraph</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimPE Toolbox Scanner\SimPE Toolbox Scanner.csproj">
       <Project>{2ea51e60-64fa-4822-ae2a-a996ba79aa76}</Project>
       <Name>SimPE Toolbox Scanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Toolbox Workshops\SimPe Toolbox Workshops.csproj">
+      <Project>{8886dfaa-51f0-4e64-a754-ef4fcb9cca4b}</Project>
+      <Name>SimPe Toolbox Workshops</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPe Workspace Helper\SimPe Workspace Helper.csproj">
+      <Project>{45021667-bad2-4eca-8423-f4734f914cbb}</Project>
+      <Name>SimPe Workspace Helper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
