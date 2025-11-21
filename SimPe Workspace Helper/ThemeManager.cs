@@ -6,6 +6,7 @@
  *   it handles passing HexViewControl and  WrapperBaseControl to     *
  *   GDF.dll so GDF doesn't require any part of SimPe                 *
  **********************************************************************/
+using booby;
 using System;
 using System.Drawing;
 
@@ -146,7 +147,7 @@ namespace SimPe
 		{
 			get 
 			{
-                if (tm == null) tm = new ThemeManager((booby.GuiTheme)Helper.WindowsRegistry.Layout.SelectedTheme);
+                if (tm == null) tm = new ThemeManager((GuiTheme)Helper.WindowsRegistry.Layout.SelectedTheme);
                 return tm;
 			}
 		}

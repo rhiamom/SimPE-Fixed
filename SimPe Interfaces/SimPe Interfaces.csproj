@@ -270,8 +270,6 @@
     <Compile Include="IWrapperRegistry.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Plugin\Scanner\IScannerPluginBase.cs" />
-    <Compile Include="Plugin\Scanner\IIdentifier.cs" />
     <Compile Include="TraitAlias.cs" />
   </ItemGroup>
   <ItemGroup />

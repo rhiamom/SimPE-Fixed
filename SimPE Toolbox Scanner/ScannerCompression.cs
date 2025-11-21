@@ -100,7 +100,7 @@ namespace SimPe.Plugin.Scanner
 								SimPe.PackedFiles.Wrapper.ExtObjd obj = new ExtObjd();
 								obj.ProcessData(pfd, si.Package);
                                 if (obj.Ok != SimPe.PackedFiles.Wrapper.ObjdHealth.Ok) ps.Data[0] = (uint)HealthState.NonDefaultObjd;
-                                if (obj.Ok == SimPe.PackedFiles.Wrapper.ObjdHealth.UnmatchingFilenames) ps.Data[0] = (uint)HealthState.FaultyNamedObjd;
+                                if (obj.Ok == SimPe.PackedFiles.Wrapper.ObjdHealth.FilenameMismatch) ps.Data[0] = (uint)HealthState.FaultyNamedObjd;
 								if (obj.Ok == ObjdHealth.OverLength) ps.Data[0] = (uint)HealthState.FaultySizedObjd;
 							}
                             
@@ -252,7 +252,7 @@ namespace SimPe.Plugin.Scanner
 										{
 											ps.State = TriState.False;
 											ps.Data[0] = (uint)HealthState.NonDefaultObjd;
-                                            if (objd.Ok == SimPe.PackedFiles.Wrapper.ObjdHealth.UnmatchingFilenames && UserVerification.HaveUserId) ps.Data[0] = (uint)HealthState.FaultyNamedObjd;
+                                            if (objd.Ok == SimPe.PackedFiles.Wrapper.ObjdHealth.FilenameMismatch && UserVerification.HaveUserId) ps.Data[0] = (uint)HealthState.FaultyNamedObjd;
 											if (objd.Ok==ObjdHealth.OverLength) ps.Data[0] = (uint)HealthState.FaultySizedObjd;
 										}
 									}

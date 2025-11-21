@@ -22,6 +22,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using SimPe.Interfaces.Plugin.Scanner;
 using SimPe.Plugin.Scanner;
 
 namespace SimPe.Plugin
@@ -85,31 +86,6 @@ namespace SimPe.Plugin
             // Required designer variable.
             //
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.panel1);
-                tm.AddControl(this.lv);
-                tm.AddControl(this.btscan);
-                tm.AddControl(this.btclear);
-                tm.AddControl(this.button2);
-                tm.AddControl(this.button3);
-                tm.AddControl(this.lbprop);
-                tm.AddControl(this.cbfolder);
-                this.tbscanners.BackColor = booby.ThemeManager.Global.ThemeColor;
-                this.tboperations.BackColor = booby.ThemeManager.Global.ThemeColor;
-                this.tbcache.BackColor = booby.ThemeManager.Global.ThemeColor;
-                this.tbidentify.BackColor = booby.ThemeManager.Global.ThemeColor;
-                this.lbscanners.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.pnop.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.pb.GradientEndColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.pb.GradientStartColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.pb.SelectedColor = booby.ThemeManager.Global.ThemeColorDark;
-            }
-
-            if (booby.PrettyGirls.PervyMode)
-                this.thumb.Image = SimPe.GetImage.BabyDoll;
-
             scanClicked = Scan;
 
             //hide the Identifier Tab in non Creator Mode

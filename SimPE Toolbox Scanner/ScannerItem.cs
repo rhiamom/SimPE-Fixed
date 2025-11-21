@@ -20,7 +20,7 @@
 using System;
 using SimPe.Cache;
 
-namespace SimPe.Plugin.Scanner
+namespace SimPe.Plugin
 {
 	/// <summary>
 	/// An Instance of this class represents one scanned Package
