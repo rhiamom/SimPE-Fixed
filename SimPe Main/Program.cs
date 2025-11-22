@@ -33,7 +33,7 @@ namespace SimPe
     {
         public static MainForm Global;
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
+        /// Der Haupteinstiegspunkt f r die Anwendung.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
@@ -65,7 +65,7 @@ namespace SimPe
                 booby.ThemeManager.savedTheme = Helper.WindowsRegistry.Layout.SelectedTheme;
                 booby.ThemeManager.ThemedForms = Helper.WindowsRegistry.ThemedForms;
             }
-            
+
             try
             {
                 SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Starting SimPe..."));
@@ -105,7 +105,7 @@ namespace SimPe
                     MessageBox.Show("SimPe will shutdown due to an unhandled Exception.\n\nMessage: " + ex2.Message);
                 }
             }
-            
+
             finally
             {
                 if (SimPe.Splash.Running) SimPe.Splash.Screen.ShutDown();
@@ -121,3 +121,4 @@ namespace SimPe
         }
     }
 }
+

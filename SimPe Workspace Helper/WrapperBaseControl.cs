@@ -87,7 +87,6 @@ namespace SimPe.Windows.Forms
                 bklayout = ImageLayout.TopLeft;
 
                 SimPe.ThemeManager.Global.AddControl(this);
-                if (booby.ThemeManager.ThemedForms) booby.ThemeManager.Global.AddControl(this.btCommit);
 
 				txt = "";
 				CanCommit = true;
@@ -296,14 +295,11 @@ namespace SimPe.Windows.Forms
 		#endregion
 
 		#region Properties
-        booby.ThemeManager tm;
+        
 		
 
 		[Browsable(false)]
-        public booby.ThemeManager ThemeManager
-		{
-			get { return tm; }
-		}
+       
 
         public class WrapperChangedEventArgs : EventArgs{
             SimPe.Interfaces.Plugin.IFileWrapper owrp, nwrp;

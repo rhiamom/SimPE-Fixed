@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F6DE1680-4D13-4E34-9EB7-72AA122CE344}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimPE.WorkSpaceHelper</RootNamespace>
+    <AssemblyName>SimPE.WorkSpaceHelper</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdvancedForms, Version=1.0.2983.24897, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\AdvancedForms.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ambertation.3D.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.utilities">
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="NetDocks, Version=1.0.2983.24895, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
+    </Reference>
+    <Reference Include="SandDock, Version=2.0.2.1, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\SandDock.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+    </Reference>
+    <Reference Include="xsi.lib">
+      <HintPath>..\ExternalLibs\xsi.lib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractTool.cs" />
+    <Compile Include="AbstractToolPlus.cs" />
+    <Compile Include="CheckControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CheckItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ErrorWrapper.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="ExtensionProvider.cs" />
+    <Compile Include="FileTable.cs" />
+    <Compile Include="GlossyRenderer.cs" />
+    <Compile Include="ICommandLineRegistry.cs" />
+    <Compile Include="IDockableTool.cs" />
+    <Compile Include="IHelp.cs" />
+    <Compile Include="IHelpFactory.cs" />
+    <Compile Include="IHelpRegistry.cs" />
+    <Compile Include="IListener.cs" />
+    <Compile Include="ITool.cs" />
+    <Compile Include="IToolAction.cs" />
+    <Compile Include="IToolExt.cs" />
+    <Compile Include="IToolFactory.cs" />
+    <Compile Include="IToolRegistry.cs" />
+    <Compile Include="IToolResult.cs" />
+    <Compile Include="ITreeBuilder.cs" />
+    <Compile Include="LoadedPackage.cs" />
+    <Compile Include="LoadFileWrappers.cs" />
+    <Compile Include="LoadFileWrappersExt.cs" />
+    <Compile Include="LoadHelpTopics.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Message.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyButtonItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PackedFileDescriptorCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyParser.cs" />
+    <Compile Include="RemoteControl.cs" />
+    <Compile Include="ResourceLoader.cs" />
+    <Compile Include="ShowHelpEventArgs.cs" />
+    <Compile Include="ThemeManager.cs" />
+    <Compile Include="ToolLoader.cs" />
+    <Compile Include="ToolMenuItemExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolResult.cs" />
+    <Compile Include="ToolStripColorTable.cs" />
+    <Compile Include="WrapperBaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XmlPackageReader.cs" />
+    <EmbeddedResource Include="CheckControl.de.resx" />
+    <EmbeddedResource Include="CheckControl.fr.resx" />
+    <EmbeddedResource Include="CheckControl.it.resx" />
+    <EmbeddedResource Include="CheckControl.resx" />
+    <EmbeddedResource Include="CheckControl.ru.resx" />
+    <EmbeddedResource Include="CheckItem.de.resx" />
+    <EmbeddedResource Include="CheckItem.fr.resx" />
+    <EmbeddedResource Include="CheckItem.it.resx" />
+    <EmbeddedResource Include="CheckItem.resx" />
+    <EmbeddedResource Include="CheckItem.ru.resx" />
+    <EmbeddedResource Include="LoadFileWrappers.resx" />
+    <EmbeddedResource Include="LoadFileWrappersExt.resx" />
+    <EmbeddedResource Include="Message.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="WrapperBaseControl.de.resx" />
+    <EmbeddedResource Include="WrapperBaseControl.fr.resx" />
+    <EmbeddedResource Include="WrapperBaseControl.it.resx" />
+    <EmbeddedResource Include="WrapperBaseControl.pl.resx" />
+    <EmbeddedResource Include="WrapperBaseControl.resx" />
+    <EmbeddedResource Include="WrapperBaseControl.ru.resx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj">
+      <Project>{e0936d85-cb24-4564-a773-e0bf85510422}</Project>
+      <Name>SimPE.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
+      <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
+      <Name>SimPE.GraphControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -472,12 +472,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe Geometry\SimPe Geometry.csproj">
-      <Project>{60367a6d-8ff1-4289-b546-c68a2c395843}</Project>
-      <Name>SimPe Geometry</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

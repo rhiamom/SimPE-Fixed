@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{05748132-A906-4E3E-B8AB-2758C0564981}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SimPE.Main</RootNamespace>
+    <AssemblyName>SimPE.Main</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SimPe.MainForm</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdvancedForms, Version=1.0.2983.24897, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\AdvancedForms.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="NetDocks, Version=1.0.2983.24895, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+    </Reference>
+    <Reference Include="xsi.lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\xsi.lib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs" />
+    <Compile Include="AbstractActionDefault.cs" />
+    <Compile Include="ActionAdd.cs" />
+    <Compile Include="ActionClone.cs" />
+    <Compile Include="ActionCreate.cs" />
+    <Compile Include="ActionDelete.cs" />
+    <Compile Include="ActionExtract.cs" />
+    <Compile Include="ActionGroupFilter.cs" />
+    <Compile Include="ActionReplace.cs" />
+    <Compile Include="ActionRestore.cs" />
+    <Compile Include="ActionStartExternalTool.cs" />
+    <Compile Include="ActionToolDescriptor.cs" />
+    <Compile Include="AddExtTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FileTableItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hidden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs" />
+    <Compile Include="Main.Menus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Setup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Theme.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionForm.Designer.cs" />
+    <Compile Include="PluginManager.cs" />
+    <Compile Include="ProfileChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProfileChooser.Designer.cs" />
+    <Compile Include="Program.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteHandler.cs" />
+    <EmbeddedResource Include="About.resx" />
+    <EmbeddedResource Include="AddExtTool.resx" />
+    <EmbeddedResource Include="FileTableItemForm.de.resx" />
+    <EmbeddedResource Include="FileTableItemForm.fr.resx" />
+    <EmbeddedResource Include="FileTableItemForm.it.resx" />
+    <EmbeddedResource Include="FileTableItemForm.resx" />
+    <EmbeddedResource Include="FileTableItemForm.ru.resx" />
+    <EmbeddedResource Include="Hidden.resx" />
+    <EmbeddedResource Include="Main.de.resx" />
+    <EmbeddedResource Include="Main.fr.resx" />
+    <EmbeddedResource Include="Main.it.resx" />
+    <EmbeddedResource Include="Main.pl.resx" />
+    <EmbeddedResource Include="Main.resx" />
+    <EmbeddedResource Include="Main.ru.resx" />
+    <EmbeddedResource Include="OptionForm.de.resx" />
+    <EmbeddedResource Include="OptionForm.es.resx" />
+    <EmbeddedResource Include="OptionForm.fr.resx" />
+    <EmbeddedResource Include="OptionForm.it.resx" />
+    <EmbeddedResource Include="OptionForm.pl.resx" />
+    <EmbeddedResource Include="OptionForm.resx" />
+    <EmbeddedResource Include="OptionForm.ru.resx" />
+    <EmbeddedResource Include="ProfileChooser.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

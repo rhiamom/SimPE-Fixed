@@ -5,8 +5,7 @@
  *   This has been almost wiped out                                   *
  *   it handles passing HexViewControl and  WrapperBaseControl to     *
  *   GDF.dll so GDF doesn't require any part of SimPe                 *
- **********************************************************************/
-using booby;
+ **********************************************************************
 using System;
 using System.Drawing;
 
@@ -19,39 +18,9 @@ namespace SimPe
 	{
 		#region Fields, Properties, Constructors
 
-        booby.GuiTheme ctheme;
 		System.Collections.ArrayList ctrls;
 
-        public booby.GuiTheme CurrentTheme
-		{
-			get { return ctheme; }
-			set { 
-				if (ctheme!=value) 
-				{
-					ctheme = value; 
-					SetTheme();
-					if (ChangedTheme!=null) ChangedTheme(value);
-				}
-			}
-		}
-
-        public ThemeManager(booby.GuiTheme t)
-		{
-			ctheme = t;
-			parent = null;
-			ctrls = new System.Collections.ArrayList();
-		}
-
-		~ThemeManager()
-		{
-			try 
-			{
-				this.Dispose();
-			} 
-			catch {}
-		}
-	
-		/// <summary>
+        /// <summary>
 		/// Creates a Child Theme Manager and returns it
 		/// </summary>
 		/// <returns></returns>
@@ -111,17 +80,11 @@ namespace SimPe
 		#endregion
 
 		#region Events
-        protected event booby.Events.ChangedThemeEvent ChangedTheme;
-
-		/// <summary>
+        /// <summary>
 		/// Called when the Theme in the parent was changed
 		/// </summary>
 		/// <param name="t"></param>
-        void ThemeWasChanged(booby.GuiTheme t) 
-		{
-			this.CurrentTheme = t;
-            SetTheme();
-		}
+        
 
 		ThemeManager parent;
 		/// <summary>

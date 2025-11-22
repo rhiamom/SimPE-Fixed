@@ -182,12 +182,6 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
-      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
-      <Name>SimPe Helper</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

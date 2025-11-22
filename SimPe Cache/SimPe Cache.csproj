@@ -195,20 +195,6 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
-      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
-      <Name>SimPe Helper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
-      <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
-      <Name>SimPe Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Packages\SimPe Packages.csproj">
-      <Project>{1c6c45bf-fe19-4c23-b327-01f45b0f269c}</Project>
-      <Name>SimPe Packages</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

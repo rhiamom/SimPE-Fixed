@@ -145,10 +145,6 @@
     <EmbeddedResource Include="scenegrapher.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GraphControl\GraphControl.csproj">
-      <Project>{7d2ee6ed-78c1-4738-9ae1-e3c165a81e3d}</Project>
-      <Name>GraphControl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPe Clst\SimPe Clst.csproj">
       <Project>{5dd89fd7-1e89-49d4-b48d-cc605d767c3b}</Project>
       <Name>SimPe Clst</Name>
@@ -157,18 +153,6 @@
       <Project>{97551c0a-6295-4e32-8e15-a4ff456e65a6}</Project>
       <Name>SimPe FileHandlers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
-      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
-      <Name>SimPe Helper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
-      <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
-      <Name>SimPe Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Packages\SimPe Packages.csproj">
-      <Project>{1c6c45bf-fe19-4c23-b327-01f45b0f269c}</Project>
-      <Name>SimPe Packages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
       <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
       <Name>SimPe RCOL</Name>
@@ -176,10 +160,6 @@
     <ProjectReference Include="..\SimPe Scenegraph\SimPe Scenegraph.csproj">
       <Project>{1151a88b-47af-41da-bcdf-defed0cc326e}</Project>
       <Name>SimPe Scenegraph</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Workspace Helper\SimPe Workspace Helper.csproj">
-      <Project>{45021667-bad2-4eca-8423-f4734f914cbb}</Project>
-      <Name>SimPe Workspace Helper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

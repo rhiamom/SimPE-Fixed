@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7D2040CB-CD32-4C78-944E-472C050F8163}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimPE.Helper</RootNamespace>
+    <AssemblyName>SimPE.Helper</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdvancedForms">
+      <HintPath>..\ExternalLibs\AdvancedForms.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.utilities">
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="NetDocks">
+      <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XPCommonControls">
+      <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Alias.cs" />
+    <Compile Include="ArgParser.cs" />
+    <Compile Include="ASerializeFormater.cs" />
+    <Compile Include="Boolset.cs" />
+    <Compile Include="CaseInvariantArrayList.cs" />
+    <Compile Include="ColumnSorter.cs" />
+    <Compile Include="Containers.cs" />
+    <Compile Include="CountedListItem.cs" />
+    <Compile Include="CRC.cs" />
+    <Compile Include="CRCParameters.cs" />
+    <Compile Include="CRCStandard.cs" />
+    <Compile Include="DescriptiveSerializer.cs" />
+    <Compile Include="ExceptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExpansionItem.cs" />
+    <Compile Include="FlagBase.cs" />
+    <Compile Include="FlagBaseConverter.cs" />
+    <Compile Include="FlagObjectBuilder.cs" />
+    <Compile Include="GlobalizedObject.cs" />
+    <Compile Include="HashAlgorithmParameters.cs" />
+    <Compile Include="Hashes.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Html2Rtf.cs" />
+    <Compile Include="IAlias.cs" />
+    <Compile Include="ICacheFileTest.cs" />
+    <Compile Include="IniRegistry.cs" />
+    <Compile Include="IPackedFileDescriptorBasic.cs" />
+    <Compile Include="IPackedFileName.cs" />
+    <Compile Include="IPropertyClass.cs" />
+    <Compile Include="ISerializeFormater.cs" />
+    <Compile Include="IWaitingBarControl.cs" />
+    <Compile Include="LabelledBoolsetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LabelledBoolsetControl.Designer.cs" />
+    <Compile Include="LayoutRegistry.cs" />
+    <Compile Include="Localization.cs" />
+    <Compile Include="LocalizedEnums.cs" />
+    <Compile Include="MetaData.cs" />
+    <Compile Include="Parameters.cs" />
+    <Compile Include="PathProvider.cs" />
+    <Compile Include="PathSettings.cs" />
+    <Compile Include="pjseMsgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="pjseMsgBox.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyObjectBuilder.cs" />
+    <Compile Include="PropertyObjectBuilderExt.cs" />
+    <Compile Include="PropertyUserTypes.cs" />
+    <Compile Include="Registry.cs" />
+    <Compile Include="RuntimeCompiler.cs" />
+    <Compile Include="SelectSimFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SemiGlobalAlias.cs" />
+    <Compile Include="SemiGlobalListing.cs" />
+    <Compile Include="Serializer.cs" />
+    <Compile Include="StreamHelper.cs" />
+    <Compile Include="TGILoader.cs" />
+    <Compile Include="Thread.cs" />
+    <Compile Include="ThreadConsumer.cs" />
+    <Compile Include="TypeAlias.cs" />
+    <Compile Include="WaitingBar.cs" />
+    <Compile Include="WaitingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaitingScreen.cs" />
+    <Compile Include="WarningException.cs" />
+    <Compile Include="XmlRegistry.cs" />
+    <Compile Include="zRuntimePathSettings.cs" />
+    <EmbeddedResource Include="ExceptionForm.de.resx" />
+    <EmbeddedResource Include="ExceptionForm.fr.resx" />
+    <EmbeddedResource Include="ExceptionForm.it.resx" />
+    <EmbeddedResource Include="ExceptionForm.pl.resx" />
+    <EmbeddedResource Include="ExceptionForm.resx" />
+    <EmbeddedResource Include="ExceptionForm.ru.resx" />
+    <EmbeddedResource Include="LabelledBoolsetControl.resx" />
+    <EmbeddedResource Include="Localization.de.resx" />
+    <EmbeddedResource Include="Localization.en-US.resx" />
+    <EmbeddedResource Include="Localization.fr.resx" />
+    <EmbeddedResource Include="Localization.it.resx" />
+    <EmbeddedResource Include="Localization.pl.resx" />
+    <EmbeddedResource Include="Localization.resx" />
+    <EmbeddedResource Include="Localization.ru.resx" />
+    <EmbeddedResource Include="pjseMsgBox.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="SelectSimFolder.resx" />
+    <EmbeddedResource Include="WaitingForm.de.resx" />
+    <EmbeddedResource Include="WaitingForm.es.resx" />
+    <EmbeddedResource Include="WaitingForm.fr.resx" />
+    <EmbeddedResource Include="WaitingForm.it.resx" />
+    <EmbeddedResource Include="WaitingForm.pl.resx" />
+    <EmbeddedResource Include="WaitingForm.resx" />
+    <EmbeddedResource Include="WaitingForm.ru.resx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

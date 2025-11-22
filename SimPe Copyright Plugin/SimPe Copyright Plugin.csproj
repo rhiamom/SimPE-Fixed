@@ -160,14 +160,6 @@
       <Project>{76d6a8b3-10df-4948-9028-c63a416ab00e}</Project>
       <Name>SimPe GMDC Exporter Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimPe Helper\SimPe Helper.csproj">
-      <Project>{59e3c353-1350-42d8-a045-cbbad232f228}</Project>
-      <Name>SimPe Helper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
-      <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
-      <Name>SimPe Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
       <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
       <Name>SimPe RCOL</Name>
@@ -175,10 +167,6 @@
     <ProjectReference Include="..\SimPe Sims\SimPe Sims.csproj">
       <Project>{9877b092-c8c0-4b84-b5a0-f9a68aa1c0e4}</Project>
       <Name>SimPe Sims</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Workspace Helper\SimPe Workspace Helper.csproj">
-      <Project>{45021667-bad2-4eca-8423-f4734f914cbb}</Project>
-      <Name>SimPe Workspace Helper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

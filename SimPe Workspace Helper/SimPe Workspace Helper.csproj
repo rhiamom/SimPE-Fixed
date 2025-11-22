@@ -776,16 +776,6 @@
   <ItemGroup>
     <None Include="Icons\dbbgoS2pack.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe Interfaces\SimPe Interfaces.csproj">
-      <Project>{74fcbbec-105a-4006-a1fc-8ef4f80fd2d7}</Project>
-      <Name>SimPe Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Packages\SimPe Packages.csproj">
-      <Project>{1c6c45bf-fe19-4c23-b327-01f45b0f269c}</Project>
-      <Name>SimPe Packages</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
