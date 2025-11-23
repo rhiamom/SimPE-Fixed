@@ -144,28 +144,32 @@
   <ItemGroup>
     <Reference Include="ambertation.3D">
       <Name>ambertation.3D</Name>
-      <HintPath>..\ambertation.3D.dll</HintPath>
+      <HintPath>..\Libs\ambertation.3D.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ambertation.utilities">
       <Name>ambertation.utilities</Name>
-      <HintPath>..\ambertation.utilities.dll</HintPath>
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GDF, Version=0.69.20.22, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic">
       <Name>Microsoft.VisualBasic</Name>
     </Reference>
     <Reference Include="simpe.geometry, Version=1.0.3349.37538, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\SimPE.Geometry.dll</HintPath>
     </Reference>
     <Reference Include="simpe.helper, Version=0.75.69.1, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\SimPE.Helper.dll</HintPath>
     </Reference>
     <Reference Include="simpe.interfaces, Version=1.0.3349.37516, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\SimPE.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="simpe.package, Version=1.69.7186.37393, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -471,6 +475,16 @@
       <DependentUpon>tTransformNode.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

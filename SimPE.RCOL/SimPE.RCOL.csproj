@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{849DC662-9191-473F-BC61-8D9AD9068FFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimPE.RCOL</RootNamespace>
+    <AssemblyName>SimPE.RCOL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ambertation.3D.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractCresChildren.cs" />
+    <Compile Include="AbstractRcolBlock.cs" />
+    <Compile Include="cAmbientLight.cs" />
+    <Compile Include="cAnimResourceConst.cs" />
+    <Compile Include="cAnimResourceConst_Parts.cs" />
+    <Compile Include="cBoneDataExtension.cs" />
+    <Compile Include="cBoundedNode.cs" />
+    <Compile Include="cBoundingVolumeBuilder.cs" />
+    <Compile Include="cCinematicScene.cs" />
+    <Compile Include="cCompactorBuilder.cs" />
+    <Compile Include="cCompositionTreeNode.cs" />
+    <Compile Include="cDataListExtension.cs" />
+    <Compile Include="cDirectionalLight.cs" />
+    <Compile Include="cExtension.cs" />
+    <Compile Include="cGeometryBuilder.cs" />
+    <Compile Include="cGeometryNode.cs" />
+    <Compile Include="cImageData.cs" />
+    <Compile Include="cIndexedMeshBuilder.cs" />
+    <Compile Include="cLevelInfo.cs" />
+    <Compile Include="cLightRefNode.cs" />
+    <Compile Include="cLightT.cs" />
+    <Compile Include="cMaterialDefinition.cs" />
+    <Compile Include="cObjectGraphNode.cs" />
+    <Compile Include="cPointLight.cs" />
+    <Compile Include="cProcessDeformationsBuilder.cs" />
+    <Compile Include="cReferentNode.cs" />
+    <Compile Include="cRenderableNode.cs" />
+    <Compile Include="cResourceNode.cs" />
+    <Compile Include="cSGResource.cs" />
+    <Compile Include="cShape.cs" />
+    <Compile Include="cShapeRefNode.cs" />
+    <Compile Include="cSpotLight.cs" />
+    <Compile Include="cStandardLightBase.cs" />
+    <Compile Include="cTagExtension.cs" />
+    <Compile Include="cTangentSpaceBuilder.cs" />
+    <Compile Include="cTransformNode.cs" />
+    <Compile Include="cTSFaceGeometryBuilder.cs" />
+    <Compile Include="cViewerRefNode.cs" />
+    <Compile Include="cViewerRefNodeBase.cs" />
+    <Compile Include="cViewerRefNodeRecursive.cs" />
+    <Compile Include="DDSTool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAnimResourceConst.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fExtension.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fShapeRefNode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeneralRcolWrapper.cs" />
+    <Compile Include="ICresChildren.cs" />
+    <Compile Include="ImageLoader.cs" />
+    <Compile Include="IRcolBlock.cs" />
+    <Compile Include="MatdForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RcolForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RcolUI.cs" />
+    <Compile Include="RcolWrapper.cs" />
+    <Compile Include="ScenegraphHelper.cs" />
+    <Compile Include="ShpeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tCresHierarchy.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tDirectionalLight.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tExtension.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextureLocator.cs" />
+    <Compile Include="tGenericRcol.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tGeometryNode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tLightT.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tMaterialDefinition.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tMaterialDefinitionCategories.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tMaterialDefinitionFiles.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tMaterialDefinitionProperties.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tObjectGraphNode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tResourceNode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tShapeRefNode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tShpeGraphNode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tShpeItems.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tShpeLod.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tShpeParts.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="tTransformNode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="DDSTool.resx" />
+    <EmbeddedResource Include="fAnimResourceConst.resx" />
+    <EmbeddedResource Include="fExtension.resx" />
+    <EmbeddedResource Include="fShapeRefNode.resx" />
+    <EmbeddedResource Include="MatdForm.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="RcolForm.resx" />
+    <EmbeddedResource Include="ShpeForm.resx" />
+    <EmbeddedResource Include="tCresHierarchy.resx" />
+    <EmbeddedResource Include="tDirectionalLight.resx" />
+    <EmbeddedResource Include="tExtension.resx" />
+    <EmbeddedResource Include="tGenericRcol.resx" />
+    <EmbeddedResource Include="tGeometryNode.resx" />
+    <EmbeddedResource Include="tLightT.resx" />
+    <EmbeddedResource Include="tMaterialDefinition.resx" />
+    <EmbeddedResource Include="tMaterialDefinitionCategories.resx" />
+    <EmbeddedResource Include="tMaterialDefinitionFiles.resx" />
+    <EmbeddedResource Include="tMaterialDefinitionProperties.resx" />
+    <EmbeddedResource Include="tObjectGraphNode.resx" />
+    <EmbeddedResource Include="tResourceNode.resx" />
+    <EmbeddedResource Include="tShapeRefNode.resx" />
+    <EmbeddedResource Include="tShpeGraphNode.resx" />
+    <EmbeddedResource Include="tShpeItems.resx" />
+    <EmbeddedResource Include="tShpeLod.resx" />
+    <EmbeddedResource Include="tShpeParts.resx" />
+    <EmbeddedResource Include="tTransformNode.resx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Geometry\SimPE.Geometry.csproj">
+      <Project>{d4a2c67f-0de2-48a2-85ff-7513d5f8e86d}</Project>
+      <Name>SimPE.Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

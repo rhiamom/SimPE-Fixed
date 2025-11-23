@@ -910,81 +910,8 @@ namespace SimPe.Data
 			}
 
 		}
+	}
 
-		/// <summary>
-		/// Localized Version of the PenisLength Enum
-		/// </summary>
-		public class LocalizedPenisLength
-		{
-			/// <summary>
-			/// Contains the value
-			/// </summary>
-			MetaData.PenisLength data;
-
-			/// <summary>
-			/// Constructor
-			/// </summary>
-			/// <param name="data">The Value of the Enum</param>
-			public LocalizedPenisLength(MetaData.PenisLength data)
-			{
-				this.data = data;
-			}
-
-			/// <summary>
-			/// Implicit Assignement of Enum Values
-			/// </summary>
-			/// <param name="item">the value</param>
-			/// <returns>the new Object</returns>
-			public static implicit operator LocalizedPenisLength(MetaData.PenisLength item)
-			{
-				return new LocalizedPenisLength(item);
-			}
-
-			/// <summary>
-			/// Implicit Assignement of Enum Values
-			/// </summary>
-			/// <param name="item">the value</param>
-			/// <returns>the new Object</returns>
-			public static implicit operator MetaData.PenisLength(LocalizedPenisLength item)
-			{
-				return item.data;
-			}
-
-			/// <summary>
-			/// Implicit Assignement of Enum Values
-			/// </summary>
-			/// <param name="item">the value</param>
-			/// <returns>the new Object</returns>
-			public static implicit operator LocalizedPenisLength(ushort item)
-			{
-				return new LocalizedPenisLength((MetaData.PenisLength)item);
-			}
-
-			/// <summary>
-			/// Implicit Assignement of Enum Values
-			/// </summary>
-			/// <param name="item">the value</param>
-			/// <returns>the new Object</returns>
-			public static implicit operator ushort(LocalizedPenisLength item)
-			{
-				return (ushort)item.data;
-			}
-
-			/// <summary>
-			/// Overrides the Default to string Members
-			/// </summary>
-			/// <returns></returns>
-			public override string ToString()
-			{
-				string s = Localization.Manager.GetString(data.ToString());
-				if (s != null) return s;
-				else return data.ToString();
-			}
-		}
-
-		/// <summary>
-		/// Localized Version of the PenisLength Enum
-		/// </summary>
 		public class LocalizedBuildSubSort
 		{
 			/// <summary>
@@ -1040,8 +967,7 @@ namespace SimPe.Data
 			{
 				return (uint)item.data;
 			}
-
-			/// <summary>
+					/// <summary>
 			/// Overrides the Default to string Members
 			/// </summary>
 			/// <returns></returns>
@@ -1053,5 +979,5 @@ namespace SimPe.Data
 			}
 		}
 	}
-}
+
 

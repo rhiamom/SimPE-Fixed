@@ -219,10 +219,6 @@
     <EmbeddedResource Include="view_tree.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimPe Clst\SimPe Clst.csproj">
-      <Project>{5dd89fd7-1e89-49d4-b48d-cc605d767c3b}</Project>
-      <Name>SimPe Clst</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPe FileHandler\SimPe FileHandlers.csproj">
       <Project>{97551c0a-6295-4e32-8e15-a4ff456e65a6}</Project>
       <Name>SimPe FileHandlers</Name>

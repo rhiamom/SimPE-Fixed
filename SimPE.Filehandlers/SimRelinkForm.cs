@@ -6,56 +6,54 @@ using System.Windows.Forms;
 
 namespace SimPe.PackedFiles.UserInterface
 {
-	/// <summary>
-	/// Summary description for SimRelinkForm.
-	/// </summary>
-	public class SimRelinkForm : System.Windows.Forms.Form
-	{
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ListView lv;
-		private System.Windows.Forms.ImageList ilist;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.CheckBox cbfile;
-		private System.Windows.Forms.Button btlink;
-  		private System.ComponentModel.IContainer components;
+    /// <summary>
+    /// Summary description for SimRelinkForm.
+    /// </summary>
+    public class SimRelinkForm : System.Windows.Forms.Form
+    {
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListView lv;
+        private System.Windows.Forms.ImageList ilist;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox cbfile;
+        private System.Windows.Forms.Button btlink;
+        private System.Windows.Forms.Panel mainPanel;
+        private System.ComponentModel.IContainer components;
 
-		public SimRelinkForm()
-		{
-			//
-			// Required designer variable.
-			//
+        public SimRelinkForm()
+        {
+            //
+            // Required designer variable.
+            //
             InitializeComponent();
-            if (ThemeManager.ThemedForms)
-            {
                 ThemeManager tm = ThemeManager.Global.CreateChild();
-                //tm.AddControl(this.prettypanel);
                 tm.AddControl(this.btlink);
                 tm.AddControl(this.lv);
+            
+        }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
             }
-		}
+            base.Dispose(disposing);
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimRelinkForm));
             this.label1 = new System.Windows.Forms.Label();
@@ -64,8 +62,8 @@ namespace SimPe.PackedFiles.UserInterface
             this.label2 = new System.Windows.Forms.Label();
             this.cbfile = new System.Windows.Forms.CheckBox();
             this.btlink = new System.Windows.Forms.Button();
-            this.prettypanel = new booby.gradientpanel();
-            this.prettypanel.SuspendLayout();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -134,59 +132,55 @@ namespace SimPe.PackedFiles.UserInterface
             this.btlink.Text = "Re-Map";
             this.btlink.Click += new System.EventHandler(this.btlink_Click);
             // 
-            // prettypanel
+            // mainPanel
             // 
-            this.prettypanel.BackColor = System.Drawing.Color.Transparent;
-            this.prettypanel.Controls.Add(this.btlink);
-            this.prettypanel.Controls.Add(this.cbfile);
-            this.prettypanel.Controls.Add(this.label2);
-            this.prettypanel.Controls.Add(this.lv);
-            this.prettypanel.Controls.Add(this.label1);
-            this.prettypanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.prettypanel.EndColour = System.Drawing.SystemColors.Control;
-            this.prettypanel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prettypanel.Location = new System.Drawing.Point(0, 0);
-            this.prettypanel.MiddleColour = System.Drawing.SystemColors.Control;
-            this.prettypanel.Name = "prettypanel";
-            this.prettypanel.Size = new System.Drawing.Size(624, 442);
-            this.prettypanel.StartColour = System.Drawing.SystemColors.Control;
-            this.prettypanel.TabIndex = 5;
+            this.mainPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.mainPanel.Controls.Add(this.btlink);
+            this.mainPanel.Controls.Add(this.cbfile);
+            this.mainPanel.Controls.Add(this.label2);
+            this.mainPanel.Controls.Add(this.lv);
+            this.mainPanel.Controls.Add(this.label1);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainPanel.Location = new System.Drawing.Point(0, 0);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(624, 442);
+            this.mainPanel.TabIndex = 5;
             // 
             // SimRelinkForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
             this.ClientSize = new System.Drawing.Size(624, 442);
-            this.Controls.Add(this.prettypanel);
+            this.Controls.Add(this.mainPanel);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SimRelinkForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SimReMapForm";
-            this.prettypanel.ResumeLayout(false);
+            this.mainPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		bool ok = false;
+        bool ok = false;
 
-		/// <summary>
-		/// Show the Relink Screen
-		/// </summary>
-		/// <param name="path">The Path where to look for character Files</param>
-		/// <param name="wrp">The Sim Description Wrapper</param>
-		/// <returns>The new SimID</returns>
-		public static uint Execute(SimPe.PackedFiles.Wrapper.SDesc wrp) 
-		{
-			Hashtable ht = wrp.nameprovider.StoredData;
-			SimRelinkForm srf = new SimRelinkForm();
+        /// <summary>
+        /// Show the Relink Screen
+        /// </summary>
+        /// <param name="wrp">The Sim Description Wrapper</param>
+        /// <returns>The new SimID</returns>
+        public static uint Execute(SimPe.PackedFiles.Wrapper.SDesc wrp)
+        {
+            Hashtable ht = wrp.nameprovider.StoredData;
+            SimRelinkForm srf = new SimRelinkForm();
             WaitingScreen.Wait();
             try
             {
                 foreach (SimPe.Data.Alias a in ht.Values)
                 {
-                    string booby = (string)a.Tag[2];
-                    if (!booby.Contains("(NPC)"))
+                    string nameTag = (string)a.Tag[2];
+                    if (!nameTag.Contains("(NPC)"))
                     {
                         ListViewItem lvi = new ListViewItem(a.Name + " " + (string)a.Tag[2]);
                         lvi.Tag = a;
@@ -214,45 +208,46 @@ namespace SimPe.PackedFiles.UserInterface
             }
             finally { WaitingScreen.Stop(srf); }
 
-			srf.ShowDialog();
+            srf.ShowDialog();
 
-			if (srf.ok) 
-			{
-				SimPe.Data.Alias a = (SimPe.Data.Alias)srf.lv.SelectedItems[0].Tag;
-				SimPe.Packages.GeneratableFile pkg = SimPe.Packages.GeneratableFile.LoadFromFile((string)a.Tag[0]);
+            if (srf.ok)
+            {
+                SimPe.Data.Alias a = (SimPe.Data.Alias)srf.lv.SelectedItems[0].Tag;
+                SimPe.Packages.GeneratableFile pkg = SimPe.Packages.GeneratableFile.LoadFromFile((string)a.Tag[0]);
 
-				Interfaces.Files.IPackedFileDescriptor[] pfds = pkg.FindFiles(Data.MetaData.OBJD_FILE);
-				if (pfds.Length==1) 
-				{
+                Interfaces.Files.IPackedFileDescriptor[] pfds = pkg.FindFiles(Data.MetaData.OBJD_FILE);
+                if (pfds.Length == 1)
+                {
                     SimPe.PackedFiles.Wrapper.ExtObjd objd = new SimPe.PackedFiles.Wrapper.ExtObjd();
-					objd.ProcessData(pfds[0], pkg);
+                    objd.ProcessData(pfds[0], pkg);
 
-					if (srf.cbfile.Checked) 
-					{
-						objd.Guid = wrp.SimId;
+                    if (srf.cbfile.Checked)
+                    {
+                        objd.Guid = wrp.SimId;
                         objd.ProxyGuid = wrp.SimId;
-						objd.SynchronizeUserData();
-						pkg.Save();
-					} 
-					else 
-					{
-						wrp.SimId = objd.Guid;
-					}
-				}
-			}
+                        objd.SynchronizeUserData();
+                        pkg.Save();
+                    }
+                    else
+                    {
+                        wrp.SimId = objd.Guid;
+                    }
+                }
+            }
 
-			return wrp.SimId;
-	}
+            return wrp.SimId;
+        }
 
-		private void lv_SelectedIndexChanged(object sender, System.EventArgs e)
-		{
-			btlink.Enabled = (lv.SelectedItems.Count==1);
-		}
+        private void lv_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            btlink.Enabled = (lv.SelectedItems.Count == 1);
+        }
 
-		private void btlink_Click(object sender, System.EventArgs e)
-		{
-			ok = true;
-			Close();
-		}
-	}
+        private void btlink_Click(object sender, System.EventArgs e)
+        {
+            ok = true;
+            Close();
+        }
+    }
 }
+

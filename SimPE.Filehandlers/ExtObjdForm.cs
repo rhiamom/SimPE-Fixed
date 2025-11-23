@@ -54,7 +54,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private System.Windows.Forms.CheckBox cball;
 		internal System.Windows.Forms.Label lbIsOk;
 		private System.Windows.Forms.Label label1;
-		//internal Ambertation.Windows.Forms.EnumComboBox cbsort;
+		internal Ambertation.Windows.Forms.EnumComboBox cbsort;
 		private System.Windows.Forms.Label label63;
 		internal System.Windows.Forms.TextBox tbproxguid;
 		private System.Windows.Forms.Label label97;
@@ -90,7 +90,15 @@ namespace SimPe.PackedFiles.UserInterface
         private Label label3;
         internal TextBox tbgrid;
         private Label label4;
-        
+        private System.Windows.Forms.Panel pnobjd;
+        private System.Windows.Forms.Panel pngradient;
+        private System.Windows.Forms.Panel taskBox1;
+        private System.Windows.Forms.Panel groupBox2;
+        private System.Windows.Forms.Panel groupBox1;
+        private System.Windows.Forms.Panel pnpritty;
+        private System.Windows.Forms.Panel tpreqeps;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button btnCommit;
         private LinkLabel lladdgooee;
         private ComboBox cbBuildSort;
         private Label label5;
@@ -100,7 +108,7 @@ namespace SimPe.PackedFiles.UserInterface
         private CheckBox cbcOuts;
         private CheckBox cbcShop;
         private CheckBox cbcDine;
-        private TabPage tpreqeps;
+        private TabPage tbreqeps;
         
         private Label lbepnote;
         private Label lbgamef2;
@@ -129,7 +137,7 @@ namespace SimPe.PackedFiles.UserInterface
         internal TextBox tbPrice;
         private IContainer components;
 
-		public ExtObjdForm()
+        public ExtObjdForm()
 		{
 			//
 			// Required designer variable.
@@ -555,7 +563,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            this.pnobjd = new booby.gradientpanel();
+            this.pnobjd = new System.Windows.Forms.Panel();
             this.lladdgooee = new System.Windows.Forms.LinkLabel();
             this.tbgrid = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -567,14 +575,14 @@ namespace SimPe.PackedFiles.UserInterface
             this.cball = new System.Windows.Forms.CheckBox();
             this.tc = new System.Windows.Forms.TabControl();
             this.tpcatalogsort = new System.Windows.Forms.TabPage();
-            this.pngradient = new booby.gradientpanel();
-            this.taskBox1 = new booby.TaskBox();
+            this.pngradient = new System.Windows.Forms.Panel();
+            this.taskBox1 = new System.Windows.Forms.Panel();
             this.cbcMisc = new System.Windows.Forms.CheckBox();
             this.cbcStreet = new System.Windows.Forms.CheckBox();
             this.cbcOuts = new System.Windows.Forms.CheckBox();
             this.cbcShop = new System.Windows.Forms.CheckBox();
             this.cbcDine = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new booby.TaskBox();
+            this.groupBox2 = new System.Windows.Forms.Panel();
             this.cbBuildSort = new System.Windows.Forms.ComboBox();
             this.cbaspiration = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -590,7 +598,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbcareer = new System.Windows.Forms.CheckBox();
             this.cbsort = new Ambertation.Windows.Forms.EnumComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new booby.TaskBox();
+            this.groupBox1 = new System.Windows.Forms.Panel();
             this.lbprise = new System.Windows.Forms.Label();
             this.tbPrice = new System.Windows.Forms.TextBox();
             this.cbkids = new System.Windows.Forms.CheckBox();
@@ -604,7 +612,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbstudy = new System.Windows.Forms.CheckBox();
             this.tpreqeps = new System.Windows.Forms.TabPage();
             this.pnpritty = new booby.gradientpanel();
-            this.tbreqeps = new booby.TaskBox();
+            this.tbreqeps = new System.Windows.Forms.Panel();
             this.lbepnote = new System.Windows.Forms.Label();
             this.lbgamef2 = new System.Windows.Forms.Label();
             this.cbStoreEd = new System.Windows.Forms.CheckBox();
@@ -644,7 +652,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.label9 = new System.Windows.Forms.Label();
             this.tbguid = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.panel6 = new booby.panelheader();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pnobjd.SuspendLayout();
             this.tc.SuspendLayout();
@@ -688,13 +696,13 @@ namespace SimPe.PackedFiles.UserInterface
             this.pnobjd.Controls.Add(this.label8);
             this.pnobjd.Controls.Add(this.panel6);
             this.pnobjd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnobjd.EndColour = System.Drawing.SystemColors.Control;
+            
             this.pnobjd.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnobjd.Location = new System.Drawing.Point(0, 0);
-            this.pnobjd.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.pnobjd.Name = "pnobjd";
             this.pnobjd.Size = new System.Drawing.Size(984, 325);
-            this.pnobjd.StartColour = System.Drawing.SystemColors.Control;
+            
             this.pnobjd.TabIndex = 6;
             // 
             // lladdgooee
@@ -830,44 +838,37 @@ namespace SimPe.PackedFiles.UserInterface
             // pngradient
             // 
             this.pngradient.BackColor = System.Drawing.Color.Transparent;
-            this.pngradient.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.TopRight;
-            this.pngradient.BackgroundImageZoomToFit = true;
+            
             this.pngradient.Controls.Add(this.taskBox1);
             this.pngradient.Controls.Add(this.groupBox2);
             this.pngradient.Controls.Add(this.groupBox1);
             this.pngradient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pngradient.EndColour = System.Drawing.SystemColors.Control;
+            
             this.pngradient.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pngradient.Location = new System.Drawing.Point(0, 0);
-            this.pngradient.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.pngradient.Name = "pngradient";
             this.pngradient.Size = new System.Drawing.Size(680, 242);
-            this.pngradient.StartColour = System.Drawing.SystemColors.Control;
+            
             this.pngradient.TabIndex = 18;
             // 
             // taskBox1
             // 
             this.taskBox1.BackColor = System.Drawing.Color.Transparent;
-            this.taskBox1.BodyColor = System.Drawing.SystemColors.ControlLight;
-            this.taskBox1.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            
             this.taskBox1.Controls.Add(this.cbcMisc);
             this.taskBox1.Controls.Add(this.cbcStreet);
             this.taskBox1.Controls.Add(this.cbcOuts);
             this.taskBox1.Controls.Add(this.cbcShop);
             this.taskBox1.Controls.Add(this.cbcDine);
-            this.taskBox1.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold);
-            this.taskBox1.HeaderText = "Community Sort";
-            this.taskBox1.HeaderTextColor = System.Drawing.SystemColors.ControlText;
-            this.taskBox1.IconLocation = new System.Drawing.Point(4, 12);
-            this.taskBox1.IconSize = new System.Drawing.Size(32, 32);
-            this.taskBox1.LeftHeaderColor = System.Drawing.SystemColors.ControlDark;
+            
             this.taskBox1.Location = new System.Drawing.Point(516, 8);
             this.taskBox1.Name = "taskBox1";
             this.taskBox1.Padding = new System.Windows.Forms.Padding(4, 28, 4, 4);
-            this.taskBox1.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
+            
             this.taskBox1.Size = new System.Drawing.Size(142, 200);
             this.taskBox1.TabIndex = 18;
-            this.taskBox1.TopGap = 2;
+            
             // 
             // cbcMisc
             // 
@@ -927,8 +928,7 @@ namespace SimPe.PackedFiles.UserInterface
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox2.BodyColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox2.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            
             this.groupBox2.Controls.Add(this.cbBuildSort);
             this.groupBox2.Controls.Add(this.cbaspiration);
             this.groupBox2.Controls.Add(this.label5);
@@ -945,19 +945,14 @@ namespace SimPe.PackedFiles.UserInterface
             this.groupBox2.Controls.Add(this.cbsort);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.HeaderText = "Function Sort";
-            this.groupBox2.HeaderTextColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox2.IconLocation = new System.Drawing.Point(4, 12);
-            this.groupBox2.IconSize = new System.Drawing.Size(32, 32);
-            this.groupBox2.LeftHeaderColor = System.Drawing.SystemColors.ControlDark;
+            
             this.groupBox2.Location = new System.Drawing.Point(225, 8);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 28, 4, 4);
-            this.groupBox2.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
+            
             this.groupBox2.Size = new System.Drawing.Size(285, 200);
             this.groupBox2.TabIndex = 17;
-            this.groupBox2.TopGap = 2;
+            
             // 
             // cbBuildSort
             // 
@@ -1136,8 +1131,7 @@ namespace SimPe.PackedFiles.UserInterface
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.BodyColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox1.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            
             this.groupBox1.Controls.Add(this.lbprise);
             this.groupBox1.Controls.Add(this.tbPrice);
             this.groupBox1.Controls.Add(this.cbkids);
@@ -1150,19 +1144,14 @@ namespace SimPe.PackedFiles.UserInterface
             this.groupBox1.Controls.Add(this.cblivingroom);
             this.groupBox1.Controls.Add(this.cbstudy);
             this.groupBox1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold);
-            this.groupBox1.HeaderText = "Room Sort";
-            this.groupBox1.HeaderTextColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.IconLocation = new System.Drawing.Point(4, 12);
-            this.groupBox1.IconSize = new System.Drawing.Size(32, 32);
-            this.groupBox1.LeftHeaderColor = System.Drawing.SystemColors.ControlDark;
+            
             this.groupBox1.Location = new System.Drawing.Point(8, 8);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 28, 4, 4);
-            this.groupBox1.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
+            
             this.groupBox1.Size = new System.Drawing.Size(211, 200);
             this.groupBox1.TabIndex = 16;
-            this.groupBox1.TopGap = 2;
+            
             // 
             // lbprise
             // 
@@ -1302,29 +1291,27 @@ namespace SimPe.PackedFiles.UserInterface
             this.tpreqeps.Size = new System.Drawing.Size(680, 242);
             this.tpreqeps.TabIndex = 2;
             this.tpreqeps.Text = "Required Ep";
-            this.tpreqeps.UseVisualStyleBackColor = true;
+            
             // 
             // pnpritty
             // 
             this.pnpritty.BackColor = System.Drawing.Color.Transparent;
-            this.pnpritty.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.TopRight;
-            this.pnpritty.BackgroundImageZoomToFit = true;
+            
             this.pnpritty.Controls.Add(this.tbreqeps);
             this.pnpritty.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnpritty.EndColour = System.Drawing.SystemColors.Control;
+            
             this.pnpritty.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnpritty.Location = new System.Drawing.Point(0, 0);
-            this.pnpritty.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.pnpritty.Name = "pnpritty";
             this.pnpritty.Size = new System.Drawing.Size(680, 242);
-            this.pnpritty.StartColour = System.Drawing.SystemColors.Control;
+            
             this.pnpritty.TabIndex = 0;
             // 
             // tbreqeps
             // 
             this.tbreqeps.BackColor = System.Drawing.Color.Transparent;
-            this.tbreqeps.BodyColor = System.Drawing.SystemColors.ControlLight;
-            this.tbreqeps.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            
             this.tbreqeps.Controls.Add(this.lbepnote);
             this.tbreqeps.Controls.Add(this.lbgamef2);
             this.tbreqeps.Controls.Add(this.cbStoreEd);
@@ -1346,19 +1333,14 @@ namespace SimPe.PackedFiles.UserInterface
             this.tbreqeps.Controls.Add(this.cbNightlife);
             this.tbreqeps.Controls.Add(this.cbUniversity);
             this.tbreqeps.Controls.Add(this.cbBase);
-            this.tbreqeps.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold);
-            this.tbreqeps.HeaderText = "Required Ep or Sp";
-            this.tbreqeps.HeaderTextColor = System.Drawing.SystemColors.ControlText;
-            this.tbreqeps.IconLocation = new System.Drawing.Point(4, 12);
-            this.tbreqeps.IconSize = new System.Drawing.Size(32, 32);
-            this.tbreqeps.LeftHeaderColor = System.Drawing.SystemColors.ControlDark;
+            
             this.tbreqeps.Location = new System.Drawing.Point(8, 8);
             this.tbreqeps.Name = "tbreqeps";
             this.tbreqeps.Padding = new System.Windows.Forms.Padding(4, 28, 4, 4);
-            this.tbreqeps.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
+            
             this.tbreqeps.Size = new System.Drawing.Size(442, 228);
             this.tbreqeps.TabIndex = 0;
-            this.tbreqeps.TopGap = 2;
+            
             // 
             // lbepnote
             // 
@@ -1786,14 +1768,26 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel6.CanCommit = true;
-            this.panel6.HeaderText = "Object Data Editor";
+            
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(984, 24);
             this.panel6.TabIndex = 0;
-            this.panel6.OnCommit += new booby.panelheader.EventHandler(this.OnCommit);
+
+            this.btnCommit = new System.Windows.Forms.Button();
+            this.btnCommit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCommit.Location = new System.Drawing.Point(888, 0);   // adjust if it looks off
+            this.btnCommit.Name = "btnCommit";
+            this.btnCommit.Size = new System.Drawing.Size(96, 24);
+            this.btnCommit.TabIndex = 1;
+            this.btnCommit.Text = "Commit";
+            this.btnCommit.UseVisualStyleBackColor = true;
+            this.btnCommit.Visible = false;  // start hidden
+            this.btnCommit.Click += new System.EventHandler(this.OnCommit);
+
+            // add button into the header panel
+            this.panel6.Controls.Add(this.btnCommit);
             // 
             // toolTip1
             // 

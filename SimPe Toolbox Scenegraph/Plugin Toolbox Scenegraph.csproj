@@ -145,18 +145,6 @@
     <EmbeddedResource Include="scenegrapher.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimPe Clst\SimPe Clst.csproj">
-      <Project>{5dd89fd7-1e89-49d4-b48d-cc605d767c3b}</Project>
-      <Name>SimPe Clst</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe FileHandler\SimPe FileHandlers.csproj">
-      <Project>{97551c0a-6295-4e32-8e15-a4ff456e65a6}</Project>
-      <Name>SimPe FileHandlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
-      <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
-      <Name>SimPe RCOL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPe Scenegraph\SimPe Scenegraph.csproj">
       <Project>{1151a88b-47af-41da-bcdf-defed0cc326e}</Project>
       <Name>SimPe Scenegraph</Name>

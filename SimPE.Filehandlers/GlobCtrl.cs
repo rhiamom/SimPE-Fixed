@@ -31,9 +31,6 @@ namespace SimPe.Plugin
         public GlobCtrl()
         {
             InitializeComponent();
-            booby.ThemeManager.Global.AddControl(this.pritee);
-            if (booby.ThemeManager.savedTheme == 8) this.pritee.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else if (booby.PrettyGirls.PervyMode && Helper.StartedGui != Executable.Classic) this.pritee.BackgroundImage = booby.PrettyGirls.PrittyBabe;
         }
         /// <summary>
         /// Stores the currently active Wrapper

@@ -151,10 +151,6 @@
     <EmbeddedResource Include="Extractor.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimPe FileHandler\SimPe FileHandlers.csproj">
-      <Project>{97551c0a-6295-4e32-8e15-a4ff456e65a6}</Project>
-      <Name>SimPe FileHandlers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\_PJSE\pjse Coder\SimPe pjse coder.csproj">
       <Project>{4b6b73da-1606-42f2-8774-72428062783a}</Project>
       <Name>SimPe pjse coder</Name>

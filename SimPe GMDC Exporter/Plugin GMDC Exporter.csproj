@@ -159,10 +159,6 @@
       <Project>{76d6a8b3-10df-4948-9028-c63a416ab00e}</Project>
       <Name>SimPe GMDC Exporter Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
-      <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
-      <Name>SimPe RCOL</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

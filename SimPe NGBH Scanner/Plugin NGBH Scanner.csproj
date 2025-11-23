@@ -131,17 +131,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimPe Cache\SimPe Cache.csproj">
-      <Project>{c949fb46-0c06-4c5d-92ae-5dd7f6e53364}</Project>
-      <Name>SimPe Cache</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPe HGBH\SimPe HGBH.csproj">
       <Project>{2a67c9c3-9577-4922-991f-291eaa6b4f2d}</Project>
       <Name>SimPe HGBH</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
-      <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
-      <Name>SimPe RCOL</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimPE Toolbox Scanner\SimPE Toolbox Scanner.csproj">
       <Project>{2ea51e60-64fa-4822-ae2a-a996ba79aa76}</Project>

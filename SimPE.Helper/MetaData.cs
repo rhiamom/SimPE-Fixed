@@ -1214,61 +1214,7 @@ namespace SimPe.Data
 
         #endregion
 
-        #region T&A Cock data
-
-        /// <summary>
-        /// T&A Cock data
-        /// </summary>
-        public enum PenisLength : ushort
-        {
-            NotSet = 0,
-            size10cm = 4,
-            size12cm = 5,
-            size15cm = 6,
-            size18cm = 7,
-            size20cm = 8,
-            size23cm = 9,
-            size26cm = 10
-        }
-        public enum PenisGirth : ushort
-        {
-            Normal = 0,
-            Thin = 1,
-            Thick = 2
-        }
-        public enum ScrotumSize : ushort
-        {
-            Small = 0,
-            Medium = 1,
-            Large = 2
-        }
-        public enum PenisSate : ushort
-        {
-            Circumcised = 0,
-            Uncircumcised = 1
-        }
-        public enum PenisColour : ushort
-        {
-            NotSet = 0,
-            Light = 2,
-            Medium = 3,
-            MediumDark = 4,
-            Dark = 5,
-            Asian = 6,
-            Alien = 7,
-            Vampire = 8,
-            PlantSim = 9,
-            Fannystein = 22,
-            User01 = 16,
-            User02 = 17,
-            User03 = 18,
-            User04 = 19,
-            User05 = 20,
-            User06 = 21
-        }
-
-        #endregion
-
+       
         #region Dictionarys
         // Here is me learning & trying out stuff. Dictionary allows spaces and stuff in the returned string
         // whereas enum don't because enum is a nasty poo poo. Dictionary also allows conditional adding of values.
@@ -1373,7 +1319,6 @@ namespace SimPe.Data
             TitlePostName.Add(13, " (Infallible Witch)");
             TitlePostName.Add(14, " (Infallible Warlock)");
         }
-
 
         public static Dictionary<uint, string> KnownFences = new Dictionary<uint, string>();
 

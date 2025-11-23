@@ -152,17 +152,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimPe FileHandler\SimPe FileHandlers.csproj">
-      <Project>{97551c0a-6295-4e32-8e15-a4ff456e65a6}</Project>
-      <Name>SimPe FileHandlers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPe GMDC Exporter Base\SimPe GMDC Exporter Base.csproj">
       <Project>{76d6a8b3-10df-4948-9028-c63a416ab00e}</Project>
       <Name>SimPe GMDC Exporter Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe RCOL\SimPe RCOL.csproj">
-      <Project>{74517907-2236-4c45-80ed-e188d5e5ce0e}</Project>
-      <Name>SimPe RCOL</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimPe Sims\SimPe Sims.csproj">
       <Project>{9877b092-c8c0-4b84-b5a0-f9a68aa1c0e4}</Project>
