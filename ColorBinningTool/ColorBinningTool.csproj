@@ -131,16 +131,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe Scenegraph\SimPe Scenegraph.csproj">
-      <Project>{1151a88b-47af-41da-bcdf-defed0cc326e}</Project>
-      <Name>SimPe Scenegraph</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Sims\SimPe Sims.csproj">
-      <Project>{9877b092-c8c0-4b84-b5a0-f9a68aa1c0e4}</Project>
-      <Name>SimPe Sims</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

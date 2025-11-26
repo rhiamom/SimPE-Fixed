@@ -247,7 +247,10 @@ namespace SimPe
             set
             {                
             }
-        }       
+        }
+
+        public int Value { get; internal set; }
+        public int Maximum { get; internal set; }
 
         public void Wait()
         {

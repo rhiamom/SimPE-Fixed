@@ -66,14 +66,14 @@ namespace SimPe.PackedFiles.UserInterface
 		
 			form.tbshortterm.Text = srel.Shortterm.ToString();
 			form.tblongterm.Text = srel.Longterm.ToString();
-            form.cbBFF.Visible = form.cbplatonic.Visible = form.cbsecret.Visible = (srel.RelationState2 != null);
 
-            List<CheckBox> ltcb = new List<CheckBox>(new CheckBox[] {                
-                form.cbcrush, form.cblove, form.cbengaged, form.cbmarried, form.cbfriend, form.cbbuddie, form.cbsteady, form.cbenemy,
-                null, null, null, null, null, null, form.cbfamily, form.cbbest,
-                form.cbBFF, null, form.cbplatonic, form.cbsecret, null, null, null, null,
-                null, null, null, null, null, null, null, null,
-            });
+
+            List<CheckBox> ltcb = new List<CheckBox>(new CheckBox[] {
+				form.cbcrush, form.cblove, form.cbengaged, form.cbmarried, form.cbfriend, form.cbbuddie, form.cbsteady, form.cbenemy,
+				null, null, null, null, null, null, form.cbfamily, form.cbbest,
+				null, null, null, null, null, null, null, null,
+				 null, null, null, null, null, null, null, null,
+			});
 
             if (srel.RelationState2 != null)
             {

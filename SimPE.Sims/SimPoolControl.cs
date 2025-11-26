@@ -297,59 +297,82 @@ namespace SimPe.PackedFiles.Wrapper
                 else
                     return System.Drawing.Color.DarkBlue;
             }
-            else if (!sdesc.AvailableCharacterData && !sdesc.IsCharSplit)
+            else if (!sdesc.AvailableCharacterData)
                 return System.Drawing.Color.DarkRed;
             else if (System.IO.Path.GetFileNameWithoutExtension(sdesc.CharacterFileName) == "objects")
                 return System.Drawing.Color.DarkGoldenrod;
             else if (sdesc.CharacterDescription.GhostFlag.IsGhost && sdesc.FamilyInstance == 0)
                 return System.Drawing.Color.Black;
-            else if (Helper.WindowsRegistry.ThemedForms && sdesc.Nightlife.Species == 0)
-            {
-                if (sdesc.CharacterDescription.Gender == Data.MetaData.Gender.Female)
-                    return System.Drawing.Color.FromArgb(160, 90, 144);
-                else return System.Drawing.Color.FromArgb(70, 124, 140);
-            }
+            
 			return System.Drawing.SystemColors.ControlDarkDark;
 		}
 
-		internal static void CreateItem(ImagePanel eip, SDesc sdesc)
-		{
-			eip.ImagePanelColor = System.Drawing.Color.Black;
-			eip.Fade = 0.5f;
-			eip.FadeColor = System.Drawing.Color.Transparent;
-			
-			eip.Tag = sdesc;			
-			try 
-			{				
-				eip.Text = sdesc.SimName+" "+sdesc.SimFamilyName;
-				
-				System.Drawing.Image img = sdesc.Image;
-				if (img.Width<8) img=null;
-                if (img == null)
+        internal static void CreateItem(ImagePanel eip, SDesc sdesc)
+        {
+            eip.ImagePanelColor = System.Drawing.Color.Black;
+            eip.Fade = 0.5f;
+            eip.FadeColor = System.Drawing.Color.Transparent;
+
+            eip.Tag = sdesc;
+
+            try
+            {
+                eip.Text = sdesc.SimName + " " + sdesc.SimFamilyName;
+
+                System.Drawing.Image img = sdesc.Image;
+
+                // Reject invalid thumbnails
+                if (img == null || img.Width < 8)
                 {
-                    if (sdesc.CharacterDescription.IsWoman && sdesc.Nightlife.Species == 0)
-                        img = SimPe.GetImage.BabyDoll;
-                else if (sdesc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Female)
-                    img = SimPe.GetImage.SheOne;
-                else
-                    img = SimPe.GetImage.NoOne;
+                    // Fallback: use generic "no sim" icon
+                    img = System.Drawing.Image.FromStream(
+                        typeof(SDesc).Assembly.GetManifestResourceStream(
+                            "SimPe.PackedFiles.Wrapper.noone.png"
+                        )
+                    );
                 }
-                else if (Helper.WindowsRegistry.GraphQuality) img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new System.Drawing.Point(0, 0), System.Drawing.Color.Magenta);					
-				
-				eip.Image = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, 48, 48, Helper.WindowsRegistry.GraphQuality);
+                else
+                {
+                    // Knockout transparency for Sims with real thumbnails
+                    if (Helper.WindowsRegistry.GraphQuality)
+                    {
+                        img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(
+                            img,
+                            new System.Drawing.Point(0, 0),
+                            System.Drawing.Color.Magenta
+                        );
+                    }
+                }
 
-				eip.ImagePanelColor = GetImagePanelColor(sdesc);				
-			}
-			catch {	}
-			/*
-			if (sdesc.CharacterDescription.Gender==Data.MetaData.Gender.Female)
-				eip.PanelColor = System.Drawing.Color.LightPink;
-			else
-				eip.PanelColor = System.Drawing.Color.PowderBlue;
-            */
-		}
+                // Scale to preview size
+                eip.Image = Ambertation.Drawing.GraphicRoutines.ScaleImage(
+                    img,
+                    48,
+                    48,
+                    Helper.WindowsRegistry.GraphQuality
+                );
 
-		public static ExtendedImagePanel CreateItem(Wrapper.SDesc sdesc)
+                // Original logic for choosing the panel color (non-Chris)
+                eip.ImagePanelColor = GetImagePanelColor(sdesc);
+            }
+            catch
+            {
+                // Swallow any preview errors; item will just show without an image
+            }
+
+            // Optional: if you *want* gender-based panel colors, keep this.
+            // It’s not Chris/gross, just old-school pink/blue.
+            
+            if (sdesc.CharacterDescription.Gender == Data.MetaData.Gender.Female)
+                eip.PanelColor = System.Drawing.Color.LightPink;
+            else
+                eip.PanelColor = System.Drawing.Color.PowderBlue;
+            
+        }
+
+
+
+        public static ExtendedImagePanel CreateItem(Wrapper.SDesc sdesc)
 		{
 			ExtendedImagePanel eip = new ExtendedImagePanel();
 			eip.SetBounds(0, 0, 216, 80);

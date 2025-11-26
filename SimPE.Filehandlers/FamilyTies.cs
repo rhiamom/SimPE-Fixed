@@ -24,7 +24,7 @@ using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 using SimPe.PackedFiles.Wrapper.Supporting;
 using SimPe.Data;
-
+using SimPe;
 namespace SimPe.PackedFiles.UserInterface
 {
 	/// <summary>
@@ -46,15 +46,15 @@ namespace SimPe.PackedFiles.UserInterface
 			
 			form.cballtieablesims.Sorted = true;
 
-			form.cbtietype.Items.Clear();
-			form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MyMotherIs));
-			form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MyFatherIs));
-			form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.ImMarriedTo));
-			form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MySiblingIs));
-			form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MyChildIs));
-			form.cbtietype.SelectedIndex = 2;
+            form.cbtietype.Items.Clear();
+            form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MyMotherIs));
+            form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MyFatherIs));
+            form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.ImMarriedTo));
+            form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MySiblingIs));
+            form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MyChildIs));
+            form.cbtietype.SelectedIndex = 2;
 
-			form.btaddtie.Enabled = false;
+            form.btaddtie.Enabled = false;
 			form.btdeletetie.Enabled = false;
 			form.btnewtie.Enabled = false;
 

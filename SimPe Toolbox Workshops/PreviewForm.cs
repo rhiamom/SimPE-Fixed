@@ -15,7 +15,7 @@ namespace SimPe.Plugin
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
-		Ambertation.Graphics.DirectXPanel dx = null;
+		//Ambertation.Graphics.DirectXPanel dx = null;
 
 		public PreviewForm()
 		{
@@ -24,10 +24,10 @@ namespace SimPe.Plugin
 			//
 			InitializeComponent();
 
-			dx.Settings.AddAxis = false;
-			dx.LoadSettings(Helper.SimPeViewportFile);
-			dx.ResetDevice += new EventHandler(dx_ResetDevice);
-            // dx.Settings.BackgroundColor = booby.ThemeManager.Global.ThemeColorDark;
+			//dx.Settings.AddAxis = false;
+			//dx.LoadSettings(Helper.SimPeViewportFile);
+			//dx.ResetDevice += new EventHandler(dx_ResetDevice);
+            
 		}
 
 		/// <summary>
@@ -53,7 +53,7 @@ namespace SimPe.Plugin
 		private void InitializeComponent()
 		{
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(PreviewForm));
-			this.dx = new Ambertation.Graphics.DirectXPanel();
+			/*this.dx = new Ambertation.Graphics.DirectXPanel();
 			this.SuspendLayout();
 			// 
 			// dx
@@ -66,13 +66,13 @@ namespace SimPe.Plugin
 			this.dx.Size = new System.Drawing.Size(494, 476);
 			this.dx.TabIndex = 0;
 			this.dx.WorldMatrix = ((Microsoft.DirectX.Matrix)(resources.GetObject("dx.WorldMatrix")));
-			// 
+			//*/
 			// PreviewForm
 			// 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
             this.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(128)), ((System.Byte)(128)), ((System.Byte)(255)));
 			this.ClientSize = new System.Drawing.Size(494, 476);
-			this.Controls.Add(this.dx);
+			//this.Controls.Add(this.dx);
 			this.Font = new System.Drawing.Font("Tahoma", 8.25F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

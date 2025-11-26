@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F060D4F2-BE7C-4390-A598-63A6030A2CB8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimPE.HGBH</RootNamespace>
+    <AssemblyName>SimPE.HGBH</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="SandDock, Version=2.0.2.1, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\SandDock.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionDeleteSim.cs" />
+    <Compile Include="ActionIntriguedNeighborhood.cs" />
+    <Compile Include="BnfoCustomerItem.cs" />
+    <Compile Include="BnfoCustomerItems.cs" />
+    <Compile Include="BnfoCustomerItemsUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BnfoCustomerItemUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BnfoUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BnfoWrapper.cs" />
+    <Compile Include="ExtNgbh.cs" />
+    <Compile Include="ExtNgbhUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FixUidTool.cs" />
+    <Compile Include="IdnoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IdnoUI.cs" />
+    <Compile Include="IdnoWrapper.cs" />
+    <Compile Include="ItemsListView.cs" />
+    <Compile Include="LoteUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LoteUI.designer.cs" />
+    <Compile Include="LotWrapper.cs" />
+    <Compile Include="LtxtForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LtxtUI.cs" />
+    <Compile Include="LtxtWrapper.cs" />
+    <Compile Include="MemoryProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NgbhForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NgbhItem.cs" />
+    <Compile Include="NgbhItems.cs" />
+    <Compile Include="NgbhItemsListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NgbhSkillHelper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NgbhSkillHelperElement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NgbhSlot.cs" />
+    <Compile Include="NgbhSlotListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NgbhSlots.cs" />
+    <Compile Include="NgbhSlotSelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NgbhUI.cs" />
+    <Compile Include="NgbhValueDescriptor.cs" />
+    <Compile Include="NgbhValueDescriptorSelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NgbhValueDescriptorUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NgbhWrapper.cs" />
+    <Compile Include="Nhtr.cs" />
+    <Compile Include="NhtrBaseItem.cs" />
+    <Compile Include="NhtrBridgeItem.cs" />
+    <Compile Include="NhtrDecorationItem.cs" />
+    <Compile Include="NhtrItem.cs" />
+    <Compile Include="NhtrList.cs" />
+    <Compile Include="NhtrLocation.cs" />
+    <Compile Include="NhtrRoadItem.cs" />
+    <Compile Include="NhtrTreeItem.cs" />
+    <Compile Include="NhtrUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoadTextureControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RoadTextureWrapper.cs" />
+    <Compile Include="SimAspirationEditor.cs" />
+    <Compile Include="SlotUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TattItem.cs" />
+    <Compile Include="TattUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TattWrapper.cs" />
+    <Compile Include="TheosEnhancedNgbh.cs" />
+    <Compile Include="WantCacheFile.cs" />
+    <Compile Include="WantItem.cs" />
+    <Compile Include="WantItemContainer.cs" />
+    <Compile Include="WantLoader.cs" />
+    <Compile Include="WantsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WantUI.cs" />
+    <Compile Include="WantWrapper.cs" />
+    <Compile Include="WrapperFactory.cs" />
+    <Compile Include="XwntWrapper.cs" />
+    <EmbeddedResource Include="BnfoCustomerItemsUI.resx" />
+    <EmbeddedResource Include="BnfoCustomerItemUI.de.resx" />
+    <EmbeddedResource Include="BnfoCustomerItemUI.fr.resx" />
+    <EmbeddedResource Include="BnfoCustomerItemUI.it.resx" />
+    <EmbeddedResource Include="BnfoCustomerItemUI.resx" />
+    <EmbeddedResource Include="BnfoCustomerItemUI.ru.resx" />
+    <EmbeddedResource Include="BnfoUI.de.resx">
+      <DependentUpon>BnfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BnfoUI.fr.resx">
+      <DependentUpon>BnfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BnfoUI.it.resx">
+      <DependentUpon>BnfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BnfoUI.resx">
+      <DependentUpon>BnfoUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtNgbhUI.de.resx" />
+    <EmbeddedResource Include="ExtNgbhUI.fr.resx" />
+    <EmbeddedResource Include="ExtNgbhUI.it.resx" />
+    <EmbeddedResource Include="ExtNgbhUI.resx" />
+    <EmbeddedResource Include="ExtNgbhUI.ru.resx" />
+    <EmbeddedResource Include="IdnoForm.resx" />
+    <EmbeddedResource Include="LoteUI.en-US.resx" />
+    <EmbeddedResource Include="LoteUI.resx" />
+    <EmbeddedResource Include="LtxtForm.resx" />
+    <EmbeddedResource Include="MemoryProperties.de.resx" />
+    <EmbeddedResource Include="MemoryProperties.fr.resx" />
+    <EmbeddedResource Include="MemoryProperties.it.resx" />
+    <EmbeddedResource Include="MemoryProperties.resx" />
+    <EmbeddedResource Include="NgbhForm.de.resx" />
+    <EmbeddedResource Include="NgbhForm.fr.resx" />
+    <EmbeddedResource Include="NgbhForm.it.resx" />
+    <EmbeddedResource Include="NgbhForm.pl.resx" />
+    <EmbeddedResource Include="NgbhForm.resx" />
+    <EmbeddedResource Include="NgbhForm.ru.resx" />
+    <EmbeddedResource Include="NgbhItemsListView.de.resx" />
+    <EmbeddedResource Include="NgbhItemsListView.fr.resx" />
+    <EmbeddedResource Include="NgbhItemsListView.it.resx" />
+    <EmbeddedResource Include="NgbhItemsListView.resx" />
+    <EmbeddedResource Include="NgbhItemsListView.ru.resx" />
+    <EmbeddedResource Include="NgbhSkillHelper.de.resx" />
+    <EmbeddedResource Include="NgbhSkillHelper.fr.resx" />
+    <EmbeddedResource Include="NgbhSkillHelper.it.resx" />
+    <EmbeddedResource Include="NgbhSkillHelper.resx" />
+    <EmbeddedResource Include="NgbhSkillHelper.ru.resx" />
+    <EmbeddedResource Include="NgbhSkillHelperElement.resx" />
+    <EmbeddedResource Include="NgbhSlotListView.resx" />
+    <EmbeddedResource Include="NgbhSlotSelection.de.resx" />
+    <EmbeddedResource Include="NgbhSlotSelection.fr.resx" />
+    <EmbeddedResource Include="NgbhSlotSelection.it.resx" />
+    <EmbeddedResource Include="NgbhSlotSelection.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorSelection.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorUI.de.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorUI.fr.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorUI.it.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorUI.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorUI.ru.resx" />
+    <EmbeddedResource Include="NhtrUI.en-US.resx" />
+    <EmbeddedResource Include="NhtrUI.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="RoadTextureControl.resx" />
+    <EmbeddedResource Include="SlotUI.resx" />
+    <EmbeddedResource Include="TattUI.resx" />
+    <EmbeddedResource Include="WantsForm.resx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj">
+      <Project>{e0936d85-cb24-4564-a773-e0bf85510422}</Project>
+      <Name>SimPE.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj">
+      <Project>{445be3ff-638c-4b6d-98bf-c7d70e95a7be}</Project>
+      <Name>SimPE.Clst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
+      <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
+      <Name>SimPE.Filehandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Geometry\SimPE.Geometry.csproj">
+      <Project>{d4a2c67f-0de2-48a2-85ff-7513d5f8e86d}</Project>
+      <Name>SimPE.Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
+      <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
+      <Name>SimPE.GraphControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.NameProvider\SimPE.NameProvider.csproj">
+      <Project>{2c2b1881-0a90-47dd-8b85-8bf947d8b0c3}</Project>
+      <Name>SimPE.NameProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj">
+      <Project>{849dc662-9191-473f-bc61-8d9ad9068ffa}</Project>
+      <Name>SimPE.RCOL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj">
+      <Project>{f4145736-97ed-417a-81ea-5635769abe35}</Project>
+      <Name>SimPE.Scenegraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Sims\SimPE.Sims.csproj">
+      <Project>{39f0b8f6-69de-4c0f-a03b-d2067418cb4a}</Project>
+      <Name>SimPE.Sims</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

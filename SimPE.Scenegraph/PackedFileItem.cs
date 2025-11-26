@@ -21,151 +21,126 @@ using System;
 
 namespace SimPe.Plugin
 {
-	public class SkinChain 
+	public class SkinChain
 	{
 		protected SimPe.PackedFiles.Wrapper.Cpf cpf;
 
-		public SkinChain(SimPe.PackedFiles.Wrapper.Cpf cpf) 
+		public SkinChain(SimPe.PackedFiles.Wrapper.Cpf cpf)
 		{
 			this.cpf = cpf;
 		}
 
-		public SimPe.PackedFiles.Wrapper.Cpf Cpf 
+		public SimPe.PackedFiles.Wrapper.Cpf Cpf
 		{
-			get 
+			get
 			{
 				return cpf;
 			}
 		}
 
-		public uint Category 
+		public uint Category
 		{
-			get 
+			get
 			{
-				try 
+				try
 				{
-                    if (Cpf != null)
-                    {
-                        SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("category");
-                        if (citem != null)
-                        {
-                            if ((citem.UIntegerValue & (uint)Data.SkinCategories.Skin) == (uint)Data.SkinCategories.Skin) citem.UIntegerValue = (uint)Data.SkinCategories.Skin;
-                            if (citem.UIntegerValue != 128 && OutfitPart == 1) citem.UIntegerValue = (uint)Data.SkinCategories.Hair;
-                            return citem.UIntegerValue;
-                        }
-                    }
-				} 
-				catch (Exception) {}
+					if (Cpf != null)
+					{
+						SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("category");
+						if (citem != null)
+						{
+							if ((citem.UIntegerValue & (uint)Data.SkinCategories.Skin) == (uint)Data.SkinCategories.Skin) citem.UIntegerValue = (uint)Data.SkinCategories.Skin;
+							if (citem.UIntegerValue != 128 && OutfitPart == 1) citem.UIntegerValue = (uint)Data.SkinCategories.Hair;
+							return citem.UIntegerValue;
+						}
+					}
+				}
+				catch (Exception) { }
 				return 0;
 			}
 		}
 
 		public uint Age
 		{
-			get 
+			get
 			{
-				try 
+				try
 				{
-					if (Cpf!=null) 
+					if (Cpf!=null)
 					{
 						SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("age");
-						if (citem!=null) return citem.UIntegerValue;					
+						if (citem!=null) return citem.UIntegerValue;
 					}
-				} 
-				catch (Exception) {}
+				}
+				catch (Exception) { }
 				return 0;
 			}
 		}
 
 		public string Name
 		{
-			get 
+			get
 			{
-				try 
+				try
 				{
-					if (Cpf!=null) 
+					if (Cpf!=null)
 					{
 						SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("name");
-						if (citem!=null) return citem.StringValue;					
+						if (citem!=null) return citem.StringValue;
 					}
-				} 
-				catch (Exception) {}
+				}
+				catch (Exception) { }
 				return "";
 			}
-        }
+		}
 
-        public uint Gender
-        {
-            get
-            {
-                try
-                {
-                    if (Cpf != null)
-                    {
-                        SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("gender");
-                        if (citem != null) return citem.UIntegerValue;
-                    }
-                }
-                catch (Exception) { }
-                return 0;
-            }
-        }
+		public uint Gender
+		{
+			get
+			{
+				try
+				{
+					if (Cpf != null)
+					{
+						SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("gender");
+						if (citem != null) return citem.UIntegerValue;
+					}
+				}
+				catch (Exception) { }
+				return 0;
+			}
+		}
 
-        public string Bodyshape
-        {
-            get
-            {
-                try
-                {
-                    if (Cpf != null)
-                    {
-                        SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("product");
-                        if (citem != null)
-                        {
-                            if (citem.UIntegerValue > 0 && citem.UIntegerValue < 255)
-                                return SimPe.Data.MetaData.GetBodyName(citem.UIntegerValue);
-                        }
-                        citem = Cpf.GetItem("skintone");
-                        if (citem == null)
-                            citem = Cpf.GetItem("skincolor");
-                        if (citem != null) return SimPe.Data.MetaData.GetBodyName(SimPe.Data.MetaData.GetBodyShapeid(citem.StringValue));
-                    }
-                }
-                catch (Exception) { }
-                return "Unknown";
-            }
-        }
+		public uint OutfitPart
+		{
+			get
+			{
+				try
+				{
+					if (Cpf != null)
+					{
+						SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("outfit");
+						if (citem == null)
+							citem = Cpf.GetItem("parts");
+						if (citem != null) return citem.UIntegerValue;
 
-        public uint OutfitPart
-        {
-            get
-            {
-                try
-                {
-                    if (Cpf != null)
-                    {
-                        SimPe.PackedFiles.Wrapper.CpfItem citem = Cpf.GetItem("outfit");
-                        if (citem == null)
-                            citem = Cpf.GetItem("parts");
-                        if (citem != null) return citem.UIntegerValue;
-
-                    }
-                }
-                catch (Exception) { }
-                return 0;
-            }
-        }
+					}
+				}
+				catch (Exception) { }
+				return 0;
+			}
+		}
 
 		public RefFile ReferenceFile
 		{
 			get
 			{
-				if (Cpf!=null) 
+				if (Cpf!=null)
 				{
-					try 
+					try
 					{
 						Interfaces.Files.IPackedFileDescriptor pfd = Cpf.Package.FindFile(0xAC506764, Cpf.FileDescriptor.SubType, Cpf.FileDescriptor.Group, Cpf.FileDescriptor.Instance);
-						if (pfd != null) 
+						if (pfd != null)
 						{
 							RefFile reffile = new RefFile();
 							reffile.ProcessData(pfd, Cpf.Package);
@@ -173,7 +148,7 @@ namespace SimPe.Plugin
 							return reffile;
 						}
 					}
-					catch {}
+					catch { }
 				}
 				return null;
 			}
@@ -181,12 +156,12 @@ namespace SimPe.Plugin
 
 		protected GenericRcol LoadRcol(uint type, Interfaces.Files.IPackedFileDescriptor pfd)
 		{
-			if (pfd.Type == type) 
+			if (pfd.Type == type)
 			{
 				Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFile(pfd, null);
-				if (items.Length>0) 
+				if (items.Length>0)
 				{
-					SimPe.Plugin.GenericRcol rcol= new GenericRcol(null, false);
+					SimPe.Plugin.GenericRcol rcol = new GenericRcol(null, false);
 					rcol.ProcessData(items[0], false);
 
 					return rcol;
@@ -200,45 +175,45 @@ namespace SimPe.Plugin
 		{
 			if (txmt==null) return null;
 
-			try 
+			try
 			{
 				MaterialDefinition md = (MaterialDefinition)txmt.Blocks[0];
 				string txtrname = md.FindProperty("stdMatBaseTextureName").Value.Trim().ToLower();
 				if (!txtrname.EndsWith("_txtr")) txtrname += "_txtr";
 
 				Interfaces.Scenegraph.IScenegraphFileIndexItem item = FileTable.FileIndex.FindFileByName(txtrname, Data.MetaData.TXTR, Data.MetaData.LOCAL_GROUP, true);
-				if (item!=null) 
+				if (item!=null)
 				{
-					SimPe.Plugin.GenericRcol rcol= new GenericRcol(null, false);
+					SimPe.Plugin.GenericRcol rcol = new GenericRcol(null, false);
 					rcol.ProcessData(item, false);
 
 					return rcol;
 				}
- 
+
 			}
-			catch {}
+			catch { }
 
 			return null;
 		}
 
-		
+
 		public GenericRcol[] TXMTs
 		{
-			get 
+			get
 			{
 				RefFile reffile = this.ReferenceFile;
 				System.Collections.ArrayList list = new System.Collections.ArrayList();
-				if (reffile!=null) 
+				if (reffile!=null)
 				{
-					try 
+					try
 					{
-						foreach (Interfaces.Files.IPackedFileDescriptor pfd in reffile.Items) 
-						{	
-							SimPe.Plugin.GenericRcol rcol=  LoadRcol(Data.MetaData.TXMT, pfd);
+						foreach (Interfaces.Files.IPackedFileDescriptor pfd in reffile.Items)
+						{
+							SimPe.Plugin.GenericRcol rcol = LoadRcol(Data.MetaData.TXMT, pfd);
 							if (rcol!=null) list.Add(rcol);
 						}
 					}
-					catch {}
+					catch { }
 				}
 
 				GenericRcol[] ret = new GenericRcol[list.Count];
@@ -249,7 +224,7 @@ namespace SimPe.Plugin
 
 		public GenericRcol[] TXTRs
 		{
-			get 
+			get
 			{
 				GenericRcol[] txmts = this.TXMTs;
 				System.Collections.ArrayList list = new System.Collections.ArrayList();
@@ -267,16 +242,16 @@ namespace SimPe.Plugin
 
 		public GenericRcol TXMT
 		{
-			get 
-			{								
+			get
+			{
 				RefFile reffile = this.ReferenceFile;
-				if (reffile!=null && cpf!=null) 
+				if (reffile!=null && cpf!=null)
 				{
 
-					if (cpf.GetItem("override0resourcekeyidx")!=null) 
+					if (cpf.GetItem("override0resourcekeyidx")!=null)
 					{
 						uint rki = cpf.GetSaveItem("override0resourcekeyidx").UIntegerValue;
-						if (rki>=0 && rki<reffile.Items.Length) 
+						if (rki>=0 && rki<reffile.Items.Length)
 						{
 							Interfaces.Files.IPackedFileDescriptor pfd = reffile.Items[rki];
 							return LoadRcol(Data.MetaData.TXMT, pfd);
@@ -292,7 +267,7 @@ namespace SimPe.Plugin
 
 		public GenericRcol TXTR
 		{
-			get 
+			get
 			{
 				SimPe.Plugin.GenericRcol rcol = LoadTXTR(TXMT);
 				if (rcol!=null) return rcol;
@@ -303,16 +278,16 @@ namespace SimPe.Plugin
 			}
 		}
 
-		public string CategoryNames 
+		public string CategoryNames
 		{
-			get 
+			get
 			{
 				string scat = "";
 				uint cat = this.Category;
 				Array a = System.Enum.GetValues(typeof(Data.SkinCategories));
-				foreach (Data.SkinCategories k in a) 
+				foreach (Data.SkinCategories k in a)
 				{
-					if ((cat & (uint)k) == (uint)k) 
+					if ((cat & (uint)k) == (uint)k)
 					{
 						if (scat != "") scat += ", ";
 						scat += k.ToString();
@@ -321,38 +296,38 @@ namespace SimPe.Plugin
 
 				return scat;
 			}
-        }
+		}
 
-        public string PartNames
-        {
-            get
-            {
-                string spart = "";
-                uint part = this.OutfitPart;
-                Array a = System.Enum.GetValues(typeof(Data.SkinParts));
-                foreach (Data.SkinParts k in a)
-                {
-                    if ((part & (uint)k) == (uint)k)
-                    {
-                        if (spart != "") spart += ", ";
-                        spart += k.ToString();
-                    }
-                }
-
-                return spart;
-            }
-        }
-
-		public string AgeNames 
+		public string PartNames
 		{
-			get 
+			get
+			{
+				string spart = "";
+				uint part = this.OutfitPart;
+				Array a = System.Enum.GetValues(typeof(Data.SkinParts));
+				foreach (Data.SkinParts k in a)
+				{
+					if ((part & (uint)k) == (uint)k)
+					{
+						if (spart != "") spart += ", ";
+						spart += k.ToString();
+					}
+				}
+
+				return spart;
+			}
+		}
+
+		public string AgeNames
+		{
+			get
 			{
 				string sage = "";
 				uint age = this.Age;
 				Array a = System.Enum.GetValues(typeof(Data.Ages));
-				foreach (Data.Ages k in a) 
+				foreach (Data.Ages k in a)
 				{
-					if ((age & (uint)k) == (uint)k) 
+					if ((age & (uint)k) == (uint)k)
 					{
 						if (sage != "") sage += ", ";
 						sage += k.ToString();
@@ -361,27 +336,27 @@ namespace SimPe.Plugin
 
 				return sage;
 			}
-        }
+		}
 
-        public string GenderNames
-        {
-            get
-            {
-                string ssex = "";
-                uint sex = this.Gender;
-                Array a = System.Enum.GetValues(typeof(Data.Sex));
-                foreach (Data.Sex k in a)
-                {
-                    if ((sex & (uint)k) == (uint)k)
-                    {
-                        if (ssex != "") ssex += ", ";
-                        ssex += k.ToString();
-                    }
-                }
+		public string GenderNames
+		{
+			get
+			{
+				string ssex = "";
+				uint sex = this.Gender;
+				Array a = System.Enum.GetValues(typeof(Data.Sex));
+				foreach (Data.Sex k in a)
+				{
+					if ((sex & (uint)k) == (uint)k)
+					{
+						if (ssex != "") ssex += ", ";
+						ssex += k.ToString();
+					}
+				}
 
-                return ssex;
-            }
-        }
+				return ssex;
+			}
+		}
 
 		public override string ToString()
 		{
@@ -395,12 +370,12 @@ namespace SimPe.Plugin
 	public class RefFileItem : SimPe.Packages.PackedFileDescriptor
 	{
 		RefFile parent;
-		public RefFileItem (RefFile parent)
+		public RefFileItem(RefFile parent)
 		{
 			this.parent = parent;
 		}
 
-		public RefFileItem (Interfaces.Files.IPackedFileDescriptor pfd, RefFile parent)
+		public RefFileItem(Interfaces.Files.IPackedFileDescriptor pfd, RefFile parent)
 		{
 			this.parent = parent;
 			this.Group = pfd.Group;
@@ -412,79 +387,93 @@ namespace SimPe.Plugin
 		SkinChain skin;
 		public SkinChain Skin
 		{
-			get 
+			get
 			{
-                if ((skin == null) && (this.Type == Data.MetaData.GZPS || this.Type == Data.MetaData.AGED || this.Type == Data.MetaData.XSTN) && (parent != null))
+				if ((skin == null) && (this.Type == Data.MetaData.GZPS || this.Type == Data.MetaData.AGED || this.Type == Data.MetaData.XSTN) && (parent != null))
 				{
-					try 
+					try
 					{
 						FileTable.FileIndex.Load();
 						Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFile(this, parent.Package);
-						if (items.Length>0) 
+						if (items.Length>0)
 						{
 							SimPe.PackedFiles.Wrapper.Cpf cpff = new SimPe.PackedFiles.Wrapper.Cpf();
 							cpff.ProcessData(items[0]);
 
 							skin = new SkinChain(cpff);
 						}
-					} 
-					catch {}
+					}
+					catch { }
 				}
 				return skin;
 			}
 
-			set {skin = value; }
+			set { skin = value; }
 		}
-		
+
 		public override string ToString()
 		{
 			string name = base.ToString();
-            if (Skin!=null)
-            {
-                if (Skin.PartNames != "") name += "; Part=" + Skin.PartNames;
-                if (Skin.CategoryNames != "") name += "; Category=" + Skin.CategoryNames;
-                if (Skin.AgeNames != "") name += "; Age=" + Skin.AgeNames;
-                if (Skin.GenderNames != "") name += "; Gender=" + Skin.GenderNames;
-                if (Skin.Name != "") name += "; Name=" + Skin.Name;
-                if (Skin.Bodyshape != "Unknown" && !Skin.Bodyshape.Contains("Maxis")) name += "; Body=" + Skin.Bodyshape;
-				// name = "Category="+Skin.CategoryNames+"; Age="+Skin.AgeNames+"; Name="+Skin.Name;
-				// name += " ("+base.ToString()+")";
+
+			if (Skin != null)
+			{
+				if (!string.IsNullOrEmpty(Skin.PartNames))
+					name += "; Part=" + Skin.PartNames;
+
+				if (!string.IsNullOrEmpty(Skin.CategoryNames))
+					name += "; Category=" + Skin.CategoryNames;
+
+				if (!string.IsNullOrEmpty(Skin.AgeNames))
+					name += "; Age=" + Skin.AgeNames;
+
+				if (!string.IsNullOrEmpty(Skin.GenderNames))
+					name += "; Gender=" + Skin.GenderNames;
+
+				if (!string.IsNullOrEmpty(Skin.Name))
+					name += "; Name=" + Skin.Name;
+
+				// ORIGINAL clean 0.73 debug-style output (optional):
+				// name = "Category=" + Skin.CategoryNames + "; Age=" + Skin.AgeNames + "; Name=" + Skin.Name;
+				// name += " (" + base.ToString() + ")";
 			}
+
 			return name;
 		}
-	}
 
-	internal class CpfListItem : SkinChain
-	{
-		string name;
-		uint category;
-		internal CpfListItem(SimPe.PackedFiles.Wrapper.Cpf cpf) : base(cpf)
+
+		internal class CpfListItem : SkinChain
 		{
-			this.cpf = cpf;
-			name = Localization.Manager.GetString("Unknown");
-			category = 0;
-			if (cpf!=null) 
+			string name;
+			uint category;
+
+			internal CpfListItem(SimPe.PackedFiles.Wrapper.Cpf cpf) : base(cpf)
 			{
-				foreach (SimPe.PackedFiles.Wrapper.CpfItem citem in cpf.Items) if (citem.Name.ToLower() == "name") name = citem.StringValue;
-				foreach (SimPe.PackedFiles.Wrapper.CpfItem citem in cpf.Items) if (citem.Name.ToLower() == "category") category = citem.UIntegerValue;
-			} 
+				this.cpf = cpf;
+				name = Localization.Manager.GetString("Unknown");
+				category = 0;
+				if (cpf!=null)
+				{
+					foreach (SimPe.PackedFiles.Wrapper.CpfItem citem in cpf.Items) if (citem.Name.ToLower() == "name") name = citem.StringValue;
+					foreach (SimPe.PackedFiles.Wrapper.CpfItem citem in cpf.Items) if (citem.Name.ToLower() == "category") category = citem.UIntegerValue;
+				}
 
-			name = name.Replace("CASIE_", "");
-		}
+				name = name.Replace("CASIE_", "");
+			}
 
-		public new string Name 
-		{
-			get { return name; }
-		}
+			public new string Name
+			{
+				get { return name; }
+			}
 
-		internal SimPe.PackedFiles.Wrapper.Cpf File 
-		{
-			get { return cpf; }
-		}
+			internal SimPe.PackedFiles.Wrapper.Cpf File
+			{
+				get { return cpf; }
+			}
 
-		public override string ToString()
-		{
-			return "0x"+Helper.HexString((ushort)category)+": "+name;
+			public override string ToString()
+			{
+				return "0x"+Helper.HexString((ushort)category)+": "+name;
+			}
 		}
 	}
 }

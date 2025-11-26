@@ -202,6 +202,10 @@
       <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
       <Name>SimPE.Packages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj">
+      <Project>{849dc662-9191-473f-bc61-8d9ad9068ffa}</Project>
+      <Name>SimPE.RCOL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>

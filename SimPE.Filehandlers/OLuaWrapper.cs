@@ -144,8 +144,7 @@ namespace SimPe.PackedFiles.Wrapper
 				"Object LUA Wrapper",
 				"Quaxi",
 				"LUA Resources are external Resources, which contain additional SimAntic Scripts.",
-				1,
-                SimPe.GetIcon.OpenLua
+				1
 				);
 		}
 		#endregion

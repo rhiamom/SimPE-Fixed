@@ -183,9 +183,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimPe GMDC Exporter Base\SimPe GMDC Exporter Base.csproj">
-      <Project>{76d6a8b3-10df-4948-9028-c63a416ab00e}</Project>
-      <Name>SimPe GMDC Exporter Base</Name>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

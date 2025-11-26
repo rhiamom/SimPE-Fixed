@@ -24,6 +24,8 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using SimPe.PackedFiles.Wrapper.Supporting;
+using SimPe.Data;
+using static SimPe.Data.LocalizedNeighbourhoodEP;
 
 namespace SimPe.PackedFiles.UserInterface 
 {
@@ -54,7 +56,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private System.Windows.Forms.TabPage tabPage1;
 		internal System.Windows.Forms.Panel famiPanel;
 		internal System.Windows.Forms.TextBox tblotinst;
-		private System.Windows.Forms.Label label15;
+		internal System.Windows.Forms.Label label15;
 		private System.Windows.Forms.Button llFamiDeleteSim;
 		private System.Windows.Forms.Button llFamiAddSim;
 		private System.Windows.Forms.Button button1;
@@ -66,8 +68,8 @@ namespace SimPe.PackedFiles.UserInterface
 		internal System.Windows.Forms.TextBox tbmoney;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Panel panel4;
+		internal System.Windows.Forms.Label label3;
+		internal System.Windows.Forms.Panel panel4;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TabPage tabPage3;
 		internal System.Windows.Forms.Panel realPanel;
@@ -141,7 +143,7 @@ namespace SimPe.PackedFiles.UserInterface
         private System.Windows.Forms.Label label89;
 		private System.Windows.Forms.Button btPicExport;
         internal TextBox tbvac;
-        private Label label7;
+        internal Label label7;
         internal GroupBox gbCastaway;
         internal TextBox tbcaunk;
         private Label label13;
@@ -150,9 +152,9 @@ namespace SimPe.PackedFiles.UserInterface
         internal TextBox tbcafood1;
         private Label label10;
         internal TextBox tbblot;
-        private Label label14;
+        internal Label label14;
         internal TextBox tbbmoney;
-        private Label label16;
+        internal Label label16;
 
         
 
@@ -1814,8 +1816,9 @@ namespace SimPe.PackedFiles.UserInterface
 			try 
 			{
 				SimPe.PackedFiles.Wrapper.FamilyTies famt = (Wrapper.FamilyTies)wrapper;
-				Data.MetaData.FamilyTieTypes ftt = (Data.LocalizedFamilyTieTypes)this.cbtietype.Items[cbtietype.SelectedIndex];
-				FamilyTieSim fts = (FamilyTieSim)this.cballtieablesims.Items[cballtieablesims.SelectedIndex];
+                LocalizedFamilyTieTypes selected = (LocalizedFamilyTieTypes)cbtietype.SelectedItem;
+                MetaData.FamilyTieTypes ftt = selected;   // implicit operator ? enum
+                FamilyTieSim fts = (FamilyTieSim)this.cballtieablesims.Items[cballtieablesims.SelectedIndex];
 				FamilyTieItem tie = new FamilyTieItem(ftt, fts.Instance, famt);
 				this.lbties.Items.Add(tie);
 			} 

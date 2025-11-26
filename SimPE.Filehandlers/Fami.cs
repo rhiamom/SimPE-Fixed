@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
+using SimPe;
 
 namespace SimPe.PackedFiles.UserInterface
 {
@@ -44,12 +45,9 @@ namespace SimPe.PackedFiles.UserInterface
 		{
             Wrapper.Fami fami = (Wrapper.Fami)wrapper;
             form.wrapper = fami;
-
-            if (Helper.WindowsRegistry.Layout.SelectedTheme == 8) form.famiPanel.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else if (booby.PrettyGirls.PervyMode) form.famiPanel.BackgroundImage = booby.PrettyGirls.RandomChick;
             if (fami.FamiThumb != null)
                 form.pbImage.Image = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(fami.FamiThumb, form.pbImage.Size, 12, Color.FromArgb(90, Color.Black), SystemColors.ControlDarkDark, Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
-            else if (fami.FileDescriptor.Instance > 32511) form.pbImage.Image = SimPe.GetImage.Cassie;
+            
             else form.pbImage.Image = null;            
 			form.tbname.Text = fami.Name;
 			form.tbmoney.Text = fami.Money.ToString();            
@@ -74,8 +72,7 @@ namespace SimPe.PackedFiles.UserInterface
             form.gbCastaway.Visible = (int)fami.Version == (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway;
             form.label3.Visible = form.tbmoney.Visible = (int)fami.Version < (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway;
             form.label16.Visible = form.tbbmoney.Visible = ((int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.Business && (int)fami.Version < (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway);
-            form.panel4.HeaderText = Data.MetaData.NPCFamily(fami.FileDescriptor.Instance);
-            form.btOpenHistory.Visible = (fami.Package.FindFile(0x46414D68, fami.FileDescriptor.SubType, fami.FileDescriptor.Group, fami.FileDescriptor.Instance) != null);
+            
             if (fami.LotInstance == 0 || fami.Package.FindFile(0x0BF999E7, 0, 0xFFFFFFFF, fami.LotInstance) == null)
                 form.label15.ForeColor = System.Drawing.SystemColors.ControlText;
             else

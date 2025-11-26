@@ -51,8 +51,7 @@ namespace SimPe.PackedFiles.Wrapper.Factory
 											  new SimPe.PackedFiles.Wrapper.ExtFamilyTies()	,
 											  new SimPe.PackedFiles.Wrapper.LinkedSDesc(),
 											  new SimPe.PackedFiles.Wrapper.ExtSrel(),
-											  new SimPe.PackedFiles.Wrapper.SimDNA(),
-											  new SimPe.PackedFiles.Wrapper.Scor()
+											  new SimPe.PackedFiles.Wrapper.SimDNA()											  
 										  };
 					return wrappers;
 				}

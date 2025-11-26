@@ -309,78 +309,6 @@ namespace SimPe.Data
 	}
 
 	/// <summary>
-	/// Localized Version of the Bodyshape Enum
-	/// </summary>
-	public class LocalizedBodyshape
-	{
-		/// <summary>
-		/// Contains the value
-		/// </summary>
-		MetaData.Bodyshape data;
-
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="data">The Value of the Enum</param>
-		public LocalizedBodyshape(MetaData.Bodyshape data)
-		{
-			this.data = data;
-		}
-
-		/// <summary>
-		/// Implicit Assignement of Enum Values
-		/// </summary>
-		/// <param name="item">the value</param>
-		/// <returns>the new Object</returns>
-		public static implicit operator LocalizedBodyshape(MetaData.Bodyshape item)
-		{
-			return new LocalizedBodyshape(item);
-		}
-
-		/// <summary>
-		/// Implicit Assignement of Enum Values
-		/// </summary>
-		/// <param name="item">the value</param>
-		/// <returns>the new Object</returns>
-		public static implicit operator MetaData.Bodyshape(LocalizedBodyshape item)
-		{
-			return item.data;
-		}
-
-		/// <summary>
-		/// Implicit Assignement of Enum Values
-		/// </summary>
-		/// <param name="item">the value</param>
-		/// <returns>the new Object</returns>
-		public static implicit operator LocalizedBodyshape(uint item)
-		{
-			return new LocalizedBodyshape((MetaData.Bodyshape)item);
-		}
-
-		/// <summary>
-		/// Implicit Assignement of Enum Values
-		/// </summary>
-		/// <param name="item">the value</param>
-		/// <returns>the new Object</returns>
-		public static implicit operator uint(LocalizedBodyshape item)
-		{
-			return (uint)item.data;
-		}
-
-		/// <summary>
-		/// Overrides the Default to string Members
-		/// </summary>
-		/// <returns></returns>
-		public override string ToString()
-		{
-			string s = Localization.Manager.GetString(data.ToString());
-			if (s != null) return s;
-			else return data.ToString();
-		}
-
-	}
-
-	/// <summary>
 	/// Localized Version of the Available EPs (for T&A)
 	/// </summary>
 	public class LocalizedNeighbourhoodEP
@@ -465,7 +393,7 @@ namespace SimPe.Data
 			// Fallback: return raw enum or ID
 			return key;
 		}
-
+	}
 
 
 		/// <summary>
@@ -910,7 +838,6 @@ namespace SimPe.Data
 			}
 
 		}
-	}
 
 		public class LocalizedBuildSubSort
 		{

@@ -454,44 +454,6 @@ namespace SimPe
         }
 
 
-        class MakeBoobs : ICommandLine
-        {
-            #region ICommandLine Members
-            public bool Parse(List<string> argv)
-            {
-                if (ArgParser.Parse(argv, "-simplepreset") < 0) return false;
-
-                ForceBoobsLayout();
-
-                System.Windows.Forms.DialogResult dr = Message.Show(SimPe.Localization.GetString("PresetChanged").Replace("{name}",
-                    SimPe.Localization.GetString("PresetBoobs")), SimPe.Localization.GetString("Information"),
-                    System.Windows.Forms.MessageBoxButtons.YesNo);
-                return dr != System.Windows.Forms.DialogResult.Yes;
-            }
-            public string[] Help() { return new string[] { "-simplepreset", null }; }
-            #endregion
-        }
-
-        class MakeGirly : ICommandLine
-        {
-            #region ICommandLine Members
-            public bool Parse(List<string> argv)
-            {
-                if (ArgParser.Parse(argv, "-girlypreset") < 0) return false;
-
-                ForceGirlyLayout();
-
-                System.Windows.Forms.DialogResult dr = Message.Show(SimPe.Localization.GetString("PresetChanged").Replace("{name}",
-                    SimPe.Localization.GetString("PresetGirly")), SimPe.Localization.GetString("Information"),
-                    System.Windows.Forms.MessageBoxButtons.YesNo);
-                return dr != System.Windows.Forms.DialogResult.Yes;
-            }
-            // public string[] Help() { return new string[] { "-girlypreset", null }; }
-            public string[] Help() { return new string[] { null, null }; }
-            #endregion
-        }
-
-
         /// <summary>
         /// Loaded just befor the GUI is started
         /// </summary>

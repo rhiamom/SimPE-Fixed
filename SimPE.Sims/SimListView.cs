@@ -138,16 +138,13 @@ namespace SimPe.PackedFiles.Wrapper
                 if (imgbig.Width < 16)
                     imgbig = null;
 
-            if (imgbig != null) imgbig = Ambertation.Drawing.GraphicRoutines.KnockoutImage(imgbig, new Point(0, 0), Color.Magenta);
-            else
-            {
-                if (sdesc.CharacterDescription.IsWoman && sdesc.Nightlife.Species == 0)
-                    imgbig = SimPe.GetImage.BabyDoll;
-                else if (sdesc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Female)
-                    imgbig = SimPe.GetImage.SheOne;
-                else
-                    imgbig = SimPe.GetImage.NoOne;
-            }
+			if (imgbig != null) imgbig = Ambertation.Drawing.GraphicRoutines.KnockoutImage(imgbig, new Point(0, 0), Color.Magenta);
+			else
+				imgbig = Image.FromStream(
+					typeof(SimListView).Assembly.GetManifestResourceStream(
+						"SimPe.PackedFiles.Wrapper.noone.png"
+					)
+				);
 
             imgbig = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(
                 imgbig,

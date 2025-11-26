@@ -28,7 +28,7 @@ namespace SimPe.Plugin.Gmdc.Exporter
 	/// <summary>
 	/// This class provides the functionality to Export Data to the .x (DirectX) FileFormat
 	/// </summary>
-	public class GmdcExportToX : AbstractGmdcExporter
+	/*public class GmdcExportToX : AbstractGmdcExporter
 	{
 		/// <summary>
 		/// Constructor
@@ -58,7 +58,7 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		string GetUniqueGroupName(string name) 
 		{			
 			return name;			
-		}
+		}*/
 
 		/// <summary>
 		/// Returns the suggested File Extension (including the . like .obj or .3ds)

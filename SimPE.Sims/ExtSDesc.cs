@@ -62,7 +62,7 @@ namespace SimPe.PackedFiles.Wrapper
 		{
 			get 
 			{
-				if (FileTable.ProviderRegistry.SimNameProvider!=null) 
+				if (SimPe.FileTable.ProviderRegistry.SimNameProvider!=null) 
 				{
 					object o = FileTable.ProviderRegistry.SimNameProvider.FindName(SimId).Tag;
 					if (o!=null) 

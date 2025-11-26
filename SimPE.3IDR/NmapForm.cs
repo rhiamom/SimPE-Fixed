@@ -22,6 +22,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace SimPe.Plugin
 {
@@ -35,30 +36,32 @@ namespace SimPe.Plugin
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-		public NmapForm()
-		{
-			//
-			// Required designer variable.
-			//
-			InitializeComponent();
+        public NmapForm()
+        {
+            //
+            // Required designer variable.
+            //
+            InitializeComponent();
 
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            // Apply normal (non-booby) theming if enabled
+                ThemeManager tm = ThemeManager.Global.CreateChild();
                 tm.AddControl(this.wrapperPanel);
                 tm.AddControl(this.lblist);
                 tm.AddControl(this.panel3);
+
+            // Use larger font if requested
+            if (Helper.WindowsRegistry.UseBigIcons)
+            {
+                this.lblist.Font = new System.Drawing.Font(this.lblist.Font.FontFamily, 11F);
             }
-            else booby.ThemeManager.Global.RemoveControl(this.panel3);
+        }
 
-            if (Helper.WindowsRegistry.UseBigIcons) this.lblist.Font = new System.Drawing.Font(this.lblist.Font.FontFamily, 11F);
-            if (booby.PrettyGirls.PervyMode) this.wrapperPanel.BackgroundImage = booby.PrettyGirls.PrettyJan;
-		}
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose( bool disposing )
 		{
 			if( disposing )
 			{
@@ -78,7 +81,8 @@ namespace SimPe.Plugin
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NmapForm));
-            this.wrapperPanel = new booby.gradientpanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.wrapperPanel = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tbfindname = new System.Windows.Forms.TextBox();
@@ -96,20 +100,27 @@ namespace SimPe.Plugin
             this.tbgroup = new System.Windows.Forms.TextBox();
             this.llcommit = new System.Windows.Forms.LinkLabel();
             this.lblist = new System.Windows.Forms.ListBox();
-            this.panel3 = new booby.panelheader();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
+            this.btnCommit = new System.Windows.Forms.Button();
+            this.panel3.SuspendLayout();
             this.wrapperPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gbtypes.SuspendLayout();
             this.pntypes.SuspendLayout();
             this.SuspendLayout();
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel3.Controls.Add(this.btnCommit);
+            resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.ForeColor = System.Drawing.Color.White;
+            this.panel3.Name = "panel3";
+            // 
             // wrapperPanel
             // 
             resources.ApplyResources(this.wrapperPanel, "wrapperPanel");
             this.wrapperPanel.BackColor = System.Drawing.Color.Transparent;
-            this.wrapperPanel.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.TopRight;
-            this.wrapperPanel.BackgroundImageZoomToFit = true;
             this.wrapperPanel.Controls.Add(this.groupBox1);
             this.wrapperPanel.Controls.Add(this.btref);
             this.wrapperPanel.Controls.Add(this.gbtypes);
@@ -139,7 +150,7 @@ namespace SimPe.Plugin
             // 
             resources.ApplyResources(this.tbfindname, "tbfindname");
             this.tbfindname.Name = "tbfindname";
-            this.tbfindname.TextChanged += new System.EventHandler(this.tbfindname_TextChanged);
+            this.tbfindname.TextChanged += new System.EventHandler(this.TextChanged);
             // 
             // label3
             // 
@@ -239,24 +250,24 @@ namespace SimPe.Plugin
             this.lblist.DragDrop += new System.Windows.Forms.DragEventHandler(this.PackageItemDrop);
             this.lblist.DragEnter += new System.Windows.Forms.DragEventHandler(this.PackageItemDragEnter);
             // 
-            // panel3
-            // 
-            resources.ApplyResources(this.panel3, "panel3");
-            this.panel3.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel3.CanCommit = true;
-            this.panel3.ForeColor = System.Drawing.Color.White;
-            this.panel3.Name = "panel3";
-            this.panel3.OnCommit += new booby.panelheader.EventHandler(this.CommitAll);
-            // 
             // sfd
             // 
             resources.ApplyResources(this.sfd, "sfd");
+            // 
+            // btnCommit
+            // 
+            resources.ApplyResources(this.btnCommit, "btnCommit");
+            this.btnCommit.ForeColor = System.Drawing.Color.Black;
+            this.btnCommit.Name = "btnCommit";
+            this.btnCommit.UseVisualStyleBackColor = true;
+            this.btnCommit.Click += new System.EventHandler(this.Commit_Click);
             // 
             // NmapForm
             // 
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.wrapperPanel);
             this.Name = "NmapForm";
+            this.panel3.ResumeLayout(false);
             this.wrapperPanel.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -268,9 +279,9 @@ namespace SimPe.Plugin
 		}
 		#endregion
 
-        internal booby.gradientpanel wrapperPanel;
+        internal System.Windows.Forms.Panel wrapperPanel;
 		internal System.Windows.Forms.ListBox lblist;
-        private booby.panelheader panel3;
+        private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.GroupBox gbtypes;
 		internal System.Windows.Forms.LinkLabel lladd;
 		internal System.Windows.Forms.LinkLabel lldelete;
@@ -288,8 +299,8 @@ namespace SimPe.Plugin
 		private System.Windows.Forms.Label label3;
 		internal System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.SaveFileDialog sfd;
-
-		internal SimPe.Plugin.Nmap wrapper;
+        private Button btnCommit;
+        internal SimPe.Plugin.Nmap wrapper;
 
 		private void SelectFile(object sender, System.EventArgs e)
 		{
@@ -427,7 +438,7 @@ namespace SimPe.Plugin
 		}
 		#endregion
 
-		private void tbfindname_TextChanged(object sender, System.EventArgs e)
+		private void TextChanged(object sender, System.EventArgs e)
 		{
 			
 			string name = tbfindname.Text.Trim().ToLower();
@@ -483,5 +494,10 @@ namespace SimPe.Plugin
 				}
 			}
 		}
-	}
+
+        private void Commit_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

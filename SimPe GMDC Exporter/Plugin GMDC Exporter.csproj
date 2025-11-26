@@ -154,12 +154,6 @@
     </Compile>
     <Compile Include="NormalMap.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe GMDC Exporter Base\SimPe GMDC Exporter Base.csproj">
-      <Project>{76d6a8b3-10df-4948-9028-c63a416ab00e}</Project>
-      <Name>SimPe GMDC Exporter Base</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

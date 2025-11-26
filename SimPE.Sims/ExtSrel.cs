@@ -37,7 +37,6 @@ namespace SimPe.PackedFiles.Wrapper
 			
 		}
 
-		
 		protected override IWrapperInfo CreateWrapperInfo()
 		{			
 			return new AbstractWrapperInfo(
@@ -134,63 +133,95 @@ namespace SimPe.PackedFiles.Wrapper
 			}
 		}
 
-		public Image Image
-		{
-			get 
-			{
-				Bitmap b = new Bitmap(356, 256);
-				Graphics g = Graphics.FromImage(b);
+        public Image Image
+        {
+            get
+            {
+                Bitmap b = new Bitmap(356, 256);
+                Graphics g = Graphics.FromImage(b);
 
-				Image isrc = null;
-				if (SourceSim!=null)
-					if (SourceSim.Image!=null)
-						if (SourceSim.Image.Width>8)
-							isrc = SourceSim.Image;
+                // ---- Source Sim image ----
+                Image isrc = null;
+                if (SourceSim != null)
+                {
+                    if (SourceSim.Image != null)
+                    {
+                        if (SourceSim.Image.Width > 8)
+                            isrc = SourceSim.Image;
+                    }
+                }
+
                 if (isrc == null)
                 {
-                    if (SourceSim != null)
-                    {
-                        if (SourceSim.CharacterDescription.IsWoman && SourceSim.Nightlife.Species == 0)
-                            isrc = SimPe.GetImage.BabyDoll;
-                        else if (SourceSim.CharacterDescription.Gender == MetaData.Gender.Female)
-                            isrc = SimPe.GetImage.SheOne;
-                        else
-                            isrc = SimPe.GetImage.NoOne;
-                    }
-                    else isrc = SimPe.GetImage.NoOne;
+                    isrc = Image.FromStream(
+                        this.GetType().Assembly.GetManifestResourceStream(
+                            "SimPe.PackedFiles.Wrapper.noone.png"
+                        )
+                    );
                 }
-				else isrc = Ambertation.Drawing.GraphicRoutines.KnockoutImage(isrc, new Point(0,0), Color.Magenta);
+                else
+                {
+                    isrc = Ambertation.Drawing.GraphicRoutines.KnockoutImage(
+                        isrc,
+                        new Point(0, 0),
+                        Color.Magenta
+                    );
+                }
 
-				Image idst = null;
-				if (TargetSim!=null)
-					if (TargetSim.Image!=null) 
-						if (TargetSim.Image.Width>8)
-							idst = TargetSim.Image;
+                // ---- Target Sim image ----
+                Image idst = null;
+                if (TargetSim != null)
+                {
+                    if (TargetSim.Image != null)
+                    {
+                        if (TargetSim.Image.Width > 8)
+                            idst = TargetSim.Image;
+                    }
+                }
+
                 if (idst == null)
                 {
-                    if (TargetSim != null)
-                    {
-                        if (TargetSim.CharacterDescription.IsWoman && TargetSim.Nightlife.Species == 0)
-                            idst = SimPe.GetImage.BabyDoll;
-                        else if (TargetSim.CharacterDescription.Gender == MetaData.Gender.Female)
-                            idst = SimPe.GetImage.SheOne;
-                        else
-                            idst = SimPe.GetImage.NoOne;
-                    }
-                    else idst = SimPe.GetImage.NoOne;
+                    idst = Image.FromStream(
+                        this.GetType().Assembly.GetManifestResourceStream(
+                            "SimPe.PackedFiles.Wrapper.noone.png"
+                        )
+                    );
                 }
-				else idst = Ambertation.Drawing.GraphicRoutines.KnockoutImage(idst, new Point(0,0), Color.Magenta);
+                else
+                {
+                    idst = Ambertation.Drawing.GraphicRoutines.KnockoutImage(
+                        idst,
+                        new Point(0, 0),
+                        Color.Magenta
+                    );
+                }
 
-				const int offsety = 32;
-				g.DrawImage(isrc, new Rectangle(0, offsety, 256, 256-offsety), new Rectangle(0, 0, isrc.Width, isrc.Height-offsety), GraphicsUnit.Pixel);
-				g.DrawImage(idst, new Rectangle(100, 0, 256, 256), new Rectangle(0, 0, idst.Width, idst.Height), GraphicsUnit.Pixel);
-				g.Dispose();
-				return b;
-			}
-		}
-		#endregion
+                const int offsety = 32;
 
-		protected override string GetResourceName(SimPe.Data.TypeAlias ta)
+                // Draw source sim on the left
+                g.DrawImage(
+                    isrc,
+                    new Rectangle(0, offsety, 256, 256 - offsety),
+                    new Rectangle(0, 0, isrc.Width, isrc.Height - offsety),
+                    GraphicsUnit.Pixel
+                );
+
+                // Draw target sim on the right
+                g.DrawImage(
+                    idst,
+                    new Rectangle(100, 0, 256, 256),
+                    new Rectangle(0, 0, idst.Width, idst.Height),
+                    GraphicsUnit.Pixel
+                );
+
+                g.Dispose();
+                return b;
+            }
+        }
+
+        #endregion
+
+        protected override string GetResourceName(SimPe.Data.TypeAlias ta)
 		{
 			if (!this.Processed) ProcessData(FileDescriptor, Package);
 			return SourceSimName  + " "+SimPe.Localization.GetString("towards") + " "+TargetSimName;

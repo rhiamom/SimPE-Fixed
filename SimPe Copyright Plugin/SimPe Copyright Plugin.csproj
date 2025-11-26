@@ -151,16 +151,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe GMDC Exporter Base\SimPe GMDC Exporter Base.csproj">
-      <Project>{76d6a8b3-10df-4948-9028-c63a416ab00e}</Project>
-      <Name>SimPe GMDC Exporter Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Sims\SimPe Sims.csproj">
-      <Project>{9877b092-c8c0-4b84-b5a0-f9a68aa1c0e4}</Project>
-      <Name>SimPe Sims</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

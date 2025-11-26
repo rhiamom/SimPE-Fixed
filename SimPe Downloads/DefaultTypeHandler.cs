@@ -10,20 +10,20 @@ namespace SimPe.Plugin.Downloads
 	public class DefaultTypeHandler : Downloads.ITypeHandler, System.IDisposable
 	{		
 		#region Preview
-		static Ambertation.Graphics.DirectXPanel dxp;
+		/*static Ambertation.Graphics.DirectXPanel dxp;
 		static void InitPreview()
 		{
 			if (dxp!=null) return;
-			dxp = new Ambertation.Graphics.DirectXPanel();
+			//dxp = new Ambertation.Graphics.DirectXPanel();
 			dxp.Width = 128 * 3;
 			dxp.Height = dxp.Width;
 			dxp.BackColor = Color.FromArgb(10, 10, 40);
-			dxp.Settings.MeshPassCullMode = Microsoft.DirectX.Direct3D.Cull.Clockwise;
+			//dxp.Settings.MeshPassCullMode = Microsoft.DirectX.Direct3D.Cull.Clockwise;
 
 			dxp.Settings.AddAxis = false;
 			dxp.Settings.AddLightIndicators = false;
 			dxp.Settings.RenderJoints = false;
-		}
+		}*/
 		#endregion
 
 		protected PackageInfo nfo;
@@ -342,7 +342,7 @@ namespace SimPe.Plugin.Downloads
 			dxp.Settings.Z *= 0.3f;
 			dxp.UpdateRotation();
 			dxp.Render();
-			Image ret = dxp.Screenshot(Microsoft.DirectX.Direct3D.ImageFileFormat.Png);
+			//Image ret = dxp.Screenshot(Microsoft.DirectX.Direct3D.ImageFileFormat.Png);
 			
 			/*System.Windows.Forms.Form f = new System.Windows.Forms.Form();
 			f.Controls.Add(dxp);
@@ -458,7 +458,7 @@ namespace SimPe.Plugin.Downloads
 
 		private static void dxp_ResetDevice(object sender, EventArgs e)
 		{
-			Ambertation.Graphics.DirectXPanel dxp = sender as Ambertation.Graphics.DirectXPanel;
+			//Ambertation.Graphics.DirectXPanel dxp = sender as Ambertation.Graphics.DirectXPanel;
 			dxp.Meshes.Clear();
 			dxp.AddScene(scn);
 		}

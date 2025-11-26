@@ -130,16 +130,6 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe HGBH\SimPe HGBH.csproj">
-      <Project>{2a67c9c3-9577-4922-991f-291eaa6b4f2d}</Project>
-      <Name>SimPe HGBH</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPE Toolbox Scanner\SimPE Toolbox Scanner.csproj">
-      <Project>{2ea51e60-64fa-4822-ae2a-a996ba79aa76}</Project>
-      <Name>SimPE Toolbox Scanner</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

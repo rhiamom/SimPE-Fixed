@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5E418D56-585D-4134-B971-04C8A860CCD8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimPE.PluginDockbox</RootNamespace>
+    <AssemblyName>SimPE.PluginDockBox</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="NetDocks, Version=1.0.2983.24895, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionBuildPhpGUIDList.cs" />
+    <Compile Include="ActionCheckFiletable.cs" />
+    <Compile Include="ActionReloadFiletable.cs" />
+    <Compile Include="ActionUniqueInstance.cs" />
+    <Compile Include="AFinderTool.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AFinderTool.Designer.cs" />
+    <Compile Include="CreateListFromPackageTool.cs" />
+    <Compile Include="CreateListFromSelectionTool.cs" />
+    <Compile Include="CSVSerializer.cs" />
+    <Compile Include="DebugDock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Factory.cs" />
+    <Compile Include="FinderDock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FinderDock.Designer.cs" />
+    <Compile Include="FinderResultItem.cs" />
+    <Compile Include="FinderToolRegistry.cs" />
+    <Compile Include="FindInCpf.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindInCpf.Designer.cs" />
+    <Compile Include="FindInNmap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindInNmap.Designer.cs" />
+    <Compile Include="FindInNref.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindInNref.Designer.cs" />
+    <Compile Include="FindInSG.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindInSG.Designer.cs" />
+    <Compile Include="FindInStr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindInStr.Designer.cs" />
+    <Compile Include="FindObj.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindObj.Designer.cs" />
+    <Compile Include="FindTGI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindTGI.Designer.cs" />
+    <Compile Include="HexDecConverterTool.cs" />
+    <Compile Include="HexDockTool.cs" />
+    <Compile Include="IFinderResultGui.cs" />
+    <Compile Include="PackageDockTool.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResourceDock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResourceDockTool.cs" />
+    <Compile Include="WrapperDockTool.cs" />
+    <EmbeddedResource Include="AFinderTool.de.resx" />
+    <EmbeddedResource Include="AFinderTool.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DebugDock.resx" />
+    <EmbeddedResource Include="FinderDock.resx" />
+    <EmbeddedResource Include="FindInCpf.de.resx" />
+    <EmbeddedResource Include="FindInCpf.resx" />
+    <EmbeddedResource Include="FindInNmap.de.resx" />
+    <EmbeddedResource Include="FindInNmap.resx" />
+    <EmbeddedResource Include="FindInNref.de.resx" />
+    <EmbeddedResource Include="FindInNref.resx" />
+    <EmbeddedResource Include="FindInSG.de.resx" />
+    <EmbeddedResource Include="FindInSG.resx" />
+    <EmbeddedResource Include="FindInStr.de.resx" />
+    <EmbeddedResource Include="FindInStr.resx" />
+    <EmbeddedResource Include="FindObj.de.resx" />
+    <EmbeddedResource Include="FindObj.resx" />
+    <EmbeddedResource Include="FindTGI.de.resx" />
+    <EmbeddedResource Include="FindTGI.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Report.de.resx" />
+    <EmbeddedResource Include="Report.fr.resx" />
+    <EmbeddedResource Include="Report.pl.resx" />
+    <EmbeddedResource Include="Report.resx" />
+    <EmbeddedResource Include="Report.ru.resx" />
+    <EmbeddedResource Include="ResourceDock.de.resx" />
+    <EmbeddedResource Include="ResourceDock.fr.resx" />
+    <EmbeddedResource Include="ResourceDock.it.resx" />
+    <EmbeddedResource Include="ResourceDock.pl.resx" />
+    <EmbeddedResource Include="ResourceDock.resx" />
+    <EmbeddedResource Include="ResourceDock.ru.resx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
+      <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
+      <Name>SimPE.Filehandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
+      <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
+      <Name>SimPE.GraphControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

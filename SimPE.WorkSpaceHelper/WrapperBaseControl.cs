@@ -536,7 +536,7 @@ namespace SimPe.Windows.Forms
 		/// <remarks>attr.Tag is used to let TextChanged event handlers know the change is being
 		/// made internally rather than by the users.</remarks>
 		/// <param name="wrp">The Attributes of this Wrapper have to be displayed</param>
-		public void UpdateGUI(SimPe.Interfaces.Plugin.IFileWrapper wrp)
+		public virtual void UpdateGUI(SimPe.Interfaces.Plugin.IFileWrapper wrp)
 		{
             SetWrapper(wrp);
 			RefreshGUI();
@@ -556,7 +556,7 @@ namespace SimPe.Windows.Forms
 		/// <summary>
 		/// Implement this Method in derrived classes
 		/// </summary>
-		protected virtual void RefreshGUI()
+		public virtual void RefreshGUI()
 		{
 		}
 

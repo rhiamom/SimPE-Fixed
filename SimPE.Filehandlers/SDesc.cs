@@ -98,15 +98,18 @@ namespace SimPe.PackedFiles.UserInterface
             sdscPanel.tbsimdescfamname.Text = sdesc.SimFamilyName;
             sdscPanel.tbfaminst.Text = "0x" + Helper.HexString(sdesc.FamilyInstance);
 
-            // Remaining days in this life section
-            sdscPanel.tbagedur.Text = sdesc.AgeDuration.ToString();
-
             // Aspiration: pick matching entry
             sdscPanel.cbaspiration.SelectedIndex = 0;
             for (int i = 0; i < sdscPanel.cbaspiration.Items.Count; i++)
             {
-                Data.MetaData.AspirationTypes at = (LocalizedAspirationTypes)sdscPanel.cbaspiration.Items[i];
-                if (at == sdesc.Aspiration)
+                // 1) Cast the item back to the localized wrapper
+                LocalizedAspirationTypes lat =
+                    (LocalizedAspirationTypes)sdscPanel.cbaspiration.Items[i];
+
+                // 2) Let the implicit operator convert wrapper ? enum
+                Data.MetaData.AspirationTypes at = lat;
+
+                if (at == sdesc.CharacterDescription.Aspiration)
                 {
                     sdscPanel.cbaspiration.SelectedIndex = i;
                     break;
@@ -117,8 +120,12 @@ namespace SimPe.PackedFiles.UserInterface
             sdscPanel.cblifesection.SelectedIndex = 0;
             for (int i = 0; i < sdscPanel.cblifesection.Items.Count; i++)
             {
-                Data.MetaData.LifeSections ls = (LocalizedLifeSections)sdscPanel.cblifesection.Items[i];
-                if (ls == sdesc.LifeSection)
+                LocalizedLifeSections lls =
+                    (LocalizedLifeSections)sdscPanel.cblifesection.Items[i];
+
+                Data.MetaData.LifeSections ls = lls;
+
+                if (ls == sdesc.CharacterDescription.LifeSection)
                 {
                     sdscPanel.cblifesection.SelectedIndex = i;
                     break;

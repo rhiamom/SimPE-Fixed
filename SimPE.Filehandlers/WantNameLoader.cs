@@ -109,23 +109,6 @@ namespace SimPe.Plugin
 		/// <param name="version">Version where you want to load the Description from</param>
 		void ParseXml(SimPe.PackedFiles.Wrapper.SDescVersions version)
         {
-            // version is Sdsc version - must be converted to EP version
-            ExpansionItem ei = SimPe.PackedFiles.Wrapper.SDesc.GetIEVersion(version);
-            if (ei != null)
-            {
-                SimPe.Packages.File pkg = SimPe.Packages.File.LoadFromFile(System.IO.Path.Combine(ei.InstallFolder, "TSData\\Res\\Wants\\WantTuning.package"));
-                if (pkg != null) // if it is null then what?
-                {
-                    SimPe.Interfaces.Files.IPackedFileDescriptor pfd = pkg.FindFile(0x00000000, 0, 0xCDA53B6F, 0x2D7EE26B);
-                    if (pfd != null)
-                    {
-                        SimPe.PackedFiles.Wrapper.Xml xml = new SimPe.PackedFiles.Wrapper.Xml();
-                        xml.ProcessData(pfd, pkg);
-                        ParseXml(xml.Text);
-                    }
-                }
-            }
-            /*
 			map = new Hashtable();			
 			Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFile(0x00000000, 0xCDA53B6F, 0x2D7EE26B, null);
             
@@ -155,7 +138,7 @@ namespace SimPe.Plugin
 				xml.ProcessData(item);
 
 				ParseXml(xml.Text);
-			} */
+			} 
 		}
 
 		/// <summary>

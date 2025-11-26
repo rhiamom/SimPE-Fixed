@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractFloodFiller.cs" />
+    <Compile Include="ProgresBarStyle.cs" />
+    <Compile Include="LabeledProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Collections.cs" />
     <Compile Include="DragPanel.cs" />
     <Compile Include="EnumComboBox.cs" />
@@ -77,6 +81,20 @@
     <Compile Include="PropertyItem.cs" />
     <Compile Include="PropertyPanel.cs" />
     <Compile Include="RoundedPanel.cs" />
+    <Compile Include="SelectorItem.cs" />
+    <Compile Include="TransparentCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TransparentGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UxTheme.cs" />
+    <Compile Include="XpTaskBoxSelector.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XpTaskBoxSimple.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="EnumComboBox.resx" />
     <EmbeddedResource Include="GraphPanel.resx" />
     <EmbeddedResource Include="HexEditControl.resx" />
@@ -90,6 +108,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="XpTaskBoxSelector.resx" />
+    <EmbeddedResource Include="XpTaskBoxSimple.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

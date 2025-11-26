@@ -23,15 +23,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+using SimPe.Interfaces.Plugin;
 
 namespace SimPe.PackedFiles.UserInterface
 {
 	/// <summary>
 	/// Summary description for SimDNAUI.
 	/// </summary>
-	public class SimDNAUI : 
-		//System.Windows.Forms.UserControl 
-		SimPe.Windows.Forms.WrapperBaseControl, SimPe.Interfaces.Plugin.IPackedFileUI
+	public class SimDNAUI : SimPe.Windows.Forms.WrapperBaseControl, IPackedFileUI
 	{
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.PropertyGrid pbDom;
@@ -51,12 +50,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 			this.Text = "Sim DNA";
 			this.Commited += new EventHandler(SimDNAUI_Commited);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.pbDom);
-                booby.ThemeManager.Global.AddControl(this.pbRec);
-                booby.ThemeManager.Global.AddControl(this.lbcpf);
-            }
+            
             if (Helper.WindowsRegistry.UseBigIcons)
                 this.lbcpf.Font = new System.Drawing.Font("Verdana", 12F);
 		}
@@ -198,50 +192,36 @@ namespace SimPe.PackedFiles.UserInterface
             get { return (SimPe.PackedFiles.Wrapper.Cpf)Wrapper; }
         }
 
-		protected override void RefreshGUI()
-		{
+        public override void RefreshGUI()
+        {
             if (Sdna.Dominant.Skintone != "" || Sdna.Dominant.Hair != "")
             {
+                // Show the DNA panel
                 label2.Visible = pbRec.Visible = label1.Visible = pbDom.Visible = true;
                 lbcpf.Visible = false;
-                this.pbDom.SelectedObject = Sdna.Dominant;
-                this.pbRec.SelectedObject = Sdna.Recessive;
 
-                this.lbbody.Text = "Bodyshape = " + Data.MetaData.GetBodyName(SimPe.Data.MetaData.GetBodyShapeid(Sdna.Dominant.Skintone));
-                if (this.lbbody.Text == "Bodyshape = Unknown" || this.lbbody.Text == "Bodyshape =  Maxis : Default") this.lbbody.Visible = false; else this.lbbody.Visible = true;
+                pbDom.SelectedObject = Sdna.Dominant;
+                pbRec.SelectedObject = Sdna.Recessive;
 
-                SimPe.PackedFiles.Wrapper.SDesc sdsc = FileTable.ProviderRegistry.SimDescriptionProvider.FindSim((ushort)Wrapper.FileDescriptor.Instance) as SimPe.PackedFiles.Wrapper.SDesc;
-                if (sdsc == null)
-                {
-                    this.CanCommit = true;
-                    this.HeaderText = "Sim DNA";
-                }
-                else
-                {
-                    this.HeaderText = "Sim DNA (" + sdsc.SimName + " " + sdsc.SimFamilyName + ")";
-                    this.CanCommit = sdsc.Nightlife.IsHuman;
-                }
+                // Chris Hatch bodyshape UI removed – hide this label entirely
+                lbbody.Visible = false;
             }
             else
             {
-                this.CanCommit = false;
+                // No DNA present – fall back to CPF list view
                 label2.Visible = pbRec.Visible = lbbody.Visible = label1.Visible = pbDom.Visible = false;
                 lbcpf.Visible = true;
                 lbcpf.Items.Clear();
-                SimPe.PackedFiles.Wrapper.SDesc sdsc = FileTable.ProviderRegistry.SimDescriptionProvider.FindSim((ushort)Wrapper.FileDescriptor.Instance) as SimPe.PackedFiles.Wrapper.SDesc;
-                if (sdsc == null)
-                    this.HeaderText = "CPF Viewer";
-                else
-                    this.HeaderText = "CPF Viewer (" + sdsc.SimName + " " + sdsc.SimFamilyName + " DNA)";
 
                 foreach (SimPe.PackedFiles.Wrapper.CpfItem item in wrp.Items)
                     lbcpf.Items.Add(item);
             }
-		}
+        }
 
-		#endregion
 
-		private void SimDNAUI_Commited(object sender, EventArgs e)
+        #endregion
+
+        private void SimDNAUI_Commited(object sender, EventArgs e)
 		{
 			Sdna.SynchronizeUserData();
             RefreshGUI();

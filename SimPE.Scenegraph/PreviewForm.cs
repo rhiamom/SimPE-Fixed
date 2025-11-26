@@ -15,7 +15,7 @@ namespace SimPe.Plugin
 		/// Erforderliche Designervariable.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
-		Ambertation.Graphics.DirectXPanel dx = null;
+		//Ambertation.Graphics.DirectXPanel dx = null;
 
 		public PreviewForm()
 		{
@@ -24,9 +24,10 @@ namespace SimPe.Plugin
 			//
 			InitializeComponent();
 
-			dx.Settings.AddAxis = false;
+			/*dx.Settings.AddAxis = false;
 			dx.LoadSettings(Helper.SimPeViewportFile);
 			dx.ResetDevice += new EventHandler(dx_ResetDevice);
+		*/
 		}
 
 		/// <summary>
@@ -52,12 +53,12 @@ namespace SimPe.Plugin
 		private void InitializeComponent()
 		{
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(PreviewForm));
-			this.dx = new Ambertation.Graphics.DirectXPanel();
+			//this.dx = new Ambertation.Graphics.DirectXPanel();
 			this.SuspendLayout();
 			// 
 			// dx
 			// 
-			this.dx.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(128)), ((System.Byte)(128)), ((System.Byte)(255)));
+			/*this.dx.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(128)), ((System.Byte)(128)), ((System.Byte)(255)));
 			this.dx.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dx.Effect = null;
 			this.dx.Location = new System.Drawing.Point(0, 0);
@@ -65,13 +66,13 @@ namespace SimPe.Plugin
 			this.dx.Size = new System.Drawing.Size(494, 476);
 			this.dx.TabIndex = 0;
 			this.dx.WorldMatrix = ((Microsoft.DirectX.Matrix)(resources.GetObject("dx.WorldMatrix")));
-			// 
+			// */
 			// PreviewForm
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
 			this.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(128)), ((System.Byte)(128)), ((System.Byte)(255)));
 			this.ClientSize = new System.Drawing.Size(494, 476);
-			this.Controls.Add(this.dx);
+			//this.Controls.Add(this.dx);
 			this.Font = new System.Drawing.Font("Tahoma", 8.25F);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -90,12 +91,15 @@ namespace SimPe.Plugin
 			throw new SimPe.Warning("This Item can't be previewed!", "SimPE was unable to build the Scenegraph.");
 		}
 
-		public static Ambertation.Scenes.Scene BuildScene(SimPe.PackedFiles.Wrapper.Cpf cmmat, SimPe.Interfaces.Files.IPackageFile package)
-		{
-		}
+        public static Ambertation.Scenes.Scene BuildScene(SimPe.PackedFiles.Wrapper.Cpf cmmat,SimPe.Interfaces.Files.IPackageFile package)
+        {
+            // 3D scene preview is not supported in this build yet.
+            // TODO: Implement a cross-platform replacement for the original DX-based scene builder.
+            return null;
+        }
 
-		//static Ambertation.Panel3D p3d;
-		public static void Execute(SimPe.PackedFiles.Wrapper.Cpf cmmat, SimPe.Interfaces.Files.IPackageFile package) 
+        //static Ambertation.Panel3D p3d;
+        public static void Execute(SimPe.PackedFiles.Wrapper.Cpf cmmat, SimPe.Interfaces.Files.IPackageFile package) 
 		{
 			if (!(cmmat is MmatWrapper)) return;
 
@@ -119,10 +123,10 @@ namespace SimPe.Plugin
 					Ambertation.Scenes.Scene scene = gmdcext.GetScene(new SimPe.Plugin.Gmdc.ElementOrder(Gmdc.ElementSorting.Preview));
 
 					PreviewForm f = new PreviewForm();
-					f.dx.AddScene(scene);
-					f.dx.ResetDefaultViewport();
+					//f.dx.AddScene(scene);
+					//f.dx.ResetDefaultViewport();
 					f.ShowDialog();
-					f.dx.Meshes.Clear(true);
+					//f.dx.Meshes.Clear(true);
 				}
 				else Exception();
 
@@ -130,10 +134,10 @@ namespace SimPe.Plugin
 			catch (System.IO.FileNotFoundException)
 			{
 				Wait.Stop();
-				if (MessageBox.Show("The Microsoft Managed DirectX Extensions were not found on your System. Without them, the Preview is not available.\n\nYou can install them manually, by extracting the content of the DirectX\\ManagedDX.CAB on your Sims 2 Installation CD #1. If you double click on the extracted msi File, all needed Files will be installed.\n\nYou can also let SimPE install it automatically. SimPE will download the needed Files (3.5MB) from the SimPE Homepage and install them. Do you want SimPE to download and install the Files?", "Warning", MessageBoxButtons.YesNo)==DialogResult.Yes)
+				/*if (MessageBox.Show("The Microsoft Managed DirectX Extensions were not found on your System. Without them, the Preview is not available.\n\nYou can install them manually, by extracting the content of the DirectX\\ManagedDX.CAB on your Sims 2 Installation CD #1. If you double click on the extracted msi File, all needed Files will be installed.\n\nYou can also let SimPE install it automatically. SimPE will download the needed Files (3.5MB) from the SimPE Homepage and install them. Do you want SimPE to download and install the Files?", "Warning", MessageBoxButtons.YesNo)==DialogResult.Yes)
 				{
 					if (WebUpdate.InstallMDX()) MessageBox.Show("Managed DirectX Extension were installed succesfully!");
-				}
+				}*/
 					
 				return;
 			}

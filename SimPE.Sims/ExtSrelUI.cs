@@ -40,6 +40,7 @@ namespace SimPe.PackedFiles.UserInterface
         private System.Windows.Forms.Label lbsims;
         private SimPe.PackedFiles.UserInterface.CommonSrel sc;
         private System.Windows.Forms.PictureBox pb;
+        
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -137,7 +138,7 @@ namespace SimPe.PackedFiles.UserInterface
             get { return (SimPe.PackedFiles.Wrapper.ExtSrel)Wrapper; }
         }
 
-        protected override void RefreshGUI()
+        public override void RefreshGUI()
         {
             base.RefreshGUI();
             sc.Srel = this.Srel;
@@ -147,7 +148,7 @@ namespace SimPe.PackedFiles.UserInterface
 
             pb.Image = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(sc.Image, pb.Size, 12, Color.FromArgb(90, Color.Black), booby.ThemeManager.Global.ThemeColorDark, Color.White, Color.FromArgb(80, Color.White), true, 2, 0);
         }
-
+        
         private void ExtSrel_Commited(object sender, System.EventArgs e)
         {
             Srel.SynchronizeUserData();

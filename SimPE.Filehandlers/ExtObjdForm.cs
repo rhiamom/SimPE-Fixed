@@ -536,16 +536,27 @@ namespace SimPe.PackedFiles.UserInterface
                         }
                     }
                 }
+                // Clean SimPE has no Subhoods API; remove Chris Hatch "gooee" registry.
+                // Leave tooltips blank or basic GUID info if desired.
+
                 if (!Helper.WindowsRegistry.HiddenMode && UserVerification.HaveUserId)
                 {
-                    this.toolTip1.SetToolTip(this.tbgrid, SimPe.Plugin.Subhoods.getgooee(objd.GridAlignedGuid));
-                    this.toolTip1.SetToolTip(this.tbdiag, SimPe.Plugin.Subhoods.getgooee(objd.DiagonalGuid));
-                    this.toolTip1.SetToolTip(this.tbproxguid, SimPe.Plugin.Subhoods.getgooee(objd.ProxyGuid));
-                    this.toolTip1.SetToolTip(this.tborgguid, SimPe.Plugin.Subhoods.getgooee(objd.OriginalGuid));
+                    this.toolTip1.SetToolTip(this.tbgrid, objd.GridAlignedGuid.ToString("X8"));
+                    this.toolTip1.SetToolTip(this.tbdiag, objd.DiagonalGuid.ToString("X8"));
+                    this.toolTip1.SetToolTip(this.tbproxguid, objd.ProxyGuid.ToString("X8"));
+                    this.toolTip1.SetToolTip(this.tborgguid, objd.OriginalGuid.ToString("X8"));
                 }
 
-                this.llgetGUID.Visible = (UserVerification.HaveUserId && objd.Type != SimPe.Data.ObjectTypes.Person && objd.Type != SimPe.Data.ObjectTypes.UnlinkedSim);
-                this.lladdgooee.Visible = (UserVerification.HaveUserId && !SimPe.Plugin.Subhoods.GuidExists(objd.Guid) && objd.Type != SimPe.Data.ObjectTypes.Person && objd.Type != SimPe.Data.ObjectTypes.UnlinkedSim);
+                // Original visibility check without Chris' GuidExists()
+                this.llgetGUID.Visible = (
+                    UserVerification.HaveUserId &&
+                    objd.Type != SimPe.Data.ObjectTypes.Person &&
+                    objd.Type != SimPe.Data.ObjectTypes.UnlinkedSim
+                );
+
+                // Subhoods.GuidExists removed — no clean equivalent
+                this.lladdgooee.Visible = false;   // or true, depending on your UI
+
             }
             finally
             {
@@ -612,7 +623,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbstudy = new System.Windows.Forms.CheckBox();
             this.tpreqeps = new System.Windows.Forms.TabPage();
             this.pnpritty = new booby.gradientpanel();
-            this.tbreqeps = new System.Windows.Forms.Panel();
+            this.tbreqeps = new System.Windows.Forms.TabPage();
             this.lbepnote = new System.Windows.Forms.Label();
             this.lbgamef2 = new System.Windows.Forms.Label();
             this.cbStoreEd = new System.Windows.Forms.CheckBox();
@@ -1841,7 +1852,7 @@ namespace SimPe.PackedFiles.UserInterface
                 wrapper.Changed = true;
                 this.btnUpdateMMAT.Visible = this.label2.Visible = this.cball.Visible = this.lbIsOk.Visible = false;
                 this.llgetGUID.Visible = (UserVerification.HaveUserId && wrapper.Type != SimPe.Data.ObjectTypes.Person && wrapper.Type != SimPe.Data.ObjectTypes.UnlinkedSim);
-                this.lladdgooee.Visible = (UserVerification.HaveUserId && !SimPe.Plugin.Subhoods.GuidExists(wrapper.Guid) && wrapper.Type != SimPe.Data.ObjectTypes.Person && wrapper.Type != SimPe.Data.ObjectTypes.UnlinkedSim);
+                
                 this.Tag = null;
             }
             finally
@@ -2029,14 +2040,15 @@ namespace SimPe.PackedFiles.UserInterface
             else this.llgetGUID.Links[0].Enabled = false;
         }
 
-        private void lladdgooee_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        void lladdgooee_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (SimPe.Plugin.Subhoods.GuidAdd(wrapper.Guid, wrapper.FileDescriptor.Group, (ushort)(wrapper.Type), wrapper.FileName))
-                this.lladdgooee.LinkVisited = true;
-            else this.lladdgooee.Links[0].Enabled = false;
+            // Subhoods.GuidAdd removed – Subhood registry not available in this build.
+            // Just disable the link to indicate the action is not supported.
+            this.lladdgooee.Links[0].Enabled = false;
         }
 
-		private void btnUpdateMMAT_Click(object sender, System.EventArgs e)
+
+        private void btnUpdateMMAT_Click(object sender, System.EventArgs e)
 		{
 			if ((wrapper.Guid!=initialguid) || (cball.Checked))
 			{

@@ -30,10 +30,10 @@ namespace SimPe.Plugin
 	/// </summary>
 	public class AnimPreview : System.Windows.Forms.Form
 	{
-        private booby.gradientpanel xpGradientPanel1;
+        private System.Windows.Forms.Panel xpGradientPanel1;
 		private System.Windows.Forms.Panel panel1;
-		private Ambertation.Graphics.DirectXPanel dx;
-		private booby.ThemeManager tm;
+		//private Ambertation.Graphics.DirectXPanel dx;
+		private ThemeManager tm;
 		private System.Windows.Forms.ListBox lb;
 		private System.Windows.Forms.TreeView tv;
 		private System.Windows.Forms.Button btPlay;
@@ -47,15 +47,15 @@ namespace SimPe.Plugin
 			// Required designer variable.
 			//
 			InitializeComponent();
-            booby.ThemeManager.Global.AddControl(this.xpGradientPanel1);
+            ThemeManager.Global.AddControl(this.xpGradientPanel1);
 
-			dx = new Ambertation.Graphics.DirectXPanel();
+			/*dx = new Ambertation.Graphics.DirectXPanel();
 			dx.Parent = this.panel1;
             dx.Dock = DockStyle.Fill;
             //dx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
 
 			dx.ResetDevice += new EventHandler(dx_ResetDevice);
-		}
+		}*/
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -222,12 +222,11 @@ namespace SimPe.Plugin
 
             if (tn != null)
             {
-                Ambertation.Graphics.MeshBox mb = new Ambertation.Graphics.MeshBox(
-                    Microsoft.DirectX.Direct3D.Mesh.Sphere(dx.Device, 0.02f, 12, 24),
-                    1,
-                    Ambertation.Graphics.DirectXPanel.GetMaterial(Color.Wheat)
+				/*Ambertation.Graphics.MeshBox mb = new Ambertation.Graphics.MeshBox(Microsoft.DirectX.Direct3D.Mesh.Sphere(dx.Device, 0.02f, 12, 24),
+				1;
+				 Ambertation.Graphics.DirectXPanel.GetMaterial(Color.Wheat)
                     );
-                mb.Wire = false;
+                mb.Wire = false;*/
 
                 Ambertation.Scenes.Transformation trans = new Ambertation.Scenes.Transformation();
                 trans.Rotation.X = tn.Rotation.GetEulerAngles().X;
@@ -238,17 +237,17 @@ namespace SimPe.Plugin
                 trans.Translation.Y = tn.TransformY;
                 trans.Translation.Z = tn.TransformZ;
 
-                mb.Transform = Ambertation.Scenes.Converter.ToDx(trans);
+                //mb.Transform = Ambertation.Scenes.Converter.ToDx(trans);
 
                 TreeNode tnode = new TreeNode(tn.ToString());
-                tnode.Tag = mb;
+                //tnode.Tag = mb;
                 nodes.Add(tnode);
-                jointmap[bl.GetName()] = mb;
+                //jointmap[bl.GetName()] = mb;
 
-                parent.Add(mb);
+                //parent.Add(mb);
 
                 foreach (SimPe.Interfaces.Scenegraph.ICresChildren cld in bl)
-                    AddJoint(lmb, cld, mb, tnode.Nodes);
+                    //AddJoint(lmb, cld, mb, tnode.Nodes);
 
             }
             else
@@ -262,20 +261,20 @@ namespace SimPe.Plugin
 		{
             if (!inter) 
 			{
-				dx.Meshes.Clear(true);
+				//dx.Meshes.Clear(true);
 				inter = true;
 				lb_SelectedIndexChanged(null, null);
 				inter = false;
 			} 
 			else 
 			{
-				dx.Meshes.Clear(false);
+				//dx.Meshes.Clear(false);
 			}
 		
 			if (root!=null) 
 			{
 				foreach (Ambertation.Graphics.MeshBox mb in root)
-					dx.Meshes.Add(mb);
+					//dx.Meshes.Add(mb);
 			}			
 		}
 
@@ -311,8 +310,8 @@ namespace SimPe.Plugin
 			if (inter) return;
 			inter = true;
 			//dx.Reset();
-			dx.ResetViewport(new Microsoft.DirectX.Vector3(-2, -2, -2), new Microsoft.DirectX.Vector3(2, 2, 2));
-			dx.Render();
+			//dx.ResetViewport(new Microsoft.DirectX.Vector3(-2, -2, -2), new Microsoft.DirectX.Vector3(2, 2, 2));
+			//dx.Render();
 			inter = false;
 		}
 

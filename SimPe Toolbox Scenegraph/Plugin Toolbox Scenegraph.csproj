@@ -144,12 +144,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="scenegrapher.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe Scenegraph\SimPe Scenegraph.csproj">
-      <Project>{1151a88b-47af-41da-bcdf-defed0cc326e}</Project>
-      <Name>SimPe Scenegraph</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

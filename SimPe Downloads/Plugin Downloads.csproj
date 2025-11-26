@@ -330,18 +330,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimPe GMDC Exporter Base\SimPe GMDC Exporter Base.csproj">
-      <Project>{76d6a8b3-10df-4948-9028-c63a416ab00e}</Project>
-      <Name>SimPe GMDC Exporter Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPe Scenegraph\SimPe Scenegraph.csproj">
-      <Project>{1151a88b-47af-41da-bcdf-defed0cc326e}</Project>
-      <Name>SimPe Scenegraph</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPE Toolbox Scanner\SimPE Toolbox Scanner.csproj">
-      <Project>{2ea51e60-64fa-4822-ae2a-a996ba79aa76}</Project>
-      <Name>SimPE Toolbox Scanner</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPe Toolbox Workshops\SimPe Toolbox Workshops.csproj">
       <Project>{8886dfaa-51f0-4e64-a754-ef4fcb9cca4b}</Project>
       <Name>SimPe Toolbox Workshops</Name>

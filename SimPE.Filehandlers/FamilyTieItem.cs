@@ -257,8 +257,8 @@ namespace SimPe.PackedFiles.Wrapper.Supporting
 		/// <returns>A String describing the Object</returns>
 		public override string ToString()
 		{
-			return ((LocalizedFamilyTieTypes)type).ToString()+": "+base.ToString ();
-		}
+            return type.ToString() + ": " + base.ToString();
+        }
 
 	}
 }

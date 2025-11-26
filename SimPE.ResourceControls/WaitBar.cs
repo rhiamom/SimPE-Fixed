@@ -142,7 +142,9 @@ namespace SimPe
 			}
 		}
 
-		protected void StartWait()
+        bool IWaitingBarControl.ShowProgress { get => ((IWaitingBarControl)wc).ShowProgress; set => ((IWaitingBarControl)wc).ShowProgress=value; }
+
+        protected void StartWait()
 		{
 			//wc.Invoke(new ShowStuff(ShowImage), new object[] {false});
 			wc.Invoke(new ShowStuff(ShowDescription), new object[] {true});

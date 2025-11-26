@@ -346,13 +346,15 @@ namespace SimPe.PackedFiles.Wrapper
                     {
                         SimPe.PackedFiles.Wrapper.Nref nref = new SimPe.PackedFiles.Wrapper.Nref();
                         nref.ProcessData(pfd, package);
-                        gooee = nref.FileName + Helper.WindowsRegistry.CachedUserId.ToString() + Convert.ToString(this.FileDescriptor.Instance);
+
+                        gooee = nref.FileName +
+                                Helper.WindowsRegistry.CachedUserId.ToString() +
+                                Convert.ToString(this.FileDescriptor.Instance);
+
                         gid = Hashes.GetCrc32(gooee);
-                        while (SimPe.Plugin.Subhoods.GuidExists(gid))
-                        {
-                            gooee += "0";
-                            gid = Hashes.GetCrc32(gooee);
-                        }
+
+                        // Removed Chris Hatch's Subhoods.GuidExists() loop.
+                        // Clean SimPE simply returns the CRC32-based GUID.
                         return gid;
                     }
                 }
@@ -360,7 +362,8 @@ namespace SimPe.PackedFiles.Wrapper
             }
         }
 
-		#endregion
+
+        #endregion
 
         /// <summary>
         /// Deprecated constructor, use zero-arg version
