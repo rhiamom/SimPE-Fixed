@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3F07C566-8460-4C68-B26F-BDFBCC0496B8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimPE.ToolBoxWorkshops</RootNamespace>
+    <AssemblyName>SimPE.ToolBoxWorkshops</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdvancedForms, Version=1.0.2983.24897, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\AdvancedForms.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ambertation.3D.dll</HintPath>
+    </Reference>
+    <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="NetDocks, Version=1.0.2983.24895, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NeighborhoodPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NewObjectPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NewObjectPreview.Designer.cs" />
+    <Compile Include="ObjectCacheFile.cs" />
+    <Compile Include="ObjectLoader.cs" />
+    <Compile Include="Objects.cs" />
+    <Compile Include="ObjectsDock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ObjectsTool.cs" />
+    <Compile Include="ObjectWorkshopHelper.cs" />
+    <Compile Include="ObjectWorkshopRegistry.cs" />
+    <Compile Include="OWDockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PackageDetailDock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PackageDetailDockTool.cs" />
+    <Compile Include="PackageRepair.cs" />
+    <Compile Include="PackageRepairForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PreviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Workshop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorkshopTool.cs" />
+    <Compile Include="WorkshopToolFactory.cs" />
+    <Compile Include="XObjectPreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <EmbeddedResource Include="NeighborhoodPreview.de.resx" />
+    <EmbeddedResource Include="NeighborhoodPreview.en-US.resx" />
+    <EmbeddedResource Include="NeighborhoodPreview.fr.resx" />
+    <EmbeddedResource Include="NeighborhoodPreview.it.resx" />
+    <EmbeddedResource Include="NeighborhoodPreview.pl.resx" />
+    <EmbeddedResource Include="NeighborhoodPreview.resx" />
+    <EmbeddedResource Include="NeighborhoodPreview.ru.resx" />
+    <EmbeddedResource Include="NewObjectPreview.resx" />
+    <EmbeddedResource Include="ObjectsDock.de.resx" />
+    <EmbeddedResource Include="ObjectsDock.en-US.resx" />
+    <EmbeddedResource Include="ObjectsDock.fr.resx" />
+    <EmbeddedResource Include="ObjectsDock.it.resx" />
+    <EmbeddedResource Include="ObjectsDock.resx" />
+    <EmbeddedResource Include="ObjectsDock.ru.resx" />
+    <EmbeddedResource Include="ObjectWorkshopDock.resx" />
+    <EmbeddedResource Include="OWDockForm.resx" />
+    <EmbeddedResource Include="PackageDetailDock.de.resx" />
+    <EmbeddedResource Include="PackageDetailDock.fr.resx" />
+    <EmbeddedResource Include="PackageDetailDock.it.resx" />
+    <EmbeddedResource Include="PackageDetailDock.pl.resx" />
+    <EmbeddedResource Include="PackageDetailDock.resx" />
+    <EmbeddedResource Include="PackageDetailDock.ru.resx" />
+    <EmbeddedResource Include="PackageRepairForm.resx" />
+    <EmbeddedResource Include="PreviewForm.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Workshop.resx" />
+    <EmbeddedResource Include="XObjectPreview.de.resx" />
+    <EmbeddedResource Include="XObjectPreview.fr.resx" />
+    <EmbeddedResource Include="XObjectPreview.it.resx" />
+    <EmbeddedResource Include="XObjectPreview.pl.resx" />
+    <EmbeddedResource Include="XObjectPreview.resx" />
+    <EmbeddedResource Include="XObjectPreview.ru.resx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj">
+      <Project>{e0936d85-cb24-4564-a773-e0bf85510422}</Project>
+      <Name>SimPE.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj">
+      <Project>{445be3ff-638c-4b6d-98bf-c7d70e95a7be}</Project>
+      <Name>SimPE.Clst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
+      <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
+      <Name>SimPE.Filehandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
+      <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
+      <Name>SimPE.GraphControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj">
+      <Project>{849dc662-9191-473f-bc61-8d9ad9068ffa}</Project>
+      <Name>SimPE.RCOL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj">
+      <Project>{f4145736-97ed-417a-81ea-5635769abe35}</Project>
+      <Name>SimPE.Scenegraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wizards of SimPe\Wizards of SimPe.csproj">
+      <Project>{9c10b224-7abc-46d1-9adc-58a817d6af59}</Project>
+      <Name>Wizards of SimPe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WOSimPE - Interfaces\WOSimPE - Interfaces.csproj">
+      <Project>{833c3b98-5a2d-476b-8b4b-c9548c1c99b6}</Project>
+      <Name>WOSimPE - Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

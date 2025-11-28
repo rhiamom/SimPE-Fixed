@@ -130,9 +130,6 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IWizard.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Wizard.cs">
       <SubType>Component</SubType>
     </Compile>

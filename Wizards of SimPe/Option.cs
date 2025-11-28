@@ -34,13 +34,13 @@ namespace SimPe.Wizards
 		private System.ComponentModel.Container components = null;
 		const string FONT_FAMILY = "Verdana";		
 		const string FONT_FAMILY_SERIF = "Georgia";
-        private booby.TaskBox taskBox1;
+        private System.Windows.Forms.Panel taskBox1;
         private System.Windows.Forms.LinkLabel linkLabel5;
 
 		public Option()
 		{
 			InitializeComponent();
-            booby.ThemeManager.Global.AddControl(this.taskBox1);
+            ThemeManager.Global.AddControl(this.taskBox1);
 		}
 
 		/// <summary>
@@ -143,10 +143,7 @@ namespace SimPe.Wizards
             this.taskBox1.Controls.Add(this.llsims);
             this.taskBox1.Controls.Add(this.linkLabel3);
             this.taskBox1.Controls.Add(this.tbdds);
-            this.taskBox1.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold);
-            this.taskBox1.HeaderText = "Options";
-            this.taskBox1.IconLocation = new System.Drawing.Point(4, 12);
-            this.taskBox1.IconSize = new System.Drawing.Size(32, 32);
+            
             this.taskBox1.Location = new System.Drawing.Point(96, 42);
             this.taskBox1.Name = "taskBox1";
             this.taskBox1.Padding = new System.Windows.Forms.Padding(4, 44, 4, 4);

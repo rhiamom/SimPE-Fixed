@@ -15,7 +15,7 @@ namespace SimPe.Wants
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnSWAFEditor = new booby.gradientpanel();
+            this.pnSWAFEditor = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.ckbIncWants = new System.Windows.Forms.CheckBox();
             this.cbFileVersion = new System.Windows.Forms.ComboBox();
@@ -53,7 +53,7 @@ namespace SimPe.Wants
             this.chSIVersion = new System.Windows.Forms.ColumnHeader();
             this.chSISimID = new System.Windows.Forms.ColumnHeader();
             this.chSIArgType = new System.Windows.Forms.ColumnHeader();
-            this.gbSelectedItem = new booby.TaskBox();
+            this.gbSelectedItem = new System.Windows.Forms.Panel();
             this.pnArg = new System.Windows.Forms.Panel();
             this.btnSim2 = new System.Windows.Forms.Button();
             this.tbSISimID2 = new System.Windows.Forms.TextBox();
@@ -144,9 +144,6 @@ namespace SimPe.Wants
             this.pnSWAFEditor.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnSWAFEditor.Location = new System.Drawing.Point(12, 12);
             this.pnSWAFEditor.Name = "pnSWAFEditor";
-            this.pnSWAFEditor.EndColour = System.Drawing.SystemColors.Control;
-            this.pnSWAFEditor.MiddleColour = System.Drawing.SystemColors.Control;
-            this.pnSWAFEditor.StartColour = System.Drawing.SystemColors.Control;
             this.pnSWAFEditor.Size = new System.Drawing.Size(893, 631);
             this.pnSWAFEditor.TabIndex = 0;
             // 
@@ -498,8 +495,6 @@ namespace SimPe.Wants
             this.gbSelectedItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.gbSelectedItem.BackColor = System.Drawing.Color.Transparent;
             this.gbSelectedItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.gbSelectedItem.BodyColor = System.Drawing.SystemColors.ControlLight;
-            this.gbSelectedItem.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
             this.gbSelectedItem.Controls.Add(this.pnArg);
             this.gbSelectedItem.Controls.Add(this.lbTimes);
             this.gbSelectedItem.Controls.Add(this.lbXWNTIntMult);
@@ -536,16 +531,9 @@ namespace SimPe.Wants
             this.gbSelectedItem.Controls.Add(this.tbSIScore);
             this.gbSelectedItem.Controls.Add(this.tbSIInfluence);
             this.gbSelectedItem.Controls.Add(this.label17);
-            this.gbSelectedItem.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold);
-            this.gbSelectedItem.HeaderText = "Selected Item";
-            this.gbSelectedItem.HeaderTextColor = System.Drawing.SystemColors.ControlText;
-            this.gbSelectedItem.IconLocation = new System.Drawing.Point(4, 0);
-            this.gbSelectedItem.IconSize = new System.Drawing.Size(32, 32);
-            this.gbSelectedItem.LeftHeaderColor = System.Drawing.SystemColors.ControlDark;
             this.gbSelectedItem.Location = new System.Drawing.Point(3, 3);
             this.gbSelectedItem.Name = "gbSelectedItem";
             this.gbSelectedItem.Padding = new System.Windows.Forms.Padding(4, 44, 4, 4);
-            this.gbSelectedItem.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
             this.gbSelectedItem.Size = new System.Drawing.Size(430, 451);
             this.gbSelectedItem.TabIndex = 0;
             this.gbSelectedItem.Text = "Selected Item";
@@ -1074,7 +1062,7 @@ namespace SimPe.Wants
 
         #endregion
 
-        private booby.gradientpanel pnSWAFEditor;
+        private System.Windows.Forms.Panel pnSWAFEditor;
         private pjse.pjse_banner pjse_banner1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCommit;
@@ -1091,7 +1079,7 @@ namespace SimPe.Wants
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbUnknown4;
         private System.Windows.Forms.ListView lvItems;
-        private booby.TaskBox gbSelectedItem;
+        private System.Windows.Forms.Panel gbSelectedItem;
         private System.Windows.Forms.ColumnHeader chSIItemType;
         private System.Windows.Forms.TextBox tbSISimID;
         private System.Windows.Forms.Label label10;

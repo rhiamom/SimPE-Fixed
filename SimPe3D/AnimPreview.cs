@@ -47,7 +47,7 @@ namespace SimPe.Plugin
 			// Required designer variable.
 			//
 			InitializeComponent();
-            ThemeManager.Global.AddControl(this.xpGradientPanel1);
+			ThemeManager.Global.AddControl(this.xpGradientPanel1);
 
 			/*dx = new Ambertation.Graphics.DirectXPanel();
 			dx.Parent = this.panel1;
@@ -55,7 +55,8 @@ namespace SimPe.Plugin
             //dx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
 
 			dx.ResetDevice += new EventHandler(dx_ResetDevice);
-		}*/
+		*/
+		}
 
 		/// <summary>
 		/// Clean up any resources being used.

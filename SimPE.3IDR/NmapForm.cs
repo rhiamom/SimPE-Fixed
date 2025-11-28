@@ -150,7 +150,7 @@ namespace SimPe.Plugin
             // 
             resources.ApplyResources(this.tbfindname, "tbfindname");
             this.tbfindname.Name = "tbfindname";
-            this.tbfindname.TextChanged += new System.EventHandler(this.TextChanged);
+            this.tbfindname.TextChanged += new System.EventHandler(this.tbFindName_TextChanged);
             // 
             // label3
             // 
@@ -438,7 +438,7 @@ namespace SimPe.Plugin
 		}
 		#endregion
 
-		private void TextChanged(object sender, System.EventArgs e)
+		private void tbFindName_TextChanged(object sender, System.EventArgs e)
 		{
 			
 			string name = tbfindname.Text.Trim().ToLower();

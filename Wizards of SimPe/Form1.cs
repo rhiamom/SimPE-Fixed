@@ -46,11 +46,11 @@ namespace SimPe.Wizards
 		private System.ComponentModel.Container components = null;
 		private System.Windows.Forms.Label lbmsg;
 		internal System.Windows.Forms.Label lbPmsg;
-		internal booby.ExtProgressBar pbP;
-        private booby.Lineb line1;
-		
+        internal System.Windows.Forms.ProgressBar pbP;
+        private System.Windows.Forms.Label line1;
 
-		FormStep1 step1;
+
+        FormStep1 step1;
 		public Form1()
 		{
 			//
@@ -102,14 +102,14 @@ namespace SimPe.Wizards
             this.pbtop = new System.Windows.Forms.PictureBox();
             this.pbbottom = new System.Windows.Forms.PictureBox();
             this.pndrop = new System.Windows.Forms.Panel();
-            this.line1 = new booby.Lineb();
+            this.line1 = new System.Windows.Forms.Label();
             this.llopt = new System.Windows.Forms.LinkLabel();
             this.llback = new System.Windows.Forms.LinkLabel();
             this.llnext = new System.Windows.Forms.LinkLabel();
             this.pbstretch = new System.Windows.Forms.PictureBox();
             this.lbstep = new System.Windows.Forms.Label();
             this.pnP = new System.Windows.Forms.Panel();
-            this.pbP = new booby.ExtProgressBar();
+            this.pbP = new System.Windows.Forms.ProgressBar();
             this.lbPmsg = new System.Windows.Forms.Label();
             this.lbmsg = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbtop)).BeginInit();
@@ -250,23 +250,16 @@ namespace SimPe.Wizards
             // pbP
             // 
             this.pbP.BackColor = System.Drawing.Color.Transparent;
-            this.pbP.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbP.Gradient = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.pbP.GradientEndColor = System.Drawing.Color.White;
-            this.pbP.GradientStartColor = System.Drawing.Color.White;
+            
             this.pbP.Location = new System.Drawing.Point(0, 4);
             this.pbP.Maximum = 100;
             this.pbP.Minimum = 0;
             this.pbP.Name = "pbP";
-            this.pbP.ProgressBackColor = System.Drawing.SystemColors.Window;
-            this.pbP.Quality = true;
-            this.pbP.SelectedColor = System.Drawing.Color.Orange;
+            
             this.pbP.Size = new System.Drawing.Size(372, 16);
-            this.pbP.Style = booby.ProgresBarStyle.Flat;
+            
             this.pbP.TabIndex = 16;
-            this.pbP.TokenCount = 20;
-            this.pbP.UnselectedColor = System.Drawing.Color.Gray;
-            this.pbP.UseTokenBuffer = true;
+            
             this.pbP.Value = 50;
             // 
             // lbPmsg

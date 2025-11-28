@@ -36,19 +36,8 @@ namespace SimPe.Wants
             cbVersion.Items.AddRange(XWNTWrapper.ValidVersions.ToArray());
             cbProperty.Items.AddRange(XWNTItem.ValidKeys.ToArray());
 
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.pnXWNTEditor);
-                tm.AddControl(this.lvWants);
-                tm.AddControl(this.btnCommit);
-                tm.AddControl(this.btnDelete);
-                tm.AddControl(this.btnAdd);
-            }
             if (SimPe.Helper.WindowsRegistry.UseBigIcons)
                 this.lvWants.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            if (booby.PrettyGirls.PervyMode)
-                pnXWNTEditor.BackgroundImage = booby.PrettyGirls.XmasGirl;
         }
 
         /// <summary>

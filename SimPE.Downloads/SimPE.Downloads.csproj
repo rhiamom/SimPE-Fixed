@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A829D42F-2F89-4490-96EB-0698E309B9B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimPE.Downloads</RootNamespace>
+    <AssemblyName>SimPE.Downloads</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ambertation.3D.dll</HintPath>
+    </Reference>
+    <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\ExternalLibs\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArchiveHandler.cs" />
+    <Compile Include="DefaultTypeHandler.cs" />
+    <Compile Include="DepSims2Community.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownloadsFactory.cs" />
+    <Compile Include="DownloadsSettings.cs" />
+    <Compile Include="HandlerRegistry.cs" />
+    <Compile Include="InstallerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InstallerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InstallerTool.cs" />
+    <Compile Include="IPackageHandler.cs" />
+    <Compile Include="IPackageInfo.cs" />
+    <Compile Include="ITypeHandler.cs" />
+    <Compile Include="Loads2cpTool.cs" />
+    <Compile Include="LoadSims2PackTool.cs" />
+    <Compile Include="LotTypeHandler.cs" />
+    <Compile Include="NeighborhoodTypeHandler.cs" />
+    <Compile Include="PackageHandler.cs" />
+    <Compile Include="PackageInfo.cs" />
+    <Compile Include="PackageInfoCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecolorTypeHandler.cs" />
+    <Compile Include="Saves2cpTool.cs" />
+    <Compile Include="SaveSims2CommunityPack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveSims2Pack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveSims2PackTool.cs" />
+    <Compile Include="SevenZipHandler.cs" />
+    <Compile Include="SimpleTypeHandler.cs" />
+    <Compile Include="Sims2CommunityPack.cs" />
+    <Compile Include="Sims2CommunityPackDescriptor.cs" />
+    <Compile Include="Sims2PackHandler.cs" />
+    <Compile Include="SimTypeHandler.cs" />
+    <Compile Include="WallpaperTypeHandler.cs" />
+    <Compile Include="XTypeHandler.cs" />
+    <EmbeddedResource Include="DepSims2Community.resx" />
+    <EmbeddedResource Include="DownloadsSettings.de.resx" />
+    <EmbeddedResource Include="DownloadsSettings.en-US.resx" />
+    <EmbeddedResource Include="DownloadsSettings.fr.resx" />
+    <EmbeddedResource Include="DownloadsSettings.it.resx" />
+    <EmbeddedResource Include="DownloadsSettings.resx" />
+    <EmbeddedResource Include="DownloadsSettings.ru.resx" />
+    <EmbeddedResource Include="InstallerControl.de.resx" />
+    <EmbeddedResource Include="InstallerControl.fr.resx" />
+    <EmbeddedResource Include="InstallerControl.it.resx" />
+    <EmbeddedResource Include="InstallerControl.resx" />
+    <EmbeddedResource Include="InstallerControl.ru.resx" />
+    <EmbeddedResource Include="InstallerForm.fr.resx" />
+    <EmbeddedResource Include="InstallerForm.it.resx" />
+    <EmbeddedResource Include="InstallerForm.resx" />
+    <EmbeddedResource Include="InstallerForm.ru.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="SaveSims2CommunityPack.resx" />
+    <EmbeddedResource Include="SaveSims2Pack.resx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj">
+      <Project>{e0936d85-cb24-4564-a773-e0bf85510422}</Project>
+      <Name>SimPE.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj">
+      <Project>{445be3ff-638c-4b6d-98bf-c7d70e95a7be}</Project>
+      <Name>SimPE.Clst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
+      <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
+      <Name>SimPE.Filehandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterbase.csproj">
+      <Project>{2fe03d2c-fc55-4e27-a460-6b7f574f26e4}</Project>
+      <Name>SimPE.GMDCExporterbase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj">
+      <Project>{849dc662-9191-473f-bc61-8d9ad9068ffa}</Project>
+      <Name>SimPE.RCOL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj">
+      <Project>{f4145736-97ed-417a-81ea-5635769abe35}</Project>
+      <Name>SimPE.Scenegraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.ToolboxScanner\SimPE.ToolboxScanner.csproj">
+      <Project>{b842ce3c-a049-46fa-a5cb-c0a4adb903d7}</Project>
+      <Name>SimPE.ToolboxScanner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

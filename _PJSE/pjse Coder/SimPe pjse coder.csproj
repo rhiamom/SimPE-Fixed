@@ -567,6 +567,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimPE.HGBH\SimPE.HGBH.csproj">
+      <Project>{f060d4f2-be7c-4390-a598-63a6030a2cb8}</Project>
+      <Name>SimPE.HGBH</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

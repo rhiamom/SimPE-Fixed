@@ -329,12 +329,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SimPe Toolbox Workshops\SimPe Toolbox Workshops.csproj">
-      <Project>{8886dfaa-51f0-4e64-a754-ef4fcb9cca4b}</Project>
-      <Name>SimPe Toolbox Workshops</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

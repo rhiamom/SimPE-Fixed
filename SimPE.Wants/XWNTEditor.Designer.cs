@@ -15,7 +15,7 @@ namespace SimPe.Wants
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnXWNTEditor = new booby.gradientpanel();
+            this.pnXWNTEditor = new System.Windows.Forms.Panel();
             this.pjse_banner1 = new pjse.pjse_banner();
             this.btnCommit = new System.Windows.Forms.Button();
             this.lvWants = new System.Windows.Forms.ListView();
@@ -44,20 +44,18 @@ namespace SimPe.Wants
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pnXWNTEditor.BackColor = System.Drawing.Color.Transparent;
-            this.pnXWNTEditor.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.TopRight;
-            this.pnXWNTEditor.BackgroundImageLocation = new System.Drawing.Point(200, 28);
-            this.pnXWNTEditor.BackgroundImageZoomToFit = true;
+            
             this.pnXWNTEditor.Controls.Add(this.pjse_banner1);
             this.pnXWNTEditor.Controls.Add(this.btnCommit);
             this.pnXWNTEditor.Controls.Add(this.lvWants);
             this.pnXWNTEditor.Controls.Add(this.flowLayoutPanel1);
-            this.pnXWNTEditor.EndColour = System.Drawing.SystemColors.Control;
+            
             this.pnXWNTEditor.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnXWNTEditor.Location = new System.Drawing.Point(3, 3);
-            this.pnXWNTEditor.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.pnXWNTEditor.Name = "pnXWNTEditor";
             this.pnXWNTEditor.Size = new System.Drawing.Size(829, 406);
-            this.pnXWNTEditor.StartColour = System.Drawing.SystemColors.Control;
+            
             this.pnXWNTEditor.TabIndex = 0;
             // 
             // pjse_banner1
@@ -272,7 +270,7 @@ namespace SimPe.Wants
 
         #endregion
 
-        private booby.gradientpanel pnXWNTEditor;
+        private System.Windows.Forms.Panel pnXWNTEditor;
         private System.Windows.Forms.ListView lvWants;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;

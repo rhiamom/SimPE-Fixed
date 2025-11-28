@@ -78,7 +78,7 @@ namespace SimPe.Plugin.Tool
 		{
 			get
             {
-                return SimPe.GetIcon.dbPackage;
+                return null;
 			}
 		}
 

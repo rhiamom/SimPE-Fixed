@@ -861,8 +861,7 @@ namespace SimPe.Wants
                     gcSICareer.Visible = lbXWNTIntOp.Visible = label13.Visible = tbSIArg2.Visible = lbTimes.Visible = lbXWNTIntMult.Visible = false;
                     foreach (CheckBox ckb in lflags) ckb.CheckState = CheckState.Indeterminate;
                     foreach (CheckBox ckb in lincs) ckb.Enabled = !ckb.Checked;//false;
-                    gbSelectedItem.Icon = null;
-                    gbSelectedItem.HeaderText = "Selected Item";
+                    
                 }
                 else
                 {
@@ -894,8 +893,7 @@ namespace SimPe.Wants
                     gcSIWant.Value = i.WantId;
                     SIWant(i, i.WantId);
                     SimPe.Plugin.WantInformation wantim = SimPe.Plugin.WantInformation.LoadWant(i.WantId);
-                    gbSelectedItem.Icon = wantim.Icon;
-                    gbSelectedItem.HeaderText = wantim.Name;
+                    
                     tbSIArg2.Text = "0x" + Helper.HexString(i.Arg2);
                     cbSIArgType.SelectedIndex = (new List<string>(Enum.GetNames(typeof(SWAFItem.ArgTypes)))).IndexOf("" + i.ArgType);
                     SIArg(i);

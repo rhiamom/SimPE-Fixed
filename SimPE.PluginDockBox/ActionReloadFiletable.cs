@@ -68,7 +68,7 @@ namespace SimPe.Plugin.Tool.Action
 		{
 			get
 			{
-                return SimPe.GetIcon.dbRecure;
+                return null;
 			}
 		}
 
