@@ -112,16 +112,16 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lberr.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lberr.Font" type="System.Drawing.Font, System.Drawing">
     <value>Verdana, 9pt, style=Bold</value>
   </data>
@@ -129,12 +129,12 @@
     <value>NoControl</value>
   </data>
   <data name="lberr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 0</value>
+    <value>108, 0</value>
   </data>
   <data name="lberr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 80</value>
+    <value>1097, 120</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lberr.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -145,7 +145,7 @@
     <value>lberr</value>
   </data>
   <data name="&gt;&gt;lberr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lberr.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -163,13 +163,13 @@
     <value>Verdana, 8.25pt</value>
   </data>
   <data name="rtb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 24</value>
+    <value>16, 36</value>
   </data>
   <data name="rtb.ScrollBars" type="System.Windows.Forms.RichTextBoxScrollBars, System.Windows.Forms">
     <value>Vertical</value>
   </data>
   <data name="rtb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 112</value>
+    <value>1169, 167</value>
   </data>
   <data name="rtb.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -177,115 +177,197 @@
   <data name="rtb.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;rtb.Name" xml:space="preserve">
-    <value>rtb</value>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleBaseSize" type="System.Drawing.Size, System.Drawing">
+    <value>9, 21</value>
   </data>
-  <data name="&gt;&gt;rtb.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1221, 449</value>
   </data>
-  <data name="&gt;&gt;rtb.Parent" xml:space="preserve">
-    <value>gbdetail</value>
+  <data name="linkLabel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;rtb.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="linkLabel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="linkLabel1.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="linkLabel2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Verdana, 8.25pt, style=Bold</value>
   </data>
-  <data name="linkLabel1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="linkLabel2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="linkLabel1.LinkArea" type="System.Windows.Forms.LinkArea, System.Windows.Forms">
-    <value>0, 17</value>
+  <data name="linkLabel2.LinkArea" type="System.Windows.Forms.LinkArea, System.Windows.Forms">
+    <value>0, 26</value>
   </data>
-  <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>272, 140</value>
+  <data name="linkLabel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 24</value>
   </data>
-  <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 16</value>
+  <data name="linkLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 24</value>
   </data>
-  <data name="linkLabel1.TabIndex" type="System.Int32, mscorlib">
+  <data name="linkLabel2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="linkLabel2.Text" xml:space="preserve">
+    <value>Get Support</value>
+  </data>
+  <data name="linkLabel2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomLeft</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Name" xml:space="preserve">
+    <value>linkLabel2</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;linkLabel2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1205, 2</value>
+  </data>
+  <data name="panel3.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panel3.Name" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;panel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>System</value>
+  </data>
+  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1085, 12</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 34</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tbsup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="tbsup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 12</value>
+  </data>
+  <data name="tbsup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>385, 28</value>
+  </data>
+  <data name="tbsup.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="tbsup.Text" xml:space="preserve">
+    <value>http://www.modthesims2.com/index.php?</value>
+  </data>
+  <data name="tbsup.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;tbsup.Name" xml:space="preserve">
+    <value>tbsup</value>
+  </data>
+  <data name="&gt;&gt;tbsup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbsup.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;tbsup.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="linkLabel1.Text" xml:space="preserve">
-    <value>Copy to Clipboard</value>
+  <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
-  <data name="linkLabel1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>BottomRight</value>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 393</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
-    <value>linkLabel1</value>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1205, 48</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
-    <value>gbdetail</value>
+  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
+    <value>panel2</value>
   </data>
-  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="gbdetail.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Verdana, 8.25pt, style=Bold</value>
-  </data>
-  <data name="gbdetail.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 96</value>
-  </data>
-  <data name="gbdetail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>432, 160</value>
-  </data>
-  <data name="gbdetail.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="gbdetail.Text" xml:space="preserve">
-    <value>Details</value>
-  </data>
-  <data name="&gt;&gt;gbdetail.Name" xml:space="preserve">
-    <value>gbdetail</value>
-  </data>
-  <data name="&gt;&gt;gbdetail.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gbdetail.Parent" xml:space="preserve">
+  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;gbdetail.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         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
-        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
+        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
 </value>
   </data>
   <data name="pictureBox1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 16</value>
+    <value>16, 19</value>
   </data>
   <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 24</value>
@@ -300,7 +382,7 @@
     <value>pictureBox1</value>
   </data>
   <data name="&gt;&gt;pictureBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pictureBox1.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -321,10 +403,10 @@
     <value>0, 7</value>
   </data>
   <data name="lldetail.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 64</value>
+    <value>12, 96</value>
   </data>
   <data name="lldetail.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 23</value>
+    <value>84, 34</value>
   </data>
   <data name="lldetail.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -339,7 +421,7 @@
     <value>lldetail</value>
   </data>
   <data name="&gt;&gt;lldetail.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lldetail.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -354,7 +436,7 @@
     <value>8, 8</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>432, 84</value>
+    <value>1205, 126</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -363,172 +445,13 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="linkLabel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="linkLabel2.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Verdana, 8.25pt, style=Bold</value>
-  </data>
-  <data name="linkLabel2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="linkLabel2.LinkArea" type="System.Windows.Forms.LinkArea, System.Windows.Forms">
-    <value>0, 26</value>
-  </data>
-  <data name="linkLabel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 16</value>
-  </data>
-  <data name="linkLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 16</value>
-  </data>
-  <data name="linkLabel2.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="linkLabel2.Text" xml:space="preserve">
-    <value>Get Support</value>
-  </data>
-  <data name="linkLabel2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>BottomLeft</value>
-  </data>
-  <data name="&gt;&gt;linkLabel2.Name" xml:space="preserve">
-    <value>linkLabel2</value>
-  </data>
-  <data name="&gt;&gt;linkLabel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabel2.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;linkLabel2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>432, 1</value>
-  </data>
-  <data name="panel3.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panel3.Name" xml:space="preserve">
-    <value>panel3</value>
-  </data>
-  <data name="&gt;&gt;panel3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>System</value>
-  </data>
-  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 8</value>
-  </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tbsup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="tbsup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 8</value>
-  </data>
-  <data name="tbsup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 21</value>
-  </data>
-  <data name="tbsup.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="tbsup.Text" xml:space="preserve">
-    <value>http://www.modthesims2.com/index.php?</value>
-  </data>
-  <data name="tbsup.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;tbsup.Name" xml:space="preserve">
-    <value>tbsup</value>
-  </data>
-  <data name="&gt;&gt;tbsup.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbsup.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;tbsup.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 260</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>432, 32</value>
-  </data>
-  <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleBaseSize" type="System.Drawing.Size, System.Drawing">
-    <value>6, 14</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>448, 300</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Verdana, 8.25pt</value>
@@ -1108,6 +1031,84 @@
     <value>ExceptionForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rtb.Name" xml:space="preserve">
+    <value>rtb</value>
+  </data>
+  <data name="&gt;&gt;rtb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rtb.Parent" xml:space="preserve">
+    <value>gbdetail</value>
+  </data>
+  <data name="&gt;&gt;rtb.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="linkLabel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="linkLabel1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Verdana, 8.25pt, style=Bold</value>
+  </data>
+  <data name="linkLabel1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="linkLabel1.LinkArea" type="System.Windows.Forms.LinkArea, System.Windows.Forms">
+    <value>0, 17</value>
+  </data>
+  <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>957, 209</value>
+  </data>
+  <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 24</value>
+  </data>
+  <data name="linkLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="linkLabel1.Text" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+  </data>
+  <data name="linkLabel1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomRight</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
+    <value>linkLabel1</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
+    <value>gbdetail</value>
+  </data>
+  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="gbdetail.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Verdana, 8.25pt, style=Bold</value>
+  </data>
+  <data name="gbdetail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 144</value>
+  </data>
+  <data name="gbdetail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1197, 239</value>
+  </data>
+  <data name="gbdetail.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="gbdetail.Text" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="&gt;&gt;gbdetail.Name" xml:space="preserve">
+    <value>gbdetail</value>
+  </data>
+  <data name="&gt;&gt;gbdetail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gbdetail.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gbdetail.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
 </root>

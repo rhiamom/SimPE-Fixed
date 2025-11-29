@@ -992,7 +992,7 @@ namespace SimPe.Wants
         {
             SimPe.Interfaces.Files.IPackedFileDescriptor pfd = null;
             SimPe.Interfaces.Files.IPackageFile package = wrapper.Package;
-            SimPe.Plugin.Sims sims = new SimPe.Plugin.Sims();
+            SimPe.Plugin.sims = new SimPe.Plugin.Sims();
             sims.Text = Localization.Manager.GetString("simsbrowser");
             Interfaces.Plugin.IToolResult res = sims.Execute(ref pfd, ref package, FileTable.ProviderRegistry);
             if (pfd == null) return;

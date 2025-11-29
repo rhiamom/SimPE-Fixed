@@ -105,6 +105,7 @@ namespace SimPe
             this.rtb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.rtb.Name = "rtb";
             this.rtb.ReadOnly = true;
+            this.rtb.Text = " ";
             // 
             // linkLabel1
             // 

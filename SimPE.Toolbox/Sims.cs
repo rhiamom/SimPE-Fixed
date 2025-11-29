@@ -75,18 +75,11 @@ namespace SimPe.Plugin
 			sorter = new ColumnSorter();
 
 			reg = new SimsRegistry(this);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-                this.lv.BackColor = this.lbUbi.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                booby.ThemeManager.Global.AddControl(this.button1);
-            }
+            
             if (UseBigIcons) this.ilist.ImageSize = new System.Drawing.Size(96, 96);
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-            {
+
                 this.panel1.Visible = this.panel2.Visible = this.panel3.Visible = false;
                 this.label1.Visible = this.label2.Visible = this.label3.Visible = false;
-            }
 		}
 
 		/// <summary>
@@ -381,26 +374,11 @@ namespace SimPe.Plugin
 		protected void AddImage(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc)
         {
             Image img = null;
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-            {
-                if (sdesc.HasImage)
-                    img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(sdesc.Image, new Point(0, 0), Color.Magenta);
-                else
-                {
-                    if (sdesc.CharacterDescription.IsWoman && sdesc.Nightlife.Species == 0)
-                        img = SimPe.GetImage.BabyDoll;
-                    else if (sdesc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Female)
-                        img = SimPe.GetImage.SheOne;
-                    else
-                        img = SimPe.GetImage.NoOne;
-                }
 
                 img = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, this.ilist.ImageSize, 12, Color.FromArgb(90, Color.Black), SimPe.PackedFiles.Wrapper.SimPoolControl.GetImagePanelColor(sdesc), Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
                 this.ilist.Images.Add(img);
                 this.iListSmall.Images.Add(ImageLoader.Preview(img, iListSmall.ImageSize));
-            }
-            else
-            {
+            
                 if (sdesc.Unlinked != 0x00 || !sdesc.AvailableCharacterData || sdesc.IsNPC)
                 {
                     if (sdesc.HasImage)
@@ -452,7 +430,7 @@ namespace SimPe.Plugin
                     }
                 }
             }
-		}
+		
 
 		protected void AddSim(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc) 
 		{

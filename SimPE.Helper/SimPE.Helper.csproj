@@ -66,6 +66,8 @@
     <Compile Include="ASerializeFormater.cs" />
     <Compile Include="Boolset.cs" />
     <Compile Include="CaseInvariantArrayList.cs" />
+    <Compile Include="GetIcon.cs" />
+    <Compile Include="GetImage.cs" />
     <Compile Include="ColumnSorter.cs" />
     <Compile Include="Containers.cs" />
     <Compile Include="CountedListItem.cs" />
