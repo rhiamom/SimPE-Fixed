@@ -73,6 +73,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Creg3.cs" />
+    <Compile Include="Creg3UI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CregUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CregWrapper.cs" />
+    <Compile Include="ExtendedWrapperFactory.cs" />
     <Compile Include="SdscForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -134,6 +143,8 @@
     <Compile Include="WantNameLoader.cs" />
     <Compile Include="XML.cs" />
     <Compile Include="XMLWrapper.cs" />
+    <EmbeddedResource Include="Creg3UI.resx" />
+    <EmbeddedResource Include="CregUI.resx" />
     <EmbeddedResource Include="Elements.de.resx" />
     <EmbeddedResource Include="Elements.es.resx" />
     <EmbeddedResource Include="Elements.fr.resx" />

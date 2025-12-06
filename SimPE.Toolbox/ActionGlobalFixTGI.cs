@@ -76,7 +76,7 @@ namespace SimPe.Plugin.Tool.Action
 		{
 			get
 			{
-                return SimPe.GetIcon.actionFixTGI;
+                return null;
 			}
 		}
 

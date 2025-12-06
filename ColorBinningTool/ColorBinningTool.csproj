@@ -55,11 +55,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdvancedForms">
+      <HintPath>..\ExternalLibs\AdvancedForms.dll</HintPath>
+    </Reference>
     <Reference Include="GDF">
       <HintPath>..\ExternalLibs\GDF.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\ExternalLibs\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NetDocks">
+      <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -68,7 +74,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.cs">
+    <Compile Include="ClbAbout.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AbstractCpfInfo.cs" />
@@ -117,8 +123,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="About.resx">
-      <DependentUpon>About.cs</DependentUpon>
+    <EmbeddedResource Include="ClbAbout.resx">
+      <DependentUpon>ClbAbout.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ColorBinningTool.png" />
@@ -130,6 +136,44 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj">
+      <Project>{445be3ff-638c-4b6d-98bf-c7d70e95a7be}</Project>
+      <Name>SimPE.Clst</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
+      <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
+      <Name>SimPE.Filehandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj">
+      <Project>{849dc662-9191-473f-bc61-8d9ad9068ffa}</Project>
+      <Name>SimPE.RCOL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj">
+      <Project>{f4145736-97ed-417a-81ea-5635769abe35}</Project>
+      <Name>SimPE.Scenegraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Splash\SimPE.Splash.csproj">
+      <Project>{5d769d5e-691b-4775-851e-bb35ce3abfe3}</Project>
+      <Name>SimPE.Splash</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

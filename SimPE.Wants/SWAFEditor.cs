@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using System.Xml;
 using SimPe.Interfaces.Plugin;
 using SimPe.PackedFiles.Wrapper;
+using SimPe.Plugin;
 
 namespace SimPe.Wants
 {
@@ -377,9 +378,18 @@ namespace SimPe.Wants
 
         private void SISimID2(SWAFItem i)
         {
-            Image noone = SimPe.GetImage.NoOne;
-            ExtSDesc sdsc = i.Sim != 0 ? FileTable.ProviderRegistry.SimDescriptionProvider.FindSim(i.Sim) as ExtSDesc : null;
-            if (sdsc == null) { btnSim2.Image = SimPe.GetIcon.SimBrowser; llSimName2.Text = "?any sim?"; llSREL.Visible = false; }
+            // Removed SimPe.GetImage / SimPe.GetIcon usage (Chris-era helpers)
+            ExtSDesc sdsc = i.Sim != 0
+                ? FileTable.ProviderRegistry.SimDescriptionProvider.FindSim(i.Sim) as ExtSDesc
+                : null;
+
+            if (sdsc == null)
+            {
+                // No specific sim: no icon, generic text
+                btnSim2.Image = null;
+                llSimName2.Text = "?any sim?";
+                llSREL.Visible = false;
+            }
             else
             {
                 Image img = null;
@@ -417,7 +427,7 @@ namespace SimPe.Wants
                     if (i.Version < 0x08)
                     {
                         tbSISimID2.Text = llSimName2.Text = ""; llSREL.Visible = false;
-                        btnSim2.Image = SimPe.GetIcon.SimBrowser;
+                        btnSim2.Image = LoadIcon.load("simbrowser.png");
                     }
                     else
                     {
@@ -992,7 +1002,8 @@ namespace SimPe.Wants
         {
             SimPe.Interfaces.Files.IPackedFileDescriptor pfd = null;
             SimPe.Interfaces.Files.IPackageFile package = wrapper.Package;
-            SimPe.Plugin.sims = new SimPe.Plugin.Sims();
+
+            Sims sims = new Sims();
             sims.Text = Localization.Manager.GetString("simsbrowser");
             Interfaces.Plugin.IToolResult res = sims.Execute(ref pfd, ref package, FileTable.ProviderRegistry);
             if (pfd == null) return;
@@ -1185,7 +1196,7 @@ namespace SimPe.Wants
                 llSimName2.Visible = llSREL.Visible = tbSISimID2.Visible = btnSim2.Visible = true;
                 lbXWNTIntOp.Visible = label13.Visible = tbSIArg2.Visible = lbTimes.Visible = lbXWNTIntMult.Visible = false;
                 tbSISimID2.Text = llSimName2.Text = ""; llSREL.Visible = false;
-                btnSim2.Image = SimPe.GetIcon.SimBrowser;
+                btnSim2.Image = SimPe.LoadIcon.load("simbrowser.png");
             }
             if (i.Version >= 0x08)
             {

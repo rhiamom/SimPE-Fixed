@@ -126,13 +126,13 @@ namespace SimPe.Plugin
         private Label label52;
         private TextBox ChanceTextFemale;
         private TabControl tcChanceOutcome;
-        private TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabPage5;
         private EffectPanel epPassA;
-        private TabPage tabPage6;
+        private System.Windows.Forms.TabPage tabPage6;
         private EffectPanel epFailA;
-        private TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage7;
         private EffectPanel epPassB;
-        private TabPage tabPage8;
+        private System.Windows.Forms.TabPage tabPage8;
         private EffectPanel epFailB;
         private GroupBox gbHoursWages;
         private LabelledNumericUpDown lnudWorkStart;
@@ -199,10 +199,10 @@ namespace SimPe.Plugin
         private Label lbLscore;
         private NumericUpDown numLscore;
         private NumericUpDown numPTO;
-        private booby.gradientpanel pntheme;
+        private System.Windows.Forms.Panel pntheme;
         private PictureBox pictureBox1;
-        private TabPage tabPage9;
-        private booby.gradientpanel thmepanel1;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.Panel thmepanel1;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
         private GroupBox gbExtras;
@@ -219,7 +219,6 @@ namespace SimPe.Plugin
         private CheckBox checkBox6;
         private CheckBox checkBox5;
         private CheckBox checkBox4;
-        private GroupBox gbTits;
         private CheckBox checkBox7;
         private ComboBox comboBox1;
         private Label label13;
@@ -329,8 +328,8 @@ namespace SimPe.Plugin
         private Label lbrewguid;
         private Button btexApply;
         private Button btUgrade;
-        private TabPage tabPagMajor;
-        private booby.gradientpanel gpmajors;
+        private System.Windows.Forms.TabPage tabPagMajor;
+        private System.Windows.Forms.Panel gpmajors;
         private GroupBox gbmajaffil;
         private GroupBox gbrequir;
         private CheckBox cbrdrama;
@@ -393,30 +392,6 @@ namespace SimPe.Plugin
 			// Required for Windows Form Designer support
 			//
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.pntheme);
-                tm.AddControl(this.thmepanel1);
-                tm.AddControl(this.gpmajors);
-                tm.AddControl(this.tabPage1);
-                tm.AddControl(this.tabPage2);
-                tm.AddControl(this.tabPage3);
-                tm.AddControl(this.tabPage4);
-                tm.AddControl(this.tabPage5);
-                tm.AddControl(this.tabPage6);
-                tm.AddControl(this.tabPage7);
-                tm.AddControl(this.tabPage8);
-                tm.AddControl(this.JobDetailList);
-                tm.AddControl(this.HoursWagesList);
-                tm.AddControl(this.PromoList);
-                tm.AddControl(this.btexApply);
-                tm.AddControl(this.btmajApply);
-                tm.AddControl(this.btUgrade);
-                tm.AddControl(ChanceTextFemale);
-                tm.AddControl(ChanceTextMale);
-                tm.AddControl(mainMenu1);
-            }
 
 			englishOnly = false;
 
@@ -424,30 +399,20 @@ namespace SimPe.Plugin
             languageString = new List<string>(pjse.BhavWiz.readStr(pjse.GS.BhavStr.Languages));
             languageString.RemoveAt(0);
 
-            if (booby.PrettyGirls.IsTitsInstalled()) TAupgradeName[TAupgradeName.Length - 1] = "Sex Industry";
-
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-            {
-                gcReward.KnownObjects = new object[] { new List<String>(TArewardName), new List<UInt32>(TArewardGUID) };
-                gcUpgrade.KnownObjects = new object[] { new List<String>(TAupgradeName), new List<UInt32>(TAupgradeGUID) };
-                gcOutfit.KnownObjects = new object[] { new List<String>(TAoutfitName), new List<UInt32>(TAoutfitGUID) };
-                gcVehicle.KnownObjects = new object[] { new List<String>(TAvehicleName), new List<UInt32>(TAvehicleGUID) };
-            }
-            else
-            {
-                gcReward.KnownObjects = new object[] { new List<String>(rewardName), new List<UInt32>(rewardGUID) };
-                gcUpgrade.KnownObjects = new object[] { new List<String>(upgradeName), new List<UInt32>(upgradeGUID) };
-                gcOutfit.KnownObjects = new object[] { new List<String>(outfitName), new List<UInt32>(outfitGUID) };
-                gcVehicle.KnownObjects = new object[] { new List<String>(vehicleName), new List<UInt32>(vehicleGUID) };
-                this.label18.Visible = this.AmorousHours.Visible = this.WorkAmorous.Visible = this.AmorousTotal.Visible = false;
-            }
+            
+            gcReward.KnownObjects = new object[] { new List<String>(rewardName), new List<UInt32>(rewardGUID) };
+            gcUpgrade.KnownObjects = new object[] { new List<String>(upgradeName), new List<UInt32>(upgradeGUID) };
+            gcOutfit.KnownObjects = new object[] { new List<String>(outfitName), new List<UInt32>(outfitGUID) };
+            gcVehicle.KnownObjects = new object[] { new List<String>(vehicleName), new List<UInt32>(vehicleGUID) };
+            this.label18.Visible = this.AmorousHours.Visible = this.WorkAmorous.Visible = this.AmorousTotal.Visible = false;
+            
             internalchg = false;
 
             this.gcUpgrade.ComboBoxWidth = this.gcReward.ComboBoxWidth = 220;
             this.gcOutfit.ComboBoxWidth = this.gcVehicle.ComboBoxWidth = 300;
             this.thmepanel1.BackgroundImage = GetImage.GetExpansionLogo(PathProvider.Global.Latest.Version);
             this.gpmajors.BackgroundImage = GetImage.GetExpansionLogo(1);
-            this.pictureBox2.Image = GetIcon.Information;
+            this.pictureBox2.Image = LoadIcon.load("information.png");
         }
 
 		#region Windows Form Designer generated code
@@ -640,7 +605,6 @@ namespace SimPe.Plugin
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.thmepanel1 = new booby.gradientpanel();
             this.btexApply = new System.Windows.Forms.Button();
-            this.gbTits = new System.Windows.Forms.GroupBox();
             this.checkBox70 = new System.Windows.Forms.CheckBox();
             this.checkBox71 = new System.Windows.Forms.CheckBox();
             this.checkBox72 = new System.Windows.Forms.CheckBox();
@@ -844,8 +808,6 @@ namespace SimPe.Plugin
             this.gbrequir.SuspendLayout();
             this.tabPage9.SuspendLayout();
             this.thmepanel1.SuspendLayout();
-            this.gbTits.SuspendLayout();
-            this.gbExtras.SuspendLayout();
             this.mainMenu1.SuspendLayout();
             this.pntheme.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -3241,21 +3203,19 @@ namespace SimPe.Plugin
             // gpmajors
             // 
             this.gpmajors.BackColor = System.Drawing.Color.Transparent;
-            this.gpmajors.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.Centered;
-            this.gpmajors.BackgroundImageOpacity = 0.3F;
-            this.gpmajors.BackgroundImageZoomToFit = true;
+            
             this.gpmajors.Controls.Add(this.btmajApply);
             this.gpmajors.Controls.Add(this.gbmajaffil);
             this.gpmajors.Controls.Add(this.gbrequir);
             this.gpmajors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gpmajors.EndColour = System.Drawing.SystemColors.Control;
+            
             this.gpmajors.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpmajors.GradCentre = 0.7F;
+            
             this.gpmajors.Location = new System.Drawing.Point(3, 3);
-            this.gpmajors.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.gpmajors.Name = "gpmajors";
             this.gpmajors.Size = new System.Drawing.Size(1086, 528);
-            this.gpmajors.StartColour = System.Drawing.SystemColors.Control;
+            
             this.gpmajors.TabIndex = 0;
             // 
             // btmajApply
@@ -3569,556 +3529,19 @@ namespace SimPe.Plugin
             // thmepanel1
             // 
             this.thmepanel1.BackColor = System.Drawing.Color.Transparent;
-            this.thmepanel1.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.Centered;
-            this.thmepanel1.BackgroundImageOpacity = 0.4F;
-            this.thmepanel1.BackgroundImageZoomToFit = true;
-            this.thmepanel1.Controls.Add(this.btexApply);
-            this.thmepanel1.Controls.Add(this.gbTits);
-            this.thmepanel1.Controls.Add(this.gbExtras);
+            
             this.thmepanel1.Controls.Add(this.checkBox2);
             this.thmepanel1.Controls.Add(this.checkBox1);
             this.thmepanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.thmepanel1.EndColour = System.Drawing.SystemColors.Control;
+            
             this.thmepanel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.thmepanel1.GradCentre = 0.7F;
+            
             this.thmepanel1.Location = new System.Drawing.Point(3, 3);
-            this.thmepanel1.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.thmepanel1.Name = "thmepanel1";
             this.thmepanel1.Size = new System.Drawing.Size(1086, 528);
-            this.thmepanel1.StartColour = System.Drawing.SystemColors.Control;
+            
             this.thmepanel1.TabIndex = 0;
-            // 
-            // btexApply
-            // 
-            this.btexApply.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btexApply.Location = new System.Drawing.Point(972, 12);
-            this.btexApply.Name = "btexApply";
-            this.btexApply.Size = new System.Drawing.Size(87, 23);
-            this.btexApply.TabIndex = 4;
-            this.btexApply.Text = "Apply";
-            this.btexApply.UseVisualStyleBackColor = true;
-            this.btexApply.Click += new System.EventHandler(this.exApply_Click);
-            // 
-            // gbTits
-            // 
-            this.gbTits.Controls.Add(this.checkBox70);
-            this.gbTits.Controls.Add(this.checkBox71);
-            this.gbTits.Controls.Add(this.checkBox72);
-            this.gbTits.Controls.Add(this.comboBox10);
-            this.gbTits.Controls.Add(this.checkBox67);
-            this.gbTits.Controls.Add(this.checkBox68);
-            this.gbTits.Controls.Add(this.checkBox69);
-            this.gbTits.Controls.Add(this.comboBox9);
-            this.gbTits.Controls.Add(this.checkBox64);
-            this.gbTits.Controls.Add(this.checkBox65);
-            this.gbTits.Controls.Add(this.checkBox66);
-            this.gbTits.Controls.Add(this.comboBox8);
-            this.gbTits.Controls.Add(this.checkBox61);
-            this.gbTits.Controls.Add(this.checkBox62);
-            this.gbTits.Controls.Add(this.checkBox63);
-            this.gbTits.Controls.Add(this.comboBox7);
-            this.gbTits.Controls.Add(this.checkBox58);
-            this.gbTits.Controls.Add(this.checkBox59);
-            this.gbTits.Controls.Add(this.checkBox60);
-            this.gbTits.Controls.Add(this.comboBox6);
-            this.gbTits.Controls.Add(this.checkBox55);
-            this.gbTits.Controls.Add(this.checkBox56);
-            this.gbTits.Controls.Add(this.checkBox57);
-            this.gbTits.Controls.Add(this.comboBox5);
-            this.gbTits.Controls.Add(this.checkBox52);
-            this.gbTits.Controls.Add(this.checkBox53);
-            this.gbTits.Controls.Add(this.checkBox54);
-            this.gbTits.Controls.Add(this.comboBox4);
-            this.gbTits.Controls.Add(this.checkBox49);
-            this.gbTits.Controls.Add(this.checkBox50);
-            this.gbTits.Controls.Add(this.checkBox51);
-            this.gbTits.Controls.Add(this.comboBox3);
-            this.gbTits.Controls.Add(this.checkBox46);
-            this.gbTits.Controls.Add(this.checkBox47);
-            this.gbTits.Controls.Add(this.checkBox48);
-            this.gbTits.Controls.Add(this.comboBox2);
-            this.gbTits.Controls.Add(this.label13);
-            this.gbTits.Controls.Add(this.label11);
-            this.gbTits.Controls.Add(this.label12);
-            this.gbTits.Controls.Add(this.checkBox9);
-            this.gbTits.Controls.Add(this.checkBox8);
-            this.gbTits.Controls.Add(this.checkBox7);
-            this.gbTits.Controls.Add(this.comboBox1);
-            this.gbTits.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbTits.Location = new System.Drawing.Point(612, 39);
-            this.gbTits.Name = "gbTits";
-            this.gbTits.Size = new System.Drawing.Size(461, 484);
-            this.gbTits.TabIndex = 3;
-            this.gbTits.TabStop = false;
-            this.gbTits.Text = "Sims 2 Tits and Arse Extras";
-            // 
-            // checkBox70
-            // 
-            this.checkBox70.AutoSize = true;
-            this.checkBox70.Location = new System.Drawing.Point(364, 416);
-            this.checkBox70.Name = "checkBox70";
-            this.checkBox70.Size = new System.Drawing.Size(83, 20);
-            this.checkBox70.TabIndex = 51;
-            this.checkBox70.Tag = "10";
-            this.checkBox70.Text = "Get STD";
-            this.checkBox70.UseVisualStyleBackColor = true;
-            this.checkBox70.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox71
-            // 
-            this.checkBox71.AutoSize = true;
-            this.checkBox71.Location = new System.Drawing.Point(270, 416);
-            this.checkBox71.Name = "checkBox71";
-            this.checkBox71.Size = new System.Drawing.Size(83, 20);
-            this.checkBox71.TabIndex = 50;
-            this.checkBox71.Tag = "10";
-            this.checkBox71.Text = "Get STD";
-            this.checkBox71.UseVisualStyleBackColor = true;
-            this.checkBox71.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox72
-            // 
-            this.checkBox72.AutoSize = true;
-            this.checkBox72.Location = new System.Drawing.Point(171, 416);
-            this.checkBox72.Name = "checkBox72";
-            this.checkBox72.Size = new System.Drawing.Size(86, 20);
-            this.checkBox72.TabIndex = 49;
-            this.checkBox72.Tag = "10";
-            this.checkBox72.Text = "Woohoo";
-            this.checkBox72.UseVisualStyleBackColor = true;
-            this.checkBox72.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox10
-            // 
-            this.comboBox10.FormattingEnabled = true;
-            this.comboBox10.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox10.Location = new System.Drawing.Point(4, 414);
-            this.comboBox10.Name = "comboBox10";
-            this.comboBox10.Size = new System.Drawing.Size(152, 24);
-            this.comboBox10.TabIndex = 48;
-            this.comboBox10.Tag = "10";
-            this.comboBox10.Text = "None";
-            // 
-            // checkBox67
-            // 
-            this.checkBox67.AutoSize = true;
-            this.checkBox67.Location = new System.Drawing.Point(364, 377);
-            this.checkBox67.Name = "checkBox67";
-            this.checkBox67.Size = new System.Drawing.Size(83, 20);
-            this.checkBox67.TabIndex = 47;
-            this.checkBox67.Tag = "9";
-            this.checkBox67.Text = "Get STD";
-            this.checkBox67.UseVisualStyleBackColor = true;
-            this.checkBox67.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox68
-            // 
-            this.checkBox68.AutoSize = true;
-            this.checkBox68.Location = new System.Drawing.Point(270, 377);
-            this.checkBox68.Name = "checkBox68";
-            this.checkBox68.Size = new System.Drawing.Size(83, 20);
-            this.checkBox68.TabIndex = 46;
-            this.checkBox68.Tag = "9";
-            this.checkBox68.Text = "Get STD";
-            this.checkBox68.UseVisualStyleBackColor = true;
-            this.checkBox68.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox69
-            // 
-            this.checkBox69.AutoSize = true;
-            this.checkBox69.Location = new System.Drawing.Point(171, 377);
-            this.checkBox69.Name = "checkBox69";
-            this.checkBox69.Size = new System.Drawing.Size(86, 20);
-            this.checkBox69.TabIndex = 45;
-            this.checkBox69.Tag = "9";
-            this.checkBox69.Text = "Woohoo";
-            this.checkBox69.UseVisualStyleBackColor = true;
-            this.checkBox69.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox9
-            // 
-            this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox9.Location = new System.Drawing.Point(4, 375);
-            this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(152, 24);
-            this.comboBox9.TabIndex = 44;
-            this.comboBox9.Tag = "9";
-            this.comboBox9.Text = "None";
-            // 
-            // checkBox64
-            // 
-            this.checkBox64.AutoSize = true;
-            this.checkBox64.Location = new System.Drawing.Point(364, 338);
-            this.checkBox64.Name = "checkBox64";
-            this.checkBox64.Size = new System.Drawing.Size(83, 20);
-            this.checkBox64.TabIndex = 43;
-            this.checkBox64.Tag = "8";
-            this.checkBox64.Text = "Get STD";
-            this.checkBox64.UseVisualStyleBackColor = true;
-            this.checkBox64.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox65
-            // 
-            this.checkBox65.AutoSize = true;
-            this.checkBox65.Location = new System.Drawing.Point(270, 338);
-            this.checkBox65.Name = "checkBox65";
-            this.checkBox65.Size = new System.Drawing.Size(83, 20);
-            this.checkBox65.TabIndex = 42;
-            this.checkBox65.Tag = "8";
-            this.checkBox65.Text = "Get STD";
-            this.checkBox65.UseVisualStyleBackColor = true;
-            this.checkBox65.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox66
-            // 
-            this.checkBox66.AutoSize = true;
-            this.checkBox66.Location = new System.Drawing.Point(171, 338);
-            this.checkBox66.Name = "checkBox66";
-            this.checkBox66.Size = new System.Drawing.Size(86, 20);
-            this.checkBox66.TabIndex = 41;
-            this.checkBox66.Tag = "8";
-            this.checkBox66.Text = "Woohoo";
-            this.checkBox66.UseVisualStyleBackColor = true;
-            this.checkBox66.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox8
-            // 
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox8.Location = new System.Drawing.Point(4, 336);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(152, 24);
-            this.comboBox8.TabIndex = 40;
-            this.comboBox8.Tag = "8";
-            this.comboBox8.Text = "None";
-            // 
-            // checkBox61
-            // 
-            this.checkBox61.AutoSize = true;
-            this.checkBox61.Location = new System.Drawing.Point(364, 299);
-            this.checkBox61.Name = "checkBox61";
-            this.checkBox61.Size = new System.Drawing.Size(83, 20);
-            this.checkBox61.TabIndex = 39;
-            this.checkBox61.Tag = "7";
-            this.checkBox61.Text = "Get STD";
-            this.checkBox61.UseVisualStyleBackColor = true;
-            this.checkBox61.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox62
-            // 
-            this.checkBox62.AutoSize = true;
-            this.checkBox62.Location = new System.Drawing.Point(270, 299);
-            this.checkBox62.Name = "checkBox62";
-            this.checkBox62.Size = new System.Drawing.Size(83, 20);
-            this.checkBox62.TabIndex = 38;
-            this.checkBox62.Tag = "7";
-            this.checkBox62.Text = "Get STD";
-            this.checkBox62.UseVisualStyleBackColor = true;
-            this.checkBox62.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox63
-            // 
-            this.checkBox63.AutoSize = true;
-            this.checkBox63.Location = new System.Drawing.Point(171, 299);
-            this.checkBox63.Name = "checkBox63";
-            this.checkBox63.Size = new System.Drawing.Size(86, 20);
-            this.checkBox63.TabIndex = 37;
-            this.checkBox63.Tag = "7";
-            this.checkBox63.Text = "Woohoo";
-            this.checkBox63.UseVisualStyleBackColor = true;
-            this.checkBox63.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox7
-            // 
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox7.Location = new System.Drawing.Point(4, 297);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(152, 24);
-            this.comboBox7.TabIndex = 36;
-            this.comboBox7.Tag = "7";
-            this.comboBox7.Text = "None";
-            // 
-            // checkBox58
-            // 
-            this.checkBox58.AutoSize = true;
-            this.checkBox58.Location = new System.Drawing.Point(364, 260);
-            this.checkBox58.Name = "checkBox58";
-            this.checkBox58.Size = new System.Drawing.Size(83, 20);
-            this.checkBox58.TabIndex = 35;
-            this.checkBox58.Tag = "6";
-            this.checkBox58.Text = "Get STD";
-            this.checkBox58.UseVisualStyleBackColor = true;
-            this.checkBox58.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox59
-            // 
-            this.checkBox59.AutoSize = true;
-            this.checkBox59.Location = new System.Drawing.Point(270, 260);
-            this.checkBox59.Name = "checkBox59";
-            this.checkBox59.Size = new System.Drawing.Size(83, 20);
-            this.checkBox59.TabIndex = 34;
-            this.checkBox59.Tag = "6";
-            this.checkBox59.Text = "Get STD";
-            this.checkBox59.UseVisualStyleBackColor = true;
-            this.checkBox59.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox60
-            // 
-            this.checkBox60.AutoSize = true;
-            this.checkBox60.Location = new System.Drawing.Point(171, 260);
-            this.checkBox60.Name = "checkBox60";
-            this.checkBox60.Size = new System.Drawing.Size(86, 20);
-            this.checkBox60.TabIndex = 33;
-            this.checkBox60.Tag = "6";
-            this.checkBox60.Text = "Woohoo";
-            this.checkBox60.UseVisualStyleBackColor = true;
-            this.checkBox60.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox6
-            // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox6.Location = new System.Drawing.Point(4, 258);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(152, 24);
-            this.comboBox6.TabIndex = 32;
-            this.comboBox6.Tag = "6";
-            this.comboBox6.Text = "None";
-            // 
-            // checkBox55
-            // 
-            this.checkBox55.AutoSize = true;
-            this.checkBox55.Location = new System.Drawing.Point(364, 221);
-            this.checkBox55.Name = "checkBox55";
-            this.checkBox55.Size = new System.Drawing.Size(83, 20);
-            this.checkBox55.TabIndex = 31;
-            this.checkBox55.Tag = "5";
-            this.checkBox55.Text = "Get STD";
-            this.checkBox55.UseVisualStyleBackColor = true;
-            this.checkBox55.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox56
-            // 
-            this.checkBox56.AutoSize = true;
-            this.checkBox56.Location = new System.Drawing.Point(270, 221);
-            this.checkBox56.Name = "checkBox56";
-            this.checkBox56.Size = new System.Drawing.Size(83, 20);
-            this.checkBox56.TabIndex = 30;
-            this.checkBox56.Tag = "5";
-            this.checkBox56.Text = "Get STD";
-            this.checkBox56.UseVisualStyleBackColor = true;
-            this.checkBox56.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox57
-            // 
-            this.checkBox57.AutoSize = true;
-            this.checkBox57.Location = new System.Drawing.Point(171, 221);
-            this.checkBox57.Name = "checkBox57";
-            this.checkBox57.Size = new System.Drawing.Size(86, 20);
-            this.checkBox57.TabIndex = 29;
-            this.checkBox57.Tag = "5";
-            this.checkBox57.Text = "Woohoo";
-            this.checkBox57.UseVisualStyleBackColor = true;
-            this.checkBox57.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox5.Location = new System.Drawing.Point(4, 219);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(152, 24);
-            this.comboBox5.TabIndex = 28;
-            this.comboBox5.Tag = "5";
-            this.comboBox5.Text = "None";
-            // 
-            // checkBox52
-            // 
-            this.checkBox52.AutoSize = true;
-            this.checkBox52.Location = new System.Drawing.Point(364, 182);
-            this.checkBox52.Name = "checkBox52";
-            this.checkBox52.Size = new System.Drawing.Size(83, 20);
-            this.checkBox52.TabIndex = 27;
-            this.checkBox52.Tag = "4";
-            this.checkBox52.Text = "Get STD";
-            this.checkBox52.UseVisualStyleBackColor = true;
-            this.checkBox52.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox53
-            // 
-            this.checkBox53.AutoSize = true;
-            this.checkBox53.Location = new System.Drawing.Point(270, 182);
-            this.checkBox53.Name = "checkBox53";
-            this.checkBox53.Size = new System.Drawing.Size(83, 20);
-            this.checkBox53.TabIndex = 26;
-            this.checkBox53.Tag = "4";
-            this.checkBox53.Text = "Get STD";
-            this.checkBox53.UseVisualStyleBackColor = true;
-            this.checkBox53.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox54
-            // 
-            this.checkBox54.AutoSize = true;
-            this.checkBox54.Location = new System.Drawing.Point(171, 182);
-            this.checkBox54.Name = "checkBox54";
-            this.checkBox54.Size = new System.Drawing.Size(86, 20);
-            this.checkBox54.TabIndex = 25;
-            this.checkBox54.Tag = "4";
-            this.checkBox54.Text = "Woohoo";
-            this.checkBox54.UseVisualStyleBackColor = true;
-            this.checkBox54.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox4.Location = new System.Drawing.Point(4, 180);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(152, 24);
-            this.comboBox4.TabIndex = 24;
-            this.comboBox4.Tag = "4";
-            this.comboBox4.Text = "None";
-            // 
-            // checkBox49
-            // 
-            this.checkBox49.AutoSize = true;
-            this.checkBox49.Location = new System.Drawing.Point(364, 143);
-            this.checkBox49.Name = "checkBox49";
-            this.checkBox49.Size = new System.Drawing.Size(83, 20);
-            this.checkBox49.TabIndex = 23;
-            this.checkBox49.Tag = "3";
-            this.checkBox49.Text = "Get STD";
-            this.checkBox49.UseVisualStyleBackColor = true;
-            this.checkBox49.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox50
-            // 
-            this.checkBox50.AutoSize = true;
-            this.checkBox50.Location = new System.Drawing.Point(270, 143);
-            this.checkBox50.Name = "checkBox50";
-            this.checkBox50.Size = new System.Drawing.Size(83, 20);
-            this.checkBox50.TabIndex = 22;
-            this.checkBox50.Tag = "3";
-            this.checkBox50.Text = "Get STD";
-            this.checkBox50.UseVisualStyleBackColor = true;
-            this.checkBox50.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox51
-            // 
-            this.checkBox51.AutoSize = true;
-            this.checkBox51.Location = new System.Drawing.Point(171, 143);
-            this.checkBox51.Name = "checkBox51";
-            this.checkBox51.Size = new System.Drawing.Size(86, 20);
-            this.checkBox51.TabIndex = 21;
-            this.checkBox51.Tag = "3";
-            this.checkBox51.Text = "Woohoo";
-            this.checkBox51.UseVisualStyleBackColor = true;
-            this.checkBox51.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox3.Location = new System.Drawing.Point(4, 141);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(152, 24);
-            this.comboBox3.TabIndex = 20;
-            this.comboBox3.Tag = "3";
-            this.comboBox3.Text = "None";
-            // 
-            // checkBox46
-            // 
-            this.checkBox46.AutoSize = true;
-            this.checkBox46.Location = new System.Drawing.Point(364, 104);
-            this.checkBox46.Name = "checkBox46";
-            this.checkBox46.Size = new System.Drawing.Size(83, 20);
-            this.checkBox46.TabIndex = 19;
-            this.checkBox46.Tag = "2";
-            this.checkBox46.Text = "Get STD";
-            this.checkBox46.UseVisualStyleBackColor = true;
-            this.checkBox46.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox47
-            // 
-            this.checkBox47.AutoSize = true;
-            this.checkBox47.Location = new System.Drawing.Point(270, 104);
-            this.checkBox47.Name = "checkBox47";
-            this.checkBox47.Size = new System.Drawing.Size(83, 20);
-            this.checkBox47.TabIndex = 18;
-            this.checkBox47.Tag = "2";
-            this.checkBox47.Text = "Get STD";
-            this.checkBox47.UseVisualStyleBackColor = true;
-            this.checkBox47.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox48
-            // 
-            this.checkBox48.AutoSize = true;
-            this.checkBox48.Location = new System.Drawing.Point(171, 104);
-            this.checkBox48.Name = "checkBox48";
-            this.checkBox48.Size = new System.Drawing.Size(86, 20);
-            this.checkBox48.TabIndex = 17;
-            this.checkBox48.Tag = "2";
-            this.checkBox48.Text = "Woohoo";
-            this.checkBox48.UseVisualStyleBackColor = true;
-            this.checkBox48.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox2.Location = new System.Drawing.Point(4, 102);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(152, 24);
-            this.comboBox2.TabIndex = 16;
-            this.comboBox2.Tag = "2";
-            this.comboBox2.Text = "None";
             // 
             // label13
             // 
@@ -4149,145 +3572,11 @@ namespace SimPe.Plugin
             this.label12.Size = new System.Drawing.Size(44, 13);
             this.label12.TabIndex = 13;
             this.label12.Text = "Fail A";
-            // 
-            // checkBox9
-            // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(364, 64);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(83, 20);
-            this.checkBox9.TabIndex = 3;
-            this.checkBox9.Tag = "1";
-            this.checkBox9.Text = "Get STD";
-            this.checkBox9.UseVisualStyleBackColor = true;
-            this.checkBox9.CheckedChanged += new System.EventHandler(this.checkAchanceBox_checkup);
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(270, 64);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(83, 20);
-            this.checkBox8.TabIndex = 2;
-            this.checkBox8.Tag = "1";
-            this.checkBox8.Text = "Get STD";
-            this.checkBox8.UseVisualStyleBackColor = true;
-            this.checkBox8.CheckedChanged += new System.EventHandler(this.boxCheckAchance_checkup);
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(171, 64);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(86, 20);
-            this.checkBox7.TabIndex = 1;
-            this.checkBox7.Tag = "1";
-            this.checkBox7.Text = "Woohoo";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.CheckedChanged += new System.EventHandler(this.woohoocheckBox_checkup);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "None",
-            "Naughty Outfit",
-            "Hooker Outfit",
-            "Escort Outfit",
-            "Visible Pubic Hair"});
-            this.comboBox1.Location = new System.Drawing.Point(4, 62);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(152, 24);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.Tag = "1";
-            this.comboBox1.Text = "None";
-            // 
-            // gbExtras
-            // 
-            this.gbExtras.Controls.Add(this.lbrewguid);
-            this.gbExtras.Controls.Add(this.checkBox42);
-            this.gbExtras.Controls.Add(this.checkBox43);
-            this.gbExtras.Controls.Add(this.checkBox44);
-            this.gbExtras.Controls.Add(this.checkBox45);
-            this.gbExtras.Controls.Add(this.textBox17);
-            this.gbExtras.Controls.Add(this.textBox18);
-            this.gbExtras.Controls.Add(this.label46);
-            this.gbExtras.Controls.Add(this.checkBox38);
-            this.gbExtras.Controls.Add(this.checkBox39);
-            this.gbExtras.Controls.Add(this.checkBox40);
-            this.gbExtras.Controls.Add(this.checkBox41);
-            this.gbExtras.Controls.Add(this.textBox15);
-            this.gbExtras.Controls.Add(this.textBox16);
-            this.gbExtras.Controls.Add(this.label45);
-            this.gbExtras.Controls.Add(this.checkBox34);
-            this.gbExtras.Controls.Add(this.checkBox35);
-            this.gbExtras.Controls.Add(this.checkBox36);
-            this.gbExtras.Controls.Add(this.checkBox37);
-            this.gbExtras.Controls.Add(this.textBox13);
-            this.gbExtras.Controls.Add(this.textBox14);
-            this.gbExtras.Controls.Add(this.label44);
-            this.gbExtras.Controls.Add(this.checkBox30);
-            this.gbExtras.Controls.Add(this.checkBox31);
-            this.gbExtras.Controls.Add(this.checkBox32);
-            this.gbExtras.Controls.Add(this.checkBox33);
-            this.gbExtras.Controls.Add(this.textBox11);
-            this.gbExtras.Controls.Add(this.textBox12);
-            this.gbExtras.Controls.Add(this.label43);
-            this.gbExtras.Controls.Add(this.checkBox26);
-            this.gbExtras.Controls.Add(this.checkBox27);
-            this.gbExtras.Controls.Add(this.checkBox28);
-            this.gbExtras.Controls.Add(this.checkBox29);
-            this.gbExtras.Controls.Add(this.textBox9);
-            this.gbExtras.Controls.Add(this.textBox10);
-            this.gbExtras.Controls.Add(this.label42);
-            this.gbExtras.Controls.Add(this.checkBox22);
-            this.gbExtras.Controls.Add(this.checkBox23);
-            this.gbExtras.Controls.Add(this.checkBox24);
-            this.gbExtras.Controls.Add(this.checkBox25);
-            this.gbExtras.Controls.Add(this.textBox7);
-            this.gbExtras.Controls.Add(this.textBox8);
-            this.gbExtras.Controls.Add(this.label17);
-            this.gbExtras.Controls.Add(this.checkBox18);
-            this.gbExtras.Controls.Add(this.checkBox19);
-            this.gbExtras.Controls.Add(this.checkBox20);
-            this.gbExtras.Controls.Add(this.checkBox21);
-            this.gbExtras.Controls.Add(this.textBox5);
-            this.gbExtras.Controls.Add(this.textBox6);
-            this.gbExtras.Controls.Add(this.label16);
-            this.gbExtras.Controls.Add(this.checkBox14);
-            this.gbExtras.Controls.Add(this.checkBox15);
-            this.gbExtras.Controls.Add(this.checkBox16);
-            this.gbExtras.Controls.Add(this.checkBox17);
-            this.gbExtras.Controls.Add(this.textBox3);
-            this.gbExtras.Controls.Add(this.textBox4);
-            this.gbExtras.Controls.Add(this.label15);
-            this.gbExtras.Controls.Add(this.checkBox10);
-            this.gbExtras.Controls.Add(this.checkBox11);
-            this.gbExtras.Controls.Add(this.checkBox12);
-            this.gbExtras.Controls.Add(this.checkBox13);
-            this.gbExtras.Controls.Add(this.textBox1);
-            this.gbExtras.Controls.Add(this.textBox2);
-            this.gbExtras.Controls.Add(this.label14);
-            this.gbExtras.Controls.Add(this.label9);
-            this.gbExtras.Controls.Add(this.label8);
-            this.gbExtras.Controls.Add(this.label7);
-            this.gbExtras.Controls.Add(this.label6);
-            this.gbExtras.Controls.Add(this.label5);
-            this.gbExtras.Controls.Add(this.label4);
-            this.gbExtras.Controls.Add(this.checkBox6);
-            this.gbExtras.Controls.Add(this.checkBox5);
-            this.gbExtras.Controls.Add(this.checkBox4);
-            this.gbExtras.Controls.Add(this.checkBox3);
-            this.gbExtras.Controls.Add(this.textBox1b);
-            this.gbExtras.Controls.Add(this.textBox1g);
-            this.gbExtras.Controls.Add(this.label2);
-            this.gbExtras.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbExtras.Location = new System.Drawing.Point(4, 39);
-            this.gbExtras.Name = "gbExtras";
-            this.gbExtras.Size = new System.Drawing.Size(602, 484);
-            this.gbExtras.TabIndex = 2;
-            this.gbExtras.TabStop = false;
-            this.gbExtras.Text = "Extra Rewards";
+            
+            
+            
+            
+            
             // 
             // lbrewguid
             // 
@@ -5392,14 +4681,14 @@ namespace SimPe.Plugin
             this.pntheme.Controls.Add(this.CareerLvls);
             this.pntheme.Controls.Add(this.mainMenu1);
             this.pntheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pntheme.EndColour = System.Drawing.SystemColors.Control;
+           
             this.pntheme.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pntheme.GradCentre = 0.7F;
+            
             this.pntheme.Location = new System.Drawing.Point(0, 0);
-            this.pntheme.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.pntheme.Name = "pntheme";
             this.pntheme.Size = new System.Drawing.Size(1104, 661);
-            this.pntheme.StartColour = System.Drawing.SystemColors.Control;
+            
             this.pntheme.TabIndex = 15;
             // 
             // btUgrade
@@ -5516,10 +4805,6 @@ namespace SimPe.Plugin
             this.tabPage9.ResumeLayout(false);
             this.thmepanel1.ResumeLayout(false);
             this.thmepanel1.PerformLayout();
-            this.gbTits.ResumeLayout(false);
-            this.gbTits.PerformLayout();
-            this.gbExtras.ResumeLayout(false);
-            this.gbExtras.PerformLayout();
             this.mainMenu1.ResumeLayout(false);
             this.mainMenu1.PerformLayout();
             this.pntheme.ResumeLayout(false);
@@ -5539,11 +4824,6 @@ namespace SimPe.Plugin
         private Bcon PTO;
         private Bcon goodRew;
         private Bcon badRew;
-        private Bcon extraAG;
-        private Bcon extraAB;
-        private Bcon extraBG;
-        private Bcon extraBB;
-        private Bcon exinit;
         private Bcon majors;
         private Bcon cclevels;
 
@@ -5908,8 +5188,6 @@ namespace SimPe.Plugin
         {
             if (isCastaway)
                 return StringFromGUID(GUIDfromBCON(outfit, i), CSoutfitGUID, CSoutfitName);
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                return StringFromGUID(GUIDfromBCON(outfit, i), TAoutfitGUID, TAoutfitName);
             else
                 return StringFromGUID(GUIDfromBCON(outfit, i), outfitGUID, outfitName);        
         }
@@ -5921,10 +5199,7 @@ namespace SimPe.Plugin
 
         private string getVehicleTextFromGUID(int i)
         {
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                return StringFromGUID(GUIDfromBCON(vehicle, i), TAvehicleGUID, TAvehicleName);
-            else
-                return StringFromGUID(GUIDfromBCON(vehicle, i), vehicleGUID, vehicleName);
+            return StringFromGUID(GUIDfromBCON(vehicle, i), vehicleGUID, vehicleName);
         }
 
         private void setVehicleFromGUID(int i)
@@ -6413,16 +5688,25 @@ namespace SimPe.Plugin
                 }
                 else
                 {
-                    if ((rewenabled || booby.PrettyGirls.PervyMode) && !isPetCareer) configureextras();
-                    else this.tabControl1.Controls.Remove(this.tabPage9);
+                    // Chris Hatch "extras" (T&A panels, overrides) removed.
+                    // Always hide the extras tab in the clean version.
+                    this.tabControl1.Controls.Remove(this.tabPage9);
 
-                    if (preuniv || isPetCareer || isTeenCareer) this.tabControl1.Controls.Remove(this.tabPagMajor);
-                    else setmajors();
+                    // Keep the original majors logic.
+                    if (preuniv || isPetCareer || isTeenCareer)
+                        this.tabControl1.Controls.Remove(this.tabPagMajor);
+                    else
+                        setmajors();
 
-                    if (isPetCareer) this.Text = "Career Editor (by Bidou) - Pet Career";
-                    else if (isTeenCareer) this.Text = "Career Editor (by Bidou) - Teen, Elder Career";
-                    else this.Text = "Career Editor (by Bidou) - Adult Career";
+                    // Set the window title based on career type (unchanged).
+                    if (isPetCareer)
+                        this.Text = "Career Editor (by Bidou) - Pet Career";
+                    else if (isTeenCareer)
+                        this.Text = "Career Editor (by Bidou) - Teen, Elder Career";
+                    else
+                        this.Text = "Career Editor (by Bidou) - Adult Career";
                 }
+
                 SimPe.Interfaces.Files.IPackedFileDescriptor bfd = this.package.FindFile(0x856DDBAC, 0, groupId, 1);
                 if (bfd != null)
                 {
@@ -6546,10 +5830,6 @@ namespace SimPe.Plugin
             PTO = getBcon(0x1054);
             goodRew = getBcon(0x105A);
             badRew = getBcon(0x105B);
-            extraAG = getBcon(0x1034);
-            extraAB = getBcon(0x103E);
-            extraBG = getBcon(0x1048);
-            extraBB = getBcon(0x1052);
             majors = getBcon(0x1056);
             cclevels = getBcon(0x1057);
 
@@ -6853,16 +6133,6 @@ namespace SimPe.Plugin
                 if (cclevels.Changed) cclevels.SynchronizeUserData();
             }
 
-            if (rewenabled)
-            {
-                if (extraAG.Changed) extraAG.SynchronizeUserData();
-                if (extraAB.Changed) extraAB.SynchronizeUserData();
-                if (extraBG.Changed) extraBG.SynchronizeUserData();
-                if (extraBB.Changed) extraBB.SynchronizeUserData();
-                if (badRew.Changed) badRew.SynchronizeUserData();
-                if (goodRew.Changed) goodRew.SynchronizeUserData();
-            }
-
             // Chance Cards
             if (chanceCardsText.Changed) chanceCardsText.SynchronizeUserData();
 			if (chanceChance.Changed) chanceChance.SynchronizeUserData();
@@ -6903,182 +6173,6 @@ namespace SimPe.Plugin
                 if (chanceBBad[9].Changed) chanceBBad[9].SynchronizeUserData();
             }
 		}
-
-        private void configureextras()
-        {
-            if (rewenabled)
-            {
-                foreach (Control ct in gbExtras.Controls)
-                {
-                    ct.Visible = Convert.ToInt32((string)ct.Tag) <= (ushort)tuning[0];
-                }
-            }
-            else
-                checkBox1.Visible = gbExtras.Visible = false;
-
-            if (booby.PrettyGirls.PervyMode)
-            {
-                checkBox2.Visible = gbTits.Visible = true;
-
-                foreach (Control ct in gbTits.Controls)
-                {
-                    ct.Visible = Convert.ToInt32((string)ct.Tag) <= (ushort)tuning[0]; // noLevels;
-                }
-            }
-            else
-                checkBox2.Visible = gbTits.Visible = false;
-
-            if (rewenabled)
-            {
-                try
-                {
-                    textBox1b.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 1));
-                    textBox1.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 2));
-                    textBox3.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 3));
-                    textBox5.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 4));
-                    textBox7.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 5));
-                    textBox9.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 6));
-                    textBox11.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 7));
-                    textBox13.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 8));
-                    textBox15.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 9));
-                    textBox17.Text = "0x" + Helper.HexString(GUIDfromBCON(badRew, 10));
-
-                    textBox1g.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 1));
-                    textBox2.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 2));
-                    textBox4.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 3));
-                    textBox6.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 4));
-                    textBox8.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 5));
-                    textBox10.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 6));
-                    textBox12.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 7));
-                    textBox14.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 8));
-                    textBox16.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 9));
-                    textBox18.Text = "0x" + Helper.HexString(GUIDfromBCON(goodRew, 10));
-                }
-                catch { }
-            }
-            
-            int boob1 = getBcon(0x1000)[0];
-            if (boob1 >= 32768) boob1 -= 32768;
-            if (boob1 >= 16384) boob1 -= 16384;
-            if (boob1 >= 8192) boob1 -= 8192;
-            if (boob1 >= 4096) boob1 -= 4096;
-            if (boob1 >= 2048) boob1 -= 2048;
-            if (boob1 >= 1024) boob1 -= 1024;
-            if (boob1 >= 512) boob1 -= 512;
-            if (boob1 >= 256) boob1 -= 256;
-            if (boob1 >= 128) boob1 -= 128;
-            if (boob1 >= 64) boob1 -= 64;
-            if (boob1 >= 32) boob1 -= 32;
-            if (boob1 >= 16) boob1 -= 16;
-            if (boob1 >= 8) boob1 -= 8;
-            if (boob1 >= 4) boob1 -= 4;
-            if (boob1 >= 2) { boob1 -= 2; this.checkBox1.Checked = true; } else this.checkBox1.Checked = false;
-            if (boob1 >= 1) this.checkBox2.Checked = true; else this.checkBox2.Checked = false;
-            if (!rewenabled) this.checkBox1.Checked = false;
-
-            if (booby.PrettyGirls.PervyMode)
-            {
-                //outfit overrides
-                try
-                {
-                    comboBox1.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[1]);
-                    comboBox2.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[2]);
-                    comboBox3.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[3]);
-                    comboBox4.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[4]);
-                    comboBox5.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[5]);
-                    comboBox6.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[6]);
-                    comboBox7.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[7]);
-                    comboBox8.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[8]);
-                    comboBox9.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[9]);
-                    comboBox10.SelectedIndex = Math.Min((short)4, getBcon(0x1048)[10]);
-                    // Woohoo
-                    checkBox7.Checked = (getBcon(0x1034)[1] == 0x69);
-                    checkBox48.Checked = (getBcon(0x1034)[2] == 0x69);
-                    checkBox51.Checked = (getBcon(0x1034)[3] == 0x69);
-                    checkBox54.Checked = (getBcon(0x1034)[4] == 0x69);
-                    checkBox57.Checked = (getBcon(0x1034)[5] == 0x69);
-                    checkBox60.Checked = (getBcon(0x1034)[6] == 0x69);
-                    checkBox63.Checked = (getBcon(0x1034)[7] == 0x69);
-                    checkBox66.Checked = (getBcon(0x1034)[8] == 0x69);
-                    checkBox69.Checked = (getBcon(0x1034)[9] == 0x69);
-                    checkBox72.Checked = (getBcon(0x1034)[10] == 0x69);
-                    // get STD
-                    checkBox8.Checked = (getBcon(0x103E)[1] == -105);
-                    checkBox47.Checked = (getBcon(0x103E)[2] == -105);
-                    checkBox50.Checked = (getBcon(0x103E)[3] == -105);
-                    checkBox53.Checked = (getBcon(0x103E)[4] == -105);
-                    checkBox56.Checked = (getBcon(0x103E)[5] == -105);
-                    checkBox59.Checked = (getBcon(0x103E)[6] == -105);
-                    checkBox62.Checked = (getBcon(0x103E)[7] == -105);
-                    checkBox65.Checked = (getBcon(0x103E)[8] == -105);
-                    checkBox68.Checked = (getBcon(0x103E)[9] == -105);
-                    checkBox71.Checked = (getBcon(0x103E)[10] == -105);
-                    // get STD
-                    checkBox9.Checked = (getBcon(0x1052)[1] == -105);
-                    checkBox46.Checked = (getBcon(0x1052)[2] == -105);
-                    checkBox49.Checked = (getBcon(0x1052)[3] == -105);
-                    checkBox52.Checked = (getBcon(0x1052)[4] == -105);
-                    checkBox55.Checked = (getBcon(0x1052)[5] == -105);
-                    checkBox58.Checked = (getBcon(0x1052)[6] == -105);
-                    checkBox61.Checked = (getBcon(0x1052)[7] == -105);
-                    checkBox64.Checked = (getBcon(0x1052)[8] == -105);
-                    checkBox67.Checked = (getBcon(0x1052)[9] == -105);
-                    checkBox70.Checked = (getBcon(0x1052)[10] == -105);
-                }
-                catch { }
-            }
-
-            if (rewenabled)
-            {
-                try
-                { // Good A
-                    checkBox3.Checked = (getBcon(0x1034)[1] == 0x72);
-                    checkBox13.Checked = (getBcon(0x1034)[2] == 0x72);
-                    checkBox17.Checked = (getBcon(0x1034)[3] == 0x72);
-                    checkBox21.Checked = (getBcon(0x1034)[4] == 0x72);
-                    checkBox25.Checked = (getBcon(0x1034)[5] == 0x72);
-                    checkBox29.Checked = (getBcon(0x1034)[6] == 0x72);
-                    checkBox33.Checked = (getBcon(0x1034)[7] == 0x72);
-                    checkBox37.Checked = (getBcon(0x1034)[8] == 0x72);
-                    checkBox41.Checked = (getBcon(0x1034)[9] == 0x72);
-                    checkBox45.Checked = (getBcon(0x1034)[10] == 0x72);
-                    //Bad A
-                    checkBox4.Checked = (getBcon(0x103E)[1] == 0x74);
-                    checkBox12.Checked = (getBcon(0x103E)[2] == 0x74);
-                    checkBox16.Checked = (getBcon(0x103E)[3] == 0x74);
-                    checkBox20.Checked = (getBcon(0x103E)[4] == 0x74);
-                    checkBox24.Checked = (getBcon(0x103E)[5] == 0x74);
-                    checkBox28.Checked = (getBcon(0x103E)[6] == 0x74);
-                    checkBox32.Checked = (getBcon(0x103E)[7] == 0x74);
-                    checkBox36.Checked = (getBcon(0x103E)[8] == 0x74);
-                    checkBox40.Checked = (getBcon(0x103E)[9] == 0x74);
-                    checkBox44.Checked = (getBcon(0x103E)[10] == 0x74);
-                    // Good B
-                    checkBox5.Checked = (getBcon(0x1048)[1] == 0x72);
-                    checkBox11.Checked = (getBcon(0x1048)[2] == 0x72);
-                    checkBox15.Checked = (getBcon(0x1048)[3] == 0x72);
-                    checkBox19.Checked = (getBcon(0x1048)[4] == 0x72);
-                    checkBox23.Checked = (getBcon(0x1048)[5] == 0x72);
-                    checkBox27.Checked = (getBcon(0x1048)[6] == 0x72);
-                    checkBox31.Checked = (getBcon(0x1048)[7] == 0x72);
-                    checkBox35.Checked = (getBcon(0x1048)[8] == 0x72);
-                    checkBox39.Checked = (getBcon(0x1048)[9] == 0x72);
-                    checkBox43.Checked = (getBcon(0x1048)[10] == 0x72);
-                    //Bad B
-                    checkBox6.Checked = (getBcon(0x1052)[1] == 0x74);
-                    checkBox10.Checked = (getBcon(0x1052)[2] == 0x74);
-                    checkBox14.Checked = (getBcon(0x1052)[3] == 0x74);
-                    checkBox18.Checked = (getBcon(0x1052)[4] == 0x74);
-                    checkBox22.Checked = (getBcon(0x1052)[5] == 0x74);
-                    checkBox26.Checked = (getBcon(0x1052)[6] == 0x74);
-                    checkBox30.Checked = (getBcon(0x1052)[7] == 0x74);
-                    checkBox34.Checked = (getBcon(0x1052)[8] == 0x74);
-                    checkBox38.Checked = (getBcon(0x1052)[9] == 0x74);
-                    checkBox42.Checked = (getBcon(0x1052)[10] == 0x74);
-                }
-                catch { }
-            }
-        }
 
         private void miAddLvl_Click(object sender, System.EventArgs e)
         {
@@ -7159,10 +6253,6 @@ namespace SimPe.Plugin
             {
                 insertGuid(goodRew, currentLevel, 0);
                 insertGuid(badRew, currentLevel, 0);
-                insertBcon(extraAG, currentLevel + 1, 0);
-                insertBcon(extraAB, currentLevel + 1, 0);
-                insertBcon(extraBG, currentLevel + 1, 0);
-                insertBcon(extraBB, currentLevel + 1, 0);
             }
             if (!preuniv) insertBcon(cclevels, currentLevel + 1, 0);
 
@@ -7240,16 +6330,6 @@ namespace SimPe.Plugin
 
             internalchg = false;
 
-            if (rewenabled)
-            {
-                foreach (Control ct in gbExtras.Controls)
-                    ct.Visible = Convert.ToInt32((string)ct.Tag) <= (ushort)tuning[0];
-            }
-            if (booby.PrettyGirls.PervyMode)
-            {
-                foreach (Control ct in gbTits.Controls)
-                    ct.Visible = Convert.ToInt32((string)ct.Tag) <= (ushort)tuning[0]; // noLevels;
-            }
             stabalizecount();
         }
 
@@ -7314,10 +6394,6 @@ namespace SimPe.Plugin
                 goodRew.RemoveAt(currentLevel - 1);
                 badRew.RemoveAt(currentLevel - 1);
                 badRew.RemoveAt(currentLevel - 1);
-                extraAG.RemoveAt(currentLevel);
-                extraAB.RemoveAt(currentLevel);
-                extraBG.RemoveAt(currentLevel);
-                extraBB.RemoveAt(currentLevel);
             }
             if (!preuniv) cclevels.RemoveAt(currentLevel);
             
@@ -7410,16 +6486,6 @@ namespace SimPe.Plugin
 
             internalchg = false;
 
-            if (rewenabled)
-            {
-                foreach (Control ct in gbExtras.Controls)
-                    ct.Visible = Convert.ToInt32((string)ct.Tag) <= (ushort)tuning[0];
-            }
-            if (booby.PrettyGirls.PervyMode)
-            {
-                foreach (Control ct in gbTits.Controls)
-                    ct.Visible = Convert.ToInt32((string)ct.Tag) <= (ushort)tuning[0]; // noLevels;
-            }
             stabalizecount();
         }
 
@@ -7496,22 +6562,6 @@ namespace SimPe.Plugin
                     badRew.RemoveAt(23);
                     badRew.RemoveAt(22);
                 }
-                if (extraAG.Count < 11)
-                    extraAG.Add(0);
-                if (extraAG.Count > 11)
-                    extraAG.RemoveAt(11);
-                if (extraBG.Count < 11)
-                    extraAB.Add(0);
-                if (extraAB.Count > 11)
-                    extraAB.RemoveAt(11);
-                if (extraBG.Count < 11)
-                    extraBG.Add(0);
-                if (extraBG.Count > 11)
-                    extraBG.RemoveAt(11);
-                if (extraBB.Count < 11)
-                    extraBB.Add(0);
-                if (extraBB.Count > 11)
-                    extraBB.RemoveAt(11);
             }
             if (!preuniv)
             {
@@ -7692,25 +6742,29 @@ namespace SimPe.Plugin
             if (internalchg) return;
 
             ListViewItem item = JobDetailList.Items[currentLevel - 1];
-            if (isCastaway)
-                item.SubItems[3].Text = StringFromGUID(gcOutfit.Value, CSoutfitGUID, CSoutfitName);
-            else if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                item.SubItems[3].Text = StringFromGUID(gcOutfit.Value, TAoutfitGUID, TAoutfitName);
-            else
-                item.SubItems[3].Text = StringFromGUID(gcOutfit.Value, outfitGUID, outfitName);
 
-            outfit[currentLevel * 2] = (short)(gcOutfit.Value & 0xffff);
-            outfit[currentLevel * 2 + 1] = (short)(gcOutfit.Value >> 16 & 0xffff);
+            if (isCastaway)
+            {
+                // Castaway Stories uses its own outfit GUID/name arrays.
+                item.SubItems[3].Text = StringFromGUID(gcOutfit.Value, CSoutfitGUID, CSoutfitName);
+            }
+            else
+            {
+                // Clean SimPE: use the standard outfit list only.
+                item.SubItems[3].Text = StringFromGUID(gcOutfit.Value, outfitGUID, outfitName);
+            }
+
+            // Store the selected outfit GUID split into two 16-bit shorts (unchanged logic).
+            outfit[currentLevel * 2]     = (short)(gcOutfit.Value & 0xffff);
+            outfit[currentLevel * 2 + 1] = (short)((gcOutfit.Value >> 16) & 0xffff);
         }
+
         private void gcVehicle_GUIDChooserValueChanged(object sender, EventArgs e)
         {
             if (internalchg) return;
 
             ListViewItem item = JobDetailList.Items[currentLevel - 1];
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                item.SubItems[4].Text = StringFromGUID(gcVehicle.Value, TAvehicleGUID, TAvehicleName);
-            else
-                item.SubItems[4].Text = StringFromGUID(gcVehicle.Value, vehicleGUID, vehicleName);
+            item.SubItems[4].Text = StringFromGUID(gcVehicle.Value, vehicleGUID, vehicleName);
 
             vehicle[currentLevel * 2] = (short)(gcVehicle.Value & 0xffff);
             vehicle[currentLevel * 2 + 1] = (short)(gcVehicle.Value >> 16 & 0xffff);
@@ -7952,176 +7006,7 @@ namespace SimPe.Plugin
             chanceBcheckBox_checkup(sender, e);
         }
 
-        private void exApply_Click(object sender, EventArgs e)
-        {   
-            exinit = getBcon(0x1000);
-
-            for (int i = 1; i < 11; i++)
-            {
-                extraAG[i] = 0;
-                extraAB[i] = 0;
-                extraBG[i] = 0;
-                extraBB[i] = 0;
-            }
-            if (rewenabled)
-            {
-                badRew[2] = (short)(Helper.HexStringToUInt(textBox1b.Text) & 0xffff);
-                badRew[3] = (short)(Helper.HexStringToUInt(textBox1b.Text) >> 16 & 0xffff);
-                badRew[4] = (short)(Helper.HexStringToUInt(textBox1.Text) & 0xffff);
-                badRew[5] = (short)(Helper.HexStringToUInt(textBox1.Text) >> 16 & 0xffff);
-                badRew[6] = (short)(Helper.HexStringToUInt(textBox3.Text) & 0xffff);
-                badRew[7] = (short)(Helper.HexStringToUInt(textBox3.Text) >> 16 & 0xffff);
-                badRew[8] = (short)(Helper.HexStringToUInt(textBox5.Text) & 0xffff);
-                badRew[9] = (short)(Helper.HexStringToUInt(textBox5.Text) >> 16 & 0xffff);
-                badRew[10] = (short)(Helper.HexStringToUInt(textBox7.Text) & 0xffff);
-                badRew[11] = (short)(Helper.HexStringToUInt(textBox7.Text) >> 16 & 0xffff);
-                badRew[12] = (short)(Helper.HexStringToUInt(textBox9.Text) & 0xffff);
-                badRew[13] = (short)(Helper.HexStringToUInt(textBox9.Text) >> 16 & 0xffff);
-                badRew[14] = (short)(Helper.HexStringToUInt(textBox11.Text) & 0xffff);
-                badRew[15] = (short)(Helper.HexStringToUInt(textBox11.Text) >> 16 & 0xffff);
-                badRew[16] = (short)(Helper.HexStringToUInt(textBox13.Text) & 0xffff);
-                badRew[17] = (short)(Helper.HexStringToUInt(textBox13.Text) >> 16 & 0xffff);
-                badRew[18] = (short)(Helper.HexStringToUInt(textBox15.Text) & 0xffff);
-                badRew[19] = (short)(Helper.HexStringToUInt(textBox15.Text) >> 16 & 0xffff);
-                badRew[20] = (short)(Helper.HexStringToUInt(textBox17.Text) & 0xffff);
-                badRew[21] = (short)(Helper.HexStringToUInt(textBox17.Text) >> 16 & 0xffff);
-
-                goodRew[2] = (short)(Helper.HexStringToUInt(textBox1g.Text) & 0xffff);
-                goodRew[3] = (short)(Helper.HexStringToUInt(textBox1g.Text) >> 16 & 0xffff);
-                goodRew[4] = (short)(Helper.HexStringToUInt(textBox2.Text) & 0xffff);
-                goodRew[5] = (short)(Helper.HexStringToUInt(textBox2.Text) >> 16 & 0xffff);
-                goodRew[6] = (short)(Helper.HexStringToUInt(textBox4.Text) & 0xffff);
-                goodRew[7] = (short)(Helper.HexStringToUInt(textBox4.Text) >> 16 & 0xffff);
-                goodRew[8] = (short)(Helper.HexStringToUInt(textBox6.Text) & 0xffff);
-                goodRew[9] = (short)(Helper.HexStringToUInt(textBox6.Text) >> 16 & 0xffff);
-                goodRew[10] = (short)(Helper.HexStringToUInt(textBox8.Text) & 0xffff);
-                goodRew[11] = (short)(Helper.HexStringToUInt(textBox8.Text) >> 16 & 0xffff);
-                goodRew[12] = (short)(Helper.HexStringToUInt(textBox10.Text) & 0xffff);
-                goodRew[13] = (short)(Helper.HexStringToUInt(textBox10.Text) >> 16 & 0xffff);
-                goodRew[14] = (short)(Helper.HexStringToUInt(textBox12.Text) & 0xffff);
-                goodRew[15] = (short)(Helper.HexStringToUInt(textBox12.Text) >> 16 & 0xffff);
-                goodRew[16] = (short)(Helper.HexStringToUInt(textBox14.Text) & 0xffff);
-                goodRew[17] = (short)(Helper.HexStringToUInt(textBox14.Text) >> 16 & 0xffff);
-                goodRew[18] = (short)(Helper.HexStringToUInt(textBox16.Text) & 0xffff);
-                goodRew[19] = (short)(Helper.HexStringToUInt(textBox16.Text) >> 16 & 0xffff);
-                goodRew[20] = (short)(Helper.HexStringToUInt(textBox18.Text) & 0xffff);
-                goodRew[21] = (short)(Helper.HexStringToUInt(textBox18.Text) >> 16 & 0xffff);
-            }
-
-            short boob1 = 0;
-            if (checkBox1.Checked && rewenabled) boob1 = 2;
-            if (checkBox2.Checked) boob1 += 1;
-            exinit[0] = boob1;
-
-            if (booby.PrettyGirls.PervyMode)
-            {
-                if (boob1 == 1 || boob1 == 3)
-                {
-                    //outfit overrides
-                    extraBG[1] = (short)comboBox1.SelectedIndex;
-                    extraBG[2] = (short)comboBox2.SelectedIndex;
-                    extraBG[3] = (short)comboBox3.SelectedIndex;
-                    extraBG[4] = (short)comboBox4.SelectedIndex;
-                    extraBG[5] = (short)comboBox5.SelectedIndex;
-                    extraBG[6] = (short)comboBox6.SelectedIndex;
-                    extraBG[7] = (short)comboBox7.SelectedIndex;
-                    extraBG[8] = (short)comboBox8.SelectedIndex;
-                    extraBG[9] = (short)comboBox9.SelectedIndex;
-                    extraBG[10] = (short)comboBox10.SelectedIndex;
-                }
-                // Woohoo
-                if (checkBox7.Checked) extraAG[1] = 0x69;
-                if (checkBox48.Checked) extraAG[2] = 0x69;
-                if (checkBox51.Checked) extraAG[3] = 0x69;
-                if (checkBox54.Checked) extraAG[4] = 0x69;
-                if (checkBox57.Checked) extraAG[5] = 0x69;
-                if (checkBox60.Checked) extraAG[6] = 0x69;
-                if (checkBox63.Checked) extraAG[7] = 0x69;
-                if (checkBox66.Checked) extraAG[8] = 0x69;
-                if (checkBox69.Checked) extraAG[9] = 0x69;
-                if (checkBox72.Checked) extraAG[10] = 0x69;
-                // get STD
-                if (checkBox8.Checked) extraAB[1] = -105;
-                if (checkBox47.Checked) extraAB[2] = -105;
-                if (checkBox50.Checked) extraAB[3] = -105;
-                if (checkBox53.Checked) extraAB[4] = -105;
-                if (checkBox56.Checked) extraAB[5] = -105;
-                if (checkBox59.Checked) extraAB[6] = -105;
-                if (checkBox62.Checked) extraAB[7] = -105;
-                if (checkBox65.Checked) extraAB[8] = -105;
-                if (checkBox68.Checked) extraAB[9] = -105;
-                if (checkBox71.Checked) extraAB[10] = -105;
-                // get STD
-                if (checkBox9.Checked) extraBB[1] = -105;
-                if (checkBox46.Checked) extraBB[1] = -105;
-                if (checkBox49.Checked) extraBB[1] = -105;
-                if (checkBox52.Checked) extraBB[1] = -105;
-                if (checkBox55.Checked) extraBB[1] = -105;
-                if (checkBox58.Checked) extraBB[1] = -105;
-                if (checkBox61.Checked) extraBB[1] = -105;
-                if (checkBox64.Checked) extraBB[1] = -105;
-                if (checkBox67.Checked) extraBB[1] = -105;
-                if (checkBox70.Checked) extraBB[1] = -105;
-            }
-            if (boob1 >= 2)
-            {
-                // Good A
-                if (checkBox3.Checked) extraAG[1] = 0x72;
-                if (checkBox13.Checked) extraAG[2] = 0x72;
-                if (checkBox17.Checked) extraAG[3] = 0x72;
-                if (checkBox21.Checked) extraAG[4] = 0x72;
-                if (checkBox25.Checked) extraAG[5] = 0x72;
-                if (checkBox29.Checked) extraAG[6] = 0x72;
-                if (checkBox33.Checked) extraAG[7] = 0x72;
-                if (checkBox37.Checked) extraAG[8] = 0x72;
-                if (checkBox41.Checked) extraAG[9] = 0x72;
-                if (checkBox45.Checked) extraAG[10] = 0x72;
-                //Bad A
-                if (checkBox4.Checked) extraAB[1] = 0x74;
-                if (checkBox12.Checked) extraAB[2] = 0x74;
-                if (checkBox16.Checked) extraAB[3] = 0x74;
-                if (checkBox20.Checked) extraAB[4] = 0x74;
-                if (checkBox24.Checked) extraAB[5] = 0x74;
-                if (checkBox28.Checked) extraAB[6] = 0x74;
-                if (checkBox32.Checked) extraAB[7] = 0x74;
-                if (checkBox36.Checked) extraAB[8] = 0x74;
-                if (checkBox40.Checked) extraAB[9] = 0x74;
-                if (checkBox44.Checked) extraAB[10] = 0x74;
-                // Good B
-                if (checkBox5.Checked) extraBG[1] = 0x72;
-                if (checkBox11.Checked) extraBG[2] = 0x72;
-                if (checkBox15.Checked) extraBG[3] = 0x72;
-                if (checkBox19.Checked) extraBG[4] = 0x72;
-                if (checkBox23.Checked) extraBG[5] = 0x72;
-                if (checkBox27.Checked) extraBG[6] = 0x72;
-                if (checkBox31.Checked) extraBG[7] = 0x72;
-                if (checkBox35.Checked) extraBG[8] = 0x72;
-                if (checkBox39.Checked) extraBG[9] = 0x72;
-                if (checkBox43.Checked) extraBG[10] = 0x72;
-                //Bad B
-                if (checkBox6.Checked) extraBB[1] = 0x74;
-                if (checkBox10.Checked) extraBB[2] = 0x74;
-                if (checkBox14.Checked) extraBB[3] = 0x74;
-                if (checkBox18.Checked) extraBB[4] = 0x74;
-                if (checkBox22.Checked) extraBB[5] = 0x74;
-                if (checkBox26.Checked) extraBB[6] = 0x74;
-                if (checkBox30.Checked) extraBB[7] = 0x74;
-                if (checkBox34.Checked) extraBB[8] = 0x74;
-                if (checkBox38.Checked) extraBB[9] = 0x74;
-                if (checkBox42.Checked) extraBB[10] = 0x74;
-            }
-            exinit.SynchronizeUserData();
-            extraAG.SynchronizeUserData();
-            extraAB.SynchronizeUserData();
-            extraBG.SynchronizeUserData();
-            extraBB.SynchronizeUserData();
-            if (rewenabled)
-            {
-                badRew.SynchronizeUserData();
-                goodRew.SynchronizeUserData();
-            }
-        }
-
+        
         private void boxCheckAchance_checkup(object sender, EventArgs e)
         {
             if (checkBox8.Checked) checkBox4.Checked = false;
@@ -8293,6 +7178,8 @@ namespace SimPe.Plugin
         private void btUgrade_Click(object sender, EventArgs e)
         {
             bool ok = false;
+
+            // Core Bidou/PJSE tuning BCONs – keep these.
             if (getBcon(0x1056) == null)
                 ok = makeBcon(0x1056, 2, "Tuning - Flags");
             if (getBcon(0x1057) == null)
@@ -8301,23 +7188,23 @@ namespace SimPe.Plugin
                 ok = makeBcon(0x1058, 1, "Top Memory");
             if (getBcon(0x1059) == null && !isPetCareer)
                 ok = makeBcon(0x1059, 11, "Motive Deltas - Plantsim Sunshine");
-            if ((booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled()) && !isPetCareer)
-            {
-                if (getBcon(0x105A) == null)
-                    ok = makeBcon(0x105A, 21, "Tuning - Chance - Good - Item GUIDs");
-                if (getBcon(0x105B) == null)
-                    ok = makeBcon(0x105B, 21, "Tuning - Chance - Good - Item GUIDs");
-            }
+
+            // Chris Hatch PrettyGirls/Tits/Angels BCONs removed:
+            // 0x105A, 0x105B ("Tuning - Chance - Good - Item GUIDs") were used only by his sex-mod items.
+
             if (ok)
             {
                 this.btUgrade.Visible = false;
                 this.tabControl1.Enabled = menuItem6.Enabled = false;
-                this.lbcrap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+
+                this.lbcrap.Font = new System.Drawing.Font(
+                    "Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
                 this.lbcrap.ForeColor = System.Drawing.Color.HotPink;
                 this.lbcrap.Text = "You now need to close\r\nCareer Editor then restart it";
                 this.lbcrap.Visible = true;
             }
         }
+
 
         private void cbischance_CheckedChanged(object sender, EventArgs e)
         {

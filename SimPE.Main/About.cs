@@ -22,7 +22,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using SimPe.Updates;
+
 
 namespace SimPe
 {
@@ -223,130 +223,12 @@ namespace SimPe
 			f.ShowDialog();
 		}
 
-        static System.Threading.Thread uthread;
+        //static System.Threading.Thread uthread;
 
 		/// <summary>
 		/// Search for Updates in an async Thread
 		/// </summary>
-		public static void ShowUpdate()
-		{
-            uthread = new System.Threading.Thread(
-                new System.Threading.ThreadStart(StartShowUpdate)
-            );
-            uthread.SetApartmentState(System.Threading.ApartmentState.STA);
-            uthread.Start();
-		}
-
-        /// <summary>
-        /// Force the Update Checker to Stop
-        /// </summary>
-        public static void StopUpdateCheck()
-        {
-            if (uthread == null) return;
-            if (uthread.IsAlive)
-            {
-                uthread.Abort();
-            }
-        }
-
-		/// <summary>
-		/// used to start the Check thread
-		/// </summary>
-        [STAThread]
-		static void StartShowUpdate()
-		{
-            try
-            {
-                ShowUpdate(false);
-            }
-            catch (System.Threading.ThreadAbortException)
-            {
-            }
-		}
-
-        
-
-		/// <summary>
-		/// Display the Update Screen
-		/// </summary>
-		/// <param name="show">true, if it should be visible even if no updates were found</param>
-        public static void ShowUpdate(bool show)
-        {
-
-            if (!show)
-            {
-                TimeSpan ts = DateTime.Now - Helper.WindowsRegistry.LastUpdateCheck;
-                //only check for new releases once a Day
-                if (!Helper.QARelease && !Helper.WindowsRegistry.WasQAUser)
-                {
-                    if (ts < new TimeSpan(7, 0, 0, 0)) return;
-                }
-                else if (Helper.WindowsRegistry.WasQAUser)
-                {
-                    if (ts < new TimeSpan(3, 12, 0, 0)) return;
-                }
-                else if (ts < new TimeSpan(1, 12, 0, 0)) return;
-            }
-
-            //scan for an Update
-            Wait.SubStart();
-            About f = new About(true);
-            f.Text = SimPe.Localization.GetString("Updates");
-            long version = 0;
-            long qaversion = 0;
-            string text = "";
-
-            SimPe.Updates.UpdateState.SetUpdatablePluginList(SimPe.FileTable.WrapperRegistry.UpdatablePlugins);
-            SimPe.Updates.UpdateState res = WebUpdate.CheckUpdate(ref version, ref qaversion);
-
-
-            if (!show && res.UpdatesAvailable)
-            {
-                DialogResult dr = Message.Show(SimPe.Localization.GetString("UpdatesAvailable"), SimPe.Localization.GetString("Updates"), MessageBoxButtons.YesNo);
-                if (dr == DialogResult.No) res.Discard();
-            }
-            string html = GetHtmlBase();
-
-            text += "<h2><span class=\"highlight\">" + SimPe.Localization.GetString("Current Version") + ":</span> " + Helper.SimPeVersionString;
-            if (Helper.DebugMode) text += " (" + Helper.SimPeVersionLong.ToString() + ")";
-            text += "</h2>";
-            if (Helper.QARelease) text += "<h2><span class=\"highlight\">" + SimPe.Localization.GetString("Available QA-Version") + ":</span> " + Helper.LongVersionToString(qaversion) + "</h2>";
-            text += "<h2><span class=\"highlight\">" + SimPe.Localization.GetString("Available Version") + ":</span> " + Helper.LongVersionToString(version);
-            if ((res.SimPeState & SimPe.Updates.UpdateStates.NewRelease) != 0) text += " (" + SimPe.Localization.GetString("download") + ": <b>http://sims.ambertation.de/download.shtml</b>)";
-            text += "</h2>";
-            text += "<br /><br />";
-
-            if (res.Count > 0)
-            {
-                text += "<h2><i>"+SimPe.Localization.GetString("Updateable Plugins")+"</i></h2><ul>";
-                foreach (SimPe.Updates.UpdateInfo ui in res)
-                {
-                    text += "<li>";
-                    text += "&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"highlight\">";
-                    if (ui.HasUpdate) text += "<i>";
-                    text += ui.DisplayName;
-                    if (ui.HasUpdate) text += "</i>";
-                    text += ":</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+SimPe.Localization.GetString("installed")+"=" + ui.CurrentVersion.ToString() + ", "+SimPe.Localization.GetString("available")+"=" + ui.AvailableVersion.ToString() + "<br />";
-                    if (ui.HasUpdate) text += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ SimPe.Localization.GetString("Download from")+": " + ui.DownloadUrl + "<br />";
-                    text += "</li>";
-                }
-
-                text += "</ul><br /><br />";
-            }
-            if ((res.SimPeState & SimPe.Updates.UpdateStates.NewQARelease) != 0) text += SimPe.Localization.GetString("get_qa_release");
-            else if ((res.SimPeState & SimPe.Updates.UpdateStates.NewRelease) != 0) text += WebUpdate.GetChangeLog();
-            else text += SimPe.Localization.GetString("no_new_version");
-
-            f.wb.DocumentText = html.Replace("{CONTENT}", text);            
-            f.rtb.Rtf = Ambertation.Html2Rtf.Convert(text);
-            Wait.SubStop();
-            if (show || res.UpdatesAvailable)
-            {
-                SimPe.Splash.Screen.Stop();
-                f.ShowDialog();
-            }
-        }
-
+		
         private static string GetHtmlBase()
         {
             System.IO.Stream s = typeof(About).Assembly.GetManifestResourceStream("SimPe.simpe.html");
@@ -445,7 +327,7 @@ namespace SimPe
 					text += "\n                    <a href=\""+TazzMannTutorial(false)+"\"><span class=\"serif\">TazzMann:</span> SimPE - From the Ground Up</a>";
 					text += "\n                </li>";
 				}
-				text += WebUpdate.GetTutorials().Replace("<ul>", "<ul class=\"nobullet\">");			
+				//text += WebUpdate.GetTutorials().Replace("<ul>", "<ul class=\"nobullet\">");			
 				text += "</p>";
 
 				//text = text.Replace("<li>", "");

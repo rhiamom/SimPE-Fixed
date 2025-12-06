@@ -300,11 +300,6 @@ namespace SimPe
 			//if (lastusedtnt!=null) lastusedtnt.Refresh(lv);
 		}        		
 
-		private void Activate_miUpdate(object sender, System.EventArgs e)
-		{
-			About.ShowUpdate(true);
-		}
-
         private void miKBase_Clicked(object sender, EventArgs e)
         {
             SimPe.RemoteControl.ShowHelp(SimPe.Localization.GetString("URLKnowledgeBase"));

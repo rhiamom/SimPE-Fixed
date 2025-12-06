@@ -94,13 +94,7 @@ namespace SimPe.Plugin
 		#endregion
 
 		#region IToolExt Member
-		public override System.Drawing.Image Icon
-		{
-			get
-			{
-                return SimPe.GetIcon.CreatePackageW;
-			}
-		}
+		
 		public override System.Windows.Forms.Shortcut Shortcut
 		{
 			get

@@ -39,17 +39,6 @@ namespace SimPe.Plugin
 
 		#region Lazy properties...
 
-        public MetaData.Bodyshape Figure
-        {            
-			get { return (MetaData.Bodyshape)CpfItem("product").UIntegerValue; }
-            set
-            {
-                this.SetValue("product", Convert.ToUInt32(value));
-                if (Convert.ToUInt32(value) > 0)
-                this.SetValue("creator", "00000000-0000-0000-0000-000000000000");
-            }
-        }
-
         public uint Flaggery
         {
             get { return this.CpfItem("flags").UIntegerValue; }

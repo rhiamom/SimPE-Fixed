@@ -151,8 +151,8 @@ namespace SimPe
             if (Helper.WindowsRegistry.PreviousVersion == 0)
                 About.ShowWelcome();
 
-            if (Helper.WindowsRegistry.CheckForUpdates)
-                About.ShowUpdate();
+            //if (Helper.WindowsRegistry.CheckForUpdates)
+                //About.ShowUpdate();
         }
     }
 }

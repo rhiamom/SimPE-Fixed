@@ -1,0 +1,246 @@
+using System;
+using System.Drawing;
+using System.Collections;
+using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace SimPe.Plugin
+{
+	/// <summary>
+	/// Summary description for PreviewForm.
+	/// </summary>
+	public class PreviewForm : System.Windows.Forms.Form
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.Container components = null;
+		//Ambertation.Graphics.DirectXPanel dx = null;
+
+		public PreviewForm()
+		{
+			//
+			// Required designer variable.
+			//
+			InitializeComponent();
+
+			//dx.Settings.AddAxis = false;
+			//dx.LoadSettings(Helper.SimPeViewportFile);
+			//dx.ResetDevice += new EventHandler(dx_ResetDevice);
+            
+		}
+
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		protected override void Dispose( bool disposing )
+		{
+			if( disposing )
+			{
+				if(components != null)
+				{
+					components.Dispose();
+				}
+			}
+			base.Dispose( disposing );
+		}
+
+		#region Windows Form Designer generated code
+		/// <summary>
+		/// Required method for Designer support - do not modify 
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(PreviewForm));
+			/*this.dx = new Ambertation.Graphics.DirectXPanel();
+			this.SuspendLayout();
+			// 
+			// dx
+            //
+            this.dx.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(128)), ((System.Byte)(128)), ((System.Byte)(255)));
+			this.dx.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dx.Effect = null;
+			this.dx.Location = new System.Drawing.Point(0, 0);
+			this.dx.Name = "dx";
+			this.dx.Size = new System.Drawing.Size(494, 476);
+			this.dx.TabIndex = 0;
+			this.dx.WorldMatrix = ((Microsoft.DirectX.Matrix)(resources.GetObject("dx.WorldMatrix")));
+			//*/
+			// PreviewForm
+			// 
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
+            this.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(128)), ((System.Byte)(128)), ((System.Byte)(255)));
+			this.ClientSize = new System.Drawing.Size(494, 476);
+			//this.Controls.Add(this.dx);
+			this.Font = new System.Drawing.Font("Tahoma", 8.25F);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "PreviewForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "Recolour Preview";
+			this.ResumeLayout(false);
+
+		}
+		#endregion
+
+		static void Exception()
+		{
+			throw new SimPe.Warning("This Item can't be previewed!", "SimPe was unable to build the Scenegraph.");
+		}
+
+		public static Ambertation.Scenes.Scene BuildScene(MmatWrapper mmat, SimPe.Interfaces.Files.IPackageFile package)
+		{
+			SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fii;
+			Ambertation.Scenes.Scene scn = BuildScene(out fii, mmat, package);
+			fii.Clear();
+			return scn;
+		}		
+
+		public static Ambertation.Scenes.Scene BuildScene(out SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fii, MmatWrapper mmat, SimPe.Interfaces.Files.IPackageFile package)
+		{
+			SimPe.Interfaces.Files.IPackageFile npkg;			
+			Ambertation.Scenes.Scene scn = BuildScene(out fii, mmat, package, out npkg);
+
+			if (npkg!=null) 
+			{
+				npkg.Close();
+				if (npkg is SimPe.Packages.GeneratableFile)
+					((SimPe.Packages.GeneratableFile)npkg).Dispose();
+			}
+			npkg = null;
+
+			return scn;
+		}
+
+		public static Ambertation.Scenes.Scene BuildScene(SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fii, MmatWrapper mmat, SimPe.Interfaces.Files.IPackageFile package)
+		{
+			SimPe.Interfaces.Files.IPackageFile npkg;
+			Ambertation.Scenes.Scene scn = BuildScene(fii, mmat, package, out npkg);
+
+			if (npkg!=null) 
+			{
+				npkg.Close();
+				if (npkg is SimPe.Packages.GeneratableFile)
+					((SimPe.Packages.GeneratableFile)npkg).Dispose();
+			}
+			npkg = null;
+
+			return scn;
+		}
+		
+		public static Ambertation.Scenes.Scene BuildScene(out SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fii, MmatWrapper mmat, SimPe.Interfaces.Files.IPackageFile package, out SimPe.Interfaces.Files.IPackageFile npkg)
+		{
+			npkg = null;
+			Wait.Start();
+			fii = FileTable.FileIndex.AddNewChild();			
+			try 
+			{				
+				return BuildScene(fii, mmat, package, out npkg);											
+			}
+			catch (System.IO.FileNotFoundException)
+			{
+				Wait.Stop();
+                MessageBox.Show("The Microsoft Managed DirectX Extensions were not found on your System. Without them, the Preview is not available.\n\nYou can install them manually, by extracting the content of the DirectX\\ManagedDX.CAB on your Sims 2 Installation CD #1. If you double click on the extracted msi File, all needed Files will be installed.", "Warning", MessageBoxButtons.OK);
+                return null;
+			}
+			
+			finally 
+			{				
+				FileTable.FileIndex.RemoveChild(fii);				
+				Wait.Stop();
+            }
+		}
+
+		public static Ambertation.Scenes.Scene BuildScene(SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fii, MmatWrapper mmat, SimPe.Interfaces.Files.IPackageFile package, out SimPe.Interfaces.Files.IPackageFile npkg)
+		{
+			npkg = null;
+            try
+            {
+                FileTable.FileIndex.Load();
+                if (System.IO.File.Exists(package.SaveFileName))
+                    fii.AddIndexFromFolder(System.IO.Path.GetDirectoryName(package.SaveFileName));
+
+                npkg = SimPe.Plugin.Tool.Dockable.ObjectWorkshopHelper.CreatCloneByCres(mmat.ModelName);
+                try
+                {
+                    foreach (SimPe.Interfaces.Files.IPackedFileDescriptor pfd in package.Index)
+                    {
+                        SimPe.Interfaces.Files.IPackedFileDescriptor npfd = pfd.Clone();
+                        npfd.UserData = package.Read(pfd).UncompressedData;
+                        if (pfd == mmat.FileDescriptor)
+                            mmat.ProcessData(npfd, npkg);
+
+                        npkg.Add(npfd, true);
+                    }
+
+                    fii.AddIndexFromPackage(npkg, true);
+                    //fii.WriteContentToConsole();
+
+                    return RenderScene(mmat);
+                }
+                finally
+                {
+
+                }
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                Wait.Stop();
+                MessageBox.Show("The Microsoft Managed DirectX Extensions were not found on your System. Without them, the Preview is not available.\n\nYou can install them manually, by extracting the content of the DirectX\\ManagedDX.CAB on your Sims 2 Installation CD #1. If you double click on the extracted msi File, all needed Files will be installed.", "Warning", MessageBoxButtons.OK);
+                return null;
+            }
+		}
+
+		public static Ambertation.Scenes.Scene RenderScene(MmatWrapper mmat)
+		{			
+			try 
+			{
+                try 
+				{			
+					GenericRcol rcol = mmat.GMDC;
+					if (rcol!=null)
+					{
+						GeometryDataContainerExt gmdcext = new GeometryDataContainerExt(rcol.Blocks[0] as GeometryDataContainer);	
+						gmdcext.UserTxmtMap[mmat.SubsetName] = mmat.TXMT;
+						gmdcext.UserTxtrMap[mmat.SubsetName] = mmat.TXTR;
+						Ambertation.Scenes.Scene scene = gmdcext.GetScene(new SimPe.Plugin.Gmdc.ElementOrder(Gmdc.ElementSorting.Preview));
+
+						return scene;
+					}
+					else Exception();
+				} 
+				finally 
+				{
+					
+				}
+			}
+			catch (System.IO.FileNotFoundException)
+			{
+				Wait.Stop();
+                MessageBox.Show("The Microsoft Managed DirectX Extensions were not found on your System. Without them, the Preview is not available.\n\nYou can install them manually, by extracting the content of the DirectX\\ManagedDX.CAB on your Sims 2 Installation CD #1. If you double click on the extracted msi File, all needed Files will be installed.", "Warning", MessageBoxButtons.OK);
+                return null;
+			}
+			return null;
+		}
+
+		Ambertation.Scenes.Scene scene;
+        //static Ambertation.Panel3D p3d;
+        public static void Execute(SimPe.PackedFiles.Wrapper.Cpf cmmat, SimPe.Interfaces.Files.IPackageFile package)
+        {
+            if (!(cmmat is MmatWrapper)) return;
+
+            // Managed DirectX preview is not supported in MacSimPE / cross-platform builds.
+            // The original implementation opened a DirectX-based PreviewForm and rendered a scene.
+            // That stack depended on old Microsoft Managed DirectX, which we are not using.
+            return;
+        }
+
+        private void dx_ResetDevice(object sender, EventArgs e)
+		{
+			//nothing to clear and reset
+		}
+	}
+}

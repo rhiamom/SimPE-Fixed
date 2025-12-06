@@ -152,7 +152,6 @@ namespace SimPe.Plugin
 		Ages age;
 		SpeciesType species;
 		TextureOverlayTypes overlayType;
-        MetaData.Bodyshape figure;
         uint flaggery;
 
 		public TextureOverlayTypes OverlayType
@@ -189,12 +188,6 @@ namespace SimPe.Plugin
         {
             get { return this.outfitcat; }
             set { this.outfitcat = value; }
-        }
-
-        public MetaData.Bodyshape Figure
-        {
-            get { return this.figure; }
-            set { this.figure = value; }
         }
 
 		public SimGender Gender
@@ -236,7 +229,6 @@ namespace SimPe.Plugin
 				this.shoe = cSettings.shoe;
 				this.outfit = cSettings.outfit;
                 this.species = cSettings.species;
-                this.figure = cSettings.figure;
                 this.flaggery = cSettings.flaggery;
 			}
 		}

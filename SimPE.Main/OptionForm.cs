@@ -98,7 +98,7 @@ namespace SimPe
             cbjointname.Checked = Helper.WindowsRegistry.ShowJointNames;
             tbthumb.Text = Helper.WindowsRegistry.OWThumbSize.ToString();
             tbscale.Text = Helper.WindowsRegistry.ImportExportScaleFactor.ToString();
-            cbupdate.Checked = Helper.WindowsRegistry.CheckForUpdates;
+            //cbupdate.Checked = Helper.WindowsRegistry.CheckForUpdates;
             cbpkgmaint.Checked = Helper.WindowsRegistry.UsePackageMaintainer;
             cbmulti.Checked = Helper.WindowsRegistry.MultipleFiles;
             cbSimple.Checked = Helper.WindowsRegistry.SimpleResourceSelect;
@@ -184,7 +184,7 @@ namespace SimPe
             Helper.WindowsRegistry.ShowObjdNames = cbshowobjd.Checked;
             Helper.WindowsRegistry.HiddenMode = cbhidden.Checked;
             Helper.WindowsRegistry.ShowJointNames = cbjointname.Checked;
-            Helper.WindowsRegistry.CheckForUpdates = cbupdate.Checked;
+            //Helper.WindowsRegistry.CheckForUpdates = cbupdate.Checked;
             Helper.WindowsRegistry.UsePackageMaintainer = cbpkgmaint.Checked;
             Helper.WindowsRegistry.MultipleFiles = cbmulti.Checked;
             Helper.WindowsRegistry.Layout.SelectedTheme = (byte)cbThemes.Items[cbThemes.SelectedIndex];
@@ -905,8 +905,9 @@ namespace SimPe
             tbUserId_TextChanged(null, null);
             if (this.Tag != null) return;
 
-            uint guid = Sims.GUID.GUIDGetterForm.GetUserGuid(tbUsername.Text, tbPassword.Text);
-            uint uid = UserVerification.GenerateUserId(guid, tbUsername.Text, tbPassword.Text);
+            // Old SimPE online account system removed.
+            // Generate a stable UID based on username + password instead.
+            uint uid = UserVerification.GenerateUserId(0, tbUsername.Text, tbPassword.Text);
 
             tbUserId.Text = "0x" + Helper.HexString(uid);
             tbUserId_TextChanged(null, null);

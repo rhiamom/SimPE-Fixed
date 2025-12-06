@@ -76,7 +76,7 @@ namespace SimPe.Plugin.Tool
 		{
 			get
 			{
-                return SimPe.GetIcon.CreatePackage;
+                return SimPe.LoadIcon.load("createpackage.png");
 			}
 		}
 

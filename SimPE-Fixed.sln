@@ -21,11 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WOSimPe - Recolor", "WOSimP
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "__Solutions", "__Solutions", "{6DDF0308-AD41-8A62-E1C1-A25BD1B34DA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin Career Editor", "Bidou Career Editor\Plugin Career Editor.csproj", "{25A8BF3E-41CF-429D-BCD3-9D8CA44D3448}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.CareerEditor", "Bidou Career Editor\Plugin.CareerEditor.csproj", "{25A8BF3E-41CF-429D-BCD3-9D8CA44D3448}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorBinningTool", "ColorBinningTool\ColorBinningTool.csproj", "{EC1BB54C-0085-4E60-B30F-432C3749A36C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin BHAV", "SimPe BHAV\Plugin BHAV.csproj", "{6AA664E9-B45F-4D61-9B9F-E68341C16473}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BHAV", "SimPe BHAV\Plugin.BHAV.csproj", "{6AA664E9-B45F-4D61-9B9F-E68341C16473}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPe Copyright Plugin", "SimPe Copyright Plugin\SimPe Copyright Plugin.csproj", "{06D06A6A-C49E-44B8-8EE4-C0F107D3A50D}"
 EndProject
@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "language Extractor", "SimPe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simpeMoreplugin", "SimPe More Plugins\simpeMoreplugin.csproj", "{2AE83F37-E52A-4ADC-82E9-243465953FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin Toolbox Scenegraph", "SimPe Toolbox Scenegraph\Plugin Toolbox Scenegraph.csproj", "{4A0695E9-8C32-4F70-B7C7-B7F2EF7E38B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginToolboxScenegraph", "SimPe Toolbox Scenegraph\PluginToolboxScenegraph.csproj", "{4A0695E9-8C32-4F70-B7C7-B7F2EF7E38B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wizards of SimPe", "Wizards of SimPe\Wizards of SimPe.csproj", "{9C10B224-7ABC-46D1-9ADC-58A817D6AF59}"
 EndProject
@@ -101,7 +101,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.Commandline", "SimPE.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.Scenegraph", "SimPE.Scenegraph\SimPE.Scenegraph.csproj", "{F4145736-97ED-417A-81EA-5635769ABE35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.GMDCExporterbase", "SimPE.GMDCExporterbase\SimPE.GMDCExporterbase.csproj", "{2FE03D2C-FC55-4E27-A460-6B7F574F26E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.GMDCExporterBase", "SimPE.GMDCExporterbase\SimPE.GMDCExporterBase.csproj", "{2FE03D2C-FC55-4E27-A460-6B7F574F26E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.ToolboxScanner", "SimPE.ToolboxScanner\SimPE.ToolboxScanner.csproj", "{B842CE3C-A049-46FA-A5CB-C0A4ADB903D7}"
 EndProject

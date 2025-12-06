@@ -430,15 +430,15 @@ namespace SimPe.Plugin
                     }
                 }
             }
-		
 
-		protected void AddSim(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc) 
-		{
-			AddImage(sdesc);
-			ListViewItem lvi = new ListViewItem();
-			lvi.Text = sdesc.SimName +" "+sdesc.SimFamilyName;
-			lvi.ImageIndex = ilist.Images.Count -1;
-			lvi.Tag = sdesc;
+
+        protected void AddSim(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc)
+        {
+            AddImage(sdesc);
+            ListViewItem lvi = new ListViewItem();
+            lvi.Text = sdesc.SimName +" "+sdesc.SimFamilyName;
+            lvi.ImageIndex = ilist.Images.Count -1;
+            lvi.Tag = sdesc;
 
             if (sdesc.FamilyInstance == 0) lvi.SubItems.Add("None");
             else lvi.SubItems.Add(sdesc.HouseholdName);
@@ -447,7 +447,7 @@ namespace SimPe.Plugin
             else
                 lvi.SubItems.Add(new Data.LocalizedLifeSections(sdesc.CharacterDescription.LifeSection).ToString());
 
-			string kind = "";
+            string kind = "";
             if (System.IO.Path.GetFileNameWithoutExtension(sdesc.CharacterFileName) == "objects") kind = "NPC Unique";
             else if (realIsNPC(sdesc)) kind = "Service Sim";
             else if (realIsTownie(sdesc)) kind = "Townie";
@@ -457,58 +457,55 @@ namespace SimPe.Plugin
 
             if (sdesc.CharacterDescription.Gender == Data.MetaData.Gender.Female) lvi.SubItems.Add("Female"); else lvi.SubItems.Add("Male");
 
-			if (sdesc.University.OnCampus==0x1) lvi.SubItems.Add(Localization.Manager.GetString("yes")); else lvi.SubItems.Add(Localization.Manager.GetString("no"));
-			lvi.SubItems.Add("0x"+Helper.HexString(sdesc.FileDescriptor.Instance));
+            if (sdesc.University.OnCampus==0x1) lvi.SubItems.Add(Localization.Manager.GetString("yes")); else lvi.SubItems.Add(Localization.Manager.GetString("no"));
+            lvi.SubItems.Add("0x"+Helper.HexString(sdesc.FileDescriptor.Instance));
 
-			string avl = "";
+            string avl = "";
             if (!sdesc.AvailableCharacterData)
             {
                 if (System.IO.File.Exists(sdesc.CharacterFileName)) avl += "no Character Data"; else avl += "no Character File";
             }
-			if (sdesc.Unlinked!=0x00) 
-			{
-				if (avl!="") avl+=", ";
-				avl += "Unlinked";
-			}
-            if (sdesc.CharacterDescription.GhostFlag.IsGhost && avl == "") avl = "Deceased";
-			if (avl=="") avl="OK";
-			lvi.SubItems.Add(avl);
-			lvi.SubItems.Add("0x"+Helper.HexString(sdesc.SimId));
-
-			if (System.IO.File.Exists(sdesc.CharacterFileName)) 
-			{
-				System.IO.Stream s = System.IO.File.OpenRead(sdesc.CharacterFileName);
-				double sz = s.Length / 1024.0;				
-				s.Close();
-				s.Dispose();
-				s = null;
-				lvi.SubItems.Add(System.IO.Path.GetFileNameWithoutExtension(sdesc.CharacterFileName));
-				lvi.SubItems.Add(sz.ToString("N2")+"kb");
-			} 
-			else 
-			{
-				lvi.SubItems.Add("---");
-				lvi.SubItems.Add("---");
+            if (sdesc.Unlinked!=0x00)
+            {
+                if (avl!="") avl+=", ";
+                avl += "Unlinked";
             }
-            if (sdesc.Nightlife.Species == SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.Human) lvi.SubItems.Add("Human");
+            if (sdesc.CharacterDescription.GhostFlag.IsGhost && avl == "") avl = "Deceased";
+            if (avl=="") avl="OK";
+            lvi.SubItems.Add(avl);
+            lvi.SubItems.Add("0x"+Helper.HexString(sdesc.SimId));
+
+            if (System.IO.File.Exists(sdesc.CharacterFileName))
+            {
+                System.IO.Stream s = System.IO.File.OpenRead(sdesc.CharacterFileName);
+                double sz = s.Length / 1024.0;
+                s.Close();
+                s.Dispose();
+                s = null;
+                lvi.SubItems.Add(System.IO.Path.GetFileNameWithoutExtension(sdesc.CharacterFileName));
+                lvi.SubItems.Add(sz.ToString("N2")+"kb");
+            }
             else
-                if (sdesc.Version == SimPe.PackedFiles.Wrapper.SDescVersions.Castaway && sdesc.Castaway.Subspecies == 2) lvi.SubItems.Add("Orang-utan");
-                else
-                    if (sdesc.Version == SimPe.PackedFiles.Wrapper.SDescVersions.Castaway && sdesc.Castaway.Subspecies > 0 && (int)sdesc.Nightlife.Species == 3) lvi.SubItems.Add("Leopard");
-                    else
-                        if (sdesc.Version == SimPe.PackedFiles.Wrapper.SDescVersions.Castaway && sdesc.Castaway.Subspecies == 1 && (int)sdesc.Nightlife.Species < 3) lvi.SubItems.Add("Wild Dog");
-                        else
-                            if (sdesc.Nightlife.Species == SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.LargeDog) lvi.SubItems.Add("Large Dog");
-                            else                    
-                                if (sdesc.Nightlife.Species == SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.SmallDog) lvi.SubItems.Add("Small Dog");                    
-                                else                       
-                                    if (sdesc.Nightlife.Species == SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.Cat) lvi.SubItems.Add("Cat");                        
-                                    else lvi.SubItems.Add("Unknown");
+            {
+                lvi.SubItems.Add("---");
+                lvi.SubItems.Add("---");
+            }
+            if (sdesc.Nightlife.Species == SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.Human)
+                lvi.SubItems.Add("Human");
+            else if (sdesc.Nightlife.Species == SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.LargeDog)
+                lvi.SubItems.Add("Large Dog");
+            else if (sdesc.Nightlife.Species == SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.SmallDog)
+                lvi.SubItems.Add("Small Dog");
+            else if (sdesc.Nightlife.Species == SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.Cat)
+                lvi.SubItems.Add("Cat");
+            else
+                lvi.SubItems.Add("Unknown");
 
-			lv.Items.Add(lvi);
-		}
+            lv.Items.Add(lvi);
+        }
 
-		protected void FillList()
+
+        protected void FillList()
 		{
             this.Cursor = Cursors.WaitCursor;
             WaitingScreen.Wait();

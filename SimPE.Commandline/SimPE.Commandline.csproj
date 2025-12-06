@@ -47,19 +47,18 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commandline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <None Include="classic.layout" />
+    <None Include="classic_layout.xreg" />
+    <None Include="modern.layout" />
+    <None Include="modern_layout.xreg" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -74,9 +73,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Splash\SimPE.Splash.csproj">
+      <Project>{5d769d5e-691b-4775-851e-bb35ce3abfe3}</Project>
+      <Name>SimPE.Splash</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

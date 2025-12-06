@@ -33,26 +33,26 @@ namespace SimPe.Plugin.Tool.Dockable
 		private TD.SandDock.DockContainer rightSandDock;
 		internal TD.SandDock.DockableWindow dcObjectWorkshop;
 		private SteepValley.Windows.Forms.XPGradientPanel xpGradientPanel1;
-		private TD.SandBar.ToolBar toolBar1;
-		private SimPe.Wizards.Wizard wizard1;
+        private System.Windows.Forms.ToolStrip toolBar1;
+        private SimPe.Wizards.Wizard wizard1;
 		private SimPe.Wizards.WizardStepPanel wizardStepPanel1;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Button button1;
 		private SimPe.Wizards.WizardStepPanel wizardStepPanel2;
-		private TD.SandBar.ButtonItem biPrev;
-		private TD.SandBar.ButtonItem biNext;
-		private TD.SandBar.ButtonItem biFinish;
-		private System.Windows.Forms.ListBox lb;
-		private TD.SandBar.ButtonItem biCatalog;
-		private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripButton biPrev;
+        private System.Windows.Forms.ToolStripButton biNext;
+        private System.Windows.Forms.ToolStripButton biFinish;
+        private System.Windows.Forms.ListBox lb;
+        private System.Windows.Forms.ToolStripButton biCatalog;
+        private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.TreeView tv;
 		private System.Windows.Forms.ImageList ilist;
 		private SimPe.Wizards.WizardStepPanel wizardStepPanel3;
 		private System.Windows.Forms.Panel panel2;
-		private TD.SandBar.FlatComboBox cbTask;
-		private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cbTask;
+        private System.Windows.Forms.Label label3;
 		private Ambertation.Windows.Forms.XPTaskBoxSimple gbClone;
 		private Ambertation.Windows.Forms.XPTaskBoxSimple gbRecolor;
 		private Ambertation.Windows.Forms.TransparentCheckBox cbColorExt;
@@ -72,8 +72,8 @@ namespace SimPe.Plugin.Tool.Dockable
 		private System.Windows.Forms.Label lbwait;
 		private System.Windows.Forms.Label lbfinished;
 		private System.Windows.Forms.Label lbfinload;
-		private TD.SandBar.ButtonItem biAbort;
-		private System.Windows.Forms.Label lberr;
+        private System.Windows.Forms.ToolStripButton biAbort;
+        private System.Windows.Forms.Label lberr;
 		private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple1;
 		private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple2;
 		private System.Windows.Forms.Splitter splitter1;
@@ -153,21 +153,21 @@ namespace SimPe.Plugin.Tool.Dockable
 			this.cbgid = new Ambertation.Windows.Forms.TransparentCheckBox();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.button3 = new System.Windows.Forms.Button();
-			this.cbTask = new TD.SandBar.FlatComboBox();
+			this.cbTask = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.wizardStepPanel4 = new SimPe.Wizards.WizardStepPanel();
 			this.pnWait = new System.Windows.Forms.Panel();
 			this.lberr = new System.Windows.Forms.Label();
 			this.lbfinload = new System.Windows.Forms.Label();
 			this.lbwait = new System.Windows.Forms.Label();
-			this.animatedImagelist1 = new Ambertation.Windows.Forms.AnimatedImagelist();
+			//this.animatedImagelist1 = new Ambertation.Windows.Forms.AnimatedImagelist();
 			this.lbfinished = new System.Windows.Forms.Label();
-			this.toolBar1 = new TD.SandBar.ToolBar();
-			this.biPrev = new TD.SandBar.ButtonItem();
-			this.biNext = new TD.SandBar.ButtonItem();
-			this.biFinish = new TD.SandBar.ButtonItem();
-			this.biAbort = new TD.SandBar.ButtonItem();
-			this.biCatalog = new TD.SandBar.ButtonItem();
+            this.toolBar1 = new System.Windows.Forms.ToolStrip();
+            this.biPrev = new System.Windows.Forms.ToolStripButton();
+            this.biNext = new System.Windows.Forms.ToolStripButton();
+            this.biFinish = new System.Windows.Forms.ToolStripButton();
+            this.biAbort = new System.Windows.Forms.ToolStripButton();
+            this.biCatalog = new System.Windows.Forms.ToolStripButton();;
 			this.ilist = new System.Windows.Forms.ImageList(this.components);
 			this.sfd = new System.Windows.Forms.SaveFileDialog();
 			this.rightSandDock.SuspendLayout();
@@ -616,7 +616,7 @@ namespace SimPe.Plugin.Tool.Dockable
 			this.pnWait.Controls.Add(this.lberr);
 			this.pnWait.Controls.Add(this.lbfinload);
 			this.pnWait.Controls.Add(this.lbwait);
-			this.pnWait.Controls.Add(this.animatedImagelist1);
+			//this.pnWait.Controls.Add(this.animatedImagelist1);
 			this.pnWait.Controls.Add(this.lbfinished);
 			this.pnWait.Dock = System.Windows.Forms.DockStyle.Top;
 			this.pnWait.Location = new System.Drawing.Point(0, 0);
@@ -656,20 +656,20 @@ namespace SimPe.Plugin.Tool.Dockable
 			// 
 			// animatedImagelist1
 			// 
-			this.animatedImagelist1.BackColor = System.Drawing.Color.Transparent;
-			this.animatedImagelist1.CurrentIndex = 0;
-			this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource"))));
-			this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource1"))));
-			this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource2"))));
-			this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource3"))));
-			this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource4"))));
-			this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource5"))));
-			this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource6"))));
-			this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource7"))));
-			this.animatedImagelist1.Location = new System.Drawing.Point(8, 16);
-			this.animatedImagelist1.Name = "animatedImagelist1";
-			this.animatedImagelist1.Size = new System.Drawing.Size(16, 16);
-			this.animatedImagelist1.TabIndex = 0;
+			//this.animatedImagelist1.BackColor = System.Drawing.Color.Transparent;
+			//this.animatedImagelist1.CurrentIndex = 0;
+			//this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource"))));
+			//this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource1"))));
+			//this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource2"))));
+			//this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource3"))));
+			//this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource4"))));
+			//this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource5"))));
+			//this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource6"))));
+			//this.animatedImagelist1.Images.Add(((System.Drawing.Image)(resources.GetObject("resource7"))));
+			//this.animatedImagelist1.Location = new System.Drawing.Point(8, 16);
+			//this.animatedImagelist1.Name = "animatedImagelist1";
+			//this.animatedImagelist1.Size = new System.Drawing.Size(16, 16);
+			//this.animatedImagelist1.TabIndex = 0;
 			// 
 			// lbfinished
 			// 
@@ -680,64 +680,55 @@ namespace SimPe.Plugin.Tool.Dockable
 			this.lbfinished.TabIndex = 2;
 			this.lbfinished.Text = "Object was created.";
 			this.lbfinished.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-			// 
-			// toolBar1
-			// 
-			this.toolBar1.AddRemoveButtonsVisible = false;
-			this.toolBar1.DockLine = 1;
-			this.toolBar1.DrawActionsButton = false;
-			this.toolBar1.FlipLastItem = true;
-			this.toolBar1.Guid = new System.Guid("9261260f-4e3d-4d4f-8be9-9b0045f91adc");
-			this.toolBar1.Items.AddRange(new TD.SandBar.ToolbarItemBase[] {
-																			  this.biPrev,
-																			  this.biNext,
-																			  this.biFinish,
-																			  this.biAbort,
-																			  this.biCatalog});
-			this.toolBar1.Location = new System.Drawing.Point(0, 0);
-			this.toolBar1.Name = "toolBar1";
-			this.toolBar1.Overflow = TD.SandBar.ToolBarOverflow.Hide;
-			this.toolBar1.Renderer = new TD.SandBar.WhidbeyRenderer();
-			this.toolBar1.Size = new System.Drawing.Size(298, 24);
-			this.toolBar1.TabIndex = 17;
-			this.toolBar1.Text = "toolBar1";
-			// 
-			// biPrev
-			// 
-			this.biPrev.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.biPrev.Image = ((System.Drawing.Image)(resources.GetObject("biPrev.Image")));
-			this.biPrev.ItemImportance = TD.SandBar.ItemImportance.Highest;
-			this.biPrev.Text = "Previous  ";
-			this.biPrev.Activate += new System.EventHandler(this.Activate_biPrev);
-			// 
-			// biNext
-			// 
-			this.biNext.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+            // 
+            // toolBar1
+            // 
+            this.toolBar1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+				this.biPrev,
+			    this.biNext,
+				this.biFinish,
+				this.biAbort,
+				this.biCatalog});
+            this.toolBar1.Location = new System.Drawing.Point(0, 0);
+            this.toolBar1.Name = "toolBar1";
+            this.toolBar1.Size = new System.Drawing.Size(298, 24);
+            this.toolBar1.TabIndex = 17;
+            this.toolBar1.Text = "toolBar1";
+            // 
+            // biPrev
+            // 
+            this.biPrev.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.biPrev.Image = ((System.Drawing.Image)(resources.GetObject("biPrev.Image")));
+            this.biPrev.Text = "Previous  ";
+            this.biPrev.Click += new System.EventHandler(this.Activate_biPrev);
+            // 
+            // biNext
+            // 
+            this.biNext.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.biNext.Image = ((System.Drawing.Image)(resources.GetObject("biNext.Image")));
-			this.biNext.ItemImportance = TD.SandBar.ItemImportance.Highest;
 			this.biNext.Text = "Next";
-			this.biNext.Activate += new System.EventHandler(this.Activate_biNext);
+			this.biNext.Click += new System.EventHandler(this.Activate_biNext);
 			// 
 			// biFinish
 			// 
 			this.biFinish.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.biFinish.Image = ((System.Drawing.Image)(resources.GetObject("biFinish.Image")));
 			this.biFinish.Text = "Finish";
-			this.biFinish.Activate += new System.EventHandler(this.ActivateFinish);
+			this.biFinish.Click += new System.EventHandler(this.ActivateFinish);
 			// 
 			// biAbort
 			// 
 			this.biAbort.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.biAbort.Image = ((System.Drawing.Image)(resources.GetObject("biAbort.Image")));
 			this.biAbort.Text = "Startover";
-			this.biAbort.Activate += new System.EventHandler(this.biAbort_Activate);
+			this.biAbort.Click += new System.EventHandler(this.biAbort_Activate);
 			// 
 			// biCatalog
 			// 
 			this.biCatalog.Checked = true;
 			this.biCatalog.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
 			this.biCatalog.Text = "Catalog";
-			this.biCatalog.Activate += new System.EventHandler(this.Activate_biCatalog);
+			this.biCatalog.Click += new System.EventHandler(this.Activate_biCatalog);
 			// 
 			// ilist
 			// 
@@ -875,7 +866,7 @@ namespace SimPe.Plugin.Tool.Dockable
 					if (fii.Package.FileName!=null)
 						flname = fii.Package.FileName.Trim().ToLower();
 
-				if (flname.StartsWith(Helper.WindowsRegistry.SimSavegameFolder.Trim().ToLower())) 
+				if (flname.StartsWith(PathProvider.SimSavegameFolder.Trim().ToLower())) 
 				{
 					tn.ImageIndex = 2;
 				}
@@ -1090,9 +1081,6 @@ namespace SimPe.Plugin.Tool.Dockable
 				{
 					Helper.ExceptionMessage(ex);
 				}
-
-				
-
 
 				this.animatedImagelist1.Stop();
 				if (package!=null) this.lbfinload.Visible = settings.RemoteResult;

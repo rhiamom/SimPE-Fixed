@@ -74,7 +74,7 @@ namespace SimPe.Plugin
             this.lbdirs = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.pnNice = new booby.gradientpanel();
+            this.pnNice = new System.Windows.Forms.Panel();
             this.pnNice.SuspendLayout();
             this.SuspendLayout();
             // 

@@ -130,7 +130,6 @@
     <EmbeddedResource Include="Sims.ru.resx" />
     <EmbeddedResource Include="SkinWorkshop.resx" />
     <EmbeddedResource Include="Surgery.de.resx" />
-    <EmbeddedResource Include="Surgery.en-US.resx" />
     <EmbeddedResource Include="Surgery.es.resx" />
     <EmbeddedResource Include="Surgery.fr.resx" />
     <EmbeddedResource Include="Surgery.it.resx" />
@@ -214,6 +213,10 @@
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_PJSE\pjse Coder\SimPe pjse coder.csproj">
+      <Project>{4b6b73da-1606-42f2-8774-72428062783a}</Project>
+      <Name>SimPe pjse coder</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

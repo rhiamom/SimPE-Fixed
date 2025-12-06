@@ -157,10 +157,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\__Release\simpe.interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="simpe.package, Version=1.69.7187.30857, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.package.dll</HintPath>
-    </Reference>
     <Reference Include="simpe.rcol, Version=1.69.7186.42885, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\__Release\simpe.rcol.dll</HintPath>
@@ -172,16 +168,6 @@
     <Reference Include="simpe.scenegraph, Version=1.69.7186.40150, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\__Release\simpe.scenegraph.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.toolbox.plugin, Version=1.69.7187.8284, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.workshop.plugin, Version=1.69.7185.21313, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="simpe.workspace, Version=1.69.7186.37669, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.workspace.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -226,6 +212,24 @@
       <DependentUpon>RecolorWizardForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.ToolBoxWorkshops\SimPE.ToolBoxWorkshops.csproj">
+      <Project>{3f07c566-8460-4c68-b26f-bdfbcc0496b8}</Project>
+      <Name>SimPE.ToolBoxWorkshops</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.Toolbox\SimPE.Toolbox.csproj">
+      <Project>{b5a2448d-f5f4-40ec-9641-05642134c357}</Project>
+      <Name>SimPE.Toolbox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

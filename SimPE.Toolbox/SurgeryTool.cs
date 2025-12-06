@@ -2,6 +2,9 @@
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
+ *   Copyright (C) 2025 by GramzeSweatshop                                 *
+ *   rhiamom@mac.com                                                       *
+ *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -17,6 +20,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
 using SimPe.Interfaces;
 
@@ -82,17 +86,12 @@ namespace SimPe.Plugin
 			return "Neighbourhood\\Sims Surgery...";
         }
 
-        #endregion
+		#endregion
 
-        #region IToolExt Member
-        public override System.Drawing.Image Icon
-        {
-            get
-            {
-                return SimPe.GetIcon.SimSurgery;
-            }
-        }
-		public override System.Windows.Forms.Shortcut Shortcut
+		#region IToolExt Member
+		public static System.Drawing.Image SimSurgery => null;
+
+        public override System.Windows.Forms.Shortcut Shortcut
 		{
             get
             {

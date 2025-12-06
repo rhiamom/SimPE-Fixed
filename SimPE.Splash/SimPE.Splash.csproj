@@ -82,6 +82,9 @@
     </Compile>
     <Compile Include="SplashForm.Designer.cs" />
     <Compile Include="SplashScreen.cs" />
+    <Compile Include="TransparentButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="HelpForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -116,9 +116,9 @@
       <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
       <Name>SimPE.Filehandlers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterbase.csproj">
+    <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterBase.csproj">
       <Project>{2fe03d2c-fc55-4e27-a460-6b7f574f26e4}</Project>
-      <Name>SimPE.GMDCExporterbase</Name>
+      <Name>SimPE.GMDCExporterBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
       <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>

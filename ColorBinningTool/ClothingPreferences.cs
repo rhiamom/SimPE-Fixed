@@ -67,44 +67,43 @@ namespace SimPe.Plugin.UI
 
         #region Initial Setup
 
-		protected override void OnSettingsChanged()
-		{
-			if (this.Settings != null)
-			{
-				this.SuspendLayout();
-				ClothingSettings sset = this.Settings;
-				this.fireSettingsChangedEvent = false;
+        protected override void OnSettingsChanged()
+        {
+            if (this.Settings != null)
+            {
+                this.SuspendLayout();
+                ClothingSettings sset = this.Settings;
+                this.fireSettingsChangedEvent = false;
+
                 this.SelectEnumItems(this.clbCategories, sset.OutfitCat);
-				this.SelectEnumItems(this.clbAges, sset.Age);
-				this.SelectEnumItems(this.clbGender, sset.Gender);
-				this.SelectEnumItem(this.cbOutfitType, sset.OutfitType);
-				this.SelectEnumItem(this.cbShoeType, sset.ShoeType);
-				this.SelectEnumItem(this.cbSpeciesType, sset.Species);
-				this.SelectSingleEnumItem(this.cbOverlayType, sset.OverlayType);
+                this.SelectEnumItems(this.clbAges, sset.Age);
+                this.SelectEnumItems(this.clbGender, sset.Gender);
+                this.SelectEnumItem(this.cbOutfitType, sset.OutfitType);
+                this.SelectEnumItem(this.cbShoeType, sset.ShoeType);
+                this.SelectEnumItem(this.cbSpeciesType, sset.Species);
+                this.SelectSingleEnumItem(this.cbOverlayType, sset.OverlayType);
+
                 Boolset flug = sset.Flaggery;
                 this.cbhide.Checked = flug[0];
                 this.cbhat.Checked = flug[1];
-                this.cbavail.Checked = flug[3];                
-                this.cbBody.SelectedIndex = 0;
-                for (int i = 0; i < this.cbBody.Items.Count; i++)
+                this.cbavail.Checked = flug[3];
+
+                // Chris Hatch Bodyshape/Figure handling removed.
+                // For now, just default the body combo to the first item if available.
+                if (this.cbBody.Items.Count > 0)
                 {
-                    object o = this.cbBody.Items[i];
-                    Data.MetaData.Bodyshape at;
-                    if (o.GetType() == typeof(Alias)) at = (Data.LocalizedBodyshape)((uint)((Alias)o).Id);
-                    else at = (Data.LocalizedBodyshape)o;
-                    if (at == sset.Figure)
-                    {
-                        this.cbBody.SelectedIndex = i;
-                        break;
-                    }
+                    this.cbBody.SelectedIndex = 0;
                 }
+
                 InitDisableControls();
             }
+
             this.fireSettingsChangedEvent = true;
             this.ResumeLayout(false);
         }
 
-		public override void OnCommitSettings()
+
+        public override void OnCommitSettings()
 		{
 			if (this.Settings != null)
 			{
@@ -288,26 +287,6 @@ namespace SimPe.Plugin.UI
             this.cbavail.UseVisualStyleBackColor = false;
             this.cbavail.CheckedChanged += new System.EventHandler(this.cbflags_CheckedChanged);
             // 
-            // lbBody
-            // 
-            this.lbBody.AutoSize = true;
-            this.lbBody.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBody.Location = new System.Drawing.Point(180, 109);
-            this.lbBody.Name = "lbBody";
-            this.lbBody.Size = new System.Drawing.Size(79, 18);
-            this.lbBody.TabIndex = 12;
-            this.lbBody.Text = "Body Shape";
-            // 
-            // cbBody
-            // 
-            this.cbBody.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbBody.Location = new System.Drawing.Point(6, 106);
-            this.cbBody.Name = "cbBody";
-            this.cbBody.Size = new System.Drawing.Size(168, 21);
-            this.cbBody.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.cbBody, "For users of the BSOK, Angels & Nurses Stuff or T&A");
-            this.cbBody.SelectedIndexChanged += new System.EventHandler(this.cbBody_SelectedIndexChanged);
-            // 
             // cbOverlayType
             // 
             this.cbOverlayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -420,13 +399,13 @@ namespace SimPe.Plugin.UI
 
 		}
 
-		#endregion
+        #endregion
 
         void InitDropDown()
         {
+            // Chris Hatch Bodyshape system removed.
+            // Do not populate cbBody with Bodyshape/Figure enums.
             this.cbBody.Items.Clear();
-            foreach (uint i in Enum.GetValues(typeof(Data.MetaData.Bodyshape)))
-                this.cbBody.Items.Add(new LocalizedBodyshape((Data.MetaData.Bodyshape)i));
         }
 
         #endregion
@@ -435,12 +414,17 @@ namespace SimPe.Plugin.UI
 
         private void cbBody_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.fireSettingsChangedEvent)
+            // Chris Hatch Bodyshape/Figure handling removed.
+            // Changing the body combo no longer updates ClothingSettings.Figure.
+            // We keep this handler only to satisfy the event wiring.
+            if (!this.fireSettingsChangedEvent)
             {
-                this.Settings.Figure = (LocalizedBodyshape)this.cbBody.SelectedItem;
-                OnSettingsChanged(e);
+                return;
             }
+
+            // Intentionally do nothing.
         }
+
 
         private void cbflags_CheckedChanged(object sender, EventArgs e)
         {

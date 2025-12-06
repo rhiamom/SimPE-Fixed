@@ -29,21 +29,8 @@ namespace SimPe.Plugin.UI
 
 		public MainForm()
         {
-            if (booby.ThemeManager.ThemedForms) DefaultPreviewImage = GetImage.BeachBabe;
+            
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.menuStrip1);
-                tm.AddControl(this.themepanel);
-                tm.AddControl(this.lvTxmt);
-                tm.AddControl(this.lvCresShpe);
-                tm.AddControl(this.tpMaterials);
-                tm.AddControl(this.tpMeshes);
-                tm.AddControl(this.tbPackage);
-                this.splitter1.BackColor = booby.ThemeManager.Global.ThemeColor;
-                this.splitter2.BackColor = booby.ThemeManager.Global.ThemeColor;
-            }
 
 			this.Text = String.Format("Colour Binning Tool {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
 			InitializeTabControl();
@@ -438,7 +425,6 @@ namespace SimPe.Plugin.UI
                     item.OutfitType = cset.OutfitType;
                     item.SetValue("category", Convert.ToUInt32(cset.OutfitCat));
                     item.SetValue("shoe", Convert.ToUInt32(cset.ShoeType));
-                    item.Figure = cset.Figure;
                     item.Flaggery = cset.Flaggery;
                 }
             }
@@ -784,7 +770,6 @@ namespace SimPe.Plugin.UI
                 cset.ShoeType = (ShoeType)item.GetProperty("shoe").UIntegerValue;
                 cset.Species = (SpeciesType)item.GetProperty("species").UIntegerValue;
                 cset.OverlayType = item.TextureOverlayType;
-                cset.Figure = item.Figure;
                 cset.Flaggery = item.Flaggery;
                 this.tpClothing.Enabled = true;
                 this.tpClothing.Settings = cset;

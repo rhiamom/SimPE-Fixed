@@ -55,10 +55,7 @@ namespace SimPe.Plugin
 		{
 			get 
 			{
-                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                    return "SimPe.Plugin.ep9base.career";
-                else
-                    return "SimPe.Plugin.base.career";
+                return "SimPe.Plugin.base.career";
 			}
 		}
 

@@ -44,6 +44,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ambertation.3D.dll</HintPath>
     </Reference>
+    <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+    </Reference>
     <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\GDF.dll</HintPath>
@@ -51,6 +55,13 @@
     <Reference Include="NetDocks, Version=1.0.2983.24895, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
+    </Reference>
+    <Reference Include="SandDock, Version=2.0.2.1, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\SandDock.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.s2cp">
+      <HintPath>..\ExternalLibs\simpe.s2cp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,6 +77,10 @@
     <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+    </Reference>
+    <Reference Include="xsi.lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\xsi.lib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +109,6 @@
     <Compile Include="PackageDetailDockTool.cs" />
     <Compile Include="PackageRepair.cs" />
     <Compile Include="PackageRepairForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PreviewForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,7 +143,6 @@
     <EmbeddedResource Include="PackageDetailDock.resx" />
     <EmbeddedResource Include="PackageDetailDock.ru.resx" />
     <EmbeddedResource Include="PackageRepairForm.resx" />
-    <EmbeddedResource Include="PreviewForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -174,6 +185,14 @@
       <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
       <Name>SimPE.Filehandlers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SimPE.Geometry\SimPE.Geometry.csproj">
+      <Project>{d4a2c67f-0de2-48a2-85ff-7513d5f8e86d}</Project>
+      <Name>SimPE.Geometry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterBase.csproj">
+      <Project>{2fe03d2c-fc55-4e27-a460-6b7f574f26e4}</Project>
+      <Name>SimPE.GMDCExporterBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
       <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
       <Name>SimPE.GraphControl</Name>
@@ -181,6 +200,10 @@
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.HGBH\SimPE.HGBH.csproj">
+      <Project>{f060d4f2-be7c-4390-a598-63a6030a2cb8}</Project>
+      <Name>SimPE.HGBH</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
@@ -197,6 +220,10 @@
     <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj">
       <Project>{f4145736-97ed-417a-81ea-5635769abe35}</Project>
       <Name>SimPE.Scenegraph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Wizardbase\SimPE.Wizardbase.csproj">
+      <Project>{5ee2665c-bfe2-45c0-9ab7-93ff6fcdb63a}</Project>
+      <Name>SimPE.Wizardbase</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>

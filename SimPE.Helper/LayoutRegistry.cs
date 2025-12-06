@@ -82,13 +82,31 @@ namespace SimPe
 		{
 			if (reg!=null) reg.Flush();
 		}
-		
-		#endregion
+
+        #endregion
 
         /// <summary>
         /// returns a list of Strings that hold the names of all available ToolbarButtons
         /// </summary>
         /// <remarks>Adding to tha list will not update the value! You have to use the Setter again!</remarks>
+        /// 
+        public bool PluginActionBoxExpanded
+        {
+            get { return true; }   // or false if you prefer collapsed by default
+            set { /* ignore for now, we’re not persisting this yet */ }
+        }
+
+        public bool ToolActionBoxExpanded
+        {
+            get { return true; }
+            set { /* ignore */ }
+        }
+
+        public bool DefaultActionBoxExpanded
+        {
+            get { return true; }
+            set { /* ignore */ }
+        }
         public ArrayList VisibleToolbarButtons
         {
             get
