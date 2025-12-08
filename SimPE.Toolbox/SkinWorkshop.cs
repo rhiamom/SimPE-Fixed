@@ -232,7 +232,6 @@ namespace SimPe.Plugin
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SkinWorkshop));
             this.lbobj = new System.Windows.Forms.ListBox();
             this.btclone = new System.Windows.Forms.Button();
             this.pb = new System.Windows.Forms.PictureBox();
@@ -252,15 +251,15 @@ namespace SimPe.Plugin
             // 
             // lbobj
             // 
-            this.lbobj.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbobj.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbobj.IntegralHeight = false;
-            this.lbobj.ItemHeight = 16;
-            this.lbobj.Location = new System.Drawing.Point(6, 71);
+            this.lbobj.ItemHeight = 25;
+            this.lbobj.Location = new System.Drawing.Point(9, 106);
             this.lbobj.Name = "lbobj";
             this.lbobj.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lbobj.Size = new System.Drawing.Size(485, 248);
+            this.lbobj.Size = new System.Drawing.Size(766, 113);
             this.lbobj.TabIndex = 0;
             this.lbobj.SelectedIndexChanged += new System.EventHandler(this.Select);
             // 
@@ -269,9 +268,9 @@ namespace SimPe.Plugin
             this.btclone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btclone.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btclone.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btclone.Location = new System.Drawing.Point(400, 141);
+            this.btclone.Location = new System.Drawing.Point(629, 212);
             this.btclone.Name = "btclone";
-            this.btclone.Size = new System.Drawing.Size(75, 23);
+            this.btclone.Size = new System.Drawing.Size(117, 34);
             this.btclone.TabIndex = 1;
             this.btclone.Text = "Start";
             this.btclone.Click += new System.EventHandler(this.Start);
@@ -280,9 +279,9 @@ namespace SimPe.Plugin
             // 
             this.pb.BackColor = System.Drawing.Color.Transparent;
             this.pb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pb.Location = new System.Drawing.Point(7, 40);
+            this.pb.Location = new System.Drawing.Point(11, 60);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(128, 128);
+            this.pb.Size = new System.Drawing.Size(201, 192);
             this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pb.TabIndex = 6;
             this.pb.TabStop = false;
@@ -291,9 +290,9 @@ namespace SimPe.Plugin
             // 
             this.cbfix.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbfix.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbfix.Location = new System.Drawing.Point(152, 77);
+            this.cbfix.Location = new System.Drawing.Point(239, 116);
             this.cbfix.Name = "cbfix";
-            this.cbfix.Size = new System.Drawing.Size(224, 24);
+            this.cbfix.Size = new System.Drawing.Size(352, 36);
             this.cbfix.TabIndex = 5;
             this.cbfix.Text = "Fix Cloned Files (sug. by.  wes_h)";
             // 
@@ -301,9 +300,9 @@ namespace SimPe.Plugin
             // 
             this.cbgid.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbgid.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbgid.Location = new System.Drawing.Point(152, 47);
+            this.cbgid.Location = new System.Drawing.Point(239, 70);
             this.cbgid.Name = "cbgid";
-            this.cbgid.Size = new System.Drawing.Size(248, 24);
+            this.cbgid.Size = new System.Drawing.Size(390, 36);
             this.cbgid.TabIndex = 2;
             this.cbgid.Text = "Set Custom Group ID (0x1c050000)";
             // 
@@ -314,11 +313,11 @@ namespace SimPe.Plugin
             // 
             // tbseek
             // 
-            this.tbseek.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbseek.Location = new System.Drawing.Point(6, 44);
+            this.tbseek.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbseek.Location = new System.Drawing.Point(9, 66);
             this.tbseek.Name = "tbseek";
-            this.tbseek.Size = new System.Drawing.Size(485, 23);
+            this.tbseek.Size = new System.Drawing.Size(766, 31);
             this.tbseek.TabIndex = 3;
             this.tbseek.TextChanged += new System.EventHandler(this.SeekItem);
             // 
@@ -335,7 +334,7 @@ namespace SimPe.Plugin
             this.panel1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(504, 518);
+            this.panel1.Size = new System.Drawing.Size(795, 518);
             this.panel1.TabIndex = 5;
             // 
             // taskBox2
@@ -346,39 +345,36 @@ namespace SimPe.Plugin
             this.taskBox2.Controls.Add(this.btclone);
             this.taskBox2.Controls.Add(this.pb);
             this.taskBox2.Controls.Add(this.cbgid);
-            
-            this.taskBox2.Location = new System.Drawing.Point(3, 340);
+            this.taskBox2.Location = new System.Drawing.Point(5, 251);
             this.taskBox2.Name = "taskBox2";
             this.taskBox2.Padding = new System.Windows.Forms.Padding(4, 44, 4, 4);
-            this.taskBox2.Size = new System.Drawing.Size(498, 175);
+            this.taskBox2.Size = new System.Drawing.Size(782, 262);
             this.taskBox2.TabIndex = 6;
             // 
             // taskBox1
             // 
-            this.taskBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.taskBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.taskBox1.BackColor = System.Drawing.Color.Transparent;
             this.taskBox1.Controls.Add(this.tbseek);
             this.taskBox1.Controls.Add(this.lbobj);
-            
-            this.taskBox1.Location = new System.Drawing.Point(3, 3);
+            this.taskBox1.Location = new System.Drawing.Point(5, 4);
             this.taskBox1.Name = "taskBox1";
             this.taskBox1.Padding = new System.Windows.Forms.Padding(4, 44, 4, 4);
-            this.taskBox1.Size = new System.Drawing.Size(498, 326);
+            this.taskBox1.Size = new System.Drawing.Size(785, 231);
             this.taskBox1.TabIndex = 5;
             // 
             // SkinWorkshop
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(7, 16);
-            this.ClientSize = new System.Drawing.Size(504, 518);
+            this.AutoScaleBaseSize = new System.Drawing.Size(11, 24);
+            this.ClientSize = new System.Drawing.Size(795, 518);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(520, 320);
+            this.MinimumSize = new System.Drawing.Size(817, 480);
             this.Name = "SkinWorkshop";
-            this.Opacity = 0.96;
+            this.Opacity = 0.96D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Skin Workshop (biggest thanks to RGiles and Numenor)";
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();

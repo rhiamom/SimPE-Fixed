@@ -23,94 +23,90 @@ using SimPe.Interfaces;
 
 namespace SimPe.Plugin
 {
-	/// <summary>
-	/// Lists all Plugins (=FileType Wrappers) available in this Package
-	/// </summary>
-	/// <remarks>
+    /// <summary>
+    /// Lists all Plugins (=FileType Wrappers) available in this Package
+    /// </summary>
+    /// <remarks>
     /// GetWrappers() has to return a list of all Plugins provided by this Library.
-	/// If a Plugin isn't returned, SimPe won't recognize it!
-	/// </remarks>
-    public class CopyrightToolFactory : SimPe.Interfaces.Plugin.AbstractWrapperFactory, SimPe.Interfaces.Plugin.IToolFactory, SimPe.Interfaces.Plugin.IHelpFactory
-	{
-		public CopyrightToolFactory()
-		{
-			
-		}
-        
-		#region AbstractWrapperFactory Member
-		/// <summary>
-		/// Returns a List of all available Plugins in this Package
-		/// </summary>
-		/// <returns>A List of all provided Plugins (=FileType Wrappers)</returns>
-		public override SimPe.Interfaces.IWrapper[] KnownWrappers
-		{
-			get 
-			{
-				// TODO:  You can add more Wrappers here
-				IWrapper[] wrappers = {
-										  
-									  };
-				return wrappers;
-			}
-		}
+    /// If a Plugin isn't returned, SimPe won't recognize it!
+    /// </remarks>
+    public class CopyrightToolFactory : SimPe.Interfaces.Plugin.AbstractWrapperFactory,
+        SimPe.Interfaces.Plugin.IToolFactory,
+        SimPe.Interfaces.Plugin.IHelpFactory
+    {
+        public CopyrightToolFactory()
+        {
+        }
 
-		#endregion
+        #region AbstractWrapperFactory Member
 
-		#region IToolFactory Member
+        /// <summary>
+        /// Returns a List of all available Plugins in this Package
+        /// </summary>
+        /// <returns>A List of all provided Plugins (=FileType Wrappers)</returns>
+        public override SimPe.Interfaces.IWrapper[] KnownWrappers
+        {
+            get
+            {
+                IWrapper[] wrappers = {
+                    // no wrappers provided by this factory
+                };
+                return wrappers;
+            }
+        }
 
-		public IToolPlugin[] KnownTools
-		{
-			get
-			{
-				IToolPlugin[] tools = null;
+        #endregion
+
+        #region IToolFactory Member
+
+        public IToolPlugin[] KnownTools
+        {
+            get
+            {
+                IToolPlugin[] tools = null;
                 if (Helper.StartedGui != Executable.Classic && UserVerification.HaveValidUserId)
-				{
-					tools = new IToolPlugin[]{ new SimPe.Plugin.Tool.Action.ActionAddCopyright() };
-				}
-				else 
-				{
-					tools =  new IToolPlugin[]{ };
-				}
-				return tools;
-			}
-		}
-		#endregion
+                {
+                    tools = new IToolPlugin[] { new SimPe.Plugin.Tool.Action.ActionAddCopyright() };
+                }
+                else
+                {
+                    tools = new IToolPlugin[] { };
+                }
+                return tools;
+            }
+        }
+
+        #endregion
 
         #region IHelpFactory Members
 
         class easHelp : IHelp
         {
             public System.Drawing.Image Icon { get { return null; } }
-            public override string ToString() { return "EA Support"; }
+
+            public override string ToString()
+            {
+                return "EA Support";
+            }
+
             public void ShowHelp(ShowHelpEventArgs e)
             {
-                if (booby.PrettyGirls.IsTitsInstalled())
+                // Primary: EA's official Sims 2 Legacy Collection help page
+                const string eaSupportUrl = "https://help.ea.com/en/games/the-sims/the-sims-2-legacy-collection/";
+
+                try
                 {
-                    if (File.Exists(SimPe.Helper.NewestGamePath + "/Support/index.htm"))
-                        SimPe.RemoteControl.ShowHelp("file://" + SimPe.Helper.NewestGamePath + "/Support/index.htm");
-                    else
-                        if (File.Exists(SimPe.Helper.NewestGamePath + "/Support/T&A.htm"))
-                            SimPe.RemoteControl.ShowHelp("file://" + SimPe.Helper.NewestGamePath + "/Support/T&A.htm");
-                        else
-                            SimPe.RemoteControl.ShowHelp("file://" + SimPe.Helper.SimPePath + "/Doc/NoFile.htm");
+                    SimPe.RemoteControl.ShowHelp(eaSupportUrl);
                 }
-                else
+                catch (Exception)
                 {
-                    if (booby.PrettyGirls.IsAngelsInstalled())
-                    {
-                        if (File.Exists(SimPe.Helper.NewestGamePath + "/Support/A&N.htm"))
-                            SimPe.RemoteControl.ShowHelp("file://" + SimPe.Helper.NewestGamePath + "/Support/A&N.htm");
-                        else
-                            SimPe.RemoteControl.ShowHelp("file://" + SimPe.Helper.SimPePath + "/Doc/NoFile.htm");
-                    }
-                    else
-                        if (File.Exists(SimPe.Helper.NewestGamePath + "/Support/EA Help/Electronic_Arts_Technical_Support.htm"))
-                            SimPe.RemoteControl.ShowHelp("file://" + SimPe.Helper.NewestGamePath + "/Support/EA Help/Electronic_Arts_Technical_Support.htm");
-                        else
-                            SimPe.RemoteControl.ShowHelp("file://" + SimPe.Helper.SimPePath + "/Doc/NoFile.htm");
+                    // Fallback to local "NoFile" doc if the browser call fails
+                    string fallbackDoc = System.IO.Path.Combine(SimPe.Helper.SimPePath, "Doc", "NoFile.htm");
+                    SimPe.RemoteControl.ShowHelp("file://" + fallbackDoc);
                 }
             }
         }
+
 
         public IHelp[] KnownHelpTopics
         {
@@ -129,5 +125,5 @@ namespace SimPe.Plugin
         }
 
         #endregion
-	}
+    }
 }

@@ -168,15 +168,6 @@ namespace SimPe.Plugin.Tool.Action
 			}
 		}
 
-		public override System.Drawing.Image Icon
-		{
-			get
-            {
-            
-                return SimPe.GetIcon.Copyright;
-			}
-		}
-
 		public override bool Visible 
 		{
 			get {return true;}

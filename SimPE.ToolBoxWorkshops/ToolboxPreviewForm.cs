@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace SimPe.Plugin
+namespace SimPe.Plugin.Tool.Dockable
 {
 	/// <summary>
 	/// Summary description for PreviewForm.

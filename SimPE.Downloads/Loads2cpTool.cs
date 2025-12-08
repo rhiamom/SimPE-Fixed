@@ -75,7 +75,7 @@ namespace SimPe.Plugin.Tool
 		{
 			get
             {
-                return SimPe.GetIcon.S2pcOpen;
+                return SimPe.LoadIcon.load("S2pcOpen");
 			}
 		}
 

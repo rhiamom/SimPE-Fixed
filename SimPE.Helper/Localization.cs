@@ -36,25 +36,27 @@ namespace SimPe
 		/// </summary>
 		private static ResourceManager resource = null;
 
-		/// <summary>
-		/// Initializes the Resource
-		/// </summary>
-		protected static void Initialize() 
-		{					
-			Localization l = new Localization();
-			System.Reflection.Assembly myAssembly;
-			myAssembly = l.GetType().Assembly;			
+        /// <summary>
+        /// Initializes the Resource
+        /// </summary>
+        protected static void Initialize()
+        {
+            if (resource != null) return;
 
-			resource = new ResourceManager(typeof(Localization));					
-		}
+            Localization l = new Localization();
+            System.Reflection.Assembly myAssembly = l.GetType().Assembly;
 
-		/// <summary>
-		/// Returns a translated String
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		/// <remarks>If there is no Translation, the passsed string will be returned</remarks>
-		public static string GetString(string name)
+            // IMPORTANT: use the real base name of the embedded resource
+            resource = new ResourceManager("SimPE.Localization", myAssembly);
+        }
+
+        /// <summary>
+        /// Returns a translated String
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        /// <remarks>If there is no Translation, the passsed string will be returned</remarks>
+        public static string GetString(string name)
 		{
 			string res = Manager.GetString(name);
 			if (res==null) res = Manager.GetString(name.Trim().ToLower());

@@ -28,7 +28,7 @@ namespace SimPe.Plugin.Gmdc.Exporter
 	/// <summary>
 	/// This class provides the functionality to Export Data to the .x (DirectX) FileFormat
 	/// </summary>
-	/*public class GmdcExportToXSI : AbstractGmdcExporter
+	public class GmdcExportToXSI : AbstractGmdcExporter
 	{
 		/// <summary>
 		/// Constructor
@@ -36,18 +36,18 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		/// <param name="gmdc">The Gmdc File the Export is based on</param>
 		/// <param name="groups">The list of Groups you want to export</param>
 		/// <remarks><see cref="AbstractGmdcExporter.FileContent"/> will contain the Exported .x File</remarks>
-		public GmdcExportToXSI(GeometryDataContainer gmdc, GmdcGroups groups) : base(gmdc, groups) {}
+		public GmdcExportToXSI(GeometryDataContainer gmdc, GmdcGroups groups) : base(gmdc, groups) { }
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="gmdc">The Gmdc File the Export is based on</param>
 		/// <remarks><see cref="AbstractGmdcExporter.FileContent"/> will contain the Exported .x File</remarks>
-		public GmdcExportToXSI(GeometryDataContainer gmdc) : base(gmdc) {}
+		public GmdcExportToXSI(GeometryDataContainer gmdc) : base(gmdc) { }
 		/// <summary>
 		/// Default Constructor
 		/// </summary>
 		/// <remarks>The export has to be started Manual through a call to <see cref="AbstractGmdcExporter.Process"/></remarks>
-		public GmdcExportToXSI() : base()  {}
+		public GmdcExportToXSI() : base() { }
 
 		//System.Collections.ArrayList modelnames;
 		/// <summary>
@@ -55,17 +55,17 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		/// </summary>
 		/// <param name="name">The name of the Model</param>
 		/// <returns>the unique Name</returns>
-		string GetUniqueGroupName(string name) 
-		{			
-			return name;			
-		}*/
+		string GetUniqueGroupName(string name)
+		{
+			return name;
+		}
 
 		/// <summary>
 		/// Returns the suggested File Extension (including the . like .obj or .3ds)
 		/// </summary>
 		public override string FileExtension
 		{
-			get {return ".xsi";}
+			get { return ".xsi"; }
 		}
 
 		/// <summary>
@@ -73,15 +73,15 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		/// </summary>
 		public override string FileDescription
 		{
-			get {return "Softimage/3D dotXSI";}
-		}		
+			get { return "Softimage/3D dotXSI"; }
+		}
 
 		/// <summary>
 		/// Returns the name of the Author
 		/// </summary>
 		public override string Author
 		{
-			get {return "Quaxi";}
+			get { return "Quaxi"; }
 		}
 
 		/// <summary>
@@ -92,11 +92,11 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		/// Use the writer member to write to the File
 		/// </remarks>
 		protected override void InitFile()
-		{			
+		{
 			string name = System.IO.Path.GetFileNameWithoutExtension(this.FileName);
 			string path = System.IO.Path.GetDirectoryName(this.FileName);
 			path = System.IO.Path.Combine(path, name+".IMG");
-			
+
 
 			GeometryDataContainerExt gext = new GeometryDataContainerExt(Gmdc);
 			Ambertation.Scenes.Scene scn = gext.GetScene(this.Groups, path, name+".IMG", this.Component);
@@ -119,8 +119,8 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		/// Use the writer member to write to the File.
 		/// </remarks>
 		protected override void ProcessGroup()
-		{			
-			
+		{
+
 		}
 
 		/// <summary>
@@ -130,7 +130,7 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		/// Use the writer member to write to the File</remarks>
 		protected override void FinishFile()
 		{
-			
+
 		}
 	}
 }

@@ -76,7 +76,7 @@ namespace SimPe.Plugin.Tool
 		{
 			get
             {
-                return SimPe.GetIcon.S2packOpen;
+                return SimPe.LoadIcon.load("Main_biOpen.Image.png");
 			}
 		}
 

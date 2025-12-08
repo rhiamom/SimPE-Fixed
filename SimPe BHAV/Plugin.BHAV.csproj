@@ -239,7 +239,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if not exist "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins" mkdir "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins"
+copy "$(TargetPath)" "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins\" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

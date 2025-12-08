@@ -32,12 +32,10 @@ namespace SimPe.Plugin
         public JobDescPanel()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            
+                ThemeManager tm = ThemeManager.Global.CreateChild();
                 tm.AddControl(this.tbTitle);
                 tm.AddControl(this.tbDesc);
-            }
         }
 
         public string TitleLabel { get { return lbTitle.Text; } set { lbTitle.Text = value; } }

@@ -247,8 +247,8 @@ namespace SimPe.Plugin
 
                 //parent.Add(mb);
 
-                foreach (SimPe.Interfaces.Scenegraph.ICresChildren cld in bl)
-                    //AddJoint(lmb, cld, mb, tnode.Nodes);
+                /*foreach (SimPe.Interfaces.Scenegraph.ICresChildren cld in bl)
+                    AddJoint(lmb, cld, mb, tnode.Nodes);*/
 
             }
             else
@@ -272,16 +272,16 @@ namespace SimPe.Plugin
 				//dx.Meshes.Clear(false);
 			}
 		
-			if (root!=null) 
+			/*if (root!=null) 
 			{
 				foreach (Ambertation.Graphics.MeshBox mb in root)
-					//dx.Meshes.Add(mb);
+					dx.Meshes.Add(mb);*/
 			}			
-		}
-
+		
 		Ambertation.Graphics.MeshList root;
 		Hashtable jointmap = new Hashtable();
 		bool inter;
+		
 		private void lb_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			if (lb.SelectedItem==null) return;
@@ -371,8 +371,8 @@ namespace SimPe.Plugin
 			foreach (AnimationData ad in animdata)	
 				ad.SetFrame(timecode);			
 			
-			dx.Render();
-			//Application.DoEvents();
+			//dx.Render();
+			Application.DoEvents();
 
 			timecode += 40;
 		}

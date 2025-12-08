@@ -96,8 +96,8 @@ namespace SimPe.PackedFiles
 		/// </summary>
 		public TypeRegistry()
 		{
-            reg = Helper.WindowsRegistry;
-			handlers = new ArrayList();		
+			reg = Helper.WindowsRegistry;
+			handlers = new ArrayList();
 			opcodeprovider = new SimPe.Providers.Opcodes();
 			simfamilynames = new SimPe.Providers.SimFamilyNames();
 			simnames = new SimPe.Providers.SimNames(null); //opcodeprovider
@@ -105,12 +105,12 @@ namespace SimPe.PackedFiles
 			skinprovider = new SimPe.Providers.Skins();
 			lotprov = new SimPe.Providers.LotProvider();
 			sdescprovider.ChangedPackage += new EventHandler(lotprov.sdescprovider_ChangedPackage);
-			
+
 			tools = new ArrayList();
 			toolsp = new ArrayList();
 			dtools = new ArrayList();
 			atools = new ArrayList();
-            cmdlines = new ArrayList();
+			cmdlines = new ArrayList();
 			helptopics = new ArrayList();
 			settings = new ArrayList();
 			listeners = new SimPe.Collections.InternalListeners();
@@ -118,12 +118,47 @@ namespace SimPe.PackedFiles
 			il = new System.Windows.Forms.ImageList();
 			il.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
 
-			il.Images.Add(System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Providers.empty.png")));
-			il.Images.Add(System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Providers.binary.png")));									
+			// Use the assembly that actually contains this class
+			var asm = this.GetType().Assembly;
+
+			// Debug: list all resource names so we can inspect later in Output ? Debug
+			System.Diagnostics.Debug.WriteLine("=== Resources in " + asm.FullName + " ===");
+			foreach (string name in asm.GetManifestResourceNames())
+			{
+				System.Diagnostics.Debug.WriteLine("RES: " + name);
+			}
+
+			// Helper local function to safely load an image or fall back to a blank one
+			System.Drawing.Image LoadIconOrPlaceholder(string resourceName)
+			{
+				try
+				{
+					var stream = asm.GetManifestResourceStream(resourceName);
+					if (stream != null)
+					{
+						return System.Drawing.Image.FromStream(stream);
+					}
+					else
+					{
+						System.Diagnostics.Debug.WriteLine("Missing resource: " + resourceName + " (stream was null)");
+					}
+				}
+				catch (System.Exception ex)
+				{
+					System.Diagnostics.Debug.WriteLine("Error loading resource " + resourceName + ": " + ex);
+				}
+
+				// Fallback: return a simple 16x16 blank bitmap so we never crash
+				return new System.Drawing.Bitmap(16, 16);
+			}
+
+			// NOTE: adjust the resource names here later if needed
+			il.Images.Add(LoadIconOrPlaceholder("SimPe.NameProvider.empty.png"));
+			il.Images.Add(LoadIconOrPlaceholder("SimPe.NameProvider.binary.png"));
 		}
 
-		#region IWrapperRegistry Member
-		public void Register(IWrapper wrapper)
+        #region IWrapperRegistry Member
+        public void Register(IWrapper wrapper)
 		{
 
             if (wrapper != null)

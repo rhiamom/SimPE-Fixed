@@ -574,7 +574,7 @@ namespace SimPe.Plugin
             this.JdOutfit = new System.Windows.Forms.ColumnHeader();
             this.JdVehicle = new System.Windows.Forms.ColumnHeader();
             this.tabPagMajor = new System.Windows.Forms.TabPage();
-            this.gpmajors = new booby.gradientpanel();
+            this.gpmajors = new System.Windows.Forms.Panel();
             this.btmajApply = new System.Windows.Forms.Button();
             this.gbmajaffil = new System.Windows.Forms.GroupBox();
             this.label47 = new System.Windows.Forms.Label();
@@ -603,7 +603,7 @@ namespace SimPe.Plugin
             this.cbrbiol = new System.Windows.Forms.CheckBox();
             this.cbrArt = new System.Windows.Forms.CheckBox();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.thmepanel1 = new booby.gradientpanel();
+            this.thmepanel1 = new System.Windows.Forms.Panel();
             this.btexApply = new System.Windows.Forms.Button();
             this.checkBox70 = new System.Windows.Forms.CheckBox();
             this.checkBox71 = new System.Windows.Forms.CheckBox();
@@ -743,7 +743,7 @@ namespace SimPe.Plugin
             this.gcUpgrade = new SimPe.Plugin.GUIDChooser();
             this.gcReward = new SimPe.Plugin.GUIDChooser();
             this.lbcrap = new System.Windows.Forms.Label();
-            this.pntheme = new booby.gradientpanel();
+            this.pntheme = new System.Windows.Forms.Panel();
             this.btUgrade = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);

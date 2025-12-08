@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F4145736-97ED-417A-81EA-5635769ABE35}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SimPE.Scenegraph</RootNamespace>
-    <AssemblyName>SimPE.Scenegraph</AssemblyName>
+    <RootNamespace>SimPe.Plugin</RootNamespace>
+    <AssemblyName>simpe.scenegrapher.plugin</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -158,6 +158,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="RenameForm.resx" />
     <EmbeddedResource Include="SlotForm.resx" />
@@ -222,5 +223,21 @@
       <Name>SimPE.WorkSpaceHelper</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="3didr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="txtr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="mmat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="slot.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins" mkdir "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins"
+copy "$(TargetPath)" "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins\" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

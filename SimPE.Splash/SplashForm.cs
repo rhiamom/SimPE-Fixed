@@ -67,17 +67,34 @@ namespace SimPe.Windows.Forms
         {
             if (bg == null)
             {
-                if (showtits)
-                    bg = booby.PrettyGirls.RandomGirl;
-                else if (booby.PrettyGirls.PervyMode)
-                    bg = Image.FromStream(typeof(HelpForm).Assembly.GetManifestResourceStream("SimPe.Windows.Forms.img.splashao.png"));
-                else
-                    bg = Image.FromStream(typeof(HelpForm).Assembly.GetManifestResourceStream("SimPe.Windows.Forms.img.splash.png"));
+                // Try to load the embedded splash image
+                var asm = typeof(SplashForm).Assembly;
+                using (System.IO.Stream s = asm.GetManifestResourceStream("SimPe.Windows.Forms.img.splash.png"))
+                {
+                    if (s != null)
+                    {
+                        bg = Image.FromStream(s);
+                    }
+                    else
+                    {
+                        // No embedded image found – just leave bg = null
+                        // You can choose a solid background below.
+                        bg = null;
+                    }
+                }
             }
-            if (showtits) g.DrawImage(bg, 0, 0, bg.Width * 2, bg.Height * 2);
-            else g.DrawImage(bg, new Point(0, 0));
-            g.Dispose();
+
+            if (bg != null)
+            {
+                g.DrawImage(bg, new Point(0, 0));
+            }
+            else
+            {
+                // Fallback: solid background if the splash image is missing
+                g.Clear(System.Drawing.Color.White);
+            }
         }
+
 
         string msg;
         public string Message

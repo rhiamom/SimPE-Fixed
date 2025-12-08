@@ -74,7 +74,7 @@ namespace SimPe.Plugin.Tool
 		{
 			get
             {
-                return SimPe.GetIcon.S2pc;
+                return SimPe.LoadIcon.load("SaveSims2CommunityPack.png");
 			}
 		}
 

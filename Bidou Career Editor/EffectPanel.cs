@@ -32,12 +32,11 @@ namespace SimPe.Plugin
         public EffectPanel()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            
+                ThemeManager tm = ThemeManager.Global.CreateChild();
                 tm.AddControl(this.tbMale);
                 tm.AddControl(this.tbFemale);
-            }
+            
         }
         public void setValues(ushort maxLevel, ushort level, SimPe.PackedFiles.Wrapper.Bcon[] bcon, string male, string female)
         {

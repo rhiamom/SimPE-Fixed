@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{445BE3FF-638C-4B6D-98BF-C7D70E95A7BE}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SimPE.Clst</RootNamespace>
+    <RootNamespace>SimPe.PackedFiles.Wrapper</RootNamespace>
     <AssemblyName>SimPE.Clst</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -78,6 +78,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="StrForm.de.resx" />
     <EmbeddedResource Include="StrForm.es.resx" />
@@ -109,6 +110,12 @@
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="clst.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="txt.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

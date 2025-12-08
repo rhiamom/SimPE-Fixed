@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F060D4F2-BE7C-4390-A598-63A6030A2CB8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SimPE.HGBH</RootNamespace>
-    <AssemblyName>SimPE.HGBH</AssemblyName>
+    <RootNamespace>SimPE.Plugin</RootNamespace>
+    <AssemblyName>simpe.ngbh.plugin</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -233,6 +233,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="RoadTextureControl.resx" />
     <EmbeddedResource Include="SlotUI.resx" />
@@ -306,4 +307,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins" mkdir "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins"
+copy "$(TargetPath)" "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins\" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

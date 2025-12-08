@@ -75,40 +75,57 @@ namespace SimPe
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void ResetLayout(object sender, EventArgs e)
-        {            
-            if (defaultlayout != null)
-            {
-                Ambertation.Windows.Forms.Serializer.Global.FromStream(defaultlayout);
-                Ambertation.Windows.Forms.Serializer.Global.ToFile(Helper.DataFolder.SimPeLayoutW);
-            }
-            
+{
+    // First try to load the shipped default layout from the app's Data folder
+    try
+    {
+        string installedLayout = System.IO.Path.Combine(
+            System.Windows.Forms.Application.StartupPath,
+            "Data",
+            "simpe.layout");
 
-            Helper.WindowsRegistry.Layout.PluginActionBoxExpanded = false;
-            Helper.WindowsRegistry.Layout.DefaultActionBoxExpanded = true;
-            Helper.WindowsRegistry.Layout.ToolActionBoxExpanded = false;
-
-            Helper.WindowsRegistry.Layout.TypeColumnWidth = 204;
-            Helper.WindowsRegistry.Layout.GroupColumnWidth = 100;
-            Helper.WindowsRegistry.Layout.InstanceHighColumnWidth = 100;
-            Helper.WindowsRegistry.Layout.InstanceColumnWidth = 100;
-            Helper.WindowsRegistry.Layout.OffsetColumnWidth = 100;
-            Helper.WindowsRegistry.Layout.SizeColumnWidth = 100;
-            FixVisibleState(tbTools);
-            FixVisibleState(tbAction);
-            FixVisibleState(toolBar1);
-
-            ReloadLayout();
-
-            tbTools.Visible = true;
-            tbAction.Visible = true;
-            toolBar1.Visible = true;
-
-           
-            
-            
-            tbWindow.Visible = false;
-            this.dcResourceList.Visible = true;
+        if (System.IO.File.Exists(installedLayout))
+        {
+            Ambertation.Windows.Forms.Serializer.Global.FromFile(installedLayout);
+            // Save it as the user layout too, so ReloadLayout has something to work with
+            Ambertation.Windows.Forms.Serializer.Global.ToFile(Helper.DataFolder.SimPeLayout);
         }
+        else if (defaultlayout != null)
+        {
+            // Fallback to any in-memory default layout, if someone initialized it
+            Ambertation.Windows.Forms.Serializer.Global.FromStream(defaultlayout);
+            Ambertation.Windows.Forms.Serializer.Global.ToFile(Helper.DataFolder.SimPeLayout);
+        }
+    }
+    catch (Exception ex)
+    {
+        Helper.ExceptionMessage(ex);
+    }
+
+    Helper.WindowsRegistry.Layout.PluginActionBoxExpanded = false;
+    Helper.WindowsRegistry.Layout.DefaultActionBoxExpanded = true;
+    Helper.WindowsRegistry.Layout.ToolActionBoxExpanded = false;
+
+    Helper.WindowsRegistry.Layout.TypeColumnWidth = 204;
+    Helper.WindowsRegistry.Layout.GroupColumnWidth = 100;
+    Helper.WindowsRegistry.Layout.InstanceHighColumnWidth = 100;
+    Helper.WindowsRegistry.Layout.InstanceColumnWidth = 100;
+    Helper.WindowsRegistry.Layout.OffsetColumnWidth = 100;
+    Helper.WindowsRegistry.Layout.SizeColumnWidth = 100;
+    FixVisibleState(tbTools);
+    FixVisibleState(tbAction);
+    FixVisibleState(toolBar1);
+
+    ReloadLayout();
+
+    tbTools.Visible = true;
+    tbAction.Visible = true;
+    toolBar1.Visible = true;
+
+    tbWindow.Visible = false;
+    this.dcResourceList.Visible = true;
+}
+
 
 
         /// <summary>

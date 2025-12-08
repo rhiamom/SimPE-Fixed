@@ -440,80 +440,96 @@ namespace SimPe.Plugin.Gmdc.Importer
 		}
 
 		SimPe.Plugin.Anim.AnimationFrameBlock curtransblock, currotblock;
-		void ReadJointDescription(ImportedBone b)
-		{
-			string[] linetoks = GetNonEmptyTokens();
-			if (linetoks.Length<1) 
-			{
-				lineerror = "Unable to read Joint Description.";
-				return;
-			}
-			linetoks[0] = linetoks[0].Replace("\"", "");
-			b.ImportedName = linetoks[0];
+        void ReadJointDescription(ImportedBone b)
+        {
+            string[] linetoks = GetNonEmptyTokens();
+            if (linetoks.Length < 1)
+            {
+                lineerror = "Unable to read Joint Description.";
+                return;
+            }
+            linetoks[0] = linetoks[0].Replace("\"", "");
+            b.ImportedName = linetoks[0];
 
-			linetoks = GetNonEmptyTokens();
-			if (linetoks.Length<1) 
-			{
-				lineerror = "Unable to read Joint Description.";
-				return;
-			}
-			linetoks[0] = linetoks[0].Replace("\"", "");
-			b.ParentName = linetoks[0];
+            linetoks = GetNonEmptyTokens();
+            if (linetoks.Length < 1)
+            {
+                lineerror = "Unable to read Joint Description.";
+                return;
+            }
+            linetoks[0] = linetoks[0].Replace("\"", "");
+            b.ParentName = linetoks[0];
 
-			//Animations
-			if (this.AnimationBlocks!=null && Gmdc.LinkedAnimation!=null) 
-			{
-				curtransblock = null; currotblock = null;
+            // Animations
+            if (this.AnimationBlocks != null && Gmdc.LinkedAnimation != null)
+            {
+                curtransblock = null;
+                currotblock = null;
 
-				ImportedFrameBlock ifb = new ImportedFrameBlock(new AnimationFrameBlock(Gmdc.LinkedAnimation));
-				
-				
-				ifb.FrameBlock.Name = b.ImportedName;
-				ifb.FindTarget(Gmdc.LinkedAnimation);
-				if (ifb.Target!=null) 	
-				{			
-					ifb.FrameBlock.TransformationType = ifb.Target.TransformationType;					
+                ImportedFrameBlock ifb = new ImportedFrameBlock(
+                    new SimPe.Plugin.Anim.AnimationFrameBlock(Gmdc.LinkedAnimation)
+                );
 
-					if (ifb.FrameBlock.TransformationType==FrameType.Translation) curtransblock = ifb.FrameBlock;
-					else currotblock = ifb.FrameBlock;
-				}
-				else 
-				{
-					ifb.FrameBlock.TransformationType = FrameType.Rotation;
-					if (b.ImportedName.EndsWith("_rot")) 
-					{
-						ifb.FrameBlock.TransformationType = FrameType.Rotation;
-						currotblock = ifb.FrameBlock;
-					}
-					else if (b.ImportedName.EndsWith("_trans")) 
-					{
-						ifb.FrameBlock.TransformationType = FrameType.Translation;
-						curtransblock = ifb.FrameBlock;
-					} 
-					else 
-					{
-						currotblock = ifb.FrameBlock;
-						ifb.FrameBlock.CreateBaseAxisSet(AnimationTokenType.SixByte);
-						this.AnimationBlocks.Add(ifb);	
+                ifb.FrameBlock.Name = b.ImportedName;
+                ifb.FindTarget(Gmdc.LinkedAnimation);
 
-						ifb = new ImportedFrameBlock(new AnimationFrameBlock(Gmdc.LinkedAnimation));
-						ifb.FrameBlock.TransformationType = FrameType.Translation;
-						ifb.FrameBlock.Name = b.ImportedName;
-						curtransblock = ifb.FrameBlock;
-					}					
-				}
-				
-				ifb.FrameBlock.CreateBaseAxisSet(AnimationTokenType.SixByte);
+                if (ifb.Target != null)
+                {
+                    // Make sure we use the *Anim* FrameType here
+                    ifb.FrameBlock.TransformationType =
+                        (SimPe.Plugin.Anim.FrameType)ifb.Target.TransformationType;
 
-				
+                    if (ifb.FrameBlock.TransformationType == SimPe.Plugin.Anim.FrameType.Translation)
+                        curtransblock = ifb.FrameBlock;
+                    else
+                        currotblock = ifb.FrameBlock;
+                }
+                else
+                {
+                    // Default to rotation in the Anim FrameType enum
+                    ifb.FrameBlock.TransformationType = SimPe.Plugin.Anim.FrameType.Rotation;
 
-				this.AnimationBlocks.Add(ifb);						
-			}
+                    if (b.ImportedName.EndsWith("_rot"))
+                    {
+                        ifb.FrameBlock.TransformationType = SimPe.Plugin.Anim.FrameType.Rotation;
+                        currotblock = ifb.FrameBlock;
+                    }
+                    else if (b.ImportedName.EndsWith("_trans"))
+                    {
+                        ifb.FrameBlock.TransformationType = SimPe.Plugin.Anim.FrameType.Translation;
+                        curtransblock = ifb.FrameBlock;
+                    }
+                    else
+                    {
+                        // First: create a rotation block
+                        currotblock = ifb.FrameBlock;
+                        ifb.FrameBlock.CreateBaseAxisSet(
+                            SimPe.Plugin.Anim.AnimationTokenType.SixByte
+                        );
+                        this.AnimationBlocks.Add(ifb);
 
-			//if (curanimblock==null) curanimblock = new SimPe.Plugin.AnimBlock2();
-		}	
+                        // Second: create a translation block for the same bone
+                        ifb = new ImportedFrameBlock(
+                            new SimPe.Plugin.Anim.AnimationFrameBlock(Gmdc.LinkedAnimation)
+                        );
+                        ifb.FrameBlock.TransformationType = SimPe.Plugin.Anim.FrameType.Translation;
+                        ifb.FrameBlock.Name = b.ImportedName;
+                        curtransblock = ifb.FrameBlock;
+                    }
+                }
 
-		void ReadJointData(ImportedBone b)
+                // Base axis set for the final block we’re adding
+                ifb.FrameBlock.CreateBaseAxisSet(
+                    SimPe.Plugin.Anim.AnimationTokenType.SixByte
+                );
+
+                this.AnimationBlocks.Add(ifb);
+            }
+
+            //if (curanimblock==null) curanimblock = new SimPe.Plugin.AnimBlock2();
+        }
+
+        void ReadJointData(ImportedBone b)
 		{
 			string[] linetoks = GetNonEmptyTokens();
 			if (linetoks.Length<7) 
@@ -551,117 +567,120 @@ namespace SimPe.Plugin.Gmdc.Importer
 			}
 		}
 
-		
-		void ReadJointPosPhase(ImportedBone b, int index, int count)
-		{
-			string[] linetoks = GetNonEmptyTokens();
-			if (linetoks.Length<4) 
-			{
-				lineerror = "Unable to read JointPosition Line.";
-				return;
-			}
 
-			try 
-			{
-				float t = Convert.ToSingle(linetoks[0], AbstractGmdcImporter.DefaultCulture);
-				bool isscaled = (t==-1);
-				t = Math.Max(0, t - 1);
-				Vector3f trans = new Vector3f(
-					ToDouble(linetoks[1]),
-					ToDouble(linetoks[2]),
-					ToDouble(linetoks[3])
-					);
+        void ReadJointPosPhase(ImportedBone b, int index, int count)
+        {
+            string[] linetoks = GetNonEmptyTokens();
+            if (linetoks.Length < 4)
+            {
+                lineerror = "Unable to read JointPosition Line.";
+                return;
+            }
 
-				trans = Component.InverseTransformScaled(trans);				
+            try
+            {
+                float t = Convert.ToSingle(linetoks[0], AbstractGmdcImporter.DefaultCulture);
+                bool isscaled = (t == -1);
+                t = Math.Max(0, t - 1);
 
-				if (curtransblock!=null)
-				{
-					
-					//Brand this Block as Translation (ignoring all rotations!)
-					if (curtransblock.TransformationType==FrameType.Unknown) 							
-						curtransblock.TransformationType=FrameType.Translation;						
-										
+                Vector3f trans = new Vector3f(
+                    ToDouble(linetoks[1]),
+                    ToDouble(linetoks[2]),
+                    ToDouble(linetoks[3])
+                );
 
-					//only process if the Block Type is Translation
-					if (curtransblock.TransformationType==FrameType.Translation) 
-					{
-						if (isscaled && index==0) 
-							for (int i=0; i<curtransblock.AxisCount; i++)
-								curtransblock.AxisSet[i].Locked = true;
+                trans = Component.InverseTransformScaled(trans);
 
-						curtransblock.AddFrame((short)t, trans, false);			
-					}
-				}
-			} 
-			catch 
-			{
-				lineerror = "Unable to Convert to Number (ReadJointPosPhase)";
-			}
-		}
+                if (curtransblock != null)
+                {
+                    // Brand this block as Translation (ignoring all rotations!)
+                    if (curtransblock.TransformationType == SimPe.Plugin.Anim.FrameType.Unknown)
+                        curtransblock.TransformationType = SimPe.Plugin.Anim.FrameType.Translation;
 
-		void ReadJointRotPhase(ImportedBone b, int index, int count)
-		{
-			string[] linetoks = GetNonEmptyTokens();
-			if (linetoks.Length<4) 
-			{
-				lineerror = "Unable to read JointRotation Line.";
-				return;
-			}
+                    // only process if the block type is Translation
+                    if (curtransblock.TransformationType == SimPe.Plugin.Anim.FrameType.Translation)
+                    {
+                        if (isscaled && index == 0)
+                        {
+                            for (int i = 0; i < curtransblock.AxisCount; i++)
+                                curtransblock.AxisSet[i].Locked = true;
+                        }
 
-			try 
-			{
-				float t = Convert.ToSingle(linetoks[0], AbstractGmdcImporter.DefaultCulture);
-				bool isscaled = (t==-1);
-				t = Math.Max(0, t - 1);
-				Vector3f rot = new Vector3f(
-					ToDouble(linetoks[1]),
-					ToDouble(linetoks[2]),
-					ToDouble(linetoks[3])
-					);
-				
-				Quaternion q = Quaternion.FromEulerAngles(rot);
-				rot = q.Axis;
-				rot = Component.InverseTransform(rot);
-				q = Quaternion.FromAxisAngle(rot, q.Angle);
-				rot = q.GetEulerAngles();
+                        curtransblock.AddFrame((short)t, trans, false);
+                    }
+                }
+            }
+            catch
+            {
+                lineerror = "Unable to Convert to Number (ReadJointPosPhase)";
+            }
+        }
 
-				if (currotblock!=null)
-				{
-					//Brand this Block as Rotation (ignoring all Translation!)
-					if (currotblock.TransformationType==FrameType.Unknown) 					
-						currotblock.TransformationType=FrameType.Rotation;						
-					
-					
 
-					//only process if the Block Type is Rotation
-					if (currotblock.TransformationType==FrameType.Rotation) 
-					{
-						if (isscaled && index==0) 
-							for (int i=0; i<currotblock.AxisCount; i++)
-								currotblock.AxisSet[i].Locked = true;
+        void ReadJointRotPhase(ImportedBone b, int index, int count)
+        {
+            string[] linetoks = GetNonEmptyTokens();
+            if (linetoks.Length < 4)
+            {
+                lineerror = "Unable to read JointRotation Line.";
+                return;
+            }
 
-						currotblock.AddFrame((short)t, rot, false);
-					}
-					
-				}
-			} 
-			catch 
-			{
-				lineerror = "Unable to Convert to Number (ReadJointRotPhase)";
-			}
-		}
-		#endregion
+            try
+            {
+                float t = Convert.ToSingle(linetoks[0], AbstractGmdcImporter.DefaultCulture);
+                bool isscaled = (t == -1);
+                t = Math.Max(0, t - 1);
 
-		#region Optimize
-		/// <summary>
-		/// True if the values stored in the three AliasMaps at 
-		/// the passed indices are the same
-		/// </summary>
-		/// <param name="g">The Group</param>
-		/// <param name="i1">first Index</param>
-		/// <param name="i2">second Index</param>
-		/// <returns>true if they are the same</returns>
-		bool EqualIndices(ImportedGroup g, int i1, int i2)
+                Vector3f rot = new Vector3f(
+                    ToDouble(linetoks[1]),
+                    ToDouble(linetoks[2]),
+                    ToDouble(linetoks[3])
+                );
+
+                Quaternion q = Quaternion.FromEulerAngles(rot);
+                rot = q.Axis;
+                rot = Component.InverseTransform(rot);
+                q = Quaternion.FromAxisAngle(rot, q.Angle);
+                rot = q.GetEulerAngles();
+
+                if (currotblock != null)
+                {
+                    // Brand this block as Rotation (ignoring all Translation!)
+                    if (currotblock.TransformationType == SimPe.Plugin.Anim.FrameType.Unknown)
+                        currotblock.TransformationType = SimPe.Plugin.Anim.FrameType.Rotation;
+
+                    // only process if the block type is Rotation
+                    if (currotblock.TransformationType == SimPe.Plugin.Anim.FrameType.Rotation)
+                    {
+                        if (isscaled && index == 0)
+                        {
+                            for (int i = 0; i < currotblock.AxisCount; i++)
+                                currotblock.AxisSet[i].Locked = true;
+                        }
+
+                        currotblock.AddFrame((short)t, rot, false);
+                    }
+                }
+            }
+            catch
+            {
+                lineerror = "Unable to Convert to Number (ReadJointRotPhase)";
+            }
+        }
+
+        #endregion
+
+        #region Optimize
+        /// <summary>
+        /// True if the values stored in the three AliasMaps at 
+        /// the passed indices are the same
+        /// </summary>
+        /// <param name="g">The Group</param>
+        /// <param name="i1">first Index</param>
+        /// <param name="i2">second Index</param>
+        /// <returns>true if they are the same</returns>
+        bool EqualIndices(ImportedGroup g, int i1, int i2)
 		{
 			for (int i=0; i<g.Link.AliasValues.Length; i++)
 				if (g.Link.AliasValues[i][i1]!=g.Link.AliasValues[i][i2]) return false;

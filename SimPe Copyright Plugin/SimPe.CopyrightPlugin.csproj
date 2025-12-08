@@ -4,14 +4,14 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4A0695E9-8C32-4F70-B7C7-B7F2EF7E38B6}</ProjectGuid>
+    <ProjectGuid>{06D06A6A-C49E-44B8-8EE4-C0F107D3A50D}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>simpe.scenegrapher.plugin</AssemblyName>
+    <AssemblyName>simpe.copyright.plugin</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -30,13 +30,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <OutputPath>..\__Debug\Plugins\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
@@ -61,7 +61,8 @@
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
@@ -76,13 +77,12 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
-    <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <FileAlignment>4096</FileAlignment>
     <DebugType>full</DebugType>
@@ -93,7 +93,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <Optimize>true</Optimize>
     <FileAlignment>4096</FileAlignment>
@@ -103,9 +102,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvancedForms">
-      <HintPath>..\ExternalLibs\AdvancedForms.dll</HintPath>
-    </Reference>
     <Reference Include="GDF">
       <HintPath>..\ExternalLibs\GDF.dll</HintPath>
     </Reference>
@@ -126,35 +122,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionAddCopyright.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Factory.cs">
+    <Compile Include="CopyrightToolFactory.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GraphBuilder.cs">
-      <SubType>Code</SubType>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Scenegraph.cs">
+    <Compile Include="StringsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ScenegraphTool.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="Scenegraph.resx">
-      <DependentUpon>Scenegraph.cs</DependentUpon>
+    <EmbeddedResource Include="StringsForm.resx">
+      <DependentUpon>StringsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="scenegrapher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
       <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
       <Name>SimPE.Filehandlers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
-      <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
-      <Name>SimPE.GraphControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
@@ -164,17 +164,9 @@
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
-      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
-      <Name>SimPE.Packages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj">
       <Project>{849dc662-9191-473f-bc61-8d9ad9068ffa}</Project>
       <Name>SimPE.RCOL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj">
-      <Project>{f4145736-97ed-417a-81ea-5635769abe35}</Project>
-      <Name>SimPE.Scenegraph</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>

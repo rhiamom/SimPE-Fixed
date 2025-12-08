@@ -1,7 +1,9 @@
 using System;
 using System.Drawing;
 using SimPe.Interfaces.Files;
+using SimPe.Plugin.Scanner;
 using SimPe.Interfaces.Plugin.Scanner;
+
 namespace SimPe.Plugin.Downloads
 {
 	/// <summary>
@@ -60,7 +62,7 @@ namespace SimPe.Plugin.Downloads
 
             SimPe.Cache.PackageType type = SimPe.Cache.PackageType.Undefined;
 
-            foreach (IIdentifier ident in SimPe.Interfaces.Plugin.Scanner.ScannerRegistry.Global.Identifiers)
+            foreach (IIdentifier ident in SimPe.Plugin.Scanner.ScannerRegistry.Global.Identifiers)
             {
                 if (type != SimPe.Cache.PackageType.Unknown &&
                     type != SimPe.Cache.PackageType.Undefined)

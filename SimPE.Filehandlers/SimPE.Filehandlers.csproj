@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{85099415-3448-4D91-979C-44690154FCD1}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SimPE.Filehandlers</RootNamespace>
-    <AssemblyName>SimPE.Filehandlers</AssemblyName>
+    <RootNamespace>SimPe.PackedFiles.Handlers</RootNamespace>
+    <AssemblyName>simpe.filehandler</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -172,6 +172,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SdscExtendedForm.resx" />
     <EmbeddedResource Include="SimRelinkForm.resx" />
@@ -221,6 +222,18 @@
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="objd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="fami.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="cpf.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

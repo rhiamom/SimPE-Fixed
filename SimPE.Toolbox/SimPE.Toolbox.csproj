@@ -7,7 +7,7 @@
     <ProjectGuid>{B5A2448D-F5F4-40EC-9641-05642134C357}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPE.Toolbox</RootNamespace>
-    <AssemblyName>SimPE.Toolbox</AssemblyName>
+    <AssemblyName>simpe.toolbox.plugin</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -220,4 +220,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins" mkdir "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins"
+copy "$(TargetPath)" "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins\" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

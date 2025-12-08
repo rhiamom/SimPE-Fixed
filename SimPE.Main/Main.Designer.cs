@@ -690,8 +690,8 @@ namespace SimPe
             // 
             // biUpdate
             // 
-            //resources.ApplyResources(this.biUpdate, "biUpdate");
-            //this.biUpdate.Name = "biUpdate";
+            resources.ApplyResources(this.biUpdate, "biUpdate");
+            this.biUpdate.Name = "biUpdate";
             //this.biUpdate.Click += new System.EventHandler(this.Activate_miUpdate);
             // 
             // biReset
@@ -768,8 +768,8 @@ namespace SimPe
             // 
             // miUpdate
             // 
-            //resources.ApplyResources(this.miUpdate, "miUpdate");
-            //this.miUpdate.Name = "miUpdate";
+            resources.ApplyResources(this.miUpdate, "miUpdate");
+            this.miUpdate.Name = "miUpdate";
             //this.miUpdate.Click += new System.EventHandler(this.Activate_miUpdate);
             // 
             // menuBar1

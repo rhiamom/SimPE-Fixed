@@ -772,16 +772,21 @@ namespace SimPe
         {
             try
             {
+                if (rk == null)
+                    return "The Sims 2";
+
                 object o = rk.GetValue("DisplayName");
-                if (o == null) return "The Sims 2";
+                if (o == null)
+                    return "The Sims 2";
                 else
                     return o.ToString();
             }
-            catch (Exception)
+            catch
             {
                 return "The Sims 2";
             }
         }
+
 
         /// <summary>
         /// Returns the Displayed BaseGame name, no good for sim stories

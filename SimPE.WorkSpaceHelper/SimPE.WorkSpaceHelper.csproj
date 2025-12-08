@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F6DE1680-4D13-4E34-9EB7-72AA122CE344}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SimPE.WorkSpaceHelper</RootNamespace>
+    <RootNamespace>SimPe</RootNamespace>
     <AssemblyName>SimPE.WorkSpaceHelper</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -155,6 +155,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="WrapperBaseControl.de.resx" />
     <EmbeddedResource Include="WrapperBaseControl.fr.resx" />
@@ -196,6 +197,9 @@
       <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
       <Name>SimPE.Packages</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pattern.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

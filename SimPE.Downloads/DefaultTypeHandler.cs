@@ -327,12 +327,12 @@ namespace SimPe.Plugin.Downloads
 			}
         }
 
-		/*public static Image Get3dPreview(Ambertation.Scenes.Scene scene)
+		public static Image Get3dPreview(Ambertation.Scenes.Scene scene)
 		{
 			if (scene==null) return null;
 			scn = scene;
 			//InitPreview();
-			
+
 			/*dxp.ResetDevice += new EventHandler(dxp_ResetDevice);
 
 			dxp.Reset();
@@ -342,17 +342,18 @@ namespace SimPe.Plugin.Downloads
 			dxp.Settings.Z *= 0.3f;
 			dxp.UpdateRotation();
 			dxp.Render();
-			//Image ret = dxp.Screenshot(Microsoft.DirectX.Direct3D.ImageFileFormat.Png);
+			Image ret = dxp.Screenshot(Microsoft.DirectX.Direct3D.ImageFileFormat.Png);
 			
-			/*System.Windows.Forms.Form f = new System.Windows.Forms.Form();
+			System.Windows.Forms.Form f = new System.Windows.Forms.Form();
 			f.Controls.Add(dxp);
 			f.ShowDialog();
 
 
 			//dxp.ResetDevice -= new EventHandler(dxp_ResetDevice);
 
-			return ret;
-		}*/
+			return ret;*/
+			return null;
+		}
 
 		protected void ClearScreen()
 		{

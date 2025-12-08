@@ -107,7 +107,7 @@ namespace SimPe
             Ambertation.Windows.Forms.Serializer.Global.Register(manager);
 
             manager.NoCleanup = false;
-            manager.ForceCleanUp();
+            //manager.ForceCleanUp();
             //this.dcResource.BringToFront();
             //this.dcResourceList.BringToFront();
             lv.Filter = filter;
@@ -132,6 +132,8 @@ namespace SimPe
             foreach (Data.SemiGlobalAlias sga in Data.MetaData.SemiGlobals)
                 if (sga.Known) this.cbsemig.Items.Add(sga);
             if (cbsemig.Items.Count > 0) cbsemig.SelectedIndex = 0;
+
+            System.Diagnostics.Debug.WriteLine("SimPeLayout path = " + SimPe.Helper.DataFolder.SimPeLayout);
 
             if (!System.IO.File.Exists(SimPe.Helper.DataFolder.SimPeLayout))
                 ResetLayout(this, null);

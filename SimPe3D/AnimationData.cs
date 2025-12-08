@@ -49,60 +49,64 @@ namespace SimPe.Plugin
 			return -1;
 		}
 
-		AnimationFrame GetFrame(SimPe.Plugin.Anim.AnimationFrame[] frames, int index)
-		{
-			if (index<0||index>=frames.Length) return null;
-			return frames[index];
-		}
+        SimPe.Plugin.Anim.AnimationFrame GetFrame(SimPe.Plugin.Anim.AnimationFrame[] frames, int index)
+        {
+            if (index < 0 || index >= frames.Length) return null;
+            return frames[index];
+        }
 
-		void InterpolateFrames(SimPe.Plugin.Anim.AnimationFrame[] iframes, byte axis)
-		{
+        void InterpolateFrames(SimPe.Plugin.Anim.AnimationFrame[] iframes, byte axis)
+        {
 			int index = 0;
-			AnimationFrame first = iframes[index];			
-			AnimationFrame last = null;
-			index = FindNext(iframes, axis, index+1);
-			last = GetFrame(iframes, index);
+            SimPe.Plugin.Anim.AnimationFrame first = iframes[index];
+            SimPe.Plugin.Anim.AnimationFrame last = null;
+            index = FindNext(iframes, axis, index+1);
+            last = GetFrame(iframes, index);
 
-			if (last==null) return;
-			while (last!=null)
+            if (last==null) return;
+            while (last!=null)
+            {
+                InterpolateFrames(axis, first, last);
+
+                first = last;
+                index = FindNext(iframes, axis, index+1);
+                last = GetFrame(iframes, index);
+            }
+
+            InterpolateFrames(axis, first, last);
+        }
+
+
+        void InterpolateFrames(byte axis,SimPe.Plugin.Anim.AnimationFrame first,SimPe.Plugin.Anim.AnimationFrame last)
+        {
+            short max = (short)(frames.Length - 1);
+            if (last != null) max = last.TimeCode;
+            else
+            {
+                last = new SimPe.Plugin.Anim.AnimationFrame(max, first.Type);
+                last.X = first.X;
+                last.Y = first.Y;
+                last.Z = first.Z;
+            }
+
+            for (short i = (short)(first.TimeCode); i <= max; i++)
+                CreaetInterpolatedFrame(axis, i, first, last);
+        }
+
+
+        void CreaetInterpolatedFrame(
+			byte axis,
+			short index,
+			SimPe.Plugin.Anim.AnimationFrame first,
+			SimPe.Plugin.Anim.AnimationFrame last)
 			{
-				InterpolateFrames(axis, first, last);
+				double pos = (index - first.TimeCode) / (double)(last.TimeCode - first.TimeCode);
+				double v = Interpolate(axis, pos, first.GetBlock(axis), last.GetBlock(axis));
 
-				first = last;
-				index = FindNext(iframes, axis, index+1);
-				last = GetFrame(iframes, index);				
+				frames[index].SetComponent(axis, v);
 			}
 
-			InterpolateFrames(axis, first, last);
-		}
-
-		void InterpolateFrames(byte axis, AnimationFrame first, AnimationFrame last)
-		{
-			
-			short max = (short)(frames.Length-1);
-			if (last!=null) max = last.TimeCode;
-			else 
-			{
-				last = new AnimationFrame(max, first.Type);
-				last.X = first.X;
-				last.Y = first.Y;
-				last.Z = first.Z;				
-			}			
-			
-			for (short i=(short)(first.TimeCode); i<=max; i++)
-				CreaetInterpolatedFrame(axis, i, first, last);
-
-		}
-
-		void CreaetInterpolatedFrame(byte axis, short index, AnimationFrame first, AnimationFrame last)
-		{									
-			double pos = (index-first.TimeCode) / (double)(last.TimeCode - first.TimeCode);
-			double v = Interpolate(axis, pos, first.GetBlock(axis), last.GetBlock(axis));
-
-			frames[index].SetComponent(axis, v);
-		}
-
-		double Interpolate(byte axis, double pos, AnimationAxisTransform first, AnimationAxisTransform last)
+        double Interpolate(byte axis, double pos, AnimationAxisTransform first, AnimationAxisTransform last)
 		{
 			double f = 0;
 			if (first!=null) f = AnimationAxisTransformBlock.GetCompressedFloat(first.Parameter, AnimationAxisTransformBlock.GetScale(first.ParentLocked, afb.TransformationType));
@@ -111,20 +115,20 @@ namespace SimPe.Plugin
 			return  (f + (pos*(l-f)));
 		}
 
-		public void SetFrame(int timecode)
-		{
-			SimPe.Geometry.Vector3f v = this.frames[timecode];
-			Ambertation.Scenes.Transformation trans = new Ambertation.Scenes.Transformation();
-			if (afb.TransformationType == FrameType.Translation)
-			{				
-				if (timecode!=0) 
-				{
-					trans.Translation.X = v.X;
-					trans.Translation.Y = v.Y;
-					trans.Translation.Z = v.Z;
-				}
-				//else nb.Transform = mt;				
-			}
+        public void SetFrame(int timecode)
+        {
+            SimPe.Geometry.Vector3f v = this.frames[timecode];
+            Ambertation.Scenes.Transformation trans = new Ambertation.Scenes.Transformation();
+            if (afb.TransformationType == SimPe.Plugin.Anim.FrameType.Translation)
+            {
+                if (timecode != 0)
+                {
+                    trans.Translation.X = v.X;
+                    trans.Translation.Y = v.Y;
+                    trans.Translation.Z = v.Z;
+                }
+                //else nb.Transform = mt;				
+            }
 			else 
 			{
 				if (timecode!=0) 

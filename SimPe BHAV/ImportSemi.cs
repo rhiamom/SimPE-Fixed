@@ -40,7 +40,7 @@ namespace SimPe
 		private System.Windows.Forms.CheckBox cbfix;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.CheckBox cbname;
-        private booby.gradientpanel panel1;
+        private System.Windows.Forms.Panel panel1;
 		private System.ComponentModel.IContainer components;
 
 		public ImportSemi()
@@ -49,9 +49,9 @@ namespace SimPe
 			// Required designer variable.
 			//
             InitializeComponent();
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.panel1);
-            if (booby.ThemeManager.ThemedForms) { tm.AddControl(this.lbfiles); tm.AddControl(this.btimport); }
+            
 
 			WaitingScreen.Wait();
             try
@@ -116,7 +116,7 @@ namespace SimPe
             this.cbfix = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.cbname = new System.Windows.Forms.CheckBox();
-            this.panel1 = new booby.gradientpanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 

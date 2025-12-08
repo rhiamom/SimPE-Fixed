@@ -46,29 +46,59 @@ namespace SimPe.Plugin
 			return new LifoUI();
 		}
 
-		/// <summary>
-		/// Returns a Human Readable Description of this Wrapper
-		/// </summary>
-		/// <returns>Human Readable Description</returns>
-		protected override IWrapperInfo CreateWrapperInfo()
-		{
-			return new AbstractWrapperInfo(
-				"LIFO Wrapper",
-                "Pumuckl, Quaxi",
-                "This File is part of the Scenegraph. It contains a large image for a Texture.",
-				5,
-                System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.lifo.png"))
-				); 
-		}
-		#endregion
+        /// <summary>
+        /// Returns a Human Readable Description of this Wrapper
+        /// </summary>
+        /// <returns>Human Readable Description</returns>
+        protected override IWrapperInfo CreateWrapperInfo()
+        {
+            System.Drawing.Image icon = null;
+            var asm = this.GetType().Assembly;
+
+            try
+            {
+                // Try to load the icon from the embedded resources.
+                var stream = asm.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.familyties.png");
+                if (stream != null)
+                {
+                    icon = System.Drawing.Image.FromStream(stream);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        "Wrapper icon resource not found: SimPe.PackedFiles.Wrapper.familyties.png");
+                }
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    "Error loading wrapper icon SimPe.PackedFiles.Wrapper.familyties.png: " + ex);
+            }
+
+            // Fallback: if we couldn't load the real icon, use a small blank bitmap
+            if (icon == null)
+            {
+                icon = new System.Drawing.Bitmap(16, 16);
+            }
+
+            return new AbstractWrapperInfo(
+                "Extended Family Ties Wrapper",
+                "Quaxi",
+                "Contains all Familyties that are stored in a Neighbourhood.",
+                2,
+                icon
+            );
+        }
+
+        #endregion
 
 
-		#region IFileWrapper Member
+        #region IFileWrapper Member
 
-		/// <summary>
-		/// Returns a list of File Type this Plugin can process
-		/// </summary>
-		public override uint[] AssignableTypes
+        /// <summary>
+        /// Returns a list of File Type this Plugin can process
+        /// </summary>
+        public override uint[] AssignableTypes
 		{
 			get
 			{

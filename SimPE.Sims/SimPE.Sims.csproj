@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{39F0B8F6-69DE-4C0F-A03B-D2067418CB4A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SimPE.Sims</RootNamespace>
+    <RootNamespace>SimPe.PackedFiles.Wrapper</RootNamespace>
     <AssemblyName>SimPE.Sims</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -148,6 +148,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SimBusinessList.resx" />
     <EmbeddedResource Include="SimComboBox.resx" />
@@ -219,5 +220,21 @@
       <Name>SimPE.WorkSpaceHelper</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="familyties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="sdsc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="srel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dna.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins" mkdir "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins"
+copy "$(TargetPath)" "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins\" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

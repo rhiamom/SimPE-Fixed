@@ -52,7 +52,7 @@ namespace SimPe.Plugin.Tool.Window
 		{
 			get
 			{
-                return SimPe.GetIcon.ContentPreview;
+                return SimPe.LoadIcon.load ("contents.png");
 			}
 		}
 

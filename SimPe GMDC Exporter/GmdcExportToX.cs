@@ -63,7 +63,7 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		/// <summary>
 		/// Returns the suggested File Extension (including the . like .obj or .3ds)
 		/// </summary>
-		public override string FileExtension
+		/*public override string FileExtension
 		{
 			get {return ".x";}
 		}
@@ -74,7 +74,7 @@ namespace SimPe.Plugin.Gmdc.Exporter
 		public override string FileDescription
 		{
 			get {return "Direct X Mesh";}
-		}		
+		}	*/	
 
 		/// <summary>
 		/// Returns the name of the Author

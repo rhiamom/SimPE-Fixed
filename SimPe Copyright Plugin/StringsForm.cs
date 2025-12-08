@@ -14,7 +14,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Required designer variable.
         /// </summary>
-        private booby.gradientpanel GradientPanel;
+        private System.Windows.Forms.Panel GradientPanel;
 		private System.ComponentModel.Container components = null;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
@@ -27,7 +27,7 @@ namespace SimPe.Plugin
 		internal System.Windows.Forms.TextBox tbLicense;
 		internal System.Windows.Forms.TextBox tbDate;
 		internal System.Windows.Forms.TextBox tbVersion;
-		booby.ThemeManager tm;
+		ThemeManager tm;
 		public StringsForm()
 		{
 			//
@@ -35,9 +35,8 @@ namespace SimPe.Plugin
 			//
 			InitializeComponent();
 
-            tm = booby.ThemeManager.Global.CreateChild();
+            tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.GradientPanel);
-            if (booby.ThemeManager.ThemedForms) tm.AddControl(this.button1);
 
 			this.tbDate.Text = DateTime.Now.ToString();
             if (Helper.WindowsRegistry.Username.Trim() != "")
@@ -72,7 +71,7 @@ namespace SimPe.Plugin
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.GradientPanel = new booby.gradientpanel();
+            this.GradientPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.tbVersion = new System.Windows.Forms.TextBox();
             this.tbDate = new System.Windows.Forms.TextBox();

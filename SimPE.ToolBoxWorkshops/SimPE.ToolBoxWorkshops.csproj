@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3F07C566-8460-4C68-B26F-BDFBCC0496B8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SimPE.ToolBoxWorkshops</RootNamespace>
-    <AssemblyName>SimPE.ToolBoxWorkshops</AssemblyName>
+    <RootNamespace>SimPe.Plugin.Tool.Dockable</RootNamespace>
+    <AssemblyName>simpe.workshop.plugin</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -59,6 +59,10 @@
     <Reference Include="SandDock, Version=2.0.2.1, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\SandDock.dll</HintPath>
+    </Reference>
+    <Reference Include="simpe.filehandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\simpe.filehandler.dll</HintPath>
     </Reference>
     <Reference Include="simpe.s2cp">
       <HintPath>..\ExternalLibs\simpe.s2cp.dll</HintPath>
@@ -112,6 +116,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolboxPreviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Workshop.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,21 +134,49 @@
     <EmbeddedResource Include="NeighborhoodPreview.pl.resx" />
     <EmbeddedResource Include="NeighborhoodPreview.resx" />
     <EmbeddedResource Include="NeighborhoodPreview.ru.resx" />
-    <EmbeddedResource Include="NewObjectPreview.resx" />
-    <EmbeddedResource Include="ObjectsDock.de.resx" />
-    <EmbeddedResource Include="ObjectsDock.en-US.resx" />
-    <EmbeddedResource Include="ObjectsDock.fr.resx" />
-    <EmbeddedResource Include="ObjectsDock.it.resx" />
-    <EmbeddedResource Include="ObjectsDock.resx" />
-    <EmbeddedResource Include="ObjectsDock.ru.resx" />
+    <EmbeddedResource Include="NewObjectPreview.resx">
+  	<LogicalName>SimPe.Plugin.Tool.Dockable.SimpleObjectPreview.resources</LogicalName>
+    </EmbeddedResource>
+        <EmbeddedResource Include="ObjectsDock.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectsDock.de.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.de.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectsDock.en-US.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.en-US.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectsDock.fr.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.fr.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectsDock.it.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.it.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectsDock.ru.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.ru.resources</LogicalName>
+    </EmbeddedResource>
+
     <EmbeddedResource Include="ObjectWorkshopDock.resx" />
     <EmbeddedResource Include="OWDockForm.resx" />
-    <EmbeddedResource Include="PackageDetailDock.de.resx" />
-    <EmbeddedResource Include="PackageDetailDock.fr.resx" />
-    <EmbeddedResource Include="PackageDetailDock.it.resx" />
-    <EmbeddedResource Include="PackageDetailDock.pl.resx" />
-    <EmbeddedResource Include="PackageDetailDock.resx" />
-    <EmbeddedResource Include="PackageDetailDock.ru.resx" />
+    <EmbeddedResource Include="PackageDetailDock.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackageDetailDock.de.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.de.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackageDetailDock.fr.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.fr.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackageDetailDock.it.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.it.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackageDetailDock.pl.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.pl.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackageDetailDock.ru.resx">
+      <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.ru.resources</LogicalName>
+    </EmbeddedResource>
+
     <EmbeddedResource Include="PackageRepairForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -151,7 +186,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ToolboxPreviewForm.resx">
+      <DependentUpon>ToolboxPreviewForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Workshop.resx" />
     <EmbeddedResource Include="XObjectPreview.de.resx" />
     <EmbeddedResource Include="XObjectPreview.fr.resx" />
@@ -239,4 +278,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins" mkdir "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins"
+copy "$(TargetPath)" "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins\" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

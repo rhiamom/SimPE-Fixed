@@ -47,15 +47,19 @@ namespace SimPe.Plugin
 			if (registry==null) registry = Helper.WindowsRegistry;
 		}
 
-		#region ITool Member
+        #region ITool Member
 
-        public bool IsEnabled(SimPe.Interfaces.Files.IPackedFileDescriptor pfd, SimPe.Interfaces.Files.IPackageFile package)
+        public bool IsEnabled(SimPe.Interfaces.IPackageFile package)
         {
-            return (Helper.IsNeighborhoodFile(package.FileName) || Helper.IsLotCatalogFile(package.FileName));
-            //return true;
+            // If there's no package, this tool shouldn't be enabled.
+            if (package == null || package.FileName == null)
+                return false;
+
+            return Helper.IsNeighborhoodFile(package.FileName)
+                || Helper.IsLotCatalogFile(package.FileName);
         }
 
-		private bool IsReallyEnabled(SimPe.Interfaces.Files.IPackedFileDescriptor pfd, SimPe.Interfaces.Files.IPackageFile package)
+        private bool IsReallyEnabled(SimPe.Interfaces.Files.IPackedFileDescriptor pfd, SimPe.Interfaces.Files.IPackageFile package)
 		{
 			if (package == null) return false;
 			if (prov.SimNameProvider == null) return false;

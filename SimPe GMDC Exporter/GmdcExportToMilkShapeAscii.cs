@@ -339,22 +339,22 @@ namespace SimPe.Plugin.Gmdc.Exporter
 					//get the correction Vector
 					Vector3f cv = AbstractGmdcImporter.GetCorrectionVector(Gmdc.Joints[i].Name);
 
-					//get Translation Frames
-					Anim.AnimationFrameBlock ab = Gmdc.LinkedAnimation.GetJointTransformation(Gmdc.Joints[i].Name, FrameType.Translation);
-					if (ab!=null) 
+                    //get Translation Frames
+                    Anim.AnimationFrameBlock ab = Gmdc.LinkedAnimation.GetJointTransformation(Gmdc.Joints[i].Name,SimPe.Plugin.Anim.FrameType.Translation);
+                    if (ab!=null) 
 					{
 						if (ab.AxisCount>0) 
 						{
 							animbname.Add("trn: "+Gmdc.Joints[i].Name);
-							AnimationFrame[] afs =  ab.InterpolateMissingFrames();
+                            SimPe.Plugin.Anim.AnimationFrame[] afs = ab.InterpolateMissingFrames();
 
-							int ct = afs.Length;
+                            int ct = afs.Length;
 							if (ab.AxisSet[0].Locked) ct += 2;						
-							writer.WriteLine(ct.ToString());	
-								
-							//bool first = true;
-							foreach (AnimationFrame af in afs)
-							{
+							writer.WriteLine(ct.ToString());
+
+                            //bool first = true;
+                            foreach (SimPe.Plugin.Anim.AnimationFrame af in afs)
+                            {
 								Vector3f v = af.Vector;
 							
 								//if (first) 
@@ -381,20 +381,20 @@ namespace SimPe.Plugin.Gmdc.Exporter
 						else writer.WriteLine("0");
 					}
 					else writer.WriteLine("0");
-					
-					//Get Rotation Frames
-					ab = Gmdc.LinkedAnimation.GetJointTransformation(Gmdc.Joints[i].Name, FrameType.Rotation);
-					if (ab!=null) 
+
+                    //Get Rotation Frames
+                    ab = Gmdc.LinkedAnimation.GetJointTransformation(Gmdc.Joints[i].Name,SimPe.Plugin.Anim.FrameType.Rotation);
+                    if (ab!=null) 
 					{
 						animbname.Add("rot: "+Gmdc.Joints[i].Name);
-						AnimationFrame[] afs =  ab.InterpolateMissingFrames();
+                        SimPe.Plugin.Anim.AnimationFrame[] afs = ab.InterpolateMissingFrames();
 
-						int ct = afs.Length;
+                        int ct = afs.Length;
 						if (ab.AxisSet[0].Locked) ct += 2;						
-						writer.WriteLine(ct.ToString());	
-						//bool first = true;
-						foreach (AnimationFrame af in afs)
-						{
+						writer.WriteLine(ct.ToString());
+                        //bool first = true;
+                        foreach (SimPe.Plugin.Anim.AnimationFrame af in afs)
+                        {
 							Vector3f v = af.Vector;
 							//Transform the Angles in their Axis/Angle Form
 							Quaternion q = Quaternion.FromEulerAngles(v);

@@ -147,7 +147,9 @@
     <EmbeddedResource Include="Localization.fr.resx" />
     <EmbeddedResource Include="Localization.it.resx" />
     <EmbeddedResource Include="Localization.pl.resx" />
-    <EmbeddedResource Include="Localization.resx" />
+    <EmbeddedResource Include="Localization.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization.ru.resx" />
     <EmbeddedResource Include="pjseMsgBox.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -180,6 +182,9 @@
     <EmbeddedResource Include="IconXmlResources\xreg.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="Data\simpe.layout">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -198,7 +203,7 @@
     <Content Include="IconXmlResources\About_button2.Image.png" />
     <Content Include="IconXmlResources\AFinderTool.de_grp.Icon.png" />
     <Content Include="IconXmlResources\AFinderTool_grp.Icon.png" />
-    <Content Include="IconXmlResources\AnimPreview_%24this.Icon.png" />
+    <Content Include="IconXmlResources\AnimPreviewIcon.png" />
     <Content Include="IconXmlResources\BnfoUI.fr_biMax.Image.png" />
     <Content Include="IconXmlResources\BnfoUI.fr_biReward.Image.png" />
     <Content Include="IconXmlResources\BnfoUI.it_biMax.Image.png" />
@@ -842,8 +847,8 @@
     <Content Include="IconXmlResources\ResourceTreeViewExt_tbGroup.Image.png" />
     <Content Include="IconXmlResources\ResourceTreeViewExt_tbInst.Image.png" />
     <Content Include="IconXmlResources\ResourceTreeViewExt_tbType.Image.png" />
-    <Content Include="IconXmlResources\SaveSims2CommunityPack_%24this.Icon.png" />
-    <Content Include="IconXmlResources\SaveSims2Pack_%24this.Icon.png" />
+    <Content Include="IconXmlResources\SaveSims2CommunityPack.png" />
+    <Content Include="IconXmlResources\SaveSims2Pack.png" />
     <Content Include="IconXmlResources\ScannerForm_%24this.Icon.png" />
     <Content Include="IconXmlResources\Scenegraph_%24this.Icon.png" />
     <Content Include="IconXmlResources\SdscExtendedForm_%24this.Icon.png" />

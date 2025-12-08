@@ -81,7 +81,7 @@ namespace SimPe.Plugin.Tool
 		{
 			get
 			{
-                return SimPe.GetIcon.AnimCamera;
+                return SimPe.LoadIcon.load ("AnimPreviewIcon.png");
 			}
 		}
 

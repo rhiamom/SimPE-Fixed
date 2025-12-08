@@ -33,7 +33,7 @@ namespace SimPe.Plugin.Downloads
                 {
                     try
                     {
-                        Ambertation.Scenes.Scene scn = SimPe.Plugin.PreviewForm.RenderScene(mmat); // depends on simpe.workshop.plugin.dll, pity as that may not exist
+                        Ambertation.Scenes.Scene scn = SimPe.Plugin.Tool.Dockable.PreviewForm.RenderScene(mmat); // depends on simpe.workshop.plugin.dll, pity as that may not exist
                         nfo.RenderedImage = Downloads.DefaultTypeHandler.Get3dPreview(scn);
                         scn.Dispose();
                         mmat.Dispose();

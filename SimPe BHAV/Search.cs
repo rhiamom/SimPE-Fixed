@@ -38,8 +38,8 @@ namespace SimPe.Plugin
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox tbOpcode;
 		private System.Windows.Forms.LinkLabel llsearch;
-        private booby.ExtProgressBar pb;
-		private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ProgressBar pb;
+        private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		private System.Windows.Forms.TextBox tbflname;
 		private System.Windows.Forms.Label label2;
@@ -66,7 +66,7 @@ namespace SimPe.Plugin
 		private System.Windows.Forms.TextBox tbpropval;
 		private System.Windows.Forms.Label label7;
         private CheckBox cblastname;
-        private booby.gradientpanel panel1;
+        private System.Windows.Forms.Panel panel1;
 		private System.ComponentModel.IContainer components;
 
 		public Search()
@@ -77,18 +77,9 @@ namespace SimPe.Plugin
 			InitializeComponent();
 
             prov = null;
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.panel1);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(this.tabPage1);
-                tm.AddControl(this.tabPage2);
-                tm.AddControl(this.tabPage3);
-                tm.AddControl(this.tabPage4);
-                tm.AddControl(this.tabPage5);
-                tm.AddControl(this.lblist);
-                tm.AddControl(this.btopen);
-            }
+            
             if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.lblist.Font = new System.Drawing.Font("Verdana", 11F);
 		}
 
@@ -148,7 +139,7 @@ namespace SimPe.Plugin
             this.label6 = new System.Windows.Forms.Label();
             this.lblist = new System.Windows.Forms.ListBox();
             this.btopen = new System.Windows.Forms.Button();
-            this.pb = new booby.ExtProgressBar();
+            this.pb = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new booby.gradientpanel();
             this.tabControl1.SuspendLayout();
@@ -532,18 +523,8 @@ namespace SimPe.Plugin
             this.pb.Name = "pb";
             this.pb.Size = new System.Drawing.Size(687, 16);
             this.pb.TabIndex = 3;
-            this.pb.BackColor = System.Drawing.Color.Transparent;
-            this.pb.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pb.Gradient = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.pb.GradientEndColor = booby.ThemeManager.Global.ThemeColorLighter;
-            this.pb.GradientStartColor = booby.ThemeManager.Global.ThemeColorLighter;
-            this.pb.ProgressBackColor = booby.ThemeManager.Global.ThemeColorLight;
-            this.pb.Quality = true;
-            this.pb.SelectedColor = booby.ThemeManager.Global.ThemeColorDark;
-            this.pb.Style = booby.ProgresBarStyle.Simple;
-            this.pb.TokenCount = 2;
-            this.pb.UnselectedColor = System.Drawing.Color.Black;
-            this.pb.UseTokenBuffer = false;
+            //this.pb.BackColor = System.Drawing.Color.Transparent;
+            
             // 
             // panel1
             // 
