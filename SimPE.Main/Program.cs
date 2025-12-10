@@ -45,6 +45,7 @@ namespace SimPe
             }
 
             List<string> argv = new List<string>(args);
+
             if (Commandline.PreSplash(argv)) return;
 
             Commandline.CheckFiles();
@@ -59,6 +60,7 @@ namespace SimPe
 
                 Helper.WindowsRegistry.UpdateSimPEDirectory();
                 Global = new MainForm();
+
                 if (!Commandline.FullEnvStart(argv))
                 {
                     //load Files passed on the commandline

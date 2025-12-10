@@ -19,6 +19,9 @@
  ***************************************************************************/
 using System;
 using SimPe.Interfaces;
+using SimPe.Interfaces.Files;
+using SimPe.Interfaces.Plugin;
+
 
 namespace SimPe.Plugin
 {
@@ -49,12 +52,16 @@ namespace SimPe.Plugin
 
         #region ITool Member
 
-        public bool IsEnabled(SimPe.Interfaces.IPackageFile package)
+        public bool IsEnabled(IPackedFileDescriptor pfd, IPackageFile package)
         {
             // If there's no package, this tool shouldn't be enabled.
-            if (package == null || package.FileName == null)
-                return false;
+            if (package == null) return false;
+            if (package.FileName == null) return false;
 
+            // If the provider registry isn't ready, also disabled.
+            if (prov == null || prov.SimNameProvider == null) return false;
+
+            // Only enabled for neighborhood or lot catalog files
             return Helper.IsNeighborhoodFile(package.FileName)
                 || Helper.IsLotCatalogFile(package.FileName);
         }

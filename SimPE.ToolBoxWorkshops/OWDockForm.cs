@@ -167,7 +167,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.biNext = new System.Windows.Forms.ToolStripButton();
             this.biFinish = new System.Windows.Forms.ToolStripButton();
             this.biAbort = new System.Windows.Forms.ToolStripButton();
-            this.biCatalog = new System.Windows.Forms.ToolStripButton();;
+            this.biCatalog = new System.Windows.Forms.ToolStripButton();
 			this.ilist = new System.Windows.Forms.ImageList(this.components);
 			this.sfd = new System.Windows.Forms.SaveFileDialog();
 			this.rightSandDock.SuspendLayout();

@@ -43,122 +43,61 @@ namespace SimPe
 			set { fileindex = value; }
 		}
 
-		/// <summary>
-		/// Returns a List of all Folders, even those the User doesn't want to scan for Content
-		/// </summary>
-		public static ArrayList DefaultFolders
-		{
+        /// <summary>
+        /// Returns a List of all Folders, even those the User doesn't want to scan for Content
+        /// </summary>
+        public static ArrayList DefaultFolders
+        {
             get
             {
-                string filename = Helper.DataFolder.FoldersXREG;
-                if (!System.IO.File.Exists(filename)) { BuildFolderXml(); filename = Helper.DataFolder.FoldersXREGW; } // as that's what we just wrote
-
-                System.Collections.Generic.Dictionary<string, ExpansionItem> shortmap = new System.Collections.Generic.Dictionary<string, ExpansionItem>();
-                foreach (ExpansionItem ei in PathProvider.Global.Expansions)
-                    shortmap[ei.ShortId.ToLower()] = ei;
-
-                ArrayList folders = new ArrayList();
-
-                XmlReaderSettings xrs = new XmlReaderSettings();
-                xrs.CloseInput = true;
-                xrs.IgnoreComments = true;
-                xrs.IgnoreProcessingInstructions = true;
-                xrs.IgnoreWhitespace = true;
-                XmlReader xr = XmlReader.Create(filename, xrs);
                 try
                 {
-                    xr.ReadStartElement("folders");
-                    xr.ReadStartElement("filetable");
-                    while (xr.IsStartElement())
+                    ArrayList folders = new ArrayList();
+
+                    // Use the game root chosen via GameRootDialog
+                    string root = Helper.GameRootPath;
+                    if (string.IsNullOrEmpty(root) || !System.IO.Directory.Exists(root))
+                        return folders;   // empty ? SimPE loads, but no game data
+
+                    // Scan the actual installation (this replaces the old .xreg/registry logic)
+                    var scan = GameRootAutoScanner.ScanRoot(root);
+
+                    // Build the file table from each detected pack's TSData path
+                    foreach (var pack in scan.Packs)
                     {
-                        int ftiver = -1;
-                        bool ftiignore = false;
-                        bool ftirec = false;
-                        FileTableItemType ftitype = FileTablePaths.Absolute;
+                        string tsData = System.IO.Path.Combine(pack.FullPath, "TSData");
 
-                        if (xr.Name != "path" && xr.Name != "file")
-                        {
-                            xr.Skip();
-                            continue;
-                        }
-                        while (xr.MoveToNextAttribute())
-                        {
-                            if (xr.Name == "recursive" && xr.Value != "0") ftirec = true;
-                            else if (xr.Name == "ignore" && xr.Value != "0") ftiignore = true;
-                            else if (xr.Name == "version" || xr.Name == "epversion")
-                                try
-                                {
-                                    int ver = Convert.ToInt32(xr.Value);
-                                    ftiver = ver;
-                                }
-                                catch { }
-                            else if (xr.Name == "root")
-                            {
-                                string root = xr.Value.ToLower();
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Objects"), false, false));
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Overrides"), false, false));
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Materials"), false, false));
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\3D"), false, false));
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\UI"), false, false));
 
-                                if (shortmap.ContainsKey(root))
-                                {
-                                    ExpansionItem ei = shortmap[root];
-                                    ftitype = ei.Expansion;
-                                    root = ei.InstallFolder;
-                                }
-                                else if (root == "save")
-                                {
-                                    root = PathProvider.SimSavegameFolder;
-                                    ftitype = FileTablePaths.SaveGameFolder;
-                                }
-                                else if (root == "simpe")
-                                {
-                                    root = Helper.SimPePath;
-                                    ftitype = FileTablePaths.SimPEFolder;
-                                }
-                                else if (root == "simpedata")
-                                {
-                                    root = Helper.SimPeDataPath;
-                                    ftitype = FileTablePaths.SimPEDataFolder;
-                                }
-                                else if (root == "simpeplugin")
-                                {
-                                    root = Helper.SimPePluginPath;
-                                    ftitype = FileTablePaths.SimPEPluginFolder;
-                                }
-                                else if (root == "ep10") //wipe out T&A if not currently installed
-                                {
-                                    xr.Skip();
-                                }
-                            }// root
-                        }// MoveToNextAttribute
-                        xr.MoveToElement();
-
-                        FileTableItem fti;
-                        if (xr.Name == "file")
-                            fti = new FileTableItem(xr.ReadString(), ftitype, false, true, ftiver, ftiignore);
-                        else
-                            fti = new FileTableItem(xr.ReadString(), ftitype, ftirec, false, ftiver, ftiignore);
-                        folders.Add(fti);
-                        xr.ReadEndElement();
+                        // Catalog contains buy/build entries – recurse here
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Catalog"), true, false));
                     }
-                    xr.ReadEndElement();
-                    xr.ReadEndElement();
 
                     return folders;
                 }
                 catch (Exception ex)
                 {
-                    Helper.ExceptionMessage("", ex);
+                    System.Windows.Forms.MessageBox.Show(
+                        "SimPE could not build the FileTable from the game installation.\n\n" + ex.Message,
+                        "FileTable Error",
+                        System.Windows.Forms.MessageBoxButtons.OK,
+                        System.Windows.Forms.MessageBoxIcon.Error);
+
+                    // Preserve original behavior: fall back to MetaFolder
+                    // (you can change this to 'return new ArrayList();' if you prefer)
                     return new ArrayList();
                 }
-                finally
-                {
-                    xr.Close();
-                    xr = null;
-                }
             }
-		}
+        }
 
-		/// <summary>
-		/// Creates a default Folder xml
-		/// </summary>
+
+        /// <summary>
+        /// Creates a default Folder xml
+        /// </summary>
         public static void BuildFolderXml()
         {
             try

@@ -44,14 +44,12 @@ namespace SimPe
 			InitializeComponent();
 
             SetupMainForm();
-		}
+        }
 
 
-        
 
-		
 
-		private void ClosingForm(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ClosingForm(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			e.Cancel = !this.ClosePackage();
 			if (!e.Cancel) 

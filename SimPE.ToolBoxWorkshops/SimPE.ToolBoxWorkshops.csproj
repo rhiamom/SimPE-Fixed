@@ -135,9 +135,9 @@
     <EmbeddedResource Include="NeighborhoodPreview.resx" />
     <EmbeddedResource Include="NeighborhoodPreview.ru.resx" />
     <EmbeddedResource Include="NewObjectPreview.resx">
-  	<LogicalName>SimPe.Plugin.Tool.Dockable.SimpleObjectPreview.resources</LogicalName>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.SimpleObjectPreview.resources</LogicalName>
     </EmbeddedResource>
-        <EmbeddedResource Include="ObjectsDock.resx">
+    <EmbeddedResource Include="ObjectsDock.resx">
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.resources</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectsDock.de.resx">
@@ -155,7 +155,6 @@
     <EmbeddedResource Include="ObjectsDock.ru.resx">
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.ru.resources</LogicalName>
     </EmbeddedResource>
-
     <EmbeddedResource Include="ObjectWorkshopDock.resx" />
     <EmbeddedResource Include="OWDockForm.resx" />
     <EmbeddedResource Include="PackageDetailDock.resx">
@@ -176,7 +175,6 @@
     <EmbeddedResource Include="PackageDetailDock.ru.resx">
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.ru.resources</LogicalName>
     </EmbeddedResource>
-
     <EmbeddedResource Include="PackageRepairForm.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -276,6 +274,15 @@
       <Project>{833c3b98-5a2d-476b-8b4b-c9548c1c99b6}</Project>
       <Name>WOSimPE - Interfaces</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="custom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="subitems.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="nothumb.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

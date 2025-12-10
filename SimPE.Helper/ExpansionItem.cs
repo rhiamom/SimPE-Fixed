@@ -415,8 +415,37 @@ namespace SimPe
 
         public bool Exists
         {
-            get { return (tk != null && isfound == true); }
+            get
+            {
+                // Original logic: App Paths + EPsInstalled list
+                if (tk != null && isfound == true) return true;
+
+                // --- UC / Legacy SP8 (and friends) registry hack support ---
+                try
+                {
+                    // This hack stores per-EXE keys under:
+                    // HKEY_CURRENT_USER\Software\Electronic Arts\The Sims 2 Ultimate Collection 25\<ExeName>
+                    Microsoft.Win32.RegistryKey hackKey =
+                        Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                            @"Software\\Electronic Arts\\The Sims 2 Ultimate Collection 25\\" + exe,
+                            false);
+
+                    if (hackKey != null)
+                    {
+                        object installed = hackKey.GetValue("Installed");
+                        if (installed is int iv && iv == 1)
+                            return true;
+                    }
+                }
+                catch
+                {
+                    // Ignore any registry read errors and fall back to "not installed"
+                }
+
+                return false;
+            }
         }
+
 
         public int Version
         {
@@ -553,9 +582,35 @@ namespace SimPe
             get
             {
                 if (!Exists) return "";
+
                 try
                 {
-                    object o = tk.GetValue("Path");
+                    // 1) Original SimPE behavior – App Paths
+                    object o = null;
+                    if (tk != null)
+                        o = tk.GetValue("Path");
+
+                    // 2) UC/Legacy hack fallback (when no App Paths entry)
+                    if (o == null)
+                    {
+                        try
+                        {
+                            Microsoft.Win32.RegistryKey hackKey =
+                                Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                                    @"Software\\Electronic Arts\\The Sims 2 Ultimate Collection 25\\" + exe,
+                                    false);
+
+                            if (hackKey != null)
+                            {
+                                o = hackKey.GetValue("Path");
+                            }
+                        }
+                        catch
+                        {
+                            // ignore and let o stay null
+                        }
+                    }
+
                     if (o == null)
                         return "";
                     else
@@ -567,6 +622,7 @@ namespace SimPe
                 }
             }
         }
+
 
         /// <summary>
         /// Location of the Sims Application

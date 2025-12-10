@@ -199,5 +199,29 @@ namespace SimPe
                 createdmenus = true;
             }
         }
+
+        /// <summary>
+        /// Allows the user to change the Sims 2 Game Root location.
+        /// </summary>
+        private void miGameRoot_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new GameRootDialog())
+            {
+                // Optional future enhancement:
+                // If Helper.GameRootPath is already set,
+                // you can prefill the dialog here.
+
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    // Values have already been saved inside GameRootDialog:
+                    // Helper.GameRootPath
+                    // Helper.GameEdition
+                    // Helper.SaveGameRootToFile(...)
+
+                    // (Optional future step: reload FileTable or anything dependent on game root)
+                }
+            }
+        }
+
     }
 }

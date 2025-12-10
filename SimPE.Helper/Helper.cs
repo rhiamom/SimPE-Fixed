@@ -65,10 +65,51 @@ namespace SimPe
 		/// </summary>
 		static Registry reg = null;
 
-		/// <summary>
-		/// Returns the Link to the Windows Registry
-		/// </summary>
-		public static Registry WindowsRegistry
+        /// <summary>
+        //Create a game detection method that does not use Windows registry and is aware of the different versions of the game
+        /// </summary>
+        public static string GameRootPath { get; set; }
+        public static string GameEdition { get; set; }
+        public static void SaveGameRootToFile(string rootPath, string edition)
+        {
+            try
+            {
+                string[] lines = { rootPath ?? "", edition ?? "" };
+                File.WriteAllLines(DataFolder.GameRootConfigPath, lines);
+            }
+            catch
+            {
+                // ignore errors for now
+            }
+        }
+        public static void LoadGameRootFromFile()
+        {
+            try
+            {
+                if (File.Exists(DataFolder.GameRootConfigPath))
+                {
+                    string[] lines = File.ReadAllLines(DataFolder.GameRootConfigPath);
+
+                    GameRootPath = lines.Length > 0 ? lines[0] : string.Empty;
+                    GameEdition  = lines.Length > 1 ? lines[1] : string.Empty;
+                }
+                else
+                {
+                    GameRootPath = string.Empty;
+                    GameEdition  = string.Empty;
+                }
+            }
+            catch
+            {
+                GameRootPath = string.Empty;
+                GameEdition  = string.Empty;
+            }
+        }     //end of new game detection
+
+        /// <summary>
+        /// Returns the Link to the Windows Registry
+        /// </summary>
+        public static Registry WindowsRegistry
 		{
 			get { 
 				if (reg==null) reg = new Registry();
@@ -527,6 +568,14 @@ namespace SimPe
                     if (profile.Length > 0 && readOnly)
                         path = Path.Combine(Path.Combine(path, "Profiles"), profile);
                         return Path.Combine(path, s);
+            }
+
+            /// <summary>
+            /// The path to the GameRoot configuration file (same folder as simpe.layout)
+            /// </summary>
+            public static string GameRootConfigPath
+            {
+                get { return ProfilePath("GameRoot.cfg"); }
             }
 
             /// <summary>

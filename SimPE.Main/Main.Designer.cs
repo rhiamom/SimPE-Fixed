@@ -67,6 +67,7 @@ namespace SimPe
         private ContextMenuStrip miAction;
         private ToolStrip tbAction;
         private ToolStripButton biNewDc;
+        private System.Windows.Forms.ToolStripMenuItem miGameRoot;
         private ToolStripMenuItem miPref;
         private SteepValley.Windows.Forms.XPGradientPanel xpGradientPanel5;
         private ToolStripMenuItem miNew;
@@ -194,6 +195,7 @@ namespace SimPe
             this.miFileNames = new System.Windows.Forms.ToolStripMenuItem();
             this.miRunSims = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.miGameRoot = new System.Windows.Forms.ToolStripMenuItem();
             this.miPref = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSaveProfile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSavePrefs = new System.Windows.Forms.ToolStripMenuItem();
@@ -860,11 +862,13 @@ namespace SimPe
             this.miFileNames,
             this.miRunSims,
             this.toolStripMenuItem2,
+            this.miGameRoot,
             this.miPref,
             this.tsmiSaveProfile,
             this.tsmiSavePrefs});
             this.miExtra.Name = "miExtra";
-            resources.ApplyResources(this.miExtra, "miExtra");
+            //resources.ApplyResources(this.miExtra, "miSettings");
+            this.miExtra.Text = "Settings";
             // 
             // miMetaInfo
             // 
@@ -890,6 +894,14 @@ namespace SimPe
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
+            //
+            // miGameRoot
+            // 
+            this.miGameRoot.Name = "miGameRoot";
+            this.miGameRoot.Size = new System.Drawing.Size(200, 22);
+            this.miGameRoot.Text = "Game Location...";
+            this.miGameRoot.Click += new System.EventHandler(this.miGameRoot_Click);
+
             // 
             // miPref
             // 

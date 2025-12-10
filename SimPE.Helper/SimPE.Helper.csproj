@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7D2040CB-CD32-4C78-944E-472C050F8163}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>SimPE.Helper</RootNamespace>
-    <AssemblyName>SimPE.Helper</AssemblyName>
+    <RootNamespace>SimPe</RootNamespace>
+    <AssemblyName>simpe.helper</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -66,6 +66,7 @@
     <Compile Include="ASerializeFormater.cs" />
     <Compile Include="Boolset.cs" />
     <Compile Include="CaseInvariantArrayList.cs" />
+    <Compile Include="GameRootAutoScanner.cs" />
     <Compile Include="LoadIcon.cs" />
     <Compile Include="GetImage.cs" />
     <Compile Include="ColumnSorter.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SelectSimFolder.resx" />
     <EmbeddedResource Include="WaitingForm.de.resx" />

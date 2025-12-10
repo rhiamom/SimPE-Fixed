@@ -103,6 +103,12 @@
     <Compile Include="FileTableItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GameRootDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameRootDialog.Designer.cs">
+      <DependentUpon>GameRootDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Hidden.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     <EmbeddedResource Include="FileTableItemForm.it.resx" />
     <EmbeddedResource Include="FileTableItemForm.resx" />
     <EmbeddedResource Include="FileTableItemForm.ru.resx" />
+    <EmbeddedResource Include="GameRootDialog.resx">
+      <DependentUpon>GameRootDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Hidden.resx" />
     <EmbeddedResource Include="Main.de.resx" />
     <EmbeddedResource Include="Main.fr.resx" />

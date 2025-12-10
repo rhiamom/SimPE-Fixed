@@ -21,8 +21,9 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-using System;
 using SimPe.Interfaces;
+using SimPe.Interfaces.Files;
+using System;
 
 namespace SimPe.Plugin
 {
@@ -51,22 +52,27 @@ namespace SimPe.Plugin
 			if (registry==null) registry = Helper.WindowsRegistry;
 		}
 
-		#region ITool Member
+        #region ITool Member
 
-		public bool IsEnabled(SimPe.Interfaces.Files.IPackedFileDescriptor pfd, SimPe.Interfaces.Files.IPackageFile package)
+        public bool IsEnabled(IPackedFileDescriptor pfd, IPackageFile package)
         {
-            return (Helper.IsNeighborhoodFile(package.FileName) || Helper.IsLotCatalogFile(package.FileName));
-            //return true;
+            return IsReallyEnabled(pfd, package);
         }
 
-        private bool IsReallyEnabled(SimPe.Interfaces.Files.IPackedFileDescriptor pfd, SimPe.Interfaces.Files.IPackageFile package)
+
+        private bool IsReallyEnabled(IPackedFileDescriptor pfd, IPackageFile package)
         {
             if (package == null) return false;
-            if (prov.SimNameProvider == null) return false;
-            return (Helper.IsNeighborhoodFile(package.FileName) || Helper.IsLotCatalogFile(package.FileName));
+            if (package.FileName == null) return false;   // <- REQUIRED FIX
+
+            if (prov == null || prov.SimNameProvider == null)
+                return false;
+
+            return Helper.IsNeighborhoodFile(package.FileName)
+                || Helper.IsLotCatalogFile(package.FileName);
         }
 
-		Surgery surg;
+        Surgery surg;
 		public Interfaces.Plugin.IToolResult ShowDialog(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package)
 		{
             if (!IsReallyEnabled(pfd, package))
