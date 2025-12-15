@@ -53,20 +53,7 @@ namespace SimPe.Plugin
         public LastEPusePackedFileUI()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.btfore);
-                tm.AddControl(this.btBack);
-            }
-            if (booby.PrettyGirls.PervyMode)
-            {
-                label1.Visible = true;
-                this.HeaderText = "Boobies";
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-
-            }
+ 
             if (PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists) // && Helper.WindowsRegistry.LoadOnlySimsStory == 28)
             {
                 Wait.Start(117);
@@ -229,19 +216,15 @@ namespace SimPe.Plugin
         protected override void RefreshGUI()
         {
             base.RefreshGUI();
-            if (booby.ThemeManager.savedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else
-            {
-                if (Wrapper.Prevep == 17 && booby.PrettyGirls.IsTitsInstalled()) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(19);
-                else if (Wrapper.Prevep == 17 && booby.PrettyGirls.IsAngelsInstalled()) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(18);
-                else if (Wrapper.Prevep == 7 && Wrapper.Vershin == 9) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(28);
-                else if (Wrapper.Prevep == 6 && Wrapper.Vershin == 3) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(29);
-                else if (Wrapper.Prevep == 0 && Wrapper.Vershin == 2) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(30);
-                else if (Wrapper.Prevep == 31) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(0); // Store
-                else this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(Wrapper.Prevep);
-            }
 
-            lastep = Wrapper.Prevep;
+            if (Wrapper.Prevep == 7 && Wrapper.Vershin == 9) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(28);
+            else if (Wrapper.Prevep == 6 && Wrapper.Vershin == 3) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(29);
+            else if (Wrapper.Prevep == 0 && Wrapper.Vershin == 2) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(30);
+            else if (Wrapper.Prevep == 31) this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(0); // Store
+            else this.BackgroundImage = SimPe.GetImage.GetExpansionLogo(Wrapper.Prevep);
+        
+
+        lastep = Wrapper.Prevep;
             vergin = Wrapper.Vershin;
             previep.Text = "0x" + Helper.HexString(lastep);
             if (lastep == 0)
@@ -273,14 +256,8 @@ namespace SimPe.Plugin
             if (lastep == 14) previep.Text = "The Sims 2 Kitchen & Bath";
             if (lastep == 15) previep.Text = "The Sims 2 Ikea Home";
             if (lastep == 16) previep.Text = "The Sims 2 Apartment Life";
-            if (lastep == 17)
-            {
-                if (booby.PrettyGirls.IsTitsInstalled()) previep.Text = "The Sims™ 2 Tits and Arse";
-                    else
-                    if (booby.PrettyGirls.IsAngelsInstalled()) previep.Text = "The Sims™ 2 Angel and Nurses";
-                    else
-                        previep.Text = "Sims 2 Mansion & Garden";
-            }
+            if (lastep == 17) previep.Text = "Sims 2 Mansion & Garden";
+            
             if (lastep == 31) previep.Text = "The Sims 2 Store Edition";
 
             if (PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists && Wrapper.GotMore == true)

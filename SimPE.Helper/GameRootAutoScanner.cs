@@ -123,6 +123,16 @@ namespace SimPe
 
             var packs = new List<PackFolderInfo>();
 
+            string rootTsData = Path.Combine(root, "TSData");
+            if (Directory.Exists(rootTsData))
+            {
+                packs.Add(new PackFolderInfo(
+                    name: "Base Game",
+                    fullPath: root,
+                    isBaseGame: true,
+                    hasTsData: true));
+            }
+
             // Look at all immediate child directories under the root.
             string[] childDirs;
             try
@@ -145,37 +155,60 @@ namespace SimPe
                 string tsDataPath = Path.Combine(dir, "TSData");
                 bool hasTsData = Directory.Exists(tsDataPath);
 
-                if (!hasTsData)
-                    continue; // not a pack
-
-                // Treat both "Base" (Legacy-style) and "The Sims 2" (UC/disc-style) as base game
-                bool isBaseChild =
-                    string.Equals(name, "Base", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(name, "The Sims 2", StringComparison.OrdinalIgnoreCase);
-
-                string displayName = isBaseChild ? "Base Game" : name;
-
-                packs.Add(new PackFolderInfo(
-                    name: displayName,
-                    fullPath: dir,
-                    isBaseGame: isBaseChild,
-                    hasTsData: true));
-            }
-
-            // Fallback: if we did not find any base child folder, but root\TSData exists,
-            // treat the root as base game (some repacks may look like this).
-            bool hasBaseAlready = packs.Exists(p => p.IsBaseGame);
-            if (!hasBaseAlready)
-            {
-                string rootTsData = Path.Combine(root, "TSData");
-                if (Directory.Exists(rootTsData))
+                if (hasTsData)
                 {
-                    packs.Insert(0, new PackFolderInfo(
-                        name: "Base Game",
-                        fullPath: root,
-                        isBaseGame: true,
+                    // Treat both "Base" (Legacy-style) and "The Sims 2" (disc-style) as base game
+                    bool isBaseChild =
+                        string.Equals(name, "Base", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(name, "The Sims 2", StringComparison.OrdinalIgnoreCase);
+
+                    string displayName = isBaseChild ? "Base Game" : name;
+
+                    packs.Add(new PackFolderInfo(
+                        name: displayName,
+                        fullPath: dir,
+                        isBaseGame: isBaseChild,
                         hasTsData: true));
                 }
+                else
+                {
+                    // NEW: look one level deeper (dir\[grandchild]\TSData)
+                    string[] grandChildDirs;
+                    try
+                    {
+                        grandChildDirs = Directory.GetDirectories(dir);
+                    }
+                    catch
+                    {
+                        grandChildDirs = new string[0];   // .NET 4.5.2 compatible
+                    }
+
+                    foreach (string gdir in grandChildDirs)
+                    {
+                        string gname = Path.GetFileName(gdir) ?? gdir;
+
+                        // Ignore EA patch / temp folders like TH14FF~1, THE3E9~1, etc.
+                        if (gname.StartsWith("TH", StringComparison.OrdinalIgnoreCase) && gname.Contains("~"))
+                            continue;
+
+                        string gTsData = Path.Combine(gdir, "TSData");
+                        if (!Directory.Exists(gTsData))
+                            continue;
+
+                        bool isBaseGrandChild =
+                            string.Equals(gname, "Base", StringComparison.OrdinalIgnoreCase) ||
+                            string.Equals(gname, "The Sims 2", StringComparison.OrdinalIgnoreCase);
+
+                        string gDisplayName = isBaseGrandChild ? "Base Game" : gname;
+
+                        packs.Add(new PackFolderInfo(
+                            name: gDisplayName,
+                            fullPath: gdir,
+                            isBaseGame: isBaseGrandChild,
+                            hasTsData: true));
+                    }
+                }
+
             }
 
             return new GameRootScanResult(

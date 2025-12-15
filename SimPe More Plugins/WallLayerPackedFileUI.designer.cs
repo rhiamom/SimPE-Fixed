@@ -1,3 +1,4 @@
+using Ambertation.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace SimPe.Plugin
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WallLayerPackedFileUI));
-            this.taskBox1 = new booby.TaskBox();
+            this.taskBox1 = new XPTaskBoxSimple();
             this.llConvwals = new System.Windows.Forms.LinkLabel();
             this.cbClear = new System.Windows.Forms.CheckBox();
             this.lbConvwals = new System.Windows.Forms.Label();
@@ -21,7 +22,7 @@ namespace SimPe.Plugin
             this.lbfounded = new System.Windows.Forms.Label();
             this.cbExistFences = new System.Windows.Forms.ComboBox();
             this.cballFences = new System.Windows.Forms.ComboBox();
-            this.tbWalls = new booby.TaskBox();
+            this.tbWalls = new XPTaskBoxSimple();
             this.lbscreenwood = new System.Windows.Forms.Label();
             this.lbNormal = new System.Windows.Forms.Label();
             this.lbofbnormal = new System.Windows.Forms.Label();
@@ -373,10 +374,10 @@ namespace SimPe.Plugin
         private System.Windows.Forms.ComboBox cballFences;
         private System.Windows.Forms.ComboBox cbExistFences;
         private System.Windows.Forms.Label lbNormal;
-        private booby.TaskBox taskBox1;
+        private XPTaskBoxSimple taskBox1;
         private System.Windows.Forms.Label lbknowned;
         private System.Windows.Forms.Label lbfounded;
-        private booby.TaskBox tbWalls;
+        private XPTaskBoxSimple tbWalls;
         private System.Windows.Forms.Label lbscreenwood;
         private System.Windows.Forms.Label lbofbnormal;
         private System.Windows.Forms.Label lbpicket;

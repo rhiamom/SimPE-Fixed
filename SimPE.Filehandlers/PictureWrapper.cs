@@ -86,7 +86,7 @@ namespace SimPe.PackedFiles.Wrapper
 			} 
 			catch (Exception)
 			{
-				try 
+				try //Leaving the Booby in for later replacement with CSoil2
 				{
 					image = booby.LoadTGAClass.LoadTGA(reader.BaseStream);
 					return true;

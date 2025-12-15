@@ -441,9 +441,6 @@
   <data name="&gt;&gt;panel5.Name" xml:space="preserve">
     <value>panel5</value>
   </data>
-  <data name="&gt;&gt;panel5.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;panel5.Parent" xml:space="preserve">
     <value>CpfPanel</value>
   </data>
@@ -585,9 +582,6 @@
   <data name="&gt;&gt;panel4.Name" xml:space="preserve">
     <value>panel4</value>
   </data>
-  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
     <value>NrefPanel</value>
   </data>
@@ -608,9 +602,6 @@
   </data>
   <data name="&gt;&gt;NrefPanel.Name" xml:space="preserve">
     <value>NrefPanel</value>
-  </data>
-  <data name="&gt;&gt;NrefPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;NrefPanel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -782,9 +773,6 @@
   </data>
   <data name="&gt;&gt;CpfPanel.Name" xml:space="preserve">
     <value>CpfPanel</value>
-  </data>
-  <data name="&gt;&gt;CpfPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;CpfPanel.Parent" xml:space="preserve">
     <value>$this</value>

@@ -1,10 +1,11 @@
+using Ambertation.Windows.Forms;
+using SimPe.Plugin.Downloads;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
-using SimPe.Plugin.Downloads;
 
 namespace SimPe.Plugin
 {
@@ -15,7 +16,7 @@ namespace SimPe.Plugin
 	{
 		private System.Windows.Forms.Panel pndrop;
 		private System.Windows.Forms.PictureBox pb;
-        private booby.TaskBox tbs;
+        private XPTaskBoxSimple tbs;
         private ComboBox cb;
         private RichTextBox rtb;
         private Label lbCat;
@@ -69,7 +70,7 @@ namespace SimPe.Plugin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InstallerControl));
             this.pndrop = new System.Windows.Forms.Panel();
             this.pb = new System.Windows.Forms.PictureBox();
-            this.tbs = new booby.TaskBox();
+            this.tbs = new XPTaskBoxSimple();
             this.lbType = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lbGuid = new System.Windows.Forms.Label();

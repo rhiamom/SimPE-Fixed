@@ -21,21 +21,12 @@ namespace SimPe.Plugin
         public InvenIndexPackedFileUI()
         {
             InitializeComponent();
-            if (booby.PrettyGirls.PervyMode)
-            {
-                label1.Visible = true;
-                this.HeaderText = "Boobies";
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
         }
 
         protected override void RefreshGUI()
         {
             base.RefreshGUI();
             warnlbl.Visible = false;
-            if (booby.ThemeManager.savedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else this.BackgroundImage = booby.PrettyGirls.RandomGirl;
 
             scinstance = Wrapper.Sciname;
             scinst.Text = "0x" + Helper.HexString(scinstance);

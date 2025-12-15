@@ -141,7 +141,7 @@ namespace SimPe.Plugin
             this.btopen = new System.Windows.Forms.Button();
             this.pb = new System.Windows.Forms.ProgressBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel1 = new booby.gradientpanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();

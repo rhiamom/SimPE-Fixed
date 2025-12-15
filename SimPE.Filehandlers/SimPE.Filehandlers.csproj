@@ -56,8 +56,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,6 +69,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
     <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
@@ -150,14 +153,18 @@
     <EmbeddedResource Include="Elements.fr.resx" />
     <EmbeddedResource Include="Elements.it.resx" />
     <EmbeddedResource Include="Elements.pl.resx" />
-    <EmbeddedResource Include="Elements.resx" />
+    <EmbeddedResource Include="Elements.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Elements.ru.resx" />
     <EmbeddedResource Include="Elements2.de.resx" />
     <EmbeddedResource Include="Elements2.es.resx" />
     <EmbeddedResource Include="Elements2.fr.resx" />
     <EmbeddedResource Include="Elements2.it.resx" />
     <EmbeddedResource Include="Elements2.pl.resx" />
-    <EmbeddedResource Include="Elements2.resx" />
+    <EmbeddedResource Include="Elements2.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Elements2.ru.resx" />
     <EmbeddedResource Include="ExtObjdForm.fr.resx" />
     <EmbeddedResource Include="ExtObjdForm.it.resx" />

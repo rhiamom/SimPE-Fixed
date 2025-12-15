@@ -59,6 +59,7 @@ namespace SimPe
                 Application.Idle += new EventHandler(Application_Idle);
 
                 Helper.WindowsRegistry.UpdateSimPEDirectory();
+                Helper.LoadGameRootFromFile();
                 Global = new MainForm();
 
                 if (!Commandline.FullEnvStart(argv))

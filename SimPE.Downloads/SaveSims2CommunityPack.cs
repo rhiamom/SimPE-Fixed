@@ -61,7 +61,7 @@ namespace SimPe.Packages
 		private System.Windows.Forms.TextBox tbtitle;
 		private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox cb2cp;
-        private booby.gradientpanel panel1;
+        private System.Windows.Forms.Panel panel1;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -73,19 +73,16 @@ namespace SimPe.Packages
 			// Required designer variable.
 			//
             InitializeComponent();
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.panel1);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(this.lblist);
-                tm.AddControl(this.tbdesc);
-                tm.AddControl(this.btdelete);
-                tm.AddControl(this.button4);
-                tm.AddControl(this.btadd);
-                tm.AddControl(this.btbrowse);
-                tm.AddControl(this.btsave);
-                tm.AddControl(this.cbcompress);
-            }
+            tm.AddControl(this.lblist);
+            tm.AddControl(this.tbdesc);
+            tm.AddControl(this.btdelete);
+            tm.AddControl(this.button4);
+            tm.AddControl(this.btadd);
+            tm.AddControl(this.btbrowse);
+            tm.AddControl(this.btsave);
+            tm.AddControl(this.cbcompress);
 
 			this.cbcompress.Items.Add(Sims2CommunityPack.CompressionStrength.Slowest);
 			this.cbcompress.Items.Add(Sims2CommunityPack.CompressionStrength.Slower);
@@ -151,7 +148,7 @@ namespace SimPe.Packages
             this.btdelete = new System.Windows.Forms.Button();
             this.btsave = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.panel1 = new booby.gradientpanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.gbsettings.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();

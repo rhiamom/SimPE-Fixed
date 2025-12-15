@@ -70,11 +70,15 @@ namespace SimPe
         /// </summary>
         public static string GameRootPath { get; set; }
         public static string GameEdition { get; set; }
-        public static void SaveGameRootToFile(string rootPath, string edition)
+        public static string BaseGamePath { get; set; }
+
+        public static string DownloadsPath = string.Empty;
+        
+        public static void SaveGameRootToFile(string rootPath, string edition, string baseGamePath, string downloadsPath)
         {
             try
             {
-                string[] lines = { rootPath ?? "", edition ?? "" };
+                string[] lines = { rootPath ?? "", edition ?? "", baseGamePath ?? "", downloadsPath ?? "" };
                 File.WriteAllLines(DataFolder.GameRootConfigPath, lines);
             }
             catch
@@ -82,6 +86,18 @@ namespace SimPe
                 // ignore errors for now
             }
         }
+
+        public static void SaveGameRootToFile(string rootPath, string edition, string baseGamePath)
+        {
+            SaveGameRootToFile(rootPath, edition, baseGamePath, DownloadsPath);
+        }
+
+        // Backward-compatible wrapper so older callers still work
+        public static void SaveGameRootToFile(string rootPath, string edition)
+        {
+            SaveGameRootToFile(rootPath, edition, BaseGamePath);
+        }
+
         public static void LoadGameRootFromFile()
         {
             try
@@ -90,21 +106,27 @@ namespace SimPe
                 {
                     string[] lines = File.ReadAllLines(DataFolder.GameRootConfigPath);
 
-                    GameRootPath = lines.Length > 0 ? lines[0] : string.Empty;
-                    GameEdition  = lines.Length > 1 ? lines[1] : string.Empty;
+                    GameRootPath  = lines.Length > 0 ? lines[0] : string.Empty;
+                    GameEdition   = lines.Length > 1 ? lines[1] : string.Empty;
+                    BaseGamePath  = lines.Length > 2 ? lines[2] : string.Empty;
+                    DownloadsPath  = lines.Length > 3 ? lines[3] : string.Empty;
                 }
                 else
                 {
                     GameRootPath = string.Empty;
                     GameEdition  = string.Empty;
+                    BaseGamePath = string.Empty;
+                    DownloadsPath = string.Empty;
                 }
             }
             catch
             {
                 GameRootPath = string.Empty;
                 GameEdition  = string.Empty;
+                BaseGamePath = string.Empty;
             }
-        }     //end of new game detection
+        }
+        //end of new game detection
 
         /// <summary>
         /// Returns the Link to the Windows Registry
@@ -616,20 +638,25 @@ namespace SimPe
             /// <summary>
             /// The path of the filetable folders file (readonly)
             /// </summary>
-            public static string FoldersXREG { get { return ProfilePath("folders.xreg", true); } }
-
-            /// <summary>
-            /// The path of the filetable folders file (write)
-            /// </summary>
-            public static string ExpansionsXREGW { get {
-                if (ECCorNewSEfound) return ProfilePath("expansions2.xreg");
-                    else return ProfilePath("expansions.xreg"); } }
+            public static string FoldersXREG { get { return ProfilePath("folders.xreg", true); } }           
             /// <summary>
             /// The path of the filetable folders file (readonly)
             /// </summary>
-            public static string ExpansionsXREG { get {
+            public static string ExpansionsXREG { get 
+				{
                 if (ECCorNewSEfound) return ProfilePath("expansions2.xreg", true);
                 else return ProfilePath("expansions.xreg", true); } }
+            /// <summary>
+            /// The path of the filetable folders file (write)
+            /// </summary>
+            public static string ExpansionsXREGW
+            {
+                get
+                {
+                    if (ECCorNewSEfound) return ProfilePath("expansions2.xreg");
+                    else return ProfilePath("expansions.xreg");
+                }
+            }
 
             /// <summary>
             /// The path of the MRU registry file (write)
@@ -842,28 +869,13 @@ namespace SimPe
         /// </summary>
         public static bool ECCorNewSEfound
         {
-            get
-            {
-                Microsoft.Win32.RegistryKey tk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Sims2ECC.exe", false);
-                if (tk != null) return true;
-                tk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Sims2SC.exe", false);
-                if (tk == null) return false;
-                object gr = tk.GetValue("Game Registry", "");
-                Microsoft.Win32.RegistryKey rk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey((string)gr, false);
-                if (rk != null)
-                {
-                    object o = rk.GetValue("Suppression Exe", "");
-                    string s = o.ToString();
-                    if (s.Contains("Sims2EP8.exe")) return true;
-                }
-                return false;
-            }
+            get { return false; }
         }
 
-		/// <summary>
-		/// Returnst the Gui that was started
-		/// </summary>
-		public static Executable StartedGui 
+        /// <summary>
+        /// Returnst the Gui that was started
+        /// </summary>
+        public static Executable StartedGui 
 		{
 			get
 			{

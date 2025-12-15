@@ -23,17 +23,6 @@ namespace SimPe.Plugin
         public HugBugPackedFileUI()
 		{
 			InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.btShow);
-                tm.AddControl(this.btcustom);
-                tm.AddControl(this.TBsting);
-                if (booby.ThemeManager.savedTheme == 4 || booby.ThemeManager.savedTheme == 7)
-                    this.TBsting.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
-            if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                this.label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 		}
 
         protected override void RefreshGUI()
@@ -44,27 +33,7 @@ namespace SimPe.Plugin
             if (Wrapper.IsSims) this.TBsting.Text = "This Lot has sim(s) on it.\n\n" + this.TBsting.Text;
             this.btcustom.Visible = this.btcustom.Enabled = Wrapper.HasCustom;
             this.btShow.Enabled = true;
-            if (booby.ThemeManager.savedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else this.BackgroundImage = booby.PrettyGirls.RandomGirl;
-            if (booby.PrettyGirls.PervyMode)
-            {
-                this.HeaderText = "Boobies";
-                if (Wrapper.IsCorrupt)
-                {
-                    this.label1.Text = "This Lot is Infected !!";
-                    aahh.Play();
-                    this.lbFail.Visible = true;
-                    this.lbpass.Visible = false;
-                }
-                else
-                {
-                    this.label1.Text = "Boobies Make me Happy!";
-                    this.lbFail.Visible = false;
-                    this.lbpass.Visible = true;
-                }
-            }
-            else
-            {
+            
                 if (Wrapper.IsCorrupt)
                 {
                     this.label1.Text = "Super Duper Hug Found !!";
@@ -77,10 +46,8 @@ namespace SimPe.Plugin
                     this.lbFail.Visible = false;
                     this.lbpass.Visible = true;
                 }
-            }
         }
-
-        internal SoundPlayer aahh = new SoundPlayer(booby.NoisyGirls.Aah);
+        
 
         public override void OnCommit()
         {

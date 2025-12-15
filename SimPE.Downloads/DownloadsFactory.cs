@@ -76,40 +76,29 @@ namespace SimPe.Plugin
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#region IToolFactory Member
+        #region IToolFactory Member
 
-		public IToolPlugin[] KnownTools
-		{
-			get
+        public IToolPlugin[] KnownTools
+        {
+            get
             {
-                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                {
-                    IToolPlugin[] tools = {
-									new SimPe.Plugin.Tool.Window.InstallerTool(),
-									new SimPe.Plugin.Tool.SaveSims2PackTool(),
-									new SimPe.Plugin.Tool.LoadSims2PackTool(),
-									new SimPe.Plugin.Tool.Saves2cpTool(),
-									new SimPe.Plugin.Tool.Loads2cpTool()
-                                    };
-                    return tools;
-                }
-                else
-                {
-                    IToolPlugin[] tools = {
-									new SimPe.Plugin.Tool.Window.InstallerTool(),
-									new SimPe.Plugin.Tool.SaveSims2PackTool(),
-									new SimPe.Plugin.Tool.LoadSims2PackTool()
-                                    };
-                    return tools;
-                }
-			}
-		}
-		#endregion
+                IToolPlugin[] tools = {
+            new SimPe.Plugin.Tool.Window.InstallerTool(),
+            new SimPe.Plugin.Tool.SaveSims2PackTool(),
+            new SimPe.Plugin.Tool.LoadSims2PackTool(),
+            new SimPe.Plugin.Tool.Saves2cpTool(),
+            new SimPe.Plugin.Tool.Loads2cpTool()
+        };
+                return tools;
+            }
+        }
 
-		#region ISettingsFactory Member
-		static SimPe.Plugin.Downloads.DownloadsSettings settings;
+        #endregion
+
+        #region ISettingsFactory Member
+        static SimPe.Plugin.Downloads.DownloadsSettings settings;
 		public static SimPe.Plugin.Downloads.DownloadsSettings Settings
 		{
 			get 

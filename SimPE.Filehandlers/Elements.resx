@@ -180,9 +180,6 @@
   <data name="&gt;&gt;panel2.Name" xml:space="preserve">
     <value>panel2</value>
   </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
     <value>JpegPanel</value>
   </data>
@@ -233,9 +230,6 @@
   </data>
   <data name="&gt;&gt;JpegPanel.Name" xml:space="preserve">
     <value>JpegPanel</value>
-  </data>
-  <data name="&gt;&gt;JpegPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;JpegPanel.Parent" xml:space="preserve">
     <value>tabPage3</value>
@@ -296,9 +290,6 @@
   </data>
   <data name="&gt;&gt;panel3.Name" xml:space="preserve">
     <value>panel3</value>
-  </data>
-  <data name="&gt;&gt;panel3.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;panel3.Parent" xml:space="preserve">
     <value>xmlPanel</value>
@@ -753,9 +744,6 @@
   <data name="&gt;&gt;panel6.Name" xml:space="preserve">
     <value>panel6</value>
   </data>
-  <data name="&gt;&gt;panel6.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;panel6.Parent" xml:space="preserve">
     <value>objdPanel</value>
   </data>
@@ -1136,9 +1124,6 @@
   </data>
   <data name="&gt;&gt;panel8.Name" xml:space="preserve">
     <value>panel8</value>
-  </data>
-  <data name="&gt;&gt;panel8.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;panel8.Parent" xml:space="preserve">
     <value>familytiePanel</value>
@@ -2335,11 +2320,8 @@
   <data name="panel4.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;panel4.Name" xml:space="preserve">
+	<data name="&gt;&gt;panel4.Name" xml:space="preserve">
     <value>panel4</value>
-  </data>
-  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
     <value>famiPanel</value>
@@ -2397,9 +2379,6 @@
   </data>
   <data name="&gt;&gt;famiPanel.Name" xml:space="preserve">
     <value>famiPanel</value>
-  </data>
-  <data name="&gt;&gt;famiPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;famiPanel.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -3087,9 +3066,6 @@
   </data>
   <data name="&gt;&gt;panel7.Name" xml:space="preserve">
     <value>panel7</value>
-  </data>
-  <data name="&gt;&gt;panel7.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;panel7.Parent" xml:space="preserve">
     <value>realPanel</value>

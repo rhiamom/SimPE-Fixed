@@ -45,20 +45,7 @@ namespace SimPe.Plugin
 			// Required for Windows Form Designer support
 			//
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.pntheme);
-                tm.AddControl(this.btGo);
-                tm.AddControl(this.btCome);
-                tm.AddControl(this.btclean);
-                tm.AddControl(this.Language);
-                this.lbdone.ForeColor = booby.ThemeManager.Global.ThemeColourXdark;
-                this.Progress.GradientEndColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.Progress.GradientStartColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.Progress.ProgressBackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.Progress.SelectedColor = booby.ThemeManager.Global.ThemeColorDark;
-            }
+            
             languageString = new List<string>(pjse.BhavWiz.readStr(pjse.GS.BhavStr.Languages));
             languageString.RemoveAt(0);
 
@@ -73,8 +60,8 @@ namespace SimPe.Plugin
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LanguageExtrator));
-            this.pntheme = new booby.gradientpanel();
-            this.Progress = new booby.ExtProgressBar();
+            this.pntheme = new Panel();
+            this.Progress = new ProgressBar();
             this.Language = new System.Windows.Forms.ComboBox();
             this.btCome = new System.Windows.Forms.Button();
             this.btGo = new System.Windows.Forms.Button();
@@ -96,9 +83,7 @@ namespace SimPe.Plugin
             // pntheme
             // 
             this.pntheme.BackColor = System.Drawing.Color.Transparent;
-            this.pntheme.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.CenterBottom;
-            this.pntheme.BackgroundImageLocation = new System.Drawing.Point(0, 20);
-            this.pntheme.BackgroundImageZoomToFit = true;
+            
             this.pntheme.Controls.Add(this.btclean);
             this.pntheme.Controls.Add(this.btCome);
             this.pntheme.Controls.Add(this.Progress);
@@ -107,13 +92,13 @@ namespace SimPe.Plugin
             this.pntheme.Controls.Add(this.lbselect);
             this.pntheme.Controls.Add(this.Language);
             this.pntheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pntheme.EndColour = System.Drawing.SystemColors.Control;
+            
             this.pntheme.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pntheme.Location = new System.Drawing.Point(0, 0);
-            this.pntheme.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.pntheme.Name = "pntheme";
             this.pntheme.Size = new System.Drawing.Size(624, 441);
-            this.pntheme.StartColour = System.Drawing.SystemColors.Control;
+            
             this.pntheme.TabIndex = 15;
             // 
             // btCome
@@ -131,23 +116,16 @@ namespace SimPe.Plugin
             this.Progress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.Progress.BackColor = System.Drawing.Color.Transparent;
-            this.Progress.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.Progress.Gradient = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.Progress.GradientEndColor = System.Drawing.Color.Black;
-            this.Progress.GradientStartColor = System.Drawing.Color.White;
+            
             this.Progress.Location = new System.Drawing.Point(4, 422);
             this.Progress.Maximum = 100;
             this.Progress.Minimum = 0;
             this.Progress.Name = "Progress";
-            this.Progress.ProgressBackColor = System.Drawing.SystemColors.Window;
-            this.Progress.Quality = true;
-            this.Progress.SelectedColor = System.Drawing.Color.YellowGreen;
+            
             this.Progress.Size = new System.Drawing.Size(616, 16);
-            this.Progress.Style = booby.ProgresBarStyle.Simple;
+            
             this.Progress.TabIndex = 10;
-            this.Progress.TokenCount = 2;
-            this.Progress.UnselectedColor = System.Drawing.Color.Black;
-            this.Progress.UseTokenBuffer = false;
+            
             this.Progress.Value = 0;
             // 
             // lbdone
@@ -208,8 +186,8 @@ namespace SimPe.Plugin
 		}
 
         private ComboBox Language;
-        private booby.gradientpanel pntheme;
-        private booby.ExtProgressBar Progress;
+        private Panel pntheme;
+        private ProgressBar Progress;
         private Label lbselect;
         private Label lbdone;
         private Button btGo;
@@ -220,9 +198,6 @@ namespace SimPe.Plugin
         private List<String> languageString;
         private byte currentLanguage = 1;
         private bool okay = false;
-        private SoundPlayer yeehh = new SoundPlayer(booby.NoisyGirls.ooGood);
-        private SoundPlayer yooh = new SoundPlayer(booby.NoisyGirls.ooh);
-        private SoundPlayer yaah = new SoundPlayer(booby.NoisyGirls.Aah);
         #endregion
 
 		public Interfaces.Plugin.IToolResult Execute(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov) 
@@ -315,7 +290,6 @@ namespace SimPe.Plugin
                 Progress.Value += 1;
             }
             okay = true;
-            if (booby.PrettyGirls.PervyMode) yeehh.Play();
         }
 
         private void getFiles()
@@ -331,7 +305,6 @@ namespace SimPe.Plugin
             {
                 this.lbdone.Text = "None Found!";
                 this.lbdone.Visible = true;
-                if (booby.PrettyGirls.PervyMode) yaah.Play();
                 return;
             }
             this.Language.Enabled = this.btGo.Enabled = this.btCome.Enabled = this.btclean.Enabled = false;
@@ -358,7 +331,6 @@ namespace SimPe.Plugin
                 }
             }
             okay = true;
-            if (booby.PrettyGirls.PervyMode) yeehh.Play();
         }
 
         private void cleanim()
@@ -395,7 +367,6 @@ namespace SimPe.Plugin
                 str.SynchronizeUserData();
                 Progress.Value += 1;
             }
-            if (booby.PrettyGirls.PervyMode) yooh.Play();
             this.Language.Enabled = this.btGo.Enabled = this.btCome.Enabled = true;
         }
 	}

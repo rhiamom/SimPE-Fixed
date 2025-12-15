@@ -20,47 +20,12 @@ namespace SimPe.Plugin
         public GWInvPackedFileUI()
         {
             InitializeComponent();
-            if (booby.PrettyGirls.IsTitsInstalled())
-            {
-                label106.Visible = label107.Visible = label109.Visible = label110.Visible = true;
-                label114.Visible = label115.Visible = label118.Visible = label123.Visible = true;
-                checkBox19.Text = "Tits and Arse";
-            }
-            else if (booby.PrettyGirls.IsAngelsInstalled()) checkBox19.Text = "Angels";
-
-            if (booby.PrettyGirls.PervyMode)
-            {
-                label2.Visible = true;
-                this.HeaderText = "Boobies";
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    label2.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
         }
 
         protected override void RefreshGUI()
         {
             base.RefreshGUI();
 
-            if (booby.ThemeManager.savedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else this.BackgroundImage = booby.PrettyGirls.RandomGirl;
-
-            if (!booby.PrettyGirls.IsTitsInstalled() && !booby.PrettyGirls.IsAngelsInstalled())
-            {
-                label1.Visible = false;
-                label108.Visible = false;
-                label111.Visible = false;
-                label112.Visible = false;
-                label113.Visible = false;
-                label116.Visible = false;
-                label117.Visible = false;
-                label119.Visible = false;
-                label120.Visible = false;
-                label121.Visible = false;
-                label122.Visible = false;
-                label124.Visible = false;
-                textBox1.Visible = false;
-                this.BackgroundImageLocation = new System.Drawing.Point(1240, 0);
-            }
             ushort epsrun = Wrapper.loweps;
             ushort hiprun = Wrapper.hieps;
             gwinvo.Text = Convert.ToString(Wrapper.Trunned);

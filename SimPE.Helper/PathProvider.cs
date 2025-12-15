@@ -71,11 +71,10 @@ namespace SimPe
             {
                 string name = Helper.DataFolder.ExpansionsXREG;
                 if (System.IO.File.Exists(name)) return Helper.DataFolder.ExpansionsXREG;
-                else if (Helper.ECCorNewSEfound) return System.IO.Path.Combine(Helper.SimPeDataPath, "expansions2.xreg");
                 else return System.IO.Path.Combine(Helper.SimPeDataPath, "expansions.xreg");
-                // else return System.IO.Path.Combine(Helper.SimPeDataPath, "expansions.xreg");
             }
         }
+
 
         static PathProvider glb;
         public static PathProvider Global{

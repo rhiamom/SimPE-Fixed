@@ -20,21 +20,11 @@ namespace SimPe.Plugin
         public FunctionPackedFileUI()
         {
             InitializeComponent();
-            panel2.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-            if (booby.PrettyGirls.PervyMode)
-            {
-                label2.Visible = true;
-                this.HeaderText = "Boobies";
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    label2.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
         }
 
         protected override void RefreshGUI()
         {
             base.RefreshGUI();
-            if (booby.ThemeManager.savedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else this.BackgroundImage = booby.PrettyGirls.RandomGirl;
 
             ushort numper = Wrapper.Quanty;
             if (numper > 0)

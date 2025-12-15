@@ -840,9 +840,6 @@
   <data name="&gt;&gt;panel2.Name" xml:space="preserve">
     <value>panel2</value>
   </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
     <value>strPanel</value>
   </data>
@@ -935,9 +932,6 @@
   </data>
   <data name="&gt;&gt;strPanel.Name" xml:space="preserve">
     <value>strPanel</value>
-  </data>
-  <data name="&gt;&gt;strPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;strPanel.Parent" xml:space="preserve">
     <value>$this</value>

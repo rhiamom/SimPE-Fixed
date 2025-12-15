@@ -789,19 +789,5 @@ namespace SimPe
             WaitingScreen.Stop();
             Splash.Screen.Stop();
         }
-
-
-        /*private void InitializeComponent()
-        {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.SuspendLayout();
-            // 
-            // MainForm
-            // 
-            resources.ApplyResources(this, "$this");
-            this.Name = "MainForm";
-            this.ResumeLayout(false);
-
-        }*/
     }
 }

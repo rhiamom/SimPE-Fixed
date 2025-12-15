@@ -190,7 +190,6 @@ namespace SimPe.Plugin.Downloads
 		{
 			get
             {
-                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled()) return (VertexCount > 18000);
                 return(VertexCount>8000); // high for pussy ep
             }
 		}
@@ -205,7 +204,6 @@ namespace SimPe.Plugin.Downloads
 		{
 			get
             {
-                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled()) return (FaceCount > 26000);
                 return (FaceCount > 8000); // was VertexCount not FaceCount ?
             }
 		}
@@ -277,7 +275,7 @@ namespace SimPe.Plugin.Downloads
 			} 
 			else 
 			{
-				return Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, sz, 8, Color.FromArgb(90, Color.Black), booby.ThemeManager.Global.ThemeColorDark, Color.White, Color.FromArgb(80, Color.White), true, 3, 3);
+				return Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, sz, 8, Color.FromArgb(90, Color.Black), ThemeManager.Global.ThemeColorDark, Color.White, Color.FromArgb(80, Color.White), true, 3, 3);
 			}
 		}
 

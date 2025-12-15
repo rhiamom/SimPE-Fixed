@@ -24,25 +24,12 @@ namespace SimPe.Plugin
         public CregPackedFileUI()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.rtbContent);
-            }
-            if (booby.PrettyGirls.PervyMode)
-            {
-                label1.Visible = true;
-                this.HeaderText = "Boobies";
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
         }
 
         protected override void RefreshGUI()
         {
             base.RefreshGUI();
             intern = true;
-            if (booby.ThemeManager.savedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else if (booby.PrettyGirls.PervyMode) this.BackgroundImage = booby.PrettyGirls.ChainedGirl;
             if (Helper.WindowsRegistry.UseBigIcons)
             {
                 this.rtbContent.Size = new System.Drawing.Size(530, this.rtbContent.Size.Height);

@@ -25,91 +25,88 @@ namespace SimPe.Plugin
         public LotexturePackedFileUI()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.rtLotTex);
-                if (booby.ThemeManager.savedTheme == 4 || booby.ThemeManager.savedTheme == 7)
-                    this.rtLotTex.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
-            if (booby.PrettyGirls.PervyMode)
-            {
-                label1.Visible = true;
-                this.HeaderText = "Boobies";
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
         }
 
         protected override void RefreshGUI()
         {
             base.RefreshGUI();
-            if (booby.ThemeManager.savedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else this.BackgroundImage = booby.PrettyGirls.RandomGirl;
+
+            // Remove booby theming
+            this.BackgroundImage = null; // or SimPe.GetImage.GetExpansionLogo(Wrapper.Prevep) if appropriate
+
             this.rtLotTex.ReadOnly = true;
             this.CanCommit = false;
+
             memorees = Wrapper.Itemnumber;
-            if (memorees == -1) this.rtLotTex.Text = "Unknown Version!";
+            if (memorees == -1)
+            {
+                this.rtLotTex.Text = "Unknown Version!";
+                return;
+            }
+
+            if (Wrapper.FileDescriptor.Type == 0x4B58975B)
+            {
+                this.HeaderText = "Lot Texture Reader";
+
+                hoodtype = Wrapper.Hoodtexture;
+                if (Wrapper.Hoodtexture == "lottexture-test-01") hoodtype = "Lush";
+                else if (Wrapper.Hoodtexture == "lottexture-canvas-dirt") hoodtype = "Dirt";
+                else if (Wrapper.Hoodtexture == "lottexture-canvas-desert") hoodtype = "Desert";
+                else if (Wrapper.Hoodtexture == "lottexture-concrete-01") hoodtype = "Concrete";
+                else if (Wrapper.Hoodtexture == "terrain-beach") hoodtype = "Castaway";
+                else hoodtype = SimPe.Localization.GetString("Unknown");
+
+                rtLotTex.Text = "Base texture is " + Wrapper.Hoodtexture + "\r\nSo neighbourhood type is " + hoodtype + ".\r\n\r\n";
+                if (Wrapper.itemnum > 0)
+                {
+                    rtLotTex.Text += "  ~Other Textures~\r\n";
+                    foreach (string tecst in Wrapper.texchure)
+                    {
+                        if (tecst != null) rtLotTex.Text += tecst + "\r\n";
+                    }
+                }
+            }
+            else if (Wrapper.FileDescriptor.Type == 0xCDB8BDC4)
+            {
+                this.HeaderText = "Single Sim Memories";
+
+                this.rtLotTex.Text = Wrapper.Hoodtexture + " Memories (" + Convert.ToString(memorees) + ")";
+                if (Wrapper.Badges > 0)
+                {
+                    this.rtLotTex.Text += "\n -- Skills --";
+                    for (int j = 0; j < Wrapper.Badges; j++)
+                    {
+                        this.rtLotTex.Text += "\n(" + Helper.HexString(Wrapper.badgesid[j]) + ") " + pjse.GUIDIndex.TheGUIDIndex[Wrapper.badgesid[j]];
+                    }
+                    this.rtLotTex.Text += "\n\n -- Memories --";
+                }
+
+                for (int i = 0; i < memorees; i++)
+                {
+                    this.rtLotTex.Text += "\n(" + Helper.HexString(Wrapper.remeberid[i]) + ") " + pjse.GUIDIndex.TheGUIDIndex[Wrapper.remeberid[i]];
+                }
+            }
             else
             {
-                if (Wrapper.FileDescriptor.Type == 0x4B58975B)
-                {
-                    if (!booby.PrettyGirls.PervyMode) this.HeaderText = "Lot Texture Reader";
-                    else { this.rtLotTex.ReadOnly = false; this.CanCommit = true; }
-                    hoodtype = Wrapper.Hoodtexture;
-                    if (Wrapper.Hoodtexture == "lottexture-test-01") hoodtype = "Lush";
-                    else if (Wrapper.Hoodtexture == "lottexture-canvas-dirt") hoodtype = "Dirt";
-                    else if (Wrapper.Hoodtexture == "lottexture-canvas-desert") hoodtype = "Desert";
-                    else if (Wrapper.Hoodtexture == "lottexture-concrete-01") hoodtype = "Concrete";
-                    else if (Wrapper.Hoodtexture == "terrain-beach") hoodtype = "Castaway";
-                    else hoodtype = SimPe.Localization.GetString("Unknown");
+                this.HeaderText = "Neighour Id Mapping";
 
-                    rtLotTex.Text = "Base texture is " + Wrapper.Hoodtexture + "\r\nSo neighbourhood type is " + hoodtype + ".\r\n\r\n";
-                    if (Wrapper.itemnum > 0)
-                    {
-                        rtLotTex.Text += "  ~Other Textures~\r\n";
-                        foreach (string tecst in Wrapper.texchure)
-                        {
-                            if (tecst != null) rtLotTex.Text += tecst + "\r\n";
-                        }
-                    }
-                }
-                else if (Wrapper.FileDescriptor.Type == 0xCDB8BDC4)
+                this.rtLotTex.Text = " Nid Mapping (" + Convert.ToString(memorees - Wrapper.visitnum) + " Family Sims)";
+                for (int i = Wrapper.visitnum; i < memorees; i++)
                 {
-                    if (!booby.PrettyGirls.PervyMode) this.HeaderText = "Single Sim Memories";
-                    this.rtLotTex.Text = Wrapper.Hoodtexture + " Memories (" + Convert.ToString(memorees) + ")";
-                    if (Wrapper.Badges > 0)
-                    {
-                        this.rtLotTex.Text += "\n -- Skills --";
-                        for (int j = 0; j < Wrapper.Badges; j++)
-                        {
-                            this.rtLotTex.Text += "\n(" + Helper.HexString(Wrapper.badgesid[j]) + ") " + pjse.GUIDIndex.TheGUIDIndex[Wrapper.badgesid[j]]; ;
-                        }
-                        this.rtLotTex.Text += "\n\n -- Memories --";
-                    }
-                    for (int i = 0; i < memorees; i++)
-                    {
-                        this.rtLotTex.Text += "\n(" + Helper.HexString(Wrapper.remeberid[i]) + ") " + pjse.GUIDIndex.TheGUIDIndex[Wrapper.remeberid[i]]; ;
-                    }
+                    this.rtLotTex.Text += "\n" + Wrapper.texchure[i] + " - GUID(0x" + Helper.HexString(Wrapper.badgesid[i]) + ") - Nid(0x" + Helper.HexString(Convert.ToUInt16(Wrapper.remeberid[i])) + ")";
                 }
-                else
+
+                if (Wrapper.visitnum > 0)
                 {
-                    if (!booby.PrettyGirls.PervyMode) this.HeaderText = "Neighour Id Mapping";
-                    this.rtLotTex.Text = " Nid Mapping (" + Convert.ToString(memorees - Wrapper.visitnum) + " Family Sims)";
-                    for (int i = Wrapper.visitnum; i < memorees; i++)
+                    this.rtLotTex.Text += " \n\n " + Convert.ToString(Wrapper.visitnum) + " Other Sims";
+                    for (int j = 0; j < Wrapper.visitnum; j++)
                     {
-                        this.rtLotTex.Text += "\n" + Wrapper.texchure[i] + " - GUID(0x" + Helper.HexString(Wrapper.badgesid[i]) + ") - Nid(0x" + Helper.HexString(Convert.ToUInt16(Wrapper.remeberid[i])) + ")";
-                    }
-                    if (Wrapper.visitnum > 0)
-                    {
-                        this.rtLotTex.Text += " \n\n " + Convert.ToString(Wrapper.visitnum) + " Other Sims";
-                        for (int j = 0; j < Wrapper.visitnum; j++)
-                        {
-                            this.rtLotTex.Text += "\n" + Wrapper.texchure[j] + " - GUID(0x" + Helper.HexString(Wrapper.badgesid[j]) + ") - Nid(0x" + Helper.HexString(Convert.ToUInt16(Wrapper.remeberid[j])) + ")";
-                        }
+                        this.rtLotTex.Text += "\n" + Wrapper.texchure[j] + " - GUID(0x" + Helper.HexString(Wrapper.badgesid[j]) + ") - Nid(0x" + Helper.HexString(Convert.ToUInt16(Wrapper.remeberid[j])) + ")";
                     }
                 }
             }
         }
+
         private void Updatey()
         {
             if (rtLotTex.Lines.Length < 5) return;

@@ -24,16 +24,9 @@ namespace SimPe.Plugin
         public WallLayerPackedFileUI()
 		{
 			InitializeComponent();
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = SimPe.ThemeManager.Global.CreateChild();
             tm.AddControl(this.tbWalls);
             tm.AddControl(this.taskBox1);
-            if (booby.PrettyGirls.PervyMode)
-            {
-                label1.Visible = true;
-                this.HeaderText = "Boobies";
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
 
             string es = SimPe.Data.MetaData.GetKnownFence(0x8D0B3B3A); // to intialize the dictionary
             foreach (KeyValuePair<uint, string> kvp in SimPe.Data.MetaData.KnownFences)
@@ -47,8 +40,6 @@ namespace SimPe.Plugin
         protected override void RefreshGUI()
         {
             base.RefreshGUI();
-            if (Helper.WindowsRegistry.Layout.SelectedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else this.BackgroundImage = booby.PrettyGirls.RandomGirl;
 
             if (File.Exists(simtools)) {lbConvwals.Visible = false; llConvwals.Visible = true;}
             else { lbConvwals.Visible = true; llConvwals.Visible = false; }
@@ -124,8 +115,6 @@ namespace SimPe.Plugin
             lbunlpool.Text = Convert.ToString(unlpool) + " un-level pool walls";
             lbofbnormal.Text = Convert.ToString(ofbnormal) + " abnormal walls (OFB only)";
             lbscreenwood.Text = Convert.ToString(screenwood) + " screen wood (OFB or later)";
-            lbunlevel.Visible = (unlevel > 0 || booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled());
-            lbunlpool.Visible = (unlpool > 0 || booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled());
             lbofbnormal.Visible = (ofbnormal > 0);
         }
 

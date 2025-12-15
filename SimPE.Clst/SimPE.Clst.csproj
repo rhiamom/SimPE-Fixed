@@ -68,7 +68,9 @@
     <EmbeddedResource Include="ClstForm.fr.resx" />
     <EmbeddedResource Include="ClstForm.it.resx" />
     <EmbeddedResource Include="ClstForm.pl.resx" />
-    <EmbeddedResource Include="ClstForm.resx" />
+    <EmbeddedResource Include="ClstForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClstForm.ru.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -85,7 +87,9 @@
     <EmbeddedResource Include="StrForm.fr.resx" />
     <EmbeddedResource Include="StrForm.it.resx" />
     <EmbeddedResource Include="StrForm.pl.resx" />
-    <EmbeddedResource Include="StrForm.resx" />
+    <EmbeddedResource Include="StrForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="StrForm.ru.resx" />
     <EmbeddedResource Include="StrListViewer.resx" />
     <None Include="Properties\Settings.settings">

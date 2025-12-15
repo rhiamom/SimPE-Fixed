@@ -33,7 +33,7 @@ namespace SimPe.Plugin
 	/// </summary>
 	public class ScenegraphForm : System.Windows.Forms.Form
 	{
-        private booby.gradientpanel panel2;
+        private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.ComboBox cbrefnames;
 		private System.Windows.Forms.TextBox tbflname;
@@ -99,7 +99,7 @@ namespace SimPe.Plugin
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScenegraphForm));
-            this.panel2 = new booby.gradientpanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbPriority = new System.Windows.Forms.CheckBox();
             this.cbLineStyle = new System.Windows.Forms.ComboBox();
@@ -123,13 +123,13 @@ namespace SimPe.Plugin
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.EndColour = System.Drawing.SystemColors.ControlLightLight;
+           
             this.panel2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(0, 350);
-            this.panel2.MiddleColour = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(800, 120);
-            this.panel2.StartColour = System.Drawing.SystemColors.ControlLightLight;
+            
             this.panel2.TabIndex = 4;
             // 
             // groupBox2

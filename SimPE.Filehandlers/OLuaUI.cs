@@ -50,16 +50,6 @@ namespace SimPe.PackedFiles.UserInterface
 			InitializeComponent();
 
 			this.button2.Enabled = Helper.QARelease;
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-                this.tv.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.btSave);
-                tm.AddControl(this.btLoad);
-                tm.AddControl(this.button1);
-                tm.AddControl(this.button2);
-            }
             if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.tv.Font = new System.Drawing.Font("Tahoma", 12F);
         }
 

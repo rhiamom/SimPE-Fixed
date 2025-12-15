@@ -184,10 +184,6 @@ namespace SimPe.PackedFiles.UserInterface
 
 			//this.cbsort.Enum = typeof(Data.ObjFunctionSubSort);
 			//.cbsort.ResourceManager = SimPe.Localization.Manager;
-
-            if (Helper.ECCorNewSEfound) this.cbExtras.Text = "Extra Stuff";
-            
-
             
             if (Helper.WindowsRegistry.UseBigIcons) this.pg.Font = new System.Drawing.Font("Verdana", 10.25F, System.Drawing.FontStyle.Regular);
             
@@ -355,14 +351,7 @@ namespace SimPe.PackedFiles.UserInterface
         {
             names = null;
             string pjseGlobalStringFile;
-            if (booby.PrettyGirls.IsTitsInstalled())
-                pjseGlobalStringFile = System.IO.Path.Combine(
-                SimPe.Helper.SimPePluginPath,
-                "pjse.coder.plugin\\GlobalStrings-AO.package");
-            else
-                pjseGlobalStringFile = System.IO.Path.Combine(
-                SimPe.Helper.SimPePluginPath,
-                "pjse.coder.plugin\\GlobalStrings.package");
+            pjseGlobalStringFile = System.IO.Path.Combine(SimPe.Helper.SimPePluginPath,"pjse.coder.plugin\\GlobalStrings.package");
             if (!System.IO.File.Exists(pjseGlobalStringFile))
             {
                 return;
@@ -622,7 +611,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.cblivingroom = new System.Windows.Forms.CheckBox();
             this.cbstudy = new System.Windows.Forms.CheckBox();
             this.tpreqeps = new System.Windows.Forms.TabPage();
-            this.pnpritty = new booby.gradientpanel();
+            this.pnpritty = new System.Windows.Forms.Panel();
             this.tbreqeps = new System.Windows.Forms.TabPage();
             this.lbepnote = new System.Windows.Forms.Label();
             this.lbgamef2 = new System.Windows.Forms.Label();

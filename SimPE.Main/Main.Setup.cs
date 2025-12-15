@@ -63,6 +63,7 @@ namespace SimPe
             remote = new RemoteHandler(this, package, resloader, miWindow);
 
             SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Loading Plugins..."));
+            //MessageBox.Show("Before PluginManager");
             plugger = new PluginManager(
                 miTools,
                 tbTools,
@@ -76,7 +77,9 @@ namespace SimPe
                 dockBottom,
                 this.mbiTopics,
                 lv
+                
             );
+            //MessageBox.Show("After PluginManager");
             SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Loaded Plugins"));
             plugger.ClosedToolPlugin += new ToolMenuItemExt.ExternalToolNotify(ClosedToolPlugin);
             remote.SetPlugger(plugger);
@@ -116,7 +119,7 @@ namespace SimPe
             waitControl1.Progress = 0;
             waitControl1.Message = "";
             waitControl1.Visible = Helper.WindowsRegistry.ShowWaitBarPermanent;
-        }        
+        }
 
         void LoadForm(object sender, System.EventArgs e)
         {

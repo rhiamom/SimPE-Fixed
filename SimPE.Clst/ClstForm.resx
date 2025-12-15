@@ -237,9 +237,6 @@
   <data name="&gt;&gt;panel4.Name" xml:space="preserve">
     <value>panel4</value>
   </data>
-  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
     <value>clstPanel</value>
   </data>
@@ -260,9 +257,6 @@
   </data>
   <data name="&gt;&gt;clstPanel.Name" xml:space="preserve">
     <value>clstPanel</value>
-  </data>
-  <data name="&gt;&gt;clstPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;clstPanel.Parent" xml:space="preserve">
     <value>$this</value>

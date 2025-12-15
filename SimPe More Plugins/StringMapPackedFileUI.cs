@@ -26,29 +26,6 @@ namespace SimPe.Plugin
         public StringMapPackedFileUI()
         {
             InitializeComponent();
-
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.rtbStrings);
-                tm.AddControl(this.rtbDatas);
-                tm.AddControl(this.rtbnames);
-                tm.AddControl(this.tbfilenm);
-                tm.AddControl(this.btshowim);
-                if (booby.ThemeManager.savedTheme == 4 || booby.ThemeManager.savedTheme == 7)
-                {
-                    this.rtbStrings.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    this.rtbDatas.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    this.rtbnames.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                }
-            }
-            if (booby.PrettyGirls.PervyMode)
-            {
-                label1.Visible = true;
-                this.HeaderText = "Boobies";
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    this.label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
         }
 
         protected override void RefreshGUI()
@@ -59,8 +36,7 @@ namespace SimPe.Plugin
             this.rtbnames.Visible = false;
             this.btshowim.Text = "Show Names";
             this.BackgroundImageLocation = new System.Drawing.Point(730, 0);
-            if (Helper.WindowsRegistry.Layout.SelectedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else this.BackgroundImage = booby.PrettyGirls.RandomGirl;
+            
             this.tbfilenm.Text = Wrapper.FileName;
             if (Wrapper.FileDescriptor.Instance == 13) this.lbType.Text = "Type: Walls";
             else if (Wrapper.FileDescriptor.Instance == 14) this.lbType.Text = "Type: Floor Coverings";

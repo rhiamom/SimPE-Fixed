@@ -35,7 +35,7 @@ namespace SimPe.Packages
 		private System.Windows.Forms.Button btdelete;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button btadd;
-        private booby.gradientpanel panel1;
+        private System.Windows.Forms.Panel panel1;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -47,16 +47,8 @@ namespace SimPe.Packages
 			// Required designer variable.
 			//
             InitializeComponent();
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-            tm.AddControl(this.panel1);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(this.lblist);
-                tm.AddControl(this.btdelete);
-                tm.AddControl(this.button2);
-                tm.AddControl(this.btadd);
-            }
-
+            ThemeManager tm = ThemeManager.Global.CreateChild();
+			tm.AddControl(this.panel1);
 			//
 			// TODO: Fügen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
 			//
@@ -89,7 +81,7 @@ namespace SimPe.Packages
             this.ofd = new System.Windows.Forms.OpenFileDialog();
             this.btdelete = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.panel1 = new booby.gradientpanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
