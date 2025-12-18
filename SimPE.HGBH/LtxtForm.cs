@@ -158,27 +158,45 @@ namespace SimPe.Plugin
         private System.ComponentModel.Container components = null;
         #endregion
 
+
         public LtxtForm()
         {
-            loading = true;
-
-            InitializeComponent();
-
-            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
-                return;
-
-            // wrapper stays null until the caller assigns it
-            this.cborient.ResourceManager = SimPe.Localization.Manager;
-            this.cborient.Enum = typeof(Plugin.LotOrientation);
-
-            if (!Helper.WindowsRegistry.UseBigIcons)
+            try
             {
-                this.pb.Size = new System.Drawing.Size(124, 108);
-                this.pb.Location = new System.Drawing.Point(25, 56);
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.ToString(), "LtxtForm designer crash");
+                throw;
             }
 
-            loading = false;
+            if (System.ComponentModel.LicenseManager.UsageMode ==
+                System.ComponentModel.LicenseUsageMode.Designtime)
+                return;
         }
+        //public LtxtForm()
+        //{
+
+        //loading = true;
+
+        //InitializeComponent();
+
+        //if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+        //return;
+
+        //wrapper stays null until the caller assigns it
+        //this.cborient.ResourceManager = SimPe.Localization.Manager;
+        //this.cborient.Enum = typeof(Plugin.LotOrientation);
+
+        //if (!Helper.WindowsRegistry.UseBigIcons)
+        //{
+        //this.pb.Size = new System.Drawing.Size(124, 108);
+        //this.pb.Location = new System.Drawing.Point(25, 56);
+        //}
+
+        //loading = false;
+        //}
 
 
 
