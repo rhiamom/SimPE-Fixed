@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using Ambertation.Windows.Forms;
 
 
 namespace SimPe.Plugin
