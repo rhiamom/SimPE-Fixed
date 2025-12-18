@@ -66,61 +66,25 @@ namespace SimPe.Plugin.Tool.Dockable
         {
             get
             {
-                if (Helper.WindowsRegistry.HiddenMode)
+                IToolPlugin[] tools =
                 {
-                    IToolPlugin[] tools = {
-								    new PackageDockTool(rd),
-									new ResourceDockTool(rd),
-									new WrapperDockTool(rd),
-									new HexDecConverterTool(rd),
-									new ActionReloadFiletable(),
-									new ActionUniqueInstance(),
-									new CreateListFromPackageTool(),
-									new CreateListFromSelectionTool(),
-								    new HexDockTool(rd),
-									new FinderDock(),
-									new ActionCheckFiletable(),
-									new ActionBuildPhpGuidList(),
-                                    new DebugDock()
-                        };
-                    return tools;
-                }
-                else if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled() || UserVerification.HaveValidUserId)
-                    {
-                        IToolPlugin[] tools = {
-								    new PackageDockTool(rd),
-									new ResourceDockTool(rd),
-									new WrapperDockTool(rd),
-									new HexDecConverterTool(rd),
-									new ActionReloadFiletable(),
-									new ActionUniqueInstance(),
-									new CreateListFromPackageTool(),
-									new CreateListFromSelectionTool(),
-								    new HexDockTool(rd),
-									new FinderDock(),
-									new ActionCheckFiletable(),
-									new ActionBuildPhpGuidList()
-                        };
-                        return tools;
-                    }
-                else
-                    {
-                        IToolPlugin[] tools = {
-								    new PackageDockTool(rd),
-									new ResourceDockTool(rd),
-									new WrapperDockTool(rd),
-									new HexDecConverterTool(rd),
-									new ActionReloadFiletable(),
-									new ActionUniqueInstance(),
-									new CreateListFromPackageTool(),
-									new CreateListFromSelectionTool(),
-								    new HexDockTool(rd),
-									new FinderDock()
-                        };
-                        return tools;
-                    }
-                }
+                    new PackageDockTool(rd),
+                    new ResourceDockTool(rd),
+                    new WrapperDockTool(rd),
+                    new HexDecConverterTool(rd),
+                    new ActionReloadFiletable(),
+                    new ActionUniqueInstance(),
+                    new CreateListFromPackageTool(),
+                    new CreateListFromSelectionTool(),
+                    new HexDockTool(rd),
+                    new FinderDock(),
+                    new ActionCheckFiletable(),
+                    new ActionBuildPhpGuidList(),
+                    new DebugDock()
+                 };
+                return tools;
             }
+        }
         #endregion
     }
 }

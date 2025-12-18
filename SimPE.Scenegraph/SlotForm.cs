@@ -31,8 +31,8 @@ namespace SimPe.PackedFiles.UserInterface
 	/// </summary>
 	public class SlotForm : System.Windows.Forms.Form
 	{
-        internal booby.gradientpanel pnslot;
-        private booby.panelheader panel4;
+        internal System.Windows.Forms.Panel pnslot;
+        private System.Windows.Forms.Panel panel4;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
@@ -106,21 +106,7 @@ namespace SimPe.PackedFiles.UserInterface
 			// Required designer variable.
 			//
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.pnslot);
-                tm.AddControl(this.tabPage1);
-                tm.AddControl(this.tabPage2);
-                tm.AddControl(this.tabPage3);
-                tm.AddControl(this.tabPage4);
-                tm.AddControl(this.tabPage5);
-                tm.AddControl(this.tabPageA);
-                tm.AddControl(this.tabPage6);
-                tm.AddControl(this.tabPage7);
-                tm.AddControl(this.lv);
-            }
-            if (booby.PrettyGirls.PervyMode && Helper.StartedGui == Executable.Default) this.pnslot.BackgroundImage = booby.PrettyGirls.Alice;
+            
             if (SimPe.Helper.WindowsRegistry.UseBigIcons)
                 this.lv.Font = new System.Drawing.Font("Verdana", 10F);
 		}
@@ -147,7 +133,7 @@ namespace SimPe.PackedFiles.UserInterface
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.pnslot = new booby.gradientpanel();
+            this.pnslot = new System.Windows.Forms.Panel();
             this.visualStyleLinkLabel3 = new System.Windows.Forms.LinkLabel();
             this.visualStyleLinkLabel2 = new System.Windows.Forms.LinkLabel();
             this.visualStyleLinkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -210,7 +196,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.tbf2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbf1 = new System.Windows.Forms.TextBox();
-            this.panel4 = new booby.panelheader();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.pnslot.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -227,9 +213,6 @@ namespace SimPe.PackedFiles.UserInterface
             // pnslot
             // 
             this.pnslot.BackColor = System.Drawing.Color.Transparent;
-            this.pnslot.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.TopRight;
-            this.pnslot.BackgroundImageLocation = new System.Drawing.Point(0, 260);
-            this.pnslot.BackgroundImageZoomToFit = true;
             this.pnslot.Controls.Add(this.visualStyleLinkLabel3);
             this.pnslot.Controls.Add(this.visualStyleLinkLabel2);
             this.pnslot.Controls.Add(this.visualStyleLinkLabel1);
@@ -255,13 +238,13 @@ namespace SimPe.PackedFiles.UserInterface
             this.pnslot.Controls.Add(this.label1);
             this.pnslot.Controls.Add(this.tbf1);
             this.pnslot.Controls.Add(this.panel4);
-            this.pnslot.EndColour = System.Drawing.SystemColors.Control;
+            
             this.pnslot.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.pnslot.Location = new System.Drawing.Point(14, 29);
-            this.pnslot.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.pnslot.Name = "pnslot";
             this.pnslot.Size = new System.Drawing.Size(730, 332);
-            this.pnslot.StartColour = System.Drawing.SystemColors.Control;
+            
             this.pnslot.TabIndex = 9;
             // 
             // visualStyleLinkLabel3
@@ -940,14 +923,14 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.CanCommit = true;
-            this.panel4.HeaderText = "Slot Editor";
+            //this.panel4.CanCommit = true;
+            //this.panel4.HeaderText = "Slot Editor";
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(730, 24);
             this.panel4.TabIndex = 0;
-            this.panel4.OnCommit += new booby.panelheader.EventHandler(this.btcommit_Click);
+            //this.panel4.OnCommit += new System.Windows.Forms.Panel.EventHandler(this.btcommit_Click);booby
             // 
             // SlotForm
             // 

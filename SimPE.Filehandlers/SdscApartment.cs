@@ -69,9 +69,6 @@ namespace SimPe.PackedFiles.Wrapper
             reputation = reader.ReadInt16();
             probabilityToAppear = reader.ReadInt16();
             titlePostName = reader.ReadInt16();
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                LoadPenisInformation();
-            LoadNookyInformation();
         }
 
         internal void Serialize(BinaryWriter writer)
@@ -80,8 +77,6 @@ namespace SimPe.PackedFiles.Wrapper
             writer.Write(reputation);
             writer.Write(probabilityToAppear);
             writer.Write(titlePostName);
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                StorePenisInformation();
         }
 
         internal void LoadPenisInformation()

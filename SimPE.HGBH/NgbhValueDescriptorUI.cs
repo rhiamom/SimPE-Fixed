@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+using Ambertation.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -30,8 +31,6 @@ namespace SimPe.Plugin
 				,true);
 			// Required designer variable.
 			InitializeComponent();
-
-            if (booby.ThemeManager.ThemedForms) booby.ThemeManager.Global.AddControl(this.pb);
 
 			SetContent();
 		}
@@ -60,7 +59,7 @@ namespace SimPe.Plugin
 		{
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(NgbhValueDescriptorUI));
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.pb = new booby.LabeledProgressBar();
+			this.pb = new LabeledProgressBar();
 			this.panel2 = new System.Windows.Forms.Panel();
             this.cb = new System.Windows.Forms.CheckBox();
 			this.panel3 = new System.Windows.Forms.Panel();
@@ -110,7 +109,7 @@ namespace SimPe.Plugin
 			this.pb.Font = ((System.Drawing.Font)(resources.GetObject("pb.Font")));
 			this.pb.ImeMode = ((System.Windows.Forms.ImeMode)(resources.GetObject("pb.ImeMode")));
 			this.pb.LabelText = resources.GetString("pb.LabelText");
-			this.pb.LabelWidth = ((int)(resources.GetObject("pb.LabelWidth")));
+			
 			this.pb.Location = ((System.Drawing.Point)(resources.GetObject("pb.Location")));
 			this.pb.Maximum = 100;
 			this.pb.Name = "pb";
@@ -120,20 +119,20 @@ namespace SimPe.Plugin
 			this.pb.RightToLeft = ((System.Windows.Forms.RightToLeft)(resources.GetObject("pb.RightToLeft")));
 			this.pb.SelectedColor = System.Drawing.Color.YellowGreen;
 			this.pb.Size = ((System.Drawing.Size)(resources.GetObject("pb.Size")));
-            this.pb.Style = booby.ProgresBarStyle.Increase;
+            
 			this.pb.TabIndex = ((int)(resources.GetObject("pb.TabIndex")));
-			this.pb.TextboxWidth = ((int)(resources.GetObject("pb.TextboxWidth")));
+			
 			this.pb.TokenCount = 10;
 			this.pb.UnselectedColor = System.Drawing.Color.Black;
 			this.pb.Value = 0;
 			this.pb.Visible = ((bool)(resources.GetObject("pb.Visible")));
 			this.pb.Changed += new System.EventHandler(this.pb_Changed);
 			this.pb.Resize += new System.EventHandler(this.pb_Resize);
-			this.pb.Load += new System.EventHandler(this.pb_Load);
-			// 
-			// panel2
-			// 
-			this.panel2.AccessibleDescription = resources.GetString("panel2.AccessibleDescription");
+            this.pb.HandleCreated += new System.EventHandler(this.pb_Load);
+            // 
+            // panel2
+            // 
+            this.panel2.AccessibleDescription = resources.GetString("panel2.AccessibleDescription");
 			this.panel2.AccessibleName = resources.GetString("panel2.AccessibleName");
 			this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("panel2.Anchor")));
 			this.panel2.AutoScroll = ((bool)(resources.GetObject("panel2.AutoScroll")));
@@ -289,7 +288,7 @@ namespace SimPe.Plugin
 
 		NgbhValueDescriptor des;
 		private System.Windows.Forms.Panel panel1;
-        private booby.LabeledProgressBar pb;
+        private LabeledProgressBar pb;
 		private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox cb;
 		private System.Windows.Forms.Panel panel3;

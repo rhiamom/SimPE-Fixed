@@ -54,7 +54,6 @@ namespace SimPe.Plugin.TabPage
             InitializeComponent();
 
             this.UseVisualStyleBackColor = true;
-            if (booby.ThemeManager.ThemedForms) this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
             if (SimPe.Helper.WindowsRegistry.UseBigIcons)
             {
                 this.tbtype.Font = new System.Drawing.Font("Verdana", 12F);

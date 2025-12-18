@@ -1,9 +1,11 @@
+using Ambertation.Windows.Forms;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
+using SimPe.PackedFiles.Wrapper;
 
 namespace SimPe.Plugin
 {
@@ -18,7 +20,7 @@ namespace SimPe.Plugin
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
-        booby.ThemeManager tm;
+        ThemeManager tm;
 		public NgbhSkillHelper()
 		{
 			SetStyle(
@@ -34,7 +36,7 @@ namespace SimPe.Plugin
 		
 			try 
 			{
-				tm = booby.ThemeManager.Global.CreateChild();
+				tm = ThemeManager.Global.CreateChild();
 				tm.AddControl(this.xpBadges);
 				tm.AddControl(this.xpSkills);
 
@@ -75,8 +77,8 @@ namespace SimPe.Plugin
 		{
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(NgbhSkillHelper));
 			this.badges = new SimPe.Plugin.NgbhSkillHelperElement();
-			this.xpBadges = new booby.TaskBox();
-            this.xpSkills = new booby.TaskBox();
+			this.xpBadges = new XPTaskBoxSimple();
+            this.xpSkills = new XPTaskBoxSimple();
 			this.skills = new SimPe.Plugin.NgbhSkillHelperElement();
 			this.xpBadges.SuspendLayout();
 			this.xpSkills.SuspendLayout();
@@ -250,8 +252,8 @@ namespace SimPe.Plugin
 		Ngbh ngbh;
 		private SimPe.Plugin.NgbhSkillHelperElement badges;
 		private SimPe.Plugin.NgbhSkillHelperElement skills;
-        private booby.TaskBox xpBadges;
-        private booby.TaskBox xpSkills;
+        private XPTaskBoxSimple xpBadges;
+        private XPTaskBoxSimple xpSkills;
 				
 		[System.ComponentModel.Browsable(false)]
 		public Ngbh NgbhResource

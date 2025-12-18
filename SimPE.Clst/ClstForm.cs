@@ -39,9 +39,9 @@ namespace SimPe.PackedFiles.UserInterface
         private Label label9;
         private ListBox lbclst;
 
-        // Replacements for booby.panelheader and booby.gradientpanel
-        private Panel panel4;         // replaces booby.panelheader
-        private Panel clstPanel;      // replaces booby.gradientpanel
+        // Replacements for Chris Hatch.panelheader and Chris Hatch.gradientpanel
+        private Panel panel4;         
+        private Panel clstPanel;      
 
         private System.ComponentModel.Container components = null;
         #endregion
@@ -113,7 +113,7 @@ namespace SimPe.PackedFiles.UserInterface
 
             this.SuspendLayout();
 
-            // clstPanel (replaces booby.gradientpanel)
+            // clstPanel (replaces Chris Hatch.gradientpanel)
             this.clstPanel.BackColor = System.Drawing.Color.Transparent;
             this.clstPanel.Controls.Add(this.lbformat);
             this.clstPanel.Controls.Add(this.label9);
@@ -140,7 +140,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.lbclst.Sorted = true;
             this.lbclst.Size = new System.Drawing.Size(300, 300);
 
-            // panel4 (replaces booby.panelheader)
+            // panel4 (replaces Chris Hatch.panelheader)
             this.panel4.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel4.Dock = DockStyle.Top;
             this.panel4.Height = 30;

@@ -88,7 +88,7 @@ namespace SimPe.Plugin
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnimPreview));
-            this.xpGradientPanel1 = new booby.gradientpanel();
+            this.xpGradientPanel1 = new System.Windows.Forms.Panel();
             this.pb = new System.Windows.Forms.ProgressBar();
             this.btPlay = new System.Windows.Forms.Button();
             this.tv = new System.Windows.Forms.TreeView();

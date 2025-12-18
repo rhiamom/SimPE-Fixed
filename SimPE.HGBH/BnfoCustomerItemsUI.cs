@@ -22,7 +22,6 @@ namespace SimPe.Plugin
 		{
 
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms) booby.ThemeManager.Global.AddControl(this.lb);
 
 			SetContent();
 		}

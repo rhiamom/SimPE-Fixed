@@ -171,9 +171,6 @@
   <data name="&gt;&gt;panel4.Name" xml:space="preserve">
     <value>panel4</value>
   </data>
-  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
     <value>pnfamt</value>
   </data>
@@ -347,9 +344,6 @@
   </data>
   <data name="&gt;&gt;xpLine1.Name" xml:space="preserve">
     <value>xpLine1</value>
-  </data>
-  <data name="&gt;&gt;xpLine1.Type" xml:space="preserve">
-    <value>booby.Lineb, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;xpLine1.Parent" xml:space="preserve">
     <value>GradientPanel</value>
@@ -578,9 +572,6 @@
   </data>
   <data name="&gt;&gt;GradientPanel.Name" xml:space="preserve">
     <value>GradientPanel</value>
-  </data>
-  <data name="&gt;&gt;GradientPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;GradientPanel.Parent" xml:space="preserve">
     <value>panel3</value>

@@ -68,11 +68,6 @@ namespace SimPe.Plugin.TabPage
             {
                 this.lbitem.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
             }
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lbitem.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
 		}
 
 		/// <summary>

@@ -7,7 +7,7 @@
     <ProjectGuid>{85099415-3448-4D91-979C-44690154FCD1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPe.PackedFiles.Handlers</RootNamespace>
-    <AssemblyName>simpe.filehandler</AssemblyName>
+    <AssemblyName>simpe.filehandlers</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -441,9 +441,6 @@
   <data name="&gt;&gt;xpGradientPanel2.Name" xml:space="preserve">
     <value>xpGradientPanel2</value>
   </data>
-  <data name="&gt;&gt;xpGradientPanel2.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;xpGradientPanel2.Parent" xml:space="preserve">
     <value>dcWrapper</value>
   </data>
@@ -738,9 +735,6 @@
   <data name="&gt;&gt;xpGradientPanel4.Name" xml:space="preserve">
     <value>xpGradientPanel4</value>
   </data>
-  <data name="&gt;&gt;xpGradientPanel4.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;xpGradientPanel4.Parent" xml:space="preserve">
     <value>dcConvert</value>
   </data>
@@ -909,9 +903,6 @@
   </data>
   <data name="&gt;&gt;xpGradientPanel3.Name" xml:space="preserve">
     <value>xpGradientPanel3</value>
-  </data>
-  <data name="&gt;&gt;xpGradientPanel3.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;xpGradientPanel3.Parent" xml:space="preserve">
     <value>dcPackage</value>
@@ -1403,9 +1394,6 @@
   <data name="&gt;&gt;xpGradientPanel1.Name" xml:space="preserve">
     <value>xpGradientPanel1</value>
   </data>
-  <data name="&gt;&gt;xpGradientPanel1.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;xpGradientPanel1.Parent" xml:space="preserve">
     <value>dcResource</value>
   </data>
@@ -1656,9 +1644,6 @@
   </data>
   <data name="&gt;&gt;gradientpanel1.Name" xml:space="preserve">
     <value>gradientpanel1</value>
-  </data>
-  <data name="&gt;&gt;gradientpanel1.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;gradientpanel1.Parent" xml:space="preserve">
     <value>dcHex</value>

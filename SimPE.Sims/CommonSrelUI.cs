@@ -28,7 +28,7 @@ using SimPe.Interfaces;
 using SimPe.PackedFiles.Wrapper.Supporting;
 using SimPe.Data;
 using SimPe;
-// using Ambertation.Windows.Forms;
+using Ambertation.Windows.Forms;
 
 namespace SimPe.PackedFiles.UserInterface
 {
@@ -43,8 +43,8 @@ namespace SimPe.PackedFiles.UserInterface
         private Label label91;
         private ComboBox cbfamtype;
         private TextBox tbRel;
-        private booby.LabeledProgressBar pbDay;
-        private booby.LabeledProgressBar pbLife;
+        private LabeledProgressBar pbDay;
+        private LabeledProgressBar pbLife;
         private TableLayoutPanel tableLayoutPanel1;
         private CheckBox cblove;
         private CheckBox cbcrush;
@@ -118,8 +118,8 @@ namespace SimPe.PackedFiles.UserInterface
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label91 = new System.Windows.Forms.Label();
             this.cbfamtype = new System.Windows.Forms.ComboBox();
-            this.pbDay = new booby.LabeledProgressBar();
-            this.pbLife = new booby.LabeledProgressBar();
+            this.pbDay = new LabeledProgressBar();
+            this.pbLife = new LabeledProgressBar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cbsecret = new System.Windows.Forms.CheckBox();
             this.cbcrush = new System.Windows.Forms.CheckBox();
@@ -173,18 +173,16 @@ namespace SimPe.PackedFiles.UserInterface
             resources.ApplyResources(this.pbDay, "pbDay");
             this.pbDay.BackColor = System.Drawing.Color.Transparent;
             this.pbDay.DisplayOffset = 0;
-            this.pbDay.GradientEndColour = System.Drawing.Color.Black;
-            this.pbDay.GradientStartColour = System.Drawing.Color.White;
-            this.pbDay.LabelAlignment = System.Windows.Forms.DockStyle.Right;
+            
             this.pbDay.Maximum = 200;
             this.pbDay.Name = "pbDay";
             this.pbDay.NumberFormat = "N0";
             this.pbDay.NumberOffset = -100;
             this.pbDay.NumberScale = 1;
-            this.pbDay.ProgressBackColour = System.Drawing.SystemColors.Window;
+            
             this.pbDay.SelectedColor = System.Drawing.Color.Lime;
-            this.pbDay.Style = booby.ProgresBarStyle.Simple;
-            this.pbDay.TextBoxBackColour = System.Drawing.SystemColors.Window;
+            
+            
             this.pbDay.TokenCount = 30;
             this.pbDay.UnselectedColor = System.Drawing.Color.Black;
             this.pbDay.Value = 90;
@@ -195,18 +193,16 @@ namespace SimPe.PackedFiles.UserInterface
             resources.ApplyResources(this.pbLife, "pbLife");
             this.pbLife.BackColor = System.Drawing.Color.Transparent;
             this.pbLife.DisplayOffset = 0;
-            this.pbLife.GradientEndColour = System.Drawing.Color.Black;
-            this.pbLife.GradientStartColour = System.Drawing.Color.White;
-            this.pbLife.LabelAlignment = System.Windows.Forms.DockStyle.Right;
+            
             this.pbLife.Maximum = 200;
             this.pbLife.Name = "pbLife";
             this.pbLife.NumberFormat = "N0";
             this.pbLife.NumberOffset = -100;
             this.pbLife.NumberScale = 1;
-            this.pbLife.ProgressBackColour = System.Drawing.SystemColors.Window;
+            
             this.pbLife.SelectedColor = System.Drawing.Color.Lime;
-            this.pbLife.Style = booby.ProgresBarStyle.Simple;
-            this.pbLife.TextBoxBackColour = System.Drawing.SystemColors.Window;
+            
+            
             this.pbLife.TokenCount = 30;
             this.pbLife.UnselectedColor = System.Drawing.Color.Black;
             this.pbLife.Value = 90;
@@ -373,12 +369,9 @@ namespace SimPe.PackedFiles.UserInterface
 			this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Parent));
 			this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Sibling));
 			this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Spouses));
-            if (booby.PrettyGirls.IsAngelsInstalled() || booby.PrettyGirls.IsTitsInstalled())
-            {
-                this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Child_Inlaw));
-                this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Parent_Inlaw));
-                this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Sibling_Inlaw));
-            }
+            this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Child_Inlaw));
+            this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Parent_Inlaw));
+            this.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Sibling_Inlaw));
 		}
 
 		bool intern;
@@ -413,19 +406,19 @@ namespace SimPe.PackedFiles.UserInterface
             else
                 for (int i = 0; i < bs.Length; i++) if (ltcb[i + 16] != null) ltcb[i + 16].Enabled = false;
 
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
+
+
+            if (Srel.RelationState2 != null)
             {
-                if (Srel.RelationState2 != null)
-                {
-                    this.cbsecret.Enabled = (!this.cbmarried.Checked && !this.cbengaged.Checked && !this.cbsteady.Checked);
-                    this.cbplatonic.Enabled = (!this.cbcrush.Checked && !this.cblove.Checked);
-                }
+                this.cbsecret.Enabled = (!this.cbmarried.Checked && !this.cbengaged.Checked && !this.cbsteady.Checked);
+                this.cbplatonic.Enabled = (!this.cbcrush.Checked && !this.cblove.Checked);
             }
             else
             {
-                this.cbsecret.Visible = false;
-                this.cbplatonic.Visible = false;
+                this.cbsecret.Enabled = false;
+                this.cbplatonic.Enabled = false;
             }
+
 
             this.cbfamtype.SelectedIndex = 0;
             for (int i = 1; i < this.cbfamtype.Items.Count; i++)
@@ -538,14 +531,29 @@ namespace SimPe.PackedFiles.UserInterface
             int i = ltcb.IndexOf((CheckBox)sender);
             if (i >= 0)
             {
-                Boolset val = (i < 16) ? Srel.RelationState.Value : Srel.RelationState2.Value;
+                Boolset val;
+
+                if (i < 16)
+                {
+                    val = Srel.RelationState.Value;
+                }
+                else
+                {
+                    // RelationState2 is the extra/extended bitset; it may not exist in Maxis neighborhoods.
+                    if (Srel.RelationState2 == null) return;
+                    val = Srel.RelationState2.Value;
+                }
+
                 val[i & 0x0f] = ((CheckBox)sender).Checked;
+
                 if (i < 16) Srel.RelationState.Value = val;
                 else Srel.RelationState2.Value = val;
+
                 Srel.Changed = true;
             }
 
-            if ((booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled()) && Srel.RelationState2 != null)
+
+           if (Srel.RelationState2 != null)
             {
                 this.cbsecret.Enabled = (!this.cbmarried.Checked && !this.cbengaged.Checked && !this.cbsteady.Checked);
                 this.cbplatonic.Enabled = (!this.cbcrush.Checked && !this.cblove.Checked);

@@ -309,21 +309,19 @@ namespace SimPe.Plugin
 			{
 				ArrayList ret = new ArrayList();
 
-                if (!booby.PrettyGirls.IsTitsInstalled() && !booby.PrettyGirls.IsAngelsInstalled())
-                {
-                    // Had family reunion
-                    ret.Add(0x2DD3B15Fu);
-                    // got A+ 
-                    ret.Add(0x4CAB11D3u);
-                    // subject got A+
-                    ret.Add(0x8DB6545Du);
-                    // got D
-                    ret.Add(0xEDB65A89u);
-                    // subject got D
-                    ret.Add(0X6DB654ACu);
-                    // subject got abducted
-                    ret.Add(0xEDD35A61u);
-                }
+               
+                // Had family reunion
+                ret.Add(0x2DD3B15Fu);
+                // got A+ 
+                ret.Add(0x4CAB11D3u);
+                // subject got A+
+                ret.Add(0x8DB6545Du);
+                // got D
+                ret.Add(0xEDB65A89u);
+                // subject got D
+                ret.Add(0X6DB654ACu);
+                // subject got abducted
+                ret.Add(0xEDD35A61u);
 				// vermin!
 				ret.Add(0x6CAB0E82u);
 

@@ -17,10 +17,11 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+using Ambertation.Windows.Forms;
 using System;
-using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SimPe.Plugin.Anim
@@ -30,7 +31,7 @@ namespace SimPe.Plugin.Anim
 	/// </summary>
 	public class ImportJointAnim : System.Windows.Forms.Form
 	{
-        private booby.gradientpanel Gradientpanel1;
+        private System.Windows.Forms.Panel Gradientpanel1;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.ListView lv;
 		private System.Windows.Forms.Label label1;
@@ -38,7 +39,7 @@ namespace SimPe.Plugin.Anim
 		private System.Windows.Forms.ColumnHeader chAction;
 		private System.Windows.Forms.ColumnHeader chTarget;
 		private System.Windows.Forms.ColumnHeader chCount;
-        private booby.TaskBox gbgroups;
+        private XPTaskBoxSimple gbgroups;
 		private System.Windows.Forms.ComboBox cbnames;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
@@ -48,7 +49,7 @@ namespace SimPe.Plugin.Anim
 		private System.Windows.Forms.ColumnHeader chDuration;
 		private System.Windows.Forms.ColumnHeader chDiscardZero;
         private System.Windows.Forms.CheckBox cbRemove;
-        private booby.TaskBox gbsettings;
+        private XPTaskBoxSimple gbsettings;
         private System.Windows.Forms.CheckBox cbCorrect;
 		/// <summary>
 		/// Required designer variable.
@@ -62,14 +63,9 @@ namespace SimPe.Plugin.Anim
 			//
 			InitializeComponent();
 
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = ThemeManager.Global.CreateChild();
 			tm.AddControl(this.gbgroups);
             tm.AddControl(this.gbsettings);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(this.Gradientpanel1);
-                tm.AddControl(this.button1);
-            }
 
 			this.cbaction.Items.Add(AnimImporterAction.Nothing);
 			this.cbaction.Items.Add(AnimImporterAction.Add);
@@ -99,10 +95,10 @@ namespace SimPe.Plugin.Anim
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportJointAnim));
-            this.Gradientpanel1 = new booby.gradientpanel();
-            this.gbsettings = new booby.TaskBox();
+            this.Gradientpanel1 = new System.Windows.Forms.Panel();
+            this.gbsettings = new XPTaskBoxSimple();
             this.cbCorrect = new System.Windows.Forms.CheckBox();
-            this.gbgroups = new booby.TaskBox();
+            this.gbgroups = new XPTaskBoxSimple();
             this.cbRemove = new System.Windows.Forms.CheckBox();
             this.cbDiscard = new System.Windows.Forms.CheckBox();
             this.cbnames = new System.Windows.Forms.ComboBox();
@@ -133,13 +129,13 @@ namespace SimPe.Plugin.Anim
             this.Gradientpanel1.Controls.Add(this.lv);
             this.Gradientpanel1.Controls.Add(this.label1);
             this.Gradientpanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Gradientpanel1.EndColour = System.Drawing.SystemColors.ControlLight;
+            
             this.Gradientpanel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Gradientpanel1.Location = new System.Drawing.Point(0, 0);
-            this.Gradientpanel1.MiddleColour = System.Drawing.SystemColors.ControlLight;
+            
             this.Gradientpanel1.Name = "Gradientpanel1";
             this.Gradientpanel1.Size = new System.Drawing.Size(824, 438);
-            this.Gradientpanel1.StartColour = System.Drawing.SystemColors.ControlLight;
+            
             this.Gradientpanel1.TabIndex = 13;
             // 
             // gbsettings

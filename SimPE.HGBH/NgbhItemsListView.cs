@@ -48,7 +48,7 @@ namespace SimPe.Plugin
 		private ListView lv;
         private CheckBox cbnogoss;
 
-        booby.ThemeManager tm;
+        ThemeManager tm;
 		public NgbhItemsListView()
 		{
 			SetStyle(
@@ -70,7 +70,7 @@ namespace SimPe.Plugin
 			
 			SlotType = Data.NeighborhoodSlots.Sims;
 
-            tm = booby.ThemeManager.Global.CreateChild();
+            tm = ThemeManager.Global.CreateChild();
             tm.AddControl(menu);
 			InitTheo();
 		}

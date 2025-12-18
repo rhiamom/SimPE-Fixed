@@ -242,16 +242,45 @@ namespace SimPe.Plugin.Tool.Dockable
         public static Image GenerateImage(Size sz, Image img, bool knockout)
         {
             if (img == null) return null;
+
             if (knockout)
             {
-                img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new Point(0, 0), Color.Magenta);
-                return Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, sz, 8, Color.FromArgb(90, Color.Black), Color.FromArgb(10, 10, 40), Color.White, Color.FromArgb(80, Color.White), true, 3, 3);
+                img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(
+                    img,
+                    new Point(0, 0),
+                    Color.Magenta
+                );
+
+                return Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(
+                    img,
+                    sz,
+                    8,
+                    Color.FromArgb(90, Color.Black),
+                    Color.FromArgb(10, 10, 40),
+                    Color.White,
+                    Color.FromArgb(80, Color.White),
+                    true,
+                    3,
+                    3
+                );
             }
             else
             {
-                return Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, sz, 8, Color.FromArgb(90, Color.Black), booby.ThemeManager.Global.ThemeColorDark, Color.White, Color.FromArgb(80, Color.White), true, 3, 3);
+                return Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(
+                    img,
+                    sz,
+                    8,
+                    Color.FromArgb(90, Color.Black),
+                    ThemeManager.Global.ThemeColorDark,
+                    Color.White,
+                    Color.FromArgb(80, Color.White),
+                    true,
+                    3,
+                    3
+                );
             }
         }
+
 
         public virtual void SetFromObjectCacheItem(SimPe.Cache.ObjectCacheItem oci)
         {

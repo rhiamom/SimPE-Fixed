@@ -59,11 +59,6 @@ namespace SimPe.Plugin.TabPage
 			this.Text = SimPe.Localization.GetString("CRES Hierarchie");
             this.UseVisualStyleBackColor = true;
             if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.cres_tv.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.cres_tv.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
 		}
 
 		/// <summary>

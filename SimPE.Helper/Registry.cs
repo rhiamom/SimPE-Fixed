@@ -1320,10 +1320,7 @@ namespace SimPe
             {
                 XmlRegistryKey rkf = xrk.CreateSubKey("Settings");
                 rkf.SetValue("MoreTheming", value);
-
-                // Removed:
-                // booby.ThemeManager.ThemedForms = value;
-            }
+			}
         }
 
 

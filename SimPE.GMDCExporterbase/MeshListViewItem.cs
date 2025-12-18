@@ -114,16 +114,10 @@ namespace SimPe.Plugin.Gmdc
 
 		Color MyColor()
 		{
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled() || UserVerification.HaveUserId)
-            {
-                if (mesh.Vertices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) return Color.Red;
-                if (mesh.FaceIndices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT) return Color.Red;
-            }
-            else
-            {
-                if (mesh.Vertices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_VERTEX_AMOUNT) return Color.Red;
-                if (mesh.FaceIndices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_FACE_AMOUNT) return Color.Red;
-            }
+           
+            if (mesh.Vertices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) return Color.Red;
+            if (mesh.FaceIndices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT) return Color.Red;
+            
 			return Color.Black;
 		}
 

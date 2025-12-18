@@ -223,10 +223,7 @@ namespace SimPe.Plugin.Gmdc
 		/// <returns>A String Describing the Data</returns>
 		public override string ToString()
 		{
-            if (this.Faces.Count < 0x2000 || booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled() || UserVerification.HaveUserId)
 				return name + " (FaceCount="+(FaceCount).ToString()+", VertexCount="+UsedVertexCount.ToString()+")";
-			else 
-				return name + " (FaceCount="+(FaceCount).ToString()+", VertexCount=too many Faces)";
 		}
 
 		/// <summary>

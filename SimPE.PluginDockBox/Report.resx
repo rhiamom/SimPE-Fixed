@@ -192,9 +192,6 @@
   <data name="&gt;&gt;xpGradientPanel1.Name" xml:space="preserve">
     <value>xpGradientPanel1</value>
   </data>
-  <data name="&gt;&gt;xpGradientPanel1.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;xpGradientPanel1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>

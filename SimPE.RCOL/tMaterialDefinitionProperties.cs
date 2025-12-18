@@ -75,13 +75,7 @@ namespace SimPe.Plugin.TabPage
             btnMerge.Left = btnImport.Right + 12;
             btnExport.Top = btnImport.Top = btnMerge.Top = gbprop.Bottom + 12;
             this.UseVisualStyleBackColor = true;
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.btnImport);
-                booby.ThemeManager.Global.AddControl(this.btnExport);
-                booby.ThemeManager.Global.AddControl(this.btnMerge);
-                this.BackColor = this.lbprop.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
+            
             if (Helper.WindowsRegistry.UseBigIcons) this.lbprop.Font = new System.Drawing.Font(this.lbprop.Font.FontFamily, 11F);
 		}
 

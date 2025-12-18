@@ -40,12 +40,6 @@ namespace SimPe.PackedFiles.UserInterface
 			//
 			InitializeComponent();
 
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.GradientPanel);
-                this.ties.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-            }
-
 			ties.Parent = null;
 			ties.Parent = this.panel1;
 
@@ -78,16 +72,20 @@ namespace SimPe.PackedFiles.UserInterface
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FamilyTiesForm));
             this.pnfamt = new System.Windows.Forms.Panel();
-            this.panel4 = new booby.panelheader();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ties = new SimPe.PackedFiles.Wrapper.FamilyTieGraph();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.GradientPanel = new booby.gradientpanel();
+            this.GradientPanel = new System.Windows.Forms.Panel();
             this.labelidd = new System.Windows.Forms.Label();
             this.labelnid = new System.Windows.Forms.Label();
             this.cbLock = new System.Windows.Forms.CheckBox();
-            this.xpLine1 = new booby.Lineb();
+            this.xpLine1 = new System.Windows.Forms.TextBox();
+            this.xpLine1.BorderStyle = BorderStyle.None;
+            this.xpLine1.Height = 2;
+            this.xpLine1.TabStop = false;
+            this.xpLine1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.cbkeep = new System.Windows.Forms.CheckBox();
             this.cbrel = new Ambertation.Windows.Forms.EnumComboBox();
             this.llrem = new System.Windows.Forms.LinkLabel();
@@ -121,12 +119,12 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             // panel4
             // 
-            this.panel4.CanCommit = true;
+            //this.panel4.CanCommit = true;
             this.panel4.Controls.Add(this.label1);
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.ForeColor = System.Drawing.Color.White;
             this.panel4.Name = "panel4";
-            this.panel4.OnCommit += new booby.panelheader.EventHandler(this.button1_Click);
+            //this.panel4.OnCommit += new System.Windows.Forms.Panel.EventHandler(this.button1_Click);booby
             // 
             // label1
             // 
@@ -320,7 +318,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		internal System.Windows.Forms.Panel pnfamt;
 		private System.Windows.Forms.Panel panel2;
-        private booby.panelheader panel4;
+        private System.Windows.Forms.Panel panel4;
 		internal System.Windows.Forms.Label label12;
 		internal SimPe.PackedFiles.Wrapper.SimPoolControl pool;
 		private System.Windows.Forms.Panel panel1;
@@ -334,7 +332,7 @@ namespace SimPe.PackedFiles.UserInterface
 		SimPe.PackedFiles.Wrapper.SDesc lastsdsc, currentsdsc;
 		internal System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Panel panel3;
-        private booby.gradientpanel GradientPanel;
+        private System.Windows.Forms.Panel GradientPanel;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label lbname;
         private System.Windows.Forms.Label label3;
@@ -342,7 +340,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private Ambertation.Windows.Forms.EnumComboBox cbrel;
 		private System.Windows.Forms.CheckBox cbkeep;
         private ToolStripMenuItem miOpenSdesc;
-        private booby.Lineb xpLine1;
+        private System.Windows.Forms.TextBox xpLine1;
         internal CheckBox cbLock;
         private Label labelnid;
         private Label labelidd;

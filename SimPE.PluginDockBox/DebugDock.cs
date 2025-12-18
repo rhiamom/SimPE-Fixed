@@ -14,7 +14,7 @@ namespace SimPe.Plugin.Tool.Dockable
 	public class DebugDock : Ambertation.Windows.Forms.DockPanel, SimPe.Interfaces.IDockableTool
 	{
         bool dun = false;
-        private booby.gradientpanel xpGradientPanel1;
+        private System.Windows.Forms.Panel xpGradientPanel1;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label lbMem;
 		private System.Windows.Forms.Label label2;
@@ -28,7 +28,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-            booby.ThemeManager.Global.AddControl(this.xpGradientPanel1);
+            ThemeManager.Global.AddControl(this.xpGradientPanel1);
 		}
 
 		/// <summary> 
@@ -54,7 +54,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DebugDock));
-            this.xpGradientPanel1 = new booby.gradientpanel();
+            this.xpGradientPanel1 = new System.Windows.Forms.Panel();
             this.lbft = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lbMem = new System.Windows.Forms.Label();

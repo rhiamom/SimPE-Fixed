@@ -160,7 +160,7 @@ namespace SimPe.Plugin
 			// RenameForm
 			// 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
+            
 			this.ClientSize = new System.Drawing.Size(712, 332);
 			this.Controls.Add(this.cbv2);
 			this.Controls.Add(this.button1);

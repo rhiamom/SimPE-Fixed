@@ -61,11 +61,6 @@ namespace SimPe.Plugin.TabPage
                 this.tblistfile.Font = new System.Drawing.Font(base.Font.FontFamily, 12F);
             }
             this.UseVisualStyleBackColor = true;
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lbfl.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
 		}
 
 		/// <summary>

@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,14 +32,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GDF, Version=0.69.20.24, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
+      <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
     </Reference>
     <Reference Include="SandDock, Version=2.0.2.1, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3">
       <SpecificVersion>False</SpecificVersion>
@@ -168,7 +170,9 @@
     <EmbeddedResource Include="BnfoCustomerItemUI.de.resx" />
     <EmbeddedResource Include="BnfoCustomerItemUI.fr.resx" />
     <EmbeddedResource Include="BnfoCustomerItemUI.it.resx" />
-    <EmbeddedResource Include="BnfoCustomerItemUI.resx" />
+    <EmbeddedResource Include="BnfoCustomerItemUI.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="BnfoCustomerItemUI.ru.resx" />
     <EmbeddedResource Include="BnfoUI.de.resx">
       <DependentUpon>BnfoUI.cs</DependentUpon>
@@ -190,7 +194,9 @@
     <EmbeddedResource Include="IdnoForm.resx" />
     <EmbeddedResource Include="LoteUI.en-US.resx" />
     <EmbeddedResource Include="LoteUI.resx" />
-    <EmbeddedResource Include="LtxtForm.resx" />
+    <EmbeddedResource Include="LtxtForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="MemoryProperties.de.resx" />
     <EmbeddedResource Include="MemoryProperties.fr.resx" />
     <EmbeddedResource Include="MemoryProperties.it.resx" />
@@ -221,7 +227,9 @@
     <EmbeddedResource Include="NgbhValueDescriptorUI.de.resx" />
     <EmbeddedResource Include="NgbhValueDescriptorUI.fr.resx" />
     <EmbeddedResource Include="NgbhValueDescriptorUI.it.resx" />
-    <EmbeddedResource Include="NgbhValueDescriptorUI.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorUI.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="NgbhValueDescriptorUI.ru.resx" />
     <EmbeddedResource Include="NhtrUI.en-US.resx" />
     <EmbeddedResource Include="NhtrUI.resx" />

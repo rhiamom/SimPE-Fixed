@@ -247,9 +247,6 @@
   <data name="&gt;&gt;pb.Name">
     <value>pb</value>
   </data>
-  <data name="&gt;&gt;pb.Type">
-    <value>booby.LabeledProgressBar, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;pb.Parent">
     <value>panel1</value>
   </data>

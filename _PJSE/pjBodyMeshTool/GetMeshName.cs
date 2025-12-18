@@ -35,7 +35,7 @@ namespace pj
         private Button btnCancel;
         private Label label3;
         private CheckBox cbusecres;
-        private booby.gradientpanel gradientpanel1;
+        private Panel gradientpanel1;
 
 		/// <summary>
         /// Required designer variable.
@@ -72,7 +72,7 @@ namespace pj
             this.btnCancel = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cbusecres = new System.Windows.Forms.CheckBox();
-            this.gradientpanel1 = new booby.gradientpanel();
+            this.gradientpanel1 = new System.Windows.Forms.Panel();
             this.gradientpanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -136,11 +136,9 @@ namespace pj
             this.gradientpanel1.Controls.Add(this.tbMeshName);
             this.gradientpanel1.Controls.Add(this.label1);
             resources.ApplyResources(this.gradientpanel1, "gradientpanel1");
-            this.gradientpanel1.EndColour = System.Drawing.SystemColors.Control;
-            this.gradientpanel1.GradCentre = 0.7F;
-            this.gradientpanel1.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.gradientpanel1.Name = "gradientpanel1";
-            this.gradientpanel1.StartColour = System.Drawing.SystemColors.Control;
+            
             // 
             // GetMeshName
             // 
@@ -164,14 +162,7 @@ namespace pj
         public GetMeshName()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.gradientpanel1);
-                tm.AddControl(this.btnOK);
-                tm.AddControl(this.btnBrowse);
-                tm.AddControl(this.btnCancel);
-            }
+
             if (SimPe.Helper.WindowsRegistry.UseBigIcons)
                 this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
 

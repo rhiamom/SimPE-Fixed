@@ -62,10 +62,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\SandDock.dll</HintPath>
     </Reference>
-    <Reference Include="simpe.filehandler, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\Debug\simpe.filehandler.dll</HintPath>
-    </Reference>
     <Reference Include="simpe.s2cp">
       <HintPath>..\ExternalLibs\simpe.s2cp.dll</HintPath>
     </Reference>
@@ -141,6 +137,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectsDock.resx">
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.resources</LogicalName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectsDock.de.resx">
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.de.resources</LogicalName>
@@ -161,6 +158,7 @@
     <EmbeddedResource Include="OWDockForm.resx" />
     <EmbeddedResource Include="PackageDetailDock.resx">
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.resources</LogicalName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PackageDetailDock.de.resx">
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.de.resources</LogicalName>

@@ -31,7 +31,6 @@ namespace SimPe.Plugin
         {
             base.RefreshGUI();
 
-            // Remove booby theming
             this.BackgroundImage = null; // or SimPe.GetImage.GetExpansionLogo(Wrapper.Prevep) if appropriate
 
             this.rtLotTex.ReadOnly = true;

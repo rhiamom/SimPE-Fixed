@@ -24,7 +24,6 @@ namespace SimPe.Wizards
 			//
             InitializeComponent();
 
-            if (booby.ThemeManager.ThemedForms) this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
 			//
 			// TODO: Fügen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
 			//

@@ -42,8 +42,6 @@ namespace SimPe.Plugin
             // Required designer variable.
             //
             InitializeComponent();
-
-            // Apply normal (non-booby) theming if enabled
                 ThemeManager tm = ThemeManager.Global.CreateChild();
                 tm.AddControl(this.wrapperPanel);
                 tm.AddControl(this.lblist);

@@ -216,28 +216,21 @@ namespace SimPe.Plugin.Gmdc
 			get {return keeporder;}
 		}
 
-		/// <summary>
-		/// Returns the color that should be used to display this Group in the "Import Groups" ListView
-		/// </summary>
-		public System.Drawing.Color MarkColor 
-		{
-			get 
-			{
-				if (Action==GmdcImporterAction.Nothing) return System.Drawing.Color.Silver;
-                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled() || UserVerification.HaveUserId)
-                {
-                    if (VertexCount > AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) return System.Drawing.Color.Red;
-                    if (FaceCount > AbstractGmdcImporter.FEMBODY_FACE_AMOUNT) return System.Drawing.Color.Red;
-                }
-                else
-                {
-                    if (VertexCount > AbstractGmdcImporter.CRITICAL_VERTEX_AMOUNT) return System.Drawing.Color.Red;
-                    if (FaceCount > AbstractGmdcImporter.CRITICAL_FACE_AMOUNT) return System.Drawing.Color.Red;
-                }
-				return System.Drawing.SystemColors.WindowText;
-			}
-		}
+        /// <summary>
+        /// Returns the color that should be used to display this Group in the "Import Groups" ListView
+        /// </summary>
+        public System.Drawing.Color MarkColor
+        {
+            get
+            {
+                if (Action == GmdcImporterAction.Nothing) return System.Drawing.Color.Silver;
 
+                if (VertexCount > AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) return System.Drawing.Color.Red;
+                if (FaceCount > AbstractGmdcImporter.FEMBODY_FACE_AMOUNT) return System.Drawing.Color.Red;
+
+                return System.Drawing.SystemColors.WindowText;
+            }
+        }
 
 		/// <summary>
 		/// Create a new Instance

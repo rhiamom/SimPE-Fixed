@@ -34,8 +34,8 @@ namespace SimPe.Plugin.Tool.Dockable
         private DockManager manager;
         internal Ambertation.Windows.Forms.DockPanel dcWrapper;
         internal Ambertation.Windows.Forms.DockPanel dcResource;
-        private booby.gradientpanel xpGradientPanel1;
-        private booby.gradientpanel xpGradientPanel2;
+        private System.Windows.Forms.Panel xpGradientPanel1;
+        private System.Windows.Forms.Panel xpGradientPanel2;
         internal System.Windows.Forms.Panel pntypes;
         internal System.Windows.Forms.TextBox tbinstance;
         private System.Windows.Forms.Label label11;
@@ -57,14 +57,14 @@ namespace SimPe.Plugin.Tool.Dockable
         internal System.Windows.Forms.Label lbDesc;
         internal System.Windows.Forms.Label lbComp;
         internal Ambertation.Windows.Forms.DockPanel dcPackage;
-        private booby.gradientpanel xpGradientPanel3;
+        private System.Windows.Forms.Panel xpGradientPanel3;
         internal System.Windows.Forms.PropertyGrid pgHead;
         internal System.Windows.Forms.Label label4;
         internal System.Windows.Forms.ListView lv;
         private System.Windows.Forms.ColumnHeader clOffset;
         private System.Windows.Forms.ColumnHeader clSize;
         internal Ambertation.Windows.Forms.DockPanel dcConvert;
-        private booby.gradientpanel xpGradientPanel4;
+        private System.Windows.Forms.Panel xpGradientPanel4;
         private System.Windows.Forms.TextBox tbHex;
         private System.Windows.Forms.TextBox tbDec;
         internal Ambertation.Windows.Forms.DockPanel dcHex;
@@ -78,7 +78,7 @@ namespace SimPe.Plugin.Tool.Dockable
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox tbFloat;
         private DockContainer dockBottom;
-        private booby.gradientpanel gradientpanel1;
+        private System.Windows.Forms.Panel gradientpanel1;
         private Label label13;
         private Label label12;
         private Label label7;
@@ -92,30 +92,17 @@ namespace SimPe.Plugin.Tool.Dockable
             //
             InitializeComponent();
 
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.xpGradientPanel1);
             tm.AddControl(this.xpGradientPanel2);
             tm.AddControl(this.xpGradientPanel3);
             tm.AddControl(this.xpGradientPanel4);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(gradientpanel1);
-                tm.AddControl(this.lv);
-                tm.AddControl(this.pgHead);
-                tm.AddControl(this.button1);
-                tm.AddControl(this.btcopie);
-                SimPe.ThemeManager.Global.AddControl(this.hvc);
-            }
 
             this.lv.View = System.Windows.Forms.View.Details;
             foreach (SimPe.Data.TypeAlias a in SimPe.Helper.TGILoader.FileTypes)
                 cbtypes.Items.Add(a);
             cbtypes.Sorted = true;
             tbFloat.Width = tbBin.Width;
-            if (booby.ThemeManager.savedTheme == 8 && Helper.StartedGui == Executable.Default)
-                this.xpGradientPanel1.BackgroundImage = this.xpGradientPanel2.BackgroundImage = this.xpGradientPanel3.BackgroundImage = this.xpGradientPanel4.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else if (booby.PrettyGirls.PervyMode && Helper.StartedGui == Executable.Default)
-                this.xpGradientPanel1.BackgroundImage = this.xpGradientPanel2.BackgroundImage = this.xpGradientPanel3.BackgroundImage = this.xpGradientPanel4.BackgroundImage = booby.PrettyGirls.BikiniBabe;
         }
 
         /// <summary>
@@ -145,7 +132,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.manager = new Ambertation.Windows.Forms.DockManager();
             this.dockBottom = new Ambertation.Windows.Forms.DockContainer();
             this.dcConvert = new Ambertation.Windows.Forms.DockPanel();
-            this.xpGradientPanel4 = new booby.gradientpanel();
+            this.xpGradientPanel4 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -155,14 +142,14 @@ namespace SimPe.Plugin.Tool.Dockable
             this.tbDec = new System.Windows.Forms.TextBox();
             this.tbHex = new System.Windows.Forms.TextBox();
             this.dcPackage = new Ambertation.Windows.Forms.DockPanel();
-            this.xpGradientPanel3 = new booby.gradientpanel();
+            this.xpGradientPanel3 = new System.Windows.Forms.Panel();
             this.lv = new System.Windows.Forms.ListView();
             this.clOffset = new System.Windows.Forms.ColumnHeader();
             this.clSize = new System.Windows.Forms.ColumnHeader();
             this.label4 = new System.Windows.Forms.Label();
             this.pgHead = new System.Windows.Forms.PropertyGrid();
             this.dcWrapper = new Ambertation.Windows.Forms.DockPanel();
-            this.xpGradientPanel2 = new booby.gradientpanel();
+            this.xpGradientPanel2 = new System.Windows.Forms.Panel();
             this.lbName = new System.Windows.Forms.Label();
             this.pb = new System.Windows.Forms.PictureBox();
             this.lbDesc = new System.Windows.Forms.Label();
@@ -173,7 +160,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.dcResource = new Ambertation.Windows.Forms.DockPanel();
-            this.xpGradientPanel1 = new booby.gradientpanel();
+            this.xpGradientPanel1 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.lbComp = new System.Windows.Forms.Label();
             this.cbComp = new System.Windows.Forms.ComboBox();
@@ -188,7 +175,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.tbgroup = new System.Windows.Forms.TextBox();
             this.cbtypes = new System.Windows.Forms.ComboBox();
             this.dcHex = new Ambertation.Windows.Forms.DockPanel();
-            this.gradientpanel1 = new booby.gradientpanel();
+            this.gradientpanel1 = new System.Windows.Forms.Panel();
             this.hvc = new Ambertation.Windows.Forms.HexViewControl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -271,8 +258,7 @@ namespace SimPe.Plugin.Tool.Dockable
             // 
             resources.ApplyResources(this.xpGradientPanel4, "xpGradientPanel4");
             this.xpGradientPanel4.BackColor = System.Drawing.Color.Transparent;
-            this.xpGradientPanel4.BackgroundImageLocation = new System.Drawing.Point(440, 0);
-            this.xpGradientPanel4.BackgroundImageZoomToFit = true;
+            
             this.xpGradientPanel4.Controls.Add(this.label13);
             this.xpGradientPanel4.Controls.Add(this.label12);
             this.xpGradientPanel4.Controls.Add(this.label7);
@@ -281,10 +267,10 @@ namespace SimPe.Plugin.Tool.Dockable
             this.xpGradientPanel4.Controls.Add(this.tbBin);
             this.xpGradientPanel4.Controls.Add(this.tbDec);
             this.xpGradientPanel4.Controls.Add(this.tbHex);
-            this.xpGradientPanel4.EndColour = System.Drawing.SystemColors.Control;
-            this.xpGradientPanel4.MiddleColour = System.Drawing.SystemColors.Control;
+            
+            
             this.xpGradientPanel4.Name = "xpGradientPanel4";
-            this.xpGradientPanel4.StartColour = System.Drawing.SystemColors.Control;
+            
             // 
             // label13
             // 
@@ -360,16 +346,14 @@ namespace SimPe.Plugin.Tool.Dockable
             // xpGradientPanel3
             // 
             this.xpGradientPanel3.BackColor = System.Drawing.Color.Transparent;
-            this.xpGradientPanel3.BackgroundImageLocation = new System.Drawing.Point(560, 0);
-            this.xpGradientPanel3.BackgroundImageZoomToFit = true;
+            
             this.xpGradientPanel3.Controls.Add(this.lv);
             this.xpGradientPanel3.Controls.Add(this.label4);
             this.xpGradientPanel3.Controls.Add(this.pgHead);
             resources.ApplyResources(this.xpGradientPanel3, "xpGradientPanel3");
-            this.xpGradientPanel3.EndColour = System.Drawing.SystemColors.Control;
-            this.xpGradientPanel3.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.xpGradientPanel3.Name = "xpGradientPanel3";
-            this.xpGradientPanel3.StartColour = System.Drawing.SystemColors.Control;
+            
             // 
             // lv
             // 
@@ -435,8 +419,8 @@ namespace SimPe.Plugin.Tool.Dockable
             // xpGradientPanel2
             // 
             this.xpGradientPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.xpGradientPanel2.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.Centered;
-            this.xpGradientPanel2.BackgroundImageZoomToFit = true;
+            
+            
             this.xpGradientPanel2.Controls.Add(this.lbName);
             this.xpGradientPanel2.Controls.Add(this.pb);
             this.xpGradientPanel2.Controls.Add(this.lbDesc);
@@ -447,10 +431,9 @@ namespace SimPe.Plugin.Tool.Dockable
             this.xpGradientPanel2.Controls.Add(this.label1);
             this.xpGradientPanel2.Controls.Add(this.label3);
             resources.ApplyResources(this.xpGradientPanel2, "xpGradientPanel2");
-            this.xpGradientPanel2.EndColour = System.Drawing.SystemColors.Control;
-            this.xpGradientPanel2.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.xpGradientPanel2.Name = "xpGradientPanel2";
-            this.xpGradientPanel2.StartColour = System.Drawing.SystemColors.Control;
+            
             // 
             // lbName
             // 
@@ -536,17 +519,15 @@ namespace SimPe.Plugin.Tool.Dockable
             // xpGradientPanel1
             // 
             this.xpGradientPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.xpGradientPanel1.BackgroundImageLocation = new System.Drawing.Point(500, 0);
-            this.xpGradientPanel1.BackgroundImageZoomToFit = true;
+            
             this.xpGradientPanel1.Controls.Add(this.linkLabel1);
             this.xpGradientPanel1.Controls.Add(this.lbComp);
             this.xpGradientPanel1.Controls.Add(this.cbComp);
             this.xpGradientPanel1.Controls.Add(this.pntypes);
             resources.ApplyResources(this.xpGradientPanel1, "xpGradientPanel1");
-            this.xpGradientPanel1.EndColour = System.Drawing.SystemColors.Control;
-            this.xpGradientPanel1.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.xpGradientPanel1.Name = "xpGradientPanel1";
-            this.xpGradientPanel1.StartColour = System.Drawing.SystemColors.Control;
+            
             // 
             // linkLabel1
             // 
@@ -678,15 +659,14 @@ namespace SimPe.Plugin.Tool.Dockable
             // gradientpanel1
             // 
             this.gradientpanel1.BackColor = System.Drawing.Color.Transparent;
-            this.gradientpanel1.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.TopRight;
+            
             this.gradientpanel1.Controls.Add(this.hvc);
             this.gradientpanel1.Controls.Add(this.panel1);
             this.gradientpanel1.Controls.Add(this.hexEditControl1);
             resources.ApplyResources(this.gradientpanel1, "gradientpanel1");
-            this.gradientpanel1.EndColour = System.Drawing.SystemColors.Control;
-            this.gradientpanel1.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.gradientpanel1.Name = "gradientpanel1";
-            this.gradientpanel1.StartColour = System.Drawing.SystemColors.Control;
+            
             // 
             // hvc
             // 

@@ -545,12 +545,10 @@ namespace SimPe.Plugin
                     else if (type == NeighborhoodType.Village) tipe = NeighbourhoodTipe.Village;
                     else if (type == NeighborhoodType.Lakes) tipe = NeighbourhoodTipe.Lakes;
                     else if (type == NeighborhoodType.Island) tipe = NeighbourhoodTipe.Island;
-                    else if (type == NeighborhoodType.Lakes) tipe = NeighbourhoodTipe.Lakes;
-                    else if (type == NeighborhoodType.Custom) tipe = NeighbourhoodTipe.Custom;
-                    else if (subep == Data.MetaData.NeighbourhoodEP.MansionGarden  && booby.PrettyGirls.PervyMode) tipe = NeighbourhoodTipe.Perverted_Suburb;
-                    else if (subep != Data.MetaData.NeighbourhoodEP.Business) tipe = NeighbourhoodTipe.Hidden_Suburb;
-                    else tipe = NeighbourhoodTipe.Suburb;
-			}
+					else if (type == NeighborhoodType.Custom) tipe = NeighbourhoodTipe.Custom;
+					else if (subep != Data.MetaData.NeighbourhoodEP.Business) tipe = NeighbourhoodTipe.Hidden_Suburb;
+					else tipe = NeighbourhoodTipe.Suburb;
+            }
 			else 
 			{
                 type = NeighborhoodType.Normal;

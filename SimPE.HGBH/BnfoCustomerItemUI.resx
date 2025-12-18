@@ -186,9 +186,6 @@
   <data name="&gt;&gt;pb.Name" xml:space="preserve">
     <value>pb</value>
   </data>
-  <data name="&gt;&gt;pb.Type" xml:space="preserve">
-    <value>booby.LabeledProgressBar, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;pb.Parent" xml:space="preserve">
     <value>$this</value>
   </data>

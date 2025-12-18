@@ -465,18 +465,6 @@
   <data name="lbApts.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="lbApts.Items" xml:space="preserve">
-    <value>0x00000000</value>
-  </data>
-  <data name="lbApts.Items1" xml:space="preserve">
-    <value>0x00000000</value>
-  </data>
-  <data name="lbApts.Items2" xml:space="preserve">
-    <value>0x00000000</value>
-  </data>
-  <data name="lbApts.Items3" xml:space="preserve">
-    <value>0x00000000</value>
-  </data>
   <data name="lbApts.Location" type="System.Drawing.Point, System.Drawing">
     <value>210, 10</value>
   </data>
@@ -3537,9 +3525,6 @@
   <data name="&gt;&gt;panel2.Name" xml:space="preserve">
     <value>panel2</value>
   </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>booby.panelheader, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
     <value>ltxtPanel</value>
   </data>
@@ -3584,9 +3569,6 @@
   </data>
   <data name="&gt;&gt;ltxtPanel.Name" xml:space="preserve">
     <value>ltxtPanel</value>
-  </data>
-  <data name="&gt;&gt;ltxtPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ltxtPanel.Parent" xml:space="preserve">
     <value>$this</value>

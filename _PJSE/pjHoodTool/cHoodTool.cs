@@ -103,36 +103,63 @@ namespace pjHoodTool
             {
                 #region ExportedSims header
                 string heady = "";
-                if (incbas) heady = "hood,Hood Name,";
+
+                if (incbas)
+                    heady = "hood,Hood Name,";
+
                 heady += "NID,First Name,Last Name";
-                if (incdes) heady += ",Sim Description";
+
+                if (incdes)
+                    heady += ",Sim Description";
+
                 heady += ",FamilyInstance,Household Name,HouseNumber";
-                if (incbas) heady += ",AvailableCharacterData,Unlinked,ParentA,ParentB,Spouse,Body Condition";
-                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled()) heady += ",Body Shape"; // Tits
+
+                if (incbas)
+                    heady += ",AvailableCharacterData,Unlinked,ParentA,ParentB,Spouse,Body Condition";
+
                 heady += ",NPC Type";
-                if (incbas) heady += ",School Type,Grade,CareerPerformance,Career,CareerLevel,Zodiac Sign";
+
+                if (incbas)
+                    heady += ",School Type,Grade,CareerPerformance,Career,CareerLevel,Zodiac Sign";
+
                 heady += ",Gender,LifeSection";
-                if (incbas) heady += ",AgeDaysLeft,PrevAgeDays,AgeDuration,BlizLifelinePoints,LifelinePoints,LifelineScore";
-                if (inccha) heady += ",GenActive,GenNeat,GenNice,GenOutgoing,GenPlayful,Active,Neat,Nice,Outgoing,Playful";// Character
-                if (inccha && booby.PrettyGirls.PervyMode) heady += ",Amorousness"; // Tits
-                if (incint) heady += ",Animals,Crime,Culture,Entertainment,Environment,Fashion,Food,Health,Money,Paranormal,Politics,School,Scifi,Sports,Toys,Travel,Weather,Work"; //Interests
+
+                if (incbas)
+                    heady += ",AgeDaysLeft,PrevAgeDays,AgeDuration,BlizLifelinePoints,LifelinePoints,LifelineScore";
+
+                if (inccha)
+                    heady += ",GenActive,GenNeat,GenNice,GenOutgoing,GenPlayful,Active,Neat,Nice,Outgoing,Playful";
+
+                if (incint)
+                    heady += ",Animals,Crime,Culture,Entertainment,Environment,Fashion,Food,Health,Money,Paranormal,Politics,School,Scifi,Sports,Toys,Travel,Weather,Work";
+
                 heady += ",FemalePreference,MalePreference";
+
                 if (incski)
                 {
-                    heady += ",Body,Charisma,Cleaning,Cooking,Creativity,Fatness,Logic,Mechanical";//Skills
+                    heady += ",Body,Charisma,Cleaning,Cooking,Creativity,Fatness,Logic,Mechanical";
                     if (Helper.WindowsRegistry.ShowMoreSkills)
                         heady += ",Art,Music";
                 }
-                if (incuni) heady += ",IsAtUniversity,UniEffort,UniGrade,UniTime,UniSemester,UniInfluence,UniMajor"; // University
-                if (incpet && incbas) heady += ",Species";
-                if (incbus) heady += ",Job Assignment,Lot ID,Salary"; // Business
-                if (incfre) heady += ",PrimaryAspiration,SecondaryAspiration,Natural Talent,LongtermAspiration"; // FreeTime
-                if (incapa) heady += ",Reputation,Title"; // Aparments
-                if (incapa && booby.PrettyGirls.PervyMode) heady += ",Penis";
-                heady += "";
+
+                if (incuni)
+                    heady += ",IsAtUniversity,UniEffort,UniGrade,UniTime,UniSemester,UniInfluence,UniMajor";
+
+                if (incpet && incbas)
+                    heady += ",Species";
+
+                if (incbus)
+                    heady += ",Job Assignment,Lot ID,Salary";
+
+                if (incfre)
+                    heady += ",PrimaryAspiration,SecondaryAspiration,Natural Talent,LongtermAspiration";
+
+                if (incapa)
+                    heady += ",Reputation,Title";
 
                 w1.WriteLine(heady);
                 #endregion
+
 
                 #region ExportedLots header
                 if (inclot)
@@ -382,7 +409,7 @@ namespace pjHoodTool
                 SDesc[] p = eft.ParentSims(sdsc);
                 SDesc[] s = eft.SpouseSims(sdsc);
                 ties = (p == null || p.Length < 2 ? "," : p[0].Instance + " (" + p[0].SimName + ")" + "," + p[1].Instance + " (" + p[1].SimName + ")") +
-                    "," + (s == null || s.Length < 1 ? "" : s[0].Instance + " (" + s[0].SimName + ")" + "") + "";                
+                    "," + (s == null || s.Length < 1 ? "" : s[0].Instance + " (" + s[0].SimName + ")" + "") + "";
             }
             #endregion
 
@@ -489,22 +516,17 @@ namespace pjHoodTool
             #endregion
 
             #region apartments
-            string apartments = ","; // Boobies
-            if (booby.PrettyGirls.PervyMode) apartments = ",,";
+            string apartments = ","; // Reputation,Title
+
             if (sdsc.Apartment != null)
             {
                 apartments = sdsc.Apartment.Reputation + ",";
+
                 if (sdsc.Apartment.TitlePostName > 0)
                     apartments += SimPe.Data.MetaData.GetTitleName(sdsc.Apartment.TitlePostName);
-                if (booby.PrettyGirls.PervyMode)
-                {
-                    apartments += ",";
-                    if (sdsc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Male && sdsc.Nightlife.Species == SdscNightlife.SpeciesType.Human)
-                        apartments += new SimPe.Data.LocalizedPenisLength((SimPe.Data.MetaData.PenisLength)sdsc.Apartment.PenisLength).ToString();
-                        //apartments += (SimPe.Data.MetaData.PenisLength)sdsc.Apartment.PenisLength;
-                }
             }
             #endregion
+
 
             #region Species
             string species = "Human";
@@ -539,56 +561,96 @@ namespace pjHoodTool
             }
 
             string csv = "";
-            if (incbas) csv = hood + "," + hoodName + ",";
+
+            if (incbas)
+                csv = hood + "," + hoodName + ",";
+
             csv += sdsc.Instance + "," + desc + "," + family;
-            if (incbas) csv += "," + (sdsc.AvailableCharacterData ? "Y" : "N") + "," + (sdsc.Unlinked != 0x00 ? "Y" : "N") + "," + ties + "," + bodycondiion(sdsc);            
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                csv += "," + new SimPe.Data.LocalizedBodyshape(sdsc.CharacterDescription.Bodyshape).ToString(); // Tits
-            csv += "," + new SimPe.Data.LocalizedServiceTypes(sdsc.CharacterDescription.ServiceTypes).ToString();
-            if (incbas) csv += "," + new SimPe.Data.LocalizedSchoolType(sdsc.CharacterDescription.SchoolType).ToString() +
-                "," + new SimPe.Data.LocalizedGrades(sdsc.CharacterDescription.Grade).ToString() +
-                "," + sdsc.CharacterDescription.CareerPerformance +
-                "," + new SimPe.Data.LocalizedCareers(sdsc.CharacterDescription.Career).ToString() +
-                "," + sdsc.CharacterDescription.CareerLevel +
-                "," + sdsc.CharacterDescription.ZodiacSign;
-            csv += "," + sdsc.CharacterDescription.Gender +
-                "," + sdsc.CharacterDescription.LifeSection;
-            if (incbas) csv += "," + sdsc.CharacterDescription.Age +
-                "," + sdsc.CharacterDescription.PrevAgeDays +
-                "," + sdsc.CharacterDescription.AgeDuration +
-                "," + sdsc.CharacterDescription.BlizLifelinePoints +
-                "," + sdsc.CharacterDescription.LifelinePoints +
-                "," + sdsc.CharacterDescription.LifelineScore;
-            if (inccha) csv += "," + genetics + "," + character;
-            if (inccha && booby.PrettyGirls.PervyMode) csv += "," + sdsc.Skills.Romance; // Tits
-            if (incint) csv += "," + interests;
-            csv += "," + sdsc.Interests.FemalePreference + "," + sdsc.Interests.MalePreference;
-            if (incski) csv += "," + skills;
-            if (incuni) csv += "," + university;
-            if (incpet && incbas) csv += "," + species;
-            if (incbus) csv += "," + business;
-            if (incfre) csv += "," + freetime;
-            if (incapa) csv += "," + apartments;
-            csv += "";
+
+            if (incbas)
+                csv += "," +
+                       (sdsc.AvailableCharacterData ? "Y" : "N") + "," +
+                       (sdsc.Unlinked != 0x00 ? "Y" : "N") + "," +
+                       ties + "," +
+                       bodycondiion(sdsc);
+
+            csv += "," + new SimPe.Data.LocalizedServiceTypes(
+                            sdsc.CharacterDescription.ServiceTypes).ToString();
+
+            if (incbas)
+                csv += "," +
+                       new SimPe.Data.LocalizedSchoolType(
+                           sdsc.CharacterDescription.SchoolType) + "," +
+                       new SimPe.Data.LocalizedGrades(
+                           sdsc.CharacterDescription.Grade) + "," +
+                       sdsc.CharacterDescription.CareerPerformance + "," +
+                       new SimPe.Data.LocalizedCareers(
+                           sdsc.CharacterDescription.Career) + "," +
+                       sdsc.CharacterDescription.CareerLevel + "," +
+                       sdsc.CharacterDescription.ZodiacSign;
+
+            csv += "," +
+                   sdsc.CharacterDescription.Gender + "," +
+                   sdsc.CharacterDescription.LifeSection;
+
+            if (incbas)
+                csv += "," +
+                       sdsc.CharacterDescription.Age + "," +
+                       sdsc.CharacterDescription.PrevAgeDays + "," +
+                       sdsc.CharacterDescription.AgeDuration + "," +
+                       sdsc.CharacterDescription.BlizLifelinePoints + "," +
+                       sdsc.CharacterDescription.LifelinePoints + "," +
+                       sdsc.CharacterDescription.LifelineScore;
+
+            if (inccha)
+                csv += "," + genetics + "," + character;
+
+            if (incint)
+                csv += "," + interests;
+
+            csv += "," +
+                   sdsc.Interests.FemalePreference + "," +
+                   sdsc.Interests.MalePreference;
+
+            if (incski)
+                csv += "," + skills;
+
+            if (incuni)
+                csv += "," + university;
+
+            if (incpet && incbas)
+                csv += "," + species;
+
+            if (incbus)
+                csv += "," + business;
+
+            if (incfre)
+                csv += "," + freetime;
+
+            if (incapa)
+                csv += "," + apartments;
+
             w.WriteLine(csv);
-            
+
+
             if (!sdsc.HasImage)
             {
-                if (sdsc.CharacterDescription.IsWoman && sdsc.Nightlife.Species == 0)
-                    AddImage(SimPe.GetImage.BabyDoll, Path.Combine(Path.Combine(outPath, "SimImage"), hood + "_" + sdsc.Instance + ".png"));
-
-                else if (sdsc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Female)
-                    AddImage(SimPe.GetImage.SheOne, Path.Combine(Path.Combine(outPath, "SimImage"), hood + "_" + sdsc.Instance + ".png"));
-
-                else
-                    AddImage(SimPe.GetImage.NoOne, Path.Combine(Path.Combine(outPath, "SimImage"), hood + "_" + sdsc.Instance + ".png"));
+                AddImage(
+                    SimPe.GetImage.NoOne,
+                    Path.Combine(Path.Combine(outPath, "SimImage"),
+                                 hood + "_" + sdsc.Instance + ".png"));
             }
             else
-                AddImage(sdsc.Image, Path.Combine(Path.Combine(outPath, "SimImage"), hood + "_" + sdsc.Instance + ".jpg"));
+            {
+                AddImage(
+                    sdsc.Image,
+                    Path.Combine(Path.Combine(outPath, "SimImage"),
+                                 hood + "_" + sdsc.Instance + ".jpg"));
+            }
         }
 
-        void AddLot(string outPath, string hood, string hoodName, StreamWriter w, Ltxt ltxt, string hoodtype)
-        {
+            void AddLot(string outPath, string hood, string hoodName, StreamWriter w, Ltxt ltxt, string hoodtype)
+            {
             string perv = "";
             Boolset bby = ltxt.Unknown0;
             if (bby[7]) perv = "Has Beach";
@@ -712,7 +774,6 @@ namespace pjHoodTool
             try
             {
                 SimPe.WaitingScreen.Wait();
-                if (booby.PrettyGirls.PervyMode) WaitingScreen.UpdateImage(SimPe.GetImage.BabyDoll);
                 splash = delegate(string message) { SimPe.WaitingScreen.UpdateMessage(message); };
                 Rufio(fbd.SelectedPath, hood, 0);
                 return new SimPe.Plugin.ToolResult(false, false);

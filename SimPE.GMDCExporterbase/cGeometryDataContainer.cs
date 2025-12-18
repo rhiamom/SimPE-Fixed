@@ -243,24 +243,23 @@ namespace SimPe.Plugin
 			form.ResetPreview();
 			form.tb_ver.Text = "0x"+Helper.HexString(this.version);
 
-            if (UserVerification.HaveUserId || booby.PrettyGirls.PervyMode) 
-			{
-				form.label_elements.Text = "Elements: "+elements.Length.ToString();
-				form.list_elements.Items.Clear();
-				foreach(GmdcElement e in elements) SimPe.CountedListItem.Add(form.list_elements, e);
+            
+			form.label_elements.Text = "Elements: "+elements.Length.ToString();
+			form.list_elements.Items.Clear();
+			foreach(GmdcElement e in elements) SimPe.CountedListItem.Add(form.list_elements, e);
 
-				form.label_links.Text = "Links: "+links.Length.ToString();
-				form.list_links.Items.Clear();
-				foreach(GmdcLink l in links) SimPe.CountedListItem.Add(form.list_links, l);
+			form.label_links.Text = "Links: "+links.Length.ToString();
+			form.list_links.Items.Clear();
+			foreach(GmdcLink l in links) SimPe.CountedListItem.Add(form.list_links, l);
 
-				form.label_groups.Text = "Groups: "+groups.Length.ToString();
-				form.list_groups.Items.Clear();
-				foreach(GmdcGroup g in groups) SimPe.CountedListItem.Add(form.list_groups, g);
+			form.label_groups.Text = "Groups: "+groups.Length.ToString();
+			form.list_groups.Items.Clear();
+			foreach(GmdcGroup g in groups) SimPe.CountedListItem.Add(form.list_groups, g);
 
-				form.label_subsets.Text = "Joints: "+joints.Length.ToString();
-				form.list_subsets.Items.Clear();
-				foreach(GmdcJoint s in joints) SimPe.CountedListItem.Add(form.list_subsets, s);
-			}
+			form.label_subsets.Text = "Joints: "+joints.Length.ToString();
+			form.list_subsets.Items.Clear();
+			foreach(GmdcJoint s in joints) SimPe.CountedListItem.Add(form.list_subsets, s);
+			
 
 			try 
 			{
@@ -333,11 +332,9 @@ namespace SimPe.Plugin
 			form.tSubset.Tag = this;
 			tc.TabPages.Add(form.tSubset);
 
-            if (UserVerification.HaveUserId || booby.PrettyGirls.PervyMode) 
-			{
-				form.tAdvncd.Tag = this;
-				tc.TabPages.Add(form.tAdvncd);
-			}
+			form.tAdvncd.Tag = this;
+			tc.TabPages.Add(form.tAdvncd);
+			
 		}
 
 		#region .x-Files

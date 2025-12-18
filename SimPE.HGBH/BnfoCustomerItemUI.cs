@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+using Ambertation.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -64,7 +65,7 @@ namespace SimPe.Plugin
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BnfoCustomerItemUI));
             this.tb = new System.Windows.Forms.TextBox();
-            this.pb = new booby.LabeledProgressBar();
+            this.pb = new LabeledProgressBar();
             this.SuspendLayout();
             // 
             // tb
@@ -80,18 +81,15 @@ namespace SimPe.Plugin
             this.pb.BackColor = System.Drawing.Color.Transparent;
             this.pb.DisplayOffset = 0;
             resources.ApplyResources(this.pb, "pb");
-            this.pb.GradientEndColour = System.Drawing.Color.White;
-            this.pb.GradientStartColour = System.Drawing.Color.White;
-            this.pb.LabelAlignment = System.Windows.Forms.DockStyle.Bottom;
+            
             this.pb.Maximum = 2000;
             this.pb.Name = "pb";
             this.pb.NumberFormat = "N0";
             this.pb.NumberOffset = -1000;
             this.pb.NumberScale = 0.005;
-            this.pb.ProgressBackColour = System.Drawing.SystemColors.Window;
+            
             this.pb.SelectedColor = System.Drawing.Color.Gold;
-            this.pb.Style = booby.ProgresBarStyle.Balance;
-            this.pb.TextBoxBackColour = System.Drawing.SystemColors.Window;
+            
             this.pb.TokenCount = 11;
             this.pb.UnselectedColor = System.Drawing.Color.Black;
             this.pb.Value = 1000;
@@ -128,7 +126,7 @@ namespace SimPe.Plugin
 		}
 
 		BnfoCustomerItemsUI ui;
-		private booby.LabeledProgressBar pb;
+		private LabeledProgressBar pb;
 	
 		public BnfoCustomerItemsUI BnfoCustomerItemsUI
 		{
@@ -182,12 +180,12 @@ namespace SimPe.Plugin
 			if (pb.Value<0 && pb.SelectedColor!=Color.Coral) 
 			{
 				pb.SelectedColor = Color.Coral;
-				pb.CompleteRedraw();
+				pb.Refresh();
 			}
 			else if (pb.Value>=0 && pb.SelectedColor!=Color.Gold) 
 			{
 				pb.SelectedColor = Color.Gold;
-				pb.CompleteRedraw();
+				pb.Refresh();
 			}
 
 			item.LoyaltyScore = pb.Value;

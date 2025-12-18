@@ -49,14 +49,6 @@ namespace SimPe.Plugin
                 this.tbflname.Location = new System.Drawing.Point(11, 56);
                 this.tbflname.Size = new System.Drawing.Size(413, 27);
             }
-
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.LifoPanel);
-                tm.AddControl(this.btim);
-                tm.AddControl(this.btex);
-            }
 		}
 
 		/// <summary>
@@ -82,7 +74,7 @@ namespace SimPe.Plugin
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LifoForm));
-            this.LifoPanel = new booby.gradientpanel();
+            this.LifoPanel = new System.Windows.Forms.Panel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
@@ -106,7 +98,7 @@ namespace SimPe.Plugin
             this.menuItem7 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
-            this.panel2 = new booby.panelheader();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.btex = new System.Windows.Forms.Button();
             this.btim = new System.Windows.Forms.Button();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
@@ -135,13 +127,13 @@ namespace SimPe.Plugin
             this.LifoPanel.Controls.Add(this.cbitem);
             this.LifoPanel.Controls.Add(this.panel1);
             this.LifoPanel.Controls.Add(this.panel2);
-            this.LifoPanel.EndColour = System.Drawing.SystemColors.Control;
+            
             this.LifoPanel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LifoPanel.Location = new System.Drawing.Point(8, 8);
-            this.LifoPanel.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.LifoPanel.Name = "LifoPanel";
             this.LifoPanel.Size = new System.Drawing.Size(768, 288);
-            this.LifoPanel.StartColour = System.Drawing.SystemColors.Control;
+            
             this.LifoPanel.TabIndex = 19;
             // 
             // linkLabel2
@@ -357,16 +349,16 @@ namespace SimPe.Plugin
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.CanCommit = true;
+            //this.panel2.CanCommit = true;
             this.panel2.Controls.Add(this.btex);
             this.panel2.Controls.Add(this.btim);
-            this.panel2.HeaderText = "Lifo Editor";
+            //this.panel2.HeaderText = "Lifo Editor";
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(768, 24);
             this.panel2.TabIndex = 0;
-            this.panel2.OnCommit += new booby.panelheader.EventHandler(this.btcommit_Click);
+            //this.panel2.OnCommit += new System.Windows.Forms.Panel.EventHandler(this.btcommit_Click);
             // 
             // btex
             // 
@@ -427,8 +419,8 @@ namespace SimPe.Plugin
 		}
 		#endregion
 
-        internal booby.gradientpanel LifoPanel;
-        private booby.panelheader panel2;
+        internal System.Windows.Forms.Panel LifoPanel;
+        private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pb;
 		private System.Windows.Forms.Button btim;

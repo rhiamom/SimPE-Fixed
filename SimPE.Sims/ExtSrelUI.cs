@@ -145,8 +145,6 @@ namespace SimPe.PackedFiles.UserInterface
 
             this.lbsims.Text = sc.SourceSimName + " " + SimPe.Localization.GetString("towards") + " " + sc.TargetSimName;
             this.pb.Image = Ambertation.Drawing.GraphicRoutines.ScaleImage(sc.Image, pb.Size, true);
-
-            pb.Image = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(sc.Image, pb.Size, 12, Color.FromArgb(90, Color.Black), booby.ThemeManager.Global.ThemeColorDark, Color.White, Color.FromArgb(80, Color.White), true, 2, 0);
         }
         
         private void ExtSrel_Commited(object sender, System.EventArgs e)

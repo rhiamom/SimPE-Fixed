@@ -13,7 +13,7 @@ namespace SimPe
 	{
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Label label1;
-        private booby.gradientpanel panel2;
+        private System.Windows.Forms.Panel panel2;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -53,7 +53,7 @@ namespace SimPe
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Message));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new booby.gradientpanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.SuspendLayout();

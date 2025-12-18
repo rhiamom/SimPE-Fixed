@@ -12,8 +12,8 @@ namespace SimPe.PackedFiles.UserInterface
 	internal class GroupCacheForm : System.Windows.Forms.Form
 	{
 		internal System.Windows.Forms.ListBox lbgroup;
-        private booby.panelheader panel4;
-		internal booby.gradientpanel GropPanel;
+        private System.Windows.Forms.Panel panel4;
+		internal System.Windows.Forms.Panel GropPanel;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -23,12 +23,6 @@ namespace SimPe.PackedFiles.UserInterface
 		{
             InitializeComponent();
 
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.GropPanel);
-                tm.AddControl(this.lbgroup);
-            }
             if (Helper.WindowsRegistry.UseBigIcons) this.lbgroup.Font = new System.Drawing.Font(this.lbgroup.Font.FontFamily, 11F);
 
 		}
@@ -55,9 +49,9 @@ namespace SimPe.PackedFiles.UserInterface
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.GropPanel = new booby.gradientpanel();
+            this.GropPanel = new System.Windows.Forms.Panel();
             this.lbgroup = new System.Windows.Forms.ListBox();
-            this.panel4 = new booby.panelheader();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.GropPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,13 +60,13 @@ namespace SimPe.PackedFiles.UserInterface
             this.GropPanel.BackColor = System.Drawing.Color.Transparent;
             this.GropPanel.Controls.Add(this.lbgroup);
             this.GropPanel.Controls.Add(this.panel4);
-            this.GropPanel.EndColour = System.Drawing.SystemColors.Control;
+            
             this.GropPanel.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.GropPanel.Location = new System.Drawing.Point(14, 29);
-            this.GropPanel.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.GropPanel.Name = "GropPanel";
             this.GropPanel.Size = new System.Drawing.Size(264, 208);
-            this.GropPanel.StartColour = System.Drawing.SystemColors.Control;
+            
             this.GropPanel.TabIndex = 8;
             // 
             // lbgroup
@@ -91,7 +85,7 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.HeaderText = "Group Cache Viewer";
+           
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";

@@ -30,8 +30,8 @@ namespace SimPe.Plugin
 	/// </summary>
 	public class WantsForm : System.Windows.Forms.Form
 	{
-        private booby.panelheader panel2;
-		internal booby.gradientpanel wantsPanel;
+        private System.Windows.Forms.Panel panel2;
+		internal System.Windows.Forms.Panel wantsPanel;
 		internal System.Windows.Forms.TabControl tabControl1;
 		internal System.Windows.Forms.TabPage tblife;
 		private System.Windows.Forms.TabPage tbwant;
@@ -80,16 +80,6 @@ namespace SimPe.Plugin
 			// Required designer variable.
 			//
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.wantsPanel);
-                tm.AddControl(this.lvwant);
-                tm.AddControl(this.lvfear);
-                tm.AddControl(this.lvlife);
-                this.tvhist.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.tv.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-            }
 
 			wrapper = null;
 
@@ -118,7 +108,7 @@ namespace SimPe.Plugin
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            this.wantsPanel = new booby.gradientpanel();
+            this.wantsPanel = new System.Windows.Forms.Panel();
             this.gbprop = new System.Windows.Forms.GroupBox();
             this.cbsel = new System.Windows.Forms.ComboBox();
             this.cblock = new System.Windows.Forms.CheckBox();
@@ -158,7 +148,7 @@ namespace SimPe.Plugin
             this.tblife = new System.Windows.Forms.TabPage();
             this.lvlife = new System.Windows.Forms.ListView();
             this.ilife = new System.Windows.Forms.ImageList(this.components);
-            this.panel2 = new booby.panelheader();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.lbsimname = new System.Windows.Forms.Label();
             this.wantsPanel.SuspendLayout();
             this.gbprop.SuspendLayout();
@@ -178,13 +168,13 @@ namespace SimPe.Plugin
             this.wantsPanel.Controls.Add(this.gbprop);
             this.wantsPanel.Controls.Add(this.tabControl1);
             this.wantsPanel.Controls.Add(this.panel2);
-            this.wantsPanel.EndColour = System.Drawing.SystemColors.Control;
+            
             this.wantsPanel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wantsPanel.Location = new System.Drawing.Point(16, 8);
-            this.wantsPanel.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.wantsPanel.Name = "wantsPanel";
             this.wantsPanel.Size = new System.Drawing.Size(768, 344);
-            this.wantsPanel.StartColour = System.Drawing.SystemColors.Control;
+            
             this.wantsPanel.TabIndex = 20;
             // 
             // gbprop
@@ -639,15 +629,15 @@ namespace SimPe.Plugin
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.CanCommit = true;
+            //this.panel2.CanCommit = true;
             this.panel2.Controls.Add(this.lbsimname);
-            this.panel2.HeaderText = "Wants and Fears Viewer for";
+            //this.panel2.HeaderText = "Wants and Fears Viewer for";
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(768, 24);
             this.panel2.TabIndex = 0;
-            this.panel2.OnCommit += new booby.panelheader.EventHandler(this.Commit);
+            //this.panel2.OnCommit += new booby.panelheader.EventHandler(this.Commit);
             // 
             // lbsimname
             // 

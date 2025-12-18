@@ -35,33 +35,28 @@ namespace SimPe.Windows.Forms
         static Image bg;
         const uint WM_CHANGE_MESSAGE = Ambertation.Windows.Forms.APIHelp.WM_APP + 0x0001;
         const uint WM_SHOW_HIDE = Ambertation.Windows.Forms.APIHelp.WM_APP + 0x0002;
-        bool showtits = (SimPe.Helper.WindowsRegistry.CachedUserId == 105 && booby.PrettyGirls.RandomGirl != null && !Helper.WindowsRegistry.Layout.IsClassicPreset);
         IntPtr myhandle;
 
         public SplashForm()
         {
             msg = "";
             InitializeComponent();
-            if (showtits)
-                this.MinimumSize = new Size(bg.Width * 2, bg.Height * 2);
-            else
-            {
-                this.MinimumSize = new Size(461, 212);
-                this.MaximumSize = new Size(461, 212);
-            }
+
+            this.MinimumSize = new Size(461, 212);
+            this.MaximumSize = new Size(461, 212);
+
             myhandle = Handle;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.None;
+
             lbtxt.Text = msg;
-            if (showtits) lbver.Visible = label2.Visible = false;
-            else
-            {
-                lbver.Text = Helper.VersionToString(Helper.SimPeVersion);
-                if (Helper.WindowsRegistry.HiddenMode && Helper.QARelease) lbver.Text += " [Debug, QA]";
-                else if (Helper.WindowsRegistry.HiddenMode) lbver.Text += " [Debug]";
-                else if (Helper.QARelease) lbver.Text += " [QA]";
-            }
+
+            lbver.Text = Helper.VersionToString(Helper.SimPeVersion);
+            if (Helper.WindowsRegistry.HiddenMode && Helper.QARelease) lbver.Text += " [Debug, QA]";
+            else if (Helper.WindowsRegistry.HiddenMode) lbver.Text += " [Debug]";
+            else if (Helper.QARelease) lbver.Text += " [QA]";
         }
+
 
         protected override void OnCreateBitmap(Graphics g, Bitmap b)
         {
@@ -106,15 +101,7 @@ namespace SimPe.Windows.Forms
                 {
                     if (msg != value)
                     {
-                        if (value.IndexOf("Custom") > -1)
-                        {
-                            if (booby.PrettyGirls.IsTitsInstalled()) value = "Finding More Simulated Boobs";
-                            else
-                                if (booby.PrettyGirls.IsAngelsInstalled()) value = "Finding More Nurses";
-                        }
-                        if (value == null) msg = "";
-                        else msg = value;
-
+                        msg = value ?? "";
                         SendMessageChangeSignal();
                     }
                 }

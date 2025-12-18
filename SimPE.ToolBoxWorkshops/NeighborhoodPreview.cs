@@ -283,26 +283,26 @@ namespace SimPe.Plugin.Tool.Dockable
 
                     if (idno.Type == SimPe.Plugin.NeighborhoodType.Normal || (idno.Type == SimPe.Plugin.NeighborhoodType.Suburb && (idno.Subep == Data.MetaData.NeighbourhoodEP.Business || idno.Subep == Data.MetaData.NeighbourhoodEP.MansionGarden)))
                     {
-                        this.label4.Visible = true; this.label7.Visible = true; this.lbUni.Visible = true; this.lbholi.Visible = true;
+                        this.label4.Visible = true; 
+                        this.label7.Visible = true; 
+                        this.lbUni.Visible = true; 
+                        this.lbholi.Visible = true;
                         lbUni.Text = System.IO.Directory.GetFiles(System.IO.Path.GetDirectoryName(pkg.FileName), "*_University*.package").Length.ToString();
-                        if (booby.PrettyGirls.IsAngelsInstalled() || booby.PrettyGirls.IsTitsInstalled()) lbholi.Text = (System.IO.Directory.GetFiles(System.IO.Path.GetDirectoryName(pkg.FileName), "*_Vacation*.package").Length + 2).ToString();
-                        else lbholi.Text = System.IO.Directory.GetFiles(System.IO.Path.GetDirectoryName(pkg.FileName), "*_Vacation*.package").Length.ToString();
+                        lbholi.Text = System.IO.Directory.GetFiles(System.IO.Path.GetDirectoryName(pkg.FileName), "*_Vacation*.package").Length.ToString();
+                    }
+
+                    string typeText = idno.Type.ToString().Replace("_", " ");
+
+                    if (idno.Type == SimPe.Plugin.NeighborhoodType.Suburb &&
+                        idno.Subep != Data.MetaData.NeighbourhoodEP.Business)
+                    {
+                        this.lbType.Text = "Hidden " + typeText;
                     }
                     else
                     {
-                        this.label4.Visible = false; this.label7.Visible = false; this.lbUni.Visible = false; this.lbholi.Visible = false;
+                        this.lbType.Text = typeText;
                     }
-
-                    if (idno.Subep == Data.MetaData.NeighbourhoodEP.MansionGarden && idno.Type != SimPe.Plugin.NeighborhoodType.Normal && booby.PrettyGirls.IsTitsInstalled())
-                        this.lbType.Text = "Perverted " + idno.Type.ToString().Replace("_", " ");
-                    else
-                        if (idno.Subep == Data.MetaData.NeighbourhoodEP.MansionGarden && idno.Type == SimPe.Plugin.NeighborhoodType.Suburb && booby.PrettyGirls.IsAngelsInstalled())
-                            this.lbType.Text = "Angel and Nurses " + idno.Type.ToString().Replace("_", " ");
-                        else
-                            if (idno.Type == SimPe.Plugin.NeighborhoodType.Suburb && idno.Subep != Data.MetaData.NeighbourhoodEP.Business) this.lbType.Text = "Hidden " + idno.Type.ToString().Replace("_", " ");
-                                else this.lbType.Text = idno.Type.ToString().Replace("_", " ");
-
-                    if (Helper.WindowsRegistry.HiddenMode) ShowVersion(); // Boobs
+                   
                 }
                 else
                 {

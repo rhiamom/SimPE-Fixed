@@ -50,10 +50,8 @@ namespace SimPe.Windows.Forms
             //base.OnCreateBitmap(g, b);
             if (top == null)
             {
-                if (booby.PrettyGirls.PervyMode)
-                    top = Image.FromStream(typeof(HelpForm).Assembly.GetManifestResourceStream("SimPe.Windows.Forms.img.topao.png"));
-                else
-                    top = Image.FromStream(typeof(HelpForm).Assembly.GetManifestResourceStream("SimPe.Windows.Forms.img.top.png"));
+                
+                top = Image.FromStream(typeof(HelpForm).Assembly.GetManifestResourceStream("SimPe.Windows.Forms.img.top.png"));
 
                 center = Image.FromStream(typeof(HelpForm).Assembly.GetManifestResourceStream("SimPe.Windows.Forms.img.center.png"));
                 bottom = Image.FromStream(typeof(HelpForm).Assembly.GetManifestResourceStream("SimPe.Windows.Forms.img.bottom.png"));

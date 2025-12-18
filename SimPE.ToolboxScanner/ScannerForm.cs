@@ -51,7 +51,7 @@ namespace SimPe.Plugin
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.ComboBox cbfolder;
         private System.Windows.Forms.FolderBrowserDialog fbd;
-        private booby.ExtProgressBar pb;
+        private ProgressBar pb;
         private System.Windows.Forms.ListView lv;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -70,7 +70,7 @@ namespace SimPe.Plugin
         private System.Windows.Forms.TabPage tboperations;
         private System.Windows.Forms.Panel pnop;
         private ToolTip toolTip1;
-        private booby.gradientpanel panel1;
+        private System.Windows.Forms.Panel panel1;
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -400,7 +400,7 @@ namespace SimPe.Plugin
             this.cbfolder = new System.Windows.Forms.ComboBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
-            this.pb = new booby.ExtProgressBar();
+            this.pb = new ProgressBar();
             this.lv = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -434,7 +434,7 @@ namespace SimPe.Plugin
             this.thumb = new System.Windows.Forms.PictureBox();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel1 = new booby.gradientpanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tbscanners.SuspendLayout();
             this.tboperations.SuspendLayout();
@@ -482,23 +482,16 @@ namespace SimPe.Plugin
             this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pb.BackColor = System.Drawing.Color.Transparent;
-            this.pb.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pb.Gradient = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.pb.GradientEndColor = System.Drawing.Color.Black;
-            this.pb.GradientStartColor = System.Drawing.Color.White;
+            
             this.pb.Location = new System.Drawing.Point(14, 574);
             this.pb.Maximum = 1000;
             this.pb.Minimum = 0;
             this.pb.Name = "pb";
-            this.pb.ProgressBackColor = System.Drawing.SystemColors.Window;
-            this.pb.Quality = true;
-            this.pb.SelectedColor = System.Drawing.Color.YellowGreen;
+            
             this.pb.Size = new System.Drawing.Size(931, 23);
-            this.pb.Style = booby.ProgresBarStyle.Simple;
+            
             this.pb.TabIndex = 7;
-            this.pb.TokenCount = 2;
-            this.pb.UnselectedColor = System.Drawing.Color.Black;
-            this.pb.UseTokenBuffer = false;
+            
             this.pb.Value = 0;
             // 
             // lv
@@ -854,14 +847,14 @@ namespace SimPe.Plugin
             this.panel1.Controls.Add(this.linkLabel1);
             this.panel1.Controls.Add(this.gbinfo);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.EndColour = System.Drawing.SystemColors.Control;
+            
             this.panel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.GradCentre = 0.7F;
+            
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(964, 602);
-            this.panel1.StartColour = System.Drawing.SystemColors.Control;
+            
             this.panel1.TabIndex = 8;
             // 
             // ScannerForm

@@ -207,21 +207,6 @@ namespace SimPe.Plugin
                 this.lb_model_faces.Font = new System.Drawing.Font("Verdana", 12F);
                 this.lb_subsets.Font = new System.Drawing.Font("Verdana", 12F);
             }
-
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.pg);
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.tGeometryDataContainer.BackColor = this.tGeometryDataContainer2.BackColor = this.tGeometryDataContainer3.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-                this.tMesh.BackColor = this.tSubset.BackColor = this.tModel.BackColor = this.tAdvncd.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-                this.lb_itemsa.BackColor = this.lb_itemsa1.BackColor = this.lb_itemsa2.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lb_itemsc.BackColor = this.lb_itemsc2.BackColor = this.lb_itemsc3.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lb_itemsb.BackColor = this.lb_itemsb2.BackColor = this.lb_itemsb3.BackColor = this.lb_itemsb4.BackColor = this.lb_itemsb5.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.list_elements.BackColor = this.list_links.BackColor = this.list_groups.BackColor = this.list_subsets.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lb_subsets.BackColor = this.lb_sub_items.BackColor = this.lb_sub_faces.BackColor = this.lb_model_trans.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lb_model_names.BackColor = this.lb_model_faces.BackColor = this.lb_model_items.BackColor = this.lbmodel.BackColor = this.cbGroupJoint.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
 		}
 
 		/// <summary>

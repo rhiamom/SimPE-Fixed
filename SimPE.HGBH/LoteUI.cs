@@ -22,22 +22,6 @@ namespace SimPe.Plugin
         public LoteUI()
 		{
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.rtLotDef);
-                tm.AddControl(this.cbtype);
-                this.lbnotes.ForeColor = booby.ThemeManager.Global.ThemeColourXdark;
-                if (booby.ThemeManager.savedTheme == 4 || booby.ThemeManager.savedTheme == 7)
-                    this.rtLotDef.Font = new System.Drawing.Font("Comic Sans MS", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            }
-            if (booby.PrettyGirls.PervyMode)
-            {
-                if (!booby.Infos.IsFontinstalled("Blackadder ITC"))
-                    this.label1.Font = new System.Drawing.Font("Comic Sans MS", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                this.label1.Visible = true;
-                this.HeaderText = "Boobies";
-            }
 
             this.cbtype.Items.Clear();
             this.cbtype.Items.Add(Ltxt.LotType.Unknown);
@@ -64,36 +48,13 @@ namespace SimPe.Plugin
                 this.cbtype.Items.Add(Ltxt.LotType.ApartmentSublot);
                 this.cbtype.Items.Add(Ltxt.LotType.Witches);
             }
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-            {
-                this.cbtype.Items.Add(Ltxt.LotType.Hospital);
-                this.cbtype.Items.Add(Ltxt.LotType.Heaven);
-                this.cbtype.Items.Add(Ltxt.LotType.Hell);
-                this.cbtype.Items.Add(Ltxt.LotType.PublicSchool);
-                this.cbtype.Items.Add(Ltxt.LotType.PrivateSchool);
-                this.cbtype.Items.Add(Ltxt.LotType.Childcare);
-                this.cbtype.Items.Add(Ltxt.LotType.BattleField);
-                this.cbtype.Items.Add(Ltxt.LotType.SpaceHotel);
-                this.cbtype.Items.Add(Ltxt.LotType.SpaceTour);
-            }
+            
 		}
 
         public override void RefreshGUI()
         {
             base.RefreshGUI();
             reddy = false;
-            if (Helper.StartedGui != Executable.Classic && booby.PrettyGirls.PervyMode)
-            {
-                if (Wrapper.Type == Ltxt.LotType.Residential || Wrapper.Type == Ltxt.LotType.ApartmentSublot || Wrapper.Type == Ltxt.LotType.Dorm)
-                    this.BackgroundImage = booby.PrettyGirls.GoldenGirl;
-                else if (Wrapper.Type == Ltxt.LotType.Hospital || Wrapper.Type == Ltxt.LotType.Hotel || Wrapper.Type == Ltxt.LotType.SpaceHotel)
-                    this.BackgroundImage = booby.PrettyGirls.BikiniBabe;
-                else if (Wrapper.Type == Ltxt.LotType.Heaven || Wrapper.Type == Ltxt.LotType.Hell || Wrapper.Type == Ltxt.LotType.BattleField)
-                    this.BackgroundImage = booby.PrettyGirls.BadGirl;
-                else if (Wrapper.Type == Ltxt.LotType.PublicSchool || Wrapper.Type == Ltxt.LotType.PrivateSchool || Wrapper.Type == Ltxt.LotType.Childcare)
-                    this.BackgroundImage = booby.PrettyGirls.PurpleShades;
-                else this.BackgroundImage = booby.PrettyGirls.Knockers;
-            }
 
             if (this.cbtype.Items.Contains(Wrapper.Type))
                 this.cbtype.SelectedIndex = this.cbtype.Items.IndexOf(Wrapper.Type);

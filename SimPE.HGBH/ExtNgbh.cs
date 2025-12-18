@@ -65,14 +65,9 @@ namespace SimPe.Plugin
                 list.AddRange(new NgbhValueDescriptor[] {new NgbhValueDescriptor("Nursery Rhyme", false, NgbhValueDescriptorType.ToddlerSkill, 0x4ddf0e12, 7, 0, 600, 7)});
             }
 
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled() || PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists)
+            if (SimPe.PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists)
             {
                 list.AddRange(new NgbhValueDescriptor[] {new NgbhValueDescriptor("Limbo Skill", false, NgbhValueDescriptorType.Skill, 0x33fbe0b7, 0, 0, 200)});
-            }
-
-            if (booby.PrettyGirls.IsAngelsInstalled() || booby.PrettyGirls.IsTitsInstalled())
-            {
-                list.AddRange(new NgbhValueDescriptor[] {new NgbhValueDescriptor("Learned about Birds and Bees", false, NgbhValueDescriptorType.ToddlerSkill, 0x4ddf0e12, 8, 0, 1, 8)});
             }
 
 			vd = new NgbhValueDescriptor[list.Count];

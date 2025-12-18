@@ -31,8 +31,8 @@ namespace SimPe.Plugin
 	/// </summary>
 	public class RefFileForm : System.Windows.Forms.Form
 	{
-        internal booby.gradientpanel wrapperPanel;
-        private booby.panelheader panel3;
+        internal System.Windows.Forms.Panel wrapperPanel;
+        private System.Windows.Forms.Panel panel3;
 		internal System.Windows.Forms.ListBox lblist;
 		private System.Windows.Forms.GroupBox gbtypes;
 		private System.Windows.Forms.Panel pntypes;
@@ -67,16 +67,6 @@ namespace SimPe.Plugin
 			//
             InitializeComponent();
             if (Helper.WindowsRegistry.UseBigIcons) this.lblist.Font = new System.Drawing.Font(this.lblist.Font.FontFamily, 11F);
-
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.wrapperPanel);
-                tm.AddControl(this.lblist);
-                tm.AddControl(this.btup);
-                tm.AddControl(this.btdown);
-                tm.AddControl(this.cbtypes);
-            }
 		}
 
 		/// <summary>
@@ -101,7 +91,7 @@ namespace SimPe.Plugin
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.wrapperPanel = new booby.gradientpanel();
+            this.wrapperPanel = new System.Windows.Forms.Panel();
             this.pb = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -125,7 +115,7 @@ namespace SimPe.Plugin
             this.contextMenu1 = new System.Windows.Forms.ContextMenu();
             this.miAdd = new System.Windows.Forms.MenuItem();
             this.miRem = new System.Windows.Forms.MenuItem();
-            this.panel3 = new booby.panelheader();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.wrapperPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.gbtypes.SuspendLayout();
@@ -144,13 +134,13 @@ namespace SimPe.Plugin
             this.wrapperPanel.Controls.Add(this.gbtypes);
             this.wrapperPanel.Controls.Add(this.lblist);
             this.wrapperPanel.Controls.Add(this.panel3);
-            this.wrapperPanel.EndColour = System.Drawing.SystemColors.Control;
+            
             this.wrapperPanel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wrapperPanel.Location = new System.Drawing.Point(8, 8);
-            this.wrapperPanel.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.wrapperPanel.Name = "wrapperPanel";
             this.wrapperPanel.Size = new System.Drawing.Size(664, 328);
-            this.wrapperPanel.StartColour = System.Drawing.SystemColors.Control;
+            
             this.wrapperPanel.TabIndex = 3;
             // 
             // pb
@@ -424,14 +414,14 @@ namespace SimPe.Plugin
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.CanCommit = true;
-            this.panel3.HeaderText = "3D Referencing File Editor";
+            //this.panel3.CanCommit = true;
+            //this.panel3.HeaderText = "3D Referencing File Editor";
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(664, 24);
             this.panel3.TabIndex = 0;
-            this.panel3.OnCommit += new booby.panelheader.EventHandler(this.CommitAll);
+            //this.panel3.OnCommit += new System.Windows.Forms.Panel.EventHandler(this.CommitAll);booby
             // 
             // RefFileForm
             // 

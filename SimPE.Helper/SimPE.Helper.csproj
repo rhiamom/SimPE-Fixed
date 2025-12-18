@@ -152,7 +152,9 @@
       <DependentUpon>Localization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Localization.ru.resx" />
-    <EmbeddedResource Include="pjseMsgBox.resx" />
+    <EmbeddedResource Include="pjseMsgBox.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

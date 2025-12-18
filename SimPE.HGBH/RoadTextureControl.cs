@@ -17,12 +17,13 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-using System;
+using Ambertation.Windows.Forms;
 using SimPe.Interfaces.Plugin;
+using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SimPe.Plugin
@@ -41,7 +42,7 @@ namespace SimPe.Plugin
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.ListBox lb;
 		private System.Windows.Forms.Label label5;
-        private booby.TaskBox xpTaskBoxSimple1;
+        private XPTaskBoxSimple xpTaskBoxSimple1;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox tbFlname;
 		private System.Windows.Forms.TextBox tbUk1;
@@ -61,8 +62,8 @@ namespace SimPe.Plugin
 			// Required designer variable.
 			InitializeComponent();
 
-            booby.ThemeManager.Global.AddControl(this.xpTaskBoxSimple1);
-            if (booby.ThemeManager.ThemedForms) booby.ThemeManager.Global.AddControl(this.lb);
+            ThemeManager.Global.AddControl(this.xpTaskBoxSimple1);
+            
             if (Helper.WindowsRegistry.UseBigIcons) this.lb.Font = new System.Drawing.Font("Tahoma", 12F);
 			cbType.Enum = typeof(RoadTexture.RoadTextureType);
 		}
@@ -100,7 +101,7 @@ namespace SimPe.Plugin
             this.tbUk3 = new System.Windows.Forms.TextBox();
             this.tbId = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.xpTaskBoxSimple1 = new booby.TaskBox();
+            this.xpTaskBoxSimple1 = new XPTaskBoxSimple();
             this.tbTxmt = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();

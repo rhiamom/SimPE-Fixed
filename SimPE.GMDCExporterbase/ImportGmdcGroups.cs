@@ -1,9 +1,10 @@
+using Ambertation.Windows.Forms;
 using System;
-using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace SimPe.Plugin.Gmdc
 {
@@ -39,10 +40,10 @@ namespace SimPe.Plugin.Gmdc
         private System.Windows.Forms.CheckBox cbcleanbn;
         private System.Windows.Forms.CheckBox cbcleangrp;
         private System.Windows.Forms.CheckBox cbupdatecres;
-        private booby.gradientpanel Gradientpanel1;
-		private booby.TaskBox gbbones;
-        private booby.TaskBox gbgroups;
-        private booby.TaskBox gbsettings;
+        private System.Windows.Forms.Panel Gradientpanel1;
+		private XPTaskBoxSimple gbbones;
+        private XPTaskBoxSimple gbgroups;
+        private XPTaskBoxSimple gbsettings;
         private System.Windows.Forms.CheckBox cbBMesh;
 		private System.Windows.Forms.ColumnHeader chBMesh;
 		private System.Windows.Forms.Label label6;
@@ -70,15 +71,10 @@ namespace SimPe.Plugin.Gmdc
 			cbboneaction.Items.Add(GmdcImporterAction.Replace);			
 			cbboneaction.Items.Add(GmdcImporterAction.Update);
 
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = ThemeManager.Global.CreateChild();
 			tm.AddControl(this.gbsettings);
 			tm.AddControl(this.gbgroups);
             tm.AddControl(this.gbbones);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(this.Gradientpanel1);
-                tm.AddControl(this.button1);
-            }
 		}
 
 		/// <summary>
@@ -132,13 +128,13 @@ namespace SimPe.Plugin.Gmdc
             this.cbupdatecres = new System.Windows.Forms.CheckBox();
             this.cbcleanbn = new System.Windows.Forms.CheckBox();
             this.cbcleangrp = new System.Windows.Forms.CheckBox();
-            this.Gradientpanel1 = new booby.gradientpanel();
-            this.gbbones = new booby.TaskBox();
-            this.gbgroups = new booby.TaskBox();
+            this.Gradientpanel1 = new System.Windows.Forms.Panel();
+            this.gbbones = new XPTaskBoxSimple();
+            this.gbgroups = new XPTaskBoxSimple();
             this.lbKeepOrder = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cbBMesh = new System.Windows.Forms.CheckBox();
-            this.gbsettings = new booby.TaskBox();
+            this.gbsettings = new XPTaskBoxSimple();
             this.Gradientpanel1.SuspendLayout();
             this.gbbones.SuspendLayout();
             this.gbgroups.SuspendLayout();
@@ -424,13 +420,13 @@ namespace SimPe.Plugin.Gmdc
             this.Gradientpanel1.Controls.Add(this.lv);
             this.Gradientpanel1.Controls.Add(this.label1);
             this.Gradientpanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Gradientpanel1.EndColour = System.Drawing.SystemColors.Control;
+            
             this.Gradientpanel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Gradientpanel1.Location = new System.Drawing.Point(0, 0);
-            this.Gradientpanel1.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.Gradientpanel1.Name = "Gradientpanel1";
             this.Gradientpanel1.Size = new System.Drawing.Size(984, 473);
-            this.Gradientpanel1.StartColour = System.Drawing.SystemColors.Control;
+            
             this.Gradientpanel1.TabIndex = 12;
             // 
             // gbbones
@@ -456,7 +452,7 @@ namespace SimPe.Plugin.Gmdc
             this.gbbones.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
             this.gbbones.Size = new System.Drawing.Size(280, 103);
             this.gbbones.TabIndex = 14;
-            this.gbbones.TopGap = 4;
+            
             // 
             // gbgroups
             // 
@@ -489,7 +485,7 @@ namespace SimPe.Plugin.Gmdc
             this.gbgroups.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
             this.gbgroups.Size = new System.Drawing.Size(280, 205);
             this.gbgroups.TabIndex = 13;
-            this.gbgroups.TopGap = 4;
+            
             // 
             // lbKeepOrder
             // 
@@ -544,7 +540,7 @@ namespace SimPe.Plugin.Gmdc
             this.gbsettings.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
             this.gbsettings.Size = new System.Drawing.Size(280, 113);
             this.gbsettings.TabIndex = 12;
-            this.gbsettings.TopGap = 4;
+            
             // 
             // ImportGmdcGroupsForm
             // 
@@ -720,29 +716,17 @@ namespace SimPe.Plugin.Gmdc
 				lvi.Tag = a;
 				lvi.ForeColor = a.MarkColor;
 
-                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled() || UserVerification.HaveUserId)
-                {
-                    if (a.VertexCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) toobig = true;
-                    if (a.FaceCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT) toobig = true;
-                }
-                else
-                {
-                    if (a.VertexCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_VERTEX_AMOUNT) toobig = true;
-                    if (a.FaceCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_FACE_AMOUNT) toobig = true;
-                }
+                   if (a.VertexCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) toobig = true;
+                   if (a.FaceCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT) toobig = true;
 
 				f.lv.Items.Add(lvi);
 			}
 
 			if (toobig) 			
 			{
-                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled() || UserVerification.HaveUserId)
-                    Helper.ExceptionMessage(new Warning("One or more of the imported Mesh Groups contains a lot of Vertices or Faces", "The High Number of Vertices is set to " + SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT.ToString() + " and the High amount of Faces to " + SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT.ToString()));
-                else
-                {
-                    Helper.ExceptionMessage(new Warning("One or more of the imported Mesh Groups contain too many Vertices or Faces", "If SimPe is not running in Creater Mode, the maximum Number of Vertices is set to " + SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_VERTEX_AMOUNT.ToString() + " and the maximum amount of Faces to " + SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_FACE_AMOUNT.ToString() + ".\n\nIf you want to Import this Mesh, you have to create a User Id."));
-                    f.button1.Enabled = false;
-                }
+                Helper.ExceptionMessage(new Warning("One or more of the imported Mesh Groups contain too many Vertices or Faces", "If SimPe is not running in Creater Mode, the maximum Number of Vertices is set to " + SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_VERTEX_AMOUNT.ToString() + " and the maximum amount of Faces to " + SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_FACE_AMOUNT.ToString() + ".\n\nIf you want to Import this Mesh, you have to create a User Id."));
+                f.button1.Enabled = false;
+                
 			}
 
 			int ct = 0;

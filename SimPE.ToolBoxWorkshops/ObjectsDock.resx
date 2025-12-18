@@ -363,11 +363,8 @@
   <data name="xpAdvanced.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
   </data>
-  <data name="&gt;&gt;xpAdvanced.Name" xml:space="preserve">
+	<data name="&gt;&gt;xpAdvanced.Name" xml:space="preserve">
     <value>xpAdvanced</value>
-  </data>
-  <data name="&gt;&gt;xpAdvanced.Type" xml:space="preserve">
-    <value>booby.TaskBox, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;xpAdvanced.Parent" xml:space="preserve">
     <value>wizardStepPanel1</value>
@@ -694,9 +691,6 @@
   <data name="&gt;&gt;xpTaskBoxSimple2.Name" xml:space="preserve">
     <value>xpTaskBoxSimple2</value>
   </data>
-  <data name="&gt;&gt;xpTaskBoxSimple2.Type" xml:space="preserve">
-    <value>booby.TaskBox, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;xpTaskBoxSimple2.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
@@ -812,9 +806,6 @@
   <data name="&gt;&gt;xpTaskBoxSimple1.Name" xml:space="preserve">
     <value>xpTaskBoxSimple1</value>
   </data>
-  <data name="&gt;&gt;xpTaskBoxSimple1.Type" xml:space="preserve">
-    <value>booby.TaskBox, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;xpTaskBoxSimple1.Parent" xml:space="preserve">
     <value>wizardStepPanel3</value>
   </data>
@@ -920,9 +911,6 @@
   </data>
   <data name="&gt;&gt;gbRecolor.Name" xml:space="preserve">
     <value>gbRecolor</value>
-  </data>
-  <data name="&gt;&gt;gbRecolor.Type" xml:space="preserve">
-    <value>booby.TaskBox, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;gbRecolor.Parent" xml:space="preserve">
     <value>wizardStepPanel3</value>
@@ -1387,9 +1375,6 @@ If unchecked, all the original group ID assignments will be preserved.</value>
   <data name="&gt;&gt;gbClone.Name" xml:space="preserve">
     <value>gbClone</value>
   </data>
-  <data name="&gt;&gt;gbClone.Type" xml:space="preserve">
-    <value>booby.TaskBox, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;gbClone.Parent" xml:space="preserve">
     <value>wizardStepPanel3</value>
   </data>
@@ -1774,9 +1759,6 @@ If unchecked, all the original group ID assignments will be preserved.</value>
   </data>
   <data name="&gt;&gt;xpTaskBoxSimple3.Name" xml:space="preserve">
     <value>xpTaskBoxSimple3</value>
-  </data>
-  <data name="&gt;&gt;xpTaskBoxSimple3.Type" xml:space="preserve">
-    <value>booby.TaskBox, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;xpTaskBoxSimple3.Parent" xml:space="preserve">
     <value>wizardStepPanel5</value>
@@ -2236,9 +2218,6 @@ Another reason might be SimPe's file table has not been configured to load some 
   </data>
   <data name="&gt;&gt;xpGradientPanel1.Name" xml:space="preserve">
     <value>xpGradientPanel1</value>
-  </data>
-  <data name="&gt;&gt;xpGradientPanel1.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;xpGradientPanel1.Parent" xml:space="preserve">
     <value>$this</value>

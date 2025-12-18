@@ -49,7 +49,7 @@ namespace SimPe.Plugin
 		{
             // Required designer variable.
 			InitializeComponent();
-            if (booby.ThemeManager.ThemedForms) booby.ThemeManager.Global.AddControl(this.lb);
+            
             if (Helper.WindowsRegistry.UseBigIcons) this.lb.Font = new System.Drawing.Font("Courier New", 12F);
 		}
 

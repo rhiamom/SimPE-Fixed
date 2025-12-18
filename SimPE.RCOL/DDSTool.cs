@@ -64,13 +64,6 @@ namespace SimPe.Plugin
 			cbformat.Items.Add(ImageLoader.TxtrFormats.DXT1Format);
 			cbformat.Items.Add(ImageLoader.TxtrFormats.DXT3Format);
 			cbformat.Items.Add(ImageLoader.TxtrFormats.DXT5Format);
-
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(button1);
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.cbfilter.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-            }
 		}
 
 		/// <summary>

@@ -54,12 +54,6 @@ namespace SimPe.Plugin.TabPage
 			InitializeComponent();
 
             this.UseVisualStyleBackColor = true;
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.gen_pg);
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
 		}
 
 		/// <summary>

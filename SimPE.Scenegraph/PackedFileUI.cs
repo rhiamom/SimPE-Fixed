@@ -83,8 +83,6 @@ namespace SimPe.Plugin
 			{
 				form.lblist.Items.Add(pfd);
 			}
-            if (booby.PrettyGirls.PervyMode && Helper.StartedGui == Executable.Default) form.imge = booby.PrettyGirls.RandomLady;
-            else form.imge = null;
             form.pb.Image = form.imge;
 		}		
 

@@ -156,13 +156,17 @@
     <EmbeddedResource Include="Report.de.resx" />
     <EmbeddedResource Include="Report.fr.resx" />
     <EmbeddedResource Include="Report.pl.resx" />
-    <EmbeddedResource Include="Report.resx" />
+    <EmbeddedResource Include="Report.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report.ru.resx" />
     <EmbeddedResource Include="ResourceDock.de.resx" />
     <EmbeddedResource Include="ResourceDock.fr.resx" />
     <EmbeddedResource Include="ResourceDock.it.resx" />
     <EmbeddedResource Include="ResourceDock.pl.resx" />
-    <EmbeddedResource Include="ResourceDock.resx" />
+    <EmbeddedResource Include="ResourceDock.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="ResourceDock.ru.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

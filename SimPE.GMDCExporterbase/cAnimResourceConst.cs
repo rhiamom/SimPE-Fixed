@@ -391,7 +391,7 @@ namespace SimPe.Plugin.Anim
                         }
 
                         //Add a FrameList
-                        if (ab2.FrameCount > 0 && (UserVerification.HaveUserId || booby.PrettyGirls.PervyMode))
+                        if (ab2.FrameCount > 0)
                         {
                             System.Windows.Forms.TreeNode frames = new System.Windows.Forms.TreeNode("Interpolated Frames");
                             tn2.Nodes.Add(frames);
@@ -447,7 +447,7 @@ namespace SimPe.Plugin.Anim
 			tc.TabPages.Add(form.tMisc);
 
 			form.tAnimResourceConst.Tag = this;
-            if (UserVerification.HaveUserId || booby.PrettyGirls.PervyMode) tc.TabPages.Add(form.tAnimResourceConst);
+            tc.TabPages.Add(form.tAnimResourceConst);
 		}
 
 

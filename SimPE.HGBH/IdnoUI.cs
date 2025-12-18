@@ -227,8 +227,6 @@ namespace SimPe.Plugin
                     form.cbquadd.Visible = true;
                 }
 
-                if ((booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled()) && !Helper.WindowsRegistry.HiddenMode) form.llunique.Visible = false;
-
                 form.wrapper = wrp;
 			} 
 			finally 

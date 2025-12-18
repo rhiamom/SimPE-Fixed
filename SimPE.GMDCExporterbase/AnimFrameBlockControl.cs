@@ -79,7 +79,7 @@ namespace SimPe.Plugin.Anim
 			// Required designer variable.
 			InitializeComponent();
             
-            booby.ThemeManager.Global.AddControl(splitter1);
+            ThemeManager.Global.AddControl(splitter1);
 			panel1.BackColor = splitter1.BackColor;
 			panel3.BackColor = splitter1.BackColor;
             panel6.BackColor = splitter1.BackColor;

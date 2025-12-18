@@ -96,21 +96,27 @@
     <EmbeddedResource Include="Neighborhood.fr.resx" />
     <EmbeddedResource Include="Neighborhood.it.resx" />
     <EmbeddedResource Include="Neighborhood.pl.resx" />
-    <EmbeddedResource Include="Neighborhood.resx" />
+    <EmbeddedResource Include="Neighborhood.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Neighborhood.ru.resx" />
     <EmbeddedResource Include="NgbBackup.de.resx" />
     <EmbeddedResource Include="NgbBackup.es.resx" />
     <EmbeddedResource Include="NgbBackup.fr.resx" />
     <EmbeddedResource Include="NgbBackup.it.resx" />
     <EmbeddedResource Include="NgbBackup.pl.resx" />
-    <EmbeddedResource Include="NgbBackup.resx" />
+    <EmbeddedResource Include="NgbBackup.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="NgbBackup.ru.resx" />
     <EmbeddedResource Include="PhotoStudio.de.resx" />
     <EmbeddedResource Include="PhotoStudio.en-US.resx" />
     <EmbeddedResource Include="PhotoStudio.fr.resx" />
     <EmbeddedResource Include="PhotoStudio.it.resx" />
     <EmbeddedResource Include="PhotoStudio.pl.resx" />
-    <EmbeddedResource Include="PhotoStudio.resx" />
+    <EmbeddedResource Include="PhotoStudio.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="PhotoStudio.ru.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

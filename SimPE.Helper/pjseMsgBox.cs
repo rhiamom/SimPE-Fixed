@@ -36,20 +36,12 @@ namespace System.Windows.Forms
         {
             InitializeComponent();
 
-            // Removed booby theme hooks
-            // booby.ThemeManager.Global.AddControl(this.panel1);
-            // booby.ThemeManager.Global.AddControl(this.tbMessage);
-
             this.tbMessage.Text = text;
             this.Text = caption;
 
             if (buttonsVisible.Length < 3)
                 throw new ArgumentException("need three (or more) flags", "buttonsVisible");
 
-            // We keep the visibility logic, just drop the theme calls.
-            //button1.Visible = buttonsVisible[0];
-            //button2.Visible = buttonsVisible[1];
-            //button3.Visible = buttonsVisible[2];
             if (!buttonsVisible[0]) tlpButtons.Controls.Remove(button1);
             if (!buttonsVisible[1]) tlpButtons.Controls.Remove(button2);
             if (!buttonsVisible[2]) tlpButtons.Controls.Remove(button3);

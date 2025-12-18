@@ -72,11 +72,6 @@ namespace SimPe.Plugin.TabPage
                 this.lb_ogn.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
                 this.tb_ogn_file.Font = new System.Drawing.Font("Verdana", 12F);
             }
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lb_ogn.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
 		}
 
 		/// <summary>

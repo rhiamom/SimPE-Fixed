@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Ambertation.Windows.Forms;
 
 namespace SimPe.Wizards
 {
@@ -34,7 +35,7 @@ namespace SimPe.Wizards
 		private System.ComponentModel.Container components = null;
 		const string FONT_FAMILY = "Verdana";		
 		const string FONT_FAMILY_SERIF = "Georgia";
-        private System.Windows.Forms.Panel taskBox1;
+        private XPTaskBoxSimple taskBox1;
         private System.Windows.Forms.LinkLabel linkLabel5;
 
 		public Option()
@@ -69,7 +70,7 @@ namespace SimPe.Wizards
             this.pbtop = new System.Windows.Forms.PictureBox();
             this.pbbottom = new System.Windows.Forms.PictureBox();
             this.pnopt = new System.Windows.Forms.Panel();
-            this.taskBox1 = new booby.TaskBox();
+            this.taskBox1 = new XPTaskBoxSimple();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.tbsims = new System.Windows.Forms.TextBox();
             this.llsave = new System.Windows.Forms.LinkLabel();

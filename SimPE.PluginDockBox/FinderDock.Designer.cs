@@ -29,11 +29,11 @@ namespace SimPe.Plugin.Tool.Dockable
 {
     partial class FinderDock
     {
-        private booby.gradientpanel xpGradientPanel1;
+        private System.Windows.Forms.Panel xpGradientPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox cbTask;
         private System.Windows.Forms.Label label1;
-        private booby.TaskBox tbResult;
+        private XPTaskBoxSimple tbResult;
         private SteepValley.Windows.Forms.XPListView lv;
         private ToolStrip toolBar1;
         private ToolStripButton biList;
@@ -70,8 +70,8 @@ namespace SimPe.Plugin.Tool.Dockable
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FinderDock));
-            this.xpGradientPanel1 = new booby.gradientpanel();
-            this.tbResult = new booby.TaskBox();
+            this.xpGradientPanel1 = new System.Windows.Forms.Panel();
+            this.tbResult = new XPTaskBoxSimple();
             this.lv = new SteepValley.Windows.Forms.XPListView(this.components);
             this.pnContainer = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -117,7 +117,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.tbResult.Padding = new System.Windows.Forms.Padding(4, 32, 4, 4);
             this.tbResult.Size = new System.Drawing.Size(238, 284);
             this.tbResult.TabIndex = 4;
-            this.tbResult.TopGap = 6;
+            
             // 
             // lv
             // 

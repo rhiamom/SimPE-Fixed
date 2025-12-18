@@ -40,14 +40,16 @@ namespace SimPe.Plugin.Tool.Action
                 {
                     int i = -1;
                     while (++i < es.Count)
-                        if (es.Items[i].Resource.FileDescriptor.Type != Data.MetaData.SIM_DESCRIPTION_FILE) return false;
+                        if (es.Items[i].Resource.FileDescriptor.Type != Data.MetaData.SIM_DESCRIPTION_FILE)
+                            return false;
                     return true;
                 }
                 else
-                    return booby.PrettyGirls.IsTitsInstalled();
+                    return true;   
             }
             return false;
         }
+
 
         public void ExecuteEventHandler(object sender, SimPe.Events.ResourceEventArgs e)
         {

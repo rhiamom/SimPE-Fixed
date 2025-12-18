@@ -33,9 +33,9 @@ namespace SimPe
             ShowText = true;
             nowp = -1;
 
-            if (booby.ThemeManager.ThemedForms && Helper.WindowsRegistry.ShowWaitBarPermanent)
+            if (SimPe.Helper.WindowsRegistry.ShowWaitBarPermanent)
             {
-                booby.ThemeManager.Global.AddControl(this.statusStrip1);
+                ThemeManager.Global.AddControl(this.statusStrip1);
             }
         }
 

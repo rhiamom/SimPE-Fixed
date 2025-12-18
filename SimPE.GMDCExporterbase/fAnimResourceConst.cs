@@ -29,7 +29,7 @@ namespace SimPe.Plugin.Anim
         internal System.Windows.Forms.TabPage tMesh;
         private RichTextBox rtbnotes;
         private CheckBox cbshnote;
-        private booby.gradientpanel gradpanel;
+        private System.Windows.Forms.Panel gradpanel;
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -42,7 +42,7 @@ namespace SimPe.Plugin.Anim
 			//
 			InitializeComponent();
 
-            llInTxt.Visible = llTxt.Visible = (UserVerification.HaveUserId || booby.PrettyGirls.PervyMode);
+            llInTxt.Visible = llTxt.Visible = true;
 
             if (Helper.WindowsRegistry.UseBigIcons)
             {
@@ -50,13 +50,7 @@ namespace SimPe.Plugin.Anim
                 rtbnotes.Font = new System.Drawing.Font("Verdana", 12F);
             }
 
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.pg);
-                booby.ThemeManager.Global.AddControl(this.rtbnotes);
-                booby.ThemeManager.Global.AddControl(this.gradpanel);
-            }
-            this.gradpanel.BackgroundImage = booby.PrettyGirls.RandomGirl;
+            this.gradpanel.BackgroundImage = null;
 
             llInTxt.BackColor = llAdd.BackColor = llClear.BackColor = llTxt.BackColor = checkBox1.BackColor = pg.BackColor;
 
@@ -117,7 +111,7 @@ namespace SimPe.Plugin.Anim
             this.tb_arc_ver = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.tMesh = new System.Windows.Forms.TabPage();
-            this.gradpanel = new booby.gradientpanel();
+            this.gradpanel = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tAnimResourceConst.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -344,18 +338,17 @@ namespace SimPe.Plugin.Anim
             // gradpanel
             // 
             this.gradpanel.BackColor = System.Drawing.Color.Transparent;
-            this.gradpanel.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.Centered;
-            this.gradpanel.BackgroundImageZoomToFit = true;
+            
             this.gradpanel.Controls.Add(this.groupBox12);
             this.gradpanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gradpanel.EndColour = System.Drawing.SystemColors.ControlLightLight;
+            
             this.gradpanel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gradpanel.GradCentre = 0.7F;
+            
             this.gradpanel.Location = new System.Drawing.Point(0, 0);
-            this.gradpanel.MiddleColour = System.Drawing.SystemColors.ControlLightLight;
+            
             this.gradpanel.Name = "gradpanel";
             this.gradpanel.Size = new System.Drawing.Size(912, 262);
-            this.gradpanel.StartColour = System.Drawing.SystemColors.ControlLightLight;
+            
             this.gradpanel.TabIndex = 13;
             // 
             // fAnimResourceConst
@@ -403,7 +396,7 @@ namespace SimPe.Plugin.Anim
 				llAdd.Enabled = true;
 				llClear.Enabled = true;
 			}
-            cbshnote.Visible = (llInTxt.Enabled && (UserVerification.HaveUserId || booby.PrettyGirls.PervyMode));
+            cbshnote.Visible = llInTxt.Enabled;
             rtbnotes.Visible = (llInTxt.Enabled && cbshnote.Checked);
 		}
 

@@ -59,10 +59,10 @@ namespace SimPe.PackedFiles.UserInterface
 		private System.Windows.Forms.ListBox lbtexts;
 		private System.Windows.Forms.TextBox tbformat;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel2;       // replaces booby.panelheader
+        private System.Windows.Forms.Panel panel2;       // replacesChris Hatch.panelheader
         private System.Windows.Forms.LinkLabel llcreate;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Panel strPanel;     // replaces booby.gradientpanel
+        private System.Windows.Forms.Panel strPanel;     // replaces Chris Hatch.gradientpanel
         private System.Windows.Forms.Button button2;
         /// <summary>
         /// Required designer variable.

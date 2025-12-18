@@ -203,7 +203,7 @@ namespace SimPe.Providers
 			if (turnons!=null) return;
             turnons = new System.Collections.Generic.Dictionary<int, string>();
             if (SimPe.PathProvider.Global.EPInstalled < 2 && SimPe.PathProvider.Global.STInstalled < 28) return;
-            if ((booby.PrettyGirls.IsTitsInstalled() || (booby.PrettyGirls.IsAngelsInstalled() && booby.PrettyGirls.PervyMode)) && Helper.WindowsRegistry.LoadOnlySimsStory == 0) to1 = 14;
+            if (Helper.WindowsRegistry.LoadOnlySimsStory == 0) to1 = 14;
             else if (Helper.WindowsRegistry.LoadOnlySimsStory > 0) to1 = 12;
 
             SimPe.Packages.File pkg = SimPe.Packages.File.LoadFromFile(System.IO.Path.Combine(PathProvider.Global.Latest.InstallFolder, @"TSData\Res\Text\UIText.package"));

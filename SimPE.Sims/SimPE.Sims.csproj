@@ -119,7 +119,9 @@
     <EmbeddedResource Include="CommonSrelUI.fr.resx" />
     <EmbeddedResource Include="CommonSrelUI.it.resx" />
     <EmbeddedResource Include="CommonSrelUI.pL.resx" />
-    <EmbeddedResource Include="CommonSrelUI.resx" />
+    <EmbeddedResource Include="CommonSrelUI.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="CommonSrelUI.ru.resx" />
     <EmbeddedResource Include="ExtSDescUI.de.resx" />
     <EmbeddedResource Include="ExtSDescUI.fr.resx" />
@@ -137,7 +139,9 @@
     <EmbeddedResource Include="FamilyTiesForm.fr.resx" />
     <EmbeddedResource Include="FamilyTiesForm.it.resx" />
     <EmbeddedResource Include="FamilyTiesForm.pl.resx" />
-    <EmbeddedResource Include="FamilyTiesForm.resx" />
+    <EmbeddedResource Include="FamilyTiesForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="FamilyTiesForm.ru.resx" />
     <EmbeddedResource Include="PetTraitSelect.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">

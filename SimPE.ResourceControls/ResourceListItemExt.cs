@@ -23,37 +23,17 @@ namespace SimPe.Windows.Forms
             {
                 if (Helper.WindowsRegistry.UseBigIcons)
                 {
-                    if (booby.ThemeManager.ThemedForms && (booby.ThemeManager.savedTheme == 4 || booby.ThemeManager.savedTheme == 7))
-                    {
-                        regular = new System.Drawing.Font("Comic Sans MS", Font.Size + 5F, System.Drawing.FontStyle.Regular, Font.Unit);
-                        strike = new System.Drawing.Font("Comic Sans MS", Font.Size + 5F, System.Drawing.FontStyle.Strikeout, Font.Unit);
-                        compress = new System.Drawing.Font("Comic Sans MS", Font.Size + 5F, Font.Style | System.Drawing.FontStyle.Bold, Font.Unit);
-                        changeed = new System.Drawing.Font("Comic Sans MS", Font.Size + 5F, Font.Style | System.Drawing.FontStyle.Italic, Font.Unit); // was 4F
-                    }
-                    else
-                    {
-                        regular = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, System.Drawing.FontStyle.Regular, Font.Unit);
-                        strike = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, System.Drawing.FontStyle.Strikeout, Font.Unit);
-                        compress = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, Font.Style | System.Drawing.FontStyle.Bold, Font.Unit);
-                        changeed = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, Font.Style | System.Drawing.FontStyle.Italic, Font.Unit); // was 3F
-                    }
+                    regular = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, System.Drawing.FontStyle.Regular, Font.Unit);
+                    strike = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, System.Drawing.FontStyle.Strikeout, Font.Unit);
+                    compress = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, Font.Style | System.Drawing.FontStyle.Bold, Font.Unit);
+                    changeed = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, Font.Style | System.Drawing.FontStyle.Italic, Font.Unit); // was 3F
                 }
                 else
                 {
-                    if (booby.ThemeManager.ThemedForms && (booby.ThemeManager.savedTheme == 4 || booby.ThemeManager.savedTheme == 7))
-                    {
-                        regular = new System.Drawing.Font("Comic Sans MS", Font.Size, System.Drawing.FontStyle.Regular, Font.Unit);
-                        strike = new System.Drawing.Font("Comic Sans MS", Font.Size, System.Drawing.FontStyle.Strikeout, Font.Unit);
-                        compress = new System.Drawing.Font("Comic Sans MS", Font.Size, Font.Style | System.Drawing.FontStyle.Bold, Font.Unit);
-                        changeed = new System.Drawing.Font("Comic Sans MS", Font.Size, Font.Style | System.Drawing.FontStyle.Italic, Font.Unit);
-                    }
-                    else
-                    {
-                        regular = new System.Drawing.Font(Font.FontFamily, Font.Size, System.Drawing.FontStyle.Regular, Font.Unit);
-                        strike = new System.Drawing.Font(Font.FontFamily, Font.Size, System.Drawing.FontStyle.Strikeout, Font.Unit);
-                        compress = new System.Drawing.Font(Font.FontFamily, Font.Size, Font.Style | System.Drawing.FontStyle.Bold, Font.Unit);
-                        changeed = new System.Drawing.Font(Font.FontFamily, Font.Size, Font.Style | System.Drawing.FontStyle.Italic, Font.Unit);
-                    }
+                    regular = new System.Drawing.Font(Font.FontFamily, Font.Size, System.Drawing.FontStyle.Regular, Font.Unit);
+                    strike = new System.Drawing.Font(Font.FontFamily, Font.Size, System.Drawing.FontStyle.Strikeout, Font.Unit);
+                    compress = new System.Drawing.Font(Font.FontFamily, Font.Size, Font.Style | System.Drawing.FontStyle.Bold, Font.Unit);
+                    changeed = new System.Drawing.Font(Font.FontFamily, Font.Size, Font.Style | System.Drawing.FontStyle.Italic, Font.Unit);
                 }
             }
 

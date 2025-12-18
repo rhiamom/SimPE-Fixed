@@ -57,13 +57,11 @@ namespace SimPe.Plugin
 
 			this.CanCommit = Helper.WindowsRegistry.HiddenMode;
 			//ThemeManager.AddControl(this.toolBar1);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            
+                ThemeManager tm = ThemeManager.Global.CreateChild();
                 tm.AddControl(this.tb);
                 tm.AddControl(this.lb);
                 tm.AddControl(this.pg);
-            }
 		}
 		
 

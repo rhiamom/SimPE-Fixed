@@ -11,7 +11,7 @@ namespace SimPe.Plugin.Gmdc
 	/// </summary>
 	class GenericImportForm : System.Windows.Forms.Form
 	{
-        private booby.gradientpanel Gradientpanel1;
+        private System.Windows.Forms.Panel Gradientpanel1;
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.ListViewEx lvmesh;
 		private System.Windows.Forms.ImageList imageList1;
@@ -21,36 +21,29 @@ namespace SimPe.Plugin.Gmdc
 		private System.Windows.Forms.ColumnHeader chFaces;
 		private System.Windows.Forms.ColumnHeader chVertices;
 		private System.Windows.Forms.ColumnHeader chImportEnvelope;
-		private booby.Lineb xpLine1;
-		private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label xpLine1;
+        private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ColumnHeader chJointCount;
 		private System.Windows.Forms.Label label2;
-        private booby.Lineb xpLine2;
-		private System.Windows.Forms.ListViewEx lvbones;
+        private System.Windows.Forms.Label xpLine2;
+        private System.Windows.Forms.ListViewEx lvbones;
 		private System.Windows.Forms.ColumnHeader clBoneName;
 		private System.Windows.Forms.ColumnHeader clBoneAction;
 		private System.Windows.Forms.ColumnHeader clImportBone;
 		private System.Windows.Forms.ColumnHeader clAssignedVertices;
 		private System.Windows.Forms.Label label3;
-        private booby.Lineb xpLine3;
-		private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label xpLine3;
+        private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox cbClear;
 
-        booby.ThemeManager tm;
+        ThemeManager tm;
 		 GenericImportForm()
 		{
 			//
 			// Required designer variable.
 			//
 			InitializeComponent();
-
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.Gradientpanel1);
-                tm.AddControl(this.button1);
-            }
 
 			ComboBox cb = new ComboBox();
 			this.imageList1.ImageSize = new Size(1, cb.Height+2);
@@ -87,23 +80,29 @@ namespace SimPe.Plugin.Gmdc
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(GenericImportForm));
-            this.Gradientpanel1 = new booby.gradientpanel();
+            this.Gradientpanel1 = new System.Windows.Forms.Panel();
 			this.panel1 = new System.Windows.Forms.Panel();
             this.cbClear = new System.Windows.Forms.CheckBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.label3 = new System.Windows.Forms.Label();
-            this.xpLine3 = new booby.Lineb();
-			this.lvbones = new System.Windows.Forms.ListViewEx();
+            this.xpLine1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.xpLine1.AutoSize = false;
+            this.xpLine1.Height = 2;
+            this.lvbones = new System.Windows.Forms.ListViewEx();
 			this.clBoneName = new System.Windows.Forms.ColumnHeader();
 			this.clBoneAction = new System.Windows.Forms.ColumnHeader();
 			this.clImportBone = new System.Windows.Forms.ColumnHeader();
 			this.clAssignedVertices = new System.Windows.Forms.ColumnHeader();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.label2 = new System.Windows.Forms.Label();
-            this.xpLine2 = new booby.Lineb();
-			this.label1 = new System.Windows.Forms.Label();
-            this.xpLine1 = new booby.Lineb();
-			this.lvmesh = new System.Windows.Forms.ListViewEx();
+            this.xpLine2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.xpLine2.AutoSize = false;
+            this.xpLine2.Height = 2;
+            this.label1 = new System.Windows.Forms.Label();
+            this.xpLine3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.xpLine3.AutoSize = false;
+            this.xpLine3.Height = 2;
+            this.lvmesh = new System.Windows.Forms.ListViewEx();
 			this.chMeshName = new System.Windows.Forms.ColumnHeader();
 			this.chMeshAction = new System.Windows.Forms.ColumnHeader();
 			this.chMeshTarget = new System.Windows.Forms.ColumnHeader();
@@ -128,9 +127,7 @@ namespace SimPe.Plugin.Gmdc
 			this.Gradientpanel1.Controls.Add(this.xpLine1);
 			this.Gradientpanel1.Controls.Add(this.lvmesh);
             this.Gradientpanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Gradientpanel1.EndColour = System.Drawing.SystemColors.ControlLight;
-            this.Gradientpanel1.MiddleColour = System.Drawing.SystemColors.ControlLight;
-            this.Gradientpanel1.StartColour = System.Drawing.SystemColors.ControlLight;
+            
 			this.Gradientpanel1.Location = new System.Drawing.Point(0, 0);
 			this.Gradientpanel1.Name = "Gradientpanel1";
 			this.Gradientpanel1.Size = new System.Drawing.Size(752, 486);

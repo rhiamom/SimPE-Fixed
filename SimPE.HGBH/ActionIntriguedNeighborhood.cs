@@ -114,14 +114,13 @@ namespace SimPe.Plugin.Tool.Action
 
         #region IToolPlugin Member
         public override string ToString()
-		{
-            if (booby.PrettyGirls.PervyMode) return "Lustomize Neighbourhood";
-            else return "Intrigued Neighbourhood";
-		}
-		#endregion
+        {
+            return "Randomize Hood Interests";
+        }
+        #endregion
 
-		#region IToolExt Member
-		public System.Windows.Forms.Shortcut Shortcut
+        #region IToolExt Member
+        public System.Windows.Forms.Shortcut Shortcut
 		{
 			get
 			{

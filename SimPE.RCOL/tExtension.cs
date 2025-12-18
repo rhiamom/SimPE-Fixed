@@ -105,14 +105,6 @@ namespace SimPe.Plugin.TabPage
             {
                 this.lb_items.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
             }
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.lb_items);
-                tm.AddControl(this.btedit);
-                tm.AddControl(this.btfootprintedit);
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
 		}
 
 		/// <summary>
@@ -774,12 +766,8 @@ namespace SimPe.Plugin.TabPage
 				fe.gbIems.Top = 8;				
 				fe.gbIems.Width = f.Width - 24;
 				fe.gbIems.Height = f.ClientRectangle.Height - 16;
-                if (booby.ThemeManager.ThemedForms)
-                {
-                    f.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                    fe.gbIems.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                }
-                else fe.gbIems.BackColor = SystemColors.Control;
+                
+                fe.gbIems.BackColor = SystemColors.Control;
 
 				ExtensionItem ei = (ExtensionItem)lb_items.Items[lb_items.SelectedIndex];
 				fe.gbIems.Tag = ei.Items;

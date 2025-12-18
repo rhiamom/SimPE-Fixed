@@ -60,15 +60,12 @@ namespace SimPe.Plugin
 		public ExtNgbhUI()
 		{
 			InitializeComponent();
-            booby.ThemeManager.Global.AddControl(this.toolBar1);
-            booby.ThemeManager.Global.AddControl(this.menu);
 
 			biSim.Tag = pnSims;
 			biDebug.Tag = pnDebug;
-			biBadge.Tag = pnBadge;			
-			
-			biDebug.Visible = Helper.WindowsRegistry.HiddenMode;
-            if (!Helper.WindowsRegistry.HiddenMode) this.menu.Items.Remove(this.miFix);
+			biBadge.Tag = pnBadge;
+
+            biDebug.Visible = true;
 
 			this.SelectButton(biSim);
 

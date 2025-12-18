@@ -34,8 +34,6 @@ namespace SimPe.Plugin
 				// Required designer variable.
 				InitializeComponent();
 
-                if (booby.ThemeManager.ThemedForms) booby.ThemeManager.Global.AddControl(this.pg);
-
                 this.cbtype.Enum = typeof(SimMemoryType);
 				this.cbtype.ResourceManager = SimPe.Localization.Manager;								
 

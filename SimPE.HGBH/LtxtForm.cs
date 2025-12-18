@@ -20,10 +20,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 using System;
-using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
+using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+
 
 namespace SimPe.Plugin
 {
@@ -32,9 +34,11 @@ namespace SimPe.Plugin
     /// </summary>
     public class LtxtForm : System.Windows.Forms.Form
     {
+        private bool loading;
+
         #region Form controls
-        internal booby.gradientpanel ltxtPanel;
-        private booby.panelheader panel2;
+        internal System.Windows.Forms.Panel ltxtPanel;
+        private System.Windows.Forms.Panel panel2;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -156,31 +160,27 @@ namespace SimPe.Plugin
 
         public LtxtForm()
         {
-            //
-            // Required designer variable.
-            //
+            loading = true;
+
             InitializeComponent();
 
-            wrapper = null;
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                return;
+
+            // wrapper stays null until the caller assigns it
             this.cborient.ResourceManager = SimPe.Localization.Manager;
             this.cborient.Enum = typeof(Plugin.LotOrientation);
 
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.ltxtPanel);
-                tm.AddControl(this.lb);
-                tm.AddControl(this.lbApts);
-                tm.AddControl(this.lbu7);
-                tm.AddControl(this.tbdesc);
-                tm.AddControl(this.tblotname);
-            }
             if (!Helper.WindowsRegistry.UseBigIcons)
             {
                 this.pb.Size = new System.Drawing.Size(124, 108);
                 this.pb.Location = new System.Drawing.Point(25, 56);
             }
+
+            loading = false;
         }
+
+
 
         /// <summary>
         /// Clean up any resources being used.
@@ -205,7 +205,7 @@ namespace SimPe.Plugin
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LtxtForm));
-            this.ltxtPanel = new booby.gradientpanel();
+            this.ltxtPanel = new System.Windows.Forms.Panel();
             this.lbPlayim = new System.Windows.Forms.Label();
             this.gbApart = new System.Windows.Forms.GroupBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -318,7 +318,7 @@ namespace SimPe.Plugin
             this.tbz = new System.Windows.Forms.TextBox();
             this.cbtype = new System.Windows.Forms.ComboBox();
             this.tbtype = new System.Windows.Forms.TextBox();
-            this.panel2 = new booby.panelheader();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.pb = new System.Windows.Forms.PictureBox();
             this.ltxtPanel.SuspendLayout();
             this.gbApart.SuspendLayout();
@@ -335,8 +335,7 @@ namespace SimPe.Plugin
             // 
             resources.ApplyResources(this.ltxtPanel, "ltxtPanel");
             this.ltxtPanel.BackColor = System.Drawing.Color.Transparent;
-            this.ltxtPanel.BackgroundImageLocation = new System.Drawing.Point(998, 50);
-            this.ltxtPanel.BackgroundImageZoomToFit = true;
+            
             this.ltxtPanel.Controls.Add(this.lbPlayim);
             this.ltxtPanel.Controls.Add(this.gbApart);
             this.ltxtPanel.Controls.Add(this.tbdesc);
@@ -384,10 +383,9 @@ namespace SimPe.Plugin
             this.ltxtPanel.Controls.Add(this.tbtype);
             this.ltxtPanel.Controls.Add(this.panel2);
             this.ltxtPanel.Controls.Add(this.pb);
-            this.ltxtPanel.EndColour = System.Drawing.SystemColors.Control;
-            this.ltxtPanel.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.ltxtPanel.Name = "ltxtPanel";
-            this.ltxtPanel.StartColour = System.Drawing.SystemColors.Control;
+            
             // 
             // lbPlayim
             // 
@@ -1220,9 +1218,9 @@ namespace SimPe.Plugin
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.CanCommit = true;
+            //this.panel2.CanCommit = true;
             this.panel2.Name = "panel2";
-            this.panel2.OnCommit += new booby.panelheader.EventHandler(this.Commit);
+            //this.panel2.OnCommit += new booby.panelheader.EventHandler(this.Commit);
             // 
             // pb
             // 
@@ -1269,8 +1267,7 @@ namespace SimPe.Plugin
             tbtype.Text = "0x" + Helper.HexString((byte)wrapper.Type);
             btnAddApt.Enabled = btnDelApt.Enabled = (wrapper.Type == Ltxt.LotType.ApartmentBase);
             cbtrclub.Enabled = cbtrhidec.Enabled = gbhobby.Enabled = (wrapper.Type == Ltxt.LotType.Hobby);
-            if (wrapper.SubVersion >= LtxtSubVersion.Freetime)
-                bthbytrvl.Enabled = (wrapper.Type == Ltxt.LotType.Hobby || booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled());
+            if (wrapper.SubVersion >= LtxtSubVersion.Freetime)bthbytrvl.Enabled = (wrapper.Type == Ltxt.LotType.Hobby);
             if (wrapper.Type == Ltxt.LotType.ApartmentBase || wrapper.Type == Ltxt.LotType.ApartmentSublot)
             {
                 gbApart.Visible = true;
@@ -1472,8 +1469,7 @@ namespace SimPe.Plugin
             {
                 this.gbunown.Visible = false;
                 this.gbhobby.Visible = !this.gbhobby.Visible;
-                this.gbtravel.Visible = this.gbhobby.Visible && (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled());
-                //this.bthbytrvl.Enabled = false;
+                this.gbtravel.Visible = this.gbhobby.Visible && (wrapper.Type == Ltxt.LotType.Hobby);
                 wrapper.Changed = true;
             }
             catch (Exception ex)
@@ -1705,14 +1701,22 @@ namespace SimPe.Plugin
         {
             uint simmy = Helper.StringToUInt32(tbowner.Text, wrapper.OwnerInstance, 16);
             if (simmy == 0) return;
-            SimPe.PackedFiles.Wrapper.ExtSDesc sdsc = FileTable.ProviderRegistry.SimDescriptionProvider.SimInstance[(ushort)simmy] as SimPe.PackedFiles.Wrapper.ExtSDesc;
+
+            SimPe.PackedFiles.Wrapper.SDesc sdsc =
+                FileTable.ProviderRegistry.SimDescriptionProvider.SimInstance[(ushort)simmy]
+                    as SimPe.PackedFiles.Wrapper.SDesc;
+
             if (sdsc != null)
             {
-                Interfaces.Files.IPackedFileDescriptor pfd = sdsc.Package.NewDescriptor(0xAACE2EFB, sdsc.FileDescriptor.SubType, sdsc.FileDescriptor.Group, sdsc.FileDescriptor.Instance);
+                Interfaces.Files.IPackedFileDescriptor pfd =
+                    sdsc.Package.NewDescriptor(0xAACE2EFB, sdsc.FileDescriptor.SubType, sdsc.FileDescriptor.Group,
+                                               sdsc.FileDescriptor.Instance);
+
                 pfd = sdsc.Package.FindFile(pfd);
                 SimPe.RemoteControl.OpenPackedFile(pfd, sdsc.Package);
             }
         }
+
 
         private void llunknone_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

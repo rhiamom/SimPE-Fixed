@@ -31,7 +31,7 @@ namespace SimPe.Plugin.Tool
 	/// </summary>
 	internal class Report : System.Windows.Forms.Form
 	{
-        private booby.gradientpanel xpGradientPanel1;
+        private System.Windows.Forms.Panel xpGradientPanel1;
         private System.Windows.Forms.RichTextBox rtb;
 		private System.Windows.Forms.SaveFileDialog sfd;
         private Button button1;
@@ -47,13 +47,8 @@ namespace SimPe.Plugin.Tool
 			//
             InitializeComponent();
 
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.xpGradientPanel1);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(this.button1);
-                this.rtb.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
 
 			//
 			// TODO: Fügen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
@@ -89,7 +84,7 @@ namespace SimPe.Plugin.Tool
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Report));
-            this.xpGradientPanel1 = new booby.gradientpanel();
+            this.xpGradientPanel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.rtb = new System.Windows.Forms.RichTextBox();
             this.sfd = new System.Windows.Forms.SaveFileDialog();

@@ -75,18 +75,7 @@ namespace SimPe.Plugin
                 form.cbtype.Items.Add(Ltxt.LotType.ApartmentSublot);
                 form.cbtype.Items.Add(Ltxt.LotType.Witches);
             }
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-            {
-                form.cbtype.Items.Add(Ltxt.LotType.Hospital);
-                form.cbtype.Items.Add(Ltxt.LotType.Heaven);
-                form.cbtype.Items.Add(Ltxt.LotType.Hell);
-                form.cbtype.Items.Add(Ltxt.LotType.PublicSchool);
-                form.cbtype.Items.Add(Ltxt.LotType.PrivateSchool);
-                form.cbtype.Items.Add(Ltxt.LotType.Childcare);
-                form.cbtype.Items.Add(Ltxt.LotType.BattleField);
-                form.cbtype.Items.Add(Ltxt.LotType.SpaceHotel);
-                form.cbtype.Items.Add(Ltxt.LotType.SpaceTour);
-            }
+            
 		}
 		#endregion
 
@@ -207,21 +196,23 @@ namespace SimPe.Plugin
                 form.cbhbart.Checked = tty[1];
                 form.cbhbcook.Checked = tty[0];
 
-                if (!booby.PrettyGirls.IsTitsInstalled() && !booby.PrettyGirls.IsAngelsInstalled() && wrp.Type != Ltxt.LotType.Hobby) form.gbtravel.Visible = form.gbhobby.Visible = false;
+                if (wrp.Type != Ltxt.LotType.Hobby)
+                    form.gbtravel.Visible = form.gbhobby.Visible = false;
                 form.cbtrmale.Enabled = !form.cbtrfem.Checked;
                 form.cbtrfem.Enabled = !form.cbtrmale.Checked;
                 form.cbtrclub.Enabled = (wrp.Type == Ltxt.LotType.Hobby);
                 form.cbtrhidec.Enabled = (wrp.Type == Ltxt.LotType.Hobby);
                 form.gbhobby.Enabled = (wrp.Type == Ltxt.LotType.Hobby);
-                form.bthbytrvl.Enabled = (wrp.Type == Ltxt.LotType.Hobby || booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled());
+                form.bthbytrvl.Enabled = (wrp.Type == Ltxt.LotType.Hobby);
             }
             else
             { form.bthbytrvl.Enabled = false; form.gbhobby.Visible = false; form.gbtravel.Visible = false; }
 
             form.cbBeachy.Enabled = (wrp.SubVersion >= LtxtSubVersion.Voyage);
-            if (!booby.PrettyGirls.IsTitsInstalled() && !booby.PrettyGirls.IsAngelsInstalled()) { form.bthbytrvl.Text = "Hobby Flags:"; }
-            if (!booby.PrettyGirls.PervyMode) { form.cbtrclub.Text = "Secret Club"; form.cbtrpern.Text = "Cinema"; }
-            else form.ltxtPanel.BackgroundImage = booby.PrettyGirls.RandomGirl;
+            form.bthbytrvl.Text = "Hobby Flags:"; 
+            form.cbtrclub.Text = "Secret Club"; 
+            form.cbtrpern.Text = "Cinema";
+            
             form.tbu5.Text = Helper.BytesToHexList(wrp.Unknown5);
             //form.tblotclass.Text = "0x" + Helper.HexString(wrp.LotClass);
             form.tblotclass.Text = Convert.ToString(wrp.LotClass);

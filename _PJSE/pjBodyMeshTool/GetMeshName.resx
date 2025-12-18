@@ -417,9 +417,6 @@
   <data name="&gt;&gt;gradientpanel1.Name" xml:space="preserve">
     <value>gradientpanel1</value>
   </data>
-  <data name="&gt;&gt;gradientpanel1.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;gradientpanel1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>

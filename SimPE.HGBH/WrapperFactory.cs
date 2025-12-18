@@ -103,14 +103,11 @@ namespace SimPe.Plugin
                 else
                 {
                     System.Collections.ArrayList tools = new System.Collections.ArrayList();
-                    if (Helper.WindowsRegistry.HiddenMode && !booby.PrettyGirls.IsTitsInstalled() && !booby.PrettyGirls.IsAngelsInstalled())
-                    {
-                        tools.Add(new Plugin.FixUidTool());
-                    }
-                    if (Helper.WindowsRegistry.HiddenMode || booby.PrettyGirls.PervyMode)
-                    {
-                        tools.Add(new ActionIntriguedNeighborhood());
-                    }
+                    
+                    tools.Add(new Plugin.FixUidTool());
+                    
+                    tools.Add(new ActionIntriguedNeighborhood());
+                    
                     tools.Add(new ActionDeleteSim());
                     ret = new IToolPlugin[tools.Count];
                     tools.CopyTo(ret);

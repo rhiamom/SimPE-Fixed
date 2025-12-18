@@ -367,7 +367,6 @@ namespace SimPe
 			f.Controls.Add(pg);
 			pg.Dock = System.Windows.Forms.DockStyle.Fill;
 			pg.SelectedObject = settings.GetSettingsObject();
-            if (booby.ThemeManager.ThemedForms) booby.ThemeManager.Global.AddControl(pg);
 			RemoteControl.ShowSubForm(f);
 			f.Dispose();
 		}

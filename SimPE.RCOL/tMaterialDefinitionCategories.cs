@@ -54,13 +54,11 @@ namespace SimPe.Plugin.TabPage
             InitializeComponent();
 
             this.UseVisualStyleBackColor = true;
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.pg);
-                this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                if (Helper.WindowsRegistry.UseBigIcons) this.pg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular);
-            }
+            
+            ThemeManager tm = ThemeManager.Global.CreateChild();
+            tm.AddControl(this.pg);
+
+            if (Helper.WindowsRegistry.UseBigIcons) this.pg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular);
 		}
 
 		/// <summary>

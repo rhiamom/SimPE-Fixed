@@ -35,10 +35,8 @@ namespace SimPe.Plugin.Tool.Dockable
     public partial class FinderDock : Ambertation.Windows.Forms.DockPanel, SimPe.Interfaces.IDockableTool, SimPe.Interfaces.IFinderResultGui
     {
 
-        booby.ThemeManager tm;
+        ThemeManager tm;
         SimPe.ColumnSorter sorter;
-        SoundPlayer Aah = new SoundPlayer(booby.NoisyGirls.Aah);
-        SoundPlayer DoMe = new SoundPlayer(booby.NoisyGirls.DoMeBabe);
 
         System.Collections.Generic.List<string> packages;
         System.Threading.Thread[] threads;
@@ -50,7 +48,7 @@ namespace SimPe.Plugin.Tool.Dockable
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
 
-            tm = booby.ThemeManager.Global.CreateChild();
+            tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.xpGradientPanel1);
             tm.AddControl(this.tbResult);
             tm.AddControl(this.toolBar1);
@@ -366,12 +364,6 @@ namespace SimPe.Plugin.Tool.Dockable
             pnErr.Text = pnErr.Text.Replace("{nr}", Helper.WindowsRegistry.MaxSearchResults.ToString());
             pnErr.Visible = truncated;
             Wait.Stop();
-
-            if (booby.PrettyGirls.PervyMode)
-            {
-                if (lv.Items.Count > 0) DoMe.Play();
-                else Aah.Play();
-            }
 
             System.Diagnostics.Debug.WriteLine("Done Searching");
         }

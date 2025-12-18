@@ -38,11 +38,6 @@ namespace SimPe.PackedFiles.Wrapper
             details = false;
             rightclicksel = false;
 			InitializeComponent();
-            if (booby.ThemeManager.ThemedForms && booby.ThemeManager.Global.CurrentTheme == booby.GuiTheme.Psychodelic)
-            {
-                this.gp.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-                booby.ThemeManager.Global.AddControl(this.cbhousehold);
-            }
 		}
 
 		protected SimListView gp;

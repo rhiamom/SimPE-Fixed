@@ -243,9 +243,6 @@
   <data name="&gt;&gt;pnNice.Name" xml:space="preserve">
     <value>pnNice</value>
   </data>
-  <data name="&gt;&gt;pnNice.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;pnNice.Parent" xml:space="preserve">
     <value>$this</value>
   </data>

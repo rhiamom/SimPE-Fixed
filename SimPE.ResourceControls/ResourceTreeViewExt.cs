@@ -20,18 +20,13 @@ namespace SimPe.Windows.Forms
             allowselectevent = true;
             InitializeComponent();
 
-            if (booby.ThemeManager.ThemedForms && (booby.ThemeManager.savedTheme == 4 || booby.ThemeManager.savedTheme == 7))
-            {
-                if (Helper.WindowsRegistry.UseBigIcons) tv.Font = new System.Drawing.Font("Comic Sans MS", this.Font.Size + 5F); // was 3F
-                else tv.Font = new System.Drawing.Font("Comic Sans MS", this.Font.Size);
-            }
-            else if (Helper.WindowsRegistry.UseBigIcons) tv.Font = new System.Drawing.Font("Tahoma", this.Font.Size + 5F); // was 3F
+            if (Helper.WindowsRegistry.UseBigIcons) tv.Font = new System.Drawing.Font("Tahoma", this.Font.Size + 5F); // was 3F
 
             typebuilder = new ResourceTreeNodesByType();
             groupbuilder = new ResourceTreeNodesByGroup();
             instbuilder = new ResourceTreeNodesByInstance();
 
-            booby.ThemeManager.Global.AddControl(this.toolStrip1);
+            ThemeManager.Global.AddControl(this.toolStrip1);
             builder = typebuilder;
             tbType.Checked = true;
             last = null;
@@ -39,7 +34,7 @@ namespace SimPe.Windows.Forms
 
         ~ResourceTreeViewExt()
         {
-            booby.ThemeManager.Global.RemoveControl(this.toolStrip1);
+            ThemeManager.Global.RemoveControl(this.toolStrip1);
         }
 
         internal void SetManager(ResourceViewManager manager)

@@ -111,14 +111,7 @@ namespace SimPe.Plugin.Scanner
 
 								SimPe.Plugin.GeometryDataContainer gmdc = (SimPe.Plugin.GeometryDataContainer)rcol.Blocks[0];
 								foreach (SimPe.Plugin.Gmdc.GmdcGroup g in gmdc.Groups)
-                                    if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled() || UserVerification.HaveUserId)
-                                    {
-                                        if (g.FaceCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT || g.UsedVertexCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) ps.Data[0] = (uint)HealthState.BigMeshGeometry;
-                                    }
-                                    else
-                                    {
-                                        if (g.FaceCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_FACE_AMOUNT || g.UsedVertexCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.CRITICAL_VERTEX_AMOUNT) ps.Data[0] = (uint)HealthState.BigMeshGeometry;
-                                    }
+                                    if (g.FaceCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT || g.UsedVertexCount > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) ps.Data[0] = (uint)HealthState.BigMeshGeometry;
 							}
                             
 							if (!fl.IsCompressed) continue;
