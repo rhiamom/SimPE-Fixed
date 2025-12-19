@@ -83,7 +83,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <FileAlignment>4096</FileAlignment>
@@ -94,7 +94,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
     <Optimize>true</Optimize>
     <FileAlignment>4096</FileAlignment>
@@ -112,21 +112,6 @@
     </Reference>
     <Reference Include="ambertation.utilities">
       <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="GDF">
-      <HintPath>..\ExternalLibs\GDF.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.DirectX">
-      <Name>Microsoft.DirectX</Name>
-      <HintPath>C:\WINDOWS\Microsoft.NET\Managed DirectX\v9.02.2904\Microsoft.DirectX.dll</HintPath>
-      <AssemblyFolderKey>hklm\current managed directx 9.2</AssemblyFolderKey>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.DirectX.Direct3D">
-      <Name>Microsoft.DirectX.Direct3D</Name>
-      <HintPath>C:\WINDOWS\Microsoft.NET\Managed DirectX\v9.02.2904\Microsoft.DirectX.Direct3D.dll</HintPath>
-      <AssemblyFolderKey>hklm\current managed directx 9.2</AssemblyFolderKey>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.DirectX.Direct3DX">
       <Name>Microsoft.DirectX.Direct3DX</Name>

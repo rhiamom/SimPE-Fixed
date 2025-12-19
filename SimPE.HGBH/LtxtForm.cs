@@ -115,7 +115,7 @@ namespace SimPe.Plugin
         internal TextBox tbcset;
         internal ComboBox cbtype;
         internal ComboBox cbLotClas;
-        internal Ambertation.Windows.Forms.EnumComboBox cborient;
+        internal System.Windows.Forms.ComboBox cborient;
         internal CheckBox cbhidim;
         internal CheckBox cbhbmusic;
         internal CheckBox cbhbsport;
@@ -315,7 +315,7 @@ namespace SimPe.Plugin
             this.tbinst = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tbu4 = new System.Windows.Forms.TextBox();
-            this.cborient = new Ambertation.Windows.Forms.EnumComboBox();
+            this.cborient = new System.Windows.Forms.ComboBox();
             this.tbTexture = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -1108,10 +1108,10 @@ namespace SimPe.Plugin
             // 
             // cborient
             // 
-            this.cborient.Enum = null;
+            //this.cborient.Enum = null;booby
             resources.ApplyResources(this.cborient, "cborient");
             this.cborient.Name = "cborient";
-            this.cborient.ResourceManager = null;
+            //this.cborient.ResourceManager = null;
             this.cborient.SelectedIndexChanged += new System.EventHandler(this.CommonChange);
             // 
             // tbTexture

@@ -140,7 +140,7 @@ namespace SimPe.Plugin
 			}
 
 			//mb.Transform = Microsoft.DirectX.Matrix.Multiply(mb.Transform, Ambertation.Scenes.Converter.ToDx(trans));
-			mb.Transform = Ambertation.Scenes.Converter.ToDx(trans);
+			//mb.Transform = Ambertation.Scenes.Converter.ToDx(trans);
 		}
 	}
 }
