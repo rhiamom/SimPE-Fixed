@@ -28,6 +28,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
@@ -234,7 +235,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>if not exist "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins" mkdir "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins"
