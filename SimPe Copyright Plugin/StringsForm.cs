@@ -103,67 +103,67 @@ namespace SimPe.Plugin
             this.GradientPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GradientPanel.Location = new System.Drawing.Point(0, 0);
             this.GradientPanel.Name = "GradientPanel";
-            this.GradientPanel.Size = new System.Drawing.Size(818, 184);
+            this.GradientPanel.Size = new System.Drawing.Size(1466, 609);
             this.GradientPanel.TabIndex = 0;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(736, 152);
+            this.button1.Location = new System.Drawing.Point(1335, 217);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(120, 33);
             this.button1.TabIndex = 10;
             this.button1.Text = "OK";
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tbVersion
             // 
-            this.tbVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbVersion.Location = new System.Drawing.Point(115, 120);
+            this.tbVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbVersion.Location = new System.Drawing.Point(184, 171);
             this.tbVersion.Name = "tbVersion";
-            this.tbVersion.Size = new System.Drawing.Size(695, 23);
+            this.tbVersion.Size = new System.Drawing.Size(1269, 27);
             this.tbVersion.TabIndex = 9;
             this.tbVersion.Text = "CEP Extra";
             // 
             // tbDate
             // 
-            this.tbDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDate.Location = new System.Drawing.Point(115, 96);
+            this.tbDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbDate.Location = new System.Drawing.Point(184, 137);
             this.tbDate.Name = "tbDate";
-            this.tbDate.Size = new System.Drawing.Size(695, 23);
+            this.tbDate.Size = new System.Drawing.Size(1269, 27);
             this.tbDate.TabIndex = 8;
             this.tbDate.Text = "today";
             // 
             // tbLicense
             // 
-            this.tbLicense.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbLicense.Location = new System.Drawing.Point(115, 72);
+            this.tbLicense.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbLicense.Location = new System.Drawing.Point(184, 103);
             this.tbLicense.Name = "tbLicense";
-            this.tbLicense.Size = new System.Drawing.Size(695, 23);
+            this.tbLicense.Size = new System.Drawing.Size(1269, 27);
             this.tbLicense.TabIndex = 7;
             this.tbLicense.Text = "This File was created as Part of a ColourEnabler Extra Package  If you payed for " +
-                "a package that contains this File please report it.";
+    "a package that contains this File please report it.";
             // 
             // tbCreator
             // 
-            this.tbCreator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCreator.Location = new System.Drawing.Point(115, 48);
+            this.tbCreator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbCreator.Location = new System.Drawing.Point(184, 69);
             this.tbCreator.Name = "tbCreator";
-            this.tbCreator.Size = new System.Drawing.Size(695, 23);
+            this.tbCreator.Size = new System.Drawing.Size(1269, 27);
             this.tbCreator.TabIndex = 6;
             this.tbCreator.Text = "Anonymous";
             // 
             // tbMMAT
             // 
-            this.tbMMAT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbMMAT.Location = new System.Drawing.Point(115, 8);
+            this.tbMMAT.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbMMAT.Location = new System.Drawing.Point(184, 11);
             this.tbMMAT.Name = "tbMMAT";
-            this.tbMMAT.Size = new System.Drawing.Size(695, 23);
+            this.tbMMAT.Size = new System.Drawing.Size(1269, 27);
             this.tbMMAT.TabIndex = 5;
             this.tbMMAT.Text = "Created for CEP Extra";
             // 
@@ -171,9 +171,9 @@ namespace SimPe.Plugin
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(10, 120);
+            this.label5.Location = new System.Drawing.Point(16, 171);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 23);
+            this.label5.Size = new System.Drawing.Size(160, 33);
             this.label5.TabIndex = 4;
             this.label5.Text = "Version:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -182,9 +182,9 @@ namespace SimPe.Plugin
             // 
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(10, 96);
+            this.label4.Location = new System.Drawing.Point(16, 137);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 23);
+            this.label4.Size = new System.Drawing.Size(160, 33);
             this.label4.TabIndex = 3;
             this.label4.Text = "Release Date:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -193,9 +193,9 @@ namespace SimPe.Plugin
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 72);
+            this.label3.Location = new System.Drawing.Point(16, 103);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 23);
+            this.label3.Size = new System.Drawing.Size(160, 33);
             this.label3.TabIndex = 2;
             this.label3.Text = "License:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -204,9 +204,9 @@ namespace SimPe.Plugin
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 48);
+            this.label2.Location = new System.Drawing.Point(16, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 23);
+            this.label2.Size = new System.Drawing.Size(160, 32);
             this.label2.TabIndex = 1;
             this.label2.Text = "Created by:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -215,17 +215,17 @@ namespace SimPe.Plugin
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 8);
+            this.label1.Location = new System.Drawing.Point(16, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.Size = new System.Drawing.Size(160, 33);
             this.label1.TabIndex = 0;
             this.label1.Text = "MMAT Text:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // StringsForm
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
-            this.ClientSize = new System.Drawing.Size(818, 184);
+            this.AutoScaleBaseSize = new System.Drawing.Size(8, 20);
+            this.ClientSize = new System.Drawing.Size(1466, 609);
             this.Controls.Add(this.GradientPanel);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;

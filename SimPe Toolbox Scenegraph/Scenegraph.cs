@@ -123,13 +123,10 @@ namespace SimPe.Plugin
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.groupBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-           
             this.panel2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel2.Location = new System.Drawing.Point(0, 350);
-            
+            this.panel2.Location = new System.Drawing.Point(0, 290);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 120);
-            
+            this.panel2.Size = new System.Drawing.Size(800, 180);
             this.panel2.TabIndex = 4;
             // 
             // groupBox2
@@ -141,9 +138,9 @@ namespace SimPe.Plugin
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.cbQuality);
             this.groupBox2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(568, 8);
+            this.groupBox2.Location = new System.Drawing.Point(452, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(224, 108);
+            this.groupBox2.Size = new System.Drawing.Size(336, 162);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Graph";
@@ -152,9 +149,9 @@ namespace SimPe.Plugin
             // 
             this.cbPriority.AutoSize = true;
             this.cbPriority.Font = new System.Drawing.Font("Verdana", 8.25F);
-            this.cbPriority.Location = new System.Drawing.Point(134, 25);
+            this.cbPriority.Location = new System.Drawing.Point(201, 38);
             this.cbPriority.Name = "cbPriority";
-            this.cbPriority.Size = new System.Drawing.Size(86, 17);
+            this.cbPriority.Size = new System.Drawing.Size(126, 24);
             this.cbPriority.TabIndex = 3;
             this.cbPriority.Text = "CRES First";
             this.cbPriority.UseVisualStyleBackColor = true;
@@ -164,9 +161,9 @@ namespace SimPe.Plugin
             // 
             this.cbLineStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLineStyle.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbLineStyle.Location = new System.Drawing.Point(32, 64);
+            this.cbLineStyle.Location = new System.Drawing.Point(48, 96);
             this.cbLineStyle.Name = "cbLineStyle";
-            this.cbLineStyle.Size = new System.Drawing.Size(184, 21);
+            this.cbLineStyle.Size = new System.Drawing.Size(276, 28);
             this.cbLineStyle.TabIndex = 2;
             this.cbLineStyle.SelectedIndexChanged += new System.EventHandler(this.cbLineStyle_SelectedIndexChanged);
             // 
@@ -174,9 +171,9 @@ namespace SimPe.Plugin
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 48);
+            this.label3.Location = new System.Drawing.Point(24, 72);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 13);
+            this.label3.Size = new System.Drawing.Size(154, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "Connector Style:";
             // 
@@ -185,17 +182,17 @@ namespace SimPe.Plugin
             this.cbQuality.AutoSize = true;
             this.cbQuality.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbQuality.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbQuality.Location = new System.Drawing.Point(16, 24);
+            this.cbQuality.Location = new System.Drawing.Point(24, 36);
             this.cbQuality.Name = "cbQuality";
-            this.cbQuality.Size = new System.Drawing.Size(101, 18);
+            this.cbQuality.Size = new System.Drawing.Size(154, 25);
             this.cbQuality.TabIndex = 0;
             this.cbQuality.Text = "High Quality";
             this.cbQuality.CheckedChanged += new System.EventHandler(this.cbQuality_CheckedChanged);
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
             this.groupBox1.Controls.Add(this.llopen);
             this.groupBox1.Controls.Add(this.cbrefnames);
@@ -203,9 +200,9 @@ namespace SimPe.Plugin
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 8);
+            this.groupBox1.Location = new System.Drawing.Point(0, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(560, 108);
+            this.groupBox1.Size = new System.Drawing.Size(440, 162);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Properties";
@@ -213,9 +210,9 @@ namespace SimPe.Plugin
             // llopen
             // 
             this.llopen.AutoSize = true;
-            this.llopen.Location = new System.Drawing.Point(88, 0);
+            this.llopen.Location = new System.Drawing.Point(132, 0);
             this.llopen.Name = "llopen";
-            this.llopen.Size = new System.Drawing.Size(39, 13);
+            this.llopen.Size = new System.Drawing.Size(56, 20);
             this.llopen.TabIndex = 4;
             this.llopen.TabStop = true;
             this.llopen.Text = "open";
@@ -223,32 +220,32 @@ namespace SimPe.Plugin
             // 
             // cbrefnames
             // 
-            this.cbrefnames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbrefnames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbrefnames.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbrefnames.Location = new System.Drawing.Point(24, 80);
+            this.cbrefnames.Location = new System.Drawing.Point(36, 120);
             this.cbrefnames.Name = "cbrefnames";
-            this.cbrefnames.Size = new System.Drawing.Size(528, 21);
+            this.cbrefnames.Size = new System.Drawing.Size(392, 28);
             this.cbrefnames.TabIndex = 3;
             // 
             // tbflname
             // 
-            this.tbflname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbflname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbflname.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbflname.Location = new System.Drawing.Point(24, 40);
+            this.tbflname.Location = new System.Drawing.Point(36, 60);
             this.tbflname.Name = "tbflname";
             this.tbflname.ReadOnly = true;
-            this.tbflname.Size = new System.Drawing.Size(528, 21);
+            this.tbflname.Size = new System.Drawing.Size(392, 28);
             this.tbflname.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 64);
+            this.label2.Location = new System.Drawing.Point(24, 96);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 13);
+            this.label2.Size = new System.Drawing.Size(158, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Reference Name:";
             // 
@@ -256,9 +253,9 @@ namespace SimPe.Plugin
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 24);
+            this.label1.Location = new System.Drawing.Point(24, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.Size = new System.Drawing.Size(97, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "FileName:";
             // 
@@ -268,12 +265,12 @@ namespace SimPe.Plugin
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 350);
+            this.panel1.Size = new System.Drawing.Size(800, 290);
             this.panel1.TabIndex = 5;
             // 
             // ScenegraphForm
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
+            this.AutoScaleBaseSize = new System.Drawing.Size(9, 21);
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 470);
             this.Controls.Add(this.panel1);
