@@ -146,14 +146,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		public void MakeSelected()
         {
-            if (booby.ThemeManager.ThemedForms)
-            {
-                if (booby.ThemeManager.Global.CurrentTheme == booby.GuiTheme.DeepPurple)
-                    this.bhavInstListItem.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                else
-                    this.bhavInstListItem.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-            }
-            else this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.LightGray;// .PowderBlue;
+            this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.LightGray;// .PowderBlue;
 		}
 
 		public void MakeUnselected()
@@ -313,28 +306,14 @@ namespace SimPe.PackedFiles.UserInterface
 		private void bhavInstListItemUI_Enter(object sender, System.EventArgs e)
 		{
             //MakeSelected();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                if (booby.ThemeManager.Global.CurrentTheme == booby.GuiTheme.DeepPurple)
-                    this.bhavInstListItem.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                else
-                    this.bhavInstListItem.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-            }
-			else this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.PowderBlue;
+            
+			this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.PowderBlue;
 			OnSelected(e);
 		}
 
 		private void bhavInstListItemUI_Leave(object sender, System.EventArgs e)
         {
-            if (booby.ThemeManager.ThemedForms)
-            {
-                if (booby.ThemeManager.Global.CurrentTheme == booby.GuiTheme.SoftLilac)
-                    this.BackColor = this.bhavInstListItem.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-                else
-                    this.BackColor = this.bhavInstListItem.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-            }
-            else
-                this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.LightGray;
+            this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.LightGray;
 			OnUnselected(e);
 		}
 

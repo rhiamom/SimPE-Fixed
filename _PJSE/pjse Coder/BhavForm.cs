@@ -143,15 +143,7 @@ namespace SimPe.PackedFiles.UserInterface
 			InitializeComponent();
             hidesFmt = llHidesOP.Text;
 			this.Tag = "Normal"; // Used by SetReadOnly
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.bhavPanel.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.tbHidesOP.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.tbInst_Longname.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                booby.ThemeManager.Global.AddControl(this.btnCommit);
-            }
-            else
-                this.tbHidesOP.BackColor = System.Drawing.SystemColors.Control;
+            this.tbHidesOP.BackColor = System.Drawing.SystemColors.Control;
 
             TextBox[] iob = {
 								 tbInst_Op0  ,tbInst_Op1  ,tbInst_Op2  ,tbInst_Op3

@@ -3498,9 +3498,6 @@
   <data name="&gt;&gt;ttabPanel.Name" xml:space="preserve">
     <value>ttabPanel</value>
   </data>
-  <data name="&gt;&gt;ttabPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;ttabPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>

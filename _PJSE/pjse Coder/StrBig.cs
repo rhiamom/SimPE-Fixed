@@ -49,13 +49,6 @@ namespace pjse
 			//
 			InitializeComponent();
 
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.panel1.BackColor = booby.ThemeManager.Global.ThemeColor;
-                this.richTextBox1.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                booby.ThemeManager.Global.AddControl(this.OK);
-                booby.ThemeManager.Global.AddControl(this.Cancel);
-            }
             if (SimPe.Helper.WindowsRegistry.UseBigIcons)
             {
                 this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);

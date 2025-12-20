@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- Force 32-bit builds everywhere -->
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+</Project>

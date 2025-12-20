@@ -28,8 +28,8 @@ namespace pjHoodTool
         /// </summary>
         private void InitializeComponent()
         {
-            this.background = new booby.gradientpanel();
-            this.simLogo = new booby.TS2Logo();
+            this.background = new System.Windows.Forms.Panel();
+            this.simLogo = new System.Windows.Forms.PictureBox();
             this.cbshowbusi = new System.Windows.Forms.CheckBox();
             this.cbExcludeLots = new System.Windows.Forms.CheckBox();
             this.cbshowpets = new System.Windows.Forms.CheckBox();
@@ -53,9 +53,6 @@ namespace pjHoodTool
             // background
             // 
             this.background.BackColor = System.Drawing.Color.Transparent;
-            this.background.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.TopRight;
-            this.background.BackgroundImageLocation = new System.Drawing.Point(70, 26);
-            this.background.BackgroundImageZoomToFit = true;
             this.background.Controls.Add(this.simLogo);
             this.background.Controls.Add(this.cbshowbusi);
             this.background.Controls.Add(this.cbExcludeLots);
@@ -75,31 +72,24 @@ namespace pjHoodTool
             this.background.Controls.Add(this.cbshowinterests);
             this.background.Controls.Add(this.cbshowbasic);
             this.background.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.background.EndColour = System.Drawing.SystemColors.Control;
+            
             this.background.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.background.Location = new System.Drawing.Point(0, 0);
-            this.background.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.background.Name = "background";
             this.background.Size = new System.Drawing.Size(684, 399);
-            this.background.StartColour = System.Drawing.SystemColors.Control;
+           
             this.background.TabIndex = 0;
             // 
             // simLogo
             // 
-            this.simLogo.BackImage = null;
-            this.simLogo.ForeImage = null;
-            this.simLogo.ImageLocationX = 70;
-            this.simLogo.ImageLocationY = 0;
-            this.simLogo.ImageWidth = 85;
             this.simLogo.Location = new System.Drawing.Point(278, 37);
             this.simLogo.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.simLogo.Name = "simLogo";
-            this.simLogo.OverHead = 15;
-            this.simLogo.Run = false;
-            this.simLogo.Scaled = 1.25F;
             this.simLogo.Size = new System.Drawing.Size(312, 294);
-            this.simLogo.Speed = 32;
             this.simLogo.TabIndex = 17;
+            this.simLogo.TabStop = false;
+            this.simLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             // 
             // cbshowbusi
             // 
@@ -317,7 +307,7 @@ namespace pjHoodTool
 
         #endregion
 
-        private booby.gradientpanel background;
+        private System.Windows.Forms.Panel background;
         private System.Windows.Forms.CheckBox cbshowbasic;
         private System.Windows.Forms.CheckBox cbshowuniversity;
         private System.Windows.Forms.CheckBox cbshowskills;
@@ -335,6 +325,6 @@ namespace pjHoodTool
         private System.Windows.Forms.RadioButton rbtext;
         private System.Windows.Forms.Label lbtypy;
         private System.Windows.Forms.CheckBox cbshowbusi;
-        private booby.TS2Logo simLogo;
+        private System.Windows.Forms.PictureBox simLogo;
     }
 }

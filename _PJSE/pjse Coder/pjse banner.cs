@@ -36,16 +36,6 @@ namespace pjse
         public pjse_banner()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(btnTree);
-                tm.AddControl(btnSibling);
-                tm.AddControl(btnView);
-                tm.AddControl(btnFloat);
-                tm.AddControl(btnExtract);
-                tm.AddControl(btnHelp);
-            }
         }
 
         [Category("Appearance")]
@@ -212,23 +202,25 @@ namespace pjse
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
             base.OnPaint(e);
-            if (this.Width > 0 && this.Height > 0 && booby.ThemeManager.ThemedForms)
+
+            if (this.Width <= 0 || this.Height <= 0) return;
+
+            Rectangle recty = new Rectangle(0, 0, this.Width, this.Height);
+
+            // Clean replacement for booby.ThemeManager: mild gradient using BackColor.
+            Color mild = ControlPaint.Light(this.BackColor);
+
+            using (LinearGradientBrush l = new LinearGradientBrush(recty, this.BackColor, mild, System.Drawing.Drawing2D.LinearGradientMode.Horizontal))
             {
-                Rectangle recty = new Rectangle(0, 0, this.Width, this.Height);
-                using (LinearGradientBrush l = new LinearGradientBrush(recty, BackColor, booby.ThemeManager.Global.ThemeColorMild, System.Drawing.Drawing2D.LinearGradientMode.Horizontal))
-                {
-                    // Set colour values
-                    ColorBlend cb = new ColorBlend(2);
-                    cb.Colors = new Color[] { 
-                    BackColor, 
-                    booby.ThemeManager.Global.ThemeColorMild };
-                    cb.Positions = new float[] { 0F, 1F };
-                    l.InterpolationColors = cb;
-                    e.Graphics.FillRectangle(l, recty);
-                    l.Dispose();
-                }
+                ColorBlend cb = new ColorBlend(2);
+                cb.Colors = new Color[] { this.BackColor, mild };
+                cb.Positions = new float[] { 0F, 1F };
+                l.InterpolationColors = cb;
+
+                e.Graphics.FillRectangle(l, recty);
             }
         }
+
         #endregion
     }
 }

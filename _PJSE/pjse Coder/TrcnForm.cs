@@ -107,15 +107,7 @@ namespace SimPe.PackedFiles.UserInterface
                 this.chMaxValue.Width = 78;
                 this.chLine.Width = 84;
             }
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.btSetAll);
-                booby.ThemeManager.Global.AddControl(this.btnCommit);
-                this.trcnPanel.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lvTrcnItem.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-            }
-
-		}
+  		}
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -474,8 +466,8 @@ namespace SimPe.PackedFiles.UserInterface
 				wrapper.WrapperChanged += new System.EventHandler(this.WrapperChanged);
 				setHandler = true;
 			}
-            this.btSetAll.Visible = (wrapper.Version != 1 && (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled()));
-		}
+            this.btSetAll.Visible = (wrapper.Version != 1);
+        }
 
 		private void WrapperChanged(object sender, System.EventArgs e)
 		{

@@ -293,22 +293,13 @@ namespace pjHoodTool
                                 ntype = new Idno();
                                 ntype.ProcessData(pfds[0], pkg);
                                 hoodtipe = System.Enum.GetName(typeof(NeighborhoodType), ntype.Type);
-                                if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
-                                {
-                                    if (ntype.Subep == SimPe.Data.MetaData.NeighbourhoodEP.MansionGarden && hoodtipe == "Suburb")
-                                    {
-                                        if (ntype.SubName == "X002") hoodtipe = "Space Holiday";
-                                        else if (ntype.SubName == "X003") hoodtipe = "Lost Island";
-                                        else hoodtipe = "Pervy Suburb";
-                                    }
-                                    else if (ntype.SubName == "T100" && hoodtipe == "Island")
-                                        hoodtipe = "Western Holiday";
-                                    else if (ntype.Subep != SimPe.Data.MetaData.NeighbourhoodEP.Business && hoodtipe == "Suburb")
-                                        hoodtipe = "Hidden Suburb";
-                                }
-                                else if (ntype.Subep != SimPe.Data.MetaData.NeighbourhoodEP.Business && hoodtipe == "Suburb")
+
+                                // Chris booby-based renames removed.
+                                // Preserve the useful "Hidden Suburb" label.
+                                if (ntype.Subep != SimPe.Data.MetaData.NeighbourhoodEP.Business && hoodtipe == "Suburb")
                                     hoodtipe = "Hidden Suburb";
                             }
+
 
                             SetProvider(pkg);
                             pfds = pkg.FindFiles(SimPe.Plugin.Ltxt.Ltxttype);
@@ -668,14 +659,6 @@ namespace pjHoodTool
                 if (tty[2]) perv += " (Films)";
                 if (tty[1]) perv += " (Art)";
                 if (tty[0]) perv += " (Cooking)";
-            }
-            if (booby.PrettyGirls.PervyMode)
-            {
-                if (tty[10]) perv += " - Woohoo Club";
-                if (tty[20]) perv += " - Ladies Only";
-                if (tty[21]) perv += " - Dudes Only";
-                if (tty[11]) perv += " - Adults Only";
-                if (tty[23]) perv += " - Community Lot";
             }
 
             if (dt.Equals(new DateTime(0)) || wasUnk || dt.AddMilliseconds(200).CompareTo(DateTime.UtcNow) < 0)

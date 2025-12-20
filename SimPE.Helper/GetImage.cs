@@ -33,12 +33,10 @@ namespace SimPe
     public static class GetImage
     {
         private static Image noOne;
-        private static Image sheOne;
-        private static Image babyDoll;
         private static Image network;
         private static Image demo;
 
-        // <summary>
+        /// <summary>
         /// Generic "something went wrong" image.
         /// For now we just use the system error icon.
         /// </summary>
@@ -53,30 +51,6 @@ namespace SimPe
             {
                 if (noOne == null) noOne = CreatePlaceholderImage();
                 return noOne;
-            }
-        }
-
-        /// <summary>
-        /// Generic "female sim" placeholder image.
-        /// </summary>
-        public static Image SheOne
-        {
-            get
-            {
-                if (sheOne == null) sheOne = CreatePlaceholderImage();
-                return sheOne;
-            }
-        }
-
-        /// <summary>
-        /// Chris used this in pervy code; we map it to a normal image.
-        /// </summary>
-        public static Image BabyDoll
-        {
-            get
-            {
-                if (babyDoll == null) babyDoll = SheOne;
-                return babyDoll;
             }
         }
 

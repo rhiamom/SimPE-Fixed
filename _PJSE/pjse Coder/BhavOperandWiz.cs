@@ -39,7 +39,7 @@ namespace pjse
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Button OK;
 		private System.Windows.Forms.Button Cancel;
-        private booby.Lineb lineb1;
+        
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -52,21 +52,6 @@ namespace pjse
 			// Required designer variable.
 			//
 			InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.OK);
-                booby.ThemeManager.Global.AddControl(this.Cancel);
-                if (booby.ThemeManager.Global.CurrentTheme == booby.GuiTheme.SoftLilac)
-                {
-                    this.panel1.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                    this.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                }
-                else
-                {
-                    this.panel1.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                    this.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                }
-            }
         }
 
 		/// <summary>
@@ -135,7 +120,6 @@ namespace pjse
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BhavOperandWiz));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lineb1 = new booby.Lineb();
             this.OK = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -144,17 +128,9 @@ namespace pjse
             // panel1
             // 
             resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.lineb1);
             this.panel1.Controls.Add(this.OK);
             this.panel1.Controls.Add(this.Cancel);
             this.panel1.Name = "panel1";
-            // 
-            // lineb1
-            // 
-            resources.ApplyResources(this.lineb1, "lineb1");
-            this.lineb1.BackColor = System.Drawing.Color.Transparent;
-            this.lineb1.MinimumSize = new System.Drawing.Size(4, 4);
-            this.lineb1.Name = "lineb1";
             // 
             // OK
             // 

@@ -39,7 +39,7 @@ namespace SimPe.PackedFiles.UserInterface
 	{
 		#region Form variables
 
-        private booby.gradientpanel ttabPanel;
+        private System.Windows.Forms.Panel ttabPanel;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tpSettings;
 		private System.Windows.Forms.Label lbaction;
@@ -188,16 +188,6 @@ namespace SimPe.PackedFiles.UserInterface
             {
                 this.lbttab.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
                 this.splitContainer1.SplitterDistance = 400;
-                this.ttabPanel.BackgroundImageLocation = new System.Drawing.Point(965, 0);
-            }
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.ttabPanel);
-                booby.ThemeManager.Global.AddControl(this.btnCommit);
-                this.lbttab.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.tpSettings.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.tpHumanMotives.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.tpAnimalMotives.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
             }
 		}
 
@@ -607,9 +597,6 @@ namespace SimPe.PackedFiles.UserInterface
             this.lbttab.SelectedIndex = -1;
             WrapperChanged(wrapper, null);
 
-            if (booby.PrettyGirls.PervyMode && Helper.StartedGui == Executable.Default && this.ttabPanel.BackgroundImage == null)
-                this.ttabPanel.BackgroundImage = booby.PrettyGirls.Sorrowful;
-
             internalchg = true;
             populateLbttab();
             internalchg = false;
@@ -666,7 +653,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TtabForm));
-            this.ttabPanel = new booby.gradientpanel();
+            this.ttabPanel = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbttab = new System.Windows.Forms.ListBox();
@@ -789,9 +776,7 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             resources.ApplyResources(this.ttabPanel, "ttabPanel");
             this.ttabPanel.BackColor = System.Drawing.Color.Transparent;
-            this.ttabPanel.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.BottomLeft;
-            this.ttabPanel.BackgroundImageLocation = new System.Drawing.Point(855, 0);
-            this.ttabPanel.BackgroundImageZoomToFit = true;
+            
             this.ttabPanel.Controls.Add(this.splitContainer1);
             this.ttabPanel.Controls.Add(this.pjse_banner1);
             this.ttabPanel.Name = "ttabPanel";

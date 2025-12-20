@@ -78,12 +78,6 @@ namespace SimPe.PackedFiles.UserInterface
 			//
             pjse.FileTable.GFT.FiletableRefresh += new System.EventHandler(this.FiletableRefresh);
             if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.lvConstants.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.bconPanel.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lvConstants.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                booby.ThemeManager.Global.AddControl(this.btnCommit);
-            }
         }
 
 		/// <summary>

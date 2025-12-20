@@ -1,3 +1,5 @@
+using System.Drawing;
+
 namespace pjse
 {
     partial class pjse_banner
@@ -172,7 +174,7 @@ namespace pjse
             // pjse_banner
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = booby.ThemeManager.Global.ThemeColorDark;
+            this.BackColor = SystemColors.Control;
             this.Controls.Add(this.flpButtons);
             this.Controls.Add(this.lbLabel);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold);

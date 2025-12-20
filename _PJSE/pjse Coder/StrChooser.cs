@@ -56,13 +56,6 @@ namespace pjse
                 this.lbItemList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
                 this.Size = new System.Drawing.Size(600, 373);
             }
-
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.BackColor = booby.ThemeManager.Global.ThemeColor;
-                booby.ThemeManager.Global.AddControl(this.OK);
-                booby.ThemeManager.Global.AddControl(this.Cancel);
-            }
 		}
 
         public StrChooser(bool sortflag) : this() { this.sortflag = sortflag; }

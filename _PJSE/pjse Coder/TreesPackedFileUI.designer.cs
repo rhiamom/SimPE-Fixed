@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Ambertation.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -9,7 +10,7 @@ namespace SimPe.Plugin
 
         private void InitializeComponent()
         {
-            this.panel1 = new booby.gradientpanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btMove = new System.Windows.Forms.Button();
             this.btRemove = new System.Windows.Forms.Button();
             this.pnhidim = new System.Windows.Forms.Panel();
@@ -49,7 +50,7 @@ namespace SimPe.Plugin
             this.listLast = new System.Windows.Forms.ListView();
             this.Indecks = new System.Windows.Forms.ColumnHeader();
             this.Comment2 = new System.Windows.Forms.ColumnHeader();
-            this.taskBox1 = new booby.TaskBox();
+            this.taskBox1 = new XPTaskBoxSimple();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
@@ -72,7 +73,7 @@ namespace SimPe.Plugin
             this.label3 = new System.Windows.Forms.Label();
             this.tbComment = new System.Windows.Forms.TextBox();
             this.lbComment = new System.Windows.Forms.Label();
-            this.taskBox2 = new booby.TaskBox();
+            this.taskBox2 = new XPTaskBoxSimple();
             this.tbComment2 = new System.Windows.Forms.TextBox();
             this.lbComment2 = new System.Windows.Forms.Label();
             this.btDown = new System.Windows.Forms.Button();
@@ -86,9 +87,7 @@ namespace SimPe.Plugin
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.CenterLeft;
-            this.panel1.BackgroundImageLocation = new System.Drawing.Point(1034, 0);
-            this.panel1.BackgroundImageZoomToFit = true;
+            
             this.panel1.Controls.Add(this.btBhave);
             this.panel1.Controls.Add(this.btDown);
             this.panel1.Controls.Add(this.btMove);
@@ -106,13 +105,13 @@ namespace SimPe.Plugin
             this.panel1.Controls.Add(this.taskBox1);
             this.panel1.Controls.Add(this.taskBox2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.EndColour = System.Drawing.SystemColors.Control;
+            
             this.panel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(0, 24);
-            this.panel1.MiddleColour = System.Drawing.SystemColors.Control;
+            
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1300, 418);
-            this.panel1.StartColour = System.Drawing.SystemColors.Control;
+            
             this.panel1.TabIndex = 2;
             // 
             // btMove
@@ -779,7 +778,7 @@ namespace SimPe.Plugin
             this.ResumeLayout(false);
         }
 
-        private booby.gradientpanel panel1;
+        private System.Windows.Forms.Panel panel1;
         internal System.Windows.Forms.ListView listList;
         internal System.Windows.Forms.ListView listLast;
         private System.Windows.Forms.ColumnHeader Zero2;
@@ -795,8 +794,8 @@ namespace SimPe.Plugin
         private System.Windows.Forms.ColumnHeader Comment;        
         private System.Windows.Forms.ColumnHeader Comment2;
         private System.Windows.Forms.ColumnHeader Indecks;        
-        private booby.TaskBox taskBox1;
-        private booby.TaskBox taskBox2;
+        private XPTaskBoxSimple taskBox1;
+        private XPTaskBoxSimple taskBox2;
         private System.Windows.Forms.Label lbComment;
         private System.Windows.Forms.Label lbComment2;
         private System.Windows.Forms.Label label12;

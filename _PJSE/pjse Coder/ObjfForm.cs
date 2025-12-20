@@ -37,7 +37,7 @@ namespace SimPe.PackedFiles.UserInterface
 		#region Form variables
 
 		private System.Windows.Forms.Label label19;
-		private booby.gradientpanel objfPanel;
+		private System.Windows.Forms.Panel objfPanel;
 		private System.Windows.Forms.Label lbFilename;
 		private System.Windows.Forms.TextBox tbFilename;
 		private System.Windows.Forms.LinkLabel llGuardian;
@@ -85,14 +85,7 @@ namespace SimPe.PackedFiles.UserInterface
                 this.chAction.Width = 350;
                 this.chGuardian.Width = 350;
             }
-            booby.ThemeManager.Global.AddControl(this.objfPanel);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.lvObjfItem.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                booby.ThemeManager.Global.AddControl(this.btnCommit);
-            }
-            if (booby.PrettyGirls.PervyMode && Helper.StartedGui == Executable.Default)
-                this.objfPanel.BackgroundImage = booby.PrettyGirls.Kirsten;
+            ThemeManager.Global.AddControl(this.objfPanel);
         }
 
         void GFT_FiletableRefresh(object sender, EventArgs e)
@@ -262,7 +255,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ObjfForm));
-            this.objfPanel = new booby.gradientpanel();
+            this.objfPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.llAction = new System.Windows.Forms.LinkLabel();
             this.llGuardian = new System.Windows.Forms.LinkLabel();
@@ -294,9 +287,7 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             resources.ApplyResources(this.objfPanel, "objfPanel");
             this.objfPanel.BackColor = System.Drawing.Color.Transparent;
-            this.objfPanel.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.TopRight;
-            this.objfPanel.BackgroundImageLocation = new System.Drawing.Point(0, 243);
-            this.objfPanel.BackgroundImageZoomToFit = true;
+            
             this.objfPanel.Controls.Add(this.tableLayoutPanel1);
             this.objfPanel.Controls.Add(this.pjse_banner1);
             this.objfPanel.Controls.Add(this.lbFunction);

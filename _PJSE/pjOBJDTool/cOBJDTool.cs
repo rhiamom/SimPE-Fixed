@@ -37,16 +37,6 @@ namespace pjOBJDTool
         {
             InitializeComponent();
             initialised = false;
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.themepanel);
-                tm.AddControl(this.btnCommit);
-                tm.AddControl(this.btnSelectOBJD);
-                tm.AddControl(this.cbOBJDvsn);
-                this.tabPage1.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-                this.tabPage2.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-            }
         }
 
         private void InitializeForm()

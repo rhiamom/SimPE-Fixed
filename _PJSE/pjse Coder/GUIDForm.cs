@@ -38,7 +38,7 @@ namespace pjse.guidtool
     {
         #region Form variables
 
-        private booby.ExtProgressBar progressBar1;
+        private ProgressBar progressBar1;
         private System.Windows.Forms.Label lbStatus;
         private RichTextBox rtbReport;
         private TextBox tbNumber;
@@ -71,7 +71,7 @@ namespace pjse.guidtool
         private CheckBox ckbCTSS;
         private CheckBox ckbTTAs;
         private CheckBox ckbDefLang;
-        private booby.gradientpanel panel1;
+        private Panel panel1;
         private Panel pnFixer;
         private Button btclipb;
 		/// <summary>
@@ -96,17 +96,7 @@ namespace pjse.guidtool
             if (pjse.FileTable.gft == null)
                 pjse.FileTable.GFT.Refresh();
 
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(this.panel1);
-                tm.AddControl(this.rtbReport);
-                tm.AddControl(this.btnSearch);
-                tm.AddControl(this.btnClose);
-                tm.AddControl(this.btnClearFilter);
-                tm.AddControl(this.btnHelp);
-                tm.AddControl(this.btclipb);
-            }
+            SimPe.ThemeManager tm = SimPe.ThemeManager.Global.CreateChild();
 
             lHex32 = new List<TextBox>(new TextBox[] { tbNumber, });
             rbGroup = new List<RadioButton>(new RadioButton[] { rb1default, rb1CPOnly });
@@ -130,7 +120,6 @@ namespace pjse.guidtool
                 }
 
             gcGroup.KnownObjects = new object[] { sgNames, sgGroups, };
-            if (booby.PrettyGirls.PervyMode || booby.PrettyGirls.IsAngelsInstalled()) this.panel1.BackgroundImage = booby.PrettyGirls.BowPeep;
             gcGroup.ComboBoxWidth = 420;
             #endregion
         }
@@ -540,7 +529,7 @@ namespace pjse.guidtool
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUIDForm));
-            this.progressBar1 = new booby.ExtProgressBar();
+            this.progressBar1 = new ProgressBar();
             this.lbStatus = new System.Windows.Forms.Label();
             this.rtbReport = new System.Windows.Forms.RichTextBox();
             this.lbNumber = new System.Windows.Forms.Label();
@@ -573,7 +562,7 @@ namespace pjse.guidtool
             this.rb1default = new System.Windows.Forms.RadioButton();
             this.rb1CPOnly = new System.Windows.Forms.RadioButton();
             this.btnHelp = new System.Windows.Forms.Button();
-            this.panel1 = new booby.gradientpanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pnFixer = new System.Windows.Forms.Panel();
             this.btclipb = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -586,20 +575,12 @@ namespace pjse.guidtool
             // 
             resources.ApplyResources(this.progressBar1, "progressBar1");
             this.progressBar1.BackColor = System.Drawing.Color.Transparent;
-            this.progressBar1.BorderColor = System.Drawing.Color.Black;
-            this.progressBar1.Gradient = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.progressBar1.GradientEndColor = booby.ThemeManager.Global.ThemeColorLighter;
-            this.progressBar1.GradientStartColor = booby.ThemeManager.Global.ThemeColorLighter;
-            this.progressBar1.ProgressBackColor = booby.ThemeManager.Global.ThemeColorLight;
-            this.progressBar1.SelectedColor = booby.ThemeManager.Global.ThemeColorDark;
+            
             this.progressBar1.Maximum = 100;
             this.progressBar1.Minimum = 0;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Quality = true;
-            this.progressBar1.Style = booby.ProgresBarStyle.Simple;
-            this.progressBar1.TokenCount = 34;
-            this.progressBar1.UnselectedColor = System.Drawing.Color.Black;
-            this.progressBar1.UseTokenBuffer = false;
+            
+            
             this.progressBar1.Value = 0;
             this.progressBar1.Visible = false;
             // 
@@ -833,8 +814,7 @@ namespace pjse.guidtool
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.BackgroundImageLocation = new System.Drawing.Point(500, 0);
-            this.panel1.BackgroundImageScale = 0.8F;
+            
             this.panel1.Controls.Add(this.btclipb);
             this.panel1.Controls.Add(this.pnFixer);
             this.panel1.Controls.Add(this.tbName);
@@ -852,10 +832,8 @@ namespace pjse.guidtool
             this.panel1.Controls.Add(this.rtbReport);
             this.panel1.Controls.Add(this.groupBox2);
             resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.EndColour = System.Drawing.SystemColors.Control;
-            this.panel1.MiddleColour = System.Drawing.SystemColors.Control;
             this.panel1.Name = "panel1";
-            this.panel1.StartColour = System.Drawing.SystemColors.Control;
+            
             // 
             // pnFixer
             // 

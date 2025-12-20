@@ -112,30 +112,30 @@
             this.lbglobfile.Size = new System.Drawing.Size(44, 13);
             this.lbglobfile.TabIndex = 3;
             this.lbglobfile.Text = "no File";
-            // 
+            /* 
             // pritee
             // 
-            //this.pritee.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                       // | System.Windows.Forms.AnchorStyles.Left)
-                        //| System.Windows.Forms.AnchorStyles.Right)));
-            //this.pritee.BackColor = System.Drawing.Color.Transparent;
-            //this.pritee.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.CenterTop;
-            //this.pritee.BackgroundImageLocation = new System.Drawing.Point(0, 24);
-            //this.pritee.BackgroundImageZoomToFit = true;
-            //this.pritee.Controls.Add(this.lbBug);
-            //this.pritee.Controls.Add(this.lbBloat);
-            //this.pritee.Controls.Add(this.tbfilenm);
-            //this.pritee.Controls.Add(this.lbfilenm);
-            //this.pritee.Controls.Add(this.panel6);
-            //this.pritee.Controls.Add(this.tbgroup);
-            //this.pritee.Controls.Add(this.label43);
-            //this.pritee.Controls.Add(this.cbseminame);
-            //this.pritee.Controls.Add(this.label42);
-            //this.pritee.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            //this.pritee.Location = new System.Drawing.Point(0, 0);
-            //this.pritee.Name = "pritee";
-            //this.pritee.Size = new System.Drawing.Size(554, 291);
-            //this.pritee.TabIndex = 17;
+            this.pritee.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pritee.BackColor = System.Drawing.Color.Transparent;
+            this.pritee.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.CenterTop;
+            this.pritee.BackgroundImageLocation = new System.Drawing.Point(0, 24);
+            this.pritee.BackgroundImageZoomToFit = true;
+            this.pritee.Controls.Add(this.lbBug);
+            this.pritee.Controls.Add(this.lbBloat);
+            this.pritee.Controls.Add(this.tbfilenm);
+            this.pritee.Controls.Add(this.lbfilenm);
+            this.pritee.Controls.Add(this.panel6);
+            this.pritee.Controls.Add(this.tbgroup);
+            this.pritee.Controls.Add(this.label43);
+            this.pritee.Controls.Add(this.cbseminame);
+            this.pritee.Controls.Add(this.label42);
+            this.pritee.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pritee.Location = new System.Drawing.Point(0, 0);
+            this.pritee.Name = "pritee";
+            this.pritee.Size = new System.Drawing.Size(554, 291);
+            this.pritee.TabIndex = 17;*/
             // 
             // lbBloat
             // 

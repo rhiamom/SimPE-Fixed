@@ -354,18 +354,17 @@ namespace SimPe.Plugin
             // 
             resources.ApplyResources(this.ltxtPanel, "ltxtPanel");
             this.ltxtPanel.BackColor = System.Drawing.Color.Transparent;
-            
             this.ltxtPanel.Controls.Add(this.lbPlayim);
             this.ltxtPanel.Controls.Add(this.gbApart);
             this.ltxtPanel.Controls.Add(this.tbdesc);
             this.ltxtPanel.Controls.Add(this.gbtravel);
+            this.ltxtPanel.Controls.Add(this.lbu7);
             this.ltxtPanel.Controls.Add(this.label5);
             this.ltxtPanel.Controls.Add(this.tblotname);
-            this.ltxtPanel.Controls.Add(this.gbhobby);
+            this.ltxtPanel.Controls.Add(this.tbData);
             this.ltxtPanel.Controls.Add(this.label4);
             this.ltxtPanel.Controls.Add(this.llunknone);
             this.ltxtPanel.Controls.Add(this.gbFlagg);
-            this.ltxtPanel.Controls.Add(this.gbunown);
             this.ltxtPanel.Controls.Add(this.gbclarse);
             this.ltxtPanel.Controls.Add(this.label7);
             this.ltxtPanel.Controls.Add(this.lb);
@@ -402,9 +401,7 @@ namespace SimPe.Plugin
             this.ltxtPanel.Controls.Add(this.tbtype);
             this.ltxtPanel.Controls.Add(this.panel2);
             this.ltxtPanel.Controls.Add(this.pb);
-            
             this.ltxtPanel.Name = "ltxtPanel";
-            
             // 
             // lbPlayim
             // 
@@ -422,6 +419,7 @@ namespace SimPe.Plugin
             this.gbApart.Controls.Add(this.llAptBase);
             this.gbApart.Controls.Add(this.btnDelApt);
             this.gbApart.Controls.Add(this.btnAddApt);
+            this.gbApart.Controls.Add(this.gbunown);
             resources.ApplyResources(this.gbApart, "gbApart");
             this.gbApart.Name = "gbApart";
             this.gbApart.TabStop = false;
@@ -496,12 +494,6 @@ namespace SimPe.Plugin
             // lbApts
             // 
             resources.ApplyResources(this.lbApts, "lbApts");
-            this.lbApts.Items.AddRange(new object[] {
-            resources.GetString("lbApts.Items"),
-            resources.GetString("lbApts.Items1"),
-            resources.GetString("lbApts.Items2"),
-            resources.GetString("lbApts.Items3")});
-            this.lbApts.MinimumSize = new System.Drawing.Size(0, 44);
             this.lbApts.MultiColumn = true;
             this.lbApts.Name = "lbApts";
             this.lbApts.SelectedIndexChanged += new System.EventHandler(this.lbApts_SelectedIndexChanged);
@@ -858,10 +850,8 @@ namespace SimPe.Plugin
             this.gbunown.Controls.Add(this.label18);
             this.gbunown.Controls.Add(this.label32);
             this.gbunown.Controls.Add(this.label19);
-            this.gbunown.Controls.Add(this.lbu7);
             this.gbunown.Controls.Add(this.tbu3);
             this.gbunown.Controls.Add(this.label16);
-            this.gbunown.Controls.Add(this.tbData);
             this.gbunown.Controls.Add(this.tbu7);
             this.gbunown.Controls.Add(this.tbu5);
             this.gbunown.Controls.Add(this.label24);
@@ -903,7 +893,6 @@ namespace SimPe.Plugin
             resources.GetString("lbu7.Items5"),
             resources.GetString("lbu7.Items6"),
             resources.GetString("lbu7.Items7")});
-            this.lbu7.MinimumSize = new System.Drawing.Size(0, 44);
             this.lbu7.MultiColumn = true;
             this.lbu7.Name = "lbu7";
             this.lbu7.SelectedIndexChanged += new System.EventHandler(this.lbu7_SelectedIndexChanged);
@@ -1108,10 +1097,8 @@ namespace SimPe.Plugin
             // 
             // cborient
             // 
-            //this.cborient.Enum = null;booby
             resources.ApplyResources(this.cborient, "cborient");
             this.cborient.Name = "cborient";
-            //this.cborient.ResourceManager = null;
             this.cborient.SelectedIndexChanged += new System.EventHandler(this.CommonChange);
             // 
             // tbTexture
@@ -1237,9 +1224,7 @@ namespace SimPe.Plugin
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
-            //this.panel2.CanCommit = true;
             this.panel2.Name = "panel2";
-            //this.panel2.OnCommit += new booby.panelheader.EventHandler(this.Commit);
             // 
             // pb
             // 
@@ -1251,6 +1236,7 @@ namespace SimPe.Plugin
             // 
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.ltxtPanel);
+            this.Controls.Add(this.gbhobby);
             this.Name = "LtxtForm";
             this.ltxtPanel.ResumeLayout(false);
             this.ltxtPanel.PerformLayout();

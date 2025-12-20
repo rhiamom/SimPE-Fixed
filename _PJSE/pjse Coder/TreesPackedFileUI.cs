@@ -23,20 +23,10 @@ namespace SimPe.Plugin
         public TreesPackedFileUI()
 		{
 			InitializeComponent();
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            ThemeManager tm = SimPe.ThemeManager.Global.CreateChild();
             tm.AddControl(this.taskBox1);
             tm.AddControl(this.taskBox2);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                tm.AddControl(this.panel1);
-                tm.AddControl(this.btAdder);
-                tm.AddControl(this.btMove);
-                tm.AddControl(this.btRemove);
-                tm.AddControl(this.btDown);
-                tm.AddControl(this.btBhave);
-                tm.AddControl(this.listList);
-                tm.AddControl(this.listLast);
-            }
+
             if (SimPe.Helper.WindowsRegistry.UseBigIcons && Screen.PrimaryScreen.WorkingArea.Width > 1600)
             {
                 listLast.Font = new System.Drawing.Font("Verdana", 12F);

@@ -16,16 +16,8 @@ namespace pjHoodTool
         public Settims()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager.Global.AddControl(this.background);
-                booby.ThemeManager.Global.AddControl(this.btdoned);
-            }
-            //if (booby.PrettyGirls.PervyMode)
-            //    this.background.BackgroundImage = booby.PrettyGirls.RandomLady;
 
-            SimPe.GetImage.Loadimges(this.simLogo, SimPe.PathProvider.Global.Latest.Version);
-            this.simLogo.Run = true;
+            this.simLogo.Image = SystemIcons.Application.ToBitmap();
 
             dun = Settings; // Load settings
             cbshowbasic.Checked = cHoodTool.incbas;

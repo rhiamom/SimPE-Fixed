@@ -36,14 +36,6 @@ namespace pjOBJDTool
         public cOBJDChooser()
         {
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
-            {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
-                tm.AddControl(this.btnCancel);
-                tm.AddControl(this.btnOK);
-                tm.AddControl(this.lbItems);
-                this.BackColor = booby.ThemeManager.Global.ThemeColorMild;
-            }
         }
 
         public DialogResult Execute(List<pfOBJD> items)

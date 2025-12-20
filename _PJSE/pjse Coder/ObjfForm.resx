@@ -768,9 +768,6 @@
   <data name="&gt;&gt;objfPanel.Name" xml:space="preserve">
     <value>objfPanel</value>
   </data>
-  <data name="&gt;&gt;objfPanel.Type" xml:space="preserve">
-    <value>booby.gradientpanel, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;objfPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>

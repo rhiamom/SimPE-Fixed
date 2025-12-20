@@ -138,9 +138,6 @@
   <data name="&gt;&gt;lineb1.Name" xml:space="preserve">
     <value>lineb1</value>
   </data>
-  <data name="&gt;&gt;lineb1.Type" xml:space="preserve">
-    <value>booby.Lineb, GDF, Version=0.69.20.24, Culture=neutral, PublicKeyToken=null</value>
-  </data>
   <data name="&gt;&gt;lineb1.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>

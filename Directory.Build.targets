@@ -1,0 +1,38 @@
+<Project>
+
+	<PropertyGroup>
+		<!-- Unified output folder -->
+		<SimPeUnifiedOutDir>$(SolutionDir)bin\$(Configuration)\</SimPeUnifiedOutDir>
+	</PropertyGroup>
+
+	<Target Name="SimPeCopyToUnifiedBin" AfterTargets="Build">
+		<!-- Ensure destination exists -->
+		<MakeDir Directories="$(SimPeUnifiedOutDir)"
+				 Condition=" '$(SimPeUnifiedOutDir)' != '' " />
+
+		<!-- Copy main output (DLL or EXE) -->
+		<Copy
+		  SourceFiles="$(TargetPath)"
+		  DestinationFolder="$(SimPeUnifiedOutDir)"
+		  SkipUnchangedFiles="true"
+		  Condition="Exists('$(TargetPath)')" />
+
+		<!-- Copy PDB if it exists -->
+		<Copy
+		  SourceFiles="$(TargetDir)$(TargetName).pdb"
+		  DestinationFolder="$(SimPeUnifiedOutDir)"
+		  SkipUnchangedFiles="true"
+		  Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+
+		<!-- Copy XML docs if they exist -->
+		<Copy
+		  SourceFiles="$(TargetDir)$(TargetName).xml"
+		  DestinationFolder="$(SimPeUnifiedOutDir)"
+		  SkipUnchangedFiles="true"
+		  Condition="Exists('$(TargetDir)$(TargetName).xml')" />
+
+	</Target>
+
+</Project>
+
+

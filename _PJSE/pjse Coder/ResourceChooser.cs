@@ -84,13 +84,6 @@ namespace pjse
                 this.btnViewBHAV.Location = new System.Drawing.Point(243, 261); // -70
                 this.btnViewBHAV.Size = new System.Drawing.Size(104, 22);
             }
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.BackColor = booby.ThemeManager.Global.ThemeColor;
-                booby.ThemeManager.Global.AddControl(this.OK);
-                booby.ThemeManager.Global.AddControl(this.Cancel);
-                booby.ThemeManager.Global.AddControl(this.btnViewBHAV);
-            }
         }
 
         /// <summary>

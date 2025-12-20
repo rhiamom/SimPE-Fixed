@@ -101,7 +101,7 @@ namespace pjOBJDTool
             this.btnCommit = new System.Windows.Forms.Button();
             this.btnSelectOBJD = new System.Windows.Forms.Button();
             this.cbOBJDvsn = new System.Windows.Forms.ComboBox();
-            this.themepanel = new booby.gradientpanel();
+            this.themepanel = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.flpTabPage1.SuspendLayout();
@@ -722,6 +722,6 @@ namespace pjOBJDTool
         private System.Windows.Forms.ComboBox cbOBJDvsn;
         private System.Windows.Forms.LabelledBoolsetControl lbcValidEPs2;
         private System.Windows.Forms.LabelledBoolsetControl lbcValidEPs1;
-        private booby.gradientpanel themepanel;
+        private System.Windows.Forms.Panel themepanel;
     }
 }

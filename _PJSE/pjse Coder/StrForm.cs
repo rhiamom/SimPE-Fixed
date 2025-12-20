@@ -97,12 +97,6 @@ namespace SimPe.PackedFiles.UserInterface
             alBigBtn = new ArrayList(ab);
 
             pjse.FileTable.GFT.FiletableRefresh += new EventHandler(GFT_FiletableRefresh);
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.strPanel.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lvStrItems.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                booby.ThemeManager.Global.AddControl(this.btnCommit);
-            }
             if (Helper.WindowsRegistry.UseBigIcons) this.lvStrItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
         }
 

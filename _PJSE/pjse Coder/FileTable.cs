@@ -118,18 +118,11 @@ namespace pjse
                 if (SimPe.Wait.Running) SimPe.Wait.MaxProgress = 0;
             }
 
-            if (booby.PrettyGirls.IsTitsInstalled())
-                this.Add(Path.Combine(SimPe.Helper.SimPePluginPath, "pjse.coder.plugin\\GlobalStrings-AO.package"), false, SimPe.Expansions.Custom, true);
-            else
-                this.Add(Path.Combine(SimPe.Helper.SimPePluginPath, "pjse.coder.plugin\\GlobalStrings.package"), false, SimPe.Expansions.Custom, true);
+            this.Add(Path.Combine(SimPe.Helper.SimPePluginPath, "pjse.coder.plugin\\GlobalStrings.package"), false, SimPe.Expansions.Custom, true);
 
             if (loadEverything)
             {
-                if (booby.PrettyGirls.IsTitsInstalled())
-                    this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\GLOBALS-AO.package"), false, SimPe.Expansions.Custom, true);
-                else
-                    this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\GLOBALS.package"), false, SimPe.Expansions.Custom, true);
-
+                this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\GLOBALS.package"), false, SimPe.Expansions.Custom, true);
                 this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\SemiGlobals.package"), false, SimPe.Expansions.Custom, true);
                 this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\Private.package"), false, SimPe.Expansions.Custom, true);
                 this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\RelLabels.package"), false, SimPe.Expansions.Custom, true);

@@ -84,13 +84,6 @@ namespace SimPe.PackedFiles.UserInterface
                 this.lvParams.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
                 this.lvLocals.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             }
-            if (booby.ThemeManager.ThemedForms)
-            {
-                this.tprpPanel.BackColor = booby.ThemeManager.Global.ThemeColorLight;
-                this.lvLocals.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                this.lvParams.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
-                booby.ThemeManager.Global.AddControl(this.btnCommit);
-            }
         }
 
         void GFT_FiletableRefresh(object sender, EventArgs e)
