@@ -25,16 +25,19 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using SimPe;
 
 namespace SimPe
 {
     public static class LoadIcon
     {
+        static readonly System.Reflection.Assembly iconAssembly = typeof(SimPe.Helper).Assembly;
+
         // Cache of filename -> manifest resource name
         static readonly Dictionary<string, string> resourceCache = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         // All resource names in this assembly
-        static readonly string[] resourceNames = typeof(LoadIcon).Assembly.GetManifestResourceNames();
+        static readonly string[] resourceNames = iconAssembly.GetManifestResourceNames();
 
         // Fallback icon file name
         const string defaultIconFileName = "unk.png";
@@ -83,7 +86,7 @@ namespace SimPe
                 return null;
             }
 
-            using (Stream stream = typeof(LoadIcon).Assembly.GetManifestResourceStream(resourceName))
+            using (Stream stream = iconAssembly.GetManifestResourceStream(resourceName))
             {
                 if (stream == null)
                 {
