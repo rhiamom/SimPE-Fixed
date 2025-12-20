@@ -132,9 +132,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\__Release\simpe.scenegraph.dll</HintPath>
     </Reference>
-    <Reference Include="simpe.toolbox.plugin, Version=1.69.7187.8284, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="simpe.wizardbase, Version=1.0.3349.37578, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\__Release\simpe.wizardbase.dll</HintPath>

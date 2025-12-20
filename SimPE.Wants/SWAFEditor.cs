@@ -398,8 +398,7 @@ namespace SimPe.Wants
                         img = sdsc.Image;
                 if (img == null)
                 {
-                    if (sdsc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Female) img = SimPe.GetImage.SheOne;
-                    else img = SimPe.GetImage.NoOne;
+                    img = SimPe.GetImage.NoOne;
                 }
                 btnSim2.Image = img.GetThumbnailImage(64, 64, null, System.IntPtr.Zero);
                 llSimName2.Text = sdsc.SimName + " " + sdsc.SimFamilyName; llSREL.Visible = true;
@@ -893,8 +892,7 @@ namespace SimPe.Wants
                                 img = sdsc.Image;
                         if (img == null)
                         {
-                            if (sdsc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Female) img = SimPe.GetImage.SheOne;
-                            else img = SimPe.GetImage.NoOne;
+                           img = SimPe.GetImage.NoOne;
                         }
                         btnSim.Image = img.GetThumbnailImage(64, 64, null, System.IntPtr.Zero);
                         llSimName.Text = sdsc.SimName + " " + sdsc.SimFamilyName;

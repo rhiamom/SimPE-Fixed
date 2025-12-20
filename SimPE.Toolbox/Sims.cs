@@ -381,13 +381,10 @@ namespace SimPe.Plugin
             
                 if (sdesc.Unlinked != 0x00 || !sdesc.AvailableCharacterData || sdesc.IsNPC)
                 {
-                    if (sdesc.HasImage)
-                        img = ImageLoader.Preview(sdesc.Image, this.ilist.ImageSize);
-                    else if (sdesc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Female)
-                        img = ImageLoader.Preview(SimPe.GetImage.SheOne, this.ilist.ImageSize);
-                    else
-                        img = ImageLoader.Preview(SimPe.GetImage.NoOne, this.ilist.ImageSize);
-                    System.Drawing.Graphics g = Graphics.FromImage(img);
+                if (sdesc.HasImage)
+                    img = ImageLoader.Preview(sdesc.Image, this.ilist.ImageSize);
+                else
+                    img = ImageLoader.Preview(SimPe.GetImage.NoOne, this.ilist.ImageSize);System.Drawing.Graphics g = Graphics.FromImage(img);
                     g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
                     g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
                     //Pen pen = new Pen(Data.MetaData.SpecialSimColor, 3);
@@ -418,16 +415,8 @@ namespace SimPe.Plugin
                 }
                 else
                 {
-                    if (sdesc.CharacterDescription.Gender == SimPe.Data.MetaData.Gender.Female)
-                    {
-                        this.ilist.Images.Add(new Bitmap(SimPe.GetImage.SheOne));
-                        this.iListSmall.Images.Add(ImageLoader.Preview(new Bitmap(SimPe.GetImage.SheOne), iListSmall.ImageSize));
-                    }
-                    else
-                    {
-                        this.ilist.Images.Add(new Bitmap(SimPe.GetImage.NoOne));
-                        this.iListSmall.Images.Add(ImageLoader.Preview(new Bitmap(SimPe.GetImage.NoOne), iListSmall.ImageSize));
-                    }
+                    this.ilist.Images.Add(new Bitmap(SimPe.GetImage.NoOne));
+                    this.iListSmall.Images.Add(ImageLoader.Preview(new Bitmap(SimPe.GetImage.NoOne), iListSmall.ImageSize));
                 }
             }
 
