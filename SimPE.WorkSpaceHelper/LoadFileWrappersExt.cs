@@ -108,8 +108,7 @@ namespace SimPe
 			if (item.ToolExt!=null) 
 			{
                 LoadFileWrappersExt.SetShurtcutKey(item, item.ToolExt.Shortcut);				             
-				item.Image = item.ToolExt.Icon;			
-				//item.ToolTipText = item.ToolExt.ToString();
+				item.ToolTipText = item.ToolExt.ToString();
 			}
 
 			parent.Add(item);			

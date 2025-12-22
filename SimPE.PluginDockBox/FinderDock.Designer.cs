@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using Ambertation.Windows.Forms;
+using SimPe;
 
 namespace SimPe.Plugin.Tool.Dockable
 {
@@ -109,7 +110,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.tbResult.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbResult.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold);
             this.tbResult.HeaderText = "Results";
-            this.tbResult.Icon = ((System.Drawing.Image)(resources.GetObject("tbResult.Icon")));
+            this.tbResult.Icon = SimPe.LoadIcon.load("tbResult.png");
             this.tbResult.IconLocation = new System.Drawing.Point(4, 0);
             this.tbResult.IconSize = new System.Drawing.Size(32, 32);
             this.tbResult.Location = new System.Drawing.Point(8, 159);
@@ -194,7 +195,7 @@ namespace SimPe.Plugin.Tool.Dockable
             // 
             // biList
             // 
-            this.biList.Image = ((System.Drawing.Image)(resources.GetObject("biList.Image")));
+            this.biList.Image = SimPe.LoadIcon.load("biList.png");
             this.biList.Name = "biList";
             this.biList.Size = new System.Drawing.Size(23, 22);
             this.biList.ToolTipText = "List View";
@@ -202,7 +203,7 @@ namespace SimPe.Plugin.Tool.Dockable
             // 
             // biTile
             // 
-            this.biTile.Image = ((System.Drawing.Image)(resources.GetObject("biTile.Image")));
+            this.biTile.Image = SimPe.LoadIcon.load("biTile.Image");
             this.biTile.Name = "biTile";
             this.biTile.Size = new System.Drawing.Size(23, 22);
             this.biTile.ToolTipText = "Tiled View";
@@ -212,7 +213,7 @@ namespace SimPe.Plugin.Tool.Dockable
             // 
             this.biDetail.Checked = true;
             this.biDetail.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.biDetail.Image = ((System.Drawing.Image)(resources.GetObject("biDetail.Image")));
+            this.biDetail.Image = SimPe.LoadIcon.load("biDetail.Image");
             this.biDetail.Name = "biDetail";
             this.biDetail.Size = new System.Drawing.Size(23, 22);
             this.biDetail.ToolTipText = "Detailed View";
@@ -249,10 +250,10 @@ namespace SimPe.Plugin.Tool.Dockable
             this.Controls.Add(this.toolBar1);
             this.FloatingSize = new System.Drawing.Size(266, 502);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Image = ((System.Drawing.Image)(resources.GetObject("$this.Image")));
+            this.Image = SimPe.LoadIcon.load("FinderDock.png");
             this.Name = "FinderDock";
             this.Size = new System.Drawing.Size(254, 476);
-            this.TabImage = ((System.Drawing.Image)(resources.GetObject("$this.TabImage")));
+            this.TabImage = SimPe.LoadIcon.load("$this.TabImage");
             this.TabText = "Finder";
             this.xpGradientPanel1.ResumeLayout(false);
             this.tbResult.ResumeLayout(false);

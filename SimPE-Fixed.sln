@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.36631.11
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_PJSE", "_PJSE", "{BC0A1362-188C-CE9D-56C9-7DB4B22D5E34}"
 EndProject
@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.CareerEditor", "Bido
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BHAV", "SimPe BHAV\Plugin.BHAV.csproj", "{6AA664E9-B45F-4D61-9B9F-E68341C16473}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPe.CopyrightPlugin", "SimPe Copyright Plugin\SimPe.CopyrightPlugin.csproj", "{06D06A6A-C49E-44B8-8EE4-C0F107D3A50D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Copyright", "SimPe Copyright Plugin\Plugin.Copyright.csproj", "{06D06A6A-C49E-44B8-8EE4-C0F107D3A50D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simpeGameTipplugin", "SimPe GameTipPlugin\simpeGameTipplugin.csproj", "{E86E8EF6-EF83-4CD4-B2A7-20A08CD835A0}"
 EndProject
@@ -101,7 +101,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.ToolboxScanner", "Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.HGBH", "SimPE.HGBH\SimPE.HGBH.csproj", "{F060D4F2-BE7C-4390-A598-63A6030A2CB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.Dockbox", "SimPE.PluginDockBox\SimPE.Dockbox.csproj", "{5E418D56-585D-4134-B971-04C8A860CCD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Dockbox", "SimPE.PluginDockBox\Plugin.Dockbox.csproj", "{5E418D56-585D-4134-B971-04C8A860CCD8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimPE.Wants", "SimPE.Wants\SimPE.Wants.csproj", "{15A7A944-6FA5-4184-A243-2205A594B509}"
 EndProject

@@ -131,11 +131,18 @@ namespace SimPe
 		/// </summary>
         void LoadDynamicWrappers()
         {
+            string log = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt");
+            System.IO.File.AppendAllText(log, $"SimPePluginPath={Helper.SimPePluginPath}\r\n");
+
             Splash.Screen.SetMessage("Loading Dynamic Wrappers");
             string folder = Helper.SimPePluginPath;
             if (!System.IO.Directory.Exists(folder)) return;
 
             string[] files = System.IO.Directory.GetFiles(folder, "*.plugin.dll");
+            System.IO.File.AppendAllText(log, $"Found {files.Length} *.plugin.dll\r\n");
+            foreach (var f in files)
+                System.IO.File.AppendAllText(log, $"  {f}\r\n");
+
 
             foreach (string file in files)
             {

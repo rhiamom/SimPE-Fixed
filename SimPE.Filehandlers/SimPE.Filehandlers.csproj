@@ -7,7 +7,7 @@
     <ProjectGuid>{85099415-3448-4D91-979C-44690154FCD1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPe.PackedFiles.Handlers</RootNamespace>
-    <AssemblyName>simpe.filehandlers</AssemblyName>
+    <AssemblyName>simpe.filehandler</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -171,21 +171,57 @@
     <EmbeddedResource Include="Elements.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements.ru.resx" />
-    <EmbeddedResource Include="Elements2.de.resx" />
-    <EmbeddedResource Include="Elements2.es.resx" />
-    <EmbeddedResource Include="Elements2.fr.resx" />
-    <EmbeddedResource Include="Elements2.it.resx" />
-    <EmbeddedResource Include="Elements2.pl.resx" />
+    <!-- Neutral resources: force the base name WinForms expects -->
     <EmbeddedResource Include="Elements2.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+      <LogicalName>SimPe.PackedFiles.Wrapper.Elements2.resources</LogicalName>
+    </EmbeddedResource>
+    <!-- Culture resources: DO NOT set LogicalName; mark WithCulture -->
+    <EmbeddedResource Include="Elements2.de.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements2.es.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements2.fr.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements2.it.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements2.pl.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements2.ru.resx">
+      <DependentUpon>Elements2.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtObjdForm.resx">
+      <DependentUpon>ExtObjdForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Elements2.ru.resx" />
-    <EmbeddedResource Include="ExtObjdForm.fr.resx" />
-    <EmbeddedResource Include="ExtObjdForm.it.resx" />
-    <EmbeddedResource Include="ExtObjdForm.resx" />
-    <EmbeddedResource Include="GlobCtrl.resx" />
-    <EmbeddedResource Include="OLuaUI.resx" />
+    <EmbeddedResource Include="ExtObjdForm.fr.resx">
+      <DependentUpon>ExtObjdForm.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtObjdForm.it.resx">
+      <DependentUpon>ExtObjdForm.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobCtrl.resx">
+      <DependentUpon>GlobCtrl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OLuaUI.resx">
+      <DependentUpon>OLuaUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

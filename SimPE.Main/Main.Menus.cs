@@ -219,6 +219,25 @@ namespace SimPe
                     // Helper.SaveGameRootToFile(...)
 
                     // (Optional future step: reload FileTable or anything dependent on game root)
+                    try
+                    {
+                        // We just changed paths: rebuild the global file index for this run
+                        Helper.LocalMode = false;
+
+                        // Clear any cached index first if your FileIndex supports it
+                        // SimPe.FileTable.FileIndex.Clear();
+
+                        SimPe.FileTable.FileIndex.Load();   // or Reload()
+
+                        // Now refresh whatever UI depends on it
+                        // e.g. refresh catalog, resource list, plugins, etc.
+                        // RefreshCatalog();
+                        // ReloadCurrentPackageView();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString(), "Failed to reload FileTable/FileIndex");
+                    }
                 }
             }
         }

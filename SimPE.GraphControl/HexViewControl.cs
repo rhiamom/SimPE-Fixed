@@ -754,14 +754,14 @@ namespace Ambertation.Windows.Forms
 			
 			bm = new Rectangle(6, 6, 6, 6);
 			border = new Image[8];
-			border[0] = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.tl.png"));
-			border[1] = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.t.png"));
-			border[2] = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.tr.png"));
-			border[3] = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.r.png"));
-			border[4] = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.br.png"));
-			border[5] = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.b.png"));
-			border[6] = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.bl.png"));
-			border[7] = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.l.png"));
+            border[0] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.tl.png"));
+            border[1] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.t.png"));
+			border[2] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.tr.png"));
+			border[3] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.r.png"));
+			border[4] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.br.png"));
+			border[5] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.b.png"));
+			border[6] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.bl.png"));
+			border[7] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.l.png"));
 
 
 			#region Add ScrollBar

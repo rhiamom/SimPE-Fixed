@@ -47,7 +47,10 @@ namespace SimPe.PackedFiles.Wrapper
 			//
 			InitializeComponent();
 
-			ThemeManager tm = ThemeManager.Global.CreateChild();
+            this.btprev.Dock = System.Windows.Forms.DockStyle.None;
+            this.btprev.Enabled = true;
+
+            ThemeManager tm = ThemeManager.Global.CreateChild();
 			tm.AddControl(this.NrefPanel);
 			tm.AddControl(this.CpfPanel);
 		}
@@ -112,13 +115,13 @@ namespace SimPe.PackedFiles.Wrapper
 			this.btprev.AccessibleName = resources.GetString("btprev.AccessibleName");
 			this.btprev.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("btprev.Anchor")));
 			this.btprev.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btprev.BackgroundImage")));
-			this.btprev.Dock = ((System.Windows.Forms.DockStyle)(resources.GetObject("btprev.Dock")));
-			this.btprev.Enabled = ((bool)(resources.GetObject("btprev.Enabled")));
-			this.btprev.FlatStyle = ((System.Windows.Forms.FlatStyle)(resources.GetObject("btprev.FlatStyle")));
+            this.btprev.Dock = System.Windows.Forms.DockStyle.None;
+            this.btprev.Enabled = true;
+            this.btprev.FlatStyle = ((System.Windows.Forms.FlatStyle)(resources.GetObject("btprev.FlatStyle")));
 			this.btprev.Font = ((System.Drawing.Font)(resources.GetObject("btprev.Font")));
 			this.btprev.Image = ((System.Drawing.Image)(resources.GetObject("btprev.Image")));
-			this.btprev.ImageAlign = ((System.Drawing.ContentAlignment)(resources.GetObject("btprev.ImageAlign")));
-			this.btprev.ImageIndex = ((int)(resources.GetObject("btprev.ImageIndex")));
+            this.btprev.ImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btprev.ImageIndex = ((int)(resources.GetObject("btprev.ImageIndex")));
 			this.btprev.ImeMode = ((System.Windows.Forms.ImeMode)(resources.GetObject("btprev.ImeMode")));
 			this.btprev.Location = ((System.Drawing.Point)(resources.GetObject("btprev.Location")));
 			this.btprev.Name = "btprev";

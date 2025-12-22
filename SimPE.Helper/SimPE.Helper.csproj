@@ -916,13 +916,19 @@
     <EmbeddedResource Include="IconXmlResources\additional_schools.xml" />
     <EmbeddedResource Include="IconXmlResources\agent.png" />
     <EmbeddedResource Include="IconXmlResources\agt_support.png" />
-    <EmbeddedResource Include="IconXmlResources\b.png" />
+	<EmbeddedResource Include="IconXmlResources\b.png">
+		<LogicalName>SimPe.Helper.b.png</LogicalName>
+	  </EmbeddedResource>
     <EmbeddedResource Include="IconXmlResources\bcon.png" />
     <EmbeddedResource Include="IconXmlResources\bhav.png" />
     <EmbeddedResource Include="IconXmlResources\binary.png" />
-    <EmbeddedResource Include="IconXmlResources\bl.png" />
+	<EmbeddedResource Include="IconXmlResources\bl.png">
+		<LogicalName>SimPe.Helper.bl.png</LogicalName>
+	  </EmbeddedResource>
     <EmbeddedResource Include="IconXmlResources\bookmark.png" />
-    <EmbeddedResource Include="IconXmlResources\br.png" />
+	<EmbeddedResource Include="IconXmlResources\br.png">
+		<LogicalName>SimPe.Helper.br.png</LogicalName>
+	</EmbeddedResource>
     <EmbeddedResource Include="IconXmlResources\camera.png" />
     <EmbeddedResource Include="IconXmlResources\cancel.png" />
     <EmbeddedResource Include="IconXmlResources\clst.png" />
@@ -945,7 +951,9 @@
     <EmbeddedResource Include="IconXmlResources\idno.png" />
     <EmbeddedResource Include="IconXmlResources\important.png" />
     <EmbeddedResource Include="IconXmlResources\kweather.png" />
-    <EmbeddedResource Include="IconXmlResources\l.png" />
+	<EmbeddedResource Include="IconXmlResources\l.png">
+		<LogicalName>SimPe.Helper.l.png</LogicalName>
+	</EmbeddedResource>
     <EmbeddedResource Include="IconXmlResources\ltxt.png" />
     <EmbeddedResource Include="IconXmlResources\mmat.png" />
     <EmbeddedResource Include="IconXmlResources\multienabled.png" />
@@ -964,7 +972,9 @@
     <EmbeddedResource Include="IconXmlResources\package.png" />
     <EmbeddedResource Include="IconXmlResources\pattern.gif" />
     <EmbeddedResource Include="IconXmlResources\pic.png" />
-    <EmbeddedResource Include="IconXmlResources\r.png" />
+	<EmbeddedResource Include="IconXmlResources\r.png">
+		<LogicalName>SimPe.Helper.r.png</LogicalName>
+	  </EmbeddedResource>
     <EmbeddedResource Include="IconXmlResources\readonlyevent.png" />
     <EmbeddedResource Include="IconXmlResources\recur.png" />
     <EmbeddedResource Include="IconXmlResources\related.png" />
@@ -985,10 +995,16 @@
     <EmbeddedResource Include="IconXmlResources\smallmultienabled.png" />
     <EmbeddedResource Include="IconXmlResources\srel.png" />
     <EmbeddedResource Include="IconXmlResources\subitems.png" />
-    <EmbeddedResource Include="IconXmlResources\t.png" />
+	<EmbeddedResource Include="IconXmlResources\tl.png">
+		<LogicalName>SimPe.Helper.tl.png</LogicalName>
+	</EmbeddedResource>
     <EmbeddedResource Include="IconXmlResources\tgi.xml" />
-    <EmbeddedResource Include="IconXmlResources\tl.png" />
-    <EmbeddedResource Include="IconXmlResources\tr.png" />
+	<EmbeddedResource Include="IconXmlResources\t.png">
+		<LogicalName>SimPe.Helper.t.png</LogicalName>
+	</EmbeddedResource>
+	<EmbeddedResource Include="IconXmlResources\tr.png">
+		<LogicalName>SimPe.Helper.tr.png</LogicalName>
+	</EmbeddedResource>
     <EmbeddedResource Include="IconXmlResources\txmtdefinition.xml" />
     <EmbeddedResource Include="IconXmlResources\txt.png" />
     <EmbeddedResource Include="IconXmlResources\txtr.png" />

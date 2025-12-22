@@ -17,13 +17,14 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+using SimPe.Events;
 using System;
-using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Data;
-using SimPe.Events;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace SimPe
 {
@@ -63,22 +64,37 @@ namespace SimPe
             remote = new RemoteHandler(this, package, resloader, miWindow);
 
             SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Loading Plugins..."));
-            //MessageBox.Show("Before PluginManager");
-            plugger = new PluginManager(
-                miTools,
-                tbTools,
-                dc,
-                package,
-                tbDefaultAction,
-                miAction,
-                tbExtAction,
-                tbPlugAction,
-                tbAction,
-                dockBottom,
-                this.mbiTopics,
-                lv
-                
-            );
+            try
+            {
+                System.IO.File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt"),
+                    "Before PluginManager\n");
+
+                plugger = new PluginManager(
+                    miTools,
+                    tbTools,
+                    dc,
+                    package,
+                    tbDefaultAction,
+                    miAction,
+                    tbExtAction,
+                    tbPlugAction,
+                    tbAction,
+                    dockBottom,
+                    this.mbiTopics,
+                    lv
+                );
+
+                System.IO.File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt"),
+                    "After PluginManager\n");
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt"),
+                    "PluginManager EXCEPTION:\n" + ex + "\n");
+
+                throw; // let it crash so you see the normal crash path too
+            }
+
             //MessageBox.Show("After PluginManager");
             SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Loaded Plugins"));
             plugger.ClosedToolPlugin += new ToolMenuItemExt.ExternalToolNotify(ClosedToolPlugin);

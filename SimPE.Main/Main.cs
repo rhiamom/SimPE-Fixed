@@ -44,6 +44,17 @@ namespace SimPe
 			InitializeComponent();
 
             SetupMainForm();
+
+            this.Shown += (s, e) =>
+            {
+                MessageBox.Show(
+                    $"Tools Enabled={miTools.Enabled}\r\n" +
+                    $"Tools Visible={miTools.Visible}\r\n" +
+                    $"Tools Items={miTools.DropDownItems.Count}\r\n" +
+                    $"LocalMode={Helper.LocalMode}\r\n" +
+                    $"NoPlugins={Helper.NoPlugins}",
+                    "Tools menu state");
+            };
         }
 
 
