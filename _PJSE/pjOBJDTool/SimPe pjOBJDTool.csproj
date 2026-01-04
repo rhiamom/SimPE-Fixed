@@ -39,7 +39,7 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\Plugins\</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -119,7 +119,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins"
+copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins\" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

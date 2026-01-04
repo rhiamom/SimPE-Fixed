@@ -38,7 +38,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -138,90 +138,79 @@
     </Compile>
     <Compile Include="ResourceDockTool.cs" />
     <Compile Include="WrapperDockTool.cs" />
-
-	  <EmbeddedResource Include="DebugDock.resx">
-		  <DependentUpon>DebugDock.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.DebugDock.resources</LogicalName>
-	  </EmbeddedResource>
-
+    <EmbeddedResource Include="DebugDock.resx">
+      <DependentUpon>DebugDock.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.DebugDock.resources</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="FinderDock.resx">
       <DependentUpon>FinderDock.cs</DependentUpon>
       <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FinderDock.resources</LogicalName>
     </EmbeddedResource>
-
-	  <EmbeddedResource Include="AFinderTool.resx">
-		  <DependentUpon>AFinderTool.cs</DependentUpon>
-		  <SubType>Designer</SubType>
-		  <LogicalName>SimPe.Interfaces.AFinderTool.resources</LogicalName>
-	  </EmbeddedResource>
-      <EmbeddedResource Include="AFinderTool.de.resx">
-		  <DependentUpon>AFinderTool.cs</DependentUpon>
-		  <WithCulture>true</WithCulture>
-	  </EmbeddedResource>
-	  
-	  <EmbeddedResource Include="FindInCpf.resx">
-		  <DependentUpon>FindInCpf.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInCpf.resources</LogicalName>
-	  </EmbeddedResource>
-      <EmbeddedResource Include="FindInCpf.de.resx">
-		  <DependentUpon>FindInCpf.cs</DependentUpon>
-		  <WithCulture>true</WithCulture>
-	  </EmbeddedResource>
-
-	  <EmbeddedResource Include="FindInNref.resx">
-		  <DependentUpon>FindInNref.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInNref.resources</LogicalName>
-	  </EmbeddedResource>
-      <EmbeddedResource Include="FindInNref.de.resx">
-		  <DependentUpon>FindInNref.cs</DependentUpon>
-		  <WithCulture>true</WithCulture>
-	  </EmbeddedResource>
-		  
-	  <EmbeddedResource Include="FindInNmap.resx">
-		  <DependentUpon>FindInNmap.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInNmap.resources</LogicalName>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="FindInNmap.de.resx">
-		  <DependentUpon>FindInNmap.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInNmap.de.resources</LogicalName>
-	  </EmbeddedResource>
-	  
-	  <EmbeddedResource Include="FindInSG.resx">
-		  <DependentUpon>FindInSG.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInSG.resources</LogicalName>
-	  </EmbeddedResource>
-      <EmbeddedResource Include="FindInSG.de.resx">
-		  <DependentUpon>FindInSG.cs</DependentUpon>
-		  <WithCulture>true</WithCulture>
-	  </EmbeddedResource>
-	  
-	  <EmbeddedResource Include="FindInStr.resx">
-		  <DependentUpon>FindInStr.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInStr.resources</LogicalName>
-	  </EmbeddedResource>
-      <EmbeddedResource Include="FindInStr.de.resx">
-		  <DependentUpon>FindInStr.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInStr.de.resources</LogicalName>
-	  </EmbeddedResource>
-
-	  <EmbeddedResource Include="FindObj.resx">
-		  <DependentUpon>FindObj.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindObj.resources</LogicalName>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="FindObj.de.resx">
-		  <DependentUpon>FindObj.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindObj.de.resources</LogicalName>
-	  </EmbeddedResource>
-
-	  <EmbeddedResource Include="FindTGI.resx">
-		  <DependentUpon>FindTGI.cs</DependentUpon>
-		  <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindTGI.resources</LogicalName>
-	  </EmbeddedResource>
-      <EmbeddedResource Include="FindTGI.de.resx">
-		  <DependentUpon>FindTGI.cs</DependentUpon>
-		  <WithCulture>true</WithCulture>
-	  </EmbeddedResource>
-	  
+    <EmbeddedResource Include="AFinderTool.resx">
+      <DependentUpon>AFinderTool.cs</DependentUpon>
+      <SubType>Designer</SubType>
+      <LogicalName>SimPe.Interfaces.AFinderTool.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AFinderTool.de.resx">
+      <DependentUpon>AFinderTool.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInCpf.resx">
+      <DependentUpon>FindInCpf.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInCpf.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInCpf.de.resx">
+      <DependentUpon>FindInCpf.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInNref.resx">
+      <DependentUpon>FindInNref.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInNref.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInNref.de.resx">
+      <DependentUpon>FindInNref.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInNmap.resx">
+      <DependentUpon>FindInNmap.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInNmap.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInNmap.de.resx">
+      <DependentUpon>FindInNmap.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInNmap.de.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInSG.resx">
+      <DependentUpon>FindInSG.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInSG.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInSG.de.resx">
+      <DependentUpon>FindInSG.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInStr.resx">
+      <DependentUpon>FindInStr.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInStr.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindInStr.de.resx">
+      <DependentUpon>FindInStr.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindInStr.de.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindObj.resx">
+      <DependentUpon>FindObj.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindObj.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindObj.de.resx">
+      <DependentUpon>FindObj.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindObj.de.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindTGI.resx">
+      <DependentUpon>FindTGI.cs</DependentUpon>
+      <LogicalName>SimPe.Plugin.Tool.Dockable.Finder.FindTGI.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindTGI.de.resx">
+      <DependentUpon>FindTGI.cs</DependentUpon>
+      <WithCulture>true</WithCulture>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -321,8 +310,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins" mkdir "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins"
-copy "$(TargetPath)" "C:\Users\rhiam\Documents\SimPeSource\bin\Debug\Plugins\" /Y
-xcopy "$(TargetPath)" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins\" /Y</PostBuildEvent>
+    <PostBuildEvent>if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins"
+copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins\" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using SimPe.Packages;
 
 namespace SimPe.Plugin
 {
@@ -182,8 +183,35 @@ namespace SimPe.Plugin
 		/// <returns>the Texture or null</returns>
 		public GenericRcol GetTxtr(GenericRcol txmt) 
 		{
-			if (txmt==null) return null;
+            //System.Diagnostics.Debug.WriteLine(">>> MMAT GetTxtr HIT");
+
+            if (txmt==null) return null;
 			Hashtable refs = txmt.ReferenceChains;
+
+            System.Diagnostics.Debug.WriteLine("---- TXMT: " + (txmt.FileDescriptor != null ? txmt.FileDescriptor.Filename : "(no fd)"));
+
+            if (refs != null)
+            {
+                foreach (object k in refs.Keys)
+                    System.Diagnostics.Debug.WriteLine("RefKey: " + k.ToString());
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("ReferenceChains is NULL");
+            }
+
+            try
+            {
+                if (txmt.Blocks != null)
+                {
+                    for (int i = 0; i < txmt.Blocks.Length; i++)
+                        System.Diagnostics.Debug.WriteLine("Block[" + i + "]: " + txmt.Blocks[i].GetType().FullName);
+                }
+            }
+            catch { }
+
+
+
             ArrayList txtrs = refs["stdMatBaseTextureName"] as ArrayList;
 
             // Fallbacks for materials that use compositing / alternate texture slots
@@ -196,6 +224,52 @@ namespace SimPe.Plugin
             // Older/alternate chain some blocks expose
             if ((txtrs == null || txtrs.Count == 0) && refs.ContainsKey("TXTR"))
                 txtrs = refs["TXTR"] as ArrayList;
+            // Ultimate fallback: derive TXTR name from the TXMT filename.
+            // Some TXMTs don't populate ReferenceChains with stdMatBaseTextureName/baseTexture keys.
+            if (txtrs == null || txtrs.Count == 0)
+            {
+                string txmtName = null;
+                try { txmtName = txmt.FileDescriptor.Filename; } catch { }
+
+                if (!string.IsNullOrEmpty(txmtName))
+                {
+                    string txtrName = txmtName;
+
+                    if (txtrName.EndsWith("_txmt", StringComparison.OrdinalIgnoreCase))
+                        txtrName = txtrName.Substring(0, txtrName.Length - 5) + "_txtr";
+                    else if (!txtrName.EndsWith("_txtr", StringComparison.OrdinalIgnoreCase))
+                        txtrName = txtrName + "_txtr";
+
+                    // 1) Try inside the current package first
+                    var pfds = package.FindFile(txtrName, Data.MetaData.TXTR);
+                    if (pfds != null && pfds.Length > 0)
+                    {
+                        GenericRcol txtr = new GenericRcol(null, false);
+                        txtr.ProcessData(pfds[0], package);
+                        return txtr;
+                    }
+
+                    // 2) Try the global FileIndex
+                    global::SimPe.FileTableBase.FileIndex.Load();
+
+                    PackedFileDescriptor want = new PackedFileDescriptor();
+                    want.Type = Data.MetaData.TXTR;
+                    want.Group = 0;
+                    want.Instance = 0;
+                    want.SubType = 0;
+                    want.Filename = txtrName;
+
+                    var items =
+                        global::SimPe.FileTableBase.FileIndex.FindFileDiscardingGroup(want);
+
+                    if (items != null && items.Length > 0)
+                    {
+                        GenericRcol txtr = new GenericRcol(null, false);
+                        txtr.ProcessData(items[0].FileDescriptor, items[0].Package);
+                        return txtr;
+                    }
+                }
+            }
 
             if (txtrs!=null) 
 			{

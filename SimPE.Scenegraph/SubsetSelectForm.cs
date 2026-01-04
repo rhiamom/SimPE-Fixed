@@ -225,11 +225,19 @@ namespace SimPe.Plugin
 			GenericRcol txtr = mmat.TXTR;
 			if (txtr!=null) 
 			{
-				ImageData id = (ImageData)txtr.Blocks[0];
-				MipMap mm = id.LargestTexture;
+                ImageData id = null;
+                foreach (object blk in txtr.Blocks)
+                {
+                    id = blk as ImageData;
+                    if (id != null) break;
+                }
 
-				if (mm!=null) 
-					return ImageLoader.Preview(mm.Texture, sz);					
+                if (id != null)
+                {
+                    MipMap mm = id.LargestTexture;
+                    if (mm != null)
+                        return ImageLoader.Preview(mm.Texture, sz);
+                }		
 			}
 
 			return new Bitmap(sz.Width, sz.Height);
@@ -291,7 +299,12 @@ namespace SimPe.Plugin
 			ListViewItem lvi = new ListViewItem();
 			GenericRcol txtr = ((SimPe.Plugin.MmatWrapper)mmats[0]).TXTR;
 			GenericRcol txmt = ((SimPe.Plugin.MmatWrapper)mmats[0]).TXMT;
-			if (txmt!=null) 
+
+            System.Diagnostics.Debug.WriteLine("AddItem:");
+            System.Diagnostics.Debug.WriteLine("  TXMT = " + (txmt == null ? "NULL" : txmt.FileName));
+            System.Diagnostics.Debug.WriteLine("  TXTR = " + (txtr == null ? "NULL" : txtr.FileName));
+
+            if (txmt!=null) 
 			{
 				string txmtname = Hashes.StripHashFromName(txmt.FileName.Trim().ToLower());
 				if (!txmtnames.ContainsKey(txmtname)) 
