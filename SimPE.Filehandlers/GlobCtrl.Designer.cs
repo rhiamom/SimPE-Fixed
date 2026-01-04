@@ -88,18 +88,18 @@
             // 
             // panel6
             // 
-            //this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            //            | System.Windows.Forms.AnchorStyles.Right)));
-            //this.panel6.CanCommit = true;
-            //this.panel6.Controls.Add(this.lbglobfile);
-            //this.panel6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold);
-            //this.panel6.HeaderText = "Global Data Editor";
-            //this.panel6.Location = new System.Drawing.Point(0, 0);
-            //this.panel6.Margin = new System.Windows.Forms.Padding(0);
-            //this.panel6.Name = "panel6";
-            //this.panel6.Size = new System.Drawing.Size(554, 24);
-            //this.panel6.TabIndex = 0;
-            //this.panel6.OnCommit += new booby.panelheader.EventHandler(this.GlobCommit);
+            this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel6.CanCommit = true;
+            this.panel6.Controls.Add(this.lbglobfile);
+            this.panel6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold);
+            this.panel6.HeaderText = "Global Data Editor";
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Margin = new System.Windows.Forms.Padding(0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(554, 24);
+            this.panel6.TabIndex = 0;
+            this.panel6.Commited += (this.GlobCommit);//booby
             // 
             // lbglobfile
             // 
@@ -112,30 +112,6 @@
             this.lbglobfile.Size = new System.Drawing.Size(44, 13);
             this.lbglobfile.TabIndex = 3;
             this.lbglobfile.Text = "no File";
-            /* 
-            // pritee
-            // 
-            this.pritee.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pritee.BackColor = System.Drawing.Color.Transparent;
-            this.pritee.BackgroundImageAnchor = booby.gradientpanel.ImageLayout.CenterTop;
-            this.pritee.BackgroundImageLocation = new System.Drawing.Point(0, 24);
-            this.pritee.BackgroundImageZoomToFit = true;
-            this.pritee.Controls.Add(this.lbBug);
-            this.pritee.Controls.Add(this.lbBloat);
-            this.pritee.Controls.Add(this.tbfilenm);
-            this.pritee.Controls.Add(this.lbfilenm);
-            this.pritee.Controls.Add(this.panel6);
-            this.pritee.Controls.Add(this.tbgroup);
-            this.pritee.Controls.Add(this.label43);
-            this.pritee.Controls.Add(this.cbseminame);
-            this.pritee.Controls.Add(this.label42);
-            this.pritee.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pritee.Location = new System.Drawing.Point(0, 0);
-            this.pritee.Name = "pritee";
-            this.pritee.Size = new System.Drawing.Size(554, 291);
-            this.pritee.TabIndex = 17;*/
             // 
             // lbBloat
             // 
@@ -188,9 +164,8 @@
             //this.Controls.Add(this.pritee);
             this.Name = "GlobCtrl";
             this.Size = new System.Drawing.Size(554, 291);
-            //this.panel6.ResumeLayout(false);
-            //this.panel6.PerformLayout();
-            //this.pritee.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             //this.pritee.PerformLayout();
             this.ResumeLayout(false);
 
@@ -202,7 +177,7 @@
         private System.Windows.Forms.Label label43;
         internal System.Windows.Forms.ComboBox cbseminame;
         private System.Windows.Forms.Label label42;
-        
+        private SimPe.Windows.Forms.WrapperBaseControl panel6;
         internal System.Windows.Forms.Label lbglobfile;
         
         internal System.Windows.Forms.TextBox tbfilenm;

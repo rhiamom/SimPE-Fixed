@@ -1,12 +1,13 @@
+using Ambertation.Windows.Forms;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Collections.Generic;
-using System.Data;
 using System.Windows.Forms;
-using Ambertation.Windows.Forms;
 
 namespace SimPe.Plugin.Tool.Dockable
 {
@@ -1100,10 +1101,9 @@ namespace SimPe.Plugin.Tool.Dockable
 			this.lberr.Visible = false;
 		}
 
-		private void wizardStepPanel4_Activated(SimPe.Wizards.Wizard sender, SimPe.Wizards.WizardStepPanel step)
+        private void wizardStepPanel4_Activated(SimPe.Wizards.Wizard sender, SimPe.Wizards.WizardStepPanel step)
         {
-            this.pbWait.Image = System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.Tool.Dockable.timer.gif"));
-			SimPe.Packages.GeneratableFile package = null;
+            SimPe.Packages.GeneratableFile package = null;
 			if (lastselected ==null && this.package==null) 
 			{
 				sender.FinishEnabled = false;
@@ -1135,7 +1135,11 @@ namespace SimPe.Plugin.Tool.Dockable
                     cs.ChangeObjectDescription = cbDesc.Checked;
                     cs.Title = this.tbName.Text;
                     cs.Description = this.tbDesc.Text;
-                    cs.Price = Helper.StringToInt16(this.tbPrice.Text, 0, 10);
+                    //cs.Price = Helper.StringToInt16(this.tbPrice.Text, 0, 10);
+                    short price;
+                    if (!short.TryParse(this.tbPrice.Text, out price))
+                        price = 0;
+                    cs.Price = price;
 
                     settings = cs;
                 }
@@ -1148,13 +1152,15 @@ namespace SimPe.Plugin.Tool.Dockable
 
 				try 
 				{
-					package = ObjectWorkshopHelper.Start(this.package, a, ref pfd, localgroup, settings, onlybase);
-				} 
+                    System.Diagnostics.Debug.WriteLine("OW: Start begin");
+                    package = ObjectWorkshopHelper.Start(this.package, a, ref pfd, localgroup, settings, onlybase);
+                    System.Diagnostics.Debug.WriteLine("OW: Start returned");
+                    //package = ObjectWorkshopHelper.Start(this.package, a, ref pfd, localgroup, settings, onlybase);
+                } 
 				catch (Exception ex) 
 				{
 					Helper.ExceptionMessage(ex);
 				}                
-                this.pbWait.Image = null;
 				if (package!=null) this.lbfinload.Visible = settings.RemoteResult;
 				else this.lberr.Visible = true;
 				

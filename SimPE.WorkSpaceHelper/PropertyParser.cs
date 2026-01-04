@@ -116,8 +116,9 @@ namespace Ambertation
 				if (enums.ContainsKey(typename)) 
 				{
 					Type t = (Type)enums[typename];
-					if (value==null) o =System.Enum.ToObject(t, t.GetFields()[0].GetValue(null));
-					else o = System.Enum.ToObject(t, System.Convert.ToInt32(value));
+                    if (value == null) o = System.Enum.ToObject(t, t.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)[0].GetValue(null));
+                    //if (value==null) o =System.Enum.ToObject(t, t.GetFields()[0].GetValue(null));
+                    else o = System.Enum.ToObject(t, System.Convert.ToInt32(value));
 				} 
 				else 
 				{

@@ -23,6 +23,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using SimPe.Interfaces.Scenegraph;
+using Ambertation.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -71,8 +72,8 @@ namespace SimPe.Plugin
 		private System.Windows.Forms.TextBox tbfile;
 		private System.Windows.Forms.LinkLabel linkLabel1;
 		internal System.Windows.Forms.TabControl tbResource;
-        private System.Windows.Forms.Panel xpTaskBoxSimple1;
-        private System.Windows.Forms.Panel xpTaskBoxSimple2;
+        private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple1;
+        private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple2;
         private System.Windows.Forms.Panel gradientpanel1;
         private System.Windows.Forms.Panel gradientpanel2;
         private System.Windows.Forms.Panel gradientpanel3;
@@ -101,7 +102,7 @@ namespace SimPe.Plugin
                 this.lbref.Font    = new System.Drawing.Font(base.Font.FontFamily, 11F);
                 this.tv.Font       = new System.Drawing.Font(base.Font.FontFamily, 11F);
                 this.tbflname.Font = new System.Drawing.Font(base.Font.FontFamily, 12F);
-            }   
+            }
 
             foreach (Interfaces.IAlias alias in SimPe.Helper.TGILoader.FileTypes)
                 cbtypes.Items.Add(alias);
@@ -143,7 +144,7 @@ namespace SimPe.Plugin
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gradientpanel1 = new System.Windows.Forms.Panel();
             this.lbref = new System.Windows.Forms.ListBox();
-            this.xpTaskBoxSimple2 = new System.Windows.Forms.Panel();
+            this.xpTaskBoxSimple2 = new Ambertation.Windows.Forms.XPTaskBoxSimple();
             this.pntypes = new System.Windows.Forms.Panel();
             this.lladd = new System.Windows.Forms.LinkLabel();
             this.lldelete = new System.Windows.Forms.LinkLabel();
@@ -168,7 +169,7 @@ namespace SimPe.Plugin
             this.tpref = new System.Windows.Forms.TabPage();
             this.gradientpanel2 = new System.Windows.Forms.Panel();
             this.tv = new System.Windows.Forms.TreeView();
-            this.xpTaskBoxSimple1 = new System.Windows.Forms.Panel();
+            this.xpTaskBoxSimple1 = new Ambertation.Windows.Forms.XPTaskBoxSimple();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbfile = new System.Windows.Forms.TextBox();
@@ -191,9 +192,9 @@ namespace SimPe.Plugin
             // 
             // tbResource
             // 
-            this.tbResource.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbResource.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbResource.Controls.Add(this.tabPage1);
             this.tbResource.Controls.Add(this.tabPage2);
             this.tbResource.Controls.Add(this.tabPage3);
@@ -214,9 +215,9 @@ namespace SimPe.Plugin
             this.tabPage1.Controls.Add(this.llhash);
             this.tabPage1.Controls.Add(this.llfix);
             this.tabPage1.Controls.Add(this.cbitem);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(744, 233);
+            this.tabPage1.Size = new System.Drawing.Size(744, 228);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Content";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -234,24 +235,24 @@ namespace SimPe.Plugin
             // 
             // tbflname
             // 
-            this.tbflname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbflname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbflname.Location = new System.Drawing.Point(72, 32);
             this.tbflname.Name = "tbflname";
-            this.tbflname.Size = new System.Drawing.Size(510, 23);
+            this.tbflname.Size = new System.Drawing.Size(510, 26);
             this.tbflname.TabIndex = 9;
             this.tbflname.TextChanged += new System.EventHandler(this.ChangeFileName);
             // 
             // childtc
             // 
-            this.childtc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.childtc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.childtc.Location = new System.Drawing.Point(8, 64);
             this.childtc.Multiline = true;
             this.childtc.Name = "childtc";
             this.childtc.SelectedIndex = 0;
-            this.childtc.Size = new System.Drawing.Size(728, 166);
+            this.childtc.Size = new System.Drawing.Size(728, 161);
             this.childtc.TabIndex = 20;
             this.childtc.SelectedIndexChanged += new System.EventHandler(this.ChildTabPageChanged);
             // 
@@ -274,7 +275,7 @@ namespace SimPe.Plugin
             this.llhash.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llhash.Location = new System.Drawing.Point(664, 40);
             this.llhash.Name = "llhash";
-            this.llhash.Size = new System.Drawing.Size(74, 13);
+            this.llhash.Size = new System.Drawing.Size(113, 21);
             this.llhash.TabIndex = 18;
             this.llhash.TabStop = true;
             this.llhash.Text = "assign Hash";
@@ -289,7 +290,7 @@ namespace SimPe.Plugin
             this.llfix.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.llfix.Location = new System.Drawing.Point(608, 40);
             this.llfix.Name = "llfix";
-            this.llfix.Size = new System.Drawing.Size(44, 13);
+            this.llfix.Size = new System.Drawing.Size(68, 21);
             this.llfix.TabIndex = 19;
             this.llfix.TabStop = true;
             this.llfix.Text = "fix TGI";
@@ -297,21 +298,21 @@ namespace SimPe.Plugin
             // 
             // cbitem
             // 
-            this.cbitem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbitem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbitem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbitem.Location = new System.Drawing.Point(72, 8);
             this.cbitem.Name = "cbitem";
-            this.cbitem.Size = new System.Drawing.Size(664, 23);
+            this.cbitem.Size = new System.Drawing.Size(664, 28);
             this.cbitem.TabIndex = 7;
             this.cbitem.SelectedIndexChanged += new System.EventHandler(this.SelectRcolItem);
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.gradientpanel1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(744, 233);
+            this.tabPage2.Size = new System.Drawing.Size(746, 228);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Reference";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -321,24 +322,24 @@ namespace SimPe.Plugin
             this.gradientpanel1.BackColor = System.Drawing.Color.Transparent;
             this.gradientpanel1.Controls.Add(this.lbref);
             this.gradientpanel1.Controls.Add(this.xpTaskBoxSimple2);
-            this.gradientpanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gradientpanel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gradientpanel1.Location = new System.Drawing.Point(0, 0);
             this.gradientpanel1.Name = "gradientpanel1";
-            this.gradientpanel1.Size = new System.Drawing.Size(744, 233);
+            this.gradientpanel1.Size = new System.Drawing.Size(746, 228);
             this.gradientpanel1.TabIndex = 44;
             // 
             // lbref
             // 
             this.lbref.AllowDrop = true;
-            this.lbref.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbref.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbref.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lbref.IntegralHeight = false;
+            this.lbref.ItemHeight = 20;
             this.lbref.Location = new System.Drawing.Point(0, 0);
             this.lbref.Name = "lbref";
-            this.lbref.Size = new System.Drawing.Size(288, 233);
+            this.lbref.Size = new System.Drawing.Size(288, 228);
             this.lbref.TabIndex = 0;
             this.lbref.SelectedIndexChanged += new System.EventHandler(this.SelectReference);
             this.lbref.DragDrop += new System.Windows.Forms.DragEventHandler(this.PackageItemDrop);
@@ -348,7 +349,6 @@ namespace SimPe.Plugin
             // 
             this.xpTaskBoxSimple2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.xpTaskBoxSimple2.BackColor = System.Drawing.Color.Transparent;
-
             this.xpTaskBoxSimple2.Controls.Add(this.pntypes);
             this.xpTaskBoxSimple2.Controls.Add(this.btref);
             this.xpTaskBoxSimple2.Location = new System.Drawing.Point(296, 0);
@@ -383,7 +383,7 @@ namespace SimPe.Plugin
             this.lladd.LinkArea = new System.Windows.Forms.LinkArea(0, 9);
             this.lladd.Location = new System.Drawing.Point(344, 80);
             this.lladd.Name = "lladd";
-            this.lladd.Size = new System.Drawing.Size(25, 18);
+            this.lladd.Size = new System.Drawing.Size(38, 25);
             this.lladd.TabIndex = 19;
             this.lladd.TabStop = true;
             this.lladd.Text = "add";
@@ -398,7 +398,7 @@ namespace SimPe.Plugin
             this.lldelete.LinkArea = new System.Windows.Forms.LinkArea(0, 7);
             this.lldelete.Location = new System.Drawing.Point(372, 80);
             this.lldelete.Name = "lldelete";
-            this.lldelete.Size = new System.Drawing.Size(40, 18);
+            this.lldelete.Size = new System.Drawing.Size(59, 25);
             this.lldelete.TabIndex = 18;
             this.lldelete.TabStop = true;
             this.lldelete.Text = "delete";
@@ -410,7 +410,7 @@ namespace SimPe.Plugin
             this.tbsubtype.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbsubtype.Location = new System.Drawing.Point(72, 24);
             this.tbsubtype.Name = "tbsubtype";
-            this.tbsubtype.Size = new System.Drawing.Size(100, 21);
+            this.tbsubtype.Size = new System.Drawing.Size(100, 27);
             this.tbsubtype.TabIndex = 12;
             this.tbsubtype.TextChanged += new System.EventHandler(this.AutoChangeReference);
             // 
@@ -419,7 +419,7 @@ namespace SimPe.Plugin
             this.tbinstance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbinstance.Location = new System.Drawing.Point(72, 72);
             this.tbinstance.Name = "tbinstance";
-            this.tbinstance.Size = new System.Drawing.Size(100, 21);
+            this.tbinstance.Size = new System.Drawing.Size(100, 27);
             this.tbinstance.TabIndex = 14;
             this.tbinstance.TextChanged += new System.EventHandler(this.AutoChangeReference);
             // 
@@ -439,7 +439,7 @@ namespace SimPe.Plugin
             this.tbtype.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbtype.Location = new System.Drawing.Point(72, 0);
             this.tbtype.Name = "tbtype";
-            this.tbtype.Size = new System.Drawing.Size(100, 21);
+            this.tbtype.Size = new System.Drawing.Size(100, 27);
             this.tbtype.TabIndex = 11;
             this.tbtype.TextChanged += new System.EventHandler(this.tbtype_TextChanged);
             // 
@@ -481,7 +481,7 @@ namespace SimPe.Plugin
             this.tbgroup.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbgroup.Location = new System.Drawing.Point(72, 48);
             this.tbgroup.Name = "tbgroup";
-            this.tbgroup.Size = new System.Drawing.Size(100, 21);
+            this.tbgroup.Size = new System.Drawing.Size(100, 27);
             this.tbgroup.TabIndex = 13;
             this.tbgroup.TextChanged += new System.EventHandler(this.AutoChangeReference);
             // 
@@ -489,10 +489,10 @@ namespace SimPe.Plugin
             // 
             this.cbtypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbtypes.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbtypes.ItemHeight = 13;
+            this.cbtypes.ItemHeight = 21;
             this.cbtypes.Location = new System.Drawing.Point(176, 0);
             this.cbtypes.Name = "cbtypes";
-            this.cbtypes.Size = new System.Drawing.Size(240, 21);
+            this.cbtypes.Size = new System.Drawing.Size(240, 29);
             this.cbtypes.Sorted = true;
             this.cbtypes.TabIndex = 16;
             this.cbtypes.SelectedIndexChanged += new System.EventHandler(this.SelectType);
@@ -514,9 +514,9 @@ namespace SimPe.Plugin
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.gradientpanel3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(744, 233);
+            this.tabPage3.Size = new System.Drawing.Size(746, 228);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Edit Blocks";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -530,11 +530,10 @@ namespace SimPe.Plugin
             this.gradientpanel3.Controls.Add(this.btadd);
             this.gradientpanel3.Controls.Add(this.btdown);
             this.gradientpanel3.Controls.Add(this.btdel);
-            this.gradientpanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gradientpanel3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gradientpanel3.Location = new System.Drawing.Point(0, 0);
             this.gradientpanel3.Name = "gradientpanel3";
-            this.gradientpanel3.Size = new System.Drawing.Size(744, 233);
+            this.gradientpanel3.Size = new System.Drawing.Size(746, 228);
             this.gradientpanel3.TabIndex = 6;
             // 
             // lbblocks
@@ -543,9 +542,10 @@ namespace SimPe.Plugin
             this.lbblocks.Dock = System.Windows.Forms.DockStyle.Left;
             this.lbblocks.HorizontalScrollbar = true;
             this.lbblocks.IntegralHeight = false;
+            this.lbblocks.ItemHeight = 20;
             this.lbblocks.Location = new System.Drawing.Point(0, 0);
             this.lbblocks.Name = "lbblocks";
-            this.lbblocks.Size = new System.Drawing.Size(549, 233);
+            this.lbblocks.Size = new System.Drawing.Size(549, 228);
             this.lbblocks.TabIndex = 0;
             this.lbblocks.SelectedIndexChanged += new System.EventHandler(this.lbblocks_SelectedIndexChanged);
             // 
@@ -562,12 +562,12 @@ namespace SimPe.Plugin
             // 
             // cbblocks
             // 
-            this.cbblocks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbblocks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbblocks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbblocks.Location = new System.Drawing.Point(555, 127);
             this.cbblocks.Name = "cbblocks";
-            this.cbblocks.Size = new System.Drawing.Size(183, 21);
+            this.cbblocks.Size = new System.Drawing.Size(183, 28);
             this.cbblocks.Sorted = true;
             this.cbblocks.TabIndex = 5;
             // 
@@ -606,9 +606,9 @@ namespace SimPe.Plugin
             // tpref
             // 
             this.tpref.Controls.Add(this.gradientpanel2);
-            this.tpref.Location = new System.Drawing.Point(4, 24);
+            this.tpref.Location = new System.Drawing.Point(4, 29);
             this.tpref.Name = "tpref";
-            this.tpref.Size = new System.Drawing.Size(744, 233);
+            this.tpref.Size = new System.Drawing.Size(746, 228);
             this.tpref.TabIndex = 3;
             this.tpref.Text = "All References";
             this.tpref.UseVisualStyleBackColor = true;
@@ -618,23 +618,22 @@ namespace SimPe.Plugin
             this.gradientpanel2.BackColor = System.Drawing.Color.Transparent;
             this.gradientpanel2.Controls.Add(this.tv);
             this.gradientpanel2.Controls.Add(this.xpTaskBoxSimple1);
-            this.gradientpanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gradientpanel2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gradientpanel2.Location = new System.Drawing.Point(0, 0);
             this.gradientpanel2.Name = "gradientpanel2";
-            this.gradientpanel2.Size = new System.Drawing.Size(744, 233);
+            this.gradientpanel2.Size = new System.Drawing.Size(746, 228);
             this.gradientpanel2.TabIndex = 3;
             // 
             // tv
             // 
-            this.tv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tv.HideSelection = false;
             this.tv.Location = new System.Drawing.Point(0, 0);
             this.tv.Name = "tv";
-            this.tv.Size = new System.Drawing.Size(288, 233);
+            this.tv.Size = new System.Drawing.Size(288, 228);
             this.tv.TabIndex = 0;
             this.tv.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SelectRefItem);
             // 
@@ -682,7 +681,7 @@ namespace SimPe.Plugin
             this.tbfile.Location = new System.Drawing.Point(16, 120);
             this.tbfile.Name = "tbfile";
             this.tbfile.ReadOnly = true;
-            this.tbfile.Size = new System.Drawing.Size(406, 22);
+            this.tbfile.Size = new System.Drawing.Size(406, 30);
             this.tbfile.TabIndex = 4;
             // 
             // linkLabel1
@@ -690,7 +689,7 @@ namespace SimPe.Plugin
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(40, 104);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(43, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(62, 20);
             this.linkLabel1.TabIndex = 6;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "reload";
@@ -702,7 +701,7 @@ namespace SimPe.Plugin
             this.label5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(8, 104);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(27, 13);
+            this.label5.Size = new System.Drawing.Size(42, 21);
             this.label5.TabIndex = 5;
             this.label5.Text = "File:";
             // 
@@ -713,7 +712,7 @@ namespace SimPe.Plugin
             this.tbrefinst.Location = new System.Drawing.Point(80, 80);
             this.tbrefinst.Name = "tbrefinst";
             this.tbrefinst.ReadOnly = true;
-            this.tbrefinst.Size = new System.Drawing.Size(88, 21);
+            this.tbrefinst.Size = new System.Drawing.Size(88, 27);
             this.tbrefinst.TabIndex = 3;
             this.tbrefinst.Text = "0x00000000";
             // 
@@ -724,19 +723,20 @@ namespace SimPe.Plugin
             this.tbrefgroup.Location = new System.Drawing.Point(80, 48);
             this.tbrefgroup.Name = "tbrefgroup";
             this.tbrefgroup.ReadOnly = true;
-            this.tbrefgroup.Size = new System.Drawing.Size(88, 21);
+            this.tbrefgroup.Size = new System.Drawing.Size(88, 27);
             this.tbrefgroup.TabIndex = 2;
             this.tbrefgroup.Text = "0x00000000";
             // 
             // RcolForm
             // 
             this.Controls.Add(this.tbResource);
+            this.GradCentre = 0.02F;
             this.HeaderText = "Generic Rcol Editor";
             this.Location = new System.Drawing.Point(48, 32);
             this.Name = "RcolForm";
             this.Size = new System.Drawing.Size(768, 301);
+            this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Commited += new System.EventHandler(this.Commit);
-            this.Controls.SetChildIndex(this.tbResource, 0);
             this.tbResource.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -758,15 +758,15 @@ namespace SimPe.Plugin
 
 		internal Rcol wrapper = null;
 
-		internal void BuildChildTabControl(AbstractRcolBlock rb)
-		{			
-			childtc.TabPages.Clear();
+        internal void BuildChildTabControl(AbstractRcolBlock rb)
+        {
+            childtc.TabPages.Clear();
 
-			if (rb==null) return;
-			if (rb.TabPage!=null) rb.AddToTabControl(childtc);
-		}
+            if (rb == null) return;
+            if (rb.TabPage != null) rb.AddToTabControl(childtc);
+        }
 
-		private void SelectRcolItem(object sender, System.EventArgs e)
+        private void SelectRcolItem(object sender, System.EventArgs e)
 		{
 			if (cbitem.Tag!=null) return;
 			if (cbitem.SelectedIndex<0) return;

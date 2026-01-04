@@ -23,6 +23,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using SimPe.PackedFiles.Wrapper;
+using SimPe.Windows.Forms;
 
 namespace SimPe.PackedFiles.UserInterface
 {
@@ -32,7 +33,7 @@ namespace SimPe.PackedFiles.UserInterface
 	public class SlotForm : System.Windows.Forms.Form
 	{
         internal System.Windows.Forms.Panel pnslot;
-        private System.Windows.Forms.Panel panel4;
+        private SimPe.Windows.Forms.WrapperBaseControl panel4;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
@@ -196,7 +197,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.tbf2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbf1 = new System.Windows.Forms.TextBox();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel4 = new SimPe.Windows.Forms.WrapperBaseControl();
             this.pnslot.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -923,14 +924,14 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            //this.panel4.CanCommit = true;
-            //this.panel4.HeaderText = "Slot Editor";
+            this.panel4.CanCommit = true;
+            this.panel4.HeaderText = "Slot Editor";
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(730, 24);
             this.panel4.TabIndex = 0;
-            //this.panel4.OnCommit += new System.Windows.Forms.Panel.EventHandler(this.btcommit_Click);booby
+            this.panel4.Commited += new System.EventHandler(this.btcommit_Click);//booby
             // 
             // SlotForm
             // 

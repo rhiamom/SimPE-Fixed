@@ -72,7 +72,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FamilyTiesForm));
             this.pnfamt = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel4 = new SimPe.Windows.Forms.WrapperBaseControl();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ties = new SimPe.PackedFiles.Wrapper.FamilyTieGraph();
@@ -119,12 +119,12 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             // panel4
             // 
-            //this.panel4.CanCommit = true;
+            this.panel4.CanCommit = true;
             this.panel4.Controls.Add(this.label1);
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.ForeColor = System.Drawing.Color.White;
             this.panel4.Name = "panel4";
-            //this.panel4.OnCommit += new System.Windows.Forms.Panel.EventHandler(this.button1_Click);booby
+            this.panel4.Commited += new System.EventHandler(this.button1_Click);//booby
             // 
             // label1
             // 
@@ -318,7 +318,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		internal System.Windows.Forms.Panel pnfamt;
 		private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel4;
+        private SimPe.Windows.Forms.WrapperBaseControl panel4;
 		internal System.Windows.Forms.Label label12;
 		internal SimPe.PackedFiles.Wrapper.SimPoolControl pool;
 		private System.Windows.Forms.Panel panel1;

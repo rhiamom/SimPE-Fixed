@@ -161,8 +161,26 @@ namespace SimPe.Wizards
 
 		internal void OnShowed(Wizard sender)
 		{
-			if (Activated!=null) Activated(sender, this);
-		}
+            //if (Activated!=null) Activated(sender, this);
+            if (Activated != null)
+            {
+                foreach (Delegate d in Activated.GetInvocationList())
+                {
+                    try
+                    {
+                        d.DynamicInvoke(sender, this);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("WizardStepPanel.Activated handler failed: " +
+                            d.Method.DeclaringType.FullName + "." + d.Method.Name);
+
+                        System.Diagnostics.Debug.WriteLine(ex.ToString());
+                        throw; // keep crashing so you don't hide the bug
+                    }
+                }
+            }
+        }
 
 		public event WizardStepHandle Loaded;
 		public event WizardStepHandle Aborted;

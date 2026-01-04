@@ -32,7 +32,7 @@ namespace SimPe.Plugin
 	public class RefFileForm : System.Windows.Forms.Form
 	{
         internal System.Windows.Forms.Panel wrapperPanel;
-        private System.Windows.Forms.Panel panel3;
+        private SimPe.Windows.Forms.WrapperBaseControl panel3;
 		internal System.Windows.Forms.ListBox lblist;
 		private System.Windows.Forms.GroupBox gbtypes;
 		private System.Windows.Forms.Panel pntypes;
@@ -115,7 +115,7 @@ namespace SimPe.Plugin
             this.contextMenu1 = new System.Windows.Forms.ContextMenu();
             this.miAdd = new System.Windows.Forms.MenuItem();
             this.miRem = new System.Windows.Forms.MenuItem();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel3 = new SimPe.Windows.Forms.WrapperBaseControl();
             this.wrapperPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.gbtypes.SuspendLayout();
@@ -414,14 +414,14 @@ namespace SimPe.Plugin
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            //this.panel3.CanCommit = true;
-            //this.panel3.HeaderText = "3D Referencing File Editor";
+            this.panel3.CanCommit = true;
+            this.panel3.HeaderText = "3D Referencing File Editor";
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(664, 24);
             this.panel3.TabIndex = 0;
-            //this.panel3.OnCommit += new System.Windows.Forms.Panel.EventHandler(this.CommitAll);booby
+            this.panel3.Commited += new System.EventHandler(this.CommitAll);//booby
             // 
             // RefFileForm
             // 

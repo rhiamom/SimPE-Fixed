@@ -1,8 +1,9 @@
+using SimPe.Interfaces.Scenegraph;
 using System;
 using System.Collections;
-using System.Windows.Forms;
 using System.ComponentModel;
-using SimPe.Interfaces.Scenegraph;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -112,8 +113,9 @@ namespace SimPe.Plugin
 				ResourceTabPage.Tag = null;
 				InitResourceTabPage();
 				ResourceTabPage.Tag = this;
-				tc.TabPages.Add(ResourceTabPage);				
-			}
+				tc.TabPages.Add(ResourceTabPage);
+
+            }
 		}
 
 		/// <summary>

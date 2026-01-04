@@ -7,7 +7,7 @@
     <ProjectGuid>{F6DE1680-4D13-4E34-9EB7-72AA122CE344}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPe</RootNamespace>
-    <AssemblyName>simpe.workspace</AssemblyName>
+    <AssemblyName>simpe.workspace.plugin</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -176,7 +176,10 @@
     <EmbeddedResource Include="WrapperBaseControl.fr.resx" />
     <EmbeddedResource Include="WrapperBaseControl.it.resx" />
     <EmbeddedResource Include="WrapperBaseControl.pl.resx" />
-    <EmbeddedResource Include="WrapperBaseControl.resx" />
+    <EmbeddedResource Include="WrapperBaseControl.resx">
+      <SubType>Designer</SubType>
+      <LogicalName>SimPe.Windows.Forms.WrapperBaseControl.resources</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="WrapperBaseControl.ru.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

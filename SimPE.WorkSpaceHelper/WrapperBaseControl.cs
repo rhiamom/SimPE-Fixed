@@ -55,7 +55,10 @@ namespace SimPe.Windows.Forms
 
 		public WrapperBaseControl()
 		{
-			try 
+            if (this.HeadFont == null)
+                this.HeadFont = new Font(this.Font, FontStyle.Bold);
+
+            try 
 			{
 				SetStyle(
 					ControlStyles.SupportsTransparentBackColor |
@@ -74,6 +77,7 @@ namespace SimPe.Windows.Forms
 				headforecol = Color.White;
 				Font = new Font("tahoma", this.Font.Size, this.Font.Style, this.Font.Unit);
 				headfont = new Font(this.Font.FontFamily, 9.75f, FontStyle.Bold, this.Font.Unit);
+
 
                 this.mGradient = LinearGradientMode.ForwardDiagonal;
                 BackColor = Color.FromArgb(240, 236, 255);
@@ -188,22 +192,22 @@ namespace SimPe.Windows.Forms
 					this.Invalidate();
 				}
 			}
-		}		
-
-		public Font HeadFont
-		{
-			get { return headfont; }
-			set 
-			{
-				if (value!=headfont)
-				{
-					headfont = value;
-					Invalidate();
-				}
-			}
 		}
 
-		public int HeaderHeight
+        public Font HeadFont
+        {
+            get { return headfont ?? this.Font; }
+            set
+            {
+                if (value != headfont)
+                {
+                    headfont = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        public int HeaderHeight
 		{
 			get {return 24;}
 		}
@@ -335,13 +339,14 @@ namespace SimPe.Windows.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(WrapperBaseControl));
+            System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(WrapperBaseControl));
 			this.btCommit = new System.Windows.Forms.Button();
 			this.SuspendLayout();
-			// 
-			// btCommit
-			// 
-			this.btCommit.AccessibleDescription = resources.GetString("btCommit.AccessibleDescription");
+            this.DockPadding.Top = 24;
+            // 
+            // btCommit
+            // 
+            this.btCommit.AccessibleDescription = resources.GetString("btCommit.AccessibleDescription");
 			this.btCommit.AccessibleName = resources.GetString("btCommit.AccessibleName");
 			this.btCommit.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("btCommit.Anchor")));
 			this.btCommit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btCommit.BackgroundImage")));
@@ -362,10 +367,10 @@ namespace SimPe.Windows.Forms
 			this.btCommit.TextAlign = ((System.Drawing.ContentAlignment)(resources.GetObject("btCommit.TextAlign")));
 			this.btCommit.Visible = ((bool)(resources.GetObject("btCommit.Visible")));
 			this.btCommit.Click += new System.EventHandler(this.btCommit_Click);
-			// 
-			// WrapperBaseControl
-			// 
-			this.AccessibleDescription = resources.GetString("$this.AccessibleDescription");
+            // 
+            // WrapperBaseControl
+            // 
+            this.AccessibleDescription = resources.GetString("$this.AccessibleDescription");
 			this.AccessibleName = resources.GetString("$this.AccessibleName");
 			this.AutoScroll = ((bool)(resources.GetObject("$this.AutoScroll")));
 			this.AutoScrollMargin = ((System.Drawing.Size)(resources.GetObject("$this.AutoScrollMargin")));
@@ -380,19 +385,19 @@ namespace SimPe.Windows.Forms
 			this.Name = "WrapperBaseControl";
 			this.RightToLeft = ((System.Windows.Forms.RightToLeft)(resources.GetObject("$this.RightToLeft")));
 			this.Size = ((System.Drawing.Size)(resources.GetObject("$this.Size")));
-			this.ResumeLayout(false);
+            this.ResumeLayout(false);
 
 		}
 		#endregion
 
 		protected override void OnPaintBackground(PaintEventArgs pevent)
 		{
-			// base.OnPaintBackground (pevent);
+			base.OnPaintBackground (pevent);
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			base.OnPaint (e);
+            base.OnPaint (e);
 
 			if ((this.Width > 0) && (this.Height > 0))
             {

@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using SimPe.PackedFiles.Wrapper.Supporting;
 using SimPe.Data;
+using SimPe.Windows.Forms;
 using static SimPe.Data.LocalizedNeighbourhoodEP;
 
 namespace SimPe.PackedFiles.UserInterface 

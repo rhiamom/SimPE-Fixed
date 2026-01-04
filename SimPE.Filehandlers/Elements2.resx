@@ -354,42 +354,7 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="labelboobs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="labelboobs.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelboobs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelboobs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 156</value>
-  </data>
-  <data name="labelboobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 13</value>
-  </data>
-  <data name="labelboobs.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="labelboobs.Text" xml:space="preserve">
-    <value>bodyshape</value>
-  </data>
-  <data name="labelboobs.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;labelboobs.Name" xml:space="preserve">
-    <value>labelboobs</value>
-  </data>
-  <data name="&gt;&gt;labelboobs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelboobs.Parent" xml:space="preserve">
-    <value>CpfPanel</value>
-  </data>
-  <data name="&gt;&gt;labelboobs.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
+  
   <data name="lbcpf.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -417,14 +382,39 @@
   <data name="&gt;&gt;lbcpf.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+
+  <data name="panel5.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	<value />
+  </data>
+  <data name="panel5.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	<value />
+  </data>
   <data name="panel5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="panel5.AutoScroll" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	<value>False</value>
+  </data>
+  <data name="panel5.AutoScrollMargin" type="System.Drawing.Size, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+	<value>0, 0</value>
+  </data>
+  <data name="panel5.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+	<value>0, 0</value>
+  </data>
+  <data name="panel5.BackgroundImage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+	<value />
+  </data>
+  <data name="panel5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	<value>None</value>
+  </data>
+  <data name="panel5.Enabled" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	<value>True</value>
   </data>
   <data name="panel5.Font" type="System.Drawing.Font, System.Drawing">
     <value>Verdana, 9.75pt, style=Bold</value>
   </data>
-  <data name="panel5.HeaderText" xml:space="preserve">
-    <value>CPF Editor</value>
+  <data name="panel5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	<value>Inherit</value>
   </data>
   <data name="panel5.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -432,11 +422,41 @@
   <data name="panel5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
+  <data name="panel5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	<value>Inherit</value>
+  </data>
   <data name="panel5.Size" type="System.Drawing.Size, System.Drawing">
     <value>670, 24</value>
   </data>
   <data name="panel5.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="panel5.Text">
+	<value />
+  </data>
+  <data name="panel5.Visible" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	<value>True</value>
+  </data>
+  <data name="panel5.Locked" type="System.Boolean, mscorlib">
+	<value>False</value>
+  </data>
+  <data name="panel5.SnapToGrid" type="System.Boolean, mscorlib">
+	<value>True</value>
+  </data>
+  <data name="panel5.DefaultModifiers" type="System.CodeDom.MemberAttributes, System">
+	<value>Private</value>
+  </data>
+  <data name="panel5.GridSize" type="System.Drawing.Size, System.Drawing">
+	<value>8, 8</value>
+  </data>
+  <data name="panel5.DrawGrid" type="System.Boolean, mscorlib">
+	<value>True</value>
+  </data>
+  <data name="panel5.Modifiers" type="System.CodeDom.MemberAttributes, System">
+	<value>Private</value>
+  </data>
+  <data name="&gt;&gt;panel5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel5.Name" xml:space="preserve">
     <value>panel5</value>
@@ -447,6 +467,83 @@
   <data name="&gt;&gt;panel5.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+
+	<data name="label5.Locked" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>False</value>
+	</data>
+	<data name="label5.DefaultModifiers" type="System.CodeDom.MemberAttributes, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>Private</value>
+	</data>
+	<data name="label5.Modifiers" type="System.CodeDom.MemberAttributes, System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>Assembly</value>
+	</data>
+	<data name="label5.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value />
+	</data>
+	<data name="label5.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value />
+	</data>
+	<data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>Top, Left</value>
+	</data>
+	<data name="label5.AutoSize" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>True</value>
+	</data>
+	<data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>None</value>
+	</data>
+	<data name="label5.Enabled" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>True</value>
+	</data>
+	<data name="label5.Font" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value />
+	</data>
+	<data name="panel5.HeaderText" xml:space="preserve">
+      <value>CPF Editor</value>
+    </data>
+	<data name="label5.Image" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value />
+	</data>
+	<data name="label5.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+		<value>MiddleCenter</value>
+	</data>
+	<data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>NoControl</value>
+	</data>
+	<data name="label5.Location" type="System.Drawing.Point, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+		<value>0, 4</value>
+	</data>
+	<data name="label5.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>Inherit</value>
+	</data>
+	<data name="label5.Size" type="System.Drawing.Size, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+		<value>83, 19</value>
+	</data>
+	<data name="label5.TabIndex" type="System.Int32, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>0</value>
+	</data>
+	<data name="label5.Text">
+		<value>CPF Editor</value>
+	</data>
+	<data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+		<value>TopLeft</value>
+	</data>
+	<data name="label5.Visible" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>True</value>
+	</data>
+	<data name="&gt;&gt;label5.Name">
+		<value>label5</value>
+	</data>
+	<data name="&gt;&gt;label5.Type">
+		<value>System.Windows.Forms.Label, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</data>
+	<data name="&gt;&gt;label5.Parent">
+		<value>panel5</value>
+	</data>
+	<data name="&gt;&gt;label5.ZOrder">
+		<value>0</value>
+	</data>
+	
   <data name="tbNref.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 32</value>
   </data>
@@ -468,6 +565,7 @@
   <data name="&gt;&gt;tbNref.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+	
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -501,6 +599,7 @@
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+	
   <data name="tbnrefhash.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 56</value>
   </data>
@@ -525,6 +624,7 @@
   <data name="&gt;&gt;tbnrefhash.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+	
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -558,37 +658,224 @@
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="panel4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+	
+	<data name="button2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+		<value>Top, Right</value>
+	</data>
+	<data name="button2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+		<value>None</value>
+	</data>
+	<data name="button2.Enabled" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name="button2.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+		<value>System</value>
+	</data>
+	<data name="button2.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+		<value>MiddleCenter</value>
+	</data>
+	<data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+		<value>NoControl</value>
+	</data>
+	<data name="button2.Location" type="System.Drawing.Point, System.Drawing">
+		<value>216, 56</value>
+	</data>
+	<data name="button2.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+		<value>Inherit</value>
+	</data>
+	<data name="button2.Size" type="System.Drawing.Size, System.Drawing">
+		<value>96, 23</value>
+	</data>
+	<data name="button2.TabIndex" type="System.Int32, mscorlib">
+		<value>5</value>
+	</data>
+	<data name="button2.Text" xml:space="preserve">
+        <value>Commit</value>
+    </data>
+	<data name="button2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+		<value>MiddleCenter</value>
+	</data>
+	<data name="button2.Visible" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name=">>button2.Name" xml:space="preserve">
+    <value>button2</value>
   </data>
-  <data name="panel4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Verdana, 9.75pt, style=Bold</value>
+  <data name=">>button2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="panel4.HeaderText" xml:space="preserve">
-    <value>Name Reference Editor</value>
-  </data>
-  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="panel4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>554, 24</value>
-  </data>
-  <data name="panel4.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panel4.Name" xml:space="preserve">
-    <value>panel4</value>
-  </data>
-  <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
+  <data name=">>button2.Parent" xml:space="preserve">
     <value>NrefPanel</value>
   </data>
-  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name=">>button2.ZOrder" xml:space="preserve">
+      <value>2</value>
   </data>
-  <data name="NrefPanel.Font" type="System.Drawing.Font, System.Drawing">
+
+	<data name="panel4.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value />
+	</data>
+	<data name="panel4.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value />
+	</data>
+	<data name="panel4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>Top, Left, Right</value>
+	</data>
+	<data name="panel4.AutoScroll" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>False</value>
+	</data>
+	<data name="panel4.AutoScrollMargin" type="System.Drawing.Size, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+		<value>0, 0</value>
+	</data>
+	<data name="panel4.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+		<value>0, 0</value>
+	</data>
+	<data name="panel4.BackgroundImage" type="System.Resources.ResXNullRef, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value />
+	</data>
+	<data name="panel4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>None</value>
+	</data>
+	<data name="panel4.Enabled" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>True</value>
+	</data>
+    <data name="panel4.Font" type="System.Drawing.Font, System.Drawing">
+      <value>Verdana, 9.75pt, style=Bold</value>
+    </data>
+	<data name="panel4.HeaderText" xml:space="preserve">
+      <value>Name Reference Editor</value>
+    </data>
+	<data name="panel4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+	  <value>Inherit</value>
+	</data>
+    <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
+      <value>0, 0</value>
+    </data>
+	<data name="panel4.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>Inherit</value>
+	</data>
+    <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
+      <value>554, 24</value>
+    </data>
+    <data name="panel4.TabIndex" type="System.Int32, mscorlib">
+      <value>0</value>
+    </data>
+	<data name="panel4.Text">
+	  <value />
+	</data>
+	<data name="panel4.Visible" type="System.Boolean, mscorlib, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+		<value>True</value>
+	</data>
+    <data name="&gt;&gt;panel4.Name" xml:space="preserve">
+      <value>panel4</value>
+    </data>
+    <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
+      <value>NrefPanel</value>
+    </data>
+    <data name="&gt;&gt;panel4.Type">
+      <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </data>
+    <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
+      <value>0</value>
+    </data>
+	
+	<data name="label12.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+		<value>Top, Left</value>
+	</data>
+	<data name="label12.AutoSize" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name="label12.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+		<value>None</value>
+	</data>
+	<data name="label12.Enabled" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name="label12.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+		<value>MiddleCenter</value>
+	</data>
+	<data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+		<value>NoControl</value>
+	</data>
+	<data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+		<value>0, 4</value>
+	</data>
+	<data name="label12.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+		<value>Inherit</value>
+	</data>
+	<data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+		<value>178, 19</value>
+	</data>
+	<data name="label12.TabIndex" type="System.Int32, mscorlib">
+		<value>0</value>
+	</data>
+	<data name="label12.Text" xml:space="preserve">
+        <value>Name Reference Editor</value>
+    </data>
+	<data name="label12.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+		<value>TopLeft</value>
+	</data>
+	<data name="label12.Visible" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name=">>label12.Name" xml:space="preserve">
+        <value>label12</value>
+    </data>
+	<data name=">>label12.Type" xml:space="preserve">
+        <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </data>
+	<data name=">>label12.Parent" xml:space="preserve">
+        <value>panel4</value>
+    </data>
+	<data name=">>label12.ZOrder" xml:space="preserve">
+        <value>0</value>
+    </data>
+	
+	<data name="NrefPanel.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+		<value />
+	</data>
+	<data name="NrefPanel.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+		<value />
+	</data>
+	<data name="NrefPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+		<value>Top, Left</value>
+	</data>
+	<data name="NrefPanel.AutoScroll" type="System.Boolean, mscorlib">
+		<value>False</value>
+	</data>
+	<data name="NrefPanel.AutoScrollMargin" type="System.Drawing.Size, System.Drawing">
+		<value>0, 0</value>
+	</data>
+	<data name="NrefPanel.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+		<value>0, 0</value>
+	</data>
+	<data name="NrefPanel.BackgroundImage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+		<value />
+	</data>
+	<data name="NrefPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+		<value>None</value>
+	</data>
+	<data name="NrefPanel.Enabled" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name="NrefPanel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+		<value>Inherit</value>
+	</data>
+	<data name="NrefPanel.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+      <value>Inherit</value>
+	</data>
+	<data name="NrefPanel.Text" xml:space="preserve">
+      <value></value>
+    </data>
+	<data name="NrefPanel.Visible" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name="NrefPanel.Watermark" type="System.Drawing.Image, System.Drawing">
+		<value />
+	</data>
+	<data name="NrefPanel.WatermarkSize" type="System.Drawing.Size, System.Drawing">
+		<value>150, 150</value>
+	</data>
+	<data name="NrefPanel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Verdana, 8.25pt</value>
   </data>
   <data name="NrefPanel.Location" type="System.Drawing.Point, System.Drawing">
@@ -606,9 +893,13 @@
   <data name="&gt;&gt;NrefPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;NrefPanel.Type" xml:space="preserve">
+    <value>SteepValley.Windows.Forms.XPGradientPanel, XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8</value>
+  </data>
   <data name="&gt;&gt;NrefPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+	
   <data name="pbicon.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -759,38 +1050,128 @@
   <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="CpfPanel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Verdana, 8.25pt</value>
-  </data>
+	<data name="CpfPanel.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+		<value />
+	</data>
+	<data name="CpfPanel.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+		<value />
+	</data>
+	<data name="CpfPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+		<value>Top, Left</value>
+	</data>
+	<data name="CpfPanel.AutoScroll" type="System.Boolean, mscorlib">
+		<value>False</value>
+	</data>
+	<data name="CpfPanel.AutoScrollMargin" type="System.Drawing.Size, System.Drawing">
+		<value>0, 0</value>
+	</data>
+	<data name="CpfPanel.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+		<value>0, 0</value>
+	</data>
+	<data name="CpfPanel.BackgroundImage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+		<value />
+	</data>
+	<data name="CpfPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+		<value>None</value>
+	</data>
+	<data name="CpfPanel.Enabled" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name="CpfPanel.Font" type="System.Drawing.Font, System.Drawing">
+      <value>Verdana, 8.25pt</value>
+    </data>
+	<data name="CpfPanel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+		<value>Inherit</value>
+	</data>
   <data name="CpfPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>232, 16</value>
   </data>
-  <data name="CpfPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>672, 344</value>
-  </data>
-  <data name="CpfPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;CpfPanel.Name" xml:space="preserve">
+	<data name="&gt;&gt;CpfPanel.Name" xml:space="preserve">
     <value>CpfPanel</value>
-  </data>
-  <data name="&gt;&gt;CpfPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
+    </data>
+	<data name="&gt;&gt;CpfPanel.Parent" xml:space="preserve">
+      <value>$this</value>
+    </data>
+	<data name="CpfPanel.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+		<value>Inherit</value>
+	</data>
+    <data name="CpfPanel.Size" type="System.Drawing.Size, System.Drawing">
+      <value>672, 344</value>
+    </data>
+    <data name="CpfPanel.TabIndex" type="System.Int32, mscorlib">
+      <value>12</value>
+    </data>
+	<data name="CpfPanel.Text" xml:space="preserve">
+      <value></value>
+    </data>
+	<data name="&gt;&gt;CpfPanel.Type" xml:space="preserve">
+      <value>SteepValley.Windows.Forms.XPGradientPanel, XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8</value>
+    </data>
+	<data name="CpfPanel.Visible" type="System.Boolean, mscorlib">
+		<value>True</value>
+	</data>
+	<data name="CpfPanel.Watermark" type="System.Drawing.Image, System.Drawing">
+		<value />
+	</data>
+	<data name="CpfPanel.WatermarkSize" type="System.Drawing.Size, System.Drawing">
+		<value>150, 150</value>
+	</data>
   <data name="&gt;&gt;CpfPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="$this.AccessibleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+	<value />
+  </data>
+  <data name="$this.AccessibleName" type="System.Resources.ResXNullRef, System.Windows.Forms">
+	<value />
+  </data>
   <data name="$this.AutoScaleBaseSize" type="System.Drawing.Size, System.Drawing">
     <value>6, 14</value>
+  </data>
+  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
+	<value>False</value>
+  </data>
+  <data name="$this.AutoScrollMargin" type="System.Drawing.Size, System.Drawing">
+	<value>0, 0</value>
+  </data>
+  <data name="$this.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+	<value>0, 0</value>
+  </data>
+  <data name="$this.BackgroundImage" type="System.Drawing.Image, System.Drawing">
+    <value />
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>928, 374</value>
   </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="$this.Enabled" type="System.Boolean, mscorlib">
+	<value>True</value>
+  </data>
+	<data name="$this.Font" type="System.Drawing.Font, System.Drawing">
     <value>Verdana, 8.25pt</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing">
+	<value />
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+	<value>Inherit</value>
+  </data>
+  <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
+	<value>0, 0</value>
+  </data>
+  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
+	<value>0, 0</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+	<value>0, 0</value>
+  </data>
+  <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+	<value>Inherit</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+	<value>WindowsDefaultLocation</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Elements2</value>

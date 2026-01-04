@@ -26,6 +26,8 @@ using System.Windows.Forms;
 using System.Data;
 using SimPe.Events;
 using Ambertation.Windows.Forms;
+using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 
 namespace SimPe
 {
@@ -65,9 +67,43 @@ namespace SimPe
                 if (!Commandline.FullEnvStart(argv))
                 {
                     //load Files passed on the commandline
-                    SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Load or Import Files"));
-                    Global.package.LoadOrImportFiles(argv.ToArray(), true);
-                    Application.Run(Global);
+                    //SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Load or Import Files"));
+                    //Global.package.LoadOrImportFiles(argv.ToArray(), true);
+                    //Application.Run(Global);
+
+                    try
+                    {
+                        SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Load or Import Files"));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Crash in Splash.Screen.SetMessage:");
+                        Debug.WriteLine(ex.ToString());
+                        throw;
+                    }
+
+                    try
+                    {
+                        Global.package.LoadOrImportFiles(argv.ToArray(), true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Crash in Global.package.LoadOrImportFiles:");
+                        Debug.WriteLine(ex.ToString());
+                        throw;
+                    }
+
+                    //Application.Run(Global);
+                    try
+                    {
+                        Application.Run(Global);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("=== Exception escaped Application.Run ===");
+                        Debug.WriteLine(ex.ToString());
+                        throw;
+                    }
                 }
 
 

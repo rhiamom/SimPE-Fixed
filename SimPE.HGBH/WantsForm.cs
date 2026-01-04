@@ -22,6 +22,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+using SimPe.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -30,8 +31,8 @@ namespace SimPe.Plugin
 	/// </summary>
 	public class WantsForm : System.Windows.Forms.Form
 	{
-        private System.Windows.Forms.Panel panel2;
-		internal System.Windows.Forms.Panel wantsPanel;
+        private SimPe.Windows.Forms.WrapperBaseControl panel2;
+        internal System.Windows.Forms.Panel wantsPanel;
 		internal System.Windows.Forms.TabControl tabControl1;
 		internal System.Windows.Forms.TabPage tblife;
 		private System.Windows.Forms.TabPage tbwant;
@@ -148,7 +149,7 @@ namespace SimPe.Plugin
             this.tblife = new System.Windows.Forms.TabPage();
             this.lvlife = new System.Windows.Forms.ListView();
             this.ilife = new System.Windows.Forms.ImageList(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel2 = new SimPe.Windows.Forms.WrapperBaseControl();
             this.lbsimname = new System.Windows.Forms.Label();
             this.wantsPanel.SuspendLayout();
             this.gbprop.SuspendLayout();
@@ -629,15 +630,15 @@ namespace SimPe.Plugin
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            //this.panel2.CanCommit = true;
+            this.panel2.CanCommit = true;
             this.panel2.Controls.Add(this.lbsimname);
-            //this.panel2.HeaderText = "Wants and Fears Viewer for";
+            this.panel2.HeaderText = "Wants and Fears Viewer for";
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(768, 24);
             this.panel2.TabIndex = 0;
-            //this.panel2.OnCommit += new booby.panelheader.EventHandler(this.Commit);
+            this.panel2.Commited += new System.EventHandler(this.Commit);
             // 
             // lbsimname
             // 

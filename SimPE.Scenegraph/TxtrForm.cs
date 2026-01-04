@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces.Scenegraph;
+using SimPe.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -113,7 +114,7 @@ namespace SimPe.Plugin
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.menuItem5 = new System.Windows.Forms.MenuItem();
             this.lbimg = new System.Windows.Forms.ListBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel2 = new SimPe.Windows.Forms.WrapperBaseControl();
             this.btex = new System.Windows.Forms.Button();
             this.btim = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -490,16 +491,16 @@ namespace SimPe.Plugin
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            //this.panel2.CanCommit = true;
+            this.panel2.CanCommit = true;
             this.panel2.Controls.Add(this.btex);
             this.panel2.Controls.Add(this.btim);
-            //this.panel2.HeaderText = "TXTR Editor";
+            this.panel2.HeaderText = "TXTR Editor";
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(768, 24);
             this.panel2.TabIndex = 0;
-            //this.panel2.OnCommit += new System.Windows.Forms.Panel.EventHandler(this.btcommit_Click);booby
+            this.panel2.Commited += new System.EventHandler(this.btcommit_Click);//booby
             // 
             // btex
             // 
@@ -569,7 +570,7 @@ namespace SimPe.Plugin
 
         internal System.Windows.Forms.Panel txtrPanel;
 		internal System.Windows.Forms.ListBox lbimg;
-        private System.Windows.Forms.Panel panel2;
+        private SimPe.Windows.Forms.WrapperBaseControl panel2;
 		private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pb;
 		private System.Windows.Forms.Button btim;

@@ -111,7 +111,7 @@ namespace SimPe.Plugin
 
 						if (pfd==null) //FileTable fallback code
 						{
-							Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFileDiscardingGroup((Interfaces.Files.IPackedFileDescriptor)cress[0]);
+							Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTableBase.FileIndex.FindFileDiscardingGroup((Interfaces.Files.IPackedFileDescriptor)cress[0]);
 							if (items.Length>0) 
 							{
 								GenericRcol cres = new GenericRcol(null, false);
@@ -160,7 +160,7 @@ namespace SimPe.Plugin
 
 						if (pfd==null) //FileTable fallback code
 						{
-							Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFileDiscardingGroup((Interfaces.Files.IPackedFileDescriptor)txmts[0]);
+							Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTableBase.FileIndex.FindFileDiscardingGroup((Interfaces.Files.IPackedFileDescriptor)txmts[0]);
 							if (items.Length>0) 
 							{
 								GenericRcol txmt = new GenericRcol(null, false);
@@ -184,8 +184,20 @@ namespace SimPe.Plugin
 		{
 			if (txmt==null) return null;
 			Hashtable refs = txmt.ReferenceChains;
-			ArrayList txtrs = (ArrayList)refs["stdMatBaseTextureName"];//["TXTR"];
-			if (txtrs!=null) 
+            ArrayList txtrs = refs["stdMatBaseTextureName"] as ArrayList;
+
+            // Fallbacks for materials that use compositing / alternate texture slots
+            if ((txtrs == null || txtrs.Count == 0) && refs.ContainsKey("baseTexture"))
+                txtrs = refs["baseTexture"] as ArrayList;
+
+            if ((txtrs == null || txtrs.Count == 0) && refs.ContainsKey("baseTexture0"))
+                txtrs = refs["baseTexture0"] as ArrayList;
+
+            // Older/alternate chain some blocks expose
+            if ((txtrs == null || txtrs.Count == 0) && refs.ContainsKey("TXTR"))
+                txtrs = refs["TXTR"] as ArrayList;
+
+            if (txtrs!=null) 
 			{
 				if (txtrs.Count>0) 
 				{
@@ -203,19 +215,23 @@ namespace SimPe.Plugin
 						return txtr;
 					}
 
-					if (pfd==null) //FileTable fallback code
-					{
-						Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFileDiscardingGroup((Interfaces.Files.IPackedFileDescriptor)txtrs[0]);
-						if (items.Length>0) 
-						{
-							GenericRcol txtr = new GenericRcol(null, false);
-							txtr.ProcessData(items[0].FileDescriptor, items[0].Package);
+                    if (pfd==null) //FileTable fallback code
+                    {
+                        FileTableBase.FileIndex.Load(); // <-- add this
 
-							return txtr;
-						}
-					}
-				}
-			}
+                        Interfaces.Scenegraph.IScenegraphFileIndexItem[] items =
+                            FileTableBase.FileIndex.FindFileDiscardingGroup((Interfaces.Files.IPackedFileDescriptor)txtrs[0]);
+
+                        if (items != null && items.Length > 0)
+                        {
+                            GenericRcol txtr = new GenericRcol(null, false);
+                            txtr.ProcessData(items[0].FileDescriptor, items[0].Package);
+                            return txtr;
+                        }
+                    }
+
+                }
+            }
 
 			return null;
 		}
@@ -251,7 +267,7 @@ namespace SimPe.Plugin
 				if (shps!=null)
 					if (shps.Count>0)
 					{
-						Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFile((Interfaces.Files.IPackedFileDescriptor)shps[0], null);
+						Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTableBase.FileIndex.FindFile((Interfaces.Files.IPackedFileDescriptor)shps[0], null);
 						if (items.Length>0) 
 						{
 							GenericRcol shpe = new GenericRcol(null, false);
@@ -262,7 +278,7 @@ namespace SimPe.Plugin
 							if (gmnds!=null) 
 								if (gmnds.Count>0)
 								{
-									items = FileTable.FileIndex.FindFile((Interfaces.Files.IPackedFileDescriptor)gmnds[0], null);
+									items = FileTableBase.FileIndex.FindFile((Interfaces.Files.IPackedFileDescriptor)gmnds[0], null);
 									if (items.Length>0) 
 									{
 										GenericRcol gmnd = new GenericRcol(null, false);
@@ -273,7 +289,7 @@ namespace SimPe.Plugin
 										if (gmdcs!=null) 
 											if (gmdcs.Count>0)
 											{
-												items = FileTable.FileIndex.FindFile((Interfaces.Files.IPackedFileDescriptor)gmdcs[0], null);
+												items = FileTableBase.FileIndex.FindFile((Interfaces.Files.IPackedFileDescriptor)gmdcs[0], null);
 												if (items.Length>0) 
 												{
 													GenericRcol gmdc = new GenericRcol(null, false);
