@@ -143,9 +143,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvancedForms, Version=1.0.2478.23375, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AdvancedForms, Version=1.0.2983.24897, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\AdvancedForms.dll</HintPath>
+      <HintPath>..\bin\Debug\AdvancedForms.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

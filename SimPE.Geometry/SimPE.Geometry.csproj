@@ -58,14 +58,17 @@
     <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ambertation.3D.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ambertation.3D.mdx.binding, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ambertation.3D.mdx.binding.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,6 +116,7 @@
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

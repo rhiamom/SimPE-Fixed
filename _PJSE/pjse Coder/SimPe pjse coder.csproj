@@ -137,36 +137,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="simpe.filehandler, Version=1.69.7716.35003, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.filehandler.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.helper, Version=0.75.69.24, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.helper.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.interfaces, Version=1.69.7716.34988, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.names, Version=1.69.7716.35006, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.names.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.package, Version=1.69.7716.34988, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.package.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.splash, Version=1.69.8012.39304, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.splash.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.workspace, Version=1.69.8098.37833, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\__Release\simpe.workspace.dll</HintPath>
-    </Reference>
     <Reference Include="whse.primitivewizards_0_77_69, Version=0.77.69.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -563,13 +536,50 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
+      <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
+      <Name>SimPE.Filehandlers</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\SimPE.GraphControl\SimPE.GraphControl.csproj">
       <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
       <Name>SimPE.GraphControl</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\SimPE.HGBH\SimPE.HGBH.csproj">
       <Project>{f060d4f2-be7c-4390-a598-63a6030a2cb8}</Project>
       <Name>SimPE.HGBH</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.NameProvider\SimPE.NameProvider.csproj">
+      <Project>{2c2b1881-0a90-47dd-8b85-8bf947d8b0c3}</Project>
+      <Name>SimPE.NameProvider</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.Splash\SimPE.Splash.csproj">
+      <Project>{5d769d5e-691b-4775-851e-bb35ce3abfe3}</Project>
+      <Name>SimPE.Splash</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

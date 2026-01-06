@@ -60,24 +60,30 @@
     <Reference Include="AdvancedForms, Version=1.0.2983.24897, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\AdvancedForms.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Eyefinder">
       <HintPath>..\ExternalLibs\Eyefinder.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Navisight">
       <HintPath>..\ExternalLibs\Navisight.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="NetDocks, Version=1.0.2983.24895, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\NetDocks.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="SandDock, Version=2.0.2.1, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\SandDock.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -93,10 +99,12 @@
     <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="xsi.lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\xsi.lib.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -208,62 +216,77 @@
     <ProjectReference Include="..\SimPE.3IDR\SimPE.3IDR.csproj">
       <Project>{9638ee76-2646-4527-8554-b3df275e893c}</Project>
       <Name>SimPE.3IDR</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj">
       <Project>{445be3ff-638c-4b6d-98bf-c7d70e95a7be}</Project>
       <Name>SimPE.Clst</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Commandline\SimPE.Commandline.csproj">
       <Project>{bd9d9744-c621-42ee-8496-5f0642c913cd}</Project>
       <Name>SimPE.Commandline</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
       <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
       <Name>SimPE.Filehandlers</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
       <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
       <Name>SimPE.GraphControl</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.HGBH\SimPE.HGBH.csproj">
       <Project>{f060d4f2-be7c-4390-a598-63a6030a2cb8}</Project>
       <Name>SimPE.HGBH</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.NameProvider\SimPE.NameProvider.csproj">
       <Project>{2c2b1881-0a90-47dd-8b85-8bf947d8b0c3}</Project>
       <Name>SimPE.NameProvider</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
       <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
       <Name>SimPE.Packages</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.ResourceControls\SimPE.ResourceControls.csproj">
       <Project>{81327194-e4cb-4a8c-a0e4-87eb3bb5fcc7}</Project>
       <Name>SimPE.ResourceControls</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj">
       <Project>{f4145736-97ed-417a-81ea-5635769abe35}</Project>
       <Name>SimPE.Scenegraph</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Sims\SimPE.Sims.csproj">
       <Project>{39f0b8f6-69de-4c0f-a03b-d2067418cb4a}</Project>
       <Name>SimPE.Sims</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Splash\SimPE.Splash.csproj">
       <Project>{5d769d5e-691b-4775-851e-bb35ce3abfe3}</Project>
       <Name>SimPE.Splash</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

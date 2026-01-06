@@ -103,14 +103,13 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ambertation.3D">
-      <HintPath>..\Libs\ambertation.3D.dll</HintPath>
-    </Reference>
     <Reference Include="ambertation.3D.mdx.binding">
       <HintPath>..\Libs\ambertation.3D.mdx.binding.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ambertation.utilities">
       <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.DirectX.Direct3DX">
       <Name>Microsoft.DirectX.Direct3DX</Name>
@@ -171,30 +170,37 @@
     <ProjectReference Include="..\SimPE.Geometry\SimPE.Geometry.csproj">
       <Project>{d4a2c67f-0de2-48a2-85ff-7513d5f8e86d}</Project>
       <Name>SimPE.Geometry</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterBase.csproj">
       <Project>{2fe03d2c-fc55-4e27-a460-6b7f574f26e4}</Project>
       <Name>SimPE.GMDCExporterBase</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj">
       <Project>{849dc662-9191-473f-bc61-8d9ad9068ffa}</Project>
       <Name>SimPE.RCOL</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj">
       <Project>{f4145736-97ed-417a-81ea-5635769abe35}</Project>
       <Name>SimPE.Scenegraph</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

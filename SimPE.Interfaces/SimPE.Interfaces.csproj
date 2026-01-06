@@ -139,6 +139,7 @@
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -121,14 +121,17 @@
     <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj">
       <Project>{445be3ff-638c-4b6d-98bf-c7d70e95a7be}</Project>
       <Name>SimPE.Clst</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

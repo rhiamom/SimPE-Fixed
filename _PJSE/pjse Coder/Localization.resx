@@ -295,8 +295,8 @@ Check BHAV format and number of lines.</value>
     <value>Me</value>
     <comment>BhavWiz: dnMe()</comment>
   </data>
-  <data name="none" xml:space="preserve">
-    <value>none</value>
+  <data name="none_text" xml:space="preserve">
+    <value>none_value</value>
     <comment>0x03 (indicating an empty list), 0x22 (indicating no string specified - and in b.o.w), 0x74 (indicating no animation), 0x7e (no script)</comment>
   </data>
   <data name="Object" xml:space="preserve">
@@ -1400,8 +1400,8 @@ Do you want to continue?</value>
 
 Do you want to save these changes?</value>
   </data>
-	<data name="None" xml:space="preserve">
-    <value>None</value>
+	<data name="None_text1" xml:space="preserve">
+    <value>None_value1</value>
     <comment>No Function or Build Mode selected</comment>
   </data>
 	<data name="ChooseFolder" xml:space="preserve">

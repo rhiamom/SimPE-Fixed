@@ -108,34 +108,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="simpe.cache, Version=1.69.8483.24510, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.cache.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.clst, Version=1.69.8254.37810, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.clst.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.filehandler, Version=1.69.7997.35315, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.filehandler.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.helper, Version=0.75.69.5, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.helper.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.interfaces, Version=1.0.3349.37516, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.package, Version=1.69.8060.27842, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.package.dll</HintPath>
-    </Reference>
-    <Reference Include="simpe.workspace, Version=1.69.7186.37669, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\__Release\simpe.workspace.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -213,6 +185,43 @@
       <SubType>Designer</SubType>
       <DependentUpon>GWInvPackedFileUI.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj">
+      <Project>{e0936d85-cb24-4564-a773-e0bf85510422}</Project>
+      <Name>SimPE.Cache</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj">
+      <Project>{445be3ff-638c-4b6d-98bf-c7d70e95a7be}</Project>
+      <Name>SimPE.Clst</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
+      <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
+      <Name>SimPE.Filehandlers</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
+      <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
+      <Name>SimPE.Helper</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
+      <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
+      <Name>SimPE.Interfaces</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
+      <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
+      <Name>SimPE.Packages</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -69,6 +69,7 @@
     <Reference Include="XPCommonControls, Version=2.2.3.4, Culture=neutral, PublicKeyToken=825f5955c0dc55e8">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\XPCommonControls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -95,18 +96,22 @@
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Splash\SimPE.Splash.csproj">
       <Project>{5d769d5e-691b-4775-851e-bb35ce3abfe3}</Project>
       <Name>SimPE.Splash</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

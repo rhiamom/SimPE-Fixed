@@ -191,30 +191,37 @@
     <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj">
       <Project>{85099415-3448-4d91-979c-44690154fcd1}</Project>
       <Name>SimPE.Filehandlers</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
       <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
       <Name>SimPE.Packages</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj">
       <Project>{849dc662-9191-473f-bc61-8d9ad9068ffa}</Project>
       <Name>SimPE.RCOL</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\_PJSE\pjse Coder\SimPe pjse coder.csproj">
       <Project>{4b6b73da-1606-42f2-8774-72428062783a}</Project>
       <Name>SimPe pjse coder</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

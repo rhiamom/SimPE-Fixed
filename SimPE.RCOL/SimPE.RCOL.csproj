@@ -62,10 +62,12 @@
     <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ambertation.3D.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ambertation.utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ambertation.utilities.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -256,26 +258,32 @@
     <ProjectReference Include="..\SimPE.Geometry\SimPE.Geometry.csproj">
       <Project>{d4a2c67f-0de2-48a2-85ff-7513d5f8e86d}</Project>
       <Name>SimPE.Geometry</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj">
       <Project>{62da1ebc-f59d-4877-a23f-11f5fc2356da}</Project>
       <Name>SimPE.GraphControl</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj">
       <Project>{7d2040cb-cd32-4c78-944e-472c050f8163}</Project>
       <Name>SimPE.Helper</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj">
       <Project>{8ba84b01-58e5-4125-aa36-4a9dbd0c25c4}</Project>
       <Name>SimPE.Interfaces</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj">
       <Project>{25b67dc9-167c-4d53-a51f-ec23135a30e9}</Project>
       <Name>SimPE.Packages</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
