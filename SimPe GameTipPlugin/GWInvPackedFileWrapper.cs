@@ -47,7 +47,7 @@ namespace SimPe.Plugin
                     "Chris",
                     "To View the Game Tip Inventory in NeighborhoodManager.package",
                     2,
-                    SimPe.GetIcon.ReadOnly
+                    null
                     );
 		}
 

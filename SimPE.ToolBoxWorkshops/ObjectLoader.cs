@@ -43,13 +43,12 @@ namespace SimPe.Plugin.Tool.Dockable
 		/// </summary>
 		string CacheFileName 
 		{
-			get {return Helper.SimPeLanguageCache;}
+			get { return Helper.SimPeLanguageCache; }
 		}
-
-		/// <summary>
-		/// Load the Object Cache
-		/// </summary>
-		void LoadCachIndex()
+        /// <summary>
+        /// Load the Object Cache
+        /// </summary>
+        void LoadCachIndex()
 		{
 			if (cachefile!=null) return;
 			

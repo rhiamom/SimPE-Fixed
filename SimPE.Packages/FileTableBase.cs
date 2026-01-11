@@ -33,15 +33,21 @@ namespace SimPe
 	{
 		static Interfaces.Scenegraph.IScenegraphFileIndex fileindex;
 
-		/// <summary>
-		/// Returns the FileIndex
-		/// </summary>
-		/// <remarks>This will be initialized by the RCOL Factory</remarks>
-		public static Interfaces.Scenegraph.IScenegraphFileIndex FileIndex
-		{
-			get { return fileindex; }
-			set { fileindex = value; }
-		}
+        /// <summary>
+        /// Returns the FileIndex
+        /// </summary>
+        /// <remarks>This will be initialized by the RCOL Factory</remarks>
+        public static Interfaces.Scenegraph.IScenegraphFileIndex FileIndex
+        {
+            get { return fileindex; }
+            set
+            {
+                fileindex = value;
+                System.Diagnostics.Debug.WriteLine(
+                    "[FileTable] FileIndex set to " +
+                    (fileindex == null ? "null" : fileindex.GetType().FullName));
+            }
+        }
 
         /// <summary>
         /// Returns a List of all Folders, even those the User doesn't want to scan for Content
@@ -69,8 +75,15 @@ namespace SimPe
 
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Objects"), false, false));
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Overrides"), false, false));
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\StuffPack\\Objects"), false, false));
+
+                        // Materials may be under both Catalog and Res
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Materials"), false, false));
-                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\3D"), false, false));
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Catalog\\Materials"), false, false));
+
+                        // Base game uses Sims3D; EPs/SPs use 3D
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, pack.IsBaseGame ? "Res\\Sims3D" : "Res\\3D"), false, false));
+
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\UI"), false, false));
 
                         // Catalog contains buy/build entries – recurse here

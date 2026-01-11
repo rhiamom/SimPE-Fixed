@@ -65,7 +65,7 @@ namespace SimPe.Plugin
                     "Chris",
                     "Reads the Inventory Items",
                     2,
-                    SimPe.GetIcon.ReadOnly
+                    null
                     );
 		}
 

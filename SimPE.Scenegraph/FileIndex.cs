@@ -565,9 +565,16 @@ namespace SimPe.Plugin
 			if (fti.IsRecursive) 
 			{
 				string[] folders = System.IO.Directory.GetDirectories(fti.Name);
-				foreach (string folder in folders)
-					AddIndexFromFolder(":"+folder);
-			}
+                foreach (string folder in folders)
+                {
+                    string name = System.IO.Path.GetFileName(folder);
+                    if (name != null && name.StartsWith("TH~", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    FileTableItem nfti = new FileTableItem(folder, fti.IsRecursive, false);
+                    if (nfti.Exists) AddIndexFromFolder(nfti);
+                }
+            }
 
 			//if (err!="") throw new Exception(err);
 		}
@@ -592,7 +599,12 @@ namespace SimPe.Plugin
 		/// <remarks>Updates the WaitingScreen Message</remarks>
 		public void AddIndexFromPackage(string file)
 		{
-			if (this.ignoredfl.Contains(file.Trim().ToLower())) return;
+            if (file.IndexOf("SP8", StringComparison.OrdinalIgnoreCase) >= 0 && file.EndsWith("Objects.package", StringComparison.OrdinalIgnoreCase))
+            {
+                System.Diagnostics.Debug.WriteLine("[FileIndex] Indexing SP8 Objects.package: " + file);
+            }
+
+            if (this.ignoredfl.Contains(file.Trim().ToLower())) return;
 
 			Wait.Message = SimPe.Localization.GetString("Loading")+" \""+System.IO.Path.GetFileNameWithoutExtension(file)+"\"";
 			try 

@@ -41,9 +41,9 @@ namespace SimPe.Plugin
 		{
 			return "";
 		}
-		#endregion
-
-		protected override SimPe.Interfaces.Plugin.IPackedFileUI CreateDefaultUIHandler()
+        #endregion
+       
+        protected override SimPe.Interfaces.Plugin.IPackedFileUI CreateDefaultUIHandler()
 		{
 			return new SimPe.PackedFiles.UserInterface.CpfUI(prev);
 		}
@@ -126,141 +126,208 @@ namespace SimPe.Plugin
 				return null;
 			}
 		}
-
-		/// <summary>
-		/// Load and return the referenced TXMT File (null if none was available)
-		/// </summary>
-		/// <remarks>
-		/// You should store this value in a temp var if you need it multiple times, 
-		/// as the File is reloaded with each call
-		/// </remarks>
-		public GenericRcol TXMT 
-		{
-			get 
-			{
-				Hashtable refs = this.ReferenceChains;
-				ArrayList txmts = (ArrayList)refs["TXMT"];
-				if (txmts!=null) 
-				{
-					if (txmts.Count>0) 
-					{
-						Interfaces.Files.IPackedFileDescriptor pfd = package.FindFile((Interfaces.Files.IPackedFileDescriptor)txmts[0]);
-						if (pfd==null) //fallback code
-						{
-							Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFile(((Interfaces.Files.IPackedFileDescriptor)txmts[0]).Filename, Data.MetaData.TXMT);
-							if (pfds.Length>0) pfd = pfds[0];
-						}
-
-						if (pfd!=null) 
-						{
-							GenericRcol txmt = new GenericRcol(null, false);
-							txmt.ProcessData(pfd, package);
-
-							return txmt;
-						}
-
-						if (pfd==null) //FileTable fallback code
-						{
-							Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTableBase.FileIndex.FindFileDiscardingGroup((Interfaces.Files.IPackedFileDescriptor)txmts[0]);
-							if (items.Length>0) 
-							{
-								GenericRcol txmt = new GenericRcol(null, false);
-								txmt.ProcessData(items[0].FileDescriptor, items[0].Package);
-
-								return txmt;
-							}
-						}
-					}
-				}
-			return null;
-			}
-		}
-
-		/// <summary>
-		/// Load a Texture belonging to a TXMT
-		/// </summary>
-		/// <param name="txmt">a valid txmt</param>
-		/// <returns>the Texture or null</returns>
-		public GenericRcol GetTxtr(GenericRcol txmt) 
-		{
-            //System.Diagnostics.Debug.WriteLine(">>> MMAT GetTxtr HIT");
-
-            if (txmt==null) return null;
-			Hashtable refs = txmt.ReferenceChains;
-
-            System.Diagnostics.Debug.WriteLine("---- TXMT: " + (txmt.FileDescriptor != null ? txmt.FileDescriptor.Filename : "(no fd)"));
-
-            if (refs != null)
+        public GenericRcol TXTR
+        {
+            get
             {
-                foreach (object k in refs.Keys)
-                    System.Diagnostics.Debug.WriteLine("RefKey: " + k.ToString());
+                GenericRcol txmt = this.TXMT;
+                if (txmt == null) return null;
+
+                return GetTxtr(txmt);
             }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("ReferenceChains is NULL");
-            }
+        }
 
-            try
+        /// <summary>
+        /// Load and return the referenced TXMT File (null if none was available)
+        /// </summary>
+        /// <remarks>
+        /// You should store this value in a temp var if you need it multiple times, 
+        /// as the File is reloaded with each call
+        /// </remarks>
+        public GenericRcol TXMT
+        {
+            get
             {
-                if (txmt.Blocks != null)
+                // CEP default-material MMATs frequently do not reference a TXMT directly.
+                // They rely on the mesh's default material naming:
+                //   <modelBase>_<subset>_txmt
+                // and sometimes:
+                //   <modelBase>_<subset>_<color>_txmt
+                // or:
+                //   <mmatName>_txmt
+                if (this.DefaultMaterial)
                 {
-                    for (int i = 0; i < txmt.Blocks.Length; i++)
-                        System.Diagnostics.Debug.WriteLine("Block[" + i + "]: " + txmt.Blocks[i].GetType().FullName);
+                    string modelBase = (this.ModelName ?? "").Trim();
+
+                    if (modelBase.EndsWith("_cres", StringComparison.OrdinalIgnoreCase))
+                        modelBase = modelBase.Substring(0, modelBase.Length - 5);
+
+                    string subset = (this.SubsetName ?? "").Trim();
+
+                    if (modelBase.Length > 0 && subset.Length > 0)
+                    {
+                        // MMAT name (used to derive color token / exact name fallback)
+                        string mmatName = "";
+                        var nameItem = this.GetSaveItem("name");
+                        if (nameItem != null) mmatName = nameItem.StringValue.Trim();
+
+                        // Derive the "color" token if the MMAT name matches:
+                        //   <modelBase>_<subset>_<color>_<state>
+                        string colorToken = "";
+                        if (!string.IsNullOrEmpty(mmatName))
+                        {
+                            string prefix = modelBase + "_" + subset + "_";
+                            if (mmatName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                            {
+                                string rest = mmatName.Substring(prefix.Length);
+                                int idx = rest.IndexOf('_');
+                                if (idx > 0) colorToken = rest.Substring(0, idx);
+                            }
+                        }
+
+                        string[] candidates = new string[]
+                        {
+                    modelBase + "_" + subset + "_txmt",
+                    (!string.IsNullOrEmpty(colorToken) ? modelBase + "_" + subset + "_" + colorToken + "_txmt" : null),
+                    (!string.IsNullOrEmpty(mmatName)
+                        ? (mmatName.EndsWith("_txmt", StringComparison.OrdinalIgnoreCase) ? mmatName : (mmatName + "_txmt"))
+                        : null),
+                        };
+
+                        foreach (string txmtName in candidates)
+                        {
+                            if (string.IsNullOrEmpty(txmtName)) continue;
+
+                            // 1) try in current package
+                            Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFile(txmtName, Data.MetaData.TXMT);
+                            if (pfds != null && pfds.Length > 0)
+                            {
+                                GenericRcol txmt = new GenericRcol(null, false);
+                                txmt.ProcessData(pfds[0], package);
+                                return txmt;
+                            }
+
+                            // 2) try global FileIndex (ignore group)
+                            FileTableBase.FileIndex.Load();
+
+                            PackedFileDescriptor want = new PackedFileDescriptor();
+                            want.Type = Data.MetaData.TXMT;
+                            want.Group = 0;
+                            want.Instance = 0;
+                            want.SubType = 0;
+                            want.Filename = txmtName;
+
+                            Interfaces.Scenegraph.IScenegraphFileIndexItem[] items =
+                                FileTableBase.FileIndex.FindFileDiscardingGroup(want);
+
+                            if (items != null && items.Length > 0)
+                            {
+                                GenericRcol txmt = new GenericRcol(null, false);
+                                txmt.ProcessData(items[0].FileDescriptor, items[0].Package);
+                                return txmt;
+                            }
+                        }
+                    }
                 }
+
+                // Normal TXMT reference path (MMAT explicitly points to a TXMT via ReferenceChains["TXMT"])
+                Hashtable refs = this.ReferenceChains;
+                if (refs == null) return null;
+
+                ArrayList txmts = refs["TXMT"] as ArrayList;
+                if (txmts != null && txmts.Count > 0)
+                {
+                    Interfaces.Files.IPackedFileDescriptor want = txmts[0] as Interfaces.Files.IPackedFileDescriptor;
+                    if (want != null)
+                    {
+                        Interfaces.Files.IPackedFileDescriptor pfd = package.FindFile(want);
+
+                        if (pfd == null) // fallback: search by filename inside this package
+                        {
+                            Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFile(want.Filename, Data.MetaData.TXMT);
+                            if (pfds != null && pfds.Length > 0) pfd = pfds[0];
+                        }
+
+                        if (pfd != null)
+                        {
+                            GenericRcol txmt = new GenericRcol(null, false);
+                            txmt.ProcessData(pfd, package);
+                            return txmt;
+                        }
+
+                        // FileTable fallback code (discard group)
+                        FileTableBase.FileIndex.Load();
+
+                        Interfaces.Scenegraph.IScenegraphFileIndexItem[] items =
+                            FileTableBase.FileIndex.FindFileDiscardingGroup(want);
+
+                        if (items != null && items.Length > 0)
+                        {
+                            GenericRcol txmt = new GenericRcol(null, false);
+                            txmt.ProcessData(items[0].FileDescriptor, items[0].Package);
+                            return txmt;
+                        }
+                    }
+                }
+
+                return null;
             }
-            catch { }
+        }
 
+        /// <summary>
+        /// Load a Texture belonging to a TXMT
+        /// </summary>
+        /// <param name="txmt">a valid txmt</param>
+        /// <returns>the Texture or null</returns>
+        public GenericRcol GetTxtr(GenericRcol txmt)
+        {
+            if (txmt == null) return null;
 
+            Hashtable refs = txmt.ReferenceChains;
+            if (refs == null) return null;
 
-            ArrayList txtrs = refs["stdMatBaseTextureName"] as ArrayList;
+            ArrayList txtrs = null;
 
-            // Fallbacks for materials that use compositing / alternate texture slots
+            // Try the usual / expected reference chain keys first.
+            if (refs.ContainsKey("stdMatBaseTextureName"))
+                txtrs = refs["stdMatBaseTextureName"] as ArrayList;
+
+            // Fallbacks for materials that use compositing / alternate texture slots.
             if ((txtrs == null || txtrs.Count == 0) && refs.ContainsKey("baseTexture"))
                 txtrs = refs["baseTexture"] as ArrayList;
 
             if ((txtrs == null || txtrs.Count == 0) && refs.ContainsKey("baseTexture0"))
                 txtrs = refs["baseTexture0"] as ArrayList;
 
-            // Older/alternate chain some blocks expose
+            // Older / alternate chain some blocks expose.
             if ((txtrs == null || txtrs.Count == 0) && refs.ContainsKey("TXTR"))
                 txtrs = refs["TXTR"] as ArrayList;
-            // Ultimate fallback: derive TXTR name from the TXMT filename.
-            // Some TXMTs don't populate ReferenceChains with stdMatBaseTextureName/baseTexture keys.
-            if (txtrs == null || txtrs.Count == 0)
+
+            // If we found a referenced TXTR descriptor, try to resolve it (package first, then FileIndex).
+            if (txtrs != null && txtrs.Count > 0)
             {
-                string txmtName = null;
-                try { txmtName = txmt.FileDescriptor.Filename; } catch { }
-
-                if (!string.IsNullOrEmpty(txmtName))
+                Interfaces.Files.IPackedFileDescriptor want = txtrs[0] as Interfaces.Files.IPackedFileDescriptor;
+                if (want != null)
                 {
-                    string txtrName = txmtName;
+                    Interfaces.Files.IPackedFileDescriptor pfd = package.FindFile(want);
 
-                    if (txtrName.EndsWith("_txmt", StringComparison.OrdinalIgnoreCase))
-                        txtrName = txtrName.Substring(0, txtrName.Length - 5) + "_txtr";
-                    else if (!txtrName.EndsWith("_txtr", StringComparison.OrdinalIgnoreCase))
-                        txtrName = txtrName + "_txtr";
+                    if (pfd == null) // fallback: search by filename inside this package
+                    {
+                        Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFile(want.Filename, Data.MetaData.TXTR);
+                        if (pfds != null && pfds.Length > 0) pfd = pfds[0];
+                    }
 
-                    // 1) Try inside the current package first
-                    var pfds = package.FindFile(txtrName, Data.MetaData.TXTR);
-                    if (pfds != null && pfds.Length > 0)
+                    if (pfd != null)
                     {
                         GenericRcol txtr = new GenericRcol(null, false);
-                        txtr.ProcessData(pfds[0], package);
+                        txtr.ProcessData(pfd, package);
                         return txtr;
                     }
 
-                    // 2) Try the global FileIndex
-                    global::SimPe.FileTableBase.FileIndex.Load();
-
-                    PackedFileDescriptor want = new PackedFileDescriptor();
-                    want.Type = Data.MetaData.TXTR;
-                    want.Group = 0;
-                    want.Instance = 0;
-                    want.SubType = 0;
-                    want.Filename = txtrName;
-
-                    var items =
-                        global::SimPe.FileTableBase.FileIndex.FindFileDiscardingGroup(want);
+                    // FileTable fallback code (discard group)
+                    FileTableBase.FileIndex.Load();
+                    Interfaces.Scenegraph.IScenegraphFileIndexItem[] items =
+                        FileTableBase.FileIndex.FindFileDiscardingGroup(want);
 
                     if (items != null && items.Length > 0)
                     {
@@ -271,63 +338,54 @@ namespace SimPe.Plugin
                 }
             }
 
-            if (txtrs!=null) 
-			{
-				if (txtrs.Count>0) 
-				{
-					Interfaces.Files.IPackedFileDescriptor pfd = package.FindFile((Interfaces.Files.IPackedFileDescriptor)txtrs[0]);
-					if (pfd==null) //fallback code
-					{
-						Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFile(((Interfaces.Files.IPackedFileDescriptor)txtrs[0]).Filename, Data.MetaData.TXTR);
-						if (pfds.Length>0) pfd = pfds[0];
-					}							
-					if (pfd!=null) 
-					{
-						GenericRcol txtr = new GenericRcol(null, false);
-						txtr.ProcessData(pfd, package);
+            // Ultimate fallback: derive TXTR name from the TXMT filename.
+            // Some TXMTs don't populate ReferenceChains with stdMatBaseTextureName/baseTexture keys.
+            string txmtName = null;
+            try { txmtName = txmt.FileDescriptor.Filename; } catch { }
 
-						return txtr;
-					}
+            if (!string.IsNullOrEmpty(txmtName))
+            {
+                string txtrName = txmtName;
 
-                    if (pfd==null) //FileTable fallback code
-                    {
-                        FileTableBase.FileIndex.Load(); // <-- add this
+                if (txtrName.EndsWith("_txmt", StringComparison.OrdinalIgnoreCase))
+                    txtrName = txtrName.Substring(0, txtrName.Length - 5) + "_txtr";
+                else if (!txtrName.EndsWith("_txtr", StringComparison.OrdinalIgnoreCase))
+                    txtrName = txtrName + "_txtr";
 
-                        Interfaces.Scenegraph.IScenegraphFileIndexItem[] items =
-                            FileTableBase.FileIndex.FindFileDiscardingGroup((Interfaces.Files.IPackedFileDescriptor)txtrs[0]);
+                // 1) Try inside the current package first
+                Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFile(txtrName, Data.MetaData.TXTR);
+                if (pfds != null && pfds.Length > 0)
+                {
+                    GenericRcol txtr = new GenericRcol(null, false);
+                    txtr.ProcessData(pfds[0], package);
+                    return txtr;
+                }
 
-                        if (items != null && items.Length > 0)
-                        {
-                            GenericRcol txtr = new GenericRcol(null, false);
-                            txtr.ProcessData(items[0].FileDescriptor, items[0].Package);
-                            return txtr;
-                        }
-                    }
+                // 2) Try the global FileIndex
+                FileTableBase.FileIndex.Load();
 
+                PackedFileDescriptor nameOnly = new PackedFileDescriptor();
+                nameOnly.Type = Data.MetaData.TXTR;
+                nameOnly.Group = 0;
+                nameOnly.Instance = 0;
+                nameOnly.SubType = 0;
+                nameOnly.Filename = txtrName;
+
+                Interfaces.Scenegraph.IScenegraphFileIndexItem[] items =
+                    FileTableBase.FileIndex.FindFileDiscardingGroup(nameOnly);
+
+                if (items != null && items.Length > 0)
+                {
+                    GenericRcol txtr = new GenericRcol(null, false);
+                    txtr.ProcessData(items[0].FileDescriptor, items[0].Package);
+                    return txtr;
                 }
             }
 
-			return null;
-		}
+            return null;
+        }
 
-		/// <summary>
-		/// Load and return the referenced TXTR File (through the TXMT, null if none was available)
-		/// </summary>
-		/// <remarks>
-		/// You should store this value in a temp var if you need it multiple times, 
-		/// as the File is reloaded with each call
-		/// </remarks>
-		public GenericRcol TXTR 
-		{
-			get 
-			{
-				GenericRcol txmt = this.TXMT;
-				return GetTxtr(txmt);
-				
-			}
-		}
-
-		protected void FindRcolr(Interfaces.Files.IPackedFileDescriptor pfd)
+        protected void FindRcolr(Interfaces.Files.IPackedFileDescriptor pfd)
 		{
 		}
 

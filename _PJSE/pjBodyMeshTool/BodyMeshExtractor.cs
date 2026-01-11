@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using SimPe.Interfaces;
 using SimPe.Interfaces.Scenegraph;
 using SimPe.Interfaces.Files;
+using SimPe;
 
 namespace pj
 {
@@ -397,13 +398,21 @@ namespace pj
         #endregion
 
         #region IToolExt Member
+
         public override System.Drawing.Image Icon
+        {
+            get
+            {
+                return LoadIcon.load("actionexport");
+            }
+        }
+        /*public override System.Drawing.Image Icon
         {
             get
             {
                 return SimPe.GetIcon.BMExtract;
             }
-        }
+        }*/
         #endregion
     }
 }

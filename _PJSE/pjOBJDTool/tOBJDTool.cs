@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 using System;
+using SimPe;
 using SimPe.Interfaces;
 using SimPe.Interfaces.Plugin;
 
@@ -94,7 +95,8 @@ namespace pjOBJDTool
         {
             get
             {
-                return SimPe.GetIcon.pjOBJDtool;
+                //return SimPe.GetIcon.pjOBJDtool;
+                return LoadIcon.load("Object Tool.png");
             }
         }
         public override System.Windows.Forms.Shortcut Shortcut

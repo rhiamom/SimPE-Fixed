@@ -38,7 +38,7 @@ namespace SimPe.Plugin
                     "Chris",
                     "To View or Edit (unused) Audio Reference and Catalogue String Files",
                     1,
-                    SimPe.GetIcon.Writable
+                    null
                     );
 		}
 

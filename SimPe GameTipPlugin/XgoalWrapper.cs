@@ -27,7 +27,7 @@ namespace SimPe.Plugin
 				"Chris",
 				"To view Castaway Story Goals",
                 1,
-                SimPe.GetIcon.Writable
+                null
 				);
 		}
 

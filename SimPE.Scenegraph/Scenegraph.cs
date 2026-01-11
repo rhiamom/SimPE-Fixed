@@ -398,31 +398,43 @@ namespace SimPe.Plugin
 			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem item in items) 
 			{
 				string pname = item.Package.FileName.Trim().ToLower();
-				SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem[] citems = cachefile.FileIndex.FindFile(item.FileDescriptor, item.Package);
-				bool have=false;
+                SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem[] citems = cachefile.FileIndex.FindFile(item.FileDescriptor, item.Package);
+
+                if (citems == null || citems.Length == 0)
+                {
+                    citems = cachefile.FileIndex.FindFile(item.FileDescriptor, null);
+                }
+                if (citems == null) citems = new SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem[0];
+                bool have = false;
 				foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem citem in citems) 
 				{
-					if (citem.FileDescriptor.Filename == pname) 
-					{
-						have = true;
-						break;
-					}
-				}
+                    if (citem.FileDescriptor != null && item.FileDescriptor != null)
+                    {
+                        if (citem.FileDescriptor.Equals(item.FileDescriptor))
+                        {
+                            have = true;
+                            break;
+                        }
+                    }
+                }
 
-				//Not in cache, so add that File
-				if (!have) 
+                //Not in cache, so add that File
+                if (!have) 
 				{
 					SimPe.Plugin.MmatWrapper mmat = new MmatWrapper();
 					mmat.ProcessData(item.FileDescriptor, item.Package);
 
-					cachefile.AddItem(mmat);
+                    System.Diagnostics.Debug.WriteLine("MMATCACHE: calling AddItem for " + pname + "  " + item.FileDescriptor);
+                    cachefile.AddItem(mmat);
 					chgcache = true;
 				}
 			}
 			if (chgcache) SaveCache();
 
-			//collect a list of Default Material Override family values first
-			if (onlydefault) 
+            System.Diagnostics.Debug.WriteLine("MMATCACHE: containers=" + cachefile.Containers.Count + " modelMapCount=" + cachefile.ModelMap.Count + " defaultMapCount=" + cachefile.DefaultMap.Count);
+
+            //collect a list of Default Material Override family values first
+            if (onlydefault) 
 			{
 				foreach (SimPe.Cache.MMATCacheItem mci in (SimPe.Cache.CacheItems)cachefile.DefaultMap[true])
 					defaultfam.Add(mci.Family);				

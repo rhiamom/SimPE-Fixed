@@ -350,22 +350,32 @@ namespace SimPe
 			}
 		}
 
-		/// <summary>
-		/// Returns the Value represented by the HexString
-		/// </summary>
-		/// <param name="txt">The hex String</param>
-		/// <returns>the represented value</returns>
-		public static short StringToInt16(string txt, short def, byte bbase)
-		{
-			try 
-			{
-				return Convert.ToInt16(txt, bbase);
-			} 
-			catch 
-			{
-				return def;
-			}
-		}
+        /// <summary>
+        /// Returns the Value represented by the HexString
+        /// </summary>
+        /// <param name="txt">The hex String</param>
+        /// <returns>the represented value</returns>
+        public static short StringToInt16(string txt, short def, byte bbase)
+        {
+            try
+            {
+                if (txt == null) return def;
+
+                txt = txt.Trim();
+                if (txt.Length == 0) return def;
+
+                // Allow "0x" prefix even if caller passes base 16
+                if (bbase == 16 && (txt.StartsWith("0x", StringComparison.OrdinalIgnoreCase)))
+                    txt = txt.Substring(2);
+
+                return Convert.ToInt16(txt, bbase);
+            }
+            catch
+            {
+                return def;
+            }
+        }
+
 
         /// <summary>
         /// Returns the Value represented by the HexString

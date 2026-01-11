@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using SimPe.Interfaces;
 using SimPe.Interfaces.Scenegraph;
 using SimPe.Interfaces.Files;
+using SimPe;
 
 namespace pj
 {
@@ -160,7 +161,7 @@ namespace pj
         {
             get
             {
-                return SimPe.GetIcon.BMlinker;
+                return LoadIcon.load("BMLinker");
             }
         }
         #endregion

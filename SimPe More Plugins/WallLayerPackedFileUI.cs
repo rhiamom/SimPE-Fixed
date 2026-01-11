@@ -37,7 +37,7 @@ namespace SimPe.Plugin
 
         private string simtools = Helper.SimPePath + "\\Sims2Tools.exe";
 
-        protected override void RefreshGUI()
+        public override void RefreshGUI()
         {
             base.RefreshGUI();
 

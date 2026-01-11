@@ -23,7 +23,7 @@ namespace SimPe.Plugin
             InitializeComponent();
         }
 
-        protected override void RefreshGUI()
+        public override void RefreshGUI()
         {
             base.RefreshGUI();
             warnlbl.Visible = false;

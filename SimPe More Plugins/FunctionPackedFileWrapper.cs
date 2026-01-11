@@ -43,7 +43,7 @@ namespace SimPe.Plugin
                     "Chris",
                     "To View the Game Functions",
                     2,
-                    SimPe.GetIcon.GameTit
+                    null
                     );
 		}
 

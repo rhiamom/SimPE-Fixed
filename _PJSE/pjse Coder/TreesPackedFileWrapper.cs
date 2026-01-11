@@ -187,7 +187,7 @@ namespace SimPe.Plugin
                 "Chris",
                 "To Read Edith Flowchart Tree files",
                 1,
-                SimPe.GetIcon.Writable
+                null
                 );
         }
 

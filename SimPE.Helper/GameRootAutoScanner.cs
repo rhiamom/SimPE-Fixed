@@ -134,82 +134,84 @@ namespace SimPe
             }
 
             // Look at all immediate child directories under the root.
-            string[] childDirs;
-            try
+            // NEW: Walk the directory tree to find TSData at ANY reasonable depth.
+            // This covers UC layouts like "Fun with Pets\\SP9\\TSData" etc.
+            var seenPackPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            // We already handled root\\TSData above, but track it so we don't duplicate.
+            if (Directory.Exists(rootTsData))
             {
-                childDirs = Directory.GetDirectories(root);
-            }
-            catch
-            {
-                childDirs = new string[0];   // .NET 4.5.2 compatible
+                seenPackPaths.Add(root);
             }
 
-            foreach (string dir in childDirs)
-            {
-                string name = Path.GetFileName(dir) ?? dir;
+            // Depth limit: prevents scanning huge directory trees if someone points at a big folder.
+            // 4–5 is usually enough for Sims 2 layouts.
+            const int maxDepth = 5;
 
-                // Ignore EA patch / temp folders like TH14FF~1, THE3E9~1, etc.
-                if (name.StartsWith("TH", StringComparison.OrdinalIgnoreCase) && name.Contains("~"))
+            var queue = new Queue<Tuple<string, int>>();
+            queue.Enqueue(Tuple.Create(root, 0));
+
+            while (queue.Count > 0)
+            {
+                var item = queue.Dequeue();
+                string currentDir = item.Item1;
+                int depth = item.Item2;
+
+                if (depth > maxDepth)
                     continue;
 
-                string tsDataPath = Path.Combine(dir, "TSData");
-                bool hasTsData = Directory.Exists(tsDataPath);
-
-                if (hasTsData)
+                // If this folder contains TSData, it's a pack root.
+                string tsDataPath = Path.Combine(currentDir, "TSData");
+                if (Directory.Exists(tsDataPath))
                 {
-                    // Treat both "Base" (Legacy-style) and "The Sims 2" (disc-style) as base game
-                    bool isBaseChild =
-                        string.Equals(name, "Base", StringComparison.OrdinalIgnoreCase) ||
-                        string.Equals(name, "The Sims 2", StringComparison.OrdinalIgnoreCase);
-
-                    string displayName = isBaseChild ? "Base Game" : name;
-
-                    packs.Add(new PackFolderInfo(
-                        name: displayName,
-                        fullPath: dir,
-                        isBaseGame: isBaseChild,
-                        hasTsData: true));
-                }
-                else
-                {
-                    // NEW: look one level deeper (dir\[grandchild]\TSData)
-                    string[] grandChildDirs;
-                    try
+                    if (!seenPackPaths.Contains(currentDir))
                     {
-                        grandChildDirs = Directory.GetDirectories(dir);
-                    }
-                    catch
-                    {
-                        grandChildDirs = new string[0];   // .NET 4.5.2 compatible
-                    }
+                        string name = Path.GetFileName(currentDir) ?? currentDir;
 
-                    foreach (string gdir in grandChildDirs)
-                    {
-                        string gname = Path.GetFileName(gdir) ?? gdir;
+                        // Treat both "Base" (Legacy-style) and "The Sims 2" (disc-style) as base game
+                        bool isBaseChild =
+                            string.Equals(name, "Base", StringComparison.OrdinalIgnoreCase) ||
+                            string.Equals(name, "The Sims 2", StringComparison.OrdinalIgnoreCase) ||
+                            string.Equals(currentDir, root, StringComparison.OrdinalIgnoreCase);
 
-                        // Ignore EA patch / temp folders like TH14FF~1, THE3E9~1, etc.
-                        if (gname.StartsWith("TH", StringComparison.OrdinalIgnoreCase) && gname.Contains("~"))
-                            continue;
-
-                        string gTsData = Path.Combine(gdir, "TSData");
-                        if (!Directory.Exists(gTsData))
-                            continue;
-
-                        bool isBaseGrandChild =
-                            string.Equals(gname, "Base", StringComparison.OrdinalIgnoreCase) ||
-                            string.Equals(gname, "The Sims 2", StringComparison.OrdinalIgnoreCase);
-
-                        string gDisplayName = isBaseGrandChild ? "Base Game" : gname;
+                        string displayName = isBaseChild ? "Base Game" : name;
 
                         packs.Add(new PackFolderInfo(
-                            name: gDisplayName,
-                            fullPath: gdir,
-                            isBaseGame: isBaseGrandChild,
+                            name: displayName,
+                            fullPath: currentDir,
+                            isBaseGame: isBaseChild,
                             hasTsData: true));
+
+                        seenPackPaths.Add(currentDir);
                     }
+
+                    // IMPORTANT: Don’t descend further once TSData is found here.
+                    continue;
                 }
 
+                // Otherwise, enqueue child dirs
+                string[] subDirs;
+                try
+                {
+                    subDirs = Directory.GetDirectories(currentDir);
+                }
+                catch
+                {
+                    subDirs = new string[0]; // .NET 4.5.2 compatible
+                }
+
+                foreach (string sub in subDirs)
+                {
+                    string subName = Path.GetFileName(sub) ?? sub;
+
+                    // Ignore EA patch / temp folders like TH14FF~1, THE3E9~1, etc.
+                    if (subName.StartsWith("TH", StringComparison.OrdinalIgnoreCase) && subName.Contains("~"))
+                        continue;
+
+                    queue.Enqueue(Tuple.Create(sub, depth + 1));
+                }
             }
+
 
             return new GameRootScanResult(
                 rootFolder: root,

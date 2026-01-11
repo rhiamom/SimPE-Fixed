@@ -166,7 +166,9 @@
     <EmbeddedResource Include="ExceptionForm.resx" />
     <EmbeddedResource Include="ExceptionForm.ru.resx" />
     <EmbeddedResource Include="LabelledBoolsetControl.resx" />
-    <EmbeddedResource Include="Localization.de.resx" />
+    <EmbeddedResource Include="Localization.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization.en-US.resx" />
     <EmbeddedResource Include="Localization.fr.resx" />
     <EmbeddedResource Include="Localization.it.resx" />

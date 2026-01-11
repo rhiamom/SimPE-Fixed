@@ -56,7 +56,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="7z">
-      <HintPath>..\ExternalLibs\7z.dll</HintPath>
+      <HintPath>..\bin\Debug\7z.dll</HintPath>
     </Reference>
     <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -64,7 +64,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\ExternalLibs\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\bin\Debug\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="NetDocks, Version=1.0.2983.24895, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>

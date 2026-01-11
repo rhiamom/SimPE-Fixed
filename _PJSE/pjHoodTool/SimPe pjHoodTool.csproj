@@ -141,6 +141,11 @@
       <Name>SimPE.Toolbox</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
+      <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
+      <Name>SimPE.WorkSpaceHelper</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\pjse Coder\SimPe pjse coder.csproj">
       <Project>{4b6b73da-1606-42f2-8774-72428062783a}</Project>
       <Name>SimPe pjse coder</Name>

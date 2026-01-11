@@ -28,7 +28,7 @@ namespace SimPe.Plugin
             InitializeComponent();
         }
 
-        protected override void RefreshGUI()
+        public override void RefreshGUI()
         {
             holde = true;
             base.RefreshGUI();

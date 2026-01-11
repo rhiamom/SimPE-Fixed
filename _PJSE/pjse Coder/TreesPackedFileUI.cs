@@ -36,7 +36,7 @@ namespace SimPe.Plugin
 
         bool holde = true;
 
-        protected override void RefreshGUI()
+        public override void RefreshGUI()
         {
             base.RefreshGUI();
             holde = true;

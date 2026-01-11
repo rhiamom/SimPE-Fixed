@@ -83,7 +83,7 @@ namespace SimPe.Plugin
                 "Chris",
                 "To view lot terrain textures, individual sim memories and Nid remapping",
                 3,
-                SimPe.GetIcon.ReadOnly
+                null
                 );
 		}
 

@@ -75,7 +75,7 @@ namespace SimPe.Plugin
                 "Chris",
                 "To aid unravelling Weather Info files",
                 2,
-                SimPe.GetIcon.Butterfly
+                null
                 );
 		}
 

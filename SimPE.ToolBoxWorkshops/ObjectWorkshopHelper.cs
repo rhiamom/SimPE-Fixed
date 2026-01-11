@@ -441,7 +441,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		{
 			settings.KeepOriginalMesh = true;
 			SimPe.Packages.GeneratableFile package = pkg;
-			// Low Eps need packages in the Gmaes and the Download Folder
+			// Low Eps need packages in the Games and the Download Folder
 
             if ((!System.IO.File.Exists(ScenegraphHelper.GMND_PACKAGE) || !System.IO.File.Exists(ScenegraphHelper.MMAT_PACKAGE)) && (settings is OWCloneSettings) && (SimPe.PathProvider.Global.EPInstalled < 16)) 
 			{
@@ -476,7 +476,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		protected static SimPe.Packages.GeneratableFile ReColor(CloneSettings.BaseResourceType br, SimPe.Packages.GeneratableFile pkg, Interfaces.Files.IPackedFileDescriptor pfd, uint localgroup, ObjectWorkshopSettings settings, bool pkgcontainsonlybase) 
 		{
 			SimPe.Packages.GeneratableFile package = pkg;
-            // Low Eps need packages in the Gmaes and the Download Folder
+            // Low Eps need packages in the Games and the Download Folder
 
             if ((!System.IO.File.Exists(ScenegraphHelper.GMND_PACKAGE) || !System.IO.File.Exists(ScenegraphHelper.MMAT_PACKAGE)) && (settings is OWCloneSettings) && (SimPe.PathProvider.Global.EPInstalled < 16)) 
 			{

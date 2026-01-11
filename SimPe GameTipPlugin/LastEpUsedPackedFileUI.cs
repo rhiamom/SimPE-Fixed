@@ -213,7 +213,7 @@ namespace SimPe.Plugin
             }
         }
 
-        protected override void RefreshGUI()
+        public override void RefreshGUI()
         {
             base.RefreshGUI();
 

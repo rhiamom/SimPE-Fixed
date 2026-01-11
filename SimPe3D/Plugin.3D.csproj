@@ -103,6 +103,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ambertation.3D, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\ambertation.3D.dll</HintPath>
+    </Reference>
     <Reference Include="ambertation.3D.mdx.binding">
       <HintPath>..\Libs\ambertation.3D.mdx.binding.dll</HintPath>
       <Private>False</Private>

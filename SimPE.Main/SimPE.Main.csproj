@@ -283,6 +283,10 @@
       <Name>SimPE.Splash</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\SimPE.ToolBoxWorkshops\SimPE.ToolBoxWorkshops.csproj">
+      <Project>{3f07c566-8460-4c68-b26f-bdfbcc0496b8}</Project>
+      <Name>SimPE.ToolBoxWorkshops</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj">
       <Project>{f6de1680-4d13-4e34-9eb7-72aa122ce344}</Project>
       <Name>SimPE.WorkSpaceHelper</Name>

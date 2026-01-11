@@ -23,6 +23,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
+
 namespace SimPe
 {
     public partial class GameRootDialog : Form
@@ -312,6 +313,11 @@ namespace SimPe
 
                 return;
             }
+            //Clear and rewrite the ObjectCache FileTable and FileIndex when changing game roots
+            System.IO.File.Delete(SimPe.Helper.SimPeLanguageCache);
+            SimPe.FileTable.Reload();
+            // (recommended for your “no restart” feature)
+            SimPe.FileTable.FileIndex.Load();
 
             // Make it available globally for this run
             Helper.GameRootPath = GameRootPath;

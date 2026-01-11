@@ -64,8 +64,8 @@ namespace SimPe.Plugin
                     "Wall Layer Wrapper",
                     "Chris",
                     "To View the Wall Layer",
-                    69,
-                    SimPe.GetIcon.GameTit
+                    1,
+                    null
                     );
 		}
 

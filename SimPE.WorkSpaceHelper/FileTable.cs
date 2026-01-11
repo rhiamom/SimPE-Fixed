@@ -68,11 +68,25 @@ namespace SimPe
         static SimPe.Interfaces.ICommandLineRegistry clreg;
         public static SimPe.Interfaces.ICommandLineRegistry CommandLineRegistry { get { return clreg; } set { clreg = value; } }
 
-		public static void Reload()
-		{
-			FileTable.FileIndex.BaseFolders.Clear();			
-			FileTable.FileIndex.BaseFolders = FileTable.DefaultFolders;
-			FileTable.FileIndex.ForceReload();
-		}
+        public static void Reload()
+        {
+            var folders = FileTable.DefaultFolders;
+            System.Diagnostics.Debug.WriteLine(
+                $"[FileTable] Reload: DefaultFolders.Count={folders.Count}");
+
+            if (folders != null)
+            {
+                int i = 0;
+                foreach (FileTableItem f in folders)
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        $"[FileTable] {++i}: {f.ToString()}");
+                }
+            }
+
+            FileTable.FileIndex.BaseFolders.Clear();
+            FileTable.FileIndex.BaseFolders = folders;
+            FileTable.FileIndex.ForceReload();
+        }
     }
 }

@@ -115,7 +115,7 @@ namespace SimPe.Plugin
                     "Chris",
                     "Reads the Lot Objects componant in a lot. Will test for the Super Duper Hug",
                     2,
-                    SimPe.GetIcon.ReadOnly
+                    null
                     );
 		}
 

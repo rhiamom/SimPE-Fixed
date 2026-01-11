@@ -17,16 +17,17 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Text;
 using SimPe;
 using SimPe.Interfaces;
 using SimPe.Interfaces.Files;
 using SimPe.PackedFiles.Wrapper;
 using SimPe.Plugin;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Text;
+using static SimPe.Data.MetaData;
 
 namespace pjHoodTool
 {
@@ -455,9 +456,10 @@ namespace pjHoodTool
                 "," + sdsc.Skills.Creativity +
                 "," + sdsc.Skills.Fatness +
                 "," + sdsc.Skills.Logic +
-                "," + sdsc.Skills.Mechanical;
-            if (Helper.WindowsRegistry.ShowMoreSkills)
-                skills += "," + sdsc.Skills.Art + "," + sdsc.Skills.Music;
+                "," + sdsc.Skills.Mechanical +
+                "," + sdsc.Skills.Romance;
+            //if (Helper.WindowsRegistry.ShowMoreSkills)
+            //skills += "," + sdsc.Skills.Art + "," + sdsc.Skills.Music;
             skills += "";
             #endregion
 
@@ -486,12 +488,16 @@ namespace pjHoodTool
             {
                 if (sdsc.Business.Salary > 0)
                 {
-                    business = Localization.GetString("SimPe.PackedFiles.Wrapper.JobAssignf." + Enum.GetName(typeof(JobAssignf), (ushort)sdsc.Business.Assignf));
+                    string assignName = sdsc.Business.Assignment.ToString();
+                    business = Localization.GetString("SimPe.PackedFiles.Wrapper.JobAssignf." + assignName);
+
                     business += "," + sdsc.Business.LotID;
                     business += "," + sdsc.Business.Salary;
                 }
             }
             #endregion
+
+
 
             #region freetime
             string freetime = ",,,";
@@ -523,17 +529,8 @@ namespace pjHoodTool
             string species = "Human";
             if (sdsc.Nightlife != null)
             {
-                if ((int)sdsc.Version == (int)SimPe.PackedFiles.Wrapper.SDescVersions.Castaway && sdsc.Castaway.Subspecies > 0)
-                {
-                    if (sdsc.Castaway.Subspecies == 2) species = "Orang-utan";
-                    if (sdsc.Castaway.Subspecies == 1 && (int)sdsc.Nightlife.Species == 3) species = "Leopard";
-                    if (sdsc.Castaway.Subspecies == 1 && (int)sdsc.Nightlife.Species < 3) species = "Wild Dog";
-                }
-                else
-                    species = sdsc.Nightlife.Species.ToString();
+                species = sdsc.Nightlife.Species.ToString();
             }
-
-
             #endregion
 
             //sdsc.Business.LotID
@@ -565,8 +562,12 @@ namespace pjHoodTool
                        ties + "," +
                        bodycondiion(sdsc);
 
-            csv += "," + new SimPe.Data.LocalizedServiceTypes(
-                            sdsc.CharacterDescription.ServiceTypes).ToString();
+            string npcType = "";
+            string knownNpc = SimPe.Data.MetaData.GetKnownNPC(sdsc.SimId);
+            if (knownNpc != "not found") npcType = knownNpc;
+
+            csv += "," + q(npcType);
+
 
             if (incbas)
                 csv += "," +
@@ -698,8 +699,6 @@ namespace pjHoodTool
             else
             {
                 if (simdsc.CharacterDescription.BodyFlag.Value == 0) bodyflugs = "Normal";
-                if (simdsc.CharacterDescription.BodyFlag.BirthControl) bodyflugs = "BirthControl";
-                if (simdsc.CharacterDescription.BodyFlag.Hospital) bodyflugs += " Hospital";
                 if (simdsc.CharacterDescription.BodyFlag.Fit) bodyflugs += " Fit";
                 if (simdsc.CharacterDescription.BodyFlag.Fat) bodyflugs += " Fat";
                 if (simdsc.CharacterDescription.BodyFlag.PregnantHidden) bodyflugs += " Pregnant";
@@ -789,7 +788,8 @@ namespace pjHoodTool
         {
             get
             {
-                return SimPe.GetIcon.HoodTool;
+                //return SimPe.GetIcon.HoodTool;
+                return LoadIcon.load("cOBJDTool.png");
             }
         }
         #endregion

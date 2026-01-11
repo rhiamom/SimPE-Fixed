@@ -25,7 +25,7 @@ namespace SimPe.Plugin
 			InitializeComponent();
 		}
 
-        protected override void RefreshGUI()
+        public override void RefreshGUI()
         {
             base.RefreshGUI();
             this.TBsting.Text = "There is " + Convert.ToString(Wrapper.isz) + " Items in this List,\n Press 'Show All Items' to display them all"; // clear previous values

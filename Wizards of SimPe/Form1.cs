@@ -23,6 +23,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
+using SimPe;
 
 namespace SimPe.Wizards
 {
@@ -333,7 +334,7 @@ namespace SimPe.Wizards
 			{
 				bool adv = SimPe.Helper.WindowsRegistry.HiddenMode;
 				bool asy = SimPe.Helper.WindowsRegistry.AsynchronLoad;
-                bool i = SimPe.Helper.ChrisMode;
+                //bool i = SimPe.Helper.ChrisMode;
 
 				SimPe.Helper.WindowsRegistry.HiddenMode = false;
 				SimPe.Helper.WindowsRegistry.AsynchronLoad = false;

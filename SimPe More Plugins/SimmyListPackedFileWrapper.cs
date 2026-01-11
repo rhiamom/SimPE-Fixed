@@ -46,7 +46,7 @@ namespace SimPe.Plugin
                     "Chris",
                     "To View the List of Neighbours this Neighbourhood has Parsed",
                     1,
-                    SimPe.GetIcon.Writable
+                    null
                     );
 		}
 

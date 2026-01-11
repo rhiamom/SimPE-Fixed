@@ -119,7 +119,7 @@ namespace SimPe.Plugin
                 "Chris",
                 "Used to Identify custom Content, and keep track of available Game Content",
                 2,
-                SimPe.GetIcon.Writable
+                null
                 );
 		}
 

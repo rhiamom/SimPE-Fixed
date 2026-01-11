@@ -94,7 +94,17 @@ namespace SimPe.Plugin.Tool.Dockable
         [Browsable(false)]
         public short Price
         {
-            get { return Helper.StringToInt16(this.lbPrice.Text.Replace(" $", ""), 0, 10); }
+            get
+            {
+                string txt = this.lbPrice.Text;
+
+                if (string.IsNullOrWhiteSpace(txt))
+                    return 0;
+
+                txt = txt.Replace(" $", "").Trim();
+
+                return Helper.StringToInt16(txt, 0, 10);
+            }
         }
         #endregion
 

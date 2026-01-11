@@ -21,6 +21,7 @@ using System;
 using System.Collections;
 using SimPe.Packages;
 using SimPe.Interfaces.Files;
+using System.Diagnostics;
 
 
 namespace SimPe.Plugin
@@ -65,16 +66,16 @@ namespace SimPe.Plugin
 		/// <param name="mmat">the MAterial override File for this Subset</param>
 		/// <param name="txmtname">Name of the MAster TXMT</param>
 		/// <param name="unique">A unique String for the Filenames</param>
-		void LoadSlaveTxmt(IPackageFile newpkg,SimPe.Plugin.MmatWrapper mmat, string txmtname, string unique, Hashtable slavemap)
+		void LoadSlaveTxmt(IPackageFile newpkg, SimPe.Plugin.MmatWrapper mmat, string txmtname, string unique, Hashtable slavemap)
 		{
 			foreach (string k in slavemap.Keys)
 				foreach (string slave in (ArrayList)slavemap[k])
 				{
 					string newname = txmtname.Replace("_"+k+"_", "_"+slave+"_");
-					if (newname!=txmtname) 
+					if (newname!=txmtname)
 					{
 						Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFile(newname, Data.MetaData.TXMT);
-						if (pfds.Length>0) 
+						if (pfds.Length>0)
 						{
 							GenericRcol txmt = new GenericRcol(null, false);
 							txmt.ProcessData(pfds[0], package);
@@ -82,7 +83,7 @@ namespace SimPe.Plugin
 							AddTxmt(newpkg, mmat, txmt, null, unique, null);
 						}
 					}
-				}		
+				}
 		}
 
 		/// <summary>
@@ -96,7 +97,7 @@ namespace SimPe.Plugin
 		void AddTxmt(IPackageFile newpkg, SimPe.Plugin.MmatWrapper mmat, GenericRcol txmt, GenericRcol txtr, string unique, Hashtable slavemap)
 		{
 			//Get/Update Material Definition
-			if (txmt!=null) 
+			if (txmt!=null)
 			{
 				string name = Hashes.StripHashFromName(txmt.FileName.Trim());
 
@@ -105,27 +106,27 @@ namespace SimPe.Plugin
 
 				if (name.ToLower().EndsWith("_txmt")) name = name.Substring(0, name.Length-5);
 				txmt.FileName = FixObject.GetUniqueTxmtName(name, unique, mmat.SubsetName, true);///*"##0x"+Helper.HexString(Data.MetaData.CUSTOM_GROUP)+"!"+*/name+"_"+unique+"_txmt";							
-				txmt.FileDescriptor = ScenegraphHelper.BuildPfd(txmt.FileName, Data.MetaData.TXMT, Data.MetaData.CUSTOM_GROUP);														
-				
+				txmt.FileDescriptor = ScenegraphHelper.BuildPfd(txmt.FileName, Data.MetaData.TXMT, Data.MetaData.CUSTOM_GROUP);
+
 				mmat.Name = "##0x"+Helper.HexString(txmt.FileDescriptor.Group)+"!"+FixObject.GetUniqueTxmtName(name, unique, mmat.SubsetName, false);
-							
+
 				MaterialDefinition md = (MaterialDefinition)txmt.Blocks[0];
-				if (txtr==null) 
+				if (txtr==null)
 				{
-					txtr = mmat.GetTxtr(txmt);				
+					txtr = mmat.GetTxtr(txmt);
 					if (txtr!=null) txtr.FileDescriptor = (Interfaces.Files.IPackedFileDescriptor)txtr.FileDescriptor.Clone();
 				}
 
 				//Get/Update Texture
-				if (txtr!=null) 
-				{														
-					name = AddTxtr(txtr, unique, txmt, md);										
+				if (txtr!=null)
+				{
+					name = AddTxtr(txtr, unique, txmt, md);
 
 					md.FileDescription = Hashes.StripHashFromName(txmt.FileName).Trim();
-					if (md.FileDescription.ToLower().EndsWith("_txmt")) md.FileDescription = md.FileDescription.Substring(0, md.FileDescription.Length-5);												
-				}	
-								
-				if (txtr!=null) 
+					if (md.FileDescription.ToLower().EndsWith("_txmt")) md.FileDescription = md.FileDescription.Substring(0, md.FileDescription.Length-5);
+				}
+
+				if (txtr!=null)
 				{
 					txtr.SynchronizeUserData();
 					if (newpkg.FindFile(txtr.FileDescriptor)==null)
@@ -134,7 +135,7 @@ namespace SimPe.Plugin
 
 				AddReferencedTxtr(newpkg, txmt, md, unique);
 
-				if (txmt!=null) 
+				if (txmt!=null)
 				{
 					txmt.SynchronizeUserData();
 					if (newpkg.FindFile(txmt.FileDescriptor)==null)
@@ -153,29 +154,29 @@ namespace SimPe.Plugin
 			if (name.ToLower().EndsWith("_txtr")) name = name.Substring(0, name.Length-5);
 
 			string tname = RenameForm.ReplaceOldUnique(name, unique, true);
-			txtr.FileName = tname+"_txtr";							
-								
-			txtr.FileDescriptor = ScenegraphHelper.BuildPfd(txtr.FileName, Data.MetaData.TXTR, Data.MetaData.CUSTOM_GROUP);	
+			txtr.FileName = tname+"_txtr";
 
-			for (int i=0; i<md.Listing.Length; i++) 
+			txtr.FileDescriptor = ScenegraphHelper.BuildPfd(txtr.FileName, Data.MetaData.TXTR, Data.MetaData.CUSTOM_GROUP);
+
+			for (int i = 0; i<md.Listing.Length; i++)
 			{
 				if (Hashes.StripHashFromName(md.Listing[i].Trim().ToLower())==old) md.Listing[i] = "##0x"+Helper.HexString(Data.MetaData.CUSTOM_GROUP)+"!"+tname;
 			}
-								
+
 			//update References
-			foreach (string k in txmt.ReferenceChains.Keys) 
+			foreach (string k in txmt.ReferenceChains.Keys)
 			{
 				if (k=="TXTR" || k=="Generic") continue;
 				//Console.WriteLine("    Checking Property "+k);						
 				string thisname = Hashes.StripHashFromName(md.FindProperty(k).Value.Trim().ToLower());
-				
-				if (thisname==old) 
+
+				if (thisname==old)
 				{
 					string nname = "##0x"+Helper.HexString(Data.MetaData.CUSTOM_GROUP)+"!"+tname;
 					//Console.WriteLine("    --> Updating to "+nname);
 					md.FindProperty(k).Value = nname;
 				}
-			}	
+			}
 
 			//Load the Lifos into the Texture File
 			ImageData id = (ImageData)txtr.Blocks[0];
@@ -201,26 +202,26 @@ namespace SimPe.Plugin
 		/// <param name="md"></param>
 		protected void AddReferencedTxtr(IPackageFile newpkg, GenericRcol txmt, MaterialDefinition md, string unique)
 		{
-			foreach (string k in txmt.ReferenceChains.Keys) 
+			foreach (string k in txmt.ReferenceChains.Keys)
 			{
 				if (k.ToLower()=="stdmatnormalmaptexturename") //at the moment i only know of NormalMaps that need to be added
 				{
 					MaterialDefinitionProperty mdp = md.GetProperty(k);
-					if (mdp!=null) 
+					if (mdp!=null)
 					{
 						string name = Hashes.StripHashFromName(mdp.Value).Trim();
 						if (!name.EndsWith("_txtr")) name+="_txtr";
 						IPackageFile pkg = txmt.Package;
 						SimPe.Interfaces.Files.IPackedFileDescriptor[] pfds = pkg.FindFile(name, Data.MetaData.TXTR);
-						if (pfds.Length>0) 
+						if (pfds.Length>0)
 						{
-							SimPe.Interfaces.Files.IPackedFileDescriptor pfd = pfds[0];	
+							SimPe.Interfaces.Files.IPackedFileDescriptor pfd = pfds[0];
 							GenericRcol txtr = new GenericRcol();
 							txtr.ProcessData(pfd, pkg);
-							AddTxtr(newpkg, txtr, unique, txmt, md);							
+							AddTxtr(newpkg, txtr, unique, txmt, md);
 						}
 					}
-                }
+				}
 			}
 		}
 
@@ -230,7 +231,7 @@ namespace SimPe.Plugin
 		/// <param name="newpkg"></param>
 		/// <param name="map">Contains the MMATs that should be added</param>
 		/// <param name="fullmap">Contains a List of all available MMATs</param>
-		public void ProcessMmatMap(IPackageFile newpkg, Hashtable map, Hashtable fullmap) 
+		public void ProcessMmatMap(IPackageFile newpkg, Hashtable map, Hashtable fullmap)
 		{
 			if (WaitingScreen.Running) WaitingScreen.UpdateMessage("Loading Slave Subsets");
 			AddSlavesSubsets(map, fullmap);
@@ -238,32 +239,32 @@ namespace SimPe.Plugin
 
 			uint inst = 0x6000;
 			string unique = RenameForm.GetUniqueName(true);
-			foreach (Hashtable ht in map.Values) 
+			foreach (Hashtable ht in map.Values)
 			{
-				foreach (ArrayList list in ht.Values) 
+				foreach (ArrayList list in ht.Values)
 				{
 					string family = System.Guid.NewGuid().ToString();
 					if (unique == null) unique = family;
 
-					foreach (SimPe.Plugin.MmatWrapper mmat in list) 
+					foreach (SimPe.Plugin.MmatWrapper mmat in list)
 					{
 						mmat.FileDescriptor = Scenegraph.Clone(mmat.FileDescriptor);
 						mmat.FileDescriptor.Instance = inst++;
 						mmat.FileDescriptor.Group = Data.MetaData.LOCAL_GROUP;
 						mmat.Family = family;
 						mmat.DefaultMaterial = false;
-												
+
 						GenericRcol txmt = mmat.TXMT;
 						GenericRcol txtr = mmat.TXTR;
 						this.AddTxmt(newpkg, mmat, txmt, txtr, unique, slaves);
 
 						mmat.SynchronizeUserData();
-						newpkg.Add(mmat.FileDescriptor);						
+						newpkg.Add(mmat.FileDescriptor);
 					}
 				}
 			}
 
-			
+
 		}
 
 		/// <summary>
@@ -281,9 +282,9 @@ namespace SimPe.Plugin
 			if ((fullmap.ContainsKey(subset)) && mmat.TXTR!=null)
 			{
 				Hashtable ht = (Hashtable)fullmap[subset];
-				foreach (ArrayList list in ht.Values) 
+				foreach (ArrayList list in ht.Values)
 				{
-					foreach (SimPe.Plugin.MmatWrapper cur in list) 
+					foreach (SimPe.Plugin.MmatWrapper cur in list)
 					{
 						if (ret == null) ret=list;
 						if (cur.TXTR==null) continue;
@@ -303,39 +304,39 @@ namespace SimPe.Plugin
 		/// <param name="fullmap">Contains a List of all available MMATs</param>
 		/// <remarks>The slave MMAT files will be added to the map</remarks>
 		protected void AddSlavesSubsets(Hashtable map, Hashtable fullmap)
-		{			
+		{
 			Hashtable slavemap = Scenegraph.GetSlaveSubsets(package);
 			Hashtable newmap = new Hashtable();
 
 			int ct = 0;
-			foreach (string k in map.Keys) 
+			foreach (string k in map.Keys)
 			{
 				if (!fullmap.ContainsKey(k))
-				if (slavemap.ContainsKey(k)) 
-				{
-					if (map.ContainsKey(k)) 
+					if (slavemap.ContainsKey(k))
 					{
-						ArrayList slaves = (ArrayList)slavemap[k];
-						Hashtable families = (Hashtable)map[k];
-						foreach (ArrayList list in families.Values) 
+						if (map.ContainsKey(k))
 						{
-							foreach (SimPe.Plugin.MmatWrapper mmat in list) 
+							ArrayList slaves = (ArrayList)slavemap[k];
+							Hashtable families = (Hashtable)map[k];
+							foreach (ArrayList list in families.Values)
 							{
-								foreach (string subset in slaves) 
+								foreach (SimPe.Plugin.MmatWrapper mmat in list)
 								{
-									ArrayList slavemmat = this.FindTxtrMatchingMmat(mmat, fullmap, subset);
-									if (slavemmat!=null) 
+									foreach (string subset in slaves)
 									{
-										Hashtable slaveht = new Hashtable();										
-										slaveht["simpe_slave_loader_"+subset+"-"+ct.ToString()] = slavemmat;
-										newmap[subset] = slaveht;
-										ct++;
-									}
-								} //foreach subset
-							} //foreach mmat
-						} //foreach list						
-					} //if (map.ContainsKey(k))
-				}
+										ArrayList slavemmat = this.FindTxtrMatchingMmat(mmat, fullmap, subset);
+										if (slavemmat!=null)
+										{
+											Hashtable slaveht = new Hashtable();
+											slaveht["simpe_slave_loader_"+subset+"-"+ct.ToString()] = slavemmat;
+											newmap[subset] = slaveht;
+											ct++;
+										}
+									} //foreach subset
+								} //foreach mmat
+							} //foreach list						
+						} //if (map.ContainsKey(k))
+					}
 			}
 
 			Hashtable nmap = new Hashtable();
@@ -356,23 +357,59 @@ namespace SimPe.Plugin
 		public void Create(IPackageFile newpkg)
 		{
 			WaitingScreen.Wait();
-			try 
+			try
 			{
 				//this.newpkg = newpkg;
 
 				WaitingScreen.UpdateMessage("Loading available Colour Options");
 				Hashtable fullmap = Scenegraph.GetMMATMap(package);
 				Hashtable map = fullmap;
-				ArrayList allowedSubsets = Scenegraph.GetRecolorableSubsets(package);
-                
+
+                // DEBUG: dump MMAT map for inspection
+                foreach (DictionaryEntry de in fullmap)
+                {
+                    string subset = (string)de.Key;
+                    Hashtable families = (Hashtable)de.Value;
+
+                    foreach (DictionaryEntry de2 in families)
+                    {
+                        string family = (string)de2.Key;
+                        ArrayList mmats = (ArrayList)de2.Value;
+
+                        foreach (SimPe.Plugin.MmatWrapper m in mmats)
+                        {
+                            Debug.WriteLine(
+                                $"[MMAT] subset={subset}, family={family}, model={m.ModelName}, name={m.Name}"
+                            );
+                        }
+                    }
+                }
+
+                // original code resumes here
+                ArrayList allowedSubsets = Scenegraph.GetRecolorableSubsets(package);
+
+				// FIX: ensure allowedSubsets covers all actual subsets in map
+				if (allowedSubsets == null || allowedSubsets.Count == 0)
+				{
+					allowedSubsets = new ArrayList(map.Keys);
+				}
+				else
+				{
+					foreach (string key in map.Keys)
+					{
+						if (!allowedSubsets.Contains(key))
+							allowedSubsets.Add(key);
+					}
+				}
+
 				//Check if the User can select a Subset
 				bool userselect = false;
 				if (map.Count>1) userselect = true;
-				else 
+				else
 				{
-					if (map.Count==1) 
+					if (map.Count==1)
 					{
-						foreach (string s in map.Keys) 
+						foreach (string s in map.Keys)
 						{
 							Hashtable ht = (Hashtable)map[s];
 							if (ht.Count>1) userselect = true;
@@ -381,15 +418,15 @@ namespace SimPe.Plugin
 				}
 
 				//let the user Select now					
-				if (userselect) 
+				if (userselect)
 					map = SubsetSelectForm.Execute(map, allowedSubsets);
-					
-				
-				
+
+
+
 				ProcessMmatMap(newpkg, map, fullmap);
-				
+
 			}
-			finally 
+			finally
 			{
 				WaitingScreen.Stop();
 			}
@@ -403,7 +440,7 @@ namespace SimPe.Plugin
 		public void Create(IPackageFile newpkg, CreateSelectionCallback fkt)
 		{
 			WaitingScreen.Wait();
-			try 
+			try
 			{
 				//this.newpkg = newpkg;
 
@@ -412,55 +449,70 @@ namespace SimPe.Plugin
 				Hashtable map = fullmap;
 				ArrayList allowedSubsets = Scenegraph.GetRecolorableSubsets(package);
 
-				//Check if the User can select a Subset
-				bool userselect = false;
-				if (map.Count>1) userselect = true;
-				else 
+				// FIX: ensure allowedSubsets covers all actual subsets present in map
+				if (allowedSubsets == null || allowedSubsets.Count == 0)
 				{
-					if (map.Count==1) 
+					// Scenegraph couldn’t determine anything – fall back to “all subsets that have MMATs”
+					allowedSubsets = new ArrayList(map.Keys);
+				}
+				else
+				{
+					// Merge: any subset that has entries in map but isn't in allowedSubsets gets added.
+					foreach (string key in map.Keys)
 					{
-						foreach (string s in map.Keys) 
-						{
-							Hashtable ht = (Hashtable)map[s];
-							if (ht.Count>1) userselect = true;
-						}
+						if (!allowedSubsets.Contains(key))
+							allowedSubsets.Add(key);
 					}
 				}
 
-				SubsetSelectForm ssf = SubsetSelectForm.Prepare(map, allowedSubsets);						
-				fkt(ssf, userselect, fullmap);				
+				//Check if the User can select a Subset
+				bool userselect = false;
+				if (map.Count > 1) userselect = true;
+				else if (map.Count == 1)
+				{
+					foreach (string s in map.Keys)
+					{
+						Hashtable ht = (Hashtable)map[s];
+						if (ht.Count > 1) userselect = true;
+					}
+
+				}
+
+				SubsetSelectForm ssf = SubsetSelectForm.Prepare(map, allowedSubsets);
+				fkt(ssf, userselect, fullmap);
 			}
-			finally 
+			finally
 			{
 				WaitingScreen.Stop();
 			}
-			return;
-			/*string[] subsets = GetSubsets();
-
-			//let the user Select
-			if ((subsets.Length>1) && (ask))
-			{
-				Listing l = new Listing();
-				subsets = l.Execute(subsets);
-			}
-
-			WaitingScreen.Wait();
-			WaitingScreen.UpdateMessage("Getting slave Subsets");
-			SubsetItem[] subsetsi = GetSlaveSubsets(subsets);
-
-			WaitingScreen.UpdateMessage("Getting Resource Nodes");
-			ArrayList cres = GetCresNames(subsetsi);
-
-			WaitingScreen.UpdateMessage("Getting Material Overrides");
-			Hashtable mmats = GetMMATs(subsetsi, cres);
-			ArrayList guids = GetGUIDs();
-
-			LoadSubSetList(mmats, guids, subsetsi);
-
-			WaitingScreen.UpdateMessage("Load LIFO Files");
-			GetLifoFiles();
-
-			WaitingScreen.Stop();*/
 		}
 	}
 }
+
+//Earlir recolor code for reference:
+/*string[] subsets = GetSubsets();
+
+//let the user Select
+if ((subsets.Length>1) && (ask))
+{
+    Listing l = new Listing();
+    subsets = l.Execute(subsets);
+}
+
+WaitingScreen.Wait();
+WaitingScreen.UpdateMessage("Getting slave Subsets");
+SubsetItem[] subsetsi = GetSlaveSubsets(subsets);
+
+WaitingScreen.UpdateMessage("Getting Resource Nodes");
+ArrayList cres = GetCresNames(subsetsi);
+
+WaitingScreen.UpdateMessage("Getting Material Overrides");
+Hashtable mmats = GetMMATs(subsetsi, cres);
+ArrayList guids = GetGUIDs();
+
+LoadSubSetList(mmats, guids, subsetsi);
+
+WaitingScreen.UpdateMessage("Load LIFO Files");
+GetLifoFiles();
+
+WaitingScreen.Stop();*/

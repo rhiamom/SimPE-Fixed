@@ -28,6 +28,7 @@ using SimPe.Interfaces;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces.Scenegraph;
 using SimPe.PackedFiles.Wrapper;
+using SimPe;
 
 namespace pjse.guidtool
 {
@@ -66,7 +67,8 @@ namespace pjse.guidtool
         {
             get
             {
-                return SimPe.GetIcon.pjSearch;
+                //return SimPe.GetIcon.pjSearch;
+                return LoadIcon.load(" ");
             }
         }
 	}

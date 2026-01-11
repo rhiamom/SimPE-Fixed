@@ -18,10 +18,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 using System;
-using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace SimPe.Plugin
 {
@@ -73,73 +74,74 @@ namespace SimPe.Plugin
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(SubsetSelectForm));
-			this.panel1 = new System.Windows.Forms.Panel();
-			this.cbauto = new System.Windows.Forms.CheckBox();
-			this.button1 = new System.Windows.Forms.Button();
-			this.pnselect = new System.Windows.Forms.Panel();
-			this.panel1.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// panel1
-			// 
-			this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.panel1.Controls.Add(this.cbauto);
-			this.panel1.Controls.Add(this.button1);
-			this.panel1.Controls.Add(this.pnselect);
-			this.panel1.Location = new System.Drawing.Point(0, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(536, 440);
-			this.panel1.TabIndex = 0;
-			// 
-			// cbauto
-			// 
-			this.cbauto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.cbauto.Checked = true;
-			this.cbauto.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbauto.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cbauto.Location = new System.Drawing.Point(8, 408);
-			this.cbauto.Name = "cbauto";
-			this.cbauto.Size = new System.Drawing.Size(240, 24);
-			this.cbauto.TabIndex = 3;
-			this.cbauto.Text = "Autoselect matching Textures";
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button1.Location = new System.Drawing.Point(456, 416);
-			this.button1.Name = "button1";
-			this.button1.TabIndex = 2;
-			this.button1.Text = "OK";
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// pnselect
-			// 
-			this.pnselect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.pnselect.AutoScroll = true;
-			this.pnselect.Location = new System.Drawing.Point(0, 0);
-			this.pnselect.Name = "pnselect";
-			this.pnselect.Size = new System.Drawing.Size(536, 408);
-			this.pnselect.TabIndex = 1;
-			// 
-			// SubsetSelectForm
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-			this.ClientSize = new System.Drawing.Size(544, 446);
-			this.Controls.Add(this.panel1);
-			this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "SubsetSelectForm";
-			this.Text = "Subset Selection";
-			this.Closing += new System.ComponentModel.CancelEventHandler(this.DoClosing);
-			this.panel1.ResumeLayout(false);
-			this.ResumeLayout(false);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubsetSelectForm));
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cbauto = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.pnselect = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cbauto);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.pnselect);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(532, 437);
+            this.panel1.TabIndex = 0;
+            // 
+            // cbauto
+            // 
+            this.cbauto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbauto.Checked = true;
+            this.cbauto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbauto.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbauto.Location = new System.Drawing.Point(12, 389);
+            this.cbauto.Name = "cbauto";
+            this.cbauto.Size = new System.Drawing.Size(360, 36);
+            this.cbauto.TabIndex = 3;
+            this.cbauto.Text = "Autoselect matching Textures";
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button1.Location = new System.Drawing.Point(412, 401);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 34);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "OK";
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // pnselect
+            // 
+            this.pnselect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnselect.AutoScroll = true;
+            this.pnselect.Location = new System.Drawing.Point(0, 0);
+            this.pnselect.Name = "pnselect";
+            this.pnselect.Size = new System.Drawing.Size(532, 389);
+            this.pnselect.TabIndex = 1;
+            // 
+            // SubsetSelectForm
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(9, 21);
+            this.ClientSize = new System.Drawing.Size(544, 446);
+            this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "SubsetSelectForm";
+            this.Text = "Subset Selection";
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.DoClosing);
+            this.panel1.ResumeLayout(false);
+            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -225,19 +227,11 @@ namespace SimPe.Plugin
 			GenericRcol txtr = mmat.TXTR;
 			if (txtr!=null) 
 			{
-                ImageData id = null;
-                foreach (object blk in txtr.Blocks)
-                {
-                    id = blk as ImageData;
-                    if (id != null) break;
-                }
+				ImageData id = (ImageData)txtr.Blocks[0];
+				MipMap mm = id.LargestTexture;
 
-                if (id != null)
-                {
-                    MipMap mm = id.LargestTexture;
-                    if (mm != null)
-                        return ImageLoader.Preview(mm.Texture, sz);
-                }		
+				if (mm!=null) 
+					return ImageLoader.Preview(mm.Texture, sz);					
 			}
 
 			return new Bitmap(sz.Width, sz.Height);
@@ -286,25 +280,19 @@ namespace SimPe.Plugin
 		}
 
 		Hashtable txmtnames;
-		/// <summary>
-		/// Add a New Item to the ListView
-		/// </summary>
-		/// <param name="lv">the list view you want to add the items to</param>
-		/// <param name="mmats">an array of MmatWraper Objects having all possible states</param>
-		protected void AddItem(ListView lv, ArrayList mmats) 
-		{
-			if (mmats.Count==0) return;
-				
+        /// <summary>
+        /// Add a New Item to the ListView
+        /// </summary>
+        /// <param name="lv">the list view you want to add the items to</param>
+        /// <param name="mmats">an array of MmatWraper Objects having all possible states</param>
+        protected void AddItem(ListView lv, ArrayList mmats)
+        {
+            if (mmats.Count == 0) return;
 
-			ListViewItem lvi = new ListViewItem();
-			GenericRcol txtr = ((SimPe.Plugin.MmatWrapper)mmats[0]).TXTR;
-			GenericRcol txmt = ((SimPe.Plugin.MmatWrapper)mmats[0]).TXMT;
-
-            System.Diagnostics.Debug.WriteLine("AddItem:");
-            System.Diagnostics.Debug.WriteLine("  TXMT = " + (txmt == null ? "NULL" : txmt.FileName));
-            System.Diagnostics.Debug.WriteLine("  TXTR = " + (txtr == null ? "NULL" : txtr.FileName));
-
-            if (txmt!=null) 
+            ListViewItem lvi = new ListViewItem();
+            GenericRcol txtr = ((SimPe.Plugin.MmatWrapper)mmats[0]).TXTR;
+            GenericRcol txmt = ((SimPe.Plugin.MmatWrapper)mmats[0]).TXMT;
+			if (txmt!=null) 
 			{
 				string txmtname = Hashes.StripHashFromName(txmt.FileName.Trim().ToLower());
 				if (!txmtnames.ContainsKey(txmtname)) 
@@ -336,56 +324,55 @@ namespace SimPe.Plugin
 			}
 		}
 
-		/// <summary>
-		/// Setup the Form
-		/// </summary>
-		/// <param name="map">The subset map</param>
-		/// <param name="subsets">the subsets you want to present</param>
-		/// <returns>Returns a New Instance of the selection Form</returns>
-		public static SubsetSelectForm Prepare(Hashtable map, ArrayList subsets) 
-		{
-			SubsetSelectForm ssf = new SubsetSelectForm();
-			ssf.listviews = new ArrayList();
-			ssf.txmtnames = new Hashtable();
-			WaitingScreen.Wait();
-			try 
-			{
-				WaitingScreen.UpdateMessage("Show Subset Selection");
-				ssf.button1.Enabled = false;
+        /// <summary>
+        /// Setup the Form
+        /// </summary>
+        /// <param name="map">The subset map</param>
+        /// <param name="subsets">the subsets you want to present</param>
+        /// <returns>Returns a New Instance of the selection Form</returns>
+        public static SubsetSelectForm Prepare(Hashtable map, ArrayList subsets)
+        {
+            SubsetSelectForm ssf = new SubsetSelectForm();
+            ssf.listviews = new ArrayList();
+            ssf.txmtnames = new Hashtable();
+            WaitingScreen.Wait();
+            try
+            {
+                WaitingScreen.UpdateMessage("Show Subset Selection");
+                ssf.button1.Enabled = false;
 
-				int top = 0;
-				foreach (string subset in map.Keys) 
-				{
-					if (!subsets.Contains(subset)) continue;
+                int top = 0;
 
-					ListView lv = ssf.AddSelection(ssf, subset, ref top);
-					Hashtable families = (Hashtable)map[subset];
-					foreach (string family in families.Keys) 
-					{
-						ArrayList mmats = (ArrayList)families[family];
-						mmats.Sort(new MmatListCompare());
-						ssf.AddItem(lv, mmats);
-					}	
-				
-					if (lv.Items.Count>0) lv.Items[0].Selected = true;
-				}
-				
-				
-			}
-			finally 
-			{
-				WaitingScreen.Stop();
-			}
-			
-			return ssf;
-		}
+                foreach (string subset in map.Keys)
+                {
+                    if (!subsets.Contains(subset)) continue;
 
-		/// <summary>
-		/// Builds a new Hashtable based on the Users Selection
-		/// </summary>
-		/// <param name="ssf">The Form that was used</param>
-		/// <returns>The new Hashtable</returns>
-		public static Hashtable Finish(SubsetSelectForm ssf) 
+                    ListView lv = ssf.AddSelection(ssf, subset, ref top);
+                    Hashtable families = (Hashtable)map[subset];
+                    foreach (string family in families.Keys)
+                    {
+                        ArrayList mmats = (ArrayList)families[family];
+                        mmats.Sort(new MmatListCompare());
+                        ssf.AddItem(lv, mmats);
+                    }
+
+                    if (lv.Items.Count > 0) lv.Items[0].Selected = true;
+                }
+            }
+            finally
+            {
+                WaitingScreen.Stop();
+            }
+
+            return ssf;
+        }
+
+        /// <summary>
+        /// Builds a new Hashtable based on the Users Selection
+        /// </summary>
+        /// <param name="ssf">The Form that was used</param>
+        /// <returns>The new Hashtable</returns>
+        public static Hashtable Finish(SubsetSelectForm ssf) 
 		{
 			//now rebuild the Hashtable with the stored Infos
 			Hashtable ret = new Hashtable();
@@ -412,7 +399,7 @@ namespace SimPe.Plugin
 		/// <param name="subsets">List of all Subsets you want to present</param>
 		/// <returns>the map with all the selected Items</returns>
 		public static Hashtable Execute(Hashtable map, ArrayList subsets) 
-		{			
+		{
 			SubsetSelectForm ssf = Prepare(map, subsets);			
 			ssf.ShowDialog();
 			return Finish(ssf);
