@@ -112,29 +112,29 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lv.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <metadata name="ilist.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="ilist.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ilist.ImageSize" type="System.Drawing.Size, System.Drawing">
     <value>133, 100</value>
   </data>
   <data name="lv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 8</value>
+    <value>12, 12</value>
   </data>
   <data name="lv.Size" type="System.Drawing.Size, System.Drawing">
-    <value>570, 440</value>
+    <value>433, 417</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="lv.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -142,7 +142,7 @@
     <value>lv</value>
   </data>
   <data name="&gt;&gt;lv.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lv.Parent" xml:space="preserve">
     <value>pnBoPeep</value>
@@ -163,10 +163,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnOpen.Location" type="System.Drawing.Point, System.Drawing">
-    <value>503, 454</value>
+    <value>332, 438</value>
   </data>
   <data name="btnOpen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>113, 35</value>
   </data>
   <data name="btnOpen.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -178,7 +178,7 @@
     <value>btnOpen</value>
   </data>
   <data name="&gt;&gt;btnOpen.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnOpen.Parent" xml:space="preserve">
     <value>pnBoPeep</value>
@@ -196,10 +196,10 @@
     <value>NoControl</value>
   </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 82</value>
+    <value>10, 123</value>
   </data>
   <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 23</value>
+    <value>234, 35</value>
   </data>
   <data name="button2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -211,7 +211,7 @@
     <value>button2</value>
   </data>
   <data name="&gt;&gt;button2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button2.Parent" xml:space="preserve">
     <value>pnBackup</value>
@@ -229,10 +229,10 @@
     <value>NoControl</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 53</value>
+    <value>10, 80</value>
   </data>
   <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 23</value>
+    <value>234, 34</value>
   </data>
   <data name="button3.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -244,7 +244,7 @@
     <value>button3</value>
   </data>
   <data name="&gt;&gt;button3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button3.Parent" xml:space="preserve">
     <value>pnBackup</value>
@@ -256,10 +256,10 @@
     <value>Top, Right</value>
   </data>
   <data name="pbox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>188, 54</value>
+    <value>282, 81</value>
   </data>
   <data name="pbox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 41</value>
+    <value>60, 61</value>
   </data>
   <data name="pbox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -268,7 +268,7 @@
     <value>pbox</value>
   </data>
   <data name="&gt;&gt;pbox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pbox.Parent" xml:space="preserve">
     <value>pnBackup</value>
@@ -276,66 +276,23 @@
   <data name="&gt;&gt;pbox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="pnBackup.HeaderText" xml:space="preserve">
-    <value>Backup</value>
-  </data>
-  <data name="pnBackup.Icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-        gg==
-</value>
-  </data>
   <data name="pnBackup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>584, 8</value>
+    <value>454, 12</value>
   </data>
   <data name="pnBackup.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 44, 4, 4</value>
   </data>
   <data name="pnBackup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 114</value>
+    <value>372, 171</value>
   </data>
   <data name="pnBackup.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="&gt;&gt;pnBackup.Name" xml:space="preserve">
     <value>pnBackup</value>
+  </data>
+  <data name="&gt;&gt;pnBackup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pnBackup.Parent" xml:space="preserve">
     <value>pnBoPeep</value>
@@ -347,10 +304,10 @@
     <value>Top, Right</value>
   </data>
   <data name="cbtypes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 67</value>
+    <value>10, 100</value>
   </data>
   <data name="cbtypes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 21</value>
+    <value>352, 28</value>
   </data>
   <data name="cbtypes.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -359,7 +316,7 @@
     <value>cbtypes</value>
   </data>
   <data name="&gt;&gt;cbtypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbtypes.Parent" xml:space="preserve">
     <value>pnOptions</value>
@@ -374,10 +331,10 @@
     <value>Verdana, 8.25pt, style=Bold</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 51</value>
+    <value>10, 76</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 13</value>
+    <value>173, 20</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -389,7 +346,7 @@
     <value>label1</value>
   </data>
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
     <value>pnOptions</value>
@@ -397,59 +354,23 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="pnOptions.HeaderText" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="pnOptions.Icon" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-</value>
-  </data>
   <data name="pnOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>584, 128</value>
+    <value>454, 192</value>
   </data>
   <data name="pnOptions.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 44, 4, 4</value>
   </data>
   <data name="pnOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 98</value>
+    <value>372, 147</value>
   </data>
   <data name="pnOptions.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="&gt;&gt;pnOptions.Name" xml:space="preserve">
     <value>pnOptions</value>
+  </data>
+  <data name="&gt;&gt;pnOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;pnOptions.Parent" xml:space="preserve">
     <value>pnBoPeep</value>
@@ -467,10 +388,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>422, 454</value>
+    <value>211, 438</value>
   </data>
   <data name="btnClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>113, 35</value>
   </data>
   <data name="btnClose.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -482,7 +403,7 @@
     <value>btnClose</value>
   </data>
   <data name="&gt;&gt;btnClose.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnClose.Parent" xml:space="preserve">
     <value>pnBoPeep</value>
@@ -508,17 +429,20 @@
   <data name="&gt;&gt;pnBoPeep.Name" xml:space="preserve">
     <value>pnBoPeep</value>
   </data>
+  <data name="&gt;&gt;pnBoPeep.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;pnBoPeep.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pnBoPeep.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleBaseSize" type="System.Drawing.Size, System.Drawing">
-    <value>6, 14</value>
+    <value>9, 21</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>844, 486</value>
@@ -804,12 +728,12 @@
     <value>ilist</value>
   </data>
   <data name="&gt;&gt;ilist.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>NeighborhoodForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

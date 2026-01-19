@@ -138,7 +138,7 @@ namespace SimPe
             waitControl1.Message = "";
             waitControl1.Visible = Helper.WindowsRegistry.ShowWaitBarPermanent;
             // Debug aid — useful when diagnosing game path / FileTable issues
-            System.Diagnostics.Debug.WriteLine("[SetupMainForm] GameRootPath = '" + (Helper.GameRootPath ?? "<null>") + "'");
+            //System.Diagnostics.Debug.WriteLine("[SetupMainForm] GameRootPath = '" + (Helper.GameRootPath ?? "<null>") + "'");
         }
 
         void LoadForm(object sender, System.EventArgs e)

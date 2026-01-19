@@ -80,7 +80,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HashTool.cs" />
-    <Compile Include="Neighborhood.cs">
+    <Compile Include="NeighborhoodForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NeighborhoodTool.cs" />
@@ -110,15 +110,16 @@
     <Compile Include="SurgeryTool.cs" />
     <EmbeddedResource Include="DownloadScan.resx" />
     <EmbeddedResource Include="Hash.resx" />
-    <EmbeddedResource Include="Neighborhood.de.resx" />
-    <EmbeddedResource Include="Neighborhood.en-US.resx" />
-    <EmbeddedResource Include="Neighborhood.fr.resx" />
-    <EmbeddedResource Include="Neighborhood.it.resx" />
-    <EmbeddedResource Include="Neighborhood.pl.resx" />
-    <EmbeddedResource Include="Neighborhood.resx">
+    <EmbeddedResource Include="NeighborhoodForm.de.resx" />
+    <EmbeddedResource Include="NeighborhoodForm.en-US.resx" />
+    <EmbeddedResource Include="NeighborhoodForm.fr.resx" />
+    <EmbeddedResource Include="NeighborhoodForm.it.resx" />
+    <EmbeddedResource Include="NeighborhoodForm.pl.resx" />
+    <EmbeddedResource Include="NeighborhoodForm.resx">
+		<LogicalName>SimPe.Plugin.NeighborhoodForm.resources</LogicalName>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Neighborhood.ru.resx" />
+    <EmbeddedResource Include="NeighborhoodForm.ru.resx" />
     <EmbeddedResource Include="NgbBackup.de.resx" />
     <EmbeddedResource Include="NgbBackup.es.resx" />
     <EmbeddedResource Include="NgbBackup.fr.resx" />

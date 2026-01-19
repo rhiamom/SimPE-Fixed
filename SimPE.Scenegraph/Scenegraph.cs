@@ -424,14 +424,14 @@ namespace SimPe.Plugin
 					SimPe.Plugin.MmatWrapper mmat = new MmatWrapper();
 					mmat.ProcessData(item.FileDescriptor, item.Package);
 
-                    System.Diagnostics.Debug.WriteLine("MMATCACHE: calling AddItem for " + pname + "  " + item.FileDescriptor);
+                    //System.Diagnostics.Debug.WriteLine("MMATCACHE: calling AddItem for " + pname + "  " + item.FileDescriptor);
                     cachefile.AddItem(mmat);
 					chgcache = true;
 				}
 			}
 			if (chgcache) SaveCache();
 
-            System.Diagnostics.Debug.WriteLine("MMATCACHE: containers=" + cachefile.Containers.Count + " modelMapCount=" + cachefile.ModelMap.Count + " defaultMapCount=" + cachefile.DefaultMap.Count);
+            //System.Diagnostics.Debug.WriteLine("MMATCACHE: containers=" + cachefile.Containers.Count + " modelMapCount=" + cachefile.ModelMap.Count + " defaultMapCount=" + cachefile.DefaultMap.Count);
 
             //collect a list of Default Material Override family values first
             if (onlydefault) 

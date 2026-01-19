@@ -38,7 +38,7 @@ namespace SimPe.PackedFiles.UserInterface
 			get 
 			{
 				return form.famiPanel;
-			}
+            }
 		}
 
 		public void UpdateGUI(SimPe.Interfaces.Plugin.IFileWrapper wrapper)
@@ -46,9 +46,9 @@ namespace SimPe.PackedFiles.UserInterface
             Wrapper.Fami fami = (Wrapper.Fami)wrapper;
             form.wrapper = fami;
             if (fami.FamiThumb != null)
-                form.pbImage.Image = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(fami.FamiThumb, form.pbImage.Size, 12, Color.FromArgb(90, Color.Black), SystemColors.ControlDarkDark, Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
+                form.pb.Image = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(fami.FamiThumb, form.pb.Size, 12, Color.FromArgb(90, Color.Black), SystemColors.ControlDarkDark, Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
             
-            else form.pbImage.Image = null;            
+            else form.pb.Image = null;            
 			form.tbname.Text = fami.Name;
 			form.tbmoney.Text = fami.Money.ToString();            
 			form.tbfamily.Text = fami.Friends.ToString();

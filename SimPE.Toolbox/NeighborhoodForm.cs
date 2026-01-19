@@ -95,16 +95,16 @@ namespace SimPe.Plugin
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.pnBackup = new System.Windows.Forms.Panel();
+            this.pbox = new System.Windows.Forms.PictureBox();
             this.pnOptions = new System.Windows.Forms.Panel();
             this.cbtypes = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.pnBoPeep = new System.Windows.Forms.Panel();
-            this.pbox = new System.Windows.Forms.PictureBox();
             this.pnBackup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
             this.pnOptions.SuspendLayout();
             this.pnBoPeep.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
             this.SuspendLayout();
             // 
             // lv
@@ -150,8 +150,13 @@ namespace SimPe.Plugin
             this.pnBackup.Controls.Add(this.pbox);
             this.pnBackup.Controls.Add(this.button3);
             this.pnBackup.Controls.Add(this.button2);
-            
             this.pnBackup.Name = "pnBackup";
+            // 
+            // pbox
+            // 
+            resources.ApplyResources(this.pbox, "pbox");
+            this.pbox.Name = "pbox";
+            this.pbox.TabStop = false;
             // 
             // pnOptions
             // 
@@ -159,7 +164,6 @@ namespace SimPe.Plugin
             this.pnOptions.BackColor = System.Drawing.Color.Transparent;
             this.pnOptions.Controls.Add(this.cbtypes);
             this.pnOptions.Controls.Add(this.label1);
-            
             this.pnOptions.Name = "pnOptions";
             // 
             // cbtypes
@@ -183,7 +187,6 @@ namespace SimPe.Plugin
             // pnBoPeep
             // 
             this.pnBoPeep.BackColor = System.Drawing.Color.Transparent;
-            
             this.pnBoPeep.Controls.Add(this.pnOptions);
             this.pnBoPeep.Controls.Add(this.btnClose);
             this.pnBoPeep.Controls.Add(this.btnOpen);
@@ -191,12 +194,6 @@ namespace SimPe.Plugin
             this.pnBoPeep.Controls.Add(this.pnBackup);
             resources.ApplyResources(this.pnBoPeep, "pnBoPeep");
             this.pnBoPeep.Name = "pnBoPeep";
-            // 
-            // pbox
-            // 
-            resources.ApplyResources(this.pbox, "pbox");
-            this.pbox.Name = "pbox";
-            this.pbox.TabStop = false;
             // 
             // NeighborhoodForm
             // 
@@ -209,10 +206,10 @@ namespace SimPe.Plugin
             this.MinimizeBox = false;
             this.Name = "NeighborhoodForm";
             this.pnBackup.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbox)).EndInit();
             this.pnOptions.ResumeLayout(false);
             this.pnOptions.PerformLayout();
             this.pnBoPeep.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbox)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -566,7 +563,12 @@ namespace SimPe.Plugin
         {
             btnOpen.Enabled = cbtypes.SelectedItem != null;
 
-            if (cbtypes.SelectedItem != null && lodesubs)
+            if (!lodesubs)
+                return;
+
+            Image newImg = null;
+
+            if (cbtypes.SelectedItem != null)
             {
                 ngbh = cbtypes.SelectedItem as NgbhType;
                 if (ngbh != null)
@@ -576,33 +578,44 @@ namespace SimPe.Plugin
                         System.IO.Path.GetFileNameWithoutExtension(ngbh.FileName) + ".png"
                     );
 
-                    Image img = null;
-
                     if (System.IO.File.Exists(name))
                     {
                         try
                         {
+                            // Optional: quick sanity check on file size (previews should not be enormous)
+                            var fi = new System.IO.FileInfo(name);
+                            if (fi.Length > 20 * 1024 * 1024) // 20MB cap - adjust if needed
+                                throw new Exception("Preview PNG is unexpectedly large: " + fi.Length);
+
                             using (System.IO.Stream st = System.IO.File.OpenRead(name))
+                            using (Image tmp = Image.FromStream(st, true, true))
                             {
-                                img = Image.FromStream(st);
+                                // Force full decode NOW (inside try/catch), and detach from the stream
+                                using (Bitmap bmp = new Bitmap(tmp))
+                                {
+                                    // Sanity check on dimensions
+                                    if (bmp.Width > 4096 || bmp.Height > 4096 || bmp.Width <= 0 || bmp.Height <= 0)
+                                        throw new Exception($"Preview PNG has invalid size {bmp.Width}x{bmp.Height}");
+
+                                    newImg = new Bitmap(bmp); // clone to keep after disposing bmp/tmp/stream
+                                }
                             }
                         }
                         catch
                         {
-                            // If loading fails, just leave img as null
+                            newImg = null;
                         }
                     }
-
-                    // Show the neighborhood preview image if found, otherwise clear it
-                    this.pnBoPeep.BackgroundImage = img;
                 }
             }
-            else if (lodesubs)
-            {
-                // No selection or not loading subhoods: clear any previous image
-                this.pnBoPeep.BackgroundImage = null;
-            }
+
+            // Dispose previous image to avoid leaks
+            Image oldImg = this.pnBoPeep.BackgroundImage;
+            //this.pnBoPeep.BackgroundImage = newImg;
+            if (oldImg != null && !object.ReferenceEquals(oldImg, newImg))
+                oldImg.Dispose();
         }
+
 
 
         private void SetSmilyIcon(string hapy)

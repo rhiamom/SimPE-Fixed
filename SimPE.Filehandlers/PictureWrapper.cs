@@ -20,6 +20,8 @@
 using System;
 using System.Drawing;
 using SimPe.Interfaces.Plugin;
+using System.Runtime.InteropServices;
+using System.Drawing.Imaging;
 
 namespace SimPe.PackedFiles.Wrapper
 {
@@ -43,27 +45,27 @@ namespace SimPe.PackedFiles.Wrapper
 				return image;
 			}
 		}
-		
+
 		#region IWrapper Member
 		protected override IWrapperInfo CreateWrapperInfo()
 		{
-			return  new AbstractWrapperInfo(
+			return new AbstractWrapperInfo(
 				"Picture Wrapper",
 				"Quaxi",
 				"---",
 				2,
 				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.pic.png"))
-				); 
+				);
 		}
 		#endregion
 
-		public static Image SetAlpha(Image img) 
+		public static Image SetAlpha(Image img)
 		{
 			Bitmap bmp = new Bitmap(img.Size.Width, img.Size.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-			for (int y=0; y<bmp.Size.Height; y++)
+			for (int y = 0; y<bmp.Size.Height; y++)
 			{
-				for (int x=0; x<bmp.Size.Width; x++)
+				for (int x = 0; x<bmp.Size.Width; x++)
 				{
 					Color basecol = ((Bitmap)img).GetPixel(x, y);
 					int a = 0xFF - ((basecol.R + basecol.G + basecol.B) / 3);
@@ -77,40 +79,52 @@ namespace SimPe.PackedFiles.Wrapper
 			return bmp;
 		}
 
-		protected bool DoLoad(System.IO.BinaryReader reader, bool errmsg)
-		{			
-			try 
-			{
-				image = System.Drawing.Image.FromStream(reader.BaseStream);
-				return true;
-			} 
-			catch (Exception)
-			{
-				try //Leaving the Booby in for later replacement with CSoil2
-				{
-					//image = booby.LoadTGAClass.LoadTGA(reader.BaseStream);
-					return true;
-				}
-				catch (Exception ex) 
-				{
-					if (errmsg) Helper.ExceptionMessage(Localization.Manager.GetString("errunsupportedimage"), ex);
-				}
-			}
+        protected bool DoLoad(System.IO.BinaryReader reader, bool errmsg)
+        {
+            long pos = reader.BaseStream.Position;
 
-			return false;
-		}
+            try
+            {
+                // First try normal GDI+ formats (PNG/JPG/BMP/etc.)
+                image = System.Drawing.Image.FromStream(reader.BaseStream);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                // Not a GDI+ format (often TGA). Rewind and try SOIL2.
+                reader.BaseStream.Position = pos;
 
-		#region AbstractWrapper Member
-		protected override IPackedFileUI CreateDefaultUIHandler()
+                byte[] bytes;
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    reader.BaseStream.CopyTo(ms);
+                    bytes = ms.ToArray();
+                }
+
+                image = TryLoadWithSoil2(bytes);   // <-- THIS is the DLL fallback call
+                return (image != null);
+            }
+            catch
+            {
+                // Anything else: treat as no image
+                reader.BaseStream.Position = pos;
+                image = null;
+                return false;
+            }
+        }
+
+
+        #region AbstractWrapper Member
+        protected override IPackedFileUI CreateDefaultUIHandler()
 		{
 			return new SimPe.PackedFiles.UserInterface.Picture();
 		}
 
-		public Picture() : base(){}
+		public Picture() : base() { }
 
 		protected override void Unserialize(System.IO.BinaryReader reader)
 		{
-			if (!this.DoLoad(reader, false)) 
+			if (!this.DoLoad(reader, false))
 			{
 				System.IO.BinaryReader br = new System.IO.BinaryReader(new System.IO.MemoryStream());
 				System.IO.BinaryWriter bw = new System.IO.BinaryWriter(br.BaseStream);
@@ -127,7 +141,7 @@ namespace SimPe.PackedFiles.Wrapper
 
 		public uint[] AssignableTypes
 		{
-			get 
+			get
 			{
 				uint[] Types = {
 					0x0C7E9A76, //jpeg
@@ -149,7 +163,7 @@ namespace SimPe.PackedFiles.Wrapper
 					0xCC48C51F,
 					0x8C3CE95A,
 					0xEC3126C4,
-                    0xF03D464C
+					0xF03D464C
 							   };
 				return Types;
 			}
@@ -157,7 +171,7 @@ namespace SimPe.PackedFiles.Wrapper
 
 		public Byte[] FileSignature
 		{
-			get 
+			get
 			{
 				return new Byte[0];
 			}
@@ -175,6 +189,75 @@ namespace SimPe.PackedFiles.Wrapper
 			base.Dispose();
 		}
 
-		#endregion
-	}
+        #endregion
+
+        [DllImport("soil2.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr SOIL_load_image_from_memory(
+			byte[] buffer, int bufferLength,
+			out int width, out int height, out int channels,
+			int forceChannels);
+
+        [DllImport("soil2.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SOIL_free_image_data(IntPtr imgData);
+
+        private const int SoilLoadRgba = 4; // Force RGBA output
+
+        private static Image TryLoadWithSoil2(byte[] bytes)
+        {
+            System.Diagnostics.Debug.WriteLine("TryLoadWithSoil2 called");
+            int w, h, ch;
+            IntPtr img = SOIL_load_image_from_memory(bytes, bytes.Length, out w, out h, out ch, SoilLoadRgba);
+            if (img == IntPtr.Zero || w <= 0 || h <= 0) return null;
+
+            try
+            {
+                int srcStride = w * 4;
+                byte[] rgba = new byte[srcStride * h];
+
+                // Copy native RGBA buffer into managed array
+                Marshal.Copy(img, rgba, 0, rgba.Length);
+
+                Bitmap bmp = new Bitmap(w, h, PixelFormat.Format32bppArgb);
+                Rectangle rect = new Rectangle(0, 0, w, h);
+                BitmapData data = bmp.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+
+                try
+                {
+                    int dstStride = data.Stride;
+                    byte[] bgra = new byte[dstStride * h];
+
+                    for (int y = 0; y < h; y++)
+                    {
+                        int srcRow = y * srcStride;
+                        int dstRow = y * dstStride;
+
+                        for (int x = 0; x < w; x++)
+                        {
+                            int si = srcRow + (x * 4);
+                            int di = dstRow + (x * 4);
+
+                            // RGBA -> BGRA
+                            bgra[di + 0] = rgba[si + 2]; // B
+                            bgra[di + 1] = rgba[si + 1]; // G
+                            bgra[di + 2] = rgba[si + 0]; // R
+                            bgra[di + 3] = rgba[si + 3]; // A
+                        }
+                    }
+
+                    Marshal.Copy(bgra, 0, data.Scan0, bgra.Length);
+                }
+                finally
+                {
+                    bmp.UnlockBits(data);
+                }
+
+                return bmp;
+            }
+            finally
+            {
+                SOIL_free_image_data(img);
+            }
+        }
+
+    }
 }
