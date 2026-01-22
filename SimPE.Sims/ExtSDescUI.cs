@@ -2,6 +2,9 @@
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
+ *   Copyright (C) 2025 by GramzeSweatShop                                 *
+ *   rhiamom@mac.com                                                       *
+ *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -17,6 +20,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -512,7 +516,7 @@ namespace SimPe.PackedFiles.UserInterface
 					img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(sdesc.Image, new Point(0,0), Color.Magenta);
 
 			if (img == null)
-				img = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.noone.png"));
+				img = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
 
 			img = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, pbImage.Size, 12, Color.FromArgb(90, Color.Black), SimPe.PackedFiles.Wrapper.SimPoolControl.GetImagePanelColor(Sdesc), Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
 			this.pbImage.Image = img;
@@ -1238,27 +1242,57 @@ namespace SimPe.PackedFiles.UserInterface
 		#region Relations
 		bool loadedRel;
 		SimPe.Interfaces.Files.IPackageFile lastpkg;
-		private void pnRel_VisibleChanged(object sender, System.EventArgs e)
-		{
-			if (pnRel.Visible) 
-			{
-				if (lastpkg==null) LoadRelList();
-				else if (!lastpkg.Equals(Sdesc.Package)) LoadRelList();
-				else if (!loadedRel) UpdateRelList();
-				
-				lastpkg = Sdesc.Package;
-			}
-		}	
-	
-		void LoadRelList()
-		{
-            lv.Sim = Sdesc; 
-            if (Sdesc == null) lv.Package = null;
-            else lv.Package = Sdesc.Package;
+        private void pnRel_VisibleChanged(object sender, System.EventArgs e)
+        {
+            if (!pnRel.Visible) return;
+            if (Sdesc == null) return;
+
+            // If the neighborhood package changed, reload the relation control’s content
+            if (lastpkg == null || !lastpkg.Equals(Sdesc.Package))
+            {
+                LoadRelList(); // (your existing method)
+            }
+            else
+            {
+                // Same package, but ALWAYS rebind to the current sim
+                lv.Sim = Sdesc;
+            }
+
+            // Force the household dropdown to the currently selected sim’s household
+            // (otherwise SimPoolControl defaults to the provider's "current"/first household, e.g. Burb)
+            lv.SelectHousehold(Sdesc.HouseholdName);
+
+            // Now build the list immediately (don’t wait for dropdown events)
+            lv.UpdateSimList();
+
+            lastpkg = Sdesc.Package;
+            loadedRel = true;
+        }
+
+
+
+        void LoadRelList()
+        {
+            if (Sdesc == null)
+            {
+                lv.Package = null;
+                lv.Sim = null;
+                return;
+            }
+
+            lv.Package = Sdesc.Package;
+            lv.Sim = Sdesc;
+
+            // Force initial population (otherwise it waits for the dropdown event)
+            lv.UpdateSimList();
+
+            // Optional: default the dropdown to the current sim’s household
+            // lv.SelectHousehold(Sdesc.HouseholdName);
+
             ResetLabel();
             loadedRel = true;
-            
-			/*lv.BeginUpdate();
+
+            /*lv.BeginUpdate();
 			Wait.SubStart(FileTable.ProviderRegistry.SimDescriptionProvider.SimGuidMap.Count);
 			Wait.Message = "Loading Relations";
 			lv.Clear();	
@@ -1288,7 +1322,7 @@ namespace SimPe.PackedFiles.UserInterface
 			ResetLabel();
 			loadedRel = true;
 			lv.Sort();*/
-		}
+        }
 
 		void UpdateRelList()
 		{

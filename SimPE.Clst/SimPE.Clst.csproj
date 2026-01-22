@@ -101,15 +101,28 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="StrForm.de.resx" />
-    <EmbeddedResource Include="StrForm.es.resx" />
-    <EmbeddedResource Include="StrForm.fr.resx" />
-    <EmbeddedResource Include="StrForm.it.resx" />
-    <EmbeddedResource Include="StrForm.pl.resx" />
+    <EmbeddedResource Include="StrForm.de.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StrForm.es.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StrForm.fr.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StrForm.it.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StrForm.pl.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StrForm.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>StrForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StrForm.ru.resx" />
+    <EmbeddedResource Include="StrForm.ru.resx">
+      <DependentUpon>StrForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StrListViewer.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

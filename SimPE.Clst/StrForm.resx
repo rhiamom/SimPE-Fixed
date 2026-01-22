@@ -112,12 +112,12 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="strPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -127,14 +127,14 @@
   <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>570, 60</value>
+    <value>912, 88</value>
   </data>
   <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>120, 33</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="button2.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
@@ -145,7 +145,7 @@
     <value>button2</value>
   </data>
   <data name="&gt;&gt;button2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button2.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -163,10 +163,10 @@
     <value>NoControl</value>
   </data>
   <data name="btcommit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>768, 64</value>
+    <value>1229, 94</value>
   </data>
   <data name="btcommit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 23</value>
+    <value>141, 33</value>
   </data>
   <data name="btcommit.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -178,7 +178,7 @@
     <value>btcommit</value>
   </data>
   <data name="&gt;&gt;btcommit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btcommit.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -187,13 +187,13 @@
     <value>1</value>
   </data>
   <data name="cblanguage.ItemHeight" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>20</value>
   </data>
   <data name="cblanguage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 61</value>
+    <value>141, 89</value>
   </data>
   <data name="cblanguage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>304, 21</value>
+    <value>486, 28</value>
   </data>
   <data name="cblanguage.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -202,7 +202,7 @@
     <value>cblanguage</value>
   </data>
   <data name="&gt;&gt;cblanguage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cblanguage.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -220,10 +220,10 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 64</value>
+    <value>22, 94</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 13</value>
+    <value>108, 20</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -235,7 +235,7 @@
     <value>label4</value>
   </data>
   <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label4.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -262,10 +262,10 @@
     <value>0, 6</value>
   </data>
   <data name="lldelall.Location" type="System.Drawing.Point, System.Drawing">
-    <value>264, 192</value>
+    <value>426, 282</value>
   </data>
   <data name="lldelall.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 18</value>
+    <value>118, 26</value>
   </data>
   <data name="lldelall.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -277,7 +277,7 @@
     <value>lldelall</value>
   </data>
   <data name="&gt;&gt;lldelall.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lldelall.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -295,10 +295,10 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>144, 187</value>
+    <value>234, 275</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>120, 34</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -310,7 +310,7 @@
     <value>button1</value>
   </data>
   <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;button1.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -334,10 +334,10 @@
     <value>0, 7</value>
   </data>
   <data name="lldelete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>264, 176</value>
+    <value>426, 259</value>
   </data>
   <data name="lldelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 18</value>
+    <value>65, 26</value>
   </data>
   <data name="lldelete.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -349,7 +349,7 @@
     <value>lldelete</value>
   </data>
   <data name="&gt;&gt;lldelete.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lldelete.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -373,10 +373,10 @@
     <value>0, 6</value>
   </data>
   <data name="llchangeall.Location" type="System.Drawing.Point, System.Drawing">
-    <value>472, 192</value>
+    <value>759, 282</value>
   </data>
   <data name="llchangeall.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 18</value>
+    <value>127, 26</value>
   </data>
   <data name="llchangeall.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -388,7 +388,7 @@
     <value>llchangeall</value>
   </data>
   <data name="&gt;&gt;llchangeall.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;llchangeall.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -412,10 +412,10 @@
     <value>0, 3</value>
   </data>
   <data name="lladdall.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 192</value>
+    <value>606, 282</value>
   </data>
   <data name="lladdall.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 18</value>
+    <value>95, 26</value>
   </data>
   <data name="lladdall.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -427,7 +427,7 @@
     <value>lladdall</value>
   </data>
   <data name="&gt;&gt;lladdall.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lladdall.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -451,10 +451,10 @@
     <value>0, 9</value>
   </data>
   <data name="lladd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 176</value>
+    <value>606, 259</value>
   </data>
   <data name="lladd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 18</value>
+    <value>41, 26</value>
   </data>
   <data name="lladd.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -466,7 +466,7 @@
     <value>lladd</value>
   </data>
   <data name="&gt;&gt;lladd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lladd.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -490,10 +490,10 @@
     <value>0, 6</value>
   </data>
   <data name="llcommit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>472, 176</value>
+    <value>759, 259</value>
   </data>
   <data name="llcommit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 13</value>
+    <value>77, 20</value>
   </data>
   <data name="llcommit.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -508,7 +508,7 @@
     <value>llcommit</value>
   </data>
   <data name="&gt;&gt;llcommit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;llcommit.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -520,10 +520,10 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="rtbdesc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 120</value>
+    <value>26, 175</value>
   </data>
   <data name="rtbdesc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>544, 48</value>
+    <value>874, 72</value>
   </data>
   <data name="rtbdesc.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -531,11 +531,29 @@
   <data name="rtbdesc.Text" xml:space="preserve">
     <value />
   </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleBaseSize" type="System.Drawing.Size, System.Drawing">
+    <value>8, 19</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1533, 629</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>StrForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>StrForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;rtbdesc.Name" xml:space="preserve">
     <value>rtbdesc</value>
   </data>
   <data name="&gt;&gt;rtbdesc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;rtbdesc.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -547,10 +565,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="rtbvalue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 40</value>
+    <value>26, 58</value>
   </data>
   <data name="rtbvalue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>544, 56</value>
+    <value>874, 82</value>
   </data>
   <data name="rtbvalue.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -562,7 +580,7 @@
     <value>rtbvalue</value>
   </data>
   <data name="&gt;&gt;rtbvalue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;rtbvalue.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -577,10 +595,10 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 104</value>
+    <value>13, 152</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
+    <value>114, 20</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -592,7 +610,7 @@
     <value>label3</value>
   </data>
   <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -607,10 +625,10 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 24</value>
+    <value>13, 35</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 13</value>
+    <value>64, 20</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -622,7 +640,7 @@
     <value>label2</value>
   </data>
   <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
     <value>gbstr</value>
@@ -637,10 +655,10 @@
     <value>Verdana, 8.25pt</value>
   </data>
   <data name="gbstr.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 17</value>
+    <value>425, 24</value>
   </data>
   <data name="gbstr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>570, 212</value>
+    <value>916, 312</value>
   </data>
   <data name="gbstr.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -649,7 +667,7 @@
     <value>gbstr</value>
   </data>
   <data name="&gt;&gt;gbstr.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gbstr.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -661,10 +679,10 @@
     <value>NoControl</value>
   </data>
   <data name="splitter1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>264, 17</value>
+    <value>420, 24</value>
   </data>
   <data name="splitter1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>3, 212</value>
+    <value>5, 312</value>
   </data>
   <data name="splitter1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -673,7 +691,7 @@
     <value>splitter1</value>
   </data>
   <data name="&gt;&gt;splitter1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Splitter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Splitter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;splitter1.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -690,11 +708,14 @@
   <data name="lbtexts.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="lbtexts.ItemHeight" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
   <data name="lbtexts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 8</value>
+    <value>13, 12</value>
   </data>
   <data name="lbtexts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>248, 200</value>
+    <value>397, 294</value>
   </data>
   <data name="lbtexts.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -703,7 +724,7 @@
     <value>lbtexts</value>
   </data>
   <data name="&gt;&gt;lbtexts.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbtexts.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -715,10 +736,10 @@
     <value>Left</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 17</value>
+    <value>3, 24</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>261, 212</value>
+    <value>417, 312</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -727,7 +748,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -739,10 +760,10 @@
     <value>Verdana, 8.25pt, style=Bold</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 88</value>
+    <value>26, 129</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>840, 232</value>
+    <value>1344, 339</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -754,7 +775,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -763,10 +784,10 @@
     <value>4</value>
   </data>
   <data name="tbformat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 32</value>
+    <value>141, 47</value>
   </data>
   <data name="tbformat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 21</value>
+    <value>141, 28</value>
   </data>
   <data name="tbformat.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -775,7 +796,7 @@
     <value>tbformat</value>
   </data>
   <data name="&gt;&gt;tbformat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbformat.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -793,10 +814,10 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 40</value>
+    <value>50, 58</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
+    <value>84, 20</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -808,7 +829,7 @@
     <value>label1</value>
   </data>
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -822,9 +843,6 @@
   <data name="panel2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Verdana, 9.75pt, style=Bold</value>
   </data>
-  <data name="panel2.HeaderText" xml:space="preserve">
-    <value>Text Resource Editor</value>
-  </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -832,13 +850,16 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>864, 24</value>
+    <value>1382, 35</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="&gt;&gt;panel2.Name" xml:space="preserve">
     <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -859,10 +880,10 @@
     <value>0, 7</value>
   </data>
   <data name="llcreate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>289, 40</value>
+    <value>462, 58</value>
   </data>
   <data name="llcreate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 18</value>
+    <value>154, 26</value>
   </data>
   <data name="llcreate.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -874,7 +895,7 @@
     <value>llcreate</value>
   </data>
   <data name="&gt;&gt;llcreate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;llcreate.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -895,10 +916,10 @@
     <value>11, 9</value>
   </data>
   <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>400, 60</value>
+    <value>640, 88</value>
   </data>
   <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 18</value>
+    <value>202, 26</value>
   </data>
   <data name="linkLabel1.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -910,7 +931,7 @@
     <value>linkLabel1</value>
   </data>
   <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
     <value>strPanel</value>
@@ -922,10 +943,10 @@
     <value>Verdana, 8.25pt</value>
   </data>
   <data name="strPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 32</value>
+    <value>125, 47</value>
   </data>
   <data name="strPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>864, 328</value>
+    <value>1382, 479</value>
   </data>
   <data name="strPanel.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -933,28 +954,13 @@
   <data name="&gt;&gt;strPanel.Name" xml:space="preserve">
     <value>strPanel</value>
   </data>
+  <data name="&gt;&gt;strPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;strPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;strPanel.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleBaseSize" type="System.Drawing.Size, System.Drawing">
-    <value>5, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>896, 366</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>StrForm</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>StrForm</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

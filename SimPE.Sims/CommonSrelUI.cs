@@ -118,8 +118,8 @@ namespace SimPe.PackedFiles.UserInterface
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label91 = new System.Windows.Forms.Label();
             this.cbfamtype = new System.Windows.Forms.ComboBox();
-            this.pbDay = new LabeledProgressBar();
-            this.pbLife = new LabeledProgressBar();
+            this.pbDay = new Ambertation.Windows.Forms.LabeledProgressBar();
+            this.pbLife = new Ambertation.Windows.Forms.LabeledProgressBar();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cbsecret = new System.Windows.Forms.CheckBox();
             this.cbcrush = new System.Windows.Forms.CheckBox();
@@ -173,16 +173,15 @@ namespace SimPe.PackedFiles.UserInterface
             resources.ApplyResources(this.pbDay, "pbDay");
             this.pbDay.BackColor = System.Drawing.Color.Transparent;
             this.pbDay.DisplayOffset = 0;
-            
+            this.pbDay.LabelText = "N0";
             this.pbDay.Maximum = 200;
+            this.pbDay.Minimum = 0;
             this.pbDay.Name = "pbDay";
             this.pbDay.NumberFormat = "N0";
             this.pbDay.NumberOffset = -100;
-            this.pbDay.NumberScale = 1;
-            
+            this.pbDay.NumberScale = 1D;
             this.pbDay.SelectedColor = System.Drawing.Color.Lime;
-            
-            
+            this.pbDay.Style = Ambertation.Windows.Forms.ProgresBarStyle.Normal;
             this.pbDay.TokenCount = 30;
             this.pbDay.UnselectedColor = System.Drawing.Color.Black;
             this.pbDay.Value = 90;
@@ -193,16 +192,15 @@ namespace SimPe.PackedFiles.UserInterface
             resources.ApplyResources(this.pbLife, "pbLife");
             this.pbLife.BackColor = System.Drawing.Color.Transparent;
             this.pbLife.DisplayOffset = 0;
-            
+            this.pbLife.LabelText = "N0";
             this.pbLife.Maximum = 200;
+            this.pbLife.Minimum = 0;
             this.pbLife.Name = "pbLife";
             this.pbLife.NumberFormat = "N0";
             this.pbLife.NumberOffset = -100;
-            this.pbLife.NumberScale = 1;
-            
+            this.pbLife.NumberScale = 1D;
             this.pbLife.SelectedColor = System.Drawing.Color.Lime;
-            
-            
+            this.pbLife.Style = Ambertation.Windows.Forms.ProgresBarStyle.Normal;
             this.pbLife.TokenCount = 30;
             this.pbLife.UnselectedColor = System.Drawing.Color.Black;
             this.pbLife.Value = 90;

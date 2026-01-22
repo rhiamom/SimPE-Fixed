@@ -140,12 +140,10 @@ namespace SimPe.PackedFiles.Wrapper
 
 			if (imgbig != null) imgbig = Ambertation.Drawing.GraphicRoutines.KnockoutImage(imgbig, new Point(0, 0), Color.Magenta);
 			else
-				imgbig = Image.FromStream(
-					typeof(SimListView).Assembly.GetManifestResourceStream(
-						"SimPe.PackedFiles.Wrapper.noone.png"
-					)
-				);
-
+			{
+				var asm = typeof(SimPe.Helper).Assembly;
+				imgbig = Image.FromStream(asm.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
+			}
             imgbig = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(
                 imgbig,
                 ICON_SIZE,

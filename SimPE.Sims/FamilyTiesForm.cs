@@ -198,7 +198,7 @@ namespace SimPe.PackedFiles.UserInterface
             // xpLine1
             // 
             resources.ApplyResources(this.xpLine1, "xpLine1");
-            this.xpLine1.BackColor = System.Drawing.Color.Transparent;
+            //this.xpLine1.BackColor = System.Drawing.Color.Transparent;
             this.xpLine1.MinimumSize = new System.Drawing.Size(4, 4);
             this.xpLine1.Name = "xpLine1";
             // 

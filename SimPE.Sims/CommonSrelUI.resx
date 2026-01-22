@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="flowLayoutPanel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="flowLayoutPanel2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -143,7 +143,7 @@
   <data name="label91.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label91.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9pt</value>
   </data>
@@ -157,7 +157,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="label91.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 14</value>
+    <value>124, 22</value>
   </data>
   <data name="label91.TabIndex" type="System.Int32, mscorlib">
     <value>47</value>
@@ -172,7 +172,7 @@
     <value>label91</value>
   </data>
   <data name="&gt;&gt;label91.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label91.Parent" xml:space="preserve">
     <value>flowLayoutPanel1</value>
@@ -187,16 +187,16 @@
     <value>Tahoma, 8.25pt</value>
   </data>
   <data name="cbfamtype.ItemHeight" type="System.Int32, mscorlib">
-    <value>13</value>
+    <value>21</value>
   </data>
   <data name="cbfamtype.Location" type="System.Drawing.Point, System.Drawing">
-    <value>86, 0</value>
+    <value>124, 0</value>
   </data>
   <data name="cbfamtype.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbfamtype.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 21</value>
+    <value>240, 29</value>
   </data>
   <data name="cbfamtype.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -205,7 +205,7 @@
     <value>cbfamtype</value>
   </data>
   <data name="&gt;&gt;cbfamtype.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbfamtype.Parent" xml:space="preserve">
     <value>flowLayoutPanel1</value>
@@ -223,7 +223,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 20</value>
+    <value>416, 29</value>
   </data>
   <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -232,7 +232,7 @@
     <value>flowLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;flowLayoutPanel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;flowLayoutPanel1.Parent" xml:space="preserve">
     <value>flowLayoutPanel2</value>
@@ -246,17 +246,8 @@
   <data name="pbDay.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9pt</value>
   </data>
-  <data name="pbDay.LabelFont" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt, style=Bold</value>
-  </data>
-  <data name="pbDay.LabelText" xml:space="preserve">
-    <value>Daily:</value>
-  </data>
-  <data name="pbDay.LabelWidth" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
   <data name="pbDay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 23</value>
+    <value>3, 32</value>
   </data>
   <data name="pbDay.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -265,16 +256,16 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="pbDay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 27</value>
+    <value>416, 27</value>
   </data>
   <data name="pbDay.TabIndex" type="System.Int32, mscorlib">
     <value>53</value>
   </data>
-  <data name="pbDay.TextboxWidth" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
   <data name="&gt;&gt;pbDay.Name" xml:space="preserve">
     <value>pbDay</value>
+  </data>
+  <data name="&gt;&gt;pbDay.Type" xml:space="preserve">
+    <value>Ambertation.Windows.Forms.LabeledProgressBar, simpe.graphcontrol, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pbDay.Parent" xml:space="preserve">
     <value>flowLayoutPanel2</value>
@@ -288,17 +279,8 @@
   <data name="pbLife.Font" type="System.Drawing.Font, System.Drawing">
     <value>Tahoma, 9pt</value>
   </data>
-  <data name="pbLife.LabelFont" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 8.25pt, style=Bold</value>
-  </data>
-  <data name="pbLife.LabelText" xml:space="preserve">
-    <value>Lifetime:</value>
-  </data>
-  <data name="pbLife.LabelWidth" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
   <data name="pbLife.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 50</value>
+    <value>3, 59</value>
   </data>
   <data name="pbLife.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -307,16 +289,16 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="pbLife.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 27</value>
+    <value>416, 27</value>
   </data>
   <data name="pbLife.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
   </data>
-  <data name="pbLife.TextboxWidth" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
   <data name="&gt;&gt;pbLife.Name" xml:space="preserve">
     <value>pbLife</value>
+  </data>
+  <data name="&gt;&gt;pbLife.Type" xml:space="preserve">
+    <value>Ambertation.Windows.Forms.LabeledProgressBar, simpe.graphcontrol, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;pbLife.Parent" xml:space="preserve">
     <value>flowLayoutPanel2</value>
@@ -352,7 +334,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbsecret.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 18</value>
+    <value>84, 20</value>
   </data>
   <data name="cbsecret.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -364,7 +346,7 @@
     <value>cbsecret</value>
   </data>
   <data name="&gt;&gt;cbsecret.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbsecret.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -388,7 +370,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbcrush.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 18</value>
+    <value>81, 20</value>
   </data>
   <data name="cbcrush.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -400,7 +382,7 @@
     <value>cbcrush</value>
   </data>
   <data name="&gt;&gt;cbcrush.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbcrush.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -424,7 +406,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbfriend.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 18</value>
+    <value>92, 20</value>
   </data>
   <data name="cbfriend.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -436,7 +418,7 @@
     <value>cbfriend</value>
   </data>
   <data name="&gt;&gt;cbfriend.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbfriend.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -463,7 +445,7 @@
     <value>No</value>
   </data>
   <data name="cbsteady.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 18</value>
+    <value>89, 20</value>
   </data>
   <data name="cbsteady.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -475,7 +457,7 @@
     <value>cbsteady</value>
   </data>
   <data name="&gt;&gt;cbsteady.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbsteady.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -493,13 +475,13 @@
     <value>NoControl</value>
   </data>
   <data name="cblove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 0</value>
+    <value>104, 0</value>
   </data>
   <data name="cblove.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cblove.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 18</value>
+    <value>73, 20</value>
   </data>
   <data name="cblove.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -511,7 +493,7 @@
     <value>cblove</value>
   </data>
   <data name="&gt;&gt;cblove.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cblove.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -529,13 +511,13 @@
     <value>NoControl</value>
   </data>
   <data name="cbbuddie.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 20</value>
+    <value>104, 20</value>
   </data>
   <data name="cbbuddie.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbbuddie.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 18</value>
+    <value>98, 20</value>
   </data>
   <data name="cbbuddie.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -547,7 +529,7 @@
     <value>cbbuddie</value>
   </data>
   <data name="&gt;&gt;cbbuddie.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbbuddie.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -565,13 +547,13 @@
     <value>NoControl</value>
   </data>
   <data name="cbfamily.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 40</value>
+    <value>104, 40</value>
   </data>
   <data name="cbfamily.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbfamily.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 18</value>
+    <value>86, 20</value>
   </data>
   <data name="cbfamily.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -583,7 +565,7 @@
     <value>cbfamily</value>
   </data>
   <data name="&gt;&gt;cbfamily.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbfamily.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -601,13 +583,13 @@
     <value>NoControl</value>
   </data>
   <data name="cbengaged.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 0</value>
+    <value>208, 0</value>
   </data>
   <data name="cbengaged.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbengaged.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 18</value>
+    <value>104, 20</value>
   </data>
   <data name="cbengaged.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -619,7 +601,7 @@
     <value>cbengaged</value>
   </data>
   <data name="&gt;&gt;cbengaged.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbengaged.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -637,13 +619,13 @@
     <value>NoControl</value>
   </data>
   <data name="cbbest.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 20</value>
+    <value>208, 20</value>
   </data>
   <data name="cbbest.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbbest.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 18</value>
+    <value>90, 20</value>
   </data>
   <data name="cbbest.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
@@ -655,7 +637,7 @@
     <value>cbbest</value>
   </data>
   <data name="&gt;&gt;cbbest.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbbest.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -673,13 +655,13 @@
     <value>NoControl</value>
   </data>
   <data name="cbenemy.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 40</value>
+    <value>208, 40</value>
   </data>
   <data name="cbenemy.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbenemy.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 18</value>
+    <value>89, 20</value>
   </data>
   <data name="cbenemy.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
@@ -691,7 +673,7 @@
     <value>cbenemy</value>
   </data>
   <data name="&gt;&gt;cbenemy.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbenemy.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -709,13 +691,13 @@
     <value>NoControl</value>
   </data>
   <data name="cbmarried.Location" type="System.Drawing.Point, System.Drawing">
-    <value>252, 0</value>
+    <value>312, 0</value>
   </data>
   <data name="cbmarried.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbmarried.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 18</value>
+    <value>94, 20</value>
   </data>
   <data name="cbmarried.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -727,7 +709,7 @@
     <value>cbmarried</value>
   </data>
   <data name="&gt;&gt;cbmarried.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbmarried.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -745,13 +727,13 @@
     <value>NoControl</value>
   </data>
   <data name="cbBFF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>252, 20</value>
+    <value>312, 20</value>
   </data>
   <data name="cbBFF.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbBFF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 18</value>
+    <value>65, 20</value>
   </data>
   <data name="cbBFF.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -763,7 +745,7 @@
     <value>cbBFF</value>
   </data>
   <data name="&gt;&gt;cbBFF.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbBFF.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -775,10 +757,10 @@
     <value>Tahoma, 7.8pt</value>
   </data>
   <data name="tbRel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>255, 63</value>
+    <value>315, 63</value>
   </data>
   <data name="tbRel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
+    <value>78, 19</value>
   </data>
   <data name="tbRel.TabIndex" type="System.Int32, mscorlib">
     <value>50</value>
@@ -796,7 +778,7 @@
     <value>tbRel</value>
   </data>
   <data name="&gt;&gt;tbRel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbRel.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -814,13 +796,13 @@
     <value>NoControl</value>
   </data>
   <data name="cbplatonic.Location" type="System.Drawing.Point, System.Drawing">
-    <value>252, 40</value>
+    <value>312, 40</value>
   </data>
   <data name="cbplatonic.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="cbplatonic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 18</value>
+    <value>97, 20</value>
   </data>
   <data name="cbplatonic.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
@@ -832,7 +814,7 @@
     <value>cbplatonic</value>
   </data>
   <data name="&gt;&gt;cbplatonic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cbplatonic.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -844,7 +826,7 @@
     <value>Microsoft Sans Serif, 6pt</value>
   </data>
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 77</value>
+    <value>3, 86</value>
   </data>
   <data name="tableLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -853,7 +835,7 @@
     <value>4</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>336, 80</value>
+    <value>416, 80</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>55</value>
@@ -862,7 +844,7 @@
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
     <value>flowLayoutPanel2</value>
@@ -889,7 +871,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="flowLayoutPanel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 160</value>
+    <value>422, 169</value>
   </data>
   <data name="flowLayoutPanel2.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -898,7 +880,7 @@
     <value>flowLayoutPanel2</value>
   </data>
   <data name="&gt;&gt;flowLayoutPanel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;flowLayoutPanel2.Parent" xml:space="preserve">
     <value>$this</value>
@@ -906,7 +888,7 @@
   <data name="&gt;&gt;flowLayoutPanel2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoSize" type="System.Boolean, mscorlib">
@@ -916,12 +898,12 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 160</value>
+    <value>342, 169</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>CommonSrel</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

@@ -34,30 +34,38 @@ namespace Ambertation.Windows.Forms
     /// </summary>
     public class LabeledProgressBar : Panel
     {
-        private readonly Label label;
+        private readonly Label captionLabel;
+        private readonly Label valueLabel;
         private readonly ProgressBar bar;
 
         public LabeledProgressBar()
         {
-            label = new Label();
+            captionLabel = new Label();
+            valueLabel = new Label();
             bar = new ProgressBar();
 
-            label.AutoSize = true;
-            label.Dock = DockStyle.Top;
+            captionLabel.AutoSize = true;
+            captionLabel.Dock = DockStyle.Left;
+            captionLabel.TextAlign = ContentAlignment.MiddleLeft;
+
+            valueLabel.AutoSize = true;
+            valueLabel.Dock = DockStyle.Right;
+            valueLabel.TextAlign = ContentAlignment.MiddleRight;
 
             bar.Dock = DockStyle.Fill;
 
+            // order matters with Dock: add Fill first, then the sides
             Controls.Add(bar);
-            Controls.Add(label);
+            Controls.Add(valueLabel);
+            Controls.Add(captionLabel);
 
             // Default values
             DisplayOffset = 0;
-            NumberScale = 0;
+            NumberScale = 1.0;
             TokenCount = 0;
             SelectedColor = SystemColors.Highlight;
             UnselectedColor = SystemColors.ControlDark;
             NumberFormat = "0";
-
             Style = ProgresBarStyle.Normal;
         }
 
@@ -65,10 +73,20 @@ namespace Ambertation.Windows.Forms
         //     Basic UI properties
         // ─────────────────────────────────────────────────────────
 
+        public override string Text
+        {
+            get => base.Text;
+            set
+            {
+                base.Text = value;
+                captionLabel.Text = value;
+            }
+        }
+
         public string LabelText
         {
-            get => label.Text;
-            set => label.Text = value;
+            get => captionLabel.Text;
+            set => captionLabel.Text = value;
         }
 
         public int Value
@@ -76,12 +94,17 @@ namespace Ambertation.Windows.Forms
             get => bar.Value;
             set
             {
-                bar.Value = value;
+                int v = value;
+                if (v < bar.Minimum) v = bar.Minimum;
+                if (v > bar.Maximum) v = bar.Maximum;
+
+                bar.Value = v;
                 UpdateLabelText();
                 Changed?.Invoke(this, EventArgs.Empty);
                 ChangedValue?.Invoke(this, EventArgs.Empty);
             }
         }
+
 
         public int Maximum
         {
@@ -176,6 +199,28 @@ namespace Ambertation.Windows.Forms
             }
         }
 
+        public override Font Font
+        {
+            get => base.Font;
+            set
+            {
+                base.Font = value;
+                captionLabel.Font = value;
+                valueLabel.Font = value;
+            }
+        }
+
+        public override Color ForeColor
+        {
+            get => base.ForeColor;
+            set
+            {
+                base.ForeColor = value;
+                captionLabel.ForeColor = value;
+                valueLabel.ForeColor = value;
+            }
+        }
+
 
         private ProgresBarStyle style = ProgresBarStyle.Normal;
 
@@ -194,11 +239,15 @@ namespace Ambertation.Windows.Forms
         // ─────────────────────────────────────────────────────────
         private void UpdateLabelText()
         {
-            // If your stub already has another way to set label.Text, feel free to
-            // adjust this to match that.
-            double scaled = bar.Value * numberScale + displayOffset;
-            label.Text = string.Format(numberFormat, scaled);
+            double scaled = (bar.Value + numberOffset) * numberScale + displayOffset;
+
+            // If numberFormat is "{0}" or "{0:N2}", treat it as a composite format string.
+            if (!string.IsNullOrEmpty(numberFormat) && numberFormat.Contains("{0"))
+                valueLabel.Text = string.Format(numberFormat, scaled);
+            else
+                valueLabel.Text = scaled.ToString(string.IsNullOrEmpty(numberFormat) ? "0" : numberFormat);
         }
+
 
         /// <summary>
         /// Raised when the bar appearance or value changes.

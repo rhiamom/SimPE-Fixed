@@ -63,14 +63,10 @@ namespace SimPe.PackedFiles.UserInterface
             form.tbblot.Text = "0x" + Helper.HexString(fami.CurrentlyOnLotInstance);
             form.tbbmoney.Text = fami.BusinessMoney.ToString();
 			form.lbmembers.Items.Clear();
-            form.tbcafood1.Text = fami.CastAwayFood.ToString();
-            form.tbcares.Text = fami.CastAwayResources.ToString();
-            form.tbcaunk.Text = "0x"+Helper.HexString(fami.CastAwayFoodDecay);
             form.label14.Visible = form.tbblot.Visible = (int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.Business;
             form.label7.Visible = form.tbvac.Visible = (int)fami.Version == (int)SimPe.PackedFiles.Wrapper.FamiVersions.Voyage;
             form.tbsubhood.Enabled = (int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.University;
-            form.gbCastaway.Visible = (int)fami.Version == (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway;
-            form.label3.Visible = form.tbmoney.Visible = (int)fami.Version < (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway;
+            //form.label3.Visible = form.tbmoney.Visible = (int)fami.Version < (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway;
             form.label16.Visible = form.tbbmoney.Visible = ((int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.Business && (int)fami.Version < (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway);
             
             if (fami.LotInstance == 0 || fami.Package.FindFile(0x0BF999E7, 0, 0xFFFFFFFF, fami.LotInstance) == null)

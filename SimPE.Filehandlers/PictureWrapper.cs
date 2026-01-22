@@ -78,41 +78,50 @@ namespace SimPe.PackedFiles.Wrapper
 
 			return bmp;
 		}
-
         protected bool DoLoad(System.IO.BinaryReader reader, bool errmsg)
         {
             long pos = reader.BaseStream.Position;
 
             try
             {
-                // First try normal GDI+ formats (PNG/JPG/BMP/etc.)
-                image = System.Drawing.Image.FromStream(reader.BaseStream);
-                return true;
-            }
-            catch (ArgumentException)
-            {
-                // Not a GDI+ format (often TGA). Rewind and try SOIL2.
-                reader.BaseStream.Position = pos;
-
+                // Read all remaining bytes ONCE
                 byte[] bytes;
+
                 using (var ms = new System.IO.MemoryStream())
                 {
+                    reader.BaseStream.Position = pos;
                     reader.BaseStream.CopyTo(ms);
                     bytes = ms.ToArray();
                 }
 
-                image = TryLoadWithSoil2(bytes);   // <-- THIS is the DLL fallback call
-                return (image != null);
+                // First try GDI+
+                try
+                {
+                    using (var ims = new System.IO.MemoryStream(bytes))
+                    {
+                        image = System.Drawing.Image.FromStream(ims);
+                        return true;
+                    }
+                }
+                catch (ArgumentException)
+                {
+                    // Not GDI+ -> try SOIL2
+                    image = TryLoadWithSoil2(bytes);
+                    return (image != null);
+                }
             }
             catch
             {
-                // Anything else: treat as no image
                 reader.BaseStream.Position = pos;
                 image = null;
                 return false;
             }
+            finally
+            {
+                // Preserve caller expectations
+                reader.BaseStream.Position = pos;
+            }
         }
-
 
         #region AbstractWrapper Member
         protected override IPackedFileUI CreateDefaultUIHandler()

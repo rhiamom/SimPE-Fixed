@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -44,6 +46,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>
@@ -53,6 +56,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
+    <UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdvancedForms, Version=1.0.2983.24897, Culture=neutral, processorArchitecture=x86">
@@ -134,34 +138,80 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SimRelationPoolControl.Designer.cs" />
-    <EmbeddedResource Include="CommonSrelUI.de.resx" />
-    <EmbeddedResource Include="CommonSrelUI.fr.resx" />
-    <EmbeddedResource Include="CommonSrelUI.it.resx" />
-    <EmbeddedResource Include="CommonSrelUI.pL.resx" />
+    <EmbeddedResource Include="CommonSrelUI.de.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonSrelUI.fr.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonSrelUI.it.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonSrelUI.pL.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CommonSrelUI.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CommonSrelUI.ru.resx" />
-    <EmbeddedResource Include="ExtSDescUI.de.resx" />
-    <EmbeddedResource Include="ExtSDescUI.fr.resx" />
-    <EmbeddedResource Include="ExtSDescUI.it.resx" />
-    <EmbeddedResource Include="ExtSDescUI.pl.resx" />
-    <EmbeddedResource Include="ExtSDescUI.resx" />
-    <EmbeddedResource Include="ExtSDescUI.ru.resx" />
-    <EmbeddedResource Include="ExtSrelUI.de.resx" />
-    <EmbeddedResource Include="ExtSrelUI.fr.resx" />
-    <EmbeddedResource Include="ExtSrelUI.it.resx" />
-    <EmbeddedResource Include="ExtSrelUI.pl.resx" />
-    <EmbeddedResource Include="ExtSrelUI.resx" />
-    <EmbeddedResource Include="ExtSrelUI.ru.resx" />
-    <EmbeddedResource Include="FamilyTiesForm.de.resx" />
-    <EmbeddedResource Include="FamilyTiesForm.fr.resx" />
-    <EmbeddedResource Include="FamilyTiesForm.it.resx" />
-    <EmbeddedResource Include="FamilyTiesForm.pl.resx" />
+    <EmbeddedResource Include="CommonSrelUI.ru.resx">
+      <DependentUpon>CommonSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSDescUI.de.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSDescUI.fr.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSDescUI.it.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSDescUI.pl.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSDescUI.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSDescUI.ru.resx">
+      <DependentUpon>ExtSDescUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSrelUI.de.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSrelUI.fr.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSrelUI.it.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSrelUI.pl.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSrelUI.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtSrelUI.ru.resx">
+      <DependentUpon>ExtSrelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FamilyTiesForm.de.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FamilyTiesForm.fr.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FamilyTiesForm.it.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FamilyTiesForm.pl.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FamilyTiesForm.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FamilyTiesForm.ru.resx" />
+    <EmbeddedResource Include="FamilyTiesForm.ru.resx">
+      <DependentUpon>FamilyTiesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PetTraitSelect.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -178,16 +228,36 @@
     <EmbeddedResource Include="SimDNAUI.resx" />
     <EmbeddedResource Include="SimInfo.resx" />
     <EmbeddedResource Include="SimListView.resx" />
-    <EmbeddedResource Include="SimPoolControl.de.resx" />
-    <EmbeddedResource Include="SimPoolControl.fr.resx" />
-    <EmbeddedResource Include="SimPoolControl.it.resx" />
-    <EmbeddedResource Include="SimPoolControl.resx" />
-    <EmbeddedResource Include="SimPoolControl.ru.resx" />
-    <EmbeddedResource Include="SimRelationPoolControl.de.resx" />
-    <EmbeddedResource Include="SimRelationPoolControl.fr.resx" />
-    <EmbeddedResource Include="SimRelationPoolControl.it.resx" />
-    <EmbeddedResource Include="SimRelationPoolControl.resx" />
-    <EmbeddedResource Include="SimRelationPoolControl.ru.resx" />
+    <EmbeddedResource Include="SimPoolControl.de.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPoolControl.fr.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPoolControl.it.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPoolControl.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPoolControl.ru.resx">
+      <DependentUpon>SimPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimRelationPoolControl.de.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimRelationPoolControl.fr.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimRelationPoolControl.it.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimRelationPoolControl.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimRelationPoolControl.ru.resx">
+      <DependentUpon>SimRelationPoolControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
