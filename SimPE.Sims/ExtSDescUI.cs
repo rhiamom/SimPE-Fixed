@@ -21,17 +21,18 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+using Ambertation.Windows.Forms;
+using SimPe.Data;
+using SimPe.Interfaces;
+using SimPe.Interfaces.Plugin;
+using SimPe.PackedFiles.Wrapper;
+using SimPe.PackedFiles.Wrapper.Supporting;
+using SimPe.Windows.Forms;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Drawing;
-using SimPe.Interfaces.Plugin;
-using SimPe.Interfaces;
-using SimPe.PackedFiles.Wrapper.Supporting;
-using SimPe.Data;
-using Ambertation.Windows.Forms;
-using SimPe.Windows.Forms;
+using System.Windows.Forms;
 
 namespace SimPe.PackedFiles.UserInterface
 {
@@ -654,9 +655,9 @@ namespace SimPe.PackedFiles.UserInterface
 			this.pbGPlayful.Value = sdesc.GeneticCharacter.Playful;
 			this.pbGNice.Value = sdesc.GeneticCharacter.Nice;
 
-			pbWoman.Value = sdesc.Interests.FemalePreference;
-			pbMan.Value = sdesc.Interests.MalePreference;
-		}
+            pbWoman.Value = Math.Max(0, Math.Min(2000, sdesc.Interests.FemalePreference + 1000));
+            pbMan.Value   = Math.Max(0, Math.Min(2000, sdesc.Interests.MalePreference   + 1000));
+        }
 
 		#endregion
 
@@ -1002,10 +1003,10 @@ namespace SimPe.PackedFiles.UserInterface
 				Sdesc.GeneticCharacter.Playful = (ushort)this.pbGPlayful.Value;
 				Sdesc.GeneticCharacter.Nice = (ushort)this.pbGNice.Value;
 
-				Sdesc.Interests.FemalePreference = (short)pbWoman.Value;
-				Sdesc.Interests.MalePreference = (short)pbMan.Value;
+                Sdesc.Interests.FemalePreference = (short)(pbWoman.Value - 1000);
+                Sdesc.Interests.MalePreference   = (short)(pbMan.Value   - 1000);
 
-				Sdesc.Changed = true;
+                Sdesc.Changed = true;
 			} 
 			finally 
 			{

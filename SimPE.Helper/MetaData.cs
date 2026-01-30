@@ -757,8 +757,6 @@ namespace SimPe.Data
         public enum UIFlags2Names : byte
         {
             BestFriendForever = 0x00,
-            PlatonicFreind = 0x02,
-            SecretLover = 0x03,
         };
 
 

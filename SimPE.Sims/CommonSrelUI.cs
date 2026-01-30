@@ -84,10 +84,10 @@ namespace SimPe.PackedFiles.UserInterface
 			InitComboBox();
 
             ltcb = new List<CheckBox>(new CheckBox[] {
-                cbcrush, cblove, cbengaged, cbmarried, cbfriend, cbbuddie, cbsteady, cbenemy,
-                null, null, null, null, null, null, cbfamily, cbbest,
-                cbBFF, null, cbplatonic, cbsecret, null, null, null, null,
-                null, null, null, null, null, null, null, null,
+        cbcrush, cblove, cbengaged, cbmarried, cbfriend, cbbuddie, cbsteady, cbenemy,
+        null, null, null, null, null, null, cbfamily, cbbest,
+        cbBFF, null, /* cbplatonic removed */ null, /* cbsecret removed */ null,
+        null, null, null, null, null, null, null, null,
             });
         }
 
@@ -173,7 +173,7 @@ namespace SimPe.PackedFiles.UserInterface
             resources.ApplyResources(this.pbDay, "pbDay");
             this.pbDay.BackColor = System.Drawing.Color.Transparent;
             this.pbDay.DisplayOffset = 0;
-            this.pbDay.LabelText = "N0";
+            this.pbDay.LabelText = "Daily";
             this.pbDay.Maximum = 200;
             this.pbDay.Minimum = 0;
             this.pbDay.Name = "pbDay";
@@ -192,7 +192,7 @@ namespace SimPe.PackedFiles.UserInterface
             resources.ApplyResources(this.pbLife, "pbLife");
             this.pbLife.BackColor = System.Drawing.Color.Transparent;
             this.pbLife.DisplayOffset = 0;
-            this.pbLife.LabelText = "N0";
+            this.pbLife.LabelText = "Lifetime";
             this.pbLife.Maximum = 200;
             this.pbLife.Minimum = 0;
             this.pbLife.Name = "pbLife";
@@ -209,7 +209,6 @@ namespace SimPe.PackedFiles.UserInterface
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.cbsecret, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.cbcrush, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cbfriend, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.cbsteady, 0, 2);
@@ -222,15 +221,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.tableLayoutPanel1.Controls.Add(this.cbmarried, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.cbBFF, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.tbRel, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.cbplatonic, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // cbsecret
-            // 
-            resources.ApplyResources(this.cbsecret, "cbsecret");
-            this.cbsecret.Name = "cbsecret";
-            this.cbsecret.UseVisualStyleBackColor = false;
-            this.cbsecret.CheckedChanged += new System.EventHandler(this.ChangedState);
             // 
             // cbcrush
             // 
@@ -316,13 +307,6 @@ namespace SimPe.PackedFiles.UserInterface
             this.tbRel.Name = "tbRel";
             this.tbRel.TextChanged += new System.EventHandler(this.ChangedRelationText);
             // 
-            // cbplatonic
-            // 
-            resources.ApplyResources(this.cbplatonic, "cbplatonic");
-            this.cbplatonic.Name = "cbplatonic";
-            this.cbplatonic.UseVisualStyleBackColor = false;
-            this.cbplatonic.CheckedChanged += new System.EventHandler(this.ChangedState);
-            // 
             // CommonSrel
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -386,35 +370,43 @@ namespace SimPe.PackedFiles.UserInterface
                 this.Enabled = false;
                 return;
             }
+
             this.Enabled = true;
             intern = true;
-            this.pbDay.Value = Srel.Shortterm;
-            this.pbLife.Value = Srel.Longterm;
+
+            // -100..100 -> 0..200
+            this.pbDay.Value  = Srel.Shortterm + 100;
+            this.pbLife.Value = Srel.Longterm  + 100;
+
             Boolset bs = Srel.RelationState.Value;
-            for (int i = 0; i < bs.Length; i++) if (ltcb[i] != null) ltcb[i].Checked = bs[i];
+            for (int i = 0; i < bs.Length; i++)
+                if (ltcb[i] != null) ltcb[i].Checked = bs[i];
+
             if (Srel.RelationState2 != null)
             {
                 bs = Srel.RelationState2.Value;
-                for (int i = 0; i < bs.Length; i++) if (ltcb[i + 16] != null)
+                for (int i = 0; i < bs.Length; i++)
+                {
+                    int idx = i + 16;
+                    if (idx >= ltcb.Count) break;  // <-- guard
+
+                    if (ltcb[idx] != null)
                     {
-                        ltcb[i + 16].Enabled = true;
-                        ltcb[i + 16].Checked = bs[i];
+                        ltcb[idx].Enabled = true;
+                        ltcb[idx].Checked = bs[i];
                     }
-            }
-            else
-                for (int i = 0; i < bs.Length; i++) if (ltcb[i + 16] != null) ltcb[i + 16].Enabled = false;
-
-
-
-            if (Srel.RelationState2 != null)
-            {
-                this.cbsecret.Enabled = (!this.cbmarried.Checked && !this.cbengaged.Checked && !this.cbsteady.Checked);
-                this.cbplatonic.Enabled = (!this.cbcrush.Checked && !this.cblove.Checked);
+                }
             }
             else
             {
-                this.cbsecret.Enabled = false;
-                this.cbplatonic.Enabled = false;
+                for (int i = 0; i < bs.Length; i++)
+                {
+                    int idx = i + 16;
+                    if (idx >= ltcb.Count) break;  // <-- guard
+
+                    if (ltcb[idx] != null)
+                        ltcb[idx].Enabled = false;
+                }
             }
 
 
@@ -428,70 +420,71 @@ namespace SimPe.PackedFiles.UserInterface
 
             this.tbRel.Text = "0x" + Helper.HexString((uint)srel.FamilyRelation);
 
+            // *** NEW: use real values (-100..100) for coloring ***
+            int life = Srel.Longterm;
+            int day = Srel.Shortterm;
+
             if (this.cblove.Checked)
             {
-                if (pbLife.Value > 90)
-                    pbLife.SelectedColor = Color.HotPink;
-                if (pbDay.Value > 90)
-                    pbDay.SelectedColor = Color.HotPink;
+                if (life > 90) pbLife.SelectedColor = Color.HotPink;
+                else pbLife.SelectedColor = Color.Lime;
+
+                if (day > 90) pbDay.SelectedColor  = Color.HotPink;
+                else pbDay.SelectedColor  = Color.Lime;
             }
             else
             {
-                if (pbLife.Value > 90)
-                    pbLife.SelectedColor = Color.Lime;
-                if (pbDay.Value > 90)
-                    pbDay.SelectedColor = Color.Lime;
+                // not in love: high positives are still green
+                if (life > 90) pbLife.SelectedColor = Color.Lime;
+                if (day  > 90) pbDay.SelectedColor  = Color.Lime;
             }
+
             intern = false;
 
-            if (ChangedContent != null) ChangedContent(this, new EventArgs());
+            if (ChangedContent != null) ChangedContent(this, EventArgs.Empty);
         }
 
-		private void ChangedLife(object sender, System.EventArgs e)
-		{
-			if (pbLife.Value<0) 
-			{
-                if (pbLife.SelectedColor != Color.OrangeRed) 
-				{					
-					pbLife.SelectedColor = Color.OrangeRed;
-					// pbLife.CompleteRedraw();
-				}
-			}
-			else 
-			{
-                if (cblove.Checked && pbLife.Value > 90)
-                    {
-                        if (pbLife.SelectedColor != Color.HotPink)
-                            pbLife.SelectedColor = Color.HotPink;
-                    }
-                    else
-                    {
-                        if (pbLife.SelectedColor != Color.Lime)
-                            pbLife.SelectedColor = Color.Lime;
-                    }
-                /*
-                    if (pbLife.SelectedColor != Color.Lime)                    
-				{					
-					pbLife.SelectedColor = Color.Lime;
-					pbLife.CompleteRedraw();
-				}*/
-			}
 
-			if (intern) return;
-			Srel.Longterm = pbLife.Value;
-			Srel.Changed = true;
-		}
+        private void ChangedLife(object sender, EventArgs e)
+        {
+            int life = pbLife.Value - 100;  // back to -100..100
 
-		private void ChangedDay(object sender, System.EventArgs e)
-		{
-            if (pbDay.Value < 0)
+            if (life < 0)
+            {
+                if (pbLife.SelectedColor != Color.OrangeRed)
+                    pbLife.SelectedColor = Color.OrangeRed;
+            }
+            else
+            {
+                if (cblove.Checked && life > 90)
+                {
+                    if (pbLife.SelectedColor != Color.HotPink)
+                        pbLife.SelectedColor = Color.HotPink;
+                }
+                else
+                {
+                    if (pbLife.SelectedColor != Color.Lime)
+                        pbLife.SelectedColor = Color.Lime;
+                }
+            }
+
+            if (intern) return;
+            Srel.Longterm = life;
+            Srel.Changed = true;
+        }
+
+        private void ChangedDay(object sender, EventArgs e)
+        {
+            int day = pbDay.Value - 100;  // back to -100..100
+
+            if (day < 0)
             {
                 if (pbDay.SelectedColor != Color.OrangeRed)
                     pbDay.SelectedColor = Color.OrangeRed;
             }
             else
             {
-                if (cblove.Checked && pbDay.Value > 90)
+                if (cblove.Checked && day > 90)
                 {
                     if (pbDay.SelectedColor != Color.HotPink)
                         pbDay.SelectedColor = Color.HotPink;
@@ -503,10 +496,11 @@ namespace SimPe.PackedFiles.UserInterface
                 }
             }
 
-			if (intern) return;
-			Srel.Shortterm = pbDay.Value;
-			Srel.Changed = true;
-		}
+            if (intern) return;
+            Srel.Shortterm = day;
+            Srel.Changed = true;
+        }
+
 
         private void ChangedRelation(object sender, System.EventArgs e)
         {

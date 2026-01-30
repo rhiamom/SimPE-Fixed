@@ -54,7 +54,17 @@ namespace SimPe.PackedFiles.UserInterface
 
             if (Helper.WindowsRegistry.UseBigIcons)
                 this.lbsims.Font = new System.Drawing.Font("Tahoma", 12);
+
+            // NEW: create and add the CommonSrel control
+            sc = new CommonSrel();
+            sc.Dock = DockStyle.Fill;
+            // optional: hook change event if you want auto-sync
+            // sc.ChangedContent += new EventHandler(this.ExtSrel_Commited);
+
+            this.Controls.Add(sc);
+            this.Controls.SetChildIndex(sc, 0);
         }
+
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -81,7 +91,6 @@ namespace SimPe.PackedFiles.UserInterface
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExtSrel));
             this.label1 = new System.Windows.Forms.Label();
             this.lbsims = new System.Windows.Forms.Label();
-            this.sc = new SimPe.PackedFiles.UserInterface.CommonSrel();
             this.pb = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.SuspendLayout();
@@ -99,13 +108,6 @@ namespace SimPe.PackedFiles.UserInterface
             this.lbsims.BackColor = System.Drawing.Color.Transparent;
             this.lbsims.Name = "lbsims";
             // 
-            // sc
-            // 
-            resources.ApplyResources(this.sc, "sc");
-            this.sc.BackColor = System.Drawing.Color.Transparent;
-            this.sc.Name = "sc";
-            this.sc.Srel = null;
-            // 
             // pb
             // 
             this.pb.BackColor = System.Drawing.Color.Transparent;
@@ -117,18 +119,15 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             this.Controls.Add(this.pb);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.sc);
             this.Controls.Add(this.lbsims);
             resources.ApplyResources(this, "$this");
             this.Name = "ExtSrel";
             this.Commited += new System.EventHandler(this.ExtSrel_Commited);
             this.Controls.SetChildIndex(this.lbsims, 0);
-            this.Controls.SetChildIndex(this.sc, 0);
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.pb, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
         #endregion

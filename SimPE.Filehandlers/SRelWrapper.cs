@@ -97,16 +97,6 @@ namespace SimPe.PackedFiles.Wrapper
             get { return GetBit((byte)Data.MetaData.UIFlags2Names.BestFriendForever); }
             set { SetBit((byte)Data.MetaData.UIFlags2Names.BestFriendForever, value); }
         }
-        public bool isPlatonic
-        {
-            get { return GetBit((byte)Data.MetaData.UIFlags2Names.PlatonicFreind); }
-            set { SetBit((byte)Data.MetaData.UIFlags2Names.PlatonicFreind, value); }
-        }
-        public bool isSecret
-        {
-            get { return GetBit((byte)Data.MetaData.UIFlags2Names.SecretLover); }
-            set { SetBit((byte)Data.MetaData.UIFlags2Names.SecretLover, value); }
-        }
     }
 
 	/// <summary>

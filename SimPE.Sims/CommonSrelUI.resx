@@ -318,42 +318,6 @@
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="cbsecret.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbsecret.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9pt</value>
-  </data>
-  <data name="cbsecret.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cbsecret.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 60</value>
-  </data>
-  <data name="cbsecret.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="cbsecret.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 20</value>
-  </data>
-  <data name="cbsecret.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="cbsecret.Text" xml:space="preserve">
-    <value>Secret</value>
-  </data>
-  <data name="&gt;&gt;cbsecret.Name" xml:space="preserve">
-    <value>cbsecret</value>
-  </data>
-  <data name="&gt;&gt;cbsecret.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbsecret.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;cbsecret.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="cbcrush.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -785,42 +749,6 @@
   </data>
   <data name="&gt;&gt;tbRel.ZOrder" xml:space="preserve">
     <value>12</value>
-  </data>
-  <data name="cbplatonic.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbplatonic.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Tahoma, 9pt</value>
-  </data>
-  <data name="cbplatonic.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cbplatonic.Location" type="System.Drawing.Point, System.Drawing">
-    <value>312, 40</value>
-  </data>
-  <data name="cbplatonic.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="cbplatonic.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 20</value>
-  </data>
-  <data name="cbplatonic.TabIndex" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="cbplatonic.Text" xml:space="preserve">
-    <value>Platonic</value>
-  </data>
-  <data name="&gt;&gt;cbplatonic.Name" xml:space="preserve">
-    <value>cbplatonic</value>
-  </data>
-  <data name="&gt;&gt;cbplatonic.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbplatonic.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;cbplatonic.ZOrder" xml:space="preserve">
-    <value>13</value>
   </data>
   <data name="tableLayoutPanel1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 6pt</value>
