@@ -51,7 +51,6 @@ namespace SimPe.Wants
                 ckbFlag1, ckbFlag2, ckbFlag3, ckbFlag4, ckbFlag5, ckbFlag6, ckbFlag7, ckbFlag8,
             });
             ltbUint32 = new List<TextBox>(new TextBox[] {
-                tbMaxFears, tbMaxWants, tbUnknown1, tbUnknown2, tbUnknown3,
                 tbSICounter,
             });
             lgc = new List<SimPe.Plugin.GUIDChooser>(new SimPe.Plugin.GUIDChooser[]{
@@ -86,7 +85,17 @@ namespace SimPe.Wants
             {
                 List<KeyValuePair<string, uint>> wants = new List<KeyValuePair<string, uint>>();
                 xwnts = new Dictionary<uint, object[]>();
-                pjse.FileTable.Entry[] ae = pjse.FileTable.GFT[XWNTWrapper.XWNTType];
+                pjse.FileTable.Entry[] ae;
+
+                try
+                {
+                    ae = pjse.FileTable.GFT[XWNTWrapper.XWNTType];
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    ae = new pjse.FileTable.Entry[0];
+                }
+
 
                 Wait.Start(ae.Length / 10);
                 Wait.Message = "Want names...";
@@ -139,6 +148,45 @@ namespace SimPe.Wants
                 XmlReaderSettings xrs = new XmlReaderSettings();
                 xrs.IgnoreWhitespace = xrs.IgnoreProcessingInstructions = xrs.IgnoreComments = true;
                 XmlDocument doc = new XmlDocument();
+
+                var items = SimPe.FileTable.FileIndex.FindFile(0x00000000, 0xCDA53B6F, 0x2D7EE26B, null);
+                System.Diagnostics.Debug.WriteLine("WantSimulator XML hits: " + (items == null ? -1 : items.Length));
+                if (items != null)
+                {
+                    foreach (var it in items)
+                        System.Diagnostics.Debug.WriteLine("  -> " + it.Package.SaveFileName);
+                }
+
+                for (int i = 0; i < ae.Length; i++)
+                {
+                    var sd = ae[i].Wrapper.StoredData;
+                    if (sd == null || sd.BaseStream == null || !sd.BaseStream.CanRead)
+                        continue;
+
+                    long len = sd.BaseStream.Length;
+                    System.Diagnostics.Debug.WriteLine(
+                        $"SWAF ae[{i}] stream length = {len}"
+                    );
+
+                    if (sd.BaseStream.CanSeek)
+                        sd.BaseStream.Position = 0;
+
+                    // Peek first few bytes
+                    byte[] peek = new byte[Math.Min(16, (int)len)];
+                    sd.BaseStream.Read(peek, 0, peek.Length);
+
+                    string ascii = System.Text.Encoding.ASCII.GetString(peek);
+                    System.Diagnostics.Debug.WriteLine(
+                        $"SWAF ae[{i}] head = {ascii.Replace('\0', '.')}"
+                    );
+
+                    if (sd.BaseStream.CanSeek)
+                        sd.BaseStream.Position = 0;
+                }
+
+                System.Diagnostics.Debugger.Break();
+
+
                 doc.Load(XmlReader.Create(ae[0].Wrapper.StoredData.BaseStream, xrs));
 
                 List<KeyValuePair<string, uint>> categories = new List<KeyValuePair<string, uint>>();

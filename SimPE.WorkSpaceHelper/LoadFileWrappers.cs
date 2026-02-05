@@ -2,6 +2,9 @@
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
+ *   Copyright (C) 2025 by GramzeSweatshop                                 *
+ *   rhiamom@mac.com                                                       *
+ *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -17,6 +20,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
 using System.Reflection;
 using System.Collections;
@@ -168,7 +172,7 @@ namespace SimPe
             ignore.Add("simpe.3d.plugin.dll");
             ignore.Add("pjse.filetable.plugin.dll");
             ignore.Add("pjse.guidtool.plugin.dll");
-            ignore.Add("pjse.coder.plugin.dll");
+            //ignore.Add("pjse.coder.plugin.dll");
             ignore.Add("simpe.actiondeletesim.plugin.dll");
             ignore.Add("theos.simsurgery.plugin.dll");
             ignore.Add("theo.meshscanner.plugin.dll");
@@ -232,7 +236,8 @@ namespace SimPe
             if (!Helper.CanLoadPlugin(file)) return null;
 
 			AssemblyName myAssemblyName;
-			try 
+            System.Diagnostics.Debug.WriteLine("LoadPlugin TRY: " + file);
+            try 
 			{
 				myAssemblyName = AssemblyName.GetAssemblyName(file);
 			} 
@@ -256,13 +261,38 @@ namespace SimPe
 						return obj;
 					}
 				}
-			} 
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex);
 			}
-			
-			return null;
+            catch (System.Reflection.ReflectionTypeLoadException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("LoadPlugin ReflectionTypeLoadException: " + file);
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                if (ex.LoaderExceptions != null)
+                {
+                    foreach (Exception lex in ex.LoaderExceptions)
+                    {
+                        System.Diagnostics.Debug.WriteLine("  LOADER: " + lex.ToString());
+                    }
+                }
+
+                // Also write to console in case you *do* have one
+                Console.WriteLine("LoadPlugin ReflectionTypeLoadException: " + file);
+                Console.WriteLine(ex.ToString());
+                if (ex.LoaderExceptions != null)
+                {
+                    foreach (Exception lex in ex.LoaderExceptions)
+                        Console.WriteLine("  LOADER: " + lex.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("LoadPlugin Exception: " + file);
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                Console.WriteLine(ex);
+            }
+
+
+            return null;
 		}
 
 		/// <summary>

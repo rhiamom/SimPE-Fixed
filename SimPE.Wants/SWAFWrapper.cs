@@ -128,7 +128,27 @@ namespace SimPe.Wants
 
             List<SWAFItem> l = LifetimeWants;
             if (version >= 0x05) writer.Write(l.Count);
-            foreach (SWAFItem i in l) i.Serialize(writer);
+
+            int idx = 0;
+            foreach (SWAFItem i in l)
+            {
+                try
+                {
+                    i.Serialize(writer);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        "LifetimeWants serialize failed: idx=" + idx +
+                        " l.Count=" + (l == null ? -1 : l.Count) +
+                        " itemType=" + (i == null ? "<null>" : i.GetType().FullName) +
+                        " ex=" + ex
+                    );
+                    throw;
+                }
+                idx++;
+            }
+
 
             if (version >= 0x05) writer.Write(maxWants);
             l = Wants;
@@ -138,7 +158,27 @@ namespace SimPe.Wants
             if (version >= 0x05) writer.Write(maxFears);
             l = Fears;
             writer.Write(l.Count);
-            foreach (SWAFItem i in l) i.Serialize(writer);
+            //foreach (SWAFItem i in l) i.Serialize(writer);
+
+            foreach (SWAFItem i in l)
+            {
+                try
+                {
+                    i.Serialize(writer);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        "SWAF serialize failed: idx=" + idx +
+                        " l.Count=" + (l == null ? -1 : l.Count) +
+                        " itemType=" + (i == null ? "<null>" : i.GetType().FullName) +
+                        " ex=" + ex.GetType().FullName + " " + ex.Message +
+                        "\n" + ex.StackTrace);
+                    throw;
+                }
+                idx++;
+            }
+
 
             if (version >= 0x05) writer.Write(unknown3);
             writer.Write(unknown1);
@@ -155,7 +195,38 @@ namespace SimPe.Wants
             writer.Write(unknown4);
         }
 
-        protected override IPackedFileUI CreateDefaultUIHandler() { return new SWAFEditor(); }
+        protected override IPackedFileUI CreateDefaultUIHandler()
+        {
+            try
+            {
+                return new SWAFEditor();
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("SWAFWrapper.CreateDefaultUIHandler: SWAFEditor ctor failed: " + ex);
+
+                // NEW: dump stack frames with file/line info (when available)
+                var st = new System.Diagnostics.StackTrace(ex, true);
+                var frames = st.GetFrames();
+                if (frames != null)
+                {
+                    foreach (var f in frames)
+                    {
+                        string file = f.GetFileName();
+                        int line = f.GetFileLineNumber();
+                        var m = f.GetMethod();
+                        string where = (m == null) ? "<unknown method>" : (m.DeclaringType == null ? m.Name : (m.DeclaringType.FullName + "." + m.Name));
+                        if (!string.IsNullOrEmpty(file) && line > 0)
+                            System.Diagnostics.Debug.WriteLine("  at " + where + " in " + file + ":line " + line);
+                        else
+                            System.Diagnostics.Debug.WriteLine("  at " + where);
+                    }
+                }
+
+                return null; // prevents the whole app from dying; UI just won't show
+            }
+        }
+
 
         /// <summary>
         /// Returns a Human Readable Description of this Wrapper

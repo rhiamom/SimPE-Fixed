@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("pjse.coder.plugin")]
 [assembly: AssemblyCopyright("Released under the GNU GPL")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]	
+[assembly: AssemblyCulture("")]
 
 //
 // Version information for an assembly consists of the following four values:
@@ -26,8 +26,10 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
+//Make the version be what the wants.dll expects
+[assembly: AssemblyVersion("4.0.6608.29748")]
+[assembly: AssemblyFileVersion("4.0.6608.29748")]
 
-[assembly: AssemblyVersion("4.69.*")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 

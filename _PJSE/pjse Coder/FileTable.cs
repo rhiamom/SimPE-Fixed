@@ -71,7 +71,7 @@ namespace pjse
             string SimPeWaitingScreenMessage = (SimPe.WaitingScreen.Running) ? SimPe.WaitingScreen.Message : "";
             SimPe.Wait.SubStart();
 
-            try { this.Refresh(true); }
+            try { this.Refresh(!SimPe.Helper.LocalMode); }
             finally
             {
                 SimPe.Wait.SubStop();
@@ -91,15 +91,40 @@ namespace pjse
         private Hashtable pfByTypeGroupInstance = new Hashtable();
 
         private bool hasLoaded = false;
-        public void Refresh() { this.Refresh(!SimPe.Helper.LocalMode); }
+        private bool isRefreshing = false;
+        public void Refresh() { this.Refresh(false); }
         private void Refresh(bool loadEverything)
         {
             wm("Loading PJSE File Table");
             IPackageFile cp = currentPackage;
             CurrentPackage = null;
 
-            hasLoaded = true;
-            fixedPackages = new ArrayList();
+            if (isRefreshing) return;
+            isRefreshing = true;
+
+            hasLoaded = false;   // not "loaded" while we're rebuilding
+
+            try
+            {
+                fixedPackages = new ArrayList();
+                maxisPackages = new ArrayList();
+                filenames = new Hashtable();
+                packedFiles = new Hashtable();
+                pfByPackage = new Hashtable();
+                pfByType = new Hashtable();
+                pfByGroup = new Hashtable();
+                pfByTypeGroup = new Hashtable();
+                pfByTypeGroupInstance = new Hashtable();
+
+                // ... rest of Refresh body that populates them ...
+
+                hasLoaded = true;    // only after populate completes
+            }
+            finally
+            {
+                isRefreshing = false;
+            }
+
             maxisPackages = new ArrayList();
             filenames = new Hashtable();
             packedFiles = new Hashtable();
@@ -248,12 +273,10 @@ namespace pjse
 
             Hashtable byPackage = (Hashtable)pfByPackage[P];
             if (byPackage == null) byPackage = (Hashtable)(pfByPackage[P] = new Hashtable());
-            if (byPackage[key] != null)
-                throw new Exception("byPackage[key] != null");
+            if (byPackage[key] != null) return;
             byPackage[key] = true;
 
-            if (packedFiles[key] != null)
-                throw new Exception("packedFiles[key] != null");
+            if (packedFiles[key] != null) return;
             packedFiles[key] = new object[] { P, T, G, I, };
 
             if (key.PFD.MarkForDelete) return;
@@ -534,7 +557,10 @@ namespace pjse
             {
                 if (!hasLoaded) Refresh();
 
-                return putLocalFirst((Hashtable)pfByType[packedFileType], where);
+                Hashtable ht = (Hashtable)pfByType[packedFileType];
+                if (ht == null) return new Entry[0];
+
+                return putLocalFirst(ht, where);
             }
         }
 
@@ -577,8 +603,13 @@ namespace pjse
             if (!hasLoaded) Refresh();
 
             if (pfByGroup == null) return new Entry[0];
-            return putLocalFirst((Hashtable)pfByGroup[group], group == 0xffffffff ? Source.Local : where);
+
+            Hashtable ht = (Hashtable)pfByGroup[group];
+            if (ht == null) return new Entry[0];
+
+            return putLocalFirst(ht, group == 0xffffffff ? Source.Local : where);
         }
+
 
         private Entry[] putLocalFirst(Hashtable result, Source where)
         {

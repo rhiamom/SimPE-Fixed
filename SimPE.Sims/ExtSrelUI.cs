@@ -2,6 +2,9 @@
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
+ *   Copyright (C) 2025 by GramzeSweatshop                                 *
+ *   rhiamom@mac.com                                                       *
+ *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -17,6 +20,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -140,12 +144,23 @@ namespace SimPe.PackedFiles.UserInterface
         public override void RefreshGUI()
         {
             base.RefreshGUI();
+
+            // If there is no relation loaded (e.g. target cleared), blank the UI.
+            if (this.Srel == null)
+            {
+                sc.Srel = null;
+                this.lbsims.Text = "";
+                this.pb.Image = null;
+                return;
+            }
+
             sc.Srel = this.Srel;
 
             this.lbsims.Text = sc.SourceSimName + " " + SimPe.Localization.GetString("towards") + " " + sc.TargetSimName;
             this.pb.Image = Ambertation.Drawing.GraphicRoutines.ScaleImage(sc.Image, pb.Size, true);
         }
-        
+
+
         private void ExtSrel_Commited(object sender, System.EventArgs e)
         {
             Srel.SynchronizeUserData();

@@ -517,9 +517,9 @@ namespace SimPe.PackedFiles.UserInterface
 					img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(sdesc.Image, new Point(0,0), Color.Magenta);
 
 			if (img == null)
-				img = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
+                img = Image.FromStream(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
 
-			img = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, pbImage.Size, 12, Color.FromArgb(90, Color.Black), SimPe.PackedFiles.Wrapper.SimPoolControl.GetImagePanelColor(Sdesc), Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
+            img = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, pbImage.Size, 12, Color.FromArgb(90, Color.Black), SimPe.PackedFiles.Wrapper.SimPoolControl.GetImagePanelColor(Sdesc), Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
 			this.pbImage.Image = img;
 
 			//Lifesection
@@ -1243,6 +1243,9 @@ namespace SimPe.PackedFiles.UserInterface
 		#region Relations
 		bool loadedRel;
 		SimPe.Interfaces.Files.IPackageFile lastpkg;
+        private PackedFiles.Wrapper.ExtSDesc pinnedSubject = null;
+        private PackedFiles.Wrapper.ExtSDesc pinnedTarget = null;
+
         private void pnRel_VisibleChanged(object sender, System.EventArgs e)
         {
             if (!pnRel.Visible) return;
@@ -1255,8 +1258,18 @@ namespace SimPe.PackedFiles.UserInterface
             }
             else
             {
-                // Same package, but ALWAYS rebind to the current sim
-                lv.Sim = Sdesc;
+                // Pin the subject when the Relations panel is shown.
+                // If the subject changed, clear the target and blank the panels.
+                var newSubject = (PackedFiles.Wrapper.ExtSDesc)Sdesc;
+                if (pinnedSubject == null || !pinnedSubject.Equals(newSubject))
+                {
+                    pinnedSubject = newSubject;
+                    pinnedTarget = null;
+
+                    lv.Sim = pinnedSubject;   // bind list to pinned subject
+                    ResetLabel();             // clears srcRel/dstRel + labels/icons
+                }
+
             }
 
             // Force the household dropdown to the currently selected sim’s household
@@ -1269,8 +1282,6 @@ namespace SimPe.PackedFiles.UserInterface
             lastpkg = Sdesc.Package;
             loadedRel = true;
         }
-
-
 
         void LoadRelList()
         {
@@ -1369,20 +1380,16 @@ namespace SimPe.PackedFiles.UserInterface
 			}
 		}
 
-		void ResetLabel()
-		{            
-			/*this.lv.TileColumns = new int[]{1, 2, 6, 3, 4, 5};
-			this.lv.SetColumnStyle(1, lv.Font, Color.Gray);
-			this.lv.SetColumnStyle(2, lv.Font, Color.Gray);
-			this.lv.SetColumnStyle(3, lv.Font, Color.Gray);			
-			this.lv.SetColumnStyle(4, lv.Font, Color.Gray);*/
+        void ResetLabel()
+        {
+            this.srcRel.Srel = null;
+            this.dstRel.Srel = null;
+            UpdateLabel();
+        }
 
-			this.dstRel.Srel = null;
-			this.srcRel.Srel = null;
-			UpdateLabel();
-		}
 
-		void UpdateLabel()
+
+        void UpdateLabel()
 		{
 			Image img = null;
 			srcTb.HeaderText = srcRel.SourceSimName + " " + SimPe.Localization.GetString("towards") +" " +srcRel.TargetSimName;
@@ -1409,8 +1416,8 @@ namespace SimPe.PackedFiles.UserInterface
 
 		SimPe.PackedFiles.Wrapper.ExtSrel FindRelation(PackedFiles.Wrapper.ExtSDesc src, PackedFiles.Wrapper.ExtSDesc dst)
 		{
-			return SimPe.PackedFiles.Wrapper.ExtSDesc.FindRelation(Sdesc, src, dst);
-		}
+            return SimPe.PackedFiles.Wrapper.ExtSDesc.FindRelation(pinnedSubject, src, dst);
+        }
 
 		void DiplayRelation(PackedFiles.Wrapper.ExtSDesc src, PackedFiles.Wrapper.ExtSDesc dst, CommonSrel c)
 		{
@@ -1431,23 +1438,20 @@ namespace SimPe.PackedFiles.UserInterface
             SelectedSimRelationChanged(sender, null);
         }
 
-		private void SelectedSimRelationChanged(object sender, System.EventArgs e)
-		{
-			if (lv.SelectedItems.Count!=1) return;
+        private void SelectedSimRelationChanged(object sender, System.EventArgs e)
+        {
+            if (lv.SelectedItems.Count != 1) return;
+            if (pinnedSubject == null) return;
 
-			PackedFiles.Wrapper.ExtSDesc sdesc = (PackedFiles.Wrapper.ExtSDesc)lv.SelectedItems[0].Tag;
+            pinnedTarget = (PackedFiles.Wrapper.ExtSDesc)lv.SelectedItems[0].Tag;
 
-			
-			DiplayRelation(Sdesc, sdesc, srcRel);
-			DiplayRelation(sdesc, Sdesc, dstRel);						
-			
-			
-			UpdateLabel();
-		}
-		
-		
+            DiplayRelation(pinnedSubject, pinnedTarget, srcRel);
+            DiplayRelation(pinnedTarget, pinnedSubject, dstRel);
 
-		private void miRel_BeforePopup(object sender, System.EventArgs e)
+            UpdateLabel();
+        }
+
+        private void miRel_BeforePopup(object sender, System.EventArgs e)
 		{
 			if (lv.SelectedItems.Count==1) 
 			{
