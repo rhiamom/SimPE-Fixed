@@ -37,6 +37,15 @@ namespace SimPe.Wants
         public SWAFEditor()
         {
             InitializeComponent();
+            System.Diagnostics.Debug.WriteLine("SWAFEditor assembly: " + typeof(SWAFEditor).Assembly.Location);
+
+            string[] resNames = typeof(SWAFEditor).Assembly.GetManifestResourceNames();
+            foreach (string rn in resNames)
+            {
+                if (rn.IndexOf("SWAFEditor", StringComparison.OrdinalIgnoreCase) >= 0)
+                    System.Diagnostics.Debug.WriteLine("SWAFEditor RES: " + rn);
+            }
+
 
             if (SimPe.Helper.WindowsRegistry.UseBigIcons)
                 this.lvItems.Font = new System.Drawing.Font("Verdana", 10F);
@@ -58,12 +67,21 @@ namespace SimPe.Wants
             });
 
             int[] ai = Settings.SWAFColumns;
-            if (ai != null) for (int i = 0; i < ai.Length; i++)
+            if (ai != null)
+            {
+                int n = Math.Min(ai.Length, lvItems.Columns.Count);
+                for (int i = 0; i < n; i++)
                     lvItems.Columns[i].Width = ai[i];
+            }
 
             bool[] ab = Settings.SWAFItemTypes;
-            if (ab != null) for (int i = 0; i < ab.Length; i++)
+            if (ab != null)
+            {
+                int n = Math.Min(ab.Length, lincs.Count);
+                for (int i = 0; i < n; i++)
                     lincs[i].Checked = ab[i];
+            }
+
 
             //int sd = Settings.SplitterDistance;
             //if (sd != -1)
@@ -144,50 +162,40 @@ namespace SimPe.Wants
                 Wait.Start();
                 Wait.Message = "Category, Skill and Badge names...";
 
-                pjse.FileTable.Entry[] ae = pjse.FileTable.GFT[0x00000000, 0xCDA53B6F, 0x2D7EE26B];
-                XmlReaderSettings xrs = new XmlReaderSettings();
-                xrs.IgnoreWhitespace = xrs.IgnoreProcessingInstructions = xrs.IgnoreComments = true;
-                XmlDocument doc = new XmlDocument();
-
-                var items = SimPe.FileTable.FileIndex.FindFile(0x00000000, 0xCDA53B6F, 0x2D7EE26B, null);
-                System.Diagnostics.Debug.WriteLine("WantSimulator XML hits: " + (items == null ? -1 : items.Length));
-                if (items != null)
+                pjse.FileTable.Entry[] ae = new pjse.FileTable.Entry[0];
+                try
                 {
-                    foreach (var it in items)
-                        System.Diagnostics.Debug.WriteLine("  -> " + it.Package.SaveFileName);
+                    ae = pjse.FileTable.GFT[0x00000000, 0xCDA53B6F, 0x2D7EE26B];
+                }
+                catch (System.IndexOutOfRangeException)
+                {
+                    ae = new pjse.FileTable.Entry[0];
                 }
 
-                for (int i = 0; i < ae.Length; i++)
+                // If the WantSimulator XML is not available through PJSE's FileTable,
+                // fall back to empty lists so the editor can still open.
+                if (ae == null || ae.Length == 0 || ae[0] == null || ae[0].Wrapper == null || ae[0].Wrapper.StoredData == null || ae[0].Wrapper.StoredData.BaseStream == null)
                 {
-                    var sd = ae[i].Wrapper.StoredData;
-                    if (sd == null || sd.BaseStream == null || !sd.BaseStream.CanRead)
-                        continue;
+                    categoryNames = new List<string>();
+                    categoryIDs = new List<uint>();
+                    skills = new List<KeyValuePair<ushort, string>>();
+                    badgeNames = new List<string>();
+                    badgeIDs = new List<uint>();
+                    careerNames = new List<string>();
+                    careerIDs = new List<uint>();
 
-                    long len = sd.BaseStream.Length;
-                    System.Diagnostics.Debug.WriteLine(
-                        $"SWAF ae[{i}] stream length = {len}"
-                    );
-
-                    if (sd.BaseStream.CanSeek)
-                        sd.BaseStream.Position = 0;
-
-                    // Peek first few bytes
-                    byte[] peek = new byte[Math.Min(16, (int)len)];
-                    sd.BaseStream.Read(peek, 0, peek.Length);
-
-                    string ascii = System.Text.Encoding.ASCII.GetString(peek);
-                    System.Diagnostics.Debug.WriteLine(
-                        $"SWAF ae[{i}] head = {ascii.Replace('\0', '.')}"
-                    );
-
-                    if (sd.BaseStream.CanSeek)
-                        sd.BaseStream.Position = 0;
+                    Wait.Stop();
                 }
+                else
+                {
+                    XmlReaderSettings xrs = new XmlReaderSettings();
+                    xrs.IgnoreWhitespace = xrs.IgnoreProcessingInstructions = xrs.IgnoreComments = true;
+                    XmlDocument doc = new XmlDocument();
 
-                System.Diagnostics.Debugger.Break();
+                    if (ae[0].Wrapper.StoredData.BaseStream.CanSeek)
+                        ae[0].Wrapper.StoredData.BaseStream.Position = 0;
 
-
-                doc.Load(XmlReader.Create(ae[0].Wrapper.StoredData.BaseStream, xrs));
+                    doc.Load(XmlReader.Create(ae[0].Wrapper.StoredData.BaseStream, xrs));
 
                 List<KeyValuePair<string, uint>> categories = new List<KeyValuePair<string, uint>>();
                 XmlNode xn = doc["wantSimulator"]["categories"];
@@ -236,6 +244,7 @@ namespace SimPe.Wants
                 foreach (KeyValuePair<string, uint> kvp in badges) { badgeNames.Add(kvp.Key); badgeIDs.Add(kvp.Value); }
 
                 Wait.Stop();
+                }
             }
             gcSICategory.KnownObjects = new object[] { categoryNames, categoryIDs, };
             //--later--gcSICareer.KnownObjects = new object[] { careerNames, careerIDs, };
@@ -580,7 +589,9 @@ namespace SimPe.Wants
             groupTables = new Hashtable[lvItems.Columns.Count];
             setLV();
 
-            SetGroups(groupColumn);
+            //SetGroups(groupColumn);
+            lvItems.ShowGroups = false;
+            lvItems.Groups.Clear();
 
             internalchg = false;
 
@@ -654,16 +665,22 @@ namespace SimPe.Wants
         private void UpdateGroupsColumn(ListViewItem lvi, int column)
         {
             SWAFItem i = lvi.Tag as SWAFItem;
+            if (i == null) return;
+
             if (groupTables[column] == null)
                 groupTables[column] = new Hashtable();
-            Hashtable groups = groupTables[column];
+
+            Hashtable groups = (Hashtable)groupTables[column];
 
             string subItemText = lvi.SubItems[column].Text;
 
-            if (column == 1 && xwnts.ContainsKey(i.WantId))
+            if (column == 1 && xwnts != null && xwnts.ContainsKey(i.WantId))
             {
-                XWNTWrapper xwnt = pjse.FileTable.GFT[xwnts[i.WantId][1] as SimPe.Interfaces.Files.IPackageFile,
-                    xwnts[i.WantId][0] as SimPe.Interfaces.Files.IPackedFileDescriptor][0].Wrapper as XWNTWrapper;
+                XWNTWrapper xwnt = pjse.FileTable.GFT[
+                    xwnts[i.WantId][1] as SimPe.Interfaces.Files.IPackageFile,
+                    xwnts[i.WantId][0] as SimPe.Interfaces.Files.IPackedFileDescriptor
+                ][0].Wrapper as XWNTWrapper;
+
                 if (xwnt != null && xwnt["folder"] != null)
                     subItemText = xwnt["folder"].Value;
             }
@@ -674,63 +691,90 @@ namespace SimPe.Wants
                     subItemText = sdsc.SimFamilyName;
             }
 
+            // IMPORTANT: store header strings only (NOT ListViewGroup instances)
             if (!groups.Contains(subItemText))
-                groups.Add(subItemText, new ListViewGroup(subItemText, HorizontalAlignment.Left));
+                groups.Add(subItemText, subItemText);
         }
+
 
         // Sets myListView to the groups created for the specified column.
         private void SetGroups(int column)
         {
             if (!isRunningXPOrLater) return;
 
-            // Remove the current groups.
-            lvItems.Groups.Clear();
+            lvItems.BeginUpdate();
             try
             {
-                // Retrieve the hash table corresponding to the column.
+                // Detach items from any existing groups first
+                foreach (ListViewItem item in lvItems.Items)
+                    item.Group = null;
+                // Remove the current groups.
+                lvItems.Groups.Clear();
+
                 Hashtable groups = (Hashtable)groupTables[column];
+                if (groups == null || groups.Count == 0)
+                {
+                    lvItems.ShowGroups = false;
+                    return;
+                }
 
-                // Copy the groups for the column to an array.
-                ListViewGroup[] groupsArray = new ListViewGroup[groups.Count];
-                groups.Values.CopyTo(groupsArray, 0);
+                // Copy cached group headers to an array and sort.
+                string[] headers = new string[groups.Count];
+                groups.Values.CopyTo(headers, 0);
+                Array.Sort(headers, StringComparer.CurrentCultureIgnoreCase);
 
-                // Sort the groups and add them to myListView.
-                Array.Sort(groupsArray, new ListViewGroupSorter(lvItems.Sorting, column));
+                // Create NEW groups for THIS ListView and map header -> group.
+                Hashtable liveGroups = new Hashtable();
+                foreach (string header in headers)
+                {
+                    ListViewGroup ng = new ListViewGroup(header, HorizontalAlignment.Left);
+                    lvItems.Groups.Add(ng);
+                    liveGroups[header] = ng;
+                }
 
-                // Iterate through the items in myListView, assigning each 
-                // one to the appropriate group.
+                // Assign each item to the matching NEW group.
                 foreach (ListViewItem item in lvItems.Items)
                 {
                     SWAFItem i = item.Tag as SWAFItem;
+                    if (i == null) continue;
 
-                    // Retrieve the subitem text corresponding to the column.
                     string subItemText = item.SubItems[column].Text;
 
-                    if (i != null)
+                    if (column == 1 && xwnts != null && xwnts.ContainsKey(i.WantId))
                     {
-                        if (column == 1)
-                        {
-                            XWNTWrapper xwnt = pjse.FileTable.GFT[xwnts[i.WantId][1] as SimPe.Interfaces.Files.IPackageFile,
-                                xwnts[i.WantId][0] as SimPe.Interfaces.Files.IPackedFileDescriptor][0].Wrapper as XWNTWrapper;
-                            if (xwnt != null && xwnt["folder"] != null)
-                                subItemText = xwnt["folder"].Value;
-                        }
-                        else if (column == 2 && i.ArgType == SWAFItem.ArgTypes.Sim && i.Version >= 0x08)
-                        {
-                            ExtSDesc sdsc = FileTable.ProviderRegistry.SimDescriptionProvider.FindSim(i.Sim) as ExtSDesc;
-                            if (sdsc != null && sdsc.SimFamilyName != null)
-                                subItemText = sdsc.SimFamilyName;
-                        }
+                        XWNTWrapper xwnt = pjse.FileTable.GFT[
+                            xwnts[i.WantId][1] as SimPe.Interfaces.Files.IPackageFile,
+                            xwnts[i.WantId][0] as SimPe.Interfaces.Files.IPackedFileDescriptor
+                        ][0].Wrapper as XWNTWrapper;
+
+                        if (xwnt != null && xwnt["folder"] != null)
+                            subItemText = xwnt["folder"].Value;
+                    }
+                    else if (column == 2 && i.ArgType == SWAFItem.ArgTypes.Sim && i.Version >= 0x08)
+                    {
+                        ExtSDesc sdsc = FileTable.ProviderRegistry.SimDescriptionProvider.FindSim(i.Sim) as ExtSDesc;
+                        if (sdsc != null && sdsc.SimFamilyName != null)
+                            subItemText = sdsc.SimFamilyName;
                     }
 
-                    // Assign the item to the matching group.
-                    item.Group = (ListViewGroup)groups[subItemText];
+                    ListViewGroup grp = (ListViewGroup)liveGroups[subItemText];
+                    if (grp != null) item.Group = grp;
                 }
 
                 lvItems.ShowGroups = true;
             }
-            catch {}
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("SWAFEditor.SetGroups failed: " + ex);
+                lvItems.ShowGroups = false;
+            }
+            finally
+            {
+                lvItems.EndUpdate();
+            }
         }
+
+
 
 
         // Sorts ListViewGroup objects by header value.

@@ -178,10 +178,22 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins"
+    <PostBuildEvent>echo Copying simpe.wants.plugin outputs...
 
-copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins\" /Y
-copy "$(TargetDir)$(TargetName).pdb" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins\" /Y
+set SRC=$(TargetDir)
+set DST1=$(SolutionDir)SimPE.Main\bin\Plugins\
+set DST2=$(SolutionDir)bin\Plugins\
+
+if not exist "%25DST1%25" mkdir "%25DST1%25"
+if not exist "%25DST2%25" mkdir "%25DST2%25"
+
+copy /Y "%25SRC%25simpe.wants.plugin.dll" "%25DST1%25"
+copy /Y "%25SRC%25simpe.wants.plugin.pdb" "%25DST1%25"
+
+copy /Y "%25SRC%25simpe.wants.plugin.dll" "%25DST2%25"
+copy /Y "%25SRC%25simpe.wants.plugin.pdb" "%25DST2%25"
+
+echo simpe.wants.plugin copied to both plugin folders.
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

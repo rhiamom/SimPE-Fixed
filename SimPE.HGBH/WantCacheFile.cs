@@ -45,7 +45,17 @@ namespace SimPe.Cache
 		/// <param name="want">The Want File</param>
 		public void AddItem(WantInformation want)
 		{
-			CacheContainer mycc = this.UseConatiner(ContainerType.Want, want.XWant.Package.FileName);
+            if (want == null) return;
+
+            // Some WantInformation entries don't have an XWNT backing wrapper.
+            // Don't crash the cache builder.
+            if (want.XWant == null || want.XWant.Package == null)
+            {
+                System.Diagnostics.Debug.WriteLine("WantCacheFile.AddItem: want.XWant is null (skipping). want=" + want);
+                return;
+            }
+
+            CacheContainer mycc = this.UseConatiner(ContainerType.Want, want.XWant.Package.FileName);
 			
 			WantCacheItem wci = new WantCacheItem();	
 			wci.FileDescriptor = want.XWant.FileDescriptor;
