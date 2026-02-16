@@ -70,11 +70,15 @@ namespace SimPe.Windows.Forms
         public SimPe.Interfaces.Files.IPackageFile Package
         {
             get { return pkg; }
-            set {
+            set
+            {
                 if (pkg != value)
                 {
                     SimPe.Interfaces.Files.IPackageFile old = pkg;
                     pkg = value;
+
+                    FileTable.CurrentPackage = pkg;   // <-- ADD THIS LINE
+
                     OnChangedPackage(old, pkg, true);
                 }
             }
@@ -144,9 +148,15 @@ namespace SimPe.Windows.Forms
             string filonam = "nil";
             if (pkg != null) filonam = pkg.FileName;
 
-            if ((maps.Everything.Count > Helper.WindowsRegistry.BigPackageResourceCount && !Helper.WindowsRegistry.ResoruceTreeAllwaysAutoselect) || Helper.IsNeighborhoodFile(filonam))
-            { donotselect = true; lv.Clear(); }
-            
+            bool isNeighborhood = Helper.IsNeighborhoodFile(filonam);
+
+            if ((maps.Everything.Count > Helper.WindowsRegistry.BigPackageResourceCount &&
+                 !Helper.WindowsRegistry.ResoruceTreeAllwaysAutoselect) || isNeighborhood)
+            {
+                donotselect = true;
+                lv.Clear();
+            }
+
             if (lv != null && !lettreeviewselect)
             {
                 if (donotselect)
@@ -154,10 +164,13 @@ namespace SimPe.Windows.Forms
                 else
                     lv.SetResources(maps.Everything);
             }
-            if (tv != null) tv.SetResourceMaps(maps, lettreeviewselect, Helper.IsNeighborhoodFile(filonam));
-            // if (tv != null) tv.SetResourceMaps(maps, lettreeviewselect, donotselect);
+
+            if (tv != null)
+                tv.SetResourceMaps(maps, lettreeviewselect, donotselect);   // <- key change
+
             isbigneighbourhood = donotselect;
         }
+
 
         void newpkg_SavedIndex(object sender, EventArgs e)
         {

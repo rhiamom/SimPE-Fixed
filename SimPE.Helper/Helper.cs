@@ -1325,26 +1325,78 @@ namespace SimPe
              * Since no new hood types will exist we don't need to use an external file
              */
         }
-		
-		/// <summary>
-		/// Returns true if this is a Neighborhood File
-		/// </summary>
-		/// <param name="flname"></param>
-		/// <returns></returns>
+
+        /// <summary>
+        /// Returns true if this is a Neighborhood File
+        /// </summary>
+        /// <param name="flname"></param>
+        /// <returns></returns>
         public static bool IsNeighborhoodFile(string filename)
         {
-            if (filename == null || filename == "") return false;
-            filename = Path.GetFileName(filename);
-            filename = filename.Trim().ToLower();
+            if (string.IsNullOrWhiteSpace(filename)) return false;
 
-            // if (filename.IndexOf(neighborhood_package) == 4 && filename.Length == 4 + neighborhood_package.Length) return true;
-            // foreach (string hood in KnownHoods) if (filename.IndexOf("_" + hood) == 4 && filename.IndexOf(".package") == 4 + 1 + hood.Length + 3) return true;
+            // If we were given a directory, validate it as a neighborhood folder directly.
+            // If we were given a file, validate based on its parent folder.
+            string path = filename.Trim();
+            try
+            {
+                if (Directory.Exists(path))
+                {
+                    return IsNeighborhoodFolderPath(path);
+                }
 
-            if (filename.Contains("_neighborhood.package")) return true;
-            foreach (string hood in KnownHoods) if (filename.Contains("_" + hood + "0") && filename.EndsWith(".package")) return true; // CJH - removes the 4 char limit
+                // If it's a file path, use its directory (if any)
+                string dir = Path.GetDirectoryName(path);
+                if (!string.IsNullOrEmpty(dir) && Directory.Exists(dir))
+                {
+                    return IsNeighborhoodFolderPath(dir);
+                }
+            }
+            catch
+            {
+                // If anything about filesystem probing fails, fall back to name-only logic below.
+            }
+
+            // Fallback: name-only checks (no path info available)
+            string fn = Path.GetFileName(path).Trim();
+
+            if (fn.EndsWith("_Neighborhood.package", StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            // Optional: keep a strict KnownHoods prefix rule (NOT "Contains")
+            // Only if your KnownHoods are truly the 4-char codes:
+            foreach (string hood in KnownHoods)
+            {
+                if (string.IsNullOrWhiteSpace(hood)) continue;
+                string h = hood.Trim();
+                if (fn.StartsWith(h + "_", StringComparison.OrdinalIgnoreCase) &&
+                    fn.EndsWith(".package", StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
 
             return false;
         }
+
+        private static bool IsNeighborhoodFolderPath(string folderPath)
+        {
+            // Folder name must be exactly 4 chars, all letters/digits
+            string folder = Path.GetFileName(
+                folderPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+            );
+
+            if (folder == null || folder.Length != 4) return false;
+
+            for (int i = 0; i < 4; i++)
+            {
+                char c = folder[i];
+                if (!char.IsLetterOrDigit(c)) return false;
+            }
+
+            // Must contain "<folder>_Neighborhood.package"
+            string required = Path.Combine(folderPath, folder + "_Neighborhood.package");
+            return File.Exists(required);
+        }
+
 
         /// <summary>
         /// Returns true if this file is in the Lot Catalogue

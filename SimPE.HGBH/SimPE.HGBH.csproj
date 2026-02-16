@@ -193,14 +193,25 @@
     <Compile Include="WantWrapper.cs" />
     <Compile Include="WrapperFactory.cs" />
     <Compile Include="XwntWrapper.cs" />
-    <EmbeddedResource Include="BnfoCustomerItemsUI.resx" />
-    <EmbeddedResource Include="BnfoCustomerItemUI.de.resx" />
-    <EmbeddedResource Include="BnfoCustomerItemUI.fr.resx" />
-    <EmbeddedResource Include="BnfoCustomerItemUI.it.resx" />
+    <EmbeddedResource Include="BnfoCustomerItemsUI.resx">
+      <DependentUpon>BnfoCustomerItemsUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BnfoCustomerItemUI.de.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BnfoCustomerItemUI.fr.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BnfoCustomerItemUI.it.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BnfoCustomerItemUI.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BnfoCustomerItemUI.ru.resx" />
+    <EmbeddedResource Include="BnfoCustomerItemUI.ru.resx">
+      <DependentUpon>BnfoCustomerItemUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BnfoUI.de.resx">
       <DependentUpon>BnfoUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -213,51 +224,124 @@
     <EmbeddedResource Include="BnfoUI.resx">
       <DependentUpon>BnfoUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExtNgbhUI.de.resx" />
-    <EmbeddedResource Include="ExtNgbhUI.fr.resx" />
-    <EmbeddedResource Include="ExtNgbhUI.it.resx" />
-    <EmbeddedResource Include="ExtNgbhUI.resx" />
-    <EmbeddedResource Include="ExtNgbhUI.ru.resx" />
+    <EmbeddedResource Include="ExtNgbhUI.de.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtNgbhUI.fr.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtNgbhUI.it.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtNgbhUI.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtNgbhUI.ru.resx">
+      <DependentUpon>ExtNgbhUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IdnoForm.resx" />
-    <EmbeddedResource Include="LoteUI.en-US.resx" />
-    <EmbeddedResource Include="LoteUI.resx" />
+    <EmbeddedResource Include="LoteUI.en-US.resx">
+      <DependentUpon>LoteUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoteUI.resx">
+      <DependentUpon>LoteUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LtxtForm.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="MemoryProperties.de.resx" />
-    <EmbeddedResource Include="MemoryProperties.fr.resx" />
-    <EmbeddedResource Include="MemoryProperties.it.resx" />
-    <EmbeddedResource Include="MemoryProperties.resx" />
-    <EmbeddedResource Include="NgbhForm.de.resx" />
-    <EmbeddedResource Include="NgbhForm.fr.resx" />
-    <EmbeddedResource Include="NgbhForm.it.resx" />
-    <EmbeddedResource Include="NgbhForm.pl.resx" />
-    <EmbeddedResource Include="NgbhForm.resx" />
-    <EmbeddedResource Include="NgbhForm.ru.resx" />
-    <EmbeddedResource Include="NgbhItemsListView.de.resx" />
-    <EmbeddedResource Include="NgbhItemsListView.fr.resx" />
-    <EmbeddedResource Include="NgbhItemsListView.it.resx" />
-    <EmbeddedResource Include="NgbhItemsListView.resx" />
-    <EmbeddedResource Include="NgbhItemsListView.ru.resx" />
-    <EmbeddedResource Include="NgbhSkillHelper.de.resx" />
-    <EmbeddedResource Include="NgbhSkillHelper.fr.resx" />
-    <EmbeddedResource Include="NgbhSkillHelper.it.resx" />
-    <EmbeddedResource Include="NgbhSkillHelper.resx" />
-    <EmbeddedResource Include="NgbhSkillHelper.ru.resx" />
-    <EmbeddedResource Include="NgbhSkillHelperElement.resx" />
+    <EmbeddedResource Include="MemoryProperties.de.resx">
+      <DependentUpon>MemoryProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemoryProperties.fr.resx">
+      <DependentUpon>MemoryProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemoryProperties.it.resx">
+      <DependentUpon>MemoryProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemoryProperties.resx">
+      <DependentUpon>MemoryProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhForm.de.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhForm.fr.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhForm.it.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhForm.pl.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhForm.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhForm.ru.resx">
+      <DependentUpon>NgbhForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhItemsListView.de.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhItemsListView.fr.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhItemsListView.it.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhItemsListView.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhItemsListView.ru.resx">
+      <DependentUpon>NgbhItemsListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSkillHelper.de.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSkillHelper.fr.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSkillHelper.it.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSkillHelper.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSkillHelper.ru.resx">
+      <DependentUpon>NgbhSkillHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSkillHelperElement.resx">
+      <DependentUpon>NgbhSkillHelperElement.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NgbhSlotListView.resx" />
-    <EmbeddedResource Include="NgbhSlotSelection.de.resx" />
-    <EmbeddedResource Include="NgbhSlotSelection.fr.resx" />
-    <EmbeddedResource Include="NgbhSlotSelection.it.resx" />
-    <EmbeddedResource Include="NgbhSlotSelection.resx" />
+    <EmbeddedResource Include="NgbhSlotSelection.de.resx">
+      <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSlotSelection.fr.resx">
+      <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSlotSelection.it.resx">
+      <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhSlotSelection.resx">
+      <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NgbhValueDescriptorSelection.resx" />
-    <EmbeddedResource Include="NgbhValueDescriptorUI.de.resx" />
-    <EmbeddedResource Include="NgbhValueDescriptorUI.fr.resx" />
-    <EmbeddedResource Include="NgbhValueDescriptorUI.it.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorUI.de.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhValueDescriptorUI.fr.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NgbhValueDescriptorUI.it.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NgbhValueDescriptorUI.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NgbhValueDescriptorUI.ru.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorUI.ru.resx">
+      <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NhtrUI.en-US.resx" />
     <EmbeddedResource Include="NhtrUI.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">

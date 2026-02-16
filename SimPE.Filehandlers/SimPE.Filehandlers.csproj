@@ -174,7 +174,7 @@
     <EmbeddedResource Include="Elements.it.resx" />
     <EmbeddedResource Include="Elements.pl.resx" />
     <EmbeddedResource Include="Elements.resx">
-	  <LogicalName>SimPe.PackedFiles.UserInterface.Elements.resources</LogicalName>
+      <LogicalName>SimPe.PackedFiles.UserInterface.Elements.resources</LogicalName>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <!-- Neutral resources: force the base name WinForms expects -->
@@ -239,6 +239,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SdscExtendedForm.resx" />
+    <EmbeddedResource Include="SdscForm.resx">
+      <DependentUpon>SdscForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SimRelinkForm.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

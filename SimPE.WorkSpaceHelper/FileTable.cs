@@ -32,7 +32,14 @@ namespace SimPe
 	/// </summary>
 	public class FileTable : FileTableBase
 	{
-		static SimPe.Interfaces.IToolRegistry treg;
+        static SimPe.Interfaces.Files.IPackageFile currentPackage;
+        public static SimPe.Interfaces.Files.IPackageFile CurrentPackage
+        {
+            get { return currentPackage; }
+            set { currentPackage = value; }
+        }
+
+        static SimPe.Interfaces.IToolRegistry treg;
 		/// <summary>
 		/// Returns/Sets a ToolRegistry (can be null)
 		/// </summary>

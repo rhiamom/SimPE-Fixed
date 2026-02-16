@@ -1189,25 +1189,62 @@ namespace SimPe.PackedFiles.UserInterface
 			}
 		}
 
-		private void Activate_miOpenMem(object sender, System.EventArgs e)
-		{
-			try 
-			{
-				//Open File
-				Interfaces.Files.IPackedFileDescriptor pfd = Sdesc.Package.NewDescriptor(0x4E474248, 0, Data.MetaData.LOCAL_GROUP, 1); //try the memory Resource
-				pfd = Sdesc.Package.FindFile(pfd);				
-				SimPe.RemoteControl.OpenPackedFile(pfd, Sdesc.Package);				
+        private void Activate_miOpenMem(object sender, System.EventArgs e)
+        {
+            try
+            {
+                // Neighborhood package must be the currently open ResourceViewManager package
+                SimPe.Interfaces.Files.IPackageFile hoodPkg = FileTable.CurrentPackage;
 
-				object[] data = new object[] {Sdesc.FileDescriptor.Instance, Data.NeighborhoodSlots.Sims}; 
-				SimPe.RemoteControl.AddMessage(this, new SimPe.RemoteControl.ControlEventArgs(0x4E474248, data));
-			}
-			catch (Exception ex) 
-			{
-				Helper.ExceptionMessage(ex);
-			}
-		}
+                if (hoodPkg == null || !Helper.IsNeighborhoodFile(hoodPkg.FileName))
+                {
+                    SimPe.Message.Show(
+                        "Please open a neighborhood package first (e.g. N001_Neighborhood.package).",
+                        "Memories",
+                        MessageBoxButtons.OK);
+                    return;
+                }
 
-		private void Activate_miOpenBadge(object sender, System.EventArgs e)
+                // Ensure the GUI is in the correct package context for memory-related editors
+                if (!SimPe.RemoteControl.OpenMemoryPackage(hoodPkg))
+                {
+                    SimPe.Message.Show(
+                        "Unable to open the neighborhood package in the SimPE GUI.",
+                        "Memories",
+                        MessageBoxButtons.OK);
+                    return;
+                }
+
+                // NGBH resource (Memories/Badges) lives in the neighborhood package
+                Interfaces.Files.IPackedFileDescriptor pfd =
+                    hoodPkg.NewDescriptor(0x4E474248, 0, Data.MetaData.LOCAL_GROUP, 1);
+
+                pfd = hoodPkg.FindFile(pfd);
+
+                if (pfd == null)
+                {
+                    SimPe.Message.Show(
+                        "Memories (NGBH) not found in the current neighborhood package.",
+                        "Memories",
+                        MessageBoxButtons.OK);
+                    return;
+                }
+
+                // Open the memory resource editor
+                SimPe.RemoteControl.OpenPackedFile(pfd, hoodPkg);
+
+                // Tell the memory UI which Sim we want
+                object[] data = new object[] { Sdesc.FileDescriptor.Instance, Data.NeighborhoodSlots.Sims };
+                SimPe.RemoteControl.AddMessage(this, new SimPe.RemoteControl.ControlEventArgs(0x4E474248, data));
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage(ex);
+            }
+        }
+
+
+        private void Activate_miOpenBadge(object sender, System.EventArgs e)
 		{
 			try 
 			{

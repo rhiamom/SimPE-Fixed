@@ -223,7 +223,9 @@
     </Compile>
     <EmbeddedResource Include="RcolForm.resx" />
     <EmbeddedResource Include="ShpeForm.resx" />
-    <EmbeddedResource Include="tCresHierarchy.resx" />
+    <EmbeddedResource Include="Cres.resx">
+       <DependentUpon>tCresHierarchy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="tDirectionalLight.resx" />
     <EmbeddedResource Include="tExtension.resx" />
     <EmbeddedResource Include="tGenericRcol.resx" />

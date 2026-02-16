@@ -2000,7 +2000,7 @@ namespace SimPe.PackedFiles.UserInterface
             // xpTaskBoxSimple3
             // 
             this.xpTaskBoxSimple3.BackColor = System.Drawing.Color.Transparent;
-            this.xpTaskBoxSimple3.BodyColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.xpTaskBoxSimple3.BodyColor = System.Drawing.SystemColors.Control;
             this.xpTaskBoxSimple3.BorderColor = System.Drawing.SystemColors.Window;
             this.xpTaskBoxSimple3.Controls.Add(this.label3);
             this.xpTaskBoxSimple3.Controls.Add(this.tbstatmot);
@@ -2112,7 +2112,7 @@ namespace SimPe.PackedFiles.UserInterface
             // xpTaskBoxSimple2
             // 
             this.xpTaskBoxSimple2.BackColor = System.Drawing.Color.Transparent;
-            this.xpTaskBoxSimple2.BodyColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.xpTaskBoxSimple2.BodyColor = System.Drawing.SystemColors.Control;
             this.xpTaskBoxSimple2.BorderColor = System.Drawing.SystemColors.Window;
             this.xpTaskBoxSimple2.Controls.Add(this.cbfit);
             this.xpTaskBoxSimple2.Controls.Add(this.cbpreginv);
@@ -2166,7 +2166,7 @@ namespace SimPe.PackedFiles.UserInterface
             // xpTaskBoxSimple1
             // 
             this.xpTaskBoxSimple1.BackColor = System.Drawing.Color.Transparent;
-            this.xpTaskBoxSimple1.BodyColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.xpTaskBoxSimple1.BodyColor = SystemColors.Control;
             this.xpTaskBoxSimple1.BorderColor = System.Drawing.SystemColors.Window;
             this.xpTaskBoxSimple1.Controls.Add(this.cbisghost);
             this.xpTaskBoxSimple1.Controls.Add(this.cbignoretraversal);
@@ -2403,7 +2403,7 @@ namespace SimPe.PackedFiles.UserInterface
             // xpTaskBoxSimple4
             // 
             this.xpTaskBoxSimple4.BackColor = System.Drawing.Color.Transparent;
-            this.xpTaskBoxSimple4.BodyColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.xpTaskBoxSimple4.BodyColor = System.Drawing.SystemColors.Control;
             this.xpTaskBoxSimple4.BorderColor = System.Drawing.SystemColors.Window;
             this.xpTaskBoxSimple4.Controls.Add(this.label33);
             this.xpTaskBoxSimple4.Controls.Add(this.tb7social);

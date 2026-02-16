@@ -216,21 +216,6 @@ namespace SimPe.Providers
 				SimPe.PackedFiles.Wrapper.StrItemList strs = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
                 if (to1 == 14)
                 {
-                    int j = 0;
-                    for (int i = 0; i < strs.Count; i++)
-                    {
-                        if (i == to1) { turnons[j] = "Nudity (A&N)"; j++; }
-                        turnons[j] = strs[i].Title;
-                        j++;
-                    }
-                }
-                else if (to1 == 12)
-                {
-                    for (int i = 0; i < strs.Count; i++)
-                        if ( i != 13) turnons[i] = strs[i].Title;
-                }
-                else
-                {
                     for (int i = 0; i < strs.Count; i++)
                         turnons[i] = strs[i].Title;
                 }
@@ -242,20 +227,17 @@ namespace SimPe.Providers
 			if (turnons==null) LoadTurnOns();
             TraitAlias[] a = new TraitAlias[turnons.Count];
 
-			int ct = 0;
-            int j = 15 - to1;
-			foreach (int k in turnons.Keys)
-			{
-				string s = turnons[k];
-				int e = k;
-                if (e > to1) e += j; // Fuck - only 14 bits in traits 1. If A&N's Nudity were anabled this would need to be altered just for A&N
-				a[ct++] = new TraitAlias((ulong)Math.Pow(2, e), s);
+            int ct = 0;
+            foreach (int k in turnons.Keys)
+            {
+                string s = turnons[k];
+                int e = k;
+                a[ct++] = new TraitAlias((ulong)1 << e, s);
             }
+            return a;
+        }
 
-			return a;
-		}
-
-		public ulong BuildTurnOnIndex(ushort val1, ushort val2, ushort val3)
+        public ulong BuildTurnOnIndex(ushort val1, ushort val2, ushort val3)
 		{
             ulong res = val1;
             res |= ((ulong)val2 << 16);

@@ -34,9 +34,7 @@ namespace SimPe
 	/// </summary>
 	public partial class MainForm : System.Windows.Forms.Form
 	{
-		
-
-		public MainForm()
+        public MainForm()
 		{
 			//
 			// Erforderlich für die Windows Form-Designerunterstützung
