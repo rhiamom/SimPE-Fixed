@@ -31,34 +31,73 @@ namespace SimPe.Cache
 	/// </summary>
 	public class MemoryCacheFile: CacheFile
 	{
-		/// <summary>
-		/// Updates and Loads the Memory Cache
-		/// </summary>
-		/// <returns></returns>
-		public static MemoryCacheFile InitCacheFile() 
+        static bool isBuilding = false;
+        static MemoryCacheFile sharedCache = null;
+
+        /// <summary>
+        /// Updates and Loads the Memory Cache
+        /// </summary>
+        /// <returns></returns>
+        public static MemoryCacheFile InitCacheFile() 
 		{
 			FileTable.FileIndex.Load();
 			return InitCacheFile(FileTable.FileIndex);
 		}
-		/// <summary>
-		/// Updates and Loads the Memory Cache
-		/// </summary>
-		/// <returns></returns>
-		public static MemoryCacheFile InitCacheFile(SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fileindex) 
-		{
-            Wait.SubStart();
-			Wait.Message = "Loading Memorycache" ;
+        /// <summary>
+        /// Updates and Loads the Memory Cache
+        /// </summary>
+        /// <returns></returns>
+        public static MemoryCacheFile InitCacheFile(SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fileindex)
+        {
+            if (sharedCache != null && !isBuilding)
+                return sharedCache;
 
-			MemoryCacheFile cachefile = new MemoryCacheFile();
-            
-			cachefile.Load(Helper.SimPeLanguageCache, true);
-			cachefile.ReloadCache(fileindex, true);
-            Wait.SubStop();
+            if (isBuilding)
+                return sharedCache ?? new MemoryCacheFile();
 
-			return cachefile;
-		}
+            isBuilding = true;
+            sharedCache = new MemoryCacheFile();
 
-		public void ReloadCache()
+            try
+            {
+                Wait.SubStart();
+                Wait.Message = "Loading MemoryCache";
+
+                string cachePath = Helper.SimPeLanguageCache;
+                System.Diagnostics.Debug.WriteLine("MemoryCache loading from: " + cachePath);
+
+                bool missing = !File.Exists(cachePath);
+
+                if (!missing)
+                {
+                    try
+                    {
+                        sharedCache.Load(cachePath, true);
+                    }
+                    catch (Exception)
+                    {
+                        missing = true;
+                        try { File.Delete(cachePath); } catch { }
+                        sharedCache = new MemoryCacheFile();
+                    }
+                }
+
+                if (missing)
+                {
+                    System.Diagnostics.Debug.WriteLine("MemoryCache: rebuilding...");
+                    sharedCache.ReloadCache(fileindex, true);
+                }
+
+                Wait.SubStop();
+                return sharedCache;
+            }
+            finally
+            {
+                isBuilding = false;
+            }
+        }
+
+        public void ReloadCache()
 		{
 			ReloadCache(true);
 		}
@@ -70,10 +109,12 @@ namespace SimPe.Cache
 		}
 
 		public void ReloadCache(SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fileindex, bool save)
-		{			
-			Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = fileindex.FindFile(Data.MetaData.OBJD_FILE, true);
-			
-			bool added = false;
+		{
+            System.Diagnostics.Debug.WriteLine("MemoryCache ReloadCache: START");
+            Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = fileindex.FindFile(Data.MetaData.OBJD_FILE, true);
+            System.Diagnostics.Debug.WriteLine("MemoryCache ReloadCache: OBJD items = " + (items == null ? -1 : items.Length));
+
+            bool added = false;
             Wait.MaxProgress = items.Length;
             Wait.Message = "Updating Cache";
             int ct = 0;
@@ -91,13 +132,13 @@ namespace SimPe.Cache
 				}
                 Wait.Progress = ct++;
 			}
-
-			if (added) 
+            System.Diagnostics.Debug.WriteLine("MemoryCache ReloadCache: added=" + added);
+            if (added) 
 			{
 				this.map = null;
-                Wait.Message = "Saving Chache";
-				if (save) this.Save(this.FileName);				
-				this.LoadMemTable();
+                Wait.Message = "Saving Cache";
+                if (save) this.Save(Helper.SimPeLanguageCache);
+                this.LoadMemTable();
 				this.LoadMemList();
 			}			
 		}
@@ -130,7 +171,12 @@ namespace SimPe.Cache
                 Interfaces.Scenegraph.IScenegraphFileIndexItem[] sitems = FileTable.FileIndex.FindFile(Data.MetaData.CTSS_FILE, objd.FileDescriptor.Group, objd.CTSSInstance + (ulong)1, null);
                 if (sitems.Length == 0)
                     sitems = FileTable.FileIndex.FindFile(Data.MetaData.CTSS_FILE, objd.FileDescriptor.Group, objd.CTSSInstance, null);
-				if (sitems.Length>0) 
+                System.Diagnostics.Debug.WriteLine(
+    "MemoryCache AddItem: guid=0x" + Helper.HexString(objd.Guid) +
+    " group=0x" + Helper.HexString(objd.FileDescriptor.Group) +
+    " ctssInst=0x" + objd.CTSSInstance.ToString("X") +
+    " ctssFound=" + sitems.Length);
+                if (sitems.Length>0) 
 				{
 					SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 					str.ProcessData(sitems[0]);

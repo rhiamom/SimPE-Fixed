@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 using System;
+using static Ambertation.Windows.Forms.APIHelp;
 namespace SimPe
 {
 	/// <summary>
@@ -64,45 +65,67 @@ namespace SimPe
 			return lp.LoadFromPackage((SimPe.Packages.GeneratableFile)pkg);
 		}
 
-		public bool OpenPackedFile(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii) 
-		{
-			if (fii==null) return false;		
+        public bool OpenPackedFile(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
+        {
+            if (fii == null) return false;
 
-			try 
-			{
-				if (fii.Package!=null) 
-				{
-					if (!fii.Package.Equals(lp.Package)) 
-					{
-						int bprc = Helper.WindowsRegistry.BigPackageResourceCount;
-						Helper.WindowsRegistry.BigPackageResourceCount = int.MaxValue;
+            try
+            {
+                if (fii.Package != null)
+                {
+                    if (!fii.Package.Equals(lp.Package))
+                    {
+                        int bprc = Helper.WindowsRegistry.BigPackageResourceCount;
+                        Helper.WindowsRegistry.BigPackageResourceCount = int.MaxValue;
 
-						if (!lp.LoadFromPackage((SimPe.Packages.GeneratableFile)fii.Package)) 
-						{
-							Helper.WindowsRegistry.BigPackageResourceCount = bprc;
-							return false;
-						}
-						Helper.WindowsRegistry.BigPackageResourceCount = bprc;
-					}
-				}
-			} 
-			catch (Exception ex)
-			{
-				Helper.ExceptionMessage(ex);
-				return false;
-			}
+                         SimPe.Packages.GeneratableFile genFile = fii.Package as SimPe.Packages.GeneratableFile;
+                        bool loadedOk;
 
-			bool res = rl.AddResource(fii, false);
-			if (res && LoadedResource!=null) FireLoadEvent(fii);
+                        if (genFile != null)
+                        {
+                            loadedOk = lp.LoadFromPackage(genFile);
+                        }
+                        else
+                        {
+                            string fn = fii.Package.FileName;
+                            if (string.IsNullOrEmpty(fn))
+                            {
+                                Helper.WindowsRegistry.BigPackageResourceCount = bprc;
+                                return false;
+                            }
 
-			return res;
-		}
+                            loadedOk = lp.LoadFromFile(fn, true);
+                        }
 
-		/// <summary>
-		/// Fires the <see cref="LoadedResource"/> Event
-		/// </summary>
-		/// <param name="fii"></param>
-		public void FireLoadEvent(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
+                        if (!loadedOk)
+                        {
+                            Helper.WindowsRegistry.BigPackageResourceCount = bprc;
+                            return false;
+                        }
+
+                        Helper.WindowsRegistry.BigPackageResourceCount = bprc;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage(ex);
+                return false;
+            }
+
+            bool res = rl.AddResource(fii, false);
+            System.Diagnostics.Debug.WriteLine("AddResource: " + res + " type=0x" + fii.FileDescriptor.Type.ToString("X8") + " name=" + fii.FileDescriptor.ToString());
+            if (res && LoadedResource != null) FireLoadEvent(fii);
+
+            return res;
+        }
+
+
+        /// <summary>
+        /// Fires the <see cref="LoadedResource"/> Event
+        /// </summary>
+        /// <param name="fii"></param>
+        public void FireLoadEvent(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
 		{
 			SimPe.Events.ResourceEventArgs e = new SimPe.Events.ResourceEventArgs(lp);
 			e.Items.Add(new SimPe.Events.ResourceContainer(fii));
@@ -139,6 +162,4 @@ namespace SimPe
 			}
 		}
 	}
-
-	
 }

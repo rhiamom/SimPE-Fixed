@@ -322,19 +322,18 @@ namespace SimPe.Plugin
 		public static XWant GetWant(uint guid)
 		{
 			if (wants==null) LoadWants();
-
-			SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem wts = (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem)wants[guid];
-			if (wts!=null) 
+            System.Diagnostics.Debug.WriteLine("LoadWants: wants count=" + (wants == null ? -1 : wants.Count));
+            SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem wts = (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem)wants[guid];
+            XWant xwnt = new XWant();
+            if (wts!=null) 
 			{
-				XWant xwnt = new XWant();
 				wts.FileDescriptor.UserData = wts.Package.Read(wts.FileDescriptor).UncompressedData;
 				xwnt.ProcessData(wts);
-
 				return xwnt;
 			}
-
-			return null;
-		}
+            xwnt.Guid = guid;   // only if XWant has a Guid/Id field/property
+            return xwnt;
+        }
 
 		/// <summary>
 		/// Returns the String File describing that want

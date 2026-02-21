@@ -109,19 +109,27 @@ namespace SimPe.Packages
 			}
 		}
 
-		public void ReloadReader()
-		{
-			if (Reader!=null) return;
-			if (this.type == PackageBaseType.Stream) return;
-            StreamItem si = StreamFactory.UseStream(this.flname, System.IO.FileAccess.Read); // seams to be no problem, is after all just a reader, not a writer
-			//StreamItem si = StreamFactory.UseStream(this.flname, System.IO.FileAccess.ReadWrite); // can be an issue with read onlu files, never used to be but suddenly is
-			reader = new BinaryReader(si.FileStream);
-		}
+        public void ReloadReader()
+        {
+            if (Reader != null) return;
+            if (this.type == PackageBaseType.Stream) return;
 
-		/// <summary>
-		/// Returns the Stream used to read the Package
-		/// </summary>
-		public System.IO.BinaryReader Reader 
+            StreamItem si = StreamFactory.UseStream(this.flname, System.IO.FileAccess.Read);
+
+            if (si == null)
+                throw new InvalidOperationException("ReloadReader failed: StreamFactory.UseStream returned null. flname='" + this.flname + "'");
+
+            if (si.FileStream == null)
+                throw new FileNotFoundException("ReloadReader failed: FileStream is null. File likely does not exist or was not opened. flname='" + this.flname + "'", this.flname);
+
+            reader = new BinaryReader(si.FileStream);
+        }
+
+
+        /// <summary>
+        /// Returns the Stream used to read the Package
+        /// </summary>
+        public System.IO.BinaryReader Reader 
 		{
 			get 
 			{ 
@@ -823,9 +831,10 @@ namespace SimPe.Packages
 		{
             PackedFile pf = new PackedFile(data);
             if (reader == null) ReloadReader();
-			try 
-			{
-				reader.BaseStream.Seek(pfd.Offset, System.IO.SeekOrigin.Begin);
+            if (reader == null || reader.BaseStream == null) return pf;
+            try
+            {
+                reader.BaseStream.Seek(pfd.Offset, System.IO.SeekOrigin.Begin);
 				pf.size = reader.ReadInt32();
 				pf.signature = reader.ReadUInt16();			
 				Byte[] dummy = reader.ReadBytes(3);

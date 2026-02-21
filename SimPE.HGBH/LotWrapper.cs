@@ -104,7 +104,7 @@ namespace SimPe.Plugin
 				"Peter L Jones",
 				"Lot package lot descriptor.",
 				1,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.ltxt.png"))
+                SimPe.LoadIcon.load("ltxt.png")
 				); 
 		}
 

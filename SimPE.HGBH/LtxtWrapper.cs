@@ -264,7 +264,7 @@ namespace SimPe.Plugin
 				"Quaxi",
 				"This File contains the Description for a Lot.",
 				9,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.ltxt.png"))
+                SimPe.LoadIcon.load("ltxt.png")
 				); 
 		}
 

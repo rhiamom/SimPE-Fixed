@@ -204,9 +204,17 @@ namespace SimPe.Cache
 			pfd.Group = reader.ReadUInt32();			
 			pfd.LongInstance = reader.ReadUInt64();			
 			guid = reader.ReadUInt32();
-			
 
-			int size = reader.ReadInt32();
+
+            // ADD THIS BLOCK HERE
+            if (reader.BaseStream.Length - reader.BaseStream.Position < 4)
+            {
+                thumb = null;
+                return;
+            }
+
+            // This is the ReadInt32 we are guarding
+            int size = reader.ReadInt32();
 			if (size==0) 
 			{
 				thumb = null;

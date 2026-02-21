@@ -1193,34 +1193,12 @@ namespace SimPe.PackedFiles.UserInterface
         {
             try
             {
-                // Neighborhood package must be the currently open ResourceViewManager package
-                SimPe.Interfaces.Files.IPackageFile hoodPkg = FileTable.CurrentPackage;
+                // Open the NGBH (Memories/Badges) resource in the SAME package as the selected SDesc.
+                // This avoids reloading the whole neighborhood package and blowing away the Sim Description UI.
+                SimPe.Interfaces.Files.IPackedFileDescriptor pfd =
+                    Sdesc.Package.NewDescriptor(0x4E474248, 0, Data.MetaData.LOCAL_GROUP, 1);
 
-                if (hoodPkg == null || !Helper.IsNeighborhoodFile(hoodPkg.FileName))
-                {
-                    SimPe.Message.Show(
-                        "Please open a neighborhood package first (e.g. N001_Neighborhood.package).",
-                        "Memories",
-                        MessageBoxButtons.OK);
-                    return;
-                }
-
-                // Ensure the GUI is in the correct package context for memory-related editors
-                if (!SimPe.RemoteControl.OpenMemoryPackage(hoodPkg))
-                {
-                    SimPe.Message.Show(
-                        "Unable to open the neighborhood package in the SimPE GUI.",
-                        "Memories",
-                        MessageBoxButtons.OK);
-                    return;
-                }
-
-                // NGBH resource (Memories/Badges) lives in the neighborhood package
-                Interfaces.Files.IPackedFileDescriptor pfd =
-                    hoodPkg.NewDescriptor(0x4E474248, 0, Data.MetaData.LOCAL_GROUP, 1);
-
-                pfd = hoodPkg.FindFile(pfd);
-
+                pfd = Sdesc.Package.FindFile(pfd);
                 if (pfd == null)
                 {
                     SimPe.Message.Show(
@@ -1230,10 +1208,9 @@ namespace SimPe.PackedFiles.UserInterface
                     return;
                 }
 
-                // Open the memory resource editor
-                SimPe.RemoteControl.OpenPackedFile(pfd, hoodPkg);
+                SimPe.RemoteControl.OpenPackedFile(pfd, Sdesc.Package);
 
-                // Tell the memory UI which Sim we want
+                // Tell the NGBH UI which Sim (instance) to select, and that we want the Sims slot (memories).
                 object[] data = new object[] { Sdesc.FileDescriptor.Instance, Data.NeighborhoodSlots.Sims };
                 SimPe.RemoteControl.AddMessage(this, new SimPe.RemoteControl.ControlEventArgs(0x4E474248, data));
             }

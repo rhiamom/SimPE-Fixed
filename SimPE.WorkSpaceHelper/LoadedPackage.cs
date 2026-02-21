@@ -280,10 +280,20 @@ namespace SimPe
 				this.SetupEvents(false);	
 			}
 
-			pkg = newpkg;
-			pkg.LoadCompressedState();			
+            pkg = newpkg;
 
-			if (pkg!=null) 
+            // Enforce: disk-backed packages must have a valid on-disk filename before we try to read
+            string fn = pkg.FileName;
+            if (string.IsNullOrEmpty(fn))
+                throw new InvalidOperationException("LoadFromPackage: pkg.FileName is null/empty for package type " + pkg.GetType().FullName);
+
+            if (!System.IO.File.Exists(fn))
+                throw new System.IO.FileNotFoundException("LoadFromPackage: package file does not exist: " + fn, fn);
+
+            pkg.LoadCompressedState();
+
+
+            if (pkg!=null) 
 			{
 				this.SetupEvents(true);	
 			}

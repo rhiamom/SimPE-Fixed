@@ -261,53 +261,70 @@ namespace SimPe
 			return false;
 		}
 
-		/// <summary>
-		/// The resource that should be added to the Container
-		/// </summary>
-		/// <param name="fii"></param>
-		/// <param name="reload">
-		/// when the Resource is already visible, and this Argument is true, the Gui 
-		/// will be reloaded. This means, that all unsaved changes will get lost!
-		/// </param>
-		/// <param name="overload">Replace the currently active Document Tab with the new one</param>
-		/// <returns>true, if the Plugin was loaded</returns>
+        /// <summary>
+        /// The resource that should be added to the Container
+        /// </summary>
+        /// <param name="fii"></param>
+        /// <param name="reload">
+        /// when the Resource is already visible, and this Argument is true, the Gui 
+        /// will be reloaded. This means, that all unsaved changes will get lost!
+        /// </param>
+        /// <param name="overload">Replace the currently active Document Tab with the new one</param>
+        /// <returns>true, if the Plugin was loaded</returns>
         public bool AddResource(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, bool reload, bool overload)
         {
+            if (pkg == null) { System.Diagnostics.Debug.WriteLine("AddResource fail: pkg null"); return false; }
+            if (pkg.Package == null) { System.Diagnostics.Debug.WriteLine("AddResource fail: pkg.Package null"); return false; }
 
-            if (!pkg.Loaded) return false;
+            System.Diagnostics.Debug.WriteLine("AddResource: start type=0x" + fii.FileDescriptor.Type.ToString("X8"));
 
-            //already Loaded?
-            if (FocusResource(fii, reload)) return true;
+            // already Loaded?
+            if (FocusResource(fii, reload))
+            {
+                System.Diagnostics.Debug.WriteLine("AddResource: FocusResource returned true");
+                return true;
+            }
+            System.Diagnostics.Debug.WriteLine("AddResource: FocusResource returned false");
 
-            //only one File at a Time?
+            // only one File at a Time?
             if (!Helper.WindowsRegistry.MultipleFiles) this.Clear();
 
-            //get the Wrapper
+            // get the Wrapper
             SimPe.Interfaces.Plugin.IFileWrapper wrapper = GetWrapper(fii);
+            System.Diagnostics.Debug.WriteLine("AddResource: GetWrapper -> " + (wrapper == null ? "<null>" : wrapper.GetType().FullName));
 
-            //unload if only one instance can be loaded
-            if (!UnloadSingleInstanceWrappers(wrapper, ref overload)) return false;
+            // unload if only one instance can be loaded
+            if (!UnloadSingleInstanceWrappers(wrapper, ref overload))
+            {
+                System.Diagnostics.Debug.WriteLine("AddResource fail: UnloadSingleInstanceWrappers returned false");
+                return false;
+            }
+            System.Diagnostics.Debug.WriteLine("AddResource: UnloadSingleInstanceWrappers ok");
 
             try
             {
-                //load the new Data into the Wrapper
+                // load the new Data into the Wrapper
                 LoadWrapper(ref wrapper, fii);
+                System.Diagnostics.Debug.WriteLine("AddResource: LoadWrapper ok");
 
-                //Present the passed Wrapper
-                return Present(fii, wrapper, overload);
+                // Present the passed Wrapper
+                bool pres = Present(fii, wrapper, overload);
+                System.Diagnostics.Debug.WriteLine("AddResource: Present -> " + pres);
+                return pres;
             }
 #if !DEBUG
-            catch (Exception ex) { Helper.ExceptionMessage(ex); return false; }
+    catch (Exception ex) { Helper.ExceptionMessage(ex); return false; }
 #endif
             finally { }
         }
 
-		/// <summary>
-		/// Selects the Document that shows the selected Resource
-		/// </summary>
-		/// <param name="fii">The Resource you want to select</param>
-		/// <returns>true, if that resource was found</returns>
-		public bool SelectResource(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
+
+        /// <summary>
+        /// Selects the Document that shows the selected Resource
+        /// </summary>
+        /// <param name="fii">The Resource you want to select</param>
+        /// <returns>true, if that resource was found</returns>
+        public bool SelectResource(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
 		{
             if (fii == null) return false;
 

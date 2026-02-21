@@ -7,7 +7,7 @@
     <ProjectGuid>{F060D4F2-BE7C-4390-A598-63A6030A2CB8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPE.Plugin</RootNamespace>
-    <AssemblyName>simpe.ngbh</AssemblyName>
+    <AssemblyName>simpe.ngbh.plugin</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -440,8 +440,19 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\"
-copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" /Y
+    <PostBuildEvent>REM Ensure local Plugins folder exists
+if not exist "$(TargetDir)Plugins" mkdir "$(TargetDir)Plugins"
+
+REM Copy DLL + PDB to this project's bin\Plugins
+copy /Y "$(TargetPath)" "$(TargetDir)Plugins\"
+copy /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)Plugins\"
+
+REM Ensure SimPE.Main Plugins folder exists
+if not exist "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins" mkdir "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins"
+
+REM Copy DLL + PDB to SimPE.Main bin\Plugins
+copy /Y "$(TargetPath)" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins\"
+copy /Y "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins\"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

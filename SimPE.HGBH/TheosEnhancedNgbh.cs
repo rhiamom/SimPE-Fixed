@@ -49,8 +49,8 @@ namespace SimPe.Plugin
 				"Quaxi (with extensions developed by Theo)",
 				"This File contains the Memories and Inventories of all Sims and Lots that Live in this Neighbourhood.",
 				2,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.ngbh.png"))
-				); 
+                SimPe.LoadIcon.load("ngbh.png")
+                ); 
 		}		
 
 		class ExceptionBuilder : ApplicationException

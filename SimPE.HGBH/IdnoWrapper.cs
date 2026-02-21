@@ -507,7 +507,7 @@ namespace SimPe.Plugin
 				"Quaxi",
 				"Contains the ID for this Neighbourhood. The Neighbourhood ID must be Unique for all packages the Game is loading.",
 				4,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.idno.png"))
+                SimPe.LoadIcon.load("idno.png")
 				); 
 		}
 

@@ -132,7 +132,7 @@ namespace SimPe.Plugin.Tool.Action
 		{
 			get
 			{
-				return System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.emoticon.png"));
+				return SimPe.LoadIcon.load("emoticon.png");
 			}
 		}
 

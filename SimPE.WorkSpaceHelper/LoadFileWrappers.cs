@@ -176,7 +176,7 @@ namespace SimPe
             ignore.Add("simpe.actiondeletesim.plugin.dll");
             ignore.Add("theos.simsurgery.plugin.dll");
             ignore.Add("theo.meshscanner.plugin.dll");
-            ignore.Add("simpe.ngbh.plugin.dll");
+            //ignore.Add("simpe.ngbh.plugin.dll");
 		}
 
 		/// <summary>
