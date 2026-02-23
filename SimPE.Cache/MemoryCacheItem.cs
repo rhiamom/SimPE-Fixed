@@ -228,7 +228,7 @@ namespace SimPe.Cache
 			}
 		}
 
-		public void Save(System.IO.BinaryWriter writer) 
+		public void Save(System.IO.BinaryWriter writer)
 		{
 			version = VERSION;
 			writer.Write(version);
@@ -236,27 +236,38 @@ namespace SimPe.Cache
 			writer.Write(objdname);
 			writer.Write((ushort)valuenames.Length);
 			foreach (string s in valuenames) writer.Write(s);
-			writer.Write((ushort)type);			
+			writer.Write((ushort)type);
 			writer.Write(pfd.Type);
 			writer.Write(pfd.Group);
 			writer.Write(pfd.LongInstance);
 			writer.Write(guid);
 
-			if (thumb==null) 
+			if (thumb==null)
 			{
 				writer.Write((int)0);
-			} 
-			else 
+			}
+			else
 			{
-				MemoryStream ms = new MemoryStream();
-				thumb.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-				byte[] data = ms.ToArray();
-				writer.Write(data.Length);
-				writer.Write(data);
+				try
+				{
+					using (MemoryStream ms = new MemoryStream())
+					{
+						thumb.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+						byte[] data = ms.ToArray();
+						writer.Write(data.Length);
+						writer.Write(data);
+					}
+				}
+				catch (Exception ex)
+				{
+					System.Diagnostics.Debug.WriteLine("MemoryCacheItem.Save: thumb encode failed: " + ex.ToString());
+					writer.Write(0); // store no thumbnail, but keep the cache file valid
+				}
 			}
 		}
 
-		public byte Version
+
+        public byte Version
 		{
 			get
 			{

@@ -1193,6 +1193,7 @@ namespace SimPe.PackedFiles.UserInterface
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("[OpenMem] start " + DateTime.Now.ToString("HH:mm:ss.fff"));
                 // Open the NGBH (Memories/Badges) resource in the SAME package as the selected SDesc.
                 // This avoids reloading the whole neighborhood package and blowing away the Sim Description UI.
                 SimPe.Interfaces.Files.IPackedFileDescriptor pfd =
@@ -1207,12 +1208,15 @@ namespace SimPe.PackedFiles.UserInterface
                         MessageBoxButtons.OK);
                     return;
                 }
-
+                System.Diagnostics.Debug.WriteLine("[OpenMem] before OpenPackedFile " + DateTime.Now.ToString("HH:mm:ss.fff"));
                 SimPe.RemoteControl.OpenPackedFile(pfd, Sdesc.Package);
+                System.Diagnostics.Debug.WriteLine("[OpenMem] after OpenPackedFile " + DateTime.Now.ToString("HH:mm:ss.fff"));
 
                 // Tell the NGBH UI which Sim (instance) to select, and that we want the Sims slot (memories).
                 object[] data = new object[] { Sdesc.FileDescriptor.Instance, Data.NeighborhoodSlots.Sims };
+                System.Diagnostics.Debug.WriteLine("[OpenMem] before AddMessage " + DateTime.Now.ToString("HH:mm:ss.fff"));
                 SimPe.RemoteControl.AddMessage(this, new SimPe.RemoteControl.ControlEventArgs(0x4E474248, data));
+                System.Diagnostics.Debug.WriteLine("[OpenMem] after AddMessage " + DateTime.Now.ToString("HH:mm:ss.fff"));
             }
             catch (Exception ex)
             {

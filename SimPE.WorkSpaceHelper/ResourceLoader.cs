@@ -190,7 +190,10 @@ namespace SimPe
 		/// <returns>true, if the Resource was Presented succesfull</returns>
 		bool Present(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, SimPe.Interfaces.Plugin.IFileWrapper wrapper, bool overload)
 		{
-			if (wrapper!=null) 
+            var swp = System.Diagnostics.Stopwatch.StartNew();
+            System.Diagnostics.Debug.WriteLine("Present[T+0ms]: ENTER type=0x" + fii.FileDescriptor.Type.ToString("X8"));
+
+            if (wrapper!=null) 
 			{
 				if (wrapper.FileDescriptor==null) return false;
 				if (wrapper.Package==null) return false;
@@ -276,40 +279,46 @@ namespace SimPe
             if (pkg == null) { System.Diagnostics.Debug.WriteLine("AddResource fail: pkg null"); return false; }
             if (pkg.Package == null) { System.Diagnostics.Debug.WriteLine("AddResource fail: pkg.Package null"); return false; }
 
-            System.Diagnostics.Debug.WriteLine("AddResource: start type=0x" + fii.FileDescriptor.Type.ToString("X8"));
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            System.Diagnostics.Debug.WriteLine("AddResource[T+0ms]: start type=0x" + fii.FileDescriptor.Type.ToString("X8"));
+            //System.Diagnostics.Debug.WriteLine("AddResource: start type=0x" + fii.FileDescriptor.Type.ToString("X8"));
 
             // already Loaded?
             if (FocusResource(fii, reload))
             {
-                System.Diagnostics.Debug.WriteLine("AddResource: FocusResource returned true");
-                return true;
+                bool focused = FocusResource(fii, reload);
+                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: FocusResource returned " + focused);
+                if (focused) return true;
             }
-            System.Diagnostics.Debug.WriteLine("AddResource: FocusResource returned false");
+            System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: FocusResource returned ");
 
             // only one File at a Time?
             if (!Helper.WindowsRegistry.MultipleFiles) this.Clear();
 
             // get the Wrapper
             SimPe.Interfaces.Plugin.IFileWrapper wrapper = GetWrapper(fii);
-            System.Diagnostics.Debug.WriteLine("AddResource: GetWrapper -> " + (wrapper == null ? "<null>" : wrapper.GetType().FullName));
+            System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: GetWrapper -> " + (wrapper == null ? "<null>" : wrapper.GetType().FullName));
+
 
             // unload if only one instance can be loaded
             if (!UnloadSingleInstanceWrappers(wrapper, ref overload))
             {
-                System.Diagnostics.Debug.WriteLine("AddResource fail: UnloadSingleInstanceWrappers returned false");
+                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: UnloadSingleInstanceWrappers FAILED");
                 return false;
             }
-            System.Diagnostics.Debug.WriteLine("AddResource: UnloadSingleInstanceWrappers ok");
-
+            System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: after UnloadSingleInstanceWrappers");
             try
             {
                 // load the new Data into the Wrapper
                 LoadWrapper(ref wrapper, fii);
+                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: after LoadWrapper");
                 System.Diagnostics.Debug.WriteLine("AddResource: LoadWrapper ok");
 
                 // Present the passed Wrapper
                 bool pres = Present(fii, wrapper, overload);
-                System.Diagnostics.Debug.WriteLine("AddResource: Present -> " + pres);
+                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: after Present pres=" + pres);
+
+                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: DONE");
                 return pres;
             }
 #if !DEBUG

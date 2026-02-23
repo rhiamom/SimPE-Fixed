@@ -74,10 +74,30 @@ namespace SimPe.Cache
                     {
                         sharedCache.Load(cachePath, true);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        long len = -1;
+                        try { len = new FileInfo(cachePath).Length; } catch { }
+
+                        System.Diagnostics.Debug.WriteLine("MemoryCache: LOAD FAILED: " + ex.ToString());
+                        System.Diagnostics.Debug.WriteLine("MemoryCache: cachePath=" + cachePath + " length=" + len);
+
+                        // Force rebuild, but keep evidence.
                         missing = true;
-                        try { File.Delete(cachePath); } catch { }
+
+                        try
+                        {
+                            string badPath = cachePath + ".bad";
+                            if (File.Exists(badPath)) File.Delete(badPath);
+                            File.Move(cachePath, badPath);
+                            System.Diagnostics.Debug.WriteLine("MemoryCache: moved bad cache to: " + badPath);
+                        }
+                        catch (Exception moveEx)
+                        {
+                            System.Diagnostics.Debug.WriteLine("MemoryCache: could not move bad cache: " + moveEx.ToString());
+                            // do NOT delete
+                        }
+
                         sharedCache = new MemoryCacheFile();
                     }
                 }
