@@ -78,15 +78,37 @@ namespace SimPe.PackedFiles.Wrapper
 
             return bmp;
         }
+        private static bool IsDdsHeader(byte[] bytes)
+        {
+            // DDS files start with "DDS " (0x44445320)
+            return bytes.Length >= 4 &&
+                   bytes[0] == 0x44 && bytes[1] == 0x44 &&
+                   bytes[2] == 0x53 && bytes[3] == 0x20;
+        }
+
+        private static bool IsGdiPlusFormat(byte[] bytes)
+        {
+            if (bytes.Length < 4) return false;
+
+            // JPEG: FF D8
+            if (bytes[0] == 0xFF && bytes[1] == 0xD8) return true;
+            // PNG: 89 50 4E 47
+            if (bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47) return true;
+            // BMP: 42 4D
+            if (bytes[0] == 0x42 && bytes[1] == 0x4D) return true;
+            // GIF: 47 49 46
+            if (bytes[0] == 0x47 && bytes[1] == 0x49 && bytes[2] == 0x46) return true;
+
+            return false;
+        }
+
         protected bool DoLoad(System.IO.BinaryReader reader, bool errmsg)
         {
             long pos = reader.BaseStream.Position;
 
             try
             {
-                // Read all remaining bytes ONCE
                 byte[] bytes;
-
                 using (var ms = new System.IO.MemoryStream())
                 {
                     reader.BaseStream.Position = pos;
@@ -94,7 +116,41 @@ namespace SimPe.PackedFiles.Wrapper
                     bytes = ms.ToArray();
                 }
 
-                // First try GDI+
+                if (bytes.Length == 0)
+                {
+                    image = null;
+                    return false;
+                }
+
+                // Route to SOIL2 directly for DDS/DXT — never attempt GDI+ on these
+                if (IsDdsHeader(bytes))
+                {
+                    image = TryLoadWithSoil2(bytes);
+                    return (image != null);
+                }
+
+                // For known GDI+ formats, try GDI+ only — never attempt SOIL2
+                if (IsGdiPlusFormat(bytes))
+                {
+                    try
+                    {
+                        using (var ims = new System.IO.MemoryStream(bytes))
+                        {
+                            image = System.Drawing.Image.FromStream(ims);
+                            return true;
+                        }
+                    }
+                    catch
+                    {
+                        image = null;
+                        return false;
+                    }
+                }
+
+                // Unknown format (likely TGA) — try SOIL2 first, then GDI+ as fallback
+                image = TryLoadWithSoil2(bytes);
+                if (image != null) return true;
+
                 try
                 {
                     using (var ims = new System.IO.MemoryStream(bytes))
@@ -103,22 +159,19 @@ namespace SimPe.PackedFiles.Wrapper
                         return true;
                     }
                 }
-                catch (ArgumentException)
+                catch
                 {
-                    // Not GDI+ -> try SOIL2
-                    image = TryLoadWithSoil2(bytes);
-                    return (image != null);
+                    image = null;
+                    return false;
                 }
             }
             catch
             {
-                reader.BaseStream.Position = pos;
                 image = null;
                 return false;
             }
             finally
             {
-                // Preserve caller expectations
                 reader.BaseStream.Position = pos;
             }
         }

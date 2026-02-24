@@ -238,7 +238,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SdscExtendedForm.resx" />
+    <EmbeddedResource Include="SdscExtendedForm.resx">
+      <DependentUpon>SdscExtendedForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SdscForm.resx">
       <DependentUpon>SdscForm.cs</DependentUpon>
     </EmbeddedResource>

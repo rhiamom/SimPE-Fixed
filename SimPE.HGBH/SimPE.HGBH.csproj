@@ -7,7 +7,7 @@
     <ProjectGuid>{F060D4F2-BE7C-4390-A598-63A6030A2CB8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPE.Plugin</RootNamespace>
-    <AssemblyName>simpe.ngbh.plugin</AssemblyName>
+    <AssemblyName>simpe.ngbh</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -442,17 +442,25 @@
   <PropertyGroup>
     <PostBuildEvent>REM Ensure local Plugins folder exists
 if not exist "$(TargetDir)Plugins" mkdir "$(TargetDir)Plugins"
-
 REM Copy DLL + PDB to this project's bin\Plugins
 copy /Y "$(TargetPath)" "$(TargetDir)Plugins\"
 copy /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)Plugins\"
-
 REM Ensure SimPE.Main Plugins folder exists
 if not exist "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins" mkdir "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins"
-
 REM Copy DLL + PDB to SimPE.Main bin\Plugins
 copy /Y "$(TargetPath)" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins\"
 copy /Y "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins\"
-</PostBuildEvent>
+REM Copy as simpe.ngbh.dll + pdb for Wants plugin assembly resolution
+copy /Y "$(TargetPath)" "$(TargetDir)simpe.ngbh.dll"
+copy /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)simpe.ngbh.pdb"
+copy /Y "$(TargetPath)" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\simpe.ngbh.dll"
+copy /Y "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\simpe.ngbh.pdb"
+REM Copy as simpe.ngbh.plugin.dll + pdb to preserve Memories compatibility
+copy /Y "$(TargetPath)" "$(TargetDir)simpe.ngbh.plugin.dll"
+copy /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)simpe.ngbh.plugin.pdb"
+copy /Y "$(TargetPath)" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\simpe.ngbh.plugin.dll"
+copy /Y "$(TargetDir)$(TargetName).pdb" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\simpe.ngbh.plugin.pdb"
+copy /Y "$(TargetPath)" "$(TargetDir)Plugins\simpe.ngbh.plugin.dll"
+copy /Y "$(TargetPath)" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\Plugins\simpe.ngbh.plugin.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>

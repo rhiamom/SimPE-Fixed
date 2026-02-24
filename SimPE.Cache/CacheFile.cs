@@ -70,58 +70,60 @@ namespace SimPe.Cache
             Load(flname, false);
         }
 
-		/// <summary>
-		/// Load a Cache File from the Disk
-		/// </summary>
-		/// <param name="flname">the name of the File</param>
+        /// <summary>
+        /// Load a Cache File from the Disk
+        /// </summary>
+        /// <param name="flname">the name of the File</param>
         /// <param name="withprogress">true if you want  to set the Progress in the current Wait control</param>
-		/// <exception cref="CacheException">Thrown if the File is not readable (ie, wrong Version or Signature)</exception>
-		public void Load(string flname, bool withprogress) 
-		{
-			this.filename = flname;
-			containers.Clear();
+        /// <exception cref="CacheException">Thrown if the File is not readable (ie, wrong Version or Signature)</exception>
+        public void Load(string flname, bool withprogress)
+        {
+            this.filename = flname;
+            containers.Clear();
 
-			if (!System.IO.File.Exists(flname)) return;
+            if (!System.IO.File.Exists(flname)) return;
 
-			StreamItem si = StreamFactory.UseStream(flname, FileAccess.Read, true);
-			try 
-			{
-				BinaryReader reader = new BinaryReader(si.FileStream);
-
-				try 
-				{
-					sig = reader.ReadUInt64();
+            StreamItem si = StreamFactory.UseStream(flname, FileAccess.Read, true);
+            try
+            {
+                byte[] fileBytes = System.IO.File.ReadAllBytes(flname);
+                BinaryReader reader = new BinaryReader(new System.IO.MemoryStream(fileBytes));
+                try
+                {
+                    sig = reader.ReadUInt64();
                     if (sig != OLDSIG && sig != SIGNATURE) throw new CacheException("Unknown Cache File Signature (" + Helper.HexString(sig) + ")", flname, 0);
 
-					version = reader.ReadByte();
+                    version = reader.ReadByte();
                     if (version > VERSION) throw new CacheException("Unable to read Cache", flname, version);
 
-					int count = reader.ReadInt32();
+                    int count = reader.ReadInt32();
                     if (withprogress) Wait.MaxProgress = count;
-					for (int i=0; i<count; i++) 
-					{
-						CacheContainer cc = new CacheContainer(DEFAULT_TYPE);
-						cc.Load(reader);
-						containers.Add(cc);
+                    var fileValidCache = new System.Collections.Generic.Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
+                    for (int i = 0; i < count; i++)
+                    {
+                        CacheContainer cc = new CacheContainer(DEFAULT_TYPE);
+                        cc.Load(reader, fileValidCache);
+                        containers.Add(cc);
                         if (withprogress) Wait.Progress = i;
-                        if (i % 10 == 0) System.Windows.Forms.Application.DoEvents();
-					}
-				} 
-				finally 
-				{
-					reader.Close();
-				}
-			} 
-			finally 
-			{
-				si.Close();
-			}
-		}
+                        // Only pump messages every 500 containers instead of every 10
+                        if (i % 500 == 0) System.Windows.Forms.Application.DoEvents();
+                    }
+                }
+                finally
+                {
+                    reader.Close();
+                }
+            }
+            finally
+            {
+                si.Close();
+            }
+        }
 
-		/// <summary>
-		/// Save a Cache File to the Disk
-		/// </summary>
-		public void Save() 
+        /// <summary>
+        /// Save a Cache File to the Disk
+        /// </summary>
+        public void Save() 
 		{
 			Save(filename);
 		}

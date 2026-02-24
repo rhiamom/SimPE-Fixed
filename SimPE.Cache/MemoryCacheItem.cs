@@ -119,16 +119,37 @@ namespace SimPe.Cache
 			set { Icon = value; }
 		}
 
-		/// <summary>
-		/// Returns the loaded Icon, this can be null!
-		/// </summary>
-		public Image Icon
-		{
-			get { return thumb; }
-			set { thumb = value; }
-		}
+        // Add this field alongside the existing thumb field
+        byte[] thumbData;
 
-		public bool IsToken
+        public Image Icon
+        {
+            get
+            {
+                // Decode on first access only
+                if (thumb == null && thumbData != null)
+                {
+                    try
+                    {
+                        using (var ms = new MemoryStream(thumbData))
+                            thumb = Image.FromStream(ms);
+                    }
+                    catch
+                    {
+                        thumb = null;
+                    }
+                    thumbData = null; // free the raw bytes once decoded
+                }
+                return thumb;
+            }
+            set
+            {
+                thumb = value;
+                thumbData = null;
+            }
+        }
+
+        public bool IsToken
 		{
             get { return IsAspiration || ((ObjdName.Trim().ToLower().StartsWith("token") || ObjdName.Trim().ToLower().StartsWith("cs - token")) && (this.ObjectType == Data.ObjectTypes.Normal || this.ObjectType == Data.ObjectTypes.Memory)); }
 		}
@@ -215,18 +236,17 @@ namespace SimPe.Cache
 
             // This is the ReadInt32 we are guarding
             int size = reader.ReadInt32();
-			if (size==0) 
-			{
-				thumb = null;
-			} 
-			else 
-			{
-				byte[] data = reader.ReadBytes(size);
-				MemoryStream ms = new MemoryStream(data);
-
-				thumb = Image.FromStream(ms);				
-			}
-		}
+            if (size == 0)
+            {
+                thumb = null;
+                thumbData = null;
+            }
+            else
+            {
+                thumbData = reader.ReadBytes(size);
+                thumb = null;
+            }
+        }
 
 		public void Save(System.IO.BinaryWriter writer)
 		{

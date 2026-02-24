@@ -19,7 +19,13 @@
  ***************************************************************************/
 using System;
 using System.Collections;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Windows.Forms;
+using static SimPe.Data.MetaData;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace SimPe
 {
@@ -181,50 +187,53 @@ namespace SimPe
 			return true;
 		}
 
-		/// <summary>
-		/// Add the passed Wrapper (it's UI) as a new Document
-		/// </summary>
-		/// <param name="fii"></param>
-		/// <param name="wrapper"></param>
-		/// <param name="overload">Replace the currently active Document Tab with the new one</param>
-		/// <returns>true, if the Resource was Presented succesfull</returns>
-		bool Present(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, SimPe.Interfaces.Plugin.IFileWrapper wrapper, bool overload)
-		{
+        /// <summary>
+        /// Add the passed Wrapper (it's UI) as a new Document
+        /// </summary>
+        /// <param name="fii"></param>
+        /// <param name="wrapper"></param>
+        /// <param name="overload">Replace the currently active Document Tab with the new one</param>
+        /// <returns>true, if the Resource was Presented succesfull</returns>
+        bool Present(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, SimPe.Interfaces.Plugin.IFileWrapper wrapper, bool overload)
+        {
             var swp = System.Diagnostics.Stopwatch.StartNew();
             System.Diagnostics.Debug.WriteLine("Present[T+0ms]: ENTER type=0x" + fii.FileDescriptor.Type.ToString("X8"));
 
-            if (wrapper!=null) 
-			{
-				if (wrapper.FileDescriptor==null) return false;
-				if (wrapper.Package==null) return false;
+            if (wrapper != null)
+            {
+                if (wrapper.FileDescriptor == null) return false;
+                if (wrapper.Package == null) return false;
 
-				//do not open Wrappers for deleted Descriptors
-				if (wrapper.FileDescriptor!=null) if (wrapper.FileDescriptor.MarkForDelete) return false;
+                if (wrapper.FileDescriptor != null) if (wrapper.FileDescriptor.MarkForDelete) return false;
 
-				TD.SandDock.DockControl doc = null;
-				bool add = !overload;
-				if (overload) doc = dc.SelectedPage;				
-				if (doc == null) {
-					add = true; 
-					doc = new TD.SandDock.TabPage(); 
-					doc.AllowClose=true; 
-					doc.AllowDockCenter=true;
-				}
-				else if (!this.UnloadWrapper(doc)) return false;
+                TD.SandDock.DockControl doc = null;
+                bool add = !overload;
+                if (overload) doc = dc.SelectedPage;
+                if (doc == null)
+                {
+                    add = true;
+                    doc = new TD.SandDock.TabPage();
+                    doc.AllowClose = true;
+                    doc.AllowDockCenter = true;
+                }
+                else if (!this.UnloadWrapper(doc)) return false;
 
-				doc.Text = wrapper.ResourceName;
-				doc.Tag = wrapper;		
-				
-				wrapper.FileDescriptor.Deleted += new EventHandler(DeletedDescriptor);
-				wrapper.FileDescriptor.ChangedUserData += new SimPe.Events.PackedFileChanged(FileDescriptor_ChangedUserData);
+                doc.Text = wrapper.ResourceName;
+                doc.Tag = wrapper;
+
+                wrapper.FileDescriptor.Deleted += new EventHandler(DeletedDescriptor);
+                wrapper.FileDescriptor.ChangedUserData += new SimPe.Events.PackedFileChanged(FileDescriptor_ChangedUserData);
 
                 doc.Text = wrapper.ResourceName;
 
+                System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before UIHandler");
                 SimPe.Interfaces.Plugin.IPackedFileUI uiHandler = wrapper.UIHandler;
+
+                System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before GUIHandle");
                 Control pan = (uiHandler == null) ? null : uiHandler.GUIHandle;
+
                 if (pan != null)
                 {
-
                     doc.FloatingSize = pan.Size;
                     doc.AllowFloat = true;
                     doc.AllowDockBottom = true;
@@ -234,7 +243,10 @@ namespace SimPe
                     doc.AllowDockCenter = true;
                     doc.AllowCollapse = true;
 
+                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before TabPages.Add");
                     if (add) dc.TabPages.Add(doc);
+
+                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before pan.Parent");
                     pan.Parent = doc;
                     pan.Left = 0;
                     pan.Top = 0;
@@ -243,26 +255,25 @@ namespace SimPe
                     pan.Dock = System.Windows.Forms.DockStyle.Fill;
                     pan.Visible = true;
 
-                    //pan.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-
-
+                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before Closing event and SelectedPage");
                     if (add) doc.Closing += new TD.SandDock.DockControlClosingEventHandler(CloseResourceDocument);
                     dc.SelectedPage = (TD.SandDock.TabPage)doc;
                     doc.Manager = dc.Manager;
                     doc.LayoutSystem.LockControls = false;
 
-
+                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before LoadUI");
                     loaded[fii] = doc;
-
                     if (!wrapper.AllowMultipleInstances) single[wrapper.GetType().ToString()] = fii;
                     wrapper.LoadUI();
+
+                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: after LoadUI (DONE)");
                 }
 
                 return true;
             }
 
-			return false;
-		}
+            return false;
+        }
 
         /// <summary>
         /// The resource that should be added to the Container

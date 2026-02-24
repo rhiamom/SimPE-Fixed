@@ -136,137 +136,153 @@ namespace SimPe.Cache
 			set { filename = value.Trim().ToLower(); }
 		}
 
-		/// <summary>
-		/// Load the Container from the Stream
-		/// </summary>
-		/// <param name="reader">the Stream Reader</param>
-		internal void Load(System.IO.BinaryReader reader) 
-		{
+        /// <summary>
+        /// Load the Container from the Stream
+        /// </summary>
+        /// <param name="reader">the Stream Reader</param>
+        internal void Load(System.IO.BinaryReader reader, System.Collections.Generic.Dictionary<string, bool> fileValidCache)
+        {
             valid = ContainerValid.FileNotFound;
-			items.Clear();
-			int offset = reader.ReadInt32();
-			version = reader.ReadByte();
-			type = (ContainerType)reader.ReadByte();
-			int count = reader.ReadInt32();
+            items.Clear();
+            int offset = reader.ReadInt32();
+            version = reader.ReadByte();
+            type = (ContainerType)reader.ReadByte();
+            int count = reader.ReadInt32();
 
-			long pos = reader.BaseStream.Position;
-			try 
-			{
-				if (version<=VERSION) 
-				{
-					reader.BaseStream.Seek(offset, System.IO.SeekOrigin.Begin);
-					added = DateTime.FromFileTime(reader.ReadInt64());
-					filename = reader.ReadString();
+            long pos = reader.BaseStream.Position;
+            try
+            {
+                if (version <= VERSION)
+                {
+                    reader.BaseStream.Seek(offset, System.IO.SeekOrigin.Begin);
+                    added = DateTime.FromFileTime(reader.ReadInt64());
+                    filename = reader.ReadString();
 
-					if (System.IO.File.Exists(filename)) 
-					{
-						DateTime mod = System.IO.File.GetLastWriteTime(filename);
-						if (mod<=added) valid = ContainerValid.Yes;
+                    bool fileExists;
+                    if (fileValidCache.ContainsKey(filename))
+                    {
+                        fileExists = fileValidCache[filename];
+                    }
+                    else
+                    {
+                        fileExists = System.IO.File.Exists(filename);
+                        fileValidCache[filename] = fileExists;
+                    }
+
+                    if (fileExists)
+                    {
+                        DateTime mod = System.IO.File.GetLastWriteTime(filename);
+                        if (mod <= added) valid = ContainerValid.Yes;
                         else valid = ContainerValid.Modified;
-					}
+                    }
 
-					if (valid == ContainerValid.Yes || System.Windows.Forms.Application.ExecutablePath.Trim().ToLower().EndsWith("settingmanager.exe")) 
-					{
-						switch (type) 
-						{
-							case ContainerType.Object:
-							{	
-								for (int i=0; i<count; i++) 
-								{
-									ObjectCacheItem oci = new ObjectCacheItem();
-									oci.Load(reader);
-									items.Add(oci);
-								}
-							
-								break;
-							}
-							case ContainerType.MaterialOverride:
-							{														
-								for (int i=0; i<count; i++) 
-								{
-									MMATCacheItem oci = new MMATCacheItem();
-									oci.Load(reader);
-									items.Add(oci);
-								}
-							
-								break;
-							}	
-							case ContainerType.Rcol:
-							{														
-								for (int i=0; i<count; i++) 
-								{
-									RcolCacheItem oci = new RcolCacheItem();
-									oci.Load(reader);
-									items.Add(oci);
-								}
-							
-								break;
-							}
-							case ContainerType.Want:
-							{														
-								for (int i=0; i<count; i++) 
-								{
-									WantCacheItem oci = new WantCacheItem();
-									oci.Load(reader);
-									items.Add(oci);
-								}
-							
-								break;
-                            }
-                            case ContainerType.Goal:
-                            {
-                                for (int i = 0; i < count; i++)
+                    if (valid == ContainerValid.Yes || System.Windows.Forms.Application.ExecutablePath.Trim().ToLower().EndsWith("settingmanager.exe"))
+                    {
+                        switch (type)
+                        {
+                            case ContainerType.Object:
                                 {
-                                    GoalCacheItem oci = new GoalCacheItem();
-                                    oci.Load(reader);
-                                    items.Add(oci);
+                                    for (int i = 0; i<count; i++)
+                                    {
+                                        ObjectCacheItem oci = new ObjectCacheItem();
+                                        oci.Load(reader);
+                                        items.Add(oci);
+                                    }
+                                    break;
                                 }
+                            case ContainerType.MaterialOverride:
+                                {
+                                    for (int i = 0; i<count; i++)
+                                    {
+                                        MMATCacheItem oci = new MMATCacheItem();
+                                        oci.Load(reader);
+                                        items.Add(oci);
+                                    }
+                                    break;
+                                }
+                            case ContainerType.Rcol:
+                                {
+                                    for (int i = 0; i<count; i++)
+                                    {
+                                        RcolCacheItem oci = new RcolCacheItem();
+                                        oci.Load(reader);
+                                        items.Add(oci);
+                                    }
+                                    break;
+                                }
+                            case ContainerType.Want:
+                                {
+                                    for (int i = 0; i<count; i++)
+                                    {
+                                        WantCacheItem oci = new WantCacheItem();
+                                        oci.Load(reader);
+                                        items.Add(oci);
+                                    }
+                                    break;
+                                }
+                            case ContainerType.Goal:
+                                {
+                                    for (int i = 0; i < count; i++)
+                                    {
+                                        GoalCacheItem oci = new GoalCacheItem();
+                                        oci.Load(reader);
+                                        items.Add(oci);
+                                    }
+                                    break;
+                                }
+                            case ContainerType.Memory:
+                                {
+                                    for (int i = 0; i<count; i++)
+                                    {
+                                        MemoryCacheItem oci = new MemoryCacheItem();
+                                        oci.Load(reader);
+                                        oci.ParentCacheContainer = this;
+                                        if (oci.Version >= MemoryCacheItem.DISCARD_VERSIONS_SMALLER_THAN)
+                                            items.Add(oci);
+                                    }
+                                    break;
+                                }
+                            case ContainerType.Package:
+                                {
+                                    for (int i = 0; i<count; i++)
+                                    {
+                                        PackageCacheItem oci = new PackageCacheItem();
+                                        oci.Load(reader);
+                                        items.Add(oci);
+                                    }
+                                    break;
+                                }
+                        } //switch
+                    } // if valid
+                } // if VERSION
+                else
+                {
+                    valid = ContainerValid.UnknownVersion;
+                }
+            }
+            finally
+            {
+                reader.BaseStream.Seek(pos, System.IO.SeekOrigin.Begin);
+            }
+        }
 
-                                break;
-                            }
-							case ContainerType.Memory:
-							{								
-								for (int i=0; i<count; i++) 
-								{
-									MemoryCacheItem oci = new MemoryCacheItem();
-									oci.Load(reader);
-									oci.ParentCacheContainer = this;
-									if (oci.Version >= MemoryCacheItem.DISCARD_VERSIONS_SMALLER_THAN) 																			
-										items.Add(oci);									
-								}
-							
-								break;
-							}	
-							case ContainerType.Package:
-							{														
-								for (int i=0; i<count; i++) 
-								{
-									PackageCacheItem oci = new PackageCacheItem();
-									oci.Load(reader);
-									items.Add(oci);
-								}
-							
-								break;
-							}	
-						} //switch
-					} // if valid
-				} //if VERSION
-				else 
-				{
-					valid = ContainerValid.UnknownVersion;
-				}
-			} 
-			finally 
-			{
-				reader.BaseStream.Seek(pos, System.IO.SeekOrigin.Begin);
-			}
-		}
+        public virtual void Dispose()
+        {
+            if (items != null)
+            {
+                foreach (object o in items)
+                    if (o is IDisposable)
+                        ((IDisposable)o).Dispose();
+                items.Clear();
+            }
+            items = null;
+        }
 
-		/// <summary>
-		/// Save the Container to the Stream
-		/// </summary>
-		/// <param name="writer">the Stream Writer</param>
-		internal void Save(System.IO.BinaryWriter writer, int offset) 
+        /// <summary>
+        /// Save the Container to the Stream
+        /// </summary>
+        /// <param name="writer">the Stream Writer</param>
+        internal void Save(System.IO.BinaryWriter writer, int offset) 
 		{			
 			writer.Write(offset);
 			
@@ -289,19 +305,6 @@ namespace SimPe.Cache
 		}
 
 		#region IDisposable Member
-
-		public virtual void Dispose()
-		{
-			if (items!=null) 
-			{
-				foreach (object o in items) 
-					if (o is IDisposable)
-						((IDisposable)o).Dispose();
-
-				items.Clear();
-			}
-			items = null;
-		}
 
 		#endregion
 	}
