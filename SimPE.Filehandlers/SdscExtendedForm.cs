@@ -56,6 +56,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SdscExtendedForm));
+
             this.pg = new System.Windows.Forms.PropertyGrid();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rbhex = new System.Windows.Forms.RadioButton();
@@ -165,11 +166,11 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             // SdscExtendedForm
             // 
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.panel1);
             this.AutoScaleBaseSize = new System.Drawing.Size(7, 16);
             this.ClientSize = new System.Drawing.Size(704, 457);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pg);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -199,46 +200,40 @@ namespace SimPe.PackedFiles.UserInterface
 			return name;
 		}
 
-		void LoadWantTable(SDescVersions version) 
-		{			
-			wnl = null;
-			if (version==SDescVersions.BaseGame) 
-			{
-				string flname = System.IO.Path.Combine(PathProvider.Global.GetExpansion(Expansions.BaseGame).InstallFolder, @"TSData\Res\Objects\objects.package");
-				if (System.IO.File.Exists(flname))
-				{
-					SimPe.Packages.File fl = SimPe.Packages.File.LoadFromFile(flname);
-					Interfaces.Files.IPackedFileDescriptor pfd = fl.FindFile(0x53545223, 0, 0x7FE59FD0, 0xc8);
+        void LoadWantTable(SDescVersions version)
+        {
+            wnl = null;
+            string flname = System.IO.Path.Combine(PathProvider.Global.GetExpansion(Expansions.BaseGame).InstallFolder, @"TSData\Res\Objects\objects.package");
+            if (System.IO.File.Exists(flname))
+            {
+                SimPe.Packages.File fl = SimPe.Packages.File.LoadFromFile(flname);
+                Interfaces.Files.IPackedFileDescriptor pfd = fl.FindFile(0x53545223, 0, 0x7FE59FD0, 0xc8);
+                if (pfd!=null)
+                {
+                    SimPe.PackedFiles.Wrapper.Str str = new Str();
+                    str.ProcessData(pfd, fl);
+                    SimPe.PackedFiles.Wrapper.StrItemList list = str.LanguageItems(1);
+                    string xml = "<wantSimulator>"+Helper.lbr;
+                    xml += "  <persondata>"+Helper.lbr;
+                    for (int sid = 0; sid<list.Length; sid++)
+                    {
+                        SimPe.PackedFiles.Wrapper.StrToken si = list[sid];
+                        xml += "    <persondata id=\""+(sid+1).ToString()+"\" name=\""+si.Title+"\" /> "+Helper.lbr;
+                    }
+                    xml += "  </persondata>"+Helper.lbr;
+                    xml += "</wantSimulator>"+Helper.lbr;
+                    wnl = new SimPe.Plugin.WantNameLoader(xml);
+                }
+            }
 
-					if (pfd!=null) 
-					{
-						SimPe.PackedFiles.Wrapper.Str str = new Str();
-						str.ProcessData(pfd, fl);
+            if (wnl==null)
+            {
+                FileTable.FileIndex.Load();
+                wnl = new SimPe.Plugin.WantNameLoader(version);
+            }
+        }
 
-						SimPe.PackedFiles.Wrapper.StrItemList list = str.LanguageItems(1);
-						string xml = "<wantSimulator>"+Helper.lbr;
-						xml += "  <persondata>"+Helper.lbr;
-						for (int sid=0; sid<list.Length; sid++)
-						{
-							SimPe.PackedFiles.Wrapper.StrToken si = list[sid];
-							xml += "    <persondata id=\""+(sid+1).ToString()+"\" name=\""+si.Title+"\" /> "+Helper.lbr;
-						}
-						xml += "  </persondata>"+Helper.lbr;
-						xml += "</wantSimulator>"+Helper.lbr;
-
-						wnl = new SimPe.Plugin.WantNameLoader(xml);
-					}
-				}
-			}
-			
-			if (wnl==null) 
-			{
-                FileTable.FileIndex.Load(); // don't need this anymore
-				wnl = new SimPe.Plugin.WantNameLoader(version);
-			}
-		}
-
-		void ShowData(byte[] data)
+        void ShowData(byte[] data)
 		{
 			shortdata = new short[(data.Length-0xA) / 2 +1];
 			int j=0;
@@ -261,8 +256,11 @@ namespace SimPe.PackedFiles.UserInterface
 			
 			names = new Hashtable();
 			ArrayList ns = wnl.GetNames(SimPe.Plugin.WantType.Undefined);
-			
-			int max = -1;
+
+            ns = wnl.GetNames(SimPe.Plugin.WantType.Undefined);
+            //System.Diagnostics.Debug.WriteLine($"GetNames returned {ns.Count} items");
+
+            int max = -1;
 			foreach (SimPe.Interfaces.IAlias a in ns) 
 			{
 				max = (int)Math.Max(a.Id, max);

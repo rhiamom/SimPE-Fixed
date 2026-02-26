@@ -198,7 +198,7 @@ namespace SimPe
                 ftf = (Ambertation.CaseInvariantArrayList)key.GetValue("AdditionalFileTableFolders", new Ambertation.CaseInvariantArrayList());
                 foreach (string folder in ftf) AddFileTableFolder(folder);
 
-                System.Diagnostics.Debug.WriteLine(this.ToString());
+                //System.Diagnostics.Debug.WriteLine(this.ToString());
 
                 namelistnr = (string)key.GetValue("namelistnr", "0");
                 string dname = name;

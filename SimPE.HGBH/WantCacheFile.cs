@@ -51,7 +51,7 @@ namespace SimPe.Cache
             // Don't crash the cache builder.
             if (want.XWant == null || want.XWant.Package == null)
             {
-                System.Diagnostics.Debug.WriteLine("WantCacheFile.AddItem: want.XWant is null (skipping). want=" + want);
+                //System.Diagnostics.Debug.WriteLine("WantCacheFile.AddItem: want.XWant is null (skipping). want=" + want);
                 return;
             }
 

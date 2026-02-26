@@ -79,8 +79,8 @@ namespace SimPe.Cache
                         long len = -1;
                         try { len = new FileInfo(cachePath).Length; } catch { }
 
-                        System.Diagnostics.Debug.WriteLine("MemoryCache: LOAD FAILED: " + ex.ToString());
-                        System.Diagnostics.Debug.WriteLine("MemoryCache: cachePath=" + cachePath + " length=" + len);
+                        //System.Diagnostics.Debug.WriteLine("MemoryCache: LOAD FAILED: " + ex.ToString());
+                        //System.Diagnostics.Debug.WriteLine("MemoryCache: cachePath=" + cachePath + " length=" + len);
 
                         // Force rebuild, but keep evidence.
                         missing = true;

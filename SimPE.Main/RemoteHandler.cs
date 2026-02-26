@@ -19,6 +19,7 @@
  ***************************************************************************/
 using System;
 using static Ambertation.Windows.Forms.APIHelp;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace SimPe
 {
 	/// <summary>
@@ -73,18 +74,19 @@ namespace SimPe
             {
                 if (fii.Package != null)
                 {
+                    System.Windows.Forms.MessageBox.Show("Package match: " +
+                        fii.Package.Equals(lp.Package).ToString());
+
                     if (!fii.Package.Equals(lp.Package))
                     {
                         int bprc = Helper.WindowsRegistry.BigPackageResourceCount;
                         Helper.WindowsRegistry.BigPackageResourceCount = int.MaxValue;
 
-                         SimPe.Packages.GeneratableFile genFile = fii.Package as SimPe.Packages.GeneratableFile;
+                        SimPe.Packages.GeneratableFile genFile = fii.Package as SimPe.Packages.GeneratableFile;
                         bool loadedOk;
 
                         if (genFile != null)
-                        {
                             loadedOk = lp.LoadFromPackage(genFile);
-                        }
                         else
                         {
                             string fn = fii.Package.FileName;
@@ -93,18 +95,16 @@ namespace SimPe
                                 Helper.WindowsRegistry.BigPackageResourceCount = bprc;
                                 return false;
                             }
-
                             loadedOk = lp.LoadFromFile(fn, true);
                         }
 
-                        if (!loadedOk)
-                        {
-                            Helper.WindowsRegistry.BigPackageResourceCount = bprc;
-                            return false;
-                        }
-
                         Helper.WindowsRegistry.BigPackageResourceCount = bprc;
+                        if (!loadedOk) return false;
                     }
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("fii.Package is null");
                 }
             }
             catch (Exception ex)
@@ -114,12 +114,10 @@ namespace SimPe
             }
 
             bool res = rl.AddResource(fii, false);
-            System.Diagnostics.Debug.WriteLine("AddResource: " + res + " type=0x" + fii.FileDescriptor.Type.ToString("X8") + " name=" + fii.FileDescriptor.ToString());
+            System.Windows.Forms.MessageBox.Show("AddResource result: " + res.ToString());
             if (res && LoadedResource != null) FireLoadEvent(fii);
-
             return res;
         }
-
 
         /// <summary>
         /// Fires the <see cref="LoadedResource"/> Event

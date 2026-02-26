@@ -88,6 +88,9 @@ namespace SimPe
 
                         // Catalog contains buy/build entries – recurse here
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Catalog"), true, false));
+
+                        //Needed for the Extended Sdesc form popup window labels
+                        folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Wants"), false, false));
                     }
 
                     return folders;

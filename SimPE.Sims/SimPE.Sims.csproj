@@ -117,6 +117,40 @@
     </Compile>
     <Compile Include="PetTraitSelect.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCOR\AScorItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SCOR\AScorItem.Designer.cs" />
+    <Compile Include="SCOR\IScorItemToken.cs" />
+    <Compile Include="SCOR\LearnedBahaviourComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SCOR\LearnedBahaviourComboBox.Designer.cs" />
+    <Compile Include="SCOR\ScoreItemBusinessRewards.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SCOR\ScoreItemBusinessRewards.Designer.cs" />
+    <Compile Include="SCOR\ScoreItemBusinessRewards.Element.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SCOR\ScoreItemDefault.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SCOR\ScoreItemDefault.Designer.cs" />
+    <Compile Include="SCOR\ScoreItemLearnedBehaviour.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SCOR\ScoreItemLearnedBehaviour.Designer.cs" />
+    <Compile Include="SCOR\ScoreItemLearnedBehaviour.Element.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SCOR\ScorItem.cs" />
+    <Compile Include="SCOR\ScorItemTokenBusinessRewards.cs" />
+    <Compile Include="SCOR\ScorItemTokenDefault.cs" />
+    <Compile Include="SCOR\ScorUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SCOR\ScorWrapper.cs" />
     <Compile Include="SimBusinessList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -224,6 +258,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SCOR\ScoreItemBusinessRewards.resx" />
+    <EmbeddedResource Include="SCOR\ScoreItemDefault.resx" />
+    <EmbeddedResource Include="SCOR\ScoreItemLearnedBehaviour.de.resx" />
+    <EmbeddedResource Include="SCOR\ScoreItemLearnedBehaviour.fr.resx" />
+    <EmbeddedResource Include="SCOR\ScoreItemLearnedBehaviour.it.resx" />
+    <EmbeddedResource Include="SCOR\ScoreItemLearnedBehaviour.resx" />
+    <EmbeddedResource Include="SCOR\ScoreItemLearnedBehaviour.ru.resx" />
+    <EmbeddedResource Include="SCOR\ScorUI.resx" />
     <EmbeddedResource Include="SimBusinessList.resx" />
     <EmbeddedResource Include="SimComboBox.resx" />
     <EmbeddedResource Include="SimDNAUI.resx" />

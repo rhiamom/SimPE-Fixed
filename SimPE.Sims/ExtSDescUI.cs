@@ -1193,7 +1193,7 @@ namespace SimPe.PackedFiles.UserInterface
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("[OpenMem] start " + DateTime.Now.ToString("HH:mm:ss.fff"));
+               
                 // Open the NGBH (Memories/Badges) resource in the SAME package as the selected SDesc.
                 // This avoids reloading the whole neighborhood package and blowing away the Sim Description UI.
                 SimPe.Interfaces.Files.IPackedFileDescriptor pfd =
@@ -1208,23 +1208,19 @@ namespace SimPe.PackedFiles.UserInterface
                         MessageBoxButtons.OK);
                     return;
                 }
-                System.Diagnostics.Debug.WriteLine("[OpenMem] before OpenPackedFile " + DateTime.Now.ToString("HH:mm:ss.fff"));
+               
                 SimPe.RemoteControl.OpenPackedFile(pfd, Sdesc.Package);
-                System.Diagnostics.Debug.WriteLine("[OpenMem] after OpenPackedFile " + DateTime.Now.ToString("HH:mm:ss.fff"));
-
+                
                 // Tell the NGBH UI which Sim (instance) to select, and that we want the Sims slot (memories).
                 object[] data = new object[] { Sdesc.FileDescriptor.Instance, Data.NeighborhoodSlots.Sims };
-                System.Diagnostics.Debug.WriteLine("[OpenMem] before AddMessage " + DateTime.Now.ToString("HH:mm:ss.fff"));
                 SimPe.RemoteControl.AddMessage(this, new SimPe.RemoteControl.ControlEventArgs(0x4E474248, data));
-                System.Diagnostics.Debug.WriteLine("[OpenMem] after AddMessage " + DateTime.Now.ToString("HH:mm:ss.fff"));
+                
             }
             catch (Exception ex)
             {
                 Helper.ExceptionMessage(ex);
             }
         }
-
-
         private void Activate_miOpenBadge(object sender, System.EventArgs e)
 		{
 			try 
@@ -2010,11 +2006,32 @@ namespace SimPe.PackedFiles.UserInterface
 
         private void activate_miOpenScore(object sender, EventArgs e)
         {
-            try
-            {
-                Interfaces.Files.IPackedFileDescriptor pfd = Sdesc.Package.NewDescriptor(0x3053CF74, Sdesc.FileDescriptor.Type, Sdesc.FileDescriptor.Group, Sdesc.FileDescriptor.Instance); //try a SCOR File
-                pfd = Sdesc.Package.FindFile(pfd);
-                SimPe.RemoteControl.OpenPackedFile(pfd, Sdesc.Package);
+			try
+			{
+				SimPe.Interfaces.Files.IPackedFileDescriptor scorPfd = null;
+				foreach (SimPe.Interfaces.Files.IPackedFileDescriptor p in Sdesc.Package.Index)
+				{
+					if (p.Type == 0x3053CF74 && p.Instance == Sdesc.FileDescriptor.Instance)
+					{
+						scorPfd = p;
+						break;
+					}
+				}
+				if (scorPfd == null)
+					System.Windows.Forms.MessageBox.Show("SCOR not found");
+				else
+				{
+                    SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii =
+    FileTable.FileIndex.CreateFileIndexItem(scorPfd, Sdesc.Package);
+
+                    if (fii == null)
+                        System.Windows.Forms.MessageBox.Show("fii is null");
+                    else
+                        System.Windows.Forms.MessageBox.Show("fii ok: type=0x" +
+                            fii.FileDescriptor.Type.ToString("X8") +
+                            " inst=0x" + fii.FileDescriptor.Instance.ToString("X8"));
+                    SimPe.RemoteControl.OpenPackedFile(scorPfd, Sdesc.Package);
+			}
             }
             catch (Exception ex)
             {

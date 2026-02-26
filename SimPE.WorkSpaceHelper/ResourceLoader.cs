@@ -196,9 +196,6 @@ namespace SimPe
         /// <returns>true, if the Resource was Presented succesfull</returns>
         bool Present(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, SimPe.Interfaces.Plugin.IFileWrapper wrapper, bool overload)
         {
-            var swp = System.Diagnostics.Stopwatch.StartNew();
-            System.Diagnostics.Debug.WriteLine("Present[T+0ms]: ENTER type=0x" + fii.FileDescriptor.Type.ToString("X8"));
-
             if (wrapper != null)
             {
                 if (wrapper.FileDescriptor == null) return false;
@@ -226,10 +223,8 @@ namespace SimPe
 
                 doc.Text = wrapper.ResourceName;
 
-                System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before UIHandler");
                 SimPe.Interfaces.Plugin.IPackedFileUI uiHandler = wrapper.UIHandler;
 
-                System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before GUIHandle");
                 Control pan = (uiHandler == null) ? null : uiHandler.GUIHandle;
 
                 if (pan != null)
@@ -243,10 +238,8 @@ namespace SimPe
                     doc.AllowDockCenter = true;
                     doc.AllowCollapse = true;
 
-                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before TabPages.Add");
                     if (add) dc.TabPages.Add(doc);
 
-                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before pan.Parent");
                     pan.Parent = doc;
                     pan.Left = 0;
                     pan.Top = 0;
@@ -255,18 +248,14 @@ namespace SimPe
                     pan.Dock = System.Windows.Forms.DockStyle.Fill;
                     pan.Visible = true;
 
-                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before Closing event and SelectedPage");
                     if (add) doc.Closing += new TD.SandDock.DockControlClosingEventHandler(CloseResourceDocument);
                     dc.SelectedPage = (TD.SandDock.TabPage)doc;
                     doc.Manager = dc.Manager;
                     doc.LayoutSystem.LockControls = false;
 
-                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: before LoadUI");
                     loaded[fii] = doc;
                     if (!wrapper.AllowMultipleInstances) single[wrapper.GetType().ToString()] = fii;
                     wrapper.LoadUI();
-
-                    System.Diagnostics.Debug.WriteLine("Present[T+" + swp.ElapsedMilliseconds + "ms]: after LoadUI (DONE)");
                 }
 
                 return true;
@@ -290,46 +279,32 @@ namespace SimPe
             if (pkg == null) { System.Diagnostics.Debug.WriteLine("AddResource fail: pkg null"); return false; }
             if (pkg.Package == null) { System.Diagnostics.Debug.WriteLine("AddResource fail: pkg.Package null"); return false; }
 
-            var sw = System.Diagnostics.Stopwatch.StartNew();
-            System.Diagnostics.Debug.WriteLine("AddResource[T+0ms]: start type=0x" + fii.FileDescriptor.Type.ToString("X8"));
-            //System.Diagnostics.Debug.WriteLine("AddResource: start type=0x" + fii.FileDescriptor.Type.ToString("X8"));
-
             // already Loaded?
             if (FocusResource(fii, reload))
             {
                 bool focused = FocusResource(fii, reload);
-                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: FocusResource returned " + focused);
                 if (focused) return true;
             }
-            System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: FocusResource returned ");
 
             // only one File at a Time?
             if (!Helper.WindowsRegistry.MultipleFiles) this.Clear();
 
             // get the Wrapper
             SimPe.Interfaces.Plugin.IFileWrapper wrapper = GetWrapper(fii);
-            System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: GetWrapper -> " + (wrapper == null ? "<null>" : wrapper.GetType().FullName));
-
 
             // unload if only one instance can be loaded
             if (!UnloadSingleInstanceWrappers(wrapper, ref overload))
             {
-                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: UnloadSingleInstanceWrappers FAILED");
                 return false;
             }
-            System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: after UnloadSingleInstanceWrappers");
+           
             try
             {
                 // load the new Data into the Wrapper
                 LoadWrapper(ref wrapper, fii);
-                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: after LoadWrapper");
-                System.Diagnostics.Debug.WriteLine("AddResource: LoadWrapper ok");
 
                 // Present the passed Wrapper
                 bool pres = Present(fii, wrapper, overload);
-                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: after Present pres=" + pres);
-
-                System.Diagnostics.Debug.WriteLine("AddResource[T+" + sw.ElapsedMilliseconds + "ms]: DONE");
                 return pres;
             }
 #if !DEBUG

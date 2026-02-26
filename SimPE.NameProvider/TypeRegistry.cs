@@ -122,7 +122,7 @@ namespace SimPe.PackedFiles
 			var asm = this.GetType().Assembly;
 
 			// Debug: list all resource names so we can inspect later in Output ? Debug
-			System.Diagnostics.Debug.WriteLine("=== Resources in " + asm.FullName + " ===");
+			//System.Diagnostics.Debug.WriteLine("=== Resources in " + asm.FullName + " ===");
 			foreach (string name in asm.GetManifestResourceNames())
 			{
 				System.Diagnostics.Debug.WriteLine("RES: " + name);

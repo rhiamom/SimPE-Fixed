@@ -68,7 +68,7 @@ namespace SimPe
             foreach (Ambertation.Windows.Forms.DockPanel c in ctrls)
             {
                 if (c.Tag != null) continue;
-                System.Diagnostics.Debug.WriteLine("##1# "+c.ButtonText);
+                //System.Diagnostics.Debug.WriteLine("##1# "+c.ButtonText);
                 AddDockItem(c, first);
                 first = false;
             }
@@ -78,7 +78,7 @@ namespace SimPe
             {
                 if (c.Tag == null) continue;
                 if (c.Tag is ToolStripMenuItem) continue;
-                System.Diagnostics.Debug.WriteLine("##2# " + c.ButtonText);
+                //System.Diagnostics.Debug.WriteLine("##2# " + c.ButtonText);
                 AddDockItem(c, first);
                 first = false;
             }

@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by Ambertation                                     *
+ *   Copyright (C) 2007 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -17,49 +17,39 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
-using SimPe.Interfaces.Plugin;
-using SimPe.Interfaces;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SimPe.PackedFiles.Wrapper.Factory
+namespace SimPe.PackedFiles.Wrapper.SCOR
 {
+    class ScorItemTokenBusinessRewards : IScorItemToken
+    {
+        ScoreItemBusinessRewards gui;
+        public ScorItemTokenBusinessRewards()
+        {
+            gui = null;
+        }
+        public byte[] UnserializeToken(ScorItem si, System.IO.BinaryReader reader)
+        {
+            byte[] data = ScorItem.UnserializeDefaultToken(reader);       
+            int ct = BitConverter.ToInt16(data, 0);
 
-	/// <summary>
-	/// The Wrapper Factory for Default Wrappers that ship with SimPe
-	/// </summary>
-	public class SimFactory : AbstractWrapperFactory
-	{
-		#region AbstractWrapperFactory Member
-		public override SimPe.Interfaces.IWrapper[] KnownWrappers
-		{
-			get 
-			{
-                if (Helper.NoPlugins) 
-				{
-					return new IWrapper[0];
-                }
-                else if (Helper.StartedGui == Executable.Classic)
-                {
-                    IWrapper[] wrappers = {
-											  new SimPe.PackedFiles.Wrapper.LinkedSDesc(),
-										  };
-                    return wrappers;
-                } 
-				else 
-				{
-					IWrapper[] wrappers = {
-											  new SimPe.PackedFiles.Wrapper.ExtFamilyTies()	,
-											  new SimPe.PackedFiles.Wrapper.LinkedSDesc(),
-											  new SimPe.PackedFiles.Wrapper.ExtSrel(),
-											  new SimPe.PackedFiles.Wrapper.SimDNA(),
-                                              new SimPe.PackedFiles.Wrapper.Scor()
-                                          };
-					return wrappers;
-				}
-			}
-		}
+            gui = new ScoreItemBusinessRewards(si);
+            for (int i = 0; i < ct; i++)
+            {
+                ScoreItemBusinessRewards.Element item = new ScoreItemBusinessRewards.Element();
+                item.LoadData(reader);
+                gui.AddElement(item);
+            }
+            
+            return data;
+        }
 
-		#endregion
-
-	}
+        public SCOR.AScorItem ActivatedGUI
+        {
+            get { return gui; }
+        }
+    }
 }

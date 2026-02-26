@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by Ambertation                                     *
+ *   Copyright (C) 2007 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -17,49 +17,36 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
-using SimPe.Interfaces.Plugin;
-using SimPe.Interfaces;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SimPe.PackedFiles.Wrapper.Factory
+namespace SimPe.PackedFiles.Wrapper.SCOR
 {
+    public partial class ScoreItemDefault : AScorItem
+    {
 
-	/// <summary>
-	/// The Wrapper Factory for Default Wrappers that ship with SimPe
-	/// </summary>
-	public class SimFactory : AbstractWrapperFactory
-	{
-		#region AbstractWrapperFactory Member
-		public override SimPe.Interfaces.IWrapper[] KnownWrappers
-		{
-			get 
-			{
-                if (Helper.NoPlugins) 
-				{
-					return new IWrapper[0];
-                }
-                else if (Helper.StartedGui == Executable.Classic)
-                {
-                    IWrapper[] wrappers = {
-											  new SimPe.PackedFiles.Wrapper.LinkedSDesc(),
-										  };
-                    return wrappers;
-                } 
-				else 
-				{
-					IWrapper[] wrappers = {
-											  new SimPe.PackedFiles.Wrapper.ExtFamilyTies()	,
-											  new SimPe.PackedFiles.Wrapper.LinkedSDesc(),
-											  new SimPe.PackedFiles.Wrapper.ExtSrel(),
-											  new SimPe.PackedFiles.Wrapper.SimDNA(),
-                                              new SimPe.PackedFiles.Wrapper.Scor()
-                                          };
-					return wrappers;
-				}
-			}
-		}
+        public ScoreItemDefault(ScorItem si)
+            : base(si)
+        {
+            InitializeComponent();
+            data = new byte[0];
+        }
 
-		#endregion
+        protected override void DoSetData(string name, System.IO.BinaryReader reader)
+        {
+            textBox1.Text = name;
+            data = reader.ReadBytes((int)reader.BaseStream.Length);
 
-	}
+            tb.Text = Helper.BytesToHexList(data, 4);
+        }
+
+        byte[] data;
+        internal override void Serialize(System.IO.BinaryWriter writer, bool last)
+        {
+            base.Serialize(writer, last);
+            writer.Write(data);
+        }
+    }
 }

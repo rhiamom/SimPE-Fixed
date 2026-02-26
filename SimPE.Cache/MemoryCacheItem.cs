@@ -280,7 +280,7 @@ namespace SimPe.Cache
 				}
 				catch (Exception ex)
 				{
-					System.Diagnostics.Debug.WriteLine("MemoryCacheItem.Save: thumb encode failed: " + ex.ToString());
+					//System.Diagnostics.Debug.WriteLine("MemoryCacheItem.Save: thumb encode failed: " + ex.ToString());
 					writer.Write(0); // store no thumbnail, but keep the cache file valid
 				}
 			}

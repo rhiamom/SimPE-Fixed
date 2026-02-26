@@ -329,7 +329,7 @@ namespace SimPe.Providers
                     }
                     catch (Exception e)
                     {
-                        System.Diagnostics.Debug.WriteLine("ERROR during Voyage Collectible Image Parsing:\n" + e.ToString());
+                        //System.Diagnostics.Debug.WriteLine("ERROR during Voyage Collectible Image Parsing:\n" + e.ToString());
                         if (Helper.WindowsRegistry.HiddenMode) Helper.ExceptionMessage(e);
                     }
                 }

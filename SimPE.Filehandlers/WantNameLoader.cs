@@ -100,101 +100,107 @@ namespace SimPe.Plugin
 			}
 
 			return ht;
-		}		
+		}
 
-
-		/// <summary>
-		/// Create a HashTable with the needed Names from the UI xml File
-		/// </summary>
-		/// <param name="version">Version where you want to load the Description from</param>
-		void ParseXml(SimPe.PackedFiles.Wrapper.SDescVersions version)
+        /// <summary>
+        /// Create a HashTable with the needed Names from the UI xml File
+        /// </summary>
+        /// <param name="xml">The Xml File </param>
+        void ParseXml(string xml)
         {
-			map = new Hashtable();			
-			Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFile(0x00000000, 0xCDA53B6F, 0x2D7EE26B, null);
+            map = new Hashtable();
+
+            //read XML File
+            System.Xml.XmlDocument xmlfile = new XmlDocument();
+            xmlfile.LoadXml(xml);
+
+            //seek Root Node
+            XmlNodeList XMLData = xmlfile.GetElementsByTagName("wantSimulator");
+
+            //Process all Root Node Entries
+            for (int i = 0; i<XMLData.Count; i++)
+            {
+                XmlNode node = XMLData.Item(i);
+                foreach (XmlNode subnode in node)
+                {
+                    switch (subnode.Name)
+                    {
+                        case "categories":
+                            {
+                                map[WantType.Category] = ParseSubNode("category", subnode, 10);
+                                break;
+                            }
+                        case "skills":
+                            {
+                                map[WantType.Skill] = ParseSubNode("skill", subnode, 10);
+                                break;
+                            }
+                        case "careers":
+                            {
+                                map[WantType.Career] = ParseSubNode("career", subnode, 16);
+                                break;
+                            }
+                        case "persondata":
+                            {
+                                map[WantType.Undefined] = ParseSubNode("persondata", subnode, 10);
+                                break;
+                            }
+                    } //switch
+                }
+            } //for i
+
+        }
+
+        /// <summary>
+        /// Create a HashTable with the needed Names from the UI xml File
+        /// </summary>
+        /// <param name="xml">The Xml File </param>
+        void ParseXml(SimPe.PackedFiles.Wrapper.SDescVersions version)
+        {
+            map = new Hashtable();
+            Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFile(0x00000000, 0xCDA53B6F, 0x2D7EE26B, null);
             
-            System.Collections.Generic.Dictionary<SimPe.PackedFiles.Wrapper.SDescVersions,string> vmap = new System.Collections.Generic.Dictionary<SimPe.PackedFiles.Wrapper.SDescVersions,string>();
+            if (items.Length == 0)
+            {
+                Interfaces.Scenegraph.IScenegraphFileIndexItem[] typetest = FileTable.FileIndex.FindFile(0x00000000, 0xCDA53B6F);
+            }
+            System.Collections.Generic.Dictionary<SimPe.PackedFiles.Wrapper.SDescVersions, string> vmap = new System.Collections.Generic.Dictionary<SimPe.PackedFiles.Wrapper.SDescVersions, string>();
 
             vmap[version] = PathProvider.Global.Latest.InstallFolder.Trim().ToLower();
-            foreach (ExpansionItem ei in PathProvider.Global.Expansions) {
-                if (ei.Flag.Class == ExpansionItem.Classes.ExpansionPack) {
-                    
+            foreach (ExpansionItem ei in PathProvider.Global.Expansions)
+            {
+                if (ei.Flag.Class == ExpansionItem.Classes.ExpansionPack)
+                {
                     SimPe.PackedFiles.Wrapper.SDescVersions ver = SimPe.PackedFiles.Wrapper.SDesc.GetMinVersion(ei.Expansion);
-
-                    vmap [ver] = ei.InstallFolder.Trim().ToLower();
-                    if (ver == SimPe.PackedFiles.Wrapper.SDescVersions.Voyage) 
-                        vmap[SimPe.PackedFiles.Wrapper.SDescVersions.VoyageB] = ei.InstallFolder.Trim().ToLower(); 
+                    vmap[ver] = ei.InstallFolder.Trim().ToLower();
+                    if (ver == SimPe.PackedFiles.Wrapper.SDescVersions.Voyage)
+                        vmap[SimPe.PackedFiles.Wrapper.SDescVersions.VoyageB] = ei.InstallFolder.Trim().ToLower();
                 }
             }
-			foreach (Interfaces.Scenegraph.IScenegraphFileIndexItem item in items) 			
-			{
+
+            foreach (Interfaces.Scenegraph.IScenegraphFileIndexItem item in items)
+            {
+                //System.Diagnostics.Debug.WriteLine($"ParseXml: item package={item.Package.SaveFileName.Trim().ToLower()}");
                 if (!vmap.ContainsKey(version)) continue;
 
                 string s = vmap[version];
-                if (s!=null && s!="") {
+                if (s!=null && s!="")
+                {
                     if (!item.Package.SaveFileName.Trim().ToLower().StartsWith(s)) continue;
                 }
-				
+
                 SimPe.PackedFiles.Wrapper.Xml xml = new SimPe.PackedFiles.Wrapper.Xml();
-				xml.ProcessData(item);
+                xml.ProcessData(item);
 
-				ParseXml(xml.Text);
-			} 
-		}
+                ParseXml(xml.Text);
+            }
+        }
 
-		/// <summary>
-		/// Create a HashTable with the needed Names from the UI xml File
-		/// </summary>
-		/// <param name="xml">The Xml File </param>
-		void ParseXml(string xml)
-		{
-			map = new Hashtable();
-
-			//read XML File
-			System.Xml.XmlDocument xmlfile = new XmlDocument();
-			xmlfile.LoadXml(xml);
-
-			//seek Root Node
-			XmlNodeList XMLData = xmlfile.GetElementsByTagName("wantSimulator");					
-
-			//Process all Root Node Entries
-			for (int i=0; i<XMLData.Count; i++)
-			{
-				XmlNode node = XMLData.Item(i);	
-				foreach (XmlNode subnode in node) 
-				{
-					switch (subnode.Name) 
-					{							
-						case "categories": 
-						{
-							map[WantType.Category] = ParseSubNode("category", subnode, 10);
-							break;
-						}
-						case "skills":
-						{
-							map[WantType.Skill] = ParseSubNode("skill", subnode, 10);
-							break;
-						}
-						case "careers":
-						{
-							map[WantType.Career] = ParseSubNode("career", subnode, 16);
-							break;
-						}
-						case "persondata":
-						{
-							map[WantType.Undefined] = ParseSubNode("persondata", subnode, 10);
-							break;
-						}
-					} //switch
-				}
-			} //for i
-		
-		}
-
-		/// <summary>
-		/// Adds the currently Available SimNames to the Map
-		/// </summary>
-		/// <remarks>Feeds the IProviderRegistry set in the FileTable!</remarks>
-		public void AddSimNames() 
+        /// <summary>
+        /// Adds the currently Available SimNames to the Map
+        /// </summary>
+        /// <remarks>Feeds the IProviderRegistry set in the FileTable!</remarks>
+        public void AddSimNames() 
 		{
 			Hashtable ht = new Hashtable();
 			map[WantType.Sim] = ht;

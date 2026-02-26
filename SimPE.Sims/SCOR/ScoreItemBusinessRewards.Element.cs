@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2005 by Ambertation                                     *
+ *   Copyright (C) 2007 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -17,49 +17,55 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
-using SimPe.Interfaces.Plugin;
-using SimPe.Interfaces;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SimPe.PackedFiles.Wrapper.Factory
+namespace SimPe.PackedFiles.Wrapper.SCOR
 {
+    partial class ScoreItemBusinessRewards
+    {
+        public class Element
+        {
+            string name;
+            byte[] data;
 
-	/// <summary>
-	/// The Wrapper Factory for Default Wrappers that ship with SimPe
-	/// </summary>
-	public class SimFactory : AbstractWrapperFactory
-	{
-		#region AbstractWrapperFactory Member
-		public override SimPe.Interfaces.IWrapper[] KnownWrappers
-		{
-			get 
-			{
-                if (Helper.NoPlugins) 
-				{
-					return new IWrapper[0];
-                }
-                else if (Helper.StartedGui == Executable.Classic)
-                {
-                    IWrapper[] wrappers = {
-											  new SimPe.PackedFiles.Wrapper.LinkedSDesc(),
-										  };
-                    return wrappers;
-                } 
-				else 
-				{
-					IWrapper[] wrappers = {
-											  new SimPe.PackedFiles.Wrapper.ExtFamilyTies()	,
-											  new SimPe.PackedFiles.Wrapper.LinkedSDesc(),
-											  new SimPe.PackedFiles.Wrapper.ExtSrel(),
-											  new SimPe.PackedFiles.Wrapper.SimDNA(),
-                                              new SimPe.PackedFiles.Wrapper.Scor()
-                                          };
-					return wrappers;
-				}
-			}
-		}
+            public Element()
+            {
+                name = "";
+                data = BitConverter.GetBytes((int)0x00000103);
+            }
 
-		#endregion
+            public string Name
+            {
+                get { return name; }
+                set { name = value; }
+            }
 
-	}
+            internal byte[] Data
+            {
+                get { return data; }
+            }
+
+            public void LoadData(System.IO.BinaryReader reader)
+            {
+                name = StreamHelper.ReadString(reader);
+                data = ScorItem.UnserializeDefaultToken(reader);
+            }
+
+            public void SaveData(System.IO.BinaryWriter writer, bool last)
+            {
+                StreamHelper.WriteString(writer, name);
+                writer.Write(data);
+                ScorItem.SerializeDefaultToken(writer, last);
+            }
+
+            public override string ToString()
+            {
+                string s = name + ": " + Helper.BytesToHexList(data);
+                return s;
+            }
+        }
+    }
 }

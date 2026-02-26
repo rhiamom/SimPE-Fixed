@@ -109,7 +109,7 @@ namespace SimPe
             int ver = -1;
             avlgrp = 0;
 
-            System.Diagnostics.Debug.WriteLine("\r\n----\r\nExpansionItems");
+            //System.Diagnostics.Debug.WriteLine("\r\n----\r\nExpansionItems");
 
             foreach (string name in names)
             {
@@ -147,7 +147,7 @@ namespace SimPe
                 avlgrp |= (uint)i.Group;
             }
 
-            System.Diagnostics.Debug.WriteLine("----\r\n");
+            //System.Diagnostics.Debug.WriteLine("----\r\n");
 
             // Compute EP/SP/Story versions
             spver = GetMaxVersion(ExpansionItem.Classes.StuffPack);

@@ -322,7 +322,7 @@ namespace SimPe.Plugin
 		public static XWant GetWant(uint guid)
 		{
 			if (wants==null) LoadWants();
-            System.Diagnostics.Debug.WriteLine("LoadWants: wants count=" + (wants == null ? -1 : wants.Count));
+            //System.Diagnostics.Debug.WriteLine("LoadWants: wants count=" + (wants == null ? -1 : wants.Count));
             SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem wts = (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem)wants[guid];
             XWant xwnt = new XWant();
             if (wts!=null) 

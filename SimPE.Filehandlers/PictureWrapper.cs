@@ -290,7 +290,7 @@ namespace SimPe.PackedFiles.Wrapper
                 if (soil2FailSigs.Contains(sig)) return null;
             }
 
-            System.Diagnostics.Debug.WriteLine("TryLoadWithSoil2 called");
+            //System.Diagnostics.Debug.WriteLine("TryLoadWithSoil2 called");
 
             try
             {
