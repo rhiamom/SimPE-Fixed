@@ -99,7 +99,7 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(554, 24);
             this.panel6.TabIndex = 0;
-            this.panel6.Commited += (this.GlobCommit);//booby
+            this.panel6.Commited += (this.GlobCommit);
             // 
             // lbglobfile
             // 

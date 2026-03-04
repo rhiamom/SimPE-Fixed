@@ -205,7 +205,7 @@ or an occupied lot in the Lot Catalogue</value>
     <value>6</value>
   </data>
   <data name="TBsting.Text" xml:space="preserve">
-    <value>We want boobs</value>
+    <value>Text</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -242,7 +242,7 @@ this neighbourhood has initialized.</value>
     <value>1</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Boobies Make me Happy!</value>
+    <value>Label2</value>
   </data>
   <data name="label2.Visible" type="System.Boolean, mscorlib">
     <value>False</value>

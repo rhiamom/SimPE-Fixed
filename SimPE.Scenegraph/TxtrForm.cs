@@ -500,7 +500,7 @@ namespace SimPe.Plugin
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(768, 24);
             this.panel2.TabIndex = 0;
-            this.panel2.Commited += new System.EventHandler(this.btcommit_Click);//booby
+            this.panel2.Commited += new System.EventHandler(this.btcommit_Click);
             // 
             // btex
             // 

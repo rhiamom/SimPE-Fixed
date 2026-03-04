@@ -1318,8 +1318,7 @@ namespace SimPe
             KnownHoods.Add("suburb");
             KnownHoods.Add("vacation");
             KnownHoods.Add("tutorial");
-            KnownHoods.Add("boobsland");
-            /*
+             /*
              * This is called every time a package is opened from IsNeighborhoodFile below.
              * There is no handling for if hoods.xml is missing or corrupt
              * Since no new hood types will exist we don't need to use an external file

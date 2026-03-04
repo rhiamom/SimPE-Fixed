@@ -207,7 +207,7 @@ namespace pjse
 
             Rectangle recty = new Rectangle(0, 0, this.Width, this.Height);
 
-            // Clean replacement for booby.ThemeManager: mild gradient using BackColor.
+            // Clean replacement for Chris.ThemeManager: mild gradient using BackColor.
             Color mild = ControlPaint.Light(this.BackColor);
 
             using (LinearGradientBrush l = new LinearGradientBrush(recty, this.BackColor, mild, System.Drawing.Drawing2D.LinearGradientMode.Horizontal))

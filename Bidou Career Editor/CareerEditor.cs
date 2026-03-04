@@ -18,6 +18,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
 using System.Drawing;
 using System.Collections.Generic;
@@ -7108,41 +7109,41 @@ namespace SimPe.Plugin
 
         private void setmajors()
         {
-            int boobr = getBcon(0x1056)[1];
-            if (boobr >= 32768) boobr -= 32768;
-            if (boobr >= 16384) boobr -= 16384;
-            if (boobr >= 8192) boobr -= 8192;
-            if (boobr >= 4096) boobr -= 4096;
-            if (boobr >= 2048) boobr -= 2048;
-            if (boobr >= 1024) { boobr -= 1024; this.cbrphyco.Checked = true; } else this.cbrphyco.Checked = false;
-            if (boobr >= 512) { boobr -= 512; this.cbrpolit.Checked = true; } else this.cbrpolit.Checked = false;
-            if (boobr >= 256) { boobr -= 256; this.cbrphysi.Checked = true; } else this.cbrphysi.Checked = false;
-            if (boobr >= 128) { boobr -= 128; this.cbrphilo.Checked = true; } else this.cbrphilo.Checked = false;
-            if (boobr >= 64) { boobr -= 64; this.cbrmaths.Checked = true; } else this.cbrmaths.Checked = false;
-            if (boobr >= 32) { boobr -= 32; this.cbrliter.Checked = true; } else this.cbrliter.Checked = false;
-            if (boobr >= 16) { boobr -= 16; this.cbrhisto.Checked = true; } else this.cbrhisto.Checked = false;
-            if (boobr >= 8) { boobr -= 8; this.cbrecon.Checked = true; } else this.cbrecon.Checked = false;
-            if (boobr >= 4) { boobr -= 4; this.cbrdrama.Checked = true; } else this.cbrdrama.Checked = false;
-            if (boobr >= 2) { boobr -= 2; this.cbrbiol.Checked = true; } else this.cbrbiol.Checked = false;
-            if (boobr >= 1) this.cbrArt.Checked = true; else this.cbrArt.Checked = false;
+            int requiredmajor = getBcon(0x1056)[1];
+            if (requiredmajor >= 32768) requiredmajor -= 32768;
+            if (requiredmajor >= 16384) requiredmajor -= 16384;
+            if (requiredmajor >= 8192) requiredmajor -= 8192;
+            if (requiredmajor >= 4096) requiredmajor -= 4096;
+            if (requiredmajor >= 2048) requiredmajor -= 2048;
+            if (requiredmajor >= 1024) { requiredmajor -= 1024; this.cbrphyco.Checked = true; } else this.cbrphyco.Checked = false;
+            if (requiredmajor >= 512) { requiredmajor -= 512; this.cbrpolit.Checked = true; } else this.cbrpolit.Checked = false;
+            if (requiredmajor >= 256) { requiredmajor -= 256; this.cbrphysi.Checked = true; } else this.cbrphysi.Checked = false;
+            if (requiredmajor >= 128) { requiredmajor -= 128; this.cbrphilo.Checked = true; } else this.cbrphilo.Checked = false;
+            if (requiredmajor >= 64) { requiredmajor -= 64; this.cbrmaths.Checked = true; } else this.cbrmaths.Checked = false;
+            if (requiredmajor >= 32) { requiredmajor -= 32; this.cbrliter.Checked = true; } else this.cbrliter.Checked = false;
+            if (requiredmajor >= 16) { requiredmajor -= 16; this.cbrhisto.Checked = true; } else this.cbrhisto.Checked = false;
+            if (requiredmajor >= 8) { requiredmajor -= 8; this.cbrecon.Checked = true; } else this.cbrecon.Checked = false;
+            if (requiredmajor >= 4) { requiredmajor -= 4; this.cbrdrama.Checked = true; } else this.cbrdrama.Checked = false;
+            if (requiredmajor >= 2) { requiredmajor -= 2; this.cbrbiol.Checked = true; } else this.cbrbiol.Checked = false;
+            if (requiredmajor >= 1) this.cbrArt.Checked = true; else this.cbrArt.Checked = false;
 
-            int booba = getBcon(0x1056)[2];
-            if (booba >= 32768) booba -= 32768;
-            if (booba >= 16384) booba -= 16384;
-            if (booba >= 8192) booba -= 8192;
-            if (booba >= 4096) booba -= 4096;
-            if (booba >= 2048) booba -= 2048;
-            if (booba >= 1024) { booba -= 1024; this.cbaphyco.Checked = true; } else this.cbaphyco.Checked = false;
-            if (booba >= 512) { booba -= 512; this.cbapolit.Checked = true; } else this.cbapolit.Checked = false;
-            if (booba >= 256) { booba -= 256; this.cbaphysi.Checked = true; } else this.cbaphysi.Checked = false;
-            if (booba >= 128) { booba -= 128; this.cbrahilo.Checked = true; } else this.cbrahilo.Checked = false;
-            if (booba >= 64) { booba -= 64; this.cbamaths.Checked = true; } else this.cbamaths.Checked = false;
-            if (booba >= 32) { booba -= 32; this.cbaliter.Checked = true; } else this.cbaliter.Checked = false;
-            if (booba >= 16) { booba -= 16; this.cbahisto.Checked = true; } else this.cbahisto.Checked = false;
-            if (booba >= 8) { booba -= 8; this.cbaecon.Checked = true; } else this.cbaecon.Checked = false;
-            if (booba >= 4) { booba -= 4; this.cbadrama.Checked = true; } else this.cbadrama.Checked = false;
-            if (booba >= 2) { booba -= 2; this.cbabiol.Checked = true; } else this.cbabiol.Checked = false;
-            if (booba >= 1) this.cbaArt.Checked = true; else this.cbaArt.Checked = false;
+            int allowedmajor = getBcon(0x1056)[2];
+            if (allowedmajor >= 32768) allowedmajor -= 32768;
+            if (allowedmajor >= 16384) allowedmajor -= 16384;
+            if (allowedmajor >= 8192) allowedmajor -= 8192;
+            if (allowedmajor >= 4096) allowedmajor -= 4096;
+            if (allowedmajor >= 2048) allowedmajor -= 2048;
+            if (allowedmajor >= 1024) { allowedmajor -= 1024; this.cbaphyco.Checked = true; } else this.cbaphyco.Checked = false;
+            if (allowedmajor >= 512) { allowedmajor -= 512; this.cbapolit.Checked = true; } else this.cbapolit.Checked = false;
+            if (allowedmajor >= 256) { allowedmajor -= 256; this.cbaphysi.Checked = true; } else this.cbaphysi.Checked = false;
+            if (allowedmajor >= 128) { allowedmajor -= 128; this.cbrahilo.Checked = true; } else this.cbrahilo.Checked = false;
+            if (allowedmajor >= 64) { allowedmajor -= 64; this.cbamaths.Checked = true; } else this.cbamaths.Checked = false;
+            if (allowedmajor >= 32) { allowedmajor -= 32; this.cbaliter.Checked = true; } else this.cbaliter.Checked = false;
+            if (allowedmajor >= 16) { allowedmajor -= 16; this.cbahisto.Checked = true; } else this.cbahisto.Checked = false;
+            if (allowedmajor >= 8) { allowedmajor -= 8; this.cbaecon.Checked = true; } else this.cbaecon.Checked = false;
+            if (allowedmajor >= 4) { allowedmajor -= 4; this.cbadrama.Checked = true; } else this.cbadrama.Checked = false;
+            if (allowedmajor >= 2) { allowedmajor -= 2; this.cbabiol.Checked = true; } else this.cbabiol.Checked = false;
+            if (allowedmajor >= 1) this.cbaArt.Checked = true; else this.cbaArt.Checked = false;
         }
 
         private void btmajApply_Click(object sender, EventArgs e)

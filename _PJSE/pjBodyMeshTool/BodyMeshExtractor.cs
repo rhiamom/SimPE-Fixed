@@ -137,12 +137,12 @@ namespace pj
             return false;
         }
 
-        private bool linkemall(IPackedFileDescriptor pfd) // Boobies
+        private bool linkemall(IPackedFileDescriptor pfd)
         {
             if (isInPFDList(currentPackage.Index, pfd)) return true; // should prevent doubling up
             IPackageFile p = null;
             IPackedFileDescriptor pfa = null;
-            bool isboob = false;
+            bool found = false;
             // find 'im Cres
             foreach (string pkg in packs)
             {
@@ -156,23 +156,23 @@ namespace pj
                     break; // pfa is now the CRES
                 }
             }
-            if (pfa == null) return isboob;
+            if (pfa == null) return found;
             // find 'im Shape
             SimPe.Plugin.GenericRcol grl = new SimPe.Plugin.GenericRcol(null, false);
             grl.ProcessData(pfa, p);
-            isboob = false;
+            found = false;
             foreach (IPackedFileDescriptor pfb in grl.ReferencedFiles)
             {
                 if (pfb.Type == SimPe.Data.MetaData.SHPE)
                 {
                     pfa = pfb;
-                    isboob = true;
+                    found = true;
                     break; // pfa is now the Shape
                 }
             }
-            if (!isboob) return false;
+            if (!found) return false;
 
-            isboob = false;
+            found = false;
             foreach (string pkg in packs)
             {
                 p = SimPe.Packages.File.LoadFromFile(pkg);
@@ -183,11 +183,11 @@ namespace pj
                     npfd.UserData = p.Read(pfb).UncompressedData;
                     currentPackage.Add(npfd, true);
                     pfa = pfb;
-                    isboob = true;
+                    found = true;
                     break; // pfa is now the Shape
                 }
             }
-            if (!isboob) return false;    
+            if (!found) return false;    
             // find 'im GMND
             SimPe.Plugin.GenericRcol grn = new SimPe.Plugin.GenericRcol(null, false);
             grn.ProcessData(pfa, p);            
@@ -210,7 +210,7 @@ namespace pj
             npfg.UserData = p.Read(pfa).UncompressedData;
             currentPackage.Add(npfg, true);
             // find 'im GMDC
-            isboob = false;
+            found = false;
             SimPe.Plugin.GenericRcol grd = new SimPe.Plugin.GenericRcol(null, false);
             grd.ProcessData(pfa, p);
 
@@ -219,13 +219,13 @@ namespace pj
                 if (pfb.Type == SimPe.Data.MetaData.GMDC)
                 {
                     pfa = pfb;
-                    isboob = true;
+                    found = true;
                     break; // pfa is now the GMDC
                 }
             }
-            if (!isboob) return false;
+            if (!found) return false;
 
-            isboob = false;
+            found = false;
             foreach (string pkg in packs)
             {
                 p = SimPe.Packages.File.LoadFromFile(pkg);
@@ -236,14 +236,14 @@ namespace pj
                     npfd.UserData = p.Read(pfb).UncompressedData;
                     currentPackage.Add(npfd, true);
                     pfa = pfb;
-                    isboob = true;
+                    found = true;
                     break; // pfa is now the GMDC
                 }
             }
-            return isboob;
+            return found;
         }
 
-        // Ebtry Point - Boobies
+        // Entry Point
         private void Main()
         {
             ArrayList al = new ArrayList();

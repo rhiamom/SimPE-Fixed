@@ -408,7 +408,7 @@ namespace SimPe.Plugin
             resources.ApplyResources(this.lbPlayim, "lbPlayim");
             this.lbPlayim.ForeColor = System.Drawing.Color.Blue;
             this.lbPlayim.Name = "lbPlayim";
-            this.lbPlayim.DoubleClick += new System.EventHandler(this.llboobs_LinkClicked);
+            this.lbPlayim.DoubleClick += new System.EventHandler(this.lbPlayim_DoubleClick);
             // 
             // gbApart
             // 
@@ -1728,7 +1728,7 @@ namespace SimPe.Plugin
             this.gbunown.Visible = !this.gbunown.Visible;
         }
 
-        private void llboobs_LinkClicked(object sender, EventArgs e)
+        private void lbPlayim_DoubleClick(object sender, EventArgs e)
         {
             if (wrapper == null) return;
             if (!System.IO.File.Exists(SimPe.PathProvider.Global.SimsApplication) || wrapper.appendage == null) return;

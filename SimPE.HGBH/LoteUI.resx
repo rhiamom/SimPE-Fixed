@@ -227,7 +227,7 @@ in the neighbourhood file.
     <value>6</value>
   </data>
   <data name="rtLotDef.Text" xml:space="preserve">
-    <value>We want boobs</value>
+    <value>Text</value>
   </data>
   <data name="&gt;&gt;rtLotDef.Name" xml:space="preserve">
     <value>rtLotDef</value>
@@ -257,7 +257,7 @@ in the neighbourhood file.
     <value>1</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Boobies Make me Happy!</value>
+    <value>Label1</value>
   </data>
   <data name="label1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>

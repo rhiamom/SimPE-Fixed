@@ -168,7 +168,7 @@
     <value>1</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Boobies Make me Happy!</value>
+    <value>Label</value>
   </data>
   <data name="label1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>

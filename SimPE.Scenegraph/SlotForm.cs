@@ -931,7 +931,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(730, 24);
             this.panel4.TabIndex = 0;
-            this.panel4.Commited += new System.EventHandler(this.btcommit_Click);//booby
+            this.panel4.Commited += new System.EventHandler(this.btcommit_Click);
             // 
             // SlotForm
             // 

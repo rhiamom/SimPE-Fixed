@@ -421,7 +421,7 @@ namespace SimPe.Plugin
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(664, 24);
             this.panel3.TabIndex = 0;
-            this.panel3.Commited += new System.EventHandler(this.CommitAll);//booby
+            this.panel3.Commited += new System.EventHandler(this.CommitAll);
             // 
             // RefFileForm
             // 

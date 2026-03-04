@@ -2,6 +2,9 @@
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
+ *   Copyright (C) 2025 by GramzeSweatshop                                 *
+ *   rhiamom@mac.com                                                       *
+ *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
@@ -214,11 +217,11 @@ namespace SimPe.Plugin.Tool.Dockable
             // 
             // dockBottom
             // 
-            //this.dockBottom.Controls.Add(this.dcWrapper);
-            //this.dockBottom.Controls.Add(this.dcConvert);
-            //this.dockBottom.Controls.Add(this.dcPackage);
-            //this.dockBottom.Controls.Add(this.dcResource);
-            //this.dockBottom.Controls.Add(this.dcHex);
+            this.dockBottom.Controls.Add(this.dcWrapper);
+            this.dockBottom.Controls.Add(this.dcConvert);
+            this.dockBottom.Controls.Add(this.dcPackage);
+            this.dockBottom.Controls.Add(this.dcResource);
+            this.dockBottom.Controls.Add(this.dcHex);
             resources.ApplyResources(this.dockBottom, "dockBottom");
             this.dockBottom.DragBorder = true;
             this.dockBottom.Manager = this.manager;
@@ -242,7 +245,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.dcConvert.CanResize = true;
             this.dcConvert.CanUndock = true;
             this.dcConvert.Controls.Add(this.xpGradientPanel4);
-            //this.dcConvert.DockContainer = this.dockBottom;
+            this.dcConvert.DockContainer = this.dockBottom;
             this.dcConvert.DragBorder = false;
             this.dcConvert.FloatingSize = new System.Drawing.Size(1284, 382);
             this.dcConvert.Image = ((System.Drawing.Image)(resources.GetObject("dcConvert.Image")));
@@ -331,7 +334,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.dcPackage.CanResize = true;
             this.dcPackage.CanUndock = true;
             this.dcPackage.Controls.Add(this.xpGradientPanel3);
-            //this.dcPackage.DockContainer = this.dockBottom;
+            this.dcPackage.DockContainer = this.dockBottom;
             this.dcPackage.DragBorder = false;
             this.dcPackage.FloatingSize = new System.Drawing.Size(1284, 382);
             this.dcPackage.Image = ((System.Drawing.Image)(resources.GetObject("dcPackage.Image")));
@@ -404,7 +407,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.dcWrapper.CanResize = true;
             this.dcWrapper.CanUndock = true;
             this.dcWrapper.Controls.Add(this.xpGradientPanel2);
-            //this.dcWrapper.DockContainer = this.dockBottom;
+            this.dcWrapper.DockContainer = this.dockBottom;
             this.dcWrapper.DragBorder = false;
             this.dcWrapper.FloatingSize = new System.Drawing.Size(1284, 382);
             this.dcWrapper.Image = ((System.Drawing.Image)(resources.GetObject("dcWrapper.Image")));
@@ -504,7 +507,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.dcResource.CanResize = true;
             this.dcResource.CanUndock = true;
             this.dcResource.Controls.Add(this.xpGradientPanel1);
-            //this.dcResource.DockContainer = this.dockBottom;
+            this.dcResource.DockContainer = this.dockBottom;
             this.dcResource.DragBorder = false;
             this.dcResource.FloatingSize = new System.Drawing.Size(1284, 382);
             this.dcResource.Image = ((System.Drawing.Image)(resources.GetObject("dcResource.Image")));
@@ -643,7 +646,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.dcHex.CanResize = true;
             this.dcHex.CanUndock = true;
             this.dcHex.Controls.Add(this.gradientpanel1);
-            //this.dcHex.DockContainer = this.dockBottom;
+            this.dcHex.DockContainer = this.dockBottom;
             this.dcHex.DragBorder = false;
             this.dcHex.FloatingSize = new System.Drawing.Size(1284, 382);
             this.dcHex.Image = ((System.Drawing.Image)(resources.GetObject("dcHex.Image")));

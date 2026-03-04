@@ -256,35 +256,30 @@ namespace SimPe
 
 	public class UserVerification
 	{
-		public static uint GenerateUserId(uint guid, string username, string password)
-		{			
-			if (username.Trim()=="") return 0;
-            if (username == "Chris" && password == "Boobs") return 105;
+        public static uint GenerateUserId(uint guid, string username, string password)
+        {
+            if (username.Trim()=="") return 0;
+            uint hash = Hashes.GetCrc32(username) & 0xFFFFFFFE;
+            guid = (uint)(guid << 8) & 0xFFFFFF00;
+            if (guid==0)
+                return hash;
+            return ((hash | 0x00000001) & 0x000000FF) | guid;
+        }
 
-			uint hash = Hashes.GetCrc32(username) & 0xFFFFFFFE;
-			guid = (uint)(guid  << 8) & 0xFFFFFF00;
-			if (guid==0)			
-				return hash;
+        public static bool ValidUserId(uint id, string username, string password)
+        {
+            if (username.Trim()=="") return id==0;
+            uint hash = Hashes.GetCrc32(username) & 0xFFFFFFFE;
+            if ((id & 1) == 0)
+                return (id==hash);
 
-			return ((hash | 0x00000001) & 0x000000FF) | guid;
-		}
+            uint guid = GetUserGuid(id);
+            id = id & 0x000000FE;
+            hash = hash & 0x000000FE;
+            return (id==hash);
+        }
 
-		public static bool ValidUserId(uint id, string username, string password)
-		{
-			if (username.Trim()=="") return id==0;
-            if (username == "Chris" && password == "Boobs" && id == 105) return true;
-			uint hash = Hashes.GetCrc32(username) & 0xFFFFFFFE;			
-
-			if ((id & 1) == 0) 			
-				return (id==hash);
-			
-			uint guid = GetUserGuid(id);
-			id = id & 0x000000FE;
-			hash = hash & 0x000000FE;
-			return (id==hash);
-		}
-
-		public static uint GetUserGuid(uint id)
+        public static uint GetUserGuid(uint id)
 		{
 			uint guid = (id >> 8);
 			return guid;

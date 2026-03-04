@@ -93,7 +93,7 @@ namespace pjHoodTool
             StreamWriter w1 = new StreamWriter(output, false, Encoding.Default);
             w1.AutoFlush = true;
             StreamWriter w2 = null;
-            if (inclot) // Boobies
+            if (inclot) 
             {
                 w2 = new StreamWriter(Path.Combine(outPath, "ExportedLots" + outptype), false, Encoding.Default);
                 w2.AutoFlush = true;
@@ -295,7 +295,7 @@ namespace pjHoodTool
                                 ntype.ProcessData(pfds[0], pkg);
                                 hoodtipe = System.Enum.GetName(typeof(NeighborhoodType), ntype.Type);
 
-                                // Chris booby-based renames removed.
+                                // Chris renames removed.
                                 // Preserve the useful "Hidden Suburb" label.
                                 if (ntype.Subep != SimPe.Data.MetaData.NeighbourhoodEP.Business && hoodtipe == "Suburb")
                                     hoodtipe = "Hidden Suburb";

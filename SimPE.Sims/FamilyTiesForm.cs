@@ -124,7 +124,7 @@ namespace SimPe.PackedFiles.UserInterface
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.ForeColor = System.Drawing.Color.White;
             this.panel4.Name = "panel4";
-            this.panel4.Commited += new System.EventHandler(this.button1_Click);//booby
+            this.panel4.Commited += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
