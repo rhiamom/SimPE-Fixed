@@ -166,16 +166,31 @@
     <Compile Include="WantNameLoader.cs" />
     <Compile Include="XML.cs" />
     <Compile Include="XMLWrapper.cs" />
-    <EmbeddedResource Include="Creg3UI.resx" />
-    <EmbeddedResource Include="CregUI.resx" />
-    <EmbeddedResource Include="Elements.de.resx" />
-    <EmbeddedResource Include="Elements.es.resx" />
-    <EmbeddedResource Include="Elements.fr.resx" />
-    <EmbeddedResource Include="Elements.it.resx" />
-    <EmbeddedResource Include="Elements.pl.resx" />
+    <EmbeddedResource Include="Creg3UI.resx">
+      <DependentUpon>Creg3UI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CregUI.resx">
+      <DependentUpon>CregUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements.de.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements.es.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements.fr.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements.it.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Elements.pl.resx">
+      <DependentUpon>Elements.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Elements.resx">
       <LogicalName>SimPe.PackedFiles.UserInterface.Elements.resources</LogicalName>
       <SubType>Designer</SubType>
+      <DependentUpon>Elements.cs</DependentUpon>
     </EmbeddedResource>
     <!-- Neutral resources: force the base name WinForms expects -->
     <EmbeddedResource Include="Elements2.resx">
@@ -244,7 +259,9 @@
     <EmbeddedResource Include="SdscForm.resx">
       <DependentUpon>SdscForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SimRelinkForm.resx" />
+    <EmbeddedResource Include="SimRelinkForm.resx">
+      <DependentUpon>SimRelinkForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -238,7 +238,9 @@
     <EmbeddedResource Include="ExtNgbhUI.ru.resx">
       <DependentUpon>ExtNgbhUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IdnoForm.resx" />
+    <EmbeddedResource Include="IdnoForm.resx">
+      <DependentUpon>IdnoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoteUI.en-US.resx">
       <DependentUpon>LoteUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -248,6 +250,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LtxtForm.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>LtxtForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MemoryProperties.de.resx">
       <DependentUpon>MemoryProperties.cs</DependentUpon>
@@ -312,7 +315,9 @@
     <EmbeddedResource Include="NgbhSkillHelperElement.resx">
       <DependentUpon>NgbhSkillHelperElement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NgbhSlotListView.resx" />
+    <EmbeddedResource Include="NgbhSlotListView.resx">
+      <DependentUpon>NgbhSlotListView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NgbhSlotSelection.de.resx">
       <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
     </EmbeddedResource>
@@ -325,7 +330,9 @@
     <EmbeddedResource Include="NgbhSlotSelection.resx">
       <DependentUpon>NgbhSlotSelection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NgbhValueDescriptorSelection.resx" />
+    <EmbeddedResource Include="NgbhValueDescriptorSelection.resx">
+      <DependentUpon>NgbhValueDescriptorSelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NgbhValueDescriptorUI.de.resx">
       <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -342,8 +349,12 @@
     <EmbeddedResource Include="NgbhValueDescriptorUI.ru.resx">
       <DependentUpon>NgbhValueDescriptorUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NhtrUI.en-US.resx" />
-    <EmbeddedResource Include="NhtrUI.resx" />
+    <EmbeddedResource Include="NhtrUI.en-US.resx">
+      <DependentUpon>NhtrUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhtrUI.resx">
+      <DependentUpon>NhtrUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -354,10 +365,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RoadTextureControl.resx" />
-    <EmbeddedResource Include="SlotUI.resx" />
-    <EmbeddedResource Include="TattUI.resx" />
-    <EmbeddedResource Include="WantsForm.resx" />
+    <EmbeddedResource Include="RoadTextureControl.resx">
+      <DependentUpon>RoadTextureControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SlotUI.resx">
+      <DependentUpon>SlotUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TattUI.resx">
+      <DependentUpon>TattUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WantsForm.resx">
+      <DependentUpon>WantsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

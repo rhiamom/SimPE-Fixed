@@ -157,27 +157,53 @@
     <Compile Include="WaitingScreen.cs" />
     <Compile Include="WarningException.cs" />
     <Compile Include="XmlRegistry.cs" />
-    <EmbeddedResource Include="ExceptionForm.de.resx" />
-    <EmbeddedResource Include="ExceptionForm.fr.resx" />
-    <EmbeddedResource Include="ExceptionForm.it.resx" />
-    <EmbeddedResource Include="ExceptionForm.pl.resx" />
-    <EmbeddedResource Include="ExceptionForm.resx" />
-    <EmbeddedResource Include="ExceptionForm.ru.resx" />
-    <EmbeddedResource Include="LabelledBoolsetControl.resx" />
+    <EmbeddedResource Include="ExceptionForm.de.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceptionForm.fr.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceptionForm.it.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceptionForm.pl.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceptionForm.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceptionForm.ru.resx">
+      <DependentUpon>ExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelledBoolsetControl.resx">
+      <DependentUpon>LabelledBoolsetControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization.de.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>Localization.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Localization.en-US.resx" />
-    <EmbeddedResource Include="Localization.fr.resx" />
-    <EmbeddedResource Include="Localization.it.resx" />
-    <EmbeddedResource Include="Localization.pl.resx" />
+    <EmbeddedResource Include="Localization.en-US.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization.fr.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization.it.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization.pl.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization.resx">
       <DependentUpon>Localization.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Localization.ru.resx" />
+    <EmbeddedResource Include="Localization.ru.resx">
+      <DependentUpon>Localization.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="pjseMsgBox.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>pjseMsgBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -189,14 +215,30 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SelectSimFolder.resx" />
-    <EmbeddedResource Include="WaitingForm.de.resx" />
-    <EmbeddedResource Include="WaitingForm.es.resx" />
-    <EmbeddedResource Include="WaitingForm.fr.resx" />
-    <EmbeddedResource Include="WaitingForm.it.resx" />
-    <EmbeddedResource Include="WaitingForm.pl.resx" />
-    <EmbeddedResource Include="WaitingForm.resx" />
-    <EmbeddedResource Include="WaitingForm.ru.resx" />
+    <EmbeddedResource Include="SelectSimFolder.resx">
+      <DependentUpon>SelectSimFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForm.de.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForm.es.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForm.fr.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForm.it.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForm.pl.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForm.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitingForm.ru.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IconXmlResources\expansions.xreg" />
     <EmbeddedResource Include="IconXmlResources\propertydefinition.xsd">
       <SubType>Designer</SubType>

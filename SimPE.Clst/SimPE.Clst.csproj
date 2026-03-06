@@ -83,14 +83,25 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="StrWrapper.cs" />
-    <EmbeddedResource Include="ClstForm.de.resx" />
-    <EmbeddedResource Include="ClstForm.fr.resx" />
-    <EmbeddedResource Include="ClstForm.it.resx" />
-    <EmbeddedResource Include="ClstForm.pl.resx" />
+    <EmbeddedResource Include="ClstForm.de.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClstForm.fr.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClstForm.it.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClstForm.pl.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClstForm.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>ClstForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ClstForm.ru.resx" />
+    <EmbeddedResource Include="ClstForm.ru.resx">
+      <DependentUpon>ClstForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

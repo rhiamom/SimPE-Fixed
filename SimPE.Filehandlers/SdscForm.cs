@@ -1,4 +1,7 @@
 ﻿/***************************************************************************
+ *   Copyright (C) 2005 by Ambertation                                     *
+ *   quaxi@ambertation.de                                                  *
+ *                                                                         *
  *   Copyright (C) 2025 by GramzeSweatshop                                 *
  *   rhiamom@mac.com                                                       *
  *                                                                         *

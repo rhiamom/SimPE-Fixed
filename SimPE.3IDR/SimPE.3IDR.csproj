@@ -76,12 +76,24 @@
     <Compile Include="NmapWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WrapperFactory.cs" />
-    <EmbeddedResource Include="NmapForm.de.resx" />
-    <EmbeddedResource Include="NmapForm.fr.resx" />
-    <EmbeddedResource Include="NmapForm.it.resx" />
-    <EmbeddedResource Include="NmapForm.pl.resx" />
-    <EmbeddedResource Include="NmapForm.resx" />
-    <EmbeddedResource Include="NmapForm.ru.resx" />
+    <EmbeddedResource Include="NmapForm.de.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NmapForm.fr.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NmapForm.it.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NmapForm.pl.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NmapForm.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NmapForm.ru.resx">
+      <DependentUpon>NmapForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

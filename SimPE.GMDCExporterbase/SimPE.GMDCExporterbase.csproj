@@ -142,22 +142,54 @@
     <Compile Include="MeshListViewItem.cs" />
     <Compile Include="MeshListViewItemExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AnimAxisTransformControl.de.resx" />
-    <EmbeddedResource Include="AnimAxisTransformControl.fr.resx" />
-    <EmbeddedResource Include="AnimAxisTransformControl.it.resx" />
-    <EmbeddedResource Include="AnimAxisTransformControl.resx" />
-    <EmbeddedResource Include="AnimAxisTransformControl.ru.resx" />
-    <EmbeddedResource Include="AnimFrameBlockControl.de.resx" />
-    <EmbeddedResource Include="AnimFrameBlockControl.fr.resx" />
-    <EmbeddedResource Include="AnimFrameBlockControl.it.resx" />
-    <EmbeddedResource Include="AnimFrameBlockControl.resx" />
-    <EmbeddedResource Include="AnimFrameBlockControl.ru.resx" />
-    <EmbeddedResource Include="AnimMeshBlockControl.resx" />
-    <EmbeddedResource Include="fAnimResourceConst.resx" />
-    <EmbeddedResource Include="fGeometryDataContainer.resx" />
-    <EmbeddedResource Include="GenericImport.resx" />
-    <EmbeddedResource Include="ImportGmdcGroups.resx" />
-    <EmbeddedResource Include="ImportJointAnim.resx" />
+    <EmbeddedResource Include="AnimAxisTransformControl.de.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimAxisTransformControl.fr.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimAxisTransformControl.it.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimAxisTransformControl.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimAxisTransformControl.ru.resx">
+      <DependentUpon>AnimAxisTransformControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimFrameBlockControl.de.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimFrameBlockControl.fr.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimFrameBlockControl.it.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimFrameBlockControl.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimFrameBlockControl.ru.resx">
+      <DependentUpon>AnimFrameBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimMeshBlockControl.resx">
+      <DependentUpon>AnimMeshBlockControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAnimResourceConst.resx">
+      <DependentUpon>fAnimResourceConst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fGeometryDataContainer.resx">
+      <DependentUpon>fGeometryDataContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericImport.resx">
+      <DependentUpon>GenericImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportGmdcGroups.resx">
+      <DependentUpon>ImportGmdcGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportJointAnim.resx">
+      <DependentUpon>ImportJointAnim.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

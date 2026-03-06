@@ -1,9 +1,12 @@
 /***************************************************************************
  *   Copyright (C) 2005 by Peter L Jones                                   *
  *   pljones@users.sf.net                                                  *
+ *                                                                         *
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
+ *   Copyright (C) 2025 by GramzeSweatShop                                 *
+ *   rhiamom@mac.com                                                       *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *

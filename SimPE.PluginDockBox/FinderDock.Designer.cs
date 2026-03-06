@@ -257,7 +257,7 @@ namespace SimPe.Plugin.Tool.Dockable
             this.Image = SimPe.LoadIcon.load("FinderDock.png");
             this.Name = "FinderDock";
             this.Size = new System.Drawing.Size(254, 476);
-            this.TabImage = SimPe.LoadIcon.load("$this.TabImage");
+            this.TabImage = SimPe.LoadIcon.load("FinderDockTabImage.png");
             this.TabText = "Finder";
             this.xpGradientPanel1.ResumeLayout(false);
             this.tbResult.ResumeLayout(false);

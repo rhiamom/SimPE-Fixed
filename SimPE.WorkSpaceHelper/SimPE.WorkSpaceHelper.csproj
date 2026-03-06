@@ -173,15 +173,26 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="WrapperBaseControl.de.resx" />
-    <EmbeddedResource Include="WrapperBaseControl.fr.resx" />
-    <EmbeddedResource Include="WrapperBaseControl.it.resx" />
-    <EmbeddedResource Include="WrapperBaseControl.pl.resx" />
+    <EmbeddedResource Include="WrapperBaseControl.de.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WrapperBaseControl.fr.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WrapperBaseControl.it.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WrapperBaseControl.pl.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WrapperBaseControl.resx">
       <SubType>Designer</SubType>
       <LogicalName>SimPe.Windows.Forms.WrapperBaseControl.resources</LogicalName>
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WrapperBaseControl.ru.resx" />
+    <EmbeddedResource Include="WrapperBaseControl.ru.resx">
+      <DependentUpon>WrapperBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
