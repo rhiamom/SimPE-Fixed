@@ -206,11 +206,21 @@
     <Compile Include="tTransformNode.cs">
       <SubType>Component</SubType>
     </Compile>
-    <EmbeddedResource Include="DDSTool.resx" />
-    <EmbeddedResource Include="fAnimResourceConst.resx" />
-    <EmbeddedResource Include="fExtension.resx" />
-    <EmbeddedResource Include="fShapeRefNode.resx" />
-    <EmbeddedResource Include="MatdForm.resx" />
+    <EmbeddedResource Include="DDSTool.resx">
+      <DependentUpon>DDSTool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAnimResourceConst.resx">
+      <DependentUpon>fAnimResourceConst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fExtension.resx">
+      <DependentUpon>fExtension.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fShapeRefNode.resx">
+      <DependentUpon>fShapeRefNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MatdForm.resx">
+      <DependentUpon>MatdForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -221,28 +231,66 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RcolForm.resx" />
-    <EmbeddedResource Include="ShpeForm.resx" />
-    <EmbeddedResource Include="Cres.resx">
-       <DependentUpon>tCresHierarchy.cs</DependentUpon>
+    <EmbeddedResource Include="RcolForm.resx">
+      <DependentUpon>RcolForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="tDirectionalLight.resx" />
-    <EmbeddedResource Include="tExtension.resx" />
-    <EmbeddedResource Include="tGenericRcol.resx" />
-    <EmbeddedResource Include="tGeometryNode.resx" />
-    <EmbeddedResource Include="tLightT.resx" />
-    <EmbeddedResource Include="tMaterialDefinition.resx" />
-    <EmbeddedResource Include="tMaterialDefinitionCategories.resx" />
-    <EmbeddedResource Include="tMaterialDefinitionFiles.resx" />
-    <EmbeddedResource Include="tMaterialDefinitionProperties.resx" />
-    <EmbeddedResource Include="tObjectGraphNode.resx" />
-    <EmbeddedResource Include="tResourceNode.resx" />
-    <EmbeddedResource Include="tShapeRefNode.resx" />
-    <EmbeddedResource Include="tShpeGraphNode.resx" />
-    <EmbeddedResource Include="tShpeItems.resx" />
-    <EmbeddedResource Include="tShpeLod.resx" />
-    <EmbeddedResource Include="tShpeParts.resx" />
-    <EmbeddedResource Include="tTransformNode.resx" />
+    <EmbeddedResource Include="ShpeForm.resx">
+      <DependentUpon>ShpeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cres.resx">
+      <DependentUpon>tCresHierarchy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tDirectionalLight.resx">
+      <DependentUpon>tDirectionalLight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tExtension.resx">
+      <DependentUpon>tExtension.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tGenericRcol.resx">
+      <DependentUpon>tGenericRcol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tGeometryNode.resx">
+      <DependentUpon>tGeometryNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tLightT.resx">
+      <DependentUpon>tLightT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tMaterialDefinition.resx">
+      <DependentUpon>tMaterialDefinition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tMaterialDefinitionCategories.resx">
+      <DependentUpon>tMaterialDefinitionCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tMaterialDefinitionFiles.resx">
+      <DependentUpon>tMaterialDefinitionFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tMaterialDefinitionProperties.resx">
+      <DependentUpon>tMaterialDefinitionProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tObjectGraphNode.resx">
+      <DependentUpon>tObjectGraphNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tResourceNode.resx">
+      <DependentUpon>tResourceNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tShapeRefNode.resx">
+      <DependentUpon>tShapeRefNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tShpeGraphNode.resx">
+      <DependentUpon>tShpeGraphNode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tShpeItems.resx">
+      <DependentUpon>tShpeItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tShpeLod.resx">
+      <DependentUpon>tShpeLod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tShpeParts.resx">
+      <DependentUpon>tShpeParts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tTransformNode.resx">
+      <DependentUpon>tTransformNode.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

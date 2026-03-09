@@ -105,7 +105,9 @@
     <Compile Include="ResourceListViewExt.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ResourceListViewExt.Designer.cs" />
+    <Compile Include="ResourceListViewExt.Designer.cs">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </Compile>
     <Compile Include="ResourceListViewExt.Selection.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,11 +123,15 @@
     <Compile Include="ResourceTreeViewExt.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ResourceTreeViewExt.Designer.cs" />
+    <Compile Include="ResourceTreeViewExt.Designer.cs">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </Compile>
     <Compile Include="ResourceViewManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ResourceViewManager.Designer.cs" />
+    <Compile Include="ResourceViewManager.Designer.cs">
+      <DependentUpon>ResourceViewManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="ResourceViewManager.HelperClasses.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -135,7 +141,9 @@
     <Compile Include="WaitControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WaitControl.Designer.cs" />
+    <Compile Include="WaitControl.Designer.cs">
+      <DependentUpon>WaitControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -146,17 +154,39 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ResourceListViewExt.de.resx" />
-    <EmbeddedResource Include="ResourceListViewExt.fr.resx" />
-    <EmbeddedResource Include="ResourceListViewExt.it.resx" />
-    <EmbeddedResource Include="ResourceListViewExt.resx" />
-    <EmbeddedResource Include="ResourceListViewExt.ru.resx" />
-    <EmbeddedResource Include="ResourceTreeViewExt.de.resx" />
-    <EmbeddedResource Include="ResourceTreeViewExt.fr.resx" />
-    <EmbeddedResource Include="ResourceTreeViewExt.it.resx" />
-    <EmbeddedResource Include="ResourceTreeViewExt.resx" />
-    <EmbeddedResource Include="ResourceTreeViewExt.ru.resx" />
-    <EmbeddedResource Include="WaitControl.resx" />
+    <EmbeddedResource Include="ResourceListViewExt.de.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceListViewExt.fr.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceListViewExt.it.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceListViewExt.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceListViewExt.ru.resx">
+      <DependentUpon>ResourceListViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceTreeViewExt.de.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceTreeViewExt.fr.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceTreeViewExt.it.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceTreeViewExt.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceTreeViewExt.ru.resx">
+      <DependentUpon>ResourceTreeViewExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaitControl.resx">
+      <DependentUpon>WaitControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

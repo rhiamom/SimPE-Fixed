@@ -155,20 +155,48 @@
     <Compile Include="TxtrWrapper.cs" />
     <Compile Include="WorkshopItems.cs" />
     <Compile Include="WrapperFactory.cs" />
-    <EmbeddedResource Include="FileSelect.resx" />
-    <EmbeddedResource Include="GroupCacheForm.resx" />
-    <EmbeddedResource Include="ImageSize.resx" />
-    <EmbeddedResource Include="LifoForm.resx" />
-    <EmbeddedResource Include="Listing.resx" />
-    <EmbeddedResource Include="ObjectComboBox.resx" />
-    <EmbeddedResource Include="PackedFileForm.de.resx" />
-    <EmbeddedResource Include="PackedFileForm.es.resx" />
-    <EmbeddedResource Include="PackedFileForm.fr.resx" />
-    <EmbeddedResource Include="PackedFileForm.it.resx" />
-    <EmbeddedResource Include="PackedFileForm.pl.resx" />
-    <EmbeddedResource Include="PackedFileForm.resx" />
-    <EmbeddedResource Include="PackedFileForm.ru.resx" />
-    <EmbeddedResource Include="PreviewForm.resx" />
+    <EmbeddedResource Include="FileSelect.resx">
+      <DependentUpon>FileSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupCacheForm.resx">
+      <DependentUpon>GroupCacheForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageSize.resx">
+      <DependentUpon>ImageSize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LifoForm.resx">
+      <DependentUpon>LifoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listing.resx">
+      <DependentUpon>Listing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectComboBox.resx">
+      <DependentUpon>ObjectComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackedFileForm.de.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackedFileForm.es.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackedFileForm.fr.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackedFileForm.it.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackedFileForm.pl.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackedFileForm.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackedFileForm.ru.resx">
+      <DependentUpon>PackedFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreviewForm.resx">
+      <DependentUpon>PreviewForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -179,10 +207,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RenameForm.resx" />
-    <EmbeddedResource Include="SlotForm.resx" />
-    <EmbeddedResource Include="SubsetSelectForm.resx" />
-    <EmbeddedResource Include="TxtrForm.resx" />
+    <EmbeddedResource Include="RenameForm.resx">
+      <DependentUpon>RenameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SlotForm.resx">
+      <DependentUpon>SlotForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubsetSelectForm.resx">
+      <DependentUpon>SubsetSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TxtrForm.resx">
+      <DependentUpon>TxtrForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -199,8 +199,10 @@
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcObjectWorkshop.ru.resources</LogicalName>
       <DependentUpon>ObjectsDock.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ObjectWorkshopDock.resx" />
-    <EmbeddedResource Include="OWDockForm.resx" />
+    
+    <EmbeddedResource Include="OWDockForm.resx">
+      <DependentUpon>OWDockForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PackageDetailDock.resx">
       <LogicalName>SimPe.Plugin.Tool.Dockable.dcPackageDetails.resources</LogicalName>
       <SubType>Designer</SubType>
@@ -242,7 +244,9 @@
     <EmbeddedResource Include="ToolboxPreviewForm.resx">
       <DependentUpon>ToolboxPreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Workshop.resx" />
+    <EmbeddedResource Include="Workshop.resx">
+      <DependentUpon>Workshop.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="XObjectPreview.de.resx">
       <DependentUpon>XObjectPreview.cs</DependentUpon>
     </EmbeddedResource>

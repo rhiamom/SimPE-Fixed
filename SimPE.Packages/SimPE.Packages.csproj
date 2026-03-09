@@ -93,7 +93,9 @@
     <Compile Include="Settings.cs" />
     <Compile Include="StreamMaintainer.cs" />
     <Compile Include="XmlPackageReaderBase.cs" />
-    <EmbeddedResource Include="PackageFiles.resx" />
+    <EmbeddedResource Include="PackageFiles.resx">
+      <DependentUpon>PackageFiles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

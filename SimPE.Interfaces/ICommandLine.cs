@@ -1,6 +1,9 @@
 /***************************************************************************
  *   Copyright (C) 2008 by Peter L Jones                                   *
- *   pljones@users.sf.net                                                  *
+ *   peter@users.sf.net                                                    *
+ *                                                                         *
+ *   Copyright (C) 2025 by GramzeSweatShop                                 *
+ *   Rhiamom@mac.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,6 +20,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Text;
