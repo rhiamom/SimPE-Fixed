@@ -228,10 +228,10 @@ namespace Ambertation
 			AssemblyName myAsmName = new AssemblyName();
 			myAsmName.Name = "EmittedAssembly";
 
-			AssemblyBuilder myAsmBuilder = myDomain.DefineDynamicAssembly(myAsmName,
-				AssemblyBuilderAccess.Run);
+            AssemblyBuilder myAsmBuilder = AssemblyBuilder.DefineDynamicAssembly(myAsmName,
+    AssemblyBuilderAccess.Run);
 
-			ModuleBuilder myModBuilder = myAsmBuilder.DefineDynamicModule("EmittedModule");
+            ModuleBuilder myModBuilder = myAsmBuilder.DefineDynamicModule("EmittedModule");
 
 			TypeBuilder myTypeBuilder = myModBuilder.DefineType("Ambertation", 
 				TypeAttributes.Public);

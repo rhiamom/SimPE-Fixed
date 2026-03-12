@@ -1,23 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPe</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <StartupObject />
-    <PostBuildEvent>if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\"
-copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" /Y
-</PostBuildEvent>
+	  <PostBuildEvent>
+		  if "$(TargetPath)"=="" goto end
+		  if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\"
+		  copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" /Y
+		  :end
+	  </PostBuildEvent>
+    <Configurations>Debug;Release;x86</Configurations>
+	  <NoWarn>$(NoWarn);NU1701;CS0012</NoWarn>
+	  <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+	  <AssemblyName>simpe.helper</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\bin\Release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -837,4 +842,25 @@ copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Deb
     <EmbeddedResource Include="IconXmlResources\WizardImage.bmp" />
     <EmbeddedResource Include="IconXmlResources\WizardSmallImage.bmp" />
   </ItemGroup>
+	<ItemGroup>
+		<Reference Include="AdvancedForms">
+			<HintPath>..\lib\AdvancedForms.dll</HintPath>
+		</Reference>
+		<Reference Include="ambertation.3D">
+			<HintPath>..\lib\ambertation.3D.dll</HintPath>
+		</Reference>
+		<Reference Include="ambertation.3D.mdx.binding">
+			<HintPath>..\lib\ambertation.3D.mdx.binding.dll</HintPath>
+		</Reference>
+		<Reference Include="ambertation.utilities">
+			<HintPath>..\lib\ambertation.utilities.dll</HintPath>
+		</Reference>
+		<Reference Include="NetDocks">
+			<HintPath>..\lib\NetDocks.dll</HintPath>
+		</Reference>
+		<Reference Include="SandDock">
+			<HintPath>..\lib\SandDock.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>
+

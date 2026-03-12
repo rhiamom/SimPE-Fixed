@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
@@ -8,15 +9,15 @@
     <PostBuildEvent>if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\"
 copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" /Y
 </PostBuildEvent>
+    <Configurations>Debug;Release</Configurations>
+    <AssemblyName>simpe.geometry</AssemblyName>
+    <RootNamespace>SimPe.Geometry</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\bin\Release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -25,4 +26,9 @@ copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Deb
   <ItemGroup>
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />
   </ItemGroup>
+	<ItemGroup>
+		<Reference Include="ambertation.3D">
+			<HintPath>..\lib\ambertation.3D.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>

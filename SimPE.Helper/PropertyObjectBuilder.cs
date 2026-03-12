@@ -208,10 +208,10 @@ namespace Ambertation
 			AssemblyName myAsmName = new AssemblyName();
 			myAsmName.Name = "MyDynamicAssembly";
 
-			AssemblyBuilder myAsmBuilder = myDomain.DefineDynamicAssembly(myAsmName,
-				AssemblyBuilderAccess.Run);
+            AssemblyBuilder myAsmBuilder = AssemblyBuilder.DefineDynamicAssembly(myAsmName,
+    AssemblyBuilderAccess.Run);
 
-			ModuleBuilder myModBuilder = myAsmBuilder.DefineDynamicModule("MyModule");
+            ModuleBuilder myModBuilder = myAsmBuilder.DefineDynamicModule("MyModule");
 
 			TypeBuilder myTypeBuilder = myModBuilder.DefineType("CustomerData", 
 				TypeAttributes.Public);

@@ -27,6 +27,7 @@ copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Deb
     <Copyright>Released under the GNU GPL</Copyright>
     <AssemblyVersion>4.0.6608.29748</AssemblyVersion>
     <FileVersion>4.0.6608.29748</FileVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>Debug\Plugins</OutputPath>

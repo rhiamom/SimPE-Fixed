@@ -8,8 +8,16 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <PostBuildEvent>if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins"
 copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\Plugins\" /Y</PostBuildEvent>
+    <Configurations>Debug;Release;x86</Configurations>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>Debug\Plugins\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='x86|AnyCPU'">
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>Debug\Plugins\</OutputPath>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -24,6 +32,11 @@ copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Deb
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <OutputPath>..\..\bin\Debug\Plugins\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='x86|x86'">
     <OutputPath>..\..\bin\Debug\Plugins\</OutputPath>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>

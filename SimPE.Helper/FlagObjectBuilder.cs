@@ -58,10 +58,10 @@ namespace Ambertation
 			AppDomain myDomain = Thread.GetDomain();
 			AssemblyName myAsmName = typeof(FlagObjectBuilder).Assembly.GetName();
 
-			AssemblyBuilder myAsmBuilder = myDomain.DefineDynamicAssembly(myAsmName,
-				AssemblyBuilderAccess.Run);
+            AssemblyBuilder myAsmBuilder = AssemblyBuilder.DefineDynamicAssembly(myAsmName,
+    AssemblyBuilderAccess.Run);
 
-			ModuleBuilder myModBuilder = myAsmBuilder.DefineDynamicModule("FlagModules.dll");			
+            ModuleBuilder myModBuilder = myAsmBuilder.DefineDynamicModule("FlagModules.dll");			
 
 			TypeBuilder myTypeBuilder = myModBuilder.DefineType(classname, 
 				TypeAttributes.Public, typeof(FlagObjectBuilder));

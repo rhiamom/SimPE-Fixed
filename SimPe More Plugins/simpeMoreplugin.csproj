@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <ProjectType>Local</ProjectType>
@@ -24,8 +24,26 @@ copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Deb
     <Description>More Plugins To Show More Stuff</Description>
     <Company>Chris Hatch</Company>
     <AssemblyVersion>2.69.20.24</AssemblyVersion>
+    <Configurations>Debug;Release;x86</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\__Debug\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='x86|AnyCPU'">
     <OutputPath>..\__Debug\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
@@ -63,6 +81,14 @@ copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Deb
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <OutputPath>..\bin\Debug\Plugins\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='x86|x86'">
     <OutputPath>..\bin\Debug\Plugins\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
     <FileAlignment>4096</FileAlignment>
@@ -142,5 +168,47 @@ copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Deb
     <ProjectReference Include="..\SimPE.Sims\SimPE.Sims.csproj" />
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj" />
     <ProjectReference Include="..\_PJSE\pjse Coder\SimPe pjse coder.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="7z">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\7z.dll</HintPath>
+    </Reference>
+    <Reference Include="AdvancedForms">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\AdvancedForms.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.3D">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\ambertation.3D.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.3D.mdx.binding">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\ambertation.3D.mdx.binding.dll</HintPath>
+    </Reference>
+    <Reference Include="ambertation.utilities">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\ambertation.utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Eyefinder">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\Eyefinder.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Navisight">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\Navisight.dll</HintPath>
+    </Reference>
+    <Reference Include="NetDocks">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\NetDocks.dll</HintPath>
+    </Reference>
+    <Reference Include="SandDock">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\SandDock.dll</HintPath>
+    </Reference>
+    <Reference Include="soil2">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\soil2.dll</HintPath>
+    </Reference>
+    <Reference Include="XPCommonControls">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\XPCommonControls.dll</HintPath>
+    </Reference>
+    <Reference Include="xsi.lib">
+      <HintPath>C:\Users\rhiam\source\repos\SimPeSource\lib\xsi.lib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

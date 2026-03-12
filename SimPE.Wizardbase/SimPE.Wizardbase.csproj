@@ -1,21 +1,31 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <StartupObject />
-    <PostBuildEvent>if not exist "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" mkdir "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\"
-copy "$(TargetPath)" "C:\Users\rhiam\source\repos\SimPeSource\SimPE.Main\bin\Debug\" /Y
-</PostBuildEvent>
+    <PostBuildEvent>if not exist "$(SolutionDir)bin\$(Configuration)\" mkdir "$(SolutionDir)bin\$(Configuration)\"
+if not exist "$(SolutionDir)SimPE.Main\bin\$(Configuration)\" mkdir "$(SolutionDir)SimPE.Main\bin\$(Configuration)\"
+copy "$(OutDir)$(AssemblyName).dll" "$(SolutionDir)bin\$(Configuration)\" /Y
+copy "$(OutDir)$(AssemblyName).dll" "$(SolutionDir)SimPE.Main\bin\$(Configuration)\" /Y</PostBuildEvent>
+    <Configurations>Debug;Release;x86</Configurations>
+    <AssemblyName>simpe.wizardbase</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='x86|AnyCPU'">
     <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\bin\Release\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <OutputPath>..\bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='x86|x86'">
     <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
