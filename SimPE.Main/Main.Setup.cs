@@ -131,6 +131,8 @@ namespace SimPe
             Ambertation.Windows.Forms.Serializer.Global.Register(tbContainer);
             Ambertation.Windows.Forms.Serializer.Global.Register(manager);
 
+            this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+
             manager.NoCleanup = false;
             //manager.ForceCleanUp();
             //this.dcResource.BringToFront();

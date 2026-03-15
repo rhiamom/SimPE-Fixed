@@ -469,7 +469,12 @@ namespace SimPe
 			Close();
 		}
 
-		private void Activate_miRunSims(object sender, System.EventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            saveProfile();
+        }
+
+        private void Activate_miRunSims(object sender, System.EventArgs e)
 		{
 			
 			if (!File.Exists(SimPe.PathProvider.Global.SimsApplication)) return;
