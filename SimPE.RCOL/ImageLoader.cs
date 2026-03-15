@@ -21,10 +21,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-using System;
-using System.Drawing;
-using System.Collections;
 using SimPe.Interfaces.Plugin;
+using System;
+using System.Collections;
+using System.Drawing;
+using System.Linq;
 
 namespace SimPe.Plugin
 {
@@ -143,23 +144,33 @@ namespace SimPe.Plugin
 				int hg = reader.ReadInt32();
 				int wd = reader.ReadInt32();
 				Size sz = new Size(wd, hg);
-				int firstsize = reader.ReadInt32();
-				int unknown = reader.ReadInt32();
-				maps = new DDSData[reader.ReadInt32()];
+                int firstsize = reader.ReadInt32();
+                int unknown = reader.ReadInt32();
+                int mapcount = reader.ReadInt32();
+                if (mapcount <= 0) mapcount = 1;
+                maps = new DDSData[mapcount];
+
+                System.Diagnostics.Debug.WriteLine($"ParesDDS: w={wd} h={hg} firstsize={firstsize} maps={maps.Length}");
 
 				fs.Seek(0x54, System.IO.SeekOrigin.Begin);
 				string sig = Helper.ToString(reader.ReadBytes(0x04));
 				TxtrFormats format;
+                byte[] sigbytes = System.Text.Encoding.ASCII.GetBytes(sig);
+                System.Diagnostics.Debug.WriteLine("SIG: " + sig + " bytes: " + string.Join(" ", sigbytes.Select(b => b.ToString("X2"))));
+                
 				if (sig=="DXT1") format = TxtrFormats.DXT1Format;
 				else if (sig=="DXT3") format = TxtrFormats.DXT3Format;
 				else if (sig=="DXT5") format = TxtrFormats.DXT5Format;
-				else throw new Exception("Unknown DXT Format "+sig);
 
-				fs.Seek(0x80, System.IO.SeekOrigin.Begin);
-				int blocksize = 0x10;
-				if (format == TxtrFormats.DXT1Format) blocksize = 0x8;
-				for (int i=0; i<maps.Length; i++) 
-				{
+                else throw new Exception("Unknown DXT Format "+sig);
+
+                fs.Seek(0x80, System.IO.SeekOrigin.Begin);
+                int blocksize = 0x10;
+                if (format == TxtrFormats.DXT1Format) blocksize = 0x8;
+                if (firstsize <= 0)
+                    firstsize = Math.Max(1, sz.Width / 4) * Math.Max(1, sz.Height / 4) * blocksize;
+                for (int i = 0; i<maps.Length; i++)
+                {
 					byte [] d = reader.ReadBytes(firstsize);
 					maps[i] = new DDSData(d, sz, format, (maps.Length-(i+1)), maps.Length);
 

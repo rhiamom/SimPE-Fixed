@@ -22,11 +22,14 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using BCnEncoder.Encoder;
+using BCnEncoder.Shared;
 
 namespace SimPe.Plugin
 {
@@ -418,73 +421,115 @@ namespace SimPe.Plugin
 			}
 		}
 
-		public static DDSData[] BuildDDS(Image img, int levels, ImageLoader.TxtrFormats format, string parameters) 
-		{
-			string imgname = System.IO.Path.GetTempFileName()+".png";
-			img.Save(imgname, System.Drawing.Imaging.ImageFormat.Png);
+        [DllImport("soil2.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern int SOIL_save_image_quality(
+    string filename, int imageType,
+    int width, int height, int channels,
+    byte[] data, int quality);
 
-			try 
-			{
-				return BuildDDS(imgname, levels, format, parameters);
-			}
-			finally 
-			{
-				if (System.IO.File.Exists(imgname)) System.IO.File.Delete(imgname);
-			}
-		}
+        [DllImport("soil2.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr SOIL_load_image(
+            string filename,
+            out int width, out int height, out int channels,
+            int forceChannels);
 
-		public static DDSData[] BuildDDS(string imgname, int levels, ImageLoader.TxtrFormats format, string parameters) 
-		{
-			
-			string ddsfile = System.IO.Path.GetTempFileName()+".dds";
+        [DllImport("soil2.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void SOIL_free_image_data(IntPtr imgData);
 
-			
-			//img.Save(imgname);
+        [DllImport("soil2.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr convert_image_to_DXT1(
+    byte[] data, int width, int height, int channels, out int dxtSize);
 
-			string arg = "-file \""+imgname+"\" ";
-			arg += "-output \""+ddsfile+"\" ";
+        [DllImport("soil2.dll", CallingConvention = CallingConvention.Cdecl)]
+        private static extern IntPtr convert_image_to_DXT5(
+            byte[] data, int width, int height, int channels, out int dxtSize);
 
-			if (format == ImageLoader.TxtrFormats.DXT1Format) arg += " -dxt1c";
-			else if (format == ImageLoader.TxtrFormats.DXT5Format) arg += "-dxt5";
-			else arg += "-dxt3";
+        private static void WriteDDSFile(string path, int width, int height, string fourCC, byte[] data)
+        {
+            using var bw = new System.IO.BinaryWriter(System.IO.File.Create(path));
+            bw.Write(new byte[] { 0x44, 0x44, 0x53, 0x20 }); // "DDS "
+            bw.Write(124);          // header size
+            bw.Write(0x00001007);   // flags: CAPS|HEIGHT|WIDTH|PIXELFORMAT|LINEARSIZE
+            bw.Write(height);
+            bw.Write(width);
+            bw.Write(data.Length);  // linear size
+            bw.Write(0);            // depth
+            bw.Write(1);            // mipmap count
+            for (int i = 0; i < 11; i++) bw.Write(0); // reserved
+                                                      // Pixel format
+            bw.Write(32);           // pixel format size
+            bw.Write(4);            // DDPF_FOURCC
+            bw.Write(System.Text.Encoding.ASCII.GetBytes(fourCC)); // "DXT1" or "DXT5"
+            bw.Write(0); bw.Write(0); bw.Write(0); bw.Write(0); bw.Write(0);
+            // Caps
+            bw.Write(0x1000);       // DDSCAPS_TEXTURE
+            bw.Write(0); bw.Write(0); bw.Write(0); bw.Write(0);
+            // Pixel data
+            bw.Write(data);
+        }
 
-			arg += " -nmips "+levels.ToString();
-			arg += " "+parameters;
+        public static DDSData[] BuildDDS(string imgname, int levels, ImageLoader.TxtrFormats format, string parameters)
+        {
+            int w, h, ch;
+            IntPtr imgData = SOIL_load_image(imgname, out w, out h, out ch, 4);
+            if (imgData == IntPtr.Zero) return new DDSData[0];
 
-            string flname = PathProvider.Global.NvidiaDDSTool;
+            string ddsfile = System.IO.Path.GetTempFileName() + ".dds";
+            try
+            {
+                byte[] rgba = new byte[w * h * 4];
+                Marshal.Copy(imgData, rgba, 0, rgba.Length);
+                SOIL_free_image_data(imgData);
+                imgData = IntPtr.Zero;
 
-			if (!System.IO.File.Exists(flname)) return new DDSData[0];
+                BCnEncoder.Shared.CompressionFormat bcFormat;
+                if (format == ImageLoader.TxtrFormats.DXT1Format)
+                    bcFormat = BCnEncoder.Shared.CompressionFormat.Bc1;
+                else if (format == ImageLoader.TxtrFormats.DXT3Format)
+                    bcFormat = BCnEncoder.Shared.CompressionFormat.Bc2;
+                else
+                    bcFormat = BCnEncoder.Shared.CompressionFormat.Bc3;
 
-			try 
-			{
-				Process p = new Process();
-				p.StartInfo.FileName = flname;
-				p.StartInfo.Arguments = arg;
+                var encoder = new BCnEncoder.Encoder.BcEncoder(bcFormat);
+                encoder.OutputOptions.GenerateMipMaps = false;
+                encoder.OutputOptions.FileFormat = BCnEncoder.Shared.OutputFileFormat.Dds;
 
-				p.Start();
+                var ddsData = encoder.EncodeToDds(rgba, w, h, BCnEncoder.Encoder.PixelFormat.Rgba32);
 
-				p.WaitForExit();
-				p.Close();
+                using (var fs = System.IO.File.Create(ddsfile))
+                {
+                    ddsData.Write(fs);
+                }
 
-				DDSData[] ret = ImageLoader.ParesDDS(ddsfile);
-				if (System.IO.File.Exists(ddsfile)) System.IO.File.Delete(ddsfile);
-				return ret;
-			} 
-			catch (Exception ex) 
-			{
-				Helper.ExceptionMessage("", ex);
-			} 
-			finally 
-			{
-				if (System.IO.File.Exists(ddsfile)) System.IO.File.Delete(ddsfile);
-			}
-		
-			
+                return ImageLoader.ParesDDS(ddsfile);
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage("", ex);
+                return new DDSData[0];
+            }
+            finally
+            {
+                if (imgData != IntPtr.Zero) SOIL_free_image_data(imgData);
+                if (System.IO.File.Exists(ddsfile)) System.IO.File.Delete(ddsfile);
+            }
+        }
 
-			return new DDSData[0];
-		}
+        public static DDSData[] BuildDDS(Image img, int levels, ImageLoader.TxtrFormats format, string parameters)
+        {
+            string imgname = System.IO.Path.GetTempFileName() + ".png";
+            img.Save(imgname, System.Drawing.Imaging.ImageFormat.Png);
+            try
+            {
+                return BuildDDS(imgname, levels, format, parameters);
+            }
+            finally
+            {
+                if (System.IO.File.Exists(imgname)) System.IO.File.Delete(imgname);
+            }
+        }
 
-		public static void AddDDsData(ImageData id, DDSData[] data) 
+        public static void AddDDsData(ImageData id, DDSData[] data) 
 		{
 			id.TextureSize = data[0].ParentSize;
 			id.Format = data[0].Format;

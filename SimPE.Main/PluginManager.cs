@@ -251,7 +251,9 @@ namespace SimPe
 		public void ChangedGuiResourceEventHandler(object sender, SimPe.Events.ResourceEventArgs e)
 		{
             RemoteControl.FireResourceListSelectionChangedHandler(sender, e);
-			if (ChangedGuiResourceEvent!=null) 
+            System.Windows.Forms.MessageBox.Show("ChangedGuiResourceEvent is " +
+       (ChangedGuiResourceEvent == null ? "NULL" : "has " + ChangedGuiResourceEvent.GetInvocationList().Length + " subscribers"));
+            if (ChangedGuiResourceEvent!=null) 
 			{
 				thsender = sender;
 				the = e;

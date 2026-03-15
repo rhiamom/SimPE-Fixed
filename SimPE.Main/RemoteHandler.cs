@@ -78,9 +78,6 @@ namespace SimPe
             {
                 if (fii.Package != null)
                 {
-                    System.Windows.Forms.MessageBox.Show("Package match: " +
-                        fii.Package.Equals(lp.Package).ToString());
-
                     if (!fii.Package.Equals(lp.Package))
                     {
                         int bprc = Helper.WindowsRegistry.BigPackageResourceCount;
@@ -118,7 +115,6 @@ namespace SimPe
             }
 
             bool res = rl.AddResource(fii, false);
-            System.Windows.Forms.MessageBox.Show("AddResource result: " + res.ToString());
             if (res && LoadedResource != null) FireLoadEvent(fii);
             return res;
         }

@@ -1,0 +1,1178 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "simpe.bhav.plugin/1.0.0": {
+        "dependencies": {
+          "SimPE.Clst": "1.0.0",
+          "SimPE.RCOL": "1.0.0",
+          "pjse.coder.plugin": "1.0.0",
+          "simpe.filehandler": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0",
+          "pjse.coder.plugin.Reference": "4.0.6608.29748",
+          "simpe.filehandler.Reference": "1.0.0.0",
+          "simpe.names.Reference": "1.0.0.0",
+          "simpe.ngbh.Reference": "1.0.0.0",
+          "simpe.package.Reference": "1.0.0.0",
+          "simpe.workspace.plugin.Reference": "1.0.0.0"
+        },
+        "runtime": {
+          "simpe.bhav.plugin.dll": {}
+        }
+      },
+      "BCnEncoder.Net/2.3.0": {
+        "dependencies": {
+          "CommunityToolkit.HighPerformance": "8.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/BCnEncoder.dll": {
+            "assemblyVersion": "2.3.0.0",
+            "fileVersion": "2.3.0.0"
+          }
+        }
+      },
+      "CommunityToolkit.HighPerformance/8.4.0": {
+        "runtime": {
+          "lib/net8.0/CommunityToolkit.HighPerformance.dll": {
+            "assemblyVersion": "8.4.0.0",
+            "fileVersion": "8.4.0.1"
+          }
+        }
+      },
+      "Microsoft.CSharp/4.7.0": {},
+      "Microsoft.Win32.SystemEvents/8.0.0": {},
+      "OpenTK/4.9.4": {
+        "dependencies": {
+          "OpenTK.Audio.OpenAL": "4.9.4",
+          "OpenTK.Compute": "4.9.4",
+          "OpenTK.Core": "4.9.4",
+          "OpenTK.Graphics": "4.9.4",
+          "OpenTK.Input": "4.9.4",
+          "OpenTK.Mathematics": "4.9.4",
+          "OpenTK.Windowing.Common": "4.9.4",
+          "OpenTK.Windowing.Desktop": "4.9.4",
+          "OpenTK.Windowing.GraphicsLibraryFramework": "4.9.4"
+        }
+      },
+      "OpenTK.Audio.OpenAL/4.9.4": {
+        "dependencies": {
+          "OpenTK.Core": "4.9.4",
+          "OpenTK.Mathematics": "4.9.4"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OpenTK.Audio.OpenAL.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "OpenTK.Compute/4.9.4": {
+        "runtime": {
+          "lib/netcoreapp3.1/OpenTK.Compute.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "OpenTK.Core/4.9.4": {
+        "runtime": {
+          "lib/netstandard2.1/OpenTK.Core.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "OpenTK.GLControl/4.0.2": {
+        "dependencies": {
+          "OpenTK.Graphics": "4.9.4",
+          "OpenTK.Windowing.Desktop": "4.9.4"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OpenTK.GLControl.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.0.2.0"
+          }
+        }
+      },
+      "OpenTK.Graphics/4.9.4": {
+        "dependencies": {
+          "OpenTK.Core": "4.9.4",
+          "OpenTK.Mathematics": "4.9.4"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OpenTK.Graphics.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "OpenTK.Input/4.9.4": {
+        "runtime": {
+          "lib/netstandard2.0/OpenTK.Input.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "OpenTK.Mathematics/4.9.4": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OpenTK.Mathematics.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "OpenTK.redist.glfw/3.4.0.44": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libglfw.so.3": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-arm64/native/libglfw.3.dylib": {
+            "rid": "osx-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libglfw.3.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/glfw3.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "3.4.0.0"
+          },
+          "runtimes/win-x86/native/glfw3.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "3.4.0.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.Common/4.9.4": {
+        "dependencies": {
+          "OpenTK.Core": "4.9.4",
+          "OpenTK.Mathematics": "4.9.4"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OpenTK.Windowing.Common.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.Desktop/4.9.4": {
+        "dependencies": {
+          "OpenTK.Core": "4.9.4",
+          "OpenTK.Mathematics": "4.9.4",
+          "OpenTK.Windowing.Common": "4.9.4",
+          "OpenTK.Windowing.GraphicsLibraryFramework": "4.9.4"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OpenTK.Windowing.Desktop.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "OpenTK.Windowing.GraphicsLibraryFramework/4.9.4": {
+        "dependencies": {
+          "OpenTK.Core": "4.9.4",
+          "OpenTK.redist.glfw": "3.4.0.44"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OpenTK.Windowing.GraphicsLibraryFramework.dll": {
+            "assemblyVersion": "4.9.4.0",
+            "fileVersion": "4.9.4.0"
+          }
+        }
+      },
+      "System.Data.DataSetExtensions/4.5.0": {},
+      "System.Drawing.Common/8.0.0": {
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "8.0.0"
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "ambertation.3D/1.0.0": {
+        "dependencies": {
+          "System.Drawing.Common": "8.0.0",
+          "ambertation.utilities": "1.0.0"
+        },
+        "runtime": {
+          "ambertation.3D.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "ambertation.3D.gl.binding/1.0.0": {
+        "dependencies": {
+          "OpenTK": "4.9.4",
+          "OpenTK.GLControl": "4.0.2",
+          "System.Drawing.Common": "8.0.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.utilities": "1.0.0"
+        },
+        "runtime": {
+          "ambertation.3D.gl.binding.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "ambertation.utilities/1.0.0": {
+        "dependencies": {
+          "System.Drawing.Common": "8.0.0"
+        },
+        "runtime": {
+          "ambertation.utilities.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "pjse.coder.plugin/1.0.0": {
+        "dependencies": {
+          "SimPE.GraphControl": "1.0.0",
+          "simpe.filehandler": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.names": "1.0.0",
+          "simpe.ngbh": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.splash": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "pjse.coder.plugin.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        },
+        "resources": {
+          "en-US/pjse.coder.plugin.resources.dll": {
+            "locale": "en-US"
+          }
+        }
+      },
+      "SimPE.3IDR/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.Clst": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "SimPE.3IDR.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de/SimPE.3IDR.resources.dll": {
+            "locale": "de"
+          },
+          "fr/SimPE.3IDR.resources.dll": {
+            "locale": "fr"
+          },
+          "it/SimPE.3IDR.resources.dll": {
+            "locale": "it"
+          },
+          "pl/SimPE.3IDR.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/SimPE.3IDR.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "SimPE.Cache/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0"
+        },
+        "runtime": {
+          "SimPE.Cache.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SimPE.Clst/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0"
+        },
+        "runtime": {
+          "SimPE.Clst.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de/SimPE.Clst.resources.dll": {
+            "locale": "de"
+          },
+          "es/SimPE.Clst.resources.dll": {
+            "locale": "es"
+          },
+          "fr/SimPE.Clst.resources.dll": {
+            "locale": "fr"
+          },
+          "it/SimPE.Clst.resources.dll": {
+            "locale": "it"
+          },
+          "pl/SimPE.Clst.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/SimPE.Clst.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "simpe.filehandler/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.Cache": "1.0.0",
+          "SimPE.Clst": "1.0.0",
+          "SimPE.GraphControl": "1.0.0",
+          "SimPE.RCOL": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "simpe.filehandler.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        },
+        "resources": {
+          "de/simpe.filehandler.resources.dll": {
+            "locale": "de"
+          },
+          "es/simpe.filehandler.resources.dll": {
+            "locale": "es"
+          },
+          "fr/simpe.filehandler.resources.dll": {
+            "locale": "fr"
+          },
+          "it/simpe.filehandler.resources.dll": {
+            "locale": "it"
+          },
+          "pl/simpe.filehandler.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/simpe.filehandler.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "simpe.geometry/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "simpe.helper": "1.0.0"
+        },
+        "runtime": {
+          "simpe.geometry.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "SimPE.GMDCExporterBase/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.GraphControl": "1.0.0",
+          "SimPE.RCOL": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.geometry": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "SimPE.GMDCExporterBase.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de/SimPE.GMDCExporterBase.resources.dll": {
+            "locale": "de"
+          },
+          "fr/SimPE.GMDCExporterBase.resources.dll": {
+            "locale": "fr"
+          },
+          "it/SimPE.GMDCExporterBase.resources.dll": {
+            "locale": "it"
+          },
+          "ru/SimPE.GMDCExporterBase.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "SimPE.GraphControl/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.helper": "1.0.0"
+        },
+        "runtime": {
+          "SimPE.GraphControl.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "simpe.helper/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0"
+        },
+        "runtime": {
+          "simpe.helper.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        },
+        "resources": {
+          "de/simpe.helper.resources.dll": {
+            "locale": "de"
+          },
+          "en-US/simpe.helper.resources.dll": {
+            "locale": "en-US"
+          },
+          "es/simpe.helper.resources.dll": {
+            "locale": "es"
+          },
+          "fr/simpe.helper.resources.dll": {
+            "locale": "fr"
+          },
+          "it/simpe.helper.resources.dll": {
+            "locale": "it"
+          },
+          "pl/simpe.helper.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/simpe.helper.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "simpe.interfaces/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "simpe.helper": "1.0.0"
+        },
+        "runtime": {
+          "simpe.interfaces.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "simpe.names/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.3IDR": "1.0.0",
+          "SimPE.Clst": "1.0.0",
+          "SimPE.RCOL": "1.0.0",
+          "SimPE.Scenegraph": "1.0.0",
+          "SimPE.Sims": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.filehandler": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "simpe.names.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "simpe.ngbh/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.Cache": "1.0.0",
+          "SimPE.Clst": "1.0.0",
+          "SimPE.GraphControl": "1.0.0",
+          "SimPE.RCOL": "1.0.0",
+          "SimPE.Scenegraph": "1.0.0",
+          "SimPE.Sims": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.filehandler": "1.0.0",
+          "simpe.geometry": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.names": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "simpe.ngbh.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        },
+        "resources": {
+          "de/simpe.ngbh.resources.dll": {
+            "locale": "de"
+          },
+          "en-US/simpe.ngbh.resources.dll": {
+            "locale": "en-US"
+          },
+          "fr/simpe.ngbh.resources.dll": {
+            "locale": "fr"
+          },
+          "it/simpe.ngbh.resources.dll": {
+            "locale": "it"
+          },
+          "pl/simpe.ngbh.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/simpe.ngbh.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "simpe.package/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.Clst": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0"
+        },
+        "runtime": {
+          "simpe.package.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "SimPE.RCOL/1.0.0": {
+        "dependencies": {
+          "BCnEncoder.Net": "2.3.0",
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.GraphControl": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.geometry": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "SimPE.RCOL.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SimPE.Scenegraph/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.3IDR": "1.0.0",
+          "SimPE.Cache": "1.0.0",
+          "SimPE.Clst": "1.0.0",
+          "SimPE.GMDCExporterBase": "1.0.0",
+          "SimPE.RCOL": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "simpe.filehandler": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.splash": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "SimPE.Scenegraph.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de/SimPE.Scenegraph.resources.dll": {
+            "locale": "de"
+          },
+          "es/SimPE.Scenegraph.resources.dll": {
+            "locale": "es"
+          },
+          "fr/SimPE.Scenegraph.resources.dll": {
+            "locale": "fr"
+          },
+          "it/SimPE.Scenegraph.resources.dll": {
+            "locale": "it"
+          },
+          "pl/SimPE.Scenegraph.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/SimPE.Scenegraph.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "SimPE.Sims/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.3IDR": "1.0.0",
+          "SimPE.Cache": "1.0.0",
+          "SimPE.Clst": "1.0.0",
+          "SimPE.GraphControl": "1.0.0",
+          "SimPE.RCOL": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.filehandler": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0",
+          "simpe.workspace.plugin": "1.0.0"
+        },
+        "runtime": {
+          "SimPE.Sims.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de/SimPE.Sims.resources.dll": {
+            "locale": "de"
+          },
+          "fr/SimPE.Sims.resources.dll": {
+            "locale": "fr"
+          },
+          "it/SimPE.Sims.resources.dll": {
+            "locale": "it"
+          },
+          "pl/SimPE.Sims.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/SimPE.Sims.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "simpe.splash/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.helper": "1.0.0"
+        },
+        "runtime": {
+          "simpe.splash.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "simpe.workspace.plugin/1.0.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "SimPE.Cache": "1.0.0",
+          "SimPE.GraphControl": "1.0.0",
+          "System.Data.DataSetExtensions": "4.5.0",
+          "ambertation.3D": "1.0.0",
+          "ambertation.3D.gl.binding": "1.0.0",
+          "ambertation.utilities": "1.0.0",
+          "simpe.helper": "1.0.0",
+          "simpe.interfaces": "1.0.0",
+          "simpe.package": "1.0.0"
+        },
+        "runtime": {
+          "simpe.workspace.plugin.dll": {
+            "fileVersion": "0.0.0.0"
+          }
+        },
+        "resources": {
+          "de/simpe.workspace.plugin.resources.dll": {
+            "locale": "de"
+          },
+          "fr/simpe.workspace.plugin.resources.dll": {
+            "locale": "fr"
+          },
+          "it/simpe.workspace.plugin.resources.dll": {
+            "locale": "it"
+          },
+          "pl/simpe.workspace.plugin.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/simpe.workspace.plugin.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "pjse.coder.plugin.Reference/4.0.6608.29748": {
+        "runtime": {
+          "pjse.coder.plugin.dll": {
+            "assemblyVersion": "4.0.6608.29748",
+            "fileVersion": "4.0.6608.29748"
+          }
+        },
+        "resources": {
+          "en-US/pjse.coder.plugin.resources.dll": {
+            "locale": "en-US"
+          }
+        }
+      },
+      "simpe.filehandler.Reference/1.0.0.0": {
+        "runtime": {
+          "simpe.filehandler.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de/simpe.filehandler.resources.dll": {
+            "locale": "de"
+          },
+          "es/simpe.filehandler.resources.dll": {
+            "locale": "es"
+          },
+          "fr/simpe.filehandler.resources.dll": {
+            "locale": "fr"
+          },
+          "it/simpe.filehandler.resources.dll": {
+            "locale": "it"
+          },
+          "pl/simpe.filehandler.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/simpe.filehandler.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "simpe.names.Reference/1.0.0.0": {
+        "runtime": {
+          "simpe.names.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "simpe.ngbh.Reference/1.0.0.0": {
+        "runtime": {
+          "simpe.ngbh.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de/simpe.ngbh.resources.dll": {
+            "locale": "de"
+          },
+          "en-US/simpe.ngbh.resources.dll": {
+            "locale": "en-US"
+          },
+          "fr/simpe.ngbh.resources.dll": {
+            "locale": "fr"
+          },
+          "it/simpe.ngbh.resources.dll": {
+            "locale": "it"
+          },
+          "pl/simpe.ngbh.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/simpe.ngbh.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "simpe.package.Reference/1.0.0.0": {
+        "runtime": {
+          "simpe.package.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "simpe.workspace.plugin.Reference/1.0.0.0": {
+        "runtime": {
+          "simpe.workspace.plugin.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "resources": {
+          "de/simpe.workspace.plugin.resources.dll": {
+            "locale": "de"
+          },
+          "fr/simpe.workspace.plugin.resources.dll": {
+            "locale": "fr"
+          },
+          "it/simpe.workspace.plugin.resources.dll": {
+            "locale": "it"
+          },
+          "pl/simpe.workspace.plugin.resources.dll": {
+            "locale": "pl"
+          },
+          "ru/simpe.workspace.plugin.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      },
+      "XPCommonControls/2.2.3.4": {
+        "runtime": {
+          "XPCommonControls.dll": {
+            "assemblyVersion": "2.2.3.4",
+            "fileVersion": "2.2.3.4"
+          }
+        }
+      },
+      "NetDocks/1.0.2983.24895": {
+        "runtime": {
+          "NetDocks.dll": {
+            "assemblyVersion": "1.0.2983.24895",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SandDock/2.0.2.1": {
+        "runtime": {
+          "SandDock.dll": {
+            "assemblyVersion": "2.0.2.1",
+            "fileVersion": "2.0.2.1"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "simpe.bhav.plugin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BCnEncoder.Net/2.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DJhHJiBJKXUXxlkkrv74ckzJb3wYxqIAZHjXD9G76kpsD0YyJOmqtNufHWEuJe0eH0tB1tCZn80/3JV2UVP7yQ==",
+      "path": "bcnencoder.net/2.3.0",
+      "hashPath": "bcnencoder.net.2.3.0.nupkg.sha512"
+    },
+    "CommunityToolkit.HighPerformance/8.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-flxspiBs0G/0GMp7IK2J2ijV9bTG6hEwFc/z6ekHqB6nwRJ4Ry2yLdx+TkbCUYFCl4XhABkAwomeKbT6zM2Zlg==",
+      "path": "communitytoolkit.highperformance/8.4.0",
+      "hashPath": "communitytoolkit.highperformance.8.4.0.nupkg.sha512"
+    },
+    "Microsoft.CSharp/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
+      "path": "microsoft.csharp/4.7.0",
+      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9opKRyOKMCi2xJ7Bj7kxtZ1r9vbzosMvRrdEhVhDz8j8MoBGgB+WmC94yH839NPH+BclAjtQ/pyagvi/8gDLkw==",
+      "path": "microsoft.win32.systemevents/8.0.0",
+      "hashPath": "microsoft.win32.systemevents.8.0.0.nupkg.sha512"
+    },
+    "OpenTK/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fp9ZI6akO4ZuIGzuUE0QRU5zRJhXbSXa5racehFoTdvodhRDecXCOcH68mRsZaMwnxLO9ECnf2LGM9BmiJKvhw==",
+      "path": "opentk/4.9.4",
+      "hashPath": "opentk.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.Audio.OpenAL/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N/SCeFrLJ3ckUbshyfsonbtjmDxh55urGiR+Fe1iPkTWyEW5OKfQRoIOZyjEva/4eRqOXdt3bV2ka4IJ2+JvZw==",
+      "path": "opentk.audio.openal/4.9.4",
+      "hashPath": "opentk.audio.openal.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.Compute/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-30G+/9mtrUJwX5xcRyz2qcujQ2s+wDm+C7qg6jDsLyGWUdND3j/vD+nlQ6tuKuAow51zWduFVujPkaS8VrBinQ==",
+      "path": "opentk.compute/4.9.4",
+      "hashPath": "opentk.compute.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.Core/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/4Mn3ABf1xNfHMzDFUapVY2K4PG3oP/oWTQJlK0JacT20HwsNe/HPIAhnAJWz27EM3ukOJDtqyQRukvQKqkcLw==",
+      "path": "opentk.core/4.9.4",
+      "hashPath": "opentk.core.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.GLControl/4.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N4F8kFT7l+nZIpMrtnp/MdJWKv9o+OsQwuDBZxr2Qg7Hz3FeW7fgsRo0kwrpQss8/bv8AYO+xqrhpbKlSImtMw==",
+      "path": "opentk.glcontrol/4.0.2",
+      "hashPath": "opentk.glcontrol.4.0.2.nupkg.sha512"
+    },
+    "OpenTK.Graphics/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yZeq5swIsRnNzifVA9fLtl+qMAQvmYiF1b7U/XQLARmmU4PYQ23lPNahqAdD22XzA21ew7eG3yDyPLkYw+hDBA==",
+      "path": "opentk.graphics/4.9.4",
+      "hashPath": "opentk.graphics.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.Input/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-njbC7fySQEK30rjOQ1uRjlycEkLw+UVoPT3nRQ8uBPNLotDgr47NEcPEjmJyX1ll+pm/wmtcvJIYHBRi1HbOqg==",
+      "path": "opentk.input/4.9.4",
+      "hashPath": "opentk.input.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.Mathematics/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2ucF25RVJzdSLXUHgjAgB058gVfSgerrR5pLCn9J+Bnyqi45NrBfPu9wyTT35ZCjYwLJCu/HJMnzKFLjq+uFIA==",
+      "path": "opentk.mathematics/4.9.4",
+      "hashPath": "opentk.mathematics.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.redist.glfw/3.4.0.44": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HEjbdk0wWxSRrXHl3DSmrA8trecndgJpAHHloJJ1vPseNfeu/ynmrH/LturU1KguRn4r3IzZ81UIp5xRjnyahg==",
+      "path": "opentk.redist.glfw/3.4.0.44",
+      "hashPath": "opentk.redist.glfw.3.4.0.44.nupkg.sha512"
+    },
+    "OpenTK.Windowing.Common/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xNjvKjoptAh6w5/YYIx/9sNv3/A2VVlTahlekTlLP+qfNyig+0jBuLHO4bWELWZ7Ta3Y1m/2Pvk0Z1KCG8VZOA==",
+      "path": "opentk.windowing.common/4.9.4",
+      "hashPath": "opentk.windowing.common.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.Windowing.Desktop/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LBX4jwCneISIBST2vWYLI8cdR8tLwHNcswK1decElbTAXMB+H6uFIoF41ld+af4q3TsHpjR5fyP2ilbTK3T0rA==",
+      "path": "opentk.windowing.desktop/4.9.4",
+      "hashPath": "opentk.windowing.desktop.4.9.4.nupkg.sha512"
+    },
+    "OpenTK.Windowing.GraphicsLibraryFramework/4.9.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wNlxnPrD7veMV8EGTTi/sCDeg5V8w/18vC0aw0Ao69eNneD7YSq9Ad+C389rVA957eHNR6Xieu/5qzHQeEOyxQ==",
+      "path": "opentk.windowing.graphicslibraryframework/4.9.4",
+      "hashPath": "opentk.windowing.graphicslibraryframework.4.9.4.nupkg.sha512"
+    },
+    "System.Data.DataSetExtensions/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-221clPs1445HkTBZPL+K9sDBdJRB8UN8rgjO3ztB0CQ26z//fmJXtlsr6whGatscsKGBrhJl5bwJuKSA8mwFOw==",
+      "path": "system.data.datasetextensions/4.5.0",
+      "hashPath": "system.data.datasetextensions.4.5.0.nupkg.sha512"
+    },
+    "System.Drawing.Common/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JkbHJjtI/dWc5dfmEdJlbe3VwgZqCkZRtfuWFh5GOv0f+gGCfBtzMpIVkmdkj2AObO9y+oiOi81UGwH3aBYuqA==",
+      "path": "system.drawing.common/8.0.0",
+      "hashPath": "system.drawing.common.8.0.0.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "ambertation.3D/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ambertation.3D.gl.binding/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ambertation.utilities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "pjse.coder.plugin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimPE.3IDR/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimPE.Cache/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimPE.Clst/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.filehandler/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.geometry/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimPE.GMDCExporterBase/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimPE.GraphControl/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.helper/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.interfaces/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.names/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.ngbh/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.package/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimPE.RCOL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimPE.Scenegraph/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SimPE.Sims/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.splash/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.workspace.plugin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "pjse.coder.plugin.Reference/4.0.6608.29748": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.filehandler.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.names.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.ngbh.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.package.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "simpe.workspace.plugin.Reference/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "XPCommonControls/2.2.3.4": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NetDocks/1.0.2983.24895": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SandDock/2.0.2.1": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

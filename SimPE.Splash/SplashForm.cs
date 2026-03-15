@@ -69,6 +69,8 @@ namespace SimPe.Windows.Forms
             {
                 // Try to load the embedded splash image
                 var asm = typeof(SplashForm).Assembly;
+                var names = asm.GetManifestResourceNames();
+                System.Diagnostics.Debug.WriteLine("Resources: " + string.Join(", ", names));
                 using (System.IO.Stream s = asm.GetManifestResourceStream("SimPe.Windows.Forms.img.splash.png"))
                 {
                     if (s != null)
