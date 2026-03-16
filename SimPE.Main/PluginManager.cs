@@ -26,6 +26,7 @@
 using System;
 using System.Windows.Forms;
 using SimPe.Interfaces;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace SimPe
 {
@@ -39,7 +40,7 @@ namespace SimPe
 		internal PluginManager(
             ToolStripMenuItem toolmenu, 
 			ToolStrip tootoolbar,
-			TD.SandDock.TabControl dc, 
+			WeifenLuo.WinFormsUI.Docking.DockPanel dc,
 			LoadedPackage lp,
 			Ambertation.Windows.Forms.XPTaskBoxSimple defaultactiontaskbox,
             ContextMenuStrip defaultactionmenu,
@@ -69,7 +70,7 @@ namespace SimPe
 
             Splash.Screen.SetMessage("Loading Listeners");
 			wloader.AddListeners(ref ChangedGuiResourceEvent);
-			//dc.ActiveDocumentChanged += new TD.SandDock.ActiveDocumentEventHandler(wloader.ActiveDocumentChanged);
+			//dc.ActiveDocumentChanged += wloader.ActiveDocumentChanged;
 			//lp.AfterFileLoad += new SimPe.Events.PackageFileLoadedEvent(wloader.ChangedPackage);
 
 

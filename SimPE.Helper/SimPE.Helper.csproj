@@ -834,13 +834,6 @@
     <EmbeddedResource Include="IconXmlResources\WizardImage.bmp" />
     <EmbeddedResource Include="IconXmlResources\WizardSmallImage.bmp" />
   </ItemGroup>
-	<ItemGroup>
-		
-		
-		<Reference Include="SandDock">
-			<HintPath>..\lib\SandDock.dll</HintPath>
-		</Reference>
-	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ambertation.3D\ambertation.3D.csproj" />

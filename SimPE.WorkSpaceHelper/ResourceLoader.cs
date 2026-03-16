@@ -23,13 +23,8 @@
 
 using System;
 using System.Collections;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
 using System.Windows.Forms;
-using static SimPe.Data.MetaData;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace SimPe
 {
@@ -38,7 +33,7 @@ namespace SimPe
 	/// </summary>
 	public class ResourceLoader
 	{
-		TD.SandDock.TabControl dc;
+		DockPanel dc;
 		LoadedPackage pkg;
 
 		/// <summary>
@@ -64,7 +59,7 @@ namespace SimPe
         }
         public void RefreshUI(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
         {
-            TD.SandDock.DockControl doc = this.GetDocument(fii);
+            DockContent doc = this.GetDocument(fii);
             if (doc == null) return;
 
             SimPe.Interfaces.Plugin.IFileWrapper wrp = (SimPe.Interfaces.Plugin.IFileWrapper)doc.Tag;
@@ -80,14 +75,14 @@ namespace SimPe
 		/// </summary>
 		/// <param name="dc">The document Container that receives the Plugins</param>
 		/// <param name="lp">The Container for the currently loaded package</param>
-		public ResourceLoader(TD.SandDock.TabControl dc, LoadedPackage lp)
+		public ResourceLoader(DockPanel dc, LoadedPackage lp)
 		{
 			this.dc = dc;
 			pkg = lp;
 			loaded = new Hashtable();
 			single = new Hashtable();
             if (srl == null) srl = this;
-		}		
+		}
 
 		/// <summary>
 		/// Load the assigned Wrapper, and initiate the Resource
@@ -99,11 +94,11 @@ namespace SimPe
             if (fii == null) return null;
 
 			//try by Type
-			SimPe.Interfaces.Plugin.IFileWrapper wrapper = 
+			SimPe.Interfaces.Plugin.IFileWrapper wrapper =
 				(SimPe.Interfaces.Plugin.IFileWrapper)FileTable.WrapperRegistry.FindHandler(fii.FileDescriptor.Type);
 
 			//try by Signature
-			if (wrapper==null) 
+			if (wrapper==null)
 			{
 				SimPe.Interfaces.Files.IPackedFile pf = pkg.Package.Read(fii.FileDescriptor);
 				wrapper = FileTable.WrapperRegistry.FindHandler(pf.GetUncompressedData(0x40));
@@ -119,7 +114,7 @@ namespace SimPe
 		/// <returns></returns>
 		public void LoadWrapper(ref SimPe.Interfaces.Plugin.IFileWrapper wrapper, SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
 		{
-			if (wrapper!=null) 
+			if (wrapper!=null)
 			{
                 wrapper = wrapper.Activate();
                 wrapper.ProcessData(fii.Package.FindExactFile(fii.FileDescriptor), fii.Package);
@@ -138,7 +133,7 @@ namespace SimPe
 		}
 
 		/// <summary>
-		/// If the Resource was already Loaded, this Method Wil Focus it and optional Reload the Content
+		/// If the Resource was already Loaded, this Method Will Focus it and optional Reload the Content
 		/// </summary>
 		/// <param name="fii"></param>
 		/// <param name="reload"></param>
@@ -146,15 +141,15 @@ namespace SimPe
 		bool FocusResource(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, bool reload)
 		{
 			//already in List
-			if (SelectResource(fii)) 
+			if (SelectResource(fii))
 			{
-				if (reload) 
+				if (reload)
 				{
-					TD.SandDock.DockControl doc = this.GetDocument(fii);
+					DockContent doc = this.GetDocument(fii);
 					if (doc==null) return false;
 
 					SimPe.Interfaces.Plugin.IFileWrapper wrp = (SimPe.Interfaces.Plugin.IFileWrapper)doc.Tag;
-					if (UnloadWrapper(wrp)) 
+					if (UnloadWrapper(wrp))
 					{
 						wrp.ProcessData(fii);
 						wrp.RefreshUI();
@@ -167,7 +162,7 @@ namespace SimPe
 		}
 
 		/// <summary>
-		/// Unload Documents handled by the Same Wrapper when the Wrapper 
+		/// Unload Documents handled by the Same Wrapper when the Wrapper
 		/// is not able to present Multiple Resources
 		/// </summary>
 		/// <param name="wrapper"></param>
@@ -175,11 +170,11 @@ namespace SimPe
 		bool UnloadSingleInstanceWrappers(SimPe.Interfaces.Plugin.IFileWrapper wrapper, ref bool overload)
 		{
 			if (wrapper==null) return false;
-			
-			if (!wrapper.AllowMultipleInstances) 
+
+			if (!wrapper.AllowMultipleInstances)
 			{
 				string id = wrapper.GetType().ToString();
-				if (single.ContainsKey(id)) 
+				if (single.ContainsKey(id))
 				{
 					SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem oldfii = (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem)single[id];
 					if (!this.CloseDocument(oldfii)) return false;
@@ -192,12 +187,12 @@ namespace SimPe
 		}
 
         /// <summary>
-        /// Add the passed Wrapper (it's UI) as a new Document
+        /// Add the passed Wrapper (its UI) as a new Document
         /// </summary>
         /// <param name="fii"></param>
         /// <param name="wrapper"></param>
         /// <param name="overload">Replace the currently active Document Tab with the new one</param>
-        /// <returns>true, if the Resource was Presented succesfull</returns>
+        /// <returns>true, if the Resource was Presented successfully</returns>
         bool Present(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, SimPe.Interfaces.Plugin.IFileWrapper wrapper, bool overload)
         {
             if (wrapper != null)
@@ -207,15 +202,17 @@ namespace SimPe
 
                 if (wrapper.FileDescriptor != null) if (wrapper.FileDescriptor.MarkForDelete) return false;
 
-                TD.SandDock.DockControl doc = null;
+                DockContent doc = null;
                 bool add = !overload;
-                if (overload) doc = dc.SelectedPage;
+                if (overload) doc = dc.ActiveDocument as DockContent;
                 if (doc == null)
                 {
                     add = true;
-                    doc = new TD.SandDock.TabPage();
-                    doc.AllowClose = true;
-                    doc.AllowDockCenter = true;
+                    doc = new DockContent();
+                    doc.CloseButton = true;
+                    doc.DockAreas = DockAreas.Document | DockAreas.Float |
+                                    DockAreas.DockBottom | DockAreas.DockLeft |
+                                    DockAreas.DockRight | DockAreas.DockTop;
                 }
                 else if (!this.UnloadWrapper(doc)) return false;
 
@@ -233,18 +230,13 @@ namespace SimPe
 
                 if (pan != null)
                 {
-                    doc.FloatingSize = pan.Size;
-                    doc.AllowFloat = true;
-                    doc.AllowDockBottom = true;
-                    doc.AllowDockLeft = true;
-                    doc.AllowDockRight = true;
-                    doc.AllowDockTop = true;
-                    doc.AllowDockCenter = true;
-                    doc.AllowCollapse = true;
+                    if (add)
+                    {
+                        doc.FormClosing += new FormClosingEventHandler(CloseResourceDocument);
+                        doc.Show(dc, DockState.Document);
+                    }
 
-                    if (add) dc.TabPages.Add(doc);
-
-                    pan.Parent = doc;
+                    pan.Parent = doc.DockHandler.Form ?? doc;
                     pan.Left = 0;
                     pan.Top = 0;
                     pan.Width = doc.ClientRectangle.Width;
@@ -252,10 +244,7 @@ namespace SimPe
                     pan.Dock = System.Windows.Forms.DockStyle.Fill;
                     pan.Visible = true;
 
-                    if (add) doc.Closing += new TD.SandDock.DockControlClosingEventHandler(CloseResourceDocument);
-                    dc.SelectedPage = (TD.SandDock.TabPage)doc;
-                    doc.Manager = dc.Manager;
-                    doc.LayoutSystem.LockControls = false;
+                    doc.Activate();
 
                     loaded[fii] = doc;
                     if (!wrapper.AllowMultipleInstances) single[wrapper.GetType().ToString()] = fii;
@@ -273,7 +262,7 @@ namespace SimPe
         /// </summary>
         /// <param name="fii"></param>
         /// <param name="reload">
-        /// when the Resource is already visible, and this Argument is true, the Gui 
+        /// when the Resource is already visible, and this Argument is true, the Gui
         /// will be reloaded. This means, that all unsaved changes will get lost!
         /// </param>
         /// <param name="overload">Replace the currently active Document Tab with the new one</param>
@@ -301,7 +290,7 @@ namespace SimPe
             {
                 return false;
             }
-           
+
             try
             {
                 // load the new Data into the Wrapper
@@ -329,13 +318,10 @@ namespace SimPe
 
 			if (loaded.ContainsKey(fii))
 			{
-				TD.SandDock.DockControl doc = (TD.SandDock.DockControl)loaded[fii];					
+				DockContent doc = (DockContent)loaded[fii];
 
-				if (doc.Parent == null ) return true;
-				if (doc.Parent is TD.SandDock.TabControl)
-					((TD.SandDock.TabControl)doc.Parent).SelectedPage = (TD.SandDock.TabPage)doc;
-				else 
-					doc.LayoutSystem.SelectedControl = doc;				
+				if (doc.DockPanel == null) return true;
+				doc.Activate();
 
 				return true;
 			}
@@ -348,9 +334,9 @@ namespace SimPe
 		/// </summary>
 		/// <param name="fii">The Resource you want to select</param>
 		/// <returns>the Document that contains the PluginView for the passed Resource (null if none)</returns>
-		public TD.SandDock.DockControl GetDocument(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
+		public DockContent GetDocument(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
 		{
-			if (loaded.ContainsKey(fii)) return (TD.SandDock.DockControl)loaded[fii];	
+			if (loaded.ContainsKey(fii)) return (DockContent)loaded[fii];
 			return null;
 		}
 
@@ -359,12 +345,12 @@ namespace SimPe
 		/// </summary>
 		/// <param name="pfd">The Resource you want to select</param>
 		/// <returns>the Document that contains the PluginView for the passed Resource (null if none)</returns>
-		public TD.SandDock.DockControl GetDocument(SimPe.Interfaces.Files.IPackedFileDescriptor pfd)
+		public DockContent GetDocument(SimPe.Interfaces.Files.IPackedFileDescriptor pfd)
 		{
-			foreach (TD.SandDock.DockControl doc in loaded.Values) 
+			foreach (DockContent doc in loaded.Values)
 			{
 				SimPe.Interfaces.Plugin.IFileWrapper wrapper = (SimPe.Interfaces.Plugin.IFileWrapper)doc.Tag;
-				if (wrapper!=null) 
+				if (wrapper!=null)
 					if (wrapper.FileDescriptor == pfd) return doc;
 			}
 			return null;
@@ -375,12 +361,12 @@ namespace SimPe
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <returns></returns>
-		public SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem GetResourceFromDocument(TD.SandDock.DockControl doc)
+		public SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem GetResourceFromDocument(DockContent doc)
 		{
 			SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii = null;
-			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem localfii in loaded.Keys) 
+			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem localfii in loaded.Keys)
 			{
-				if (loaded[localfii] == doc) 
+				if (loaded[localfii] == doc)
 				{
 					fii = localfii;
 					break;
@@ -395,9 +381,9 @@ namespace SimPe
 		/// </summary>
 		/// <param name="fii"></param>
 		/// <param name="wrapper"></param>
-		public void RemoveResource(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, SimPe.Interfaces.Plugin.IFileWrapper wrapper) 
+		public void RemoveResource(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, SimPe.Interfaces.Plugin.IFileWrapper wrapper)
 		{
-			if (fii!=null) 
+			if (fii!=null)
 			{
 				loaded.Remove(fii);
 				if (wrapper!=null) single.Remove(wrapper.GetType().ToString());
@@ -409,35 +395,36 @@ namespace SimPe
 		/// </summary>
 		/// <param name="doc"></param>
 		/// <returns>true, if the Document was closed</returns>
-		public bool CloseDocument(TD.SandDock.DockControl doc)
-		{			
+		public bool CloseDocument(DockContent doc)
+		{
 			SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii = GetResourceFromDocument(doc);
 			if (fii!=null) return CloseDocument(fii);
-			else 
+			else
 			{
 				doc.Close();
-				return !doc.IsOpen;
+				return doc.DockState == DockState.Unknown || doc.DockState == DockState.Hidden;
 			}
 		}
 
 		/// <summary>
 		/// Closes the passed Document (which represents the passed Resource)
 		/// </summary>
-		/// <param name="fii">the Reource represented by the Document</param>
+		/// <param name="fii">the Resource represented by the Document</param>
 		/// <returns>true, if the Document was closed</returns>
 		bool CloseDocument(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
 		{
 			bool remain = false;
-			TD.SandDock.DockControl doc = (TD.SandDock.DockControl)loaded[fii];
-			if (doc!=null) doc.Close();	
+			DockContent doc = (DockContent)loaded[fii];
+			if (doc!=null) doc.Close();
 			else RemoveResource(fii, null);
 
-			if (doc!=null) 
+			if (doc!=null)
 			{
-				if (doc.IsOpen) remain = true; 			
+				bool isOpen = doc.DockState != DockState.Unknown && doc.DockState != DockState.Hidden;
+				if (isOpen) remain = true;
 				else RemoveResource(fii, null);
-			}			
-	
+			}
+
 			return !remain;
 		}
 
@@ -449,27 +436,27 @@ namespace SimPe
 		{
 			ArrayList keys = new ArrayList();
 			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem s in loaded.Keys) keys.Add(s);
- 
+
 			bool remain = false;
 			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem k in keys)
 				remain |= !CloseDocument(k);
 
-			if (!remain) 
+			if (!remain)
 				loaded.Clear();
 			return (loaded.Count==0);
 		}
 
 		/// <summary>
-		/// Make sure all uncommited Changes are stored
+		/// Make sure all uncommitted Changes are stored
 		/// </summary>
-		/// <returns>true if all documents were either commited or ignored</returns>
+		/// <returns>true if all documents were either committed or ignored</returns>
 		public bool Flush()
-		{			
+		{
 			bool commited = true;
-			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem k in loaded.Keys) 
+			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem k in loaded.Keys)
 			{
-				TD.SandDock.DockControl doc = GetDocument(k);
-				if (doc!=null) 
+				DockContent doc = GetDocument(k);
+				if (doc!=null)
 				{
 					SimPe.Interfaces.Plugin.IFileWrapper wrapper = (SimPe.Interfaces.Plugin.IFileWrapper)doc.Tag;
 					commited &= UnloadWrapper(wrapper);
@@ -487,11 +474,9 @@ namespace SimPe
 		{
 			if (ctrls==null) return;
 
-			foreach (Control c in ctrls) 
-			{	
-				//DisposeSubControls(c.Controls);
-				//c.Parent = null;
-				c.Dispose();				
+			foreach (Control c in ctrls)
+			{
+				c.Dispose();
 			}
 
 			ctrls.Clear();
@@ -500,9 +485,9 @@ namespace SimPe
 		void ClearControls(Control c)
 		{
 			c.Tag = null;
-			foreach (Control cc in c.Controls)							
+			foreach (Control cc in c.Controls)
 				ClearControls(cc);
-			
+
 			c.Controls.Clear();
 		}
 
@@ -510,28 +495,26 @@ namespace SimPe
 		/// Call this if you want to unload a Wrapper
 		/// </summary>
 		/// <param name="doc">The document presenting the Wrapper</param>
-		/// <returns>true, if the Wrapper was unloaded completley (false if User decided to answer with Cancel)</returns>
-		bool UnloadWrapper(TD.SandDock.DockControl doc)
+		/// <returns>true, if the Wrapper was unloaded completely (false if User decided to answer with Cancel)</returns>
+		bool UnloadWrapper(DockContent doc)
 		{
 			SimPe.Interfaces.Plugin.IFileWrapper wrapper = (SimPe.Interfaces.Plugin.IFileWrapper)doc.Tag;
 			bool multi = wrapper.AllowMultipleInstances;
 			bool res = UnloadWrapper(wrapper);
-			if (res) 
+			if (res)
 			{
-				//doc.Controls.Clear();
 				SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii = this.GetResourceFromDocument(doc);
 				RemoveResource(fii, wrapper);
 
-				if (multi) 
+				if (multi)
 				{
 					DisposeSubControls(doc.Controls);
 					ClearControls(doc);
 				}
-				else doc.Controls.Clear();						
-				
+				else doc.Controls.Clear();
+
 				this.UnlinkWrapper(wrapper);
 			}
-				
 
 			return res;
 		}
@@ -540,32 +523,31 @@ namespace SimPe
 		/// Call this if you want to unload a Wrapper
 		/// </summary>
 		/// <param name="wrapper"></param>
-		/// <returns>true, if the Wrapper was unloaded completley (false if User decided to answer with Cancel)</returns>
-		/// <remarks>When there are uncommited changes, the Method will 
+		/// <returns>true, if the Wrapper was unloaded completely (false if User decided to answer with Cancel)</returns>
+		/// <remarks>When there are uncommitted changes, the Method will
 		/// Prompt the User (if <see cref="SimPe.Helper.WindowsRegistry.Silent"/> is not set)
-		/// if the changes should be commited</remarks>
+		/// if the changes should be committed</remarks>
 		bool UnloadWrapper(SimPe.Interfaces.Plugin.IFileWrapper wrapper)
-		{			
+		{
 			if (wrapper==null) return false;
 
-			if (wrapper.GetType().GetInterface("IPackedFileSaveExtension", false) == typeof(SimPe.Interfaces.Plugin.Internal.IPackedFileSaveExtension)) 
+			if (wrapper.GetType().GetInterface("IPackedFileSaveExtension", false) == typeof(SimPe.Interfaces.Plugin.Internal.IPackedFileSaveExtension))
 			{
 				SimPe.Interfaces.Plugin.Internal.IPackedFileSaveExtension wrp = (SimPe.Interfaces.Plugin.Internal.IPackedFileSaveExtension)wrapper;
 				if ((wrp.Changed) && (!Helper.WindowsRegistry.Silent))
 				{
 					MessageBoxButtons mbb = MessageBoxButtons.YesNoCancel;
-					//Deleted wrappers are Ignored!!!
-					if (wrp.FileDescriptor!=null) 
+					if (wrp.FileDescriptor!=null)
 						if (wrp.FileDescriptor.MarkForDelete) mbb = MessageBoxButtons.YesNo;
 
 					string flname = null;
 					if (wrapper!=null)
-						if (wrapper.Package!=null) 
+						if (wrapper.Package!=null)
 							flname=wrapper.Package.FileName;
 
 					if (flname==null) flname = SimPe.Localization.Manager.GetString("unknown");
 					DialogResult dr = SimPe.Message.Show(
-						SimPe.Localization.Manager.GetString("savewrapperchanges").Replace("{name}", wrapper.ResourceName).Replace("{filename}", flname), 
+						SimPe.Localization.Manager.GetString("savewrapperchanges").Replace("{name}", wrapper.ResourceName).Replace("{filename}", flname),
 						SimPe.Localization.Manager.GetString("savechanges?"),
 						mbb);
 
@@ -573,69 +555,62 @@ namespace SimPe
 					else if (dr==DialogResult.Cancel) return false;
 					else if (dr==DialogResult.No) wrp.Changed=false;
 				}
-			}						
+			}
 
-			//we cannot unload the wrapper here!!!
 			return true;
 		}
 
 		void UnlinkWrapper(SimPe.Interfaces.Plugin.IFileWrapper wrapper)
 		{
-			if (wrapper.FileDescriptor!=null) 
+			if (wrapper.FileDescriptor!=null)
 			{
 				wrapper.FileDescriptor.ChangedUserData -= new SimPe.Events.PackedFileChanged(FileDescriptor_ChangedUserData);
-				wrapper.FileDescriptor.Deleted -= new EventHandler(DeletedDescriptor);	
+				wrapper.FileDescriptor.Deleted -= new EventHandler(DeletedDescriptor);
 			}
-			
+
 			if (wrapper.AllowMultipleInstances) wrapper.Dispose();
 		}
 
 		/// <summary>
-		/// this is called whenever a Document gets closed
+		/// Called when a document tab is closing
 		/// </summary>
-		/// <param name="sender">a <see cref="TD.SandDock.DockControl"/> Object</param>
-		/// <param name="e">the Cancel Arguments</param>
-		private void CloseResourceDocument(object sender, TD.SandDock.DockControlClosingEventArgs e)
+		private void CloseResourceDocument(object sender, FormClosingEventArgs e)
 		{
-
-			SimPe.Interfaces.Plugin.IFileWrapper wrapper = (SimPe.Interfaces.Plugin.IFileWrapper)((TD.SandDock.DockControl)sender).Tag;
+			DockContent doc = (DockContent)sender;
+			SimPe.Interfaces.Plugin.IFileWrapper wrapper = (SimPe.Interfaces.Plugin.IFileWrapper)doc.Tag;
 			bool multi = wrapper.AllowMultipleInstances;
-			e.Cancel = !UnloadWrapper(wrapper);	
-			
+			e.Cancel = !UnloadWrapper(wrapper);
 
-			if (!e.Cancel) 
+			if (!e.Cancel)
 			{
-				SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii = GetResourceFromDocument((TD.SandDock.DockControl)sender);				
-				RemoveResource(fii, wrapper);			
-				
-				if (multi) DisposeSubControls(((TD.SandDock.DockControl)sender).Controls);				
-				((TD.SandDock.DockControl)sender).Controls.Clear();													
+				SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii = GetResourceFromDocument(doc);
+				RemoveResource(fii, wrapper);
+
+				if (multi) DisposeSubControls(doc.Controls);
+				doc.Controls.Clear();
 
 				UnlinkWrapper(wrapper);
 			}
 		}
 
 		/// <summary>
-		/// Called when a Descriptor get's marked for Deletion
+		/// Called when a Descriptor gets marked for Deletion
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
 		private void DeletedDescriptor(object sender, EventArgs e)
 		{
-			SimPe.Packages.PackedFileDescriptor pfd = (SimPe.Packages.PackedFileDescriptor) sender;	
-			TD.SandDock.DockControl doc = this.GetDocument(pfd);
+			SimPe.Packages.PackedFileDescriptor pfd = (SimPe.Packages.PackedFileDescriptor) sender;
+			DockContent doc = this.GetDocument(pfd);
 			if (doc!=null) this.CloseDocument(doc);
 		}
 
 		/// <summary>
-		/// Called whenever the Data stored in the Filedescriptor gets changed
+		/// Called whenever the Data stored in the FileDescriptor gets changed
 		/// </summary>
-		/// <param name="sender"></param>
 		private void FileDescriptor_ChangedUserData(SimPe.Interfaces.Files.IPackedFileDescriptor sender)
 		{
-			SimPe.Packages.PackedFileDescriptor pfd = (SimPe.Packages.PackedFileDescriptor) sender;	
-			TD.SandDock.DockControl doc = this.GetDocument(pfd);
-			if (doc!=null) 
+			SimPe.Packages.PackedFileDescriptor pfd = (SimPe.Packages.PackedFileDescriptor) sender;
+			DockContent doc = this.GetDocument(pfd);
+			if (doc!=null)
 			{
 				SimPe.Interfaces.Plugin.IFileWrapper wrapper = (SimPe.Interfaces.Plugin.IFileWrapper)doc.Tag;
 				if (wrapper!=null)
@@ -647,7 +622,7 @@ namespace SimPe
 						if (!Helper.WindowsRegistry.Silent)
 							dr = Message.Show(SimPe.Localization.GetString("reschanged").Replace("{name}", doc.Text).Replace("{filename}", flname), SimPe.Localization.GetString("changed?"), System.Windows.Forms.MessageBoxButtons.YesNo);
 
-						if (dr==System.Windows.Forms.DialogResult.Yes) 
+						if (dr==System.Windows.Forms.DialogResult.Yes)
 						{
 							wrapper.Refresh();
 						}
@@ -655,6 +630,6 @@ namespace SimPe
 			}
 		}
 
-		
+
 	}
 }

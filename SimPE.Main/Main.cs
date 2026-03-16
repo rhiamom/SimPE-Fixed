@@ -317,11 +317,11 @@ namespace SimPe
 
 		private void dc_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
-			if (e.Button==MouseButtons.Middle && Helper.WindowsRegistry.FirefoxTabbing && dc.SelectedPage!=null) 
+			if (e.Button==MouseButtons.Middle && Helper.WindowsRegistry.FirefoxTabbing && dc.ActiveDocument is WeifenLuo.WinFormsUI.Docking.DockContent activeDoc)
 			{
-				resloader.CloseDocument(dc.SelectedPage);
+				resloader.CloseDocument(activeDoc);
 			}
-		}		
+		}
 		
 		private void ResourceListKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
 		{			
@@ -411,46 +411,43 @@ namespace SimPe
 		
 		private void CreateNewDocumentContainer(object sender, System.EventArgs e)
 		{
-            DockPanel doc = new DockPanel();
+            Ambertation.Windows.Forms.DockPanel doc = new Ambertation.Windows.Forms.DockPanel();
 			doc.Text = "Plugin";
             manager.DockPanel(doc, DockStyle.Bottom);
-						
-			
+
 			doc.OpenFloating();
-			doc.Closing += new DockPanel.ClosingHandler(CloseAdditionalDocContainer);
+			doc.Closing += new Ambertation.Windows.Forms.DockPanel.ClosingHandler(CloseAdditionalDocContainer);
 			doc.TabImage = dcPlugin.TabImage;
 			doc.Text = dcPlugin.Text;
 			doc.TabText = dcPlugin.TabText;
 			doc.AutoScrollMinSize = dcPlugin.AutoScrollMinSize;
-			
 
-			TD.SandDock.TabControl dc = new TD.SandDock.TabControl();
-			dc.Manager = this.dc.Manager;
-			dc.Text = "Plugin";
-			dc.Parent = doc;
-			dc.Dock = DockStyle.Fill;
-			
+			var innerDc = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+			innerDc.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
+			innerDc.Text = "Plugin";
+			innerDc.Parent = doc;
+			innerDc.Dock = DockStyle.Fill;
 		}
 
-        private void CloseAdditionalDocContainer(object sender, DockPanel.DockPanelClosingEvent e)
+        private void CloseAdditionalDocContainer(object sender, Ambertation.Windows.Forms.DockPanel.DockPanelClosingEvent e)
 		{
-			if (sender is TD.SandDock.DockControl) 
+			if (sender is Ambertation.Windows.Forms.DockPanel doc)
 			{
-				TD.SandDock.DockControl doc = (TD.SandDock.DockControl)sender;
-				if (doc.Controls[0] is TD.SandDock.TabControl) 
+				var innerDc = doc.Controls.Count > 0
+					? doc.Controls[0] as WeifenLuo.WinFormsUI.Docking.DockPanel
+					: null;
+				if (innerDc != null)
 				{
-					TD.SandDock.TabControl dc = (TD.SandDock.TabControl)doc.Controls[0];
 					bool closed = true;
-					for (int i=dc.TabPages.Count-1; i>=0; i--) 
-					{						
-						TD.SandDock.DockControl d = dc.TabPages[i];
-						if (!resloader.CloseDocument(d)) closed = false;;
+					var docs = innerDc.DocumentsToArray();
+					for (int i = docs.Length - 1; i >= 0; i--)
+					{
+						if (docs[i] is WeifenLuo.WinFormsUI.Docking.DockContent d)
+							if (!resloader.CloseDocument(d)) closed = false;
 					}
-
 					e.Cancel = !closed;
 				}
 			}
-
 		}
 
 		private void Activate_miNoMeta(object sender, System.EventArgs e)
@@ -626,9 +623,9 @@ namespace SimPe
 			//if (lastusedtnt!=null) lastusedtnt.Refresh(lv);		
 		}
 
-		private void sdm_DockControlActivated(object sender, TD.SandDock.DockControlEventArgs e)
+		private void sdm_DockControlActivated(object sender, EventArgs e)
 		{
-			if (!e.DockControl.Collapsed) lv.BringToFront();
+			lv.BringToFront();
 		}
 
 		#region Idle Actions

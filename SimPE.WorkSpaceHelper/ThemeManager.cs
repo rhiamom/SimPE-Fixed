@@ -220,12 +220,6 @@ namespace SimPe
             else sdm.Renderer = whidbey;
         }
 
-        void SetTheme(TD.SandDock.SandDockManager sdm)
-        {
-            if (ctheme == GuiTheme.Everett) sdm.Renderer = new TD.SandDock.Rendering.EverettRenderer();
-            else if (ctheme == GuiTheme.Office2003) sdm.Renderer = new TD.SandDock.Rendering.Office2003Renderer();
-            else sdm.Renderer = new TD.SandDock.Rendering.WhidbeyRenderer();
-        }
 
         void SetTheme(System.Windows.Forms.Splitter tb)
         {
@@ -254,8 +248,7 @@ namespace SimPe
         /// <param name="o"></param>
         public void Theme(object o)
         {
-            if (o is TD.SandDock.SandDockManager) SetTheme((TD.SandDock.SandDockManager)o);
-            else if (o is Ambertation.Windows.Forms.DockManager) SetTheme((Ambertation.Windows.Forms.DockManager)o);
+            if (o is Ambertation.Windows.Forms.DockManager) SetTheme((Ambertation.Windows.Forms.DockManager)o);
             else if (o is System.Windows.Forms.Panel) SetTheme((System.Windows.Forms.Panel)o);
             else if (o is SimPe.Windows.Forms.WrapperBaseControl) SetTheme((SimPe.Windows.Forms.WrapperBaseControl)o);
             else if (o is System.Windows.Forms.Splitter) SetTheme((System.Windows.Forms.Splitter)o);

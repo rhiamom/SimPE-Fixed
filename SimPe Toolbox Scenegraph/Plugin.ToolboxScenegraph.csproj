@@ -122,9 +122,6 @@
 
   <ItemGroup>
     
-    <Reference Include="SandDock">
-      <HintPath>..\lib\SandDock.dll</HintPath>
-    </Reference>
     
   </ItemGroup>
 

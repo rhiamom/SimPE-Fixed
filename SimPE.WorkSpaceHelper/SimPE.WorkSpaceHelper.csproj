@@ -27,6 +27,7 @@
     <OutputPath>..\bin\Debug\Plugins\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DockPanelSuite" Version="3.1.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
@@ -63,9 +64,6 @@
 
   <ItemGroup>
     
-    <Reference Include="SandDock">
-      <HintPath>..\lib\SandDock.dll</HintPath>
-    </Reference>
     
   </ItemGroup>
 

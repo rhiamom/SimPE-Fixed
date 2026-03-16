@@ -29,12 +29,12 @@ using System.Windows.Forms;
 namespace SimPe.Plugin.Tool.Dockable
 {
 	/// <summary>
-	/// Zusammenfassung für ObjectWorkshopDock.
+	/// Zusammenfassung fï¿½r ObjectWorkshopDock.
 	/// </summary>
 	public class ObjectWorkshopDock : System.Windows.Forms.Form
 	{
-		private TD.SandDock.DockContainer rightSandDock;
-		internal TD.SandDock.DockableWindow dcObjectWorkshop;
+		private System.Windows.Forms.Panel rightSandDock;
+		internal System.Windows.Forms.Panel dcObjectWorkshop;
 		private System.Windows.Forms.Panel xpGradientPanel1;
         private System.Windows.Forms.ToolStrip toolBar1;
         private SimPe.Wizards.Wizard wizard1;
@@ -69,8 +69,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		private System.Windows.Forms.Button button3;
 		private SimPe.Wizards.WizardStepPanel wizardStepPanel4;
 		private System.Windows.Forms.SaveFileDialog sfd;
-		private TD.SandDock.SandDockManager sdm;
-		private System.Windows.Forms.Panel pnWait;
+			private System.Windows.Forms.Panel pnWait;
 		private Ambertation.Windows.Forms.AnimatedImagelist animatedImagelist1;
 		private System.Windows.Forms.Label lbwait;
 		private System.Windows.Forms.Label lbfinished;
@@ -85,7 +84,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		public ObjectWorkshopDock()
 		{
 			//
-			// Erforderlich für die Windows Form-Designerunterstützung
+			// Erforderlich fï¿½r die Windows Form-Designerunterstï¿½tzung
 			//
 			InitializeComponent();
 
@@ -120,15 +119,15 @@ namespace SimPe.Plugin.Tool.Dockable
 
 		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ObjectWorkshopDock));
-			this.rightSandDock = new TD.SandDock.DockContainer();
-			this.dcObjectWorkshop = new TD.SandDock.DockableWindow();
+			this.rightSandDock = new System.Windows.Forms.Panel();
+			this.dcObjectWorkshop = new System.Windows.Forms.Panel();
 			this.xpGradientPanel1 = new System.Windows.Forms.Panel();
 			this.wizard1 = new SimPe.Wizards.Wizard();
 			this.wizardStepPanel1 = new SimPe.Wizards.WizardStepPanel();
@@ -192,11 +191,7 @@ namespace SimPe.Plugin.Tool.Dockable
 			// 
 			this.rightSandDock.Controls.Add(this.dcObjectWorkshop);
 			this.rightSandDock.Dock = System.Windows.Forms.DockStyle.Right;
-			this.rightSandDock.LayoutSystem = new TD.SandDock.SplitLayoutSystem(250, 400, System.Windows.Forms.Orientation.Horizontal, new TD.SandDock.LayoutSystemBase[] {
-																																											  new TD.SandDock.ControlLayoutSystem(300, 582, new TD.SandDock.DockControl[] {
-																																																															  this.dcObjectWorkshop}, this.dcObjectWorkshop, false)});
 			this.rightSandDock.Location = new System.Drawing.Point(320, 0);
-			this.rightSandDock.Manager = null;
 			this.rightSandDock.Name = "rightSandDock";
 			this.rightSandDock.Size = new System.Drawing.Size(304, 582);
 			this.rightSandDock.TabIndex = 0;
@@ -206,12 +201,9 @@ namespace SimPe.Plugin.Tool.Dockable
 			this.dcObjectWorkshop.AutoScroll = true;
 			this.dcObjectWorkshop.AutoScrollMinSize = new System.Drawing.Size(298, 465);
 			this.dcObjectWorkshop.Controls.Add(this.xpGradientPanel1);
-			this.dcObjectWorkshop.FloatingSize = new System.Drawing.Size(300, 550);
-			this.dcObjectWorkshop.Guid = new System.Guid("30ff233a-defb-4610-9db6-b342299947f4");
 			this.dcObjectWorkshop.Location = new System.Drawing.Point(5, 18);
 			this.dcObjectWorkshop.Name = "dcObjectWorkshop";
 			this.dcObjectWorkshop.Size = new System.Drawing.Size(298, 541);
-			this.dcObjectWorkshop.TabImage = ((System.Drawing.Image)(resources.GetObject("dcObjectWorkshop.TabImage")));
 			this.dcObjectWorkshop.TabIndex = 0;
 			this.dcObjectWorkshop.Text = "Object Workshop";
 			// 

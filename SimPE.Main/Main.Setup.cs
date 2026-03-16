@@ -115,11 +115,6 @@ namespace SimPe
             dockBottom.Height = ((this.Height * 3) / 4);
             this.Text += " (Version " + Helper.SimPeVersion.ProductVersion + ")";
             
-            TD.SandDock.SandDockManager sdm2 = new TD.SandDock.SandDockManager();
-            sdm2.OwnerForm = this;
-            ThemeManager.Global.AddControl(sdm2);
-
-            this.dc.Manager = sdm2;            
 
 
             InitMenuItems();

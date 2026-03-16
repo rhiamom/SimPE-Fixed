@@ -92,7 +92,7 @@ namespace SimPe
         private ToolStrip tbWindow;
         private ComboBox cbsemig;
         private System.Windows.Forms.LinkLabel xpLinkedLabelIcon3;
-        private TD.SandDock.TabControl dc;
+        private WeifenLuo.WinFormsUI.Docking.DockPanel dc;
         private ToolStripMenuItem miSaveCopyAs;
         private ToolStripButton biReset;
         private ToolStripMenuItem mbiTopics;
@@ -161,7 +161,7 @@ namespace SimPe
             this.xpLinkedLabelIcon1 = new System.Windows.Forms.LinkLabel();
             this.dockBottom = new Ambertation.Windows.Forms.DockContainer();
             this.dcPlugin = new Ambertation.Windows.Forms.DockPanel();
-            this.dc = new TD.SandDock.TabControl();
+            this.dc = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.toolBar1 = new System.Windows.Forms.ToolStrip();
             this.biNew = new System.Windows.Forms.ToolStripButton();
             this.biOpen = new System.Windows.Forms.ToolStripButton();
@@ -601,9 +601,8 @@ namespace SimPe
             // dc
             // 
             resources.ApplyResources(this.dc, "dc");
-            this.dc.LayoutSystem = new TD.SandDock.SplitLayoutSystem(250, 400, System.Windows.Forms.Orientation.Horizontal, new TD.SandDock.LayoutSystemBase[] {
-            ((TD.SandDock.LayoutSystemBase)(new TD.SandDock.DocumentLayoutSystem(904, 373, new TD.SandDock.DockControl[0], null)))});
             this.dc.Name = "dc";
+            this.dc.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
             this.dc.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dc_MouseUp);
             // 
             // toolBar1

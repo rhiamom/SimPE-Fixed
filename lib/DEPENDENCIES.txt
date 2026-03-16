@@ -1,6 +1,6 @@
 SimPE External Dependencies
 ===========================
-Last updated: 2026-03-16
+Last updated: 2026-03-17
 
 
 DLLs IN THIS FOLDER (lib/)
@@ -8,11 +8,7 @@ DLLs IN THIS FOLDER (lib/)
 These are closed-source third-party libraries with no available source code.
 They must be kept here and are referenced by projects via relative HintPath.
 
-  SandDock.dll
-    Vendor:  Divelements Ltd. (commercial, closed-source, x86 only — 64-bit blocker)
-    Purpose: Docking panel/tab UI framework (main window layout)
-    Note:    Replacement candidate: WeifenLuo.WinFormsUI.Docking (open source, NuGet)
-    Used by: SimPE.Helper, SimPE.Main, SimPE.WorkSpaceHelper, and many others
+  (none — all previously required DLLs have been replaced or eliminated)
 
 
 NUGET PACKAGES (auto-restored on build, no DLL copy needed)
@@ -32,6 +28,10 @@ and are downloaded automatically by dotnet restore / MSBuild.
   Pfim v0.11.4
     Purpose: TGA and DDS image loading — replaces the old soil2.dll native dependency
     Used by: SimPE.Filehandlers (PictureWrapper), SimPE.RCOL (DDSTool)
+
+  DockPanelSuite (WeifenLuo.WinFormsUI.Docking) v3.1.1
+    Purpose: Document-area tab/docking framework — replaces SandDock.dll (x86-only, commercial)
+    Used by: SimPE.Main, SimPE.WorkSpaceHelper
 
   System.Drawing.Common (via Windows SDK targeting)
     Purpose: GDI+ drawing — required for net8.0-windows projects
@@ -56,6 +56,11 @@ the solution. The original DLL files are no longer used.
 
   Eyefinder.dll             -- ELIMINATED. UI controls replaced in OptionForm.cs.
   Navisight.dll             -- ELIMINATED. UI controls replaced in OptionForm.cs.
+
+  SandDock.dll              -- REPLACED by NuGet DockPanelSuite (WeifenLuo.WinFormsUI.Docking).
+                               Document tabs now use WeifenLuo DockPanel/DockContent.
+                               Internal plugin tabs (HGBH, OWDockForm) use System.Windows.Forms.TabControl.
+                               This was the last x86-only blocker; SimPE can now target AnyCPU/64-bit.
 
   soil2.dll                 -- REPLACED by NuGet Pfim (TGA/DDS) + BCnEncoder.Net (DXT).
                                No native DLL required.

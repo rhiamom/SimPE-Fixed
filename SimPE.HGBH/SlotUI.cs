@@ -35,10 +35,10 @@ namespace SimPe.Plugin
 	/// </summary>
 	public class NgbhSlotUI : System.Windows.Forms.UserControl
 	{
-		private TD.SandDock.TabControl tabControl1;
-		private TD.SandDock.TabPage tabPage1;
-        private TD.SandDock.TabPage tabPage2;
-        internal TD.SandDock.TabPage tabPage3;
+		private System.Windows.Forms.TabControl tabControl1;
+		private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        internal System.Windows.Forms.TabPage tabPage3;
 		private NgbhItemsListView lv;
         private NgbhItemsListView lvint;
         private NgbhItemsListView lvfam;
@@ -69,10 +69,6 @@ namespace SimPe.Plugin
             if (Helper.WindowsRegistry.HiddenMode)
             {
                 this.tabControl1.Controls.Remove(this.tabPage3);
-                this.tabControl1.LayoutSystem = new TD.SandDock.SplitLayoutSystem(250, 400, System.Windows.Forms.Orientation.Horizontal, new TD.SandDock.LayoutSystemBase[] {
-																																											new TD.SandDock.DocumentLayoutSystem(504, 165, new TD.SandDock.DockControl[] {
-																																																															 this.tabPage1,
-																																																															 this.tabPage2}, this.tabPage1)});
             }
 		}
 
@@ -98,12 +94,12 @@ namespace SimPe.Plugin
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.tabControl1 = new TD.SandDock.TabControl();
-			this.tabPage1 = new TD.SandDock.TabPage();
+			this.tabControl1 = new System.Windows.Forms.TabControl();
+			this.tabPage1 = new System.Windows.Forms.TabPage();
 			this.lv = new SimPe.Plugin.NgbhItemsListView();
-			this.tabPage2 = new TD.SandDock.TabPage();
+			this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lvint = new SimPe.Plugin.NgbhItemsListView();
-            this.tabPage3 = new TD.SandDock.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.lvfam = new SimPe.Plugin.NgbhItemsListView();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.memprop = new SimPe.Plugin.MemoryProperties();
@@ -115,16 +111,10 @@ namespace SimPe.Plugin
 			// 
 			// tabControl1
 			// 
-			this.tabControl1.BorderStyle = TD.SandDock.Rendering.BorderStyle.None;
 			this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl1.LayoutSystem = new TD.SandDock.SplitLayoutSystem(250, 400, System.Windows.Forms.Orientation.Horizontal, new TD.SandDock.LayoutSystemBase[] {
-																																											new TD.SandDock.DocumentLayoutSystem(504, 165, new TD.SandDock.DockControl[] {
-																																																															 this.tabPage1,
-																																																															 this.tabPage2,
-                                                                                                                                                                                																			 this.tabPage3}, this.tabPage1)});
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.Size = new System.Drawing.Size(504, 165);
@@ -134,13 +124,10 @@ namespace SimPe.Plugin
 			// 
 			this.tabPage1.BackColor = System.Drawing.Color.Transparent;
 			this.tabPage1.Controls.Add(this.lv);
-			this.tabPage1.FloatingSize = new System.Drawing.Size(550, 400);
-			this.tabPage1.Guid = new System.Guid("951f2dbf-63ee-4eb5-8342-1e80d72570b8");
 			this.tabPage1.Location = new System.Drawing.Point(2, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Size = new System.Drawing.Size(500, 141);
 			this.tabPage1.TabIndex = 0;
-			this.tabPage1.TabText = "Memories";
 			this.tabPage1.Text = "Memories";
 			// 
 			// lv
@@ -161,15 +148,11 @@ namespace SimPe.Plugin
 			// 
 			this.tabPage2.BackColor = System.Drawing.Color.Transparent;
 			this.tabPage2.Controls.Add(this.lvint);
-			this.tabPage2.FloatingSize = new System.Drawing.Size(550, 400);
-			this.tabPage2.Guid = new System.Guid("88419e31-43c9-4409-8d97-7ef80e549ee5");
 			this.tabPage2.Location = new System.Drawing.Point(2, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Size = new System.Drawing.Size(500, 117);
 			this.tabPage2.TabIndex = 1;
-			this.tabPage2.TabText = "Tokens (Skills, Badges...)";
 			this.tabPage2.Text = "Tokens (Skills, Badges...)";
-			this.tabPage2.Visible = false;
 			this.tabPage2.VisibleChanged += new System.EventHandler(this.tabPage2_VisibleChanged);
 			// 
 			// lvint
@@ -188,15 +171,11 @@ namespace SimPe.Plugin
             // 
             this.tabPage3.BackColor = System.Drawing.Color.Transparent;
             this.tabPage3.Controls.Add(this.lvfam);
-            this.tabPage3.FloatingSize = new System.Drawing.Size(550, 400);
-            this.tabPage3.Guid = new System.Guid("88419e31-43c9-4409-8d97-7ef80e69b00b");
             this.tabPage3.Location = new System.Drawing.Point(2, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(500, 117);
             this.tabPage3.TabIndex = 1;
-            this.tabPage3.TabText = "Family Inventory";
             this.tabPage3.Text = "Family Inventory";
-            this.tabPage3.Visible = false;
             this.tabPage3.VisibleChanged += new System.EventHandler(this.tabPage2_VisibleChanged);
             // 
             // lvfam
@@ -286,9 +265,6 @@ namespace SimPe.Plugin
 					lv.SlotType = SimPe.Data.NeighborhoodSlots.Lots;
 					lvint.SlotType = SimPe.Data.NeighborhoodSlots.LotsIntern;
 				}
-				this.tabPage1.TabText = this.tabPage1.Text;
-				this.tabPage2.TabText = this.tabPage2.Text;
-
 				SetContent();
 			}			
 		}
@@ -370,9 +346,9 @@ namespace SimPe.Plugin
 
 		private void tabPage2_VisibleChanged(object sender, System.EventArgs e)
 		{
-			if (tabControl1.SelectedPage == this.tabPage1)
+			if (tabControl1.SelectedTab == this.tabPage1)
 				memprop.NgbhItemsListView = lv;
-            else if (tabControl1.SelectedPage == this.tabPage3)
+            else if (tabControl1.SelectedTab == this.tabPage3)
                 memprop.NgbhItemsListView = lvfam;
 			else
 				memprop.NgbhItemsListView = lvint;

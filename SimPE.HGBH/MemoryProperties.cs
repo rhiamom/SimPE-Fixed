@@ -91,8 +91,8 @@ namespace SimPe.Plugin
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MemoryProperties));
             this.pg = new System.Windows.Forms.PropertyGrid();
-            this.tabControl2 = new TD.SandDock.TabControl();
-            this.tabPage3 = new TD.SandDock.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pnObjectGuid = new System.Windows.Forms.Panel();
             this.cbSubjectObj = new SimPe.PackedFiles.Wrapper.ObjectComboBox();
@@ -133,7 +133,7 @@ namespace SimPe.Plugin
             this.tbFlag = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.tabPage4 = new TD.SandDock.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.llSetRawLength = new System.Windows.Forms.LinkLabel();
             this.tbRawLength = new System.Windows.Forms.TextBox();
@@ -170,14 +170,9 @@ namespace SimPe.Plugin
             // 
             // tabControl2
             // 
-            this.tabControl2.BorderStyle = TD.SandDock.Rendering.BorderStyle.None;
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
             resources.ApplyResources(this.tabControl2, "tabControl2");
-            this.tabControl2.LayoutSystem = new TD.SandDock.SplitLayoutSystem(250, 400, System.Windows.Forms.Orientation.Horizontal, new TD.SandDock.LayoutSystemBase[] {
-            ((TD.SandDock.LayoutSystemBase)(new TD.SandDock.DocumentLayoutSystem(464, 430, new TD.SandDock.DockControl[] {
-                        ((TD.SandDock.DockControl)(this.tabPage3)),
-                        ((TD.SandDock.DockControl)(this.tabPage4))}, this.tabPage3)))});
             this.tabControl2.Name = "tabControl2";
             // 
             // tabPage3
@@ -191,8 +186,6 @@ namespace SimPe.Plugin
             this.tabPage3.Controls.Add(this.pnSelection);
             this.tabPage3.Controls.Add(this.pnListing);
             this.tabPage3.Controls.Add(this.pnFlags);
-            this.tabPage3.FloatingSize = new System.Drawing.Size(550, 400);
-            this.tabPage3.Guid = new System.Guid("4e851d66-304f-4d0f-9896-8d73154946f3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.VisibleChanged += new System.EventHandler(this.tabPage3_VisibleChanged);
             // 
@@ -502,8 +495,6 @@ namespace SimPe.Plugin
             this.tabPage4.BackColor = System.Drawing.SystemColors.ControlLight;
             this.tabPage4.Controls.Add(this.pg);
             this.tabPage4.Controls.Add(this.panel1);
-            this.tabPage4.FloatingSize = new System.Drawing.Size(550, 400);
-            this.tabPage4.Guid = new System.Guid("3b0d25ef-e354-4693-8339-f171a2b4f000");
             resources.ApplyResources(this.tabPage4, "tabPage4");
             this.tabPage4.Name = "tabPage4";
             // 
@@ -577,9 +568,9 @@ namespace SimPe.Plugin
 
 		NgbhItem item;
 		private System.Windows.Forms.PropertyGrid pg;
-		private TD.SandDock.TabControl tabControl2;
-		private TD.SandDock.TabPage tabPage3;
-		private TD.SandDock.TabPage tabPage4;
+		private System.Windows.Forms.TabControl tabControl2;
+		private System.Windows.Forms.TabPage tabPage3;
+		private System.Windows.Forms.TabPage tabPage4;
 		private System.Windows.Forms.TextBox tbRawLength;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Panel panel1;
