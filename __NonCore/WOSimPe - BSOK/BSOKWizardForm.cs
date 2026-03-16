@@ -25,7 +25,7 @@ namespace SimPe.Wizards
         private Label lbPath;
         internal Label lbDone;
         internal LinkLabel linkLabel1;
-        private booby.linkyicon linkyicon1;
+        private LinkLabel linkyicon1;
         private Button button1;
         private PictureBox pbicon;
         private RichTextBox rtb;
@@ -103,7 +103,7 @@ namespace SimPe.Wizards
             this.pnwizard1 = new System.Windows.Forms.Panel();
             this.rtb = new System.Windows.Forms.RichTextBox();
             this.rtbAbout = new System.Windows.Forms.RichTextBox();
-            this.linkyicon1 = new booby.linkyicon();
+            this.linkyicon1 = new System.Windows.Forms.LinkLabel();
             this.lbPath = new System.Windows.Forms.Label();
             this.lboops = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -184,22 +184,21 @@ namespace SimPe.Wizards
             // 
             // linkyicon1
             // 
-            this.linkyicon1.ActiveLinkColour = System.Drawing.Color.Red;
+            this.linkyicon1.ActiveLinkColor = System.Drawing.Color.Red;
             this.linkyicon1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkyicon1.BackColor = System.Drawing.Color.Transparent;
-            this.linkyicon1.DisabledLinkColour = System.Drawing.SystemColors.ControlDarkDark;
+            this.linkyicon1.DisabledLinkColor = System.Drawing.SystemColors.ControlDarkDark;
             this.linkyicon1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkyicon1.ForeColor = System.Drawing.Color.Black;
-            this.linkyicon1.Gap = 0;
-            this.linkyicon1.Label = "About...";
-            this.linkyicon1.LinkColour = System.Drawing.Color.Red;
+            this.linkyicon1.Text = "About...";
+            this.linkyicon1.LinkColor = System.Drawing.Color.Red;
             this.linkyicon1.Location = new System.Drawing.Point(517, 4);
             this.linkyicon1.Margin = new System.Windows.Forms.Padding(0);
             this.linkyicon1.Name = "linkyicon1";
             this.linkyicon1.Size = new System.Drawing.Size(92, 18);
             this.linkyicon1.TabIndex = 4;
-            this.linkyicon1.VisitedLinkColour = System.Drawing.Color.Maroon;
-            this.linkyicon1.LinkClicked += new booby.linkyicon.EventHandler(this.linkyicon1_LinkClicked);
+            this.linkyicon1.VisitedLinkColor = System.Drawing.Color.Maroon;
+            this.linkyicon1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkyicon1_LinkClicked);
             // 
             // lbPath
             // 
@@ -375,7 +374,7 @@ namespace SimPe.Wizards
         #region 1 Find a Folder
         void LoadHelpFile()
         {
-            this.linkyicon1.Icon = SimPe.GetIcon.Support;
+            // linkyicon1.Icon not available on LinkLabel
             Stream s;
 
             if (SimPe.Helper.SimPeVersionLong >= 330717003790 && File.Exists(Path.Combine(Helper.SimPeDataPath, "additional_skins.xml")))
@@ -440,9 +439,9 @@ namespace SimPe.Wizards
             if (step1 != null) step1.Update();
         }
 
-        private void linkyicon1_LinkClicked(object sender, EventArgs e)
+        private void linkyicon1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
         {
-            this.linkyicon1.Links[0].Visited = true;
+            this.linkyicon1.LinkVisited = true;
             this.rtbAbout.Visible = !this.rtbAbout.Visible;
         }
 
@@ -614,7 +613,7 @@ namespace SimPe.Wizards
         {
             BodyShapeIds.Clear();
             BodyShapeIds.Add(0x00, " Default : Remove Icon");
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
+            if (false)
             {
                 BodyShapeIds.Add(0x13, "Chris H : Tiny Sim");
                 BodyShapeIds.Add(0x14, "Chris H : Fashion Model Natural");
@@ -630,7 +629,7 @@ namespace SimPe.Wizards
             // BodyShapeIds.Add(0x23, "StoneAge");
             BodyShapeIds.Add(0x24, "SITES : Pirates");
             BodyShapeIds.Add(0x26, "SITES : Grungy");
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
+            if (false)
                 BodyShapeIds.Add(0x27, "Maxis : Castaway");
             BodyShapeIds.Add(0x29, "SITES : Super Heros");
             //BodyShapeIds.Add(0x2a, "Futuristic");
@@ -640,7 +639,7 @@ namespace SimPe.Wizards
             BodyShapeIds.Add(0x30, "Creatures : Centaurs");
             BodyShapeIds.Add(0x31, "Creatures : Mermaid");
             BodyShapeIds.Add(0x33, "Synaptic Sim : Huge Body Builder Beast");
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
+            if (false)
                 BodyShapeIds.Add(0x35, "Chris H : Fannystein");
             else
                 BodyShapeIds.Add(0x35, "Synaptic Sim : Nightcrawler - Nocturne");
@@ -664,7 +663,7 @@ namespace SimPe.Wizards
             BodyShapeIds.Add(0x4d, "Corrine : PunkJunkie");
             BodyShapeIds.Add(0x4e, "July77 : Slim Male");
             BodyShapeIds.Add(0x4f, "Melodie9 : Slim Family Male");
-            if (booby.PrettyGirls.IsTitsInstalled() || booby.PrettyGirls.IsAngelsInstalled())
+            if (false)
                 BodyShapeIds.Add(0x52, "Chris H : Transgender");
             BodyShapeIds.Add(0x5c, "Bloom : Monster Jugs");
             BodyShapeIds.Add(0x5d, "Bloom : Hyper Busty");
