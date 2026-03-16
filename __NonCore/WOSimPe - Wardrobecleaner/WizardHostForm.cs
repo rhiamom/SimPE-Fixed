@@ -55,11 +55,13 @@ namespace SimPe.Plugin
 
         void ShowStep(IWizardForm step)
         {
+            // Access WizardWindow first so the step can create its lazy UI controls,
+            // then Init() so it can call UpdateList() etc. on the now-existing controls.
+            var panel = step.WizardWindow;
             step.Init(OnStepChanged);
             currentStep = step;
 
             contentPanel.Controls.Clear();
-            var panel = step.WizardWindow;
             panel.Dock = DockStyle.Fill;
             contentPanel.Controls.Add(panel);
 

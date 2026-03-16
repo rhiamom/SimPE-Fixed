@@ -1,5 +1,5 @@
 /**************************************************************************
- *   Copyright (C) 2008 by Chris Hatch                                    *
+ *   Copyright (C) 2023 by Chris Hatch                                    *
  *   (original author, BSOK Wizard)                                       *
  *                                                                         *
  *   Copyright (C) 2025 by GramzeSweatShop                                *
