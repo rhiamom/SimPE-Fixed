@@ -3,6 +3,13 @@
 	<PropertyGroup>
 		<!-- Unified output folder -->
 		<SimPeUnifiedOutDir Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)bin\$(Configuration)\</SimPeUnifiedOutDir>
+		<!-- Suppress CA1416 platform-compatibility warnings — entire solution targets net8.0-windows -->
+		<!-- Suppress legacy code warnings in old decompiled/ported code -->
+		<NoWarn>$(NoWarn);CA1416;CA2200;CS0067;CS0162;CS0168;CS0169;CS0414;CS0436;CS0618;CS0649;CS8981;SYSLIB0003</NoWarn>
+		<!-- Demote MSB3568 (duplicate resource names) and MSB3825 (BinaryFormatter in resx) to messages -->
+		<MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3568;MSB3825</MSBuildWarningsAsMessages>
+		<!-- Don't generate BinaryFormatter warnings from resx resources -->
+		<GenerateResourceWarnOnBinaryFormatterUse>false</GenerateResourceWarnOnBinaryFormatterUse>
 	</PropertyGroup>
 
 	<Target Name="SimPeCopyToUnifiedBin" AfterTargets="Build" Condition=" '$(SimPeUnifiedOutDir)' != '' ">
