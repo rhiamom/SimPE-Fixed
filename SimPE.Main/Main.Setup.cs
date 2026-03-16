@@ -164,8 +164,15 @@ namespace SimPe
 
             //System.Diagnostics.Debug.WriteLine("SimPeLayout path = " + SimPe.Helper.DataFolder.SimPeLayout);
 
-            if (!System.IO.File.Exists(SimPe.Helper.DataFolder.SimPeLayout))
+            // Bump this constant whenever a code change makes old layout files incompatible.
+            const int CurrentLayoutVersion = 1;
+
+            if (!System.IO.File.Exists(SimPe.Helper.DataFolder.SimPeLayout)
+                || Helper.WindowsRegistry.LayoutVersion < CurrentLayoutVersion)
+            {
                 ResetLayout(this, null);
+                Helper.WindowsRegistry.LayoutVersion = CurrentLayoutVersion;
+            }
             else
                 ReloadLayout();
 

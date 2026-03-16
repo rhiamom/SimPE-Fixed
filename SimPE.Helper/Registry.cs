@@ -518,6 +518,21 @@ namespace SimPe
             }
         }
 
+        public int LayoutVersion
+        {
+            get
+            {
+                XmlRegistryKey rkf = xrk.CreateSubKey("Settings");
+                object o = rkf.GetValue("LayoutVersion", 0);
+                return Convert.ToInt32(o);
+            }
+            set
+            {
+                XmlRegistryKey rkf = xrk.CreateSubKey("Settings");
+                rkf.SetValue("LayoutVersion", value);
+            }
+        }
+
         public bool ShowStartupSplash
         {
             get
