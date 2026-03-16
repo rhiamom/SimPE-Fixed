@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <AssemblyName>wosimpe.bsok.wizard</AssemblyName>
+    <AssemblyName>wosimpe.bsok.plugin</AssemblyName>
     <RootNamespace>SimPe.Wizards</RootNamespace>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <UseWindowsForms>True</UseWindowsForms>
