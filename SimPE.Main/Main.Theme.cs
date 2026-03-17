@@ -37,8 +37,12 @@ namespace SimPe
         {
             this.dcResourceList.Visible = true;
             this.dcResource.Visible = true;
+
+            // WeifenLuo DockPanelSuite requires a theme before content can be shown
+            this.dc.Theme = new WeifenLuo.WinFormsUI.Docking.VS2015LightTheme();
+
             //setup the Theme Manager
-            
+
             ThemeManager.Global.AddControl(this.manager);
             ThemeManager.Global.AddControl(this.xpGradientPanel1);
             ThemeManager.Global.AddControl(this.xpGradientPanel2);

@@ -113,7 +113,7 @@ namespace SimPe.PackedFiles.UserInterface
         private CheckBox cbcOuts;
         private CheckBox cbcShop;
         private CheckBox cbcDine;
-        private TabPage tbreqeps;
+        private System.Windows.Forms.Panel tbreqeps;
         
         private Label lbepnote;
         private Label lbgamef2;
@@ -507,7 +507,7 @@ namespace SimPe.PackedFiles.UserInterface
                 this.cbcStreet.Checked = (objd.CommSort.InStreet);
                 this.cbcMisc.Checked = (objd.CommSort.InMiscel);
 
-                tbPrice.Text = "§" + Convert.ToString(objd.Price);
+                tbPrice.Text = "ï¿½" + Convert.ToString(objd.Price);
 
                 this.tbreqeps.Enabled = (objd.Version > 0x008b);
                 this.SetExpansionsCb(objd);
@@ -548,7 +548,7 @@ namespace SimPe.PackedFiles.UserInterface
                     objd.Type != SimPe.Data.ObjectTypes.UnlinkedSim
                 );
 
-                // Subhoods.GuidExists removed — no clean equivalent
+                // Subhoods.GuidExists removed ï¿½ no clean equivalent
                 this.lladdgooee.Visible = false;   // or true, depending on your UI
 
             }
@@ -617,7 +617,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbstudy = new System.Windows.Forms.CheckBox();
             this.tpreqeps = new System.Windows.Forms.TabPage();
             this.pnpritty = new System.Windows.Forms.Panel();
-            this.tbreqeps = new System.Windows.Forms.TabPage();
+            this.tbreqeps = new System.Windows.Forms.Panel();
             this.lbepnote = new System.Windows.Forms.Label();
             this.lbgamef2 = new System.Windows.Forms.Label();
             this.cbStoreEd = new System.Windows.Forms.CheckBox();
@@ -1471,7 +1471,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbFashion.Name = "cbFashion";
             this.cbFashion.Size = new System.Drawing.Size(131, 17);
             this.cbFashion.TabIndex = 29;
-            this.cbFashion.Text = "HM® Fashion Stuff";
+            this.cbFashion.Text = "HMï¿½ Fashion Stuff";
             this.cbFashion.UseVisualStyleBackColor = true;
             this.cbFashion.CheckedChanged += new System.EventHandler(this.SetExpansionFlags);
             // 
@@ -2036,7 +2036,7 @@ namespace SimPe.PackedFiles.UserInterface
 
         void lladdgooee_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Subhoods.GuidAdd removed – Subhood registry not available in this build.
+            // Subhoods.GuidAdd removed ï¿½ Subhood registry not available in this build.
             // Just disable the link to indicate the action is not supported.
             this.lladdgooee.Links[0].Enabled = false;
         }
@@ -2251,7 +2251,7 @@ namespace SimPe.PackedFiles.UserInterface
             try
             {
                 string prise = this.tbPrice.Text;
-                if (prise.StartsWith("§")) prise = prise.Remove(0, 1);
+                if (prise.StartsWith("ï¿½")) prise = prise.Remove(0, 1);
                 wrapper.Price = Convert.ToInt16(prise);
             }
             catch {this.tbPrice.ForeColor = System.Drawing.Color.OrangeRed;}
