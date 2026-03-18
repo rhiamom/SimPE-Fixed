@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SimPe</RootNamespace>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
     <StartupObject>SimPe.MainForm</StartupObject>
     <Configurations>Debug;Release;x86</Configurations>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -26,8 +26,7 @@
     <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DockPanelSuite" Version="3.1.1" />
-    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
+    <!-- DockPanelSuite removed — WinForms docking, will be replaced with Avalonia docking -->
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>

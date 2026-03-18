@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <AssemblyName>simpe.ngbh.scanner.plugin</AssemblyName>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
     <StartupObject />
     <PostBuildEvent />
     <Configurations>Debug;Release;x86</Configurations>

@@ -2,8 +2,8 @@
   <PropertyGroup>
     <AssemblyName>xsi.lib</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <UseWindowsForms>True</UseWindowsForms>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    
+    <TargetFramework>net8.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>

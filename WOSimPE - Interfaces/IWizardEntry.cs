@@ -22,7 +22,7 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
+using Avalonia.Media;
 
 namespace SimPe.Wizards 
 {
@@ -51,7 +51,7 @@ namespace SimPe.Wizards
 		/// Returns a Image that should be displayed for this wizard
 		/// </summary>
 		/// <remarks>can be null</remarks>
-		System.Drawing.Image WizardImage
+		IImage WizardImage
 		{
 			get;
 		}		

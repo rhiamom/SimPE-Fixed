@@ -22,47 +22,33 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
-using System.Drawing;
 using System.ComponentModel;
+using Avalonia.Controls;
+using Avalonia.Media;
 
 namespace SimPe.Wizards
 {
 	/// <summary>
 	/// Abstract Implementaion of a Wizard Step
 	/// </summary>
-	[ToolboxBitmapAttribute(typeof(Panel))]
 	public class WizardStepPanel : Panel
 	{
 		public WizardStepPanel()
 		{
-			this.BackColor = Color.Transparent;
-			
-			
+			this.Background = Brushes.Transparent;
 		}
 
-		protected override void OnPaint(PaintEventArgs e)
+		internal string HintName
 		{
-			base.OnPaint(e);
-
-			if (this.DesignMode) 
-			{
-				SizeF sz = e.Graphics.MeasureString(HintName, Font);
-				e.Graphics.DrawString(HintName, Font, new SolidBrush(Color.FromArgb(130,ForeColor)), (int)(Width-sz.Width)-2, (int)(Height-sz.Height)-2);
-			}
-		}
-
-		internal string HintName 
-		{
-			get { return "Step "+index.ToString()+" ("+Name/*+" in "+this.ParentWizard.Text*/+")"; }
+			get { return "Step "+index.ToString()+" ("+Name+")"; }
 		}
 
 		#region IWizardStep Member
 
 		[Browsable(false)]
-		public  System.Windows.Forms.Control Client
+		public Control Client
 		{
-			get 
+			get
 			{
 				return this;
 			}
@@ -73,64 +59,49 @@ namespace SimPe.Wizards
 			this.parent = parent;
 			index = 0;
 			if (parent==null) return;
-			index = ((Wizard)parent).Controls.Count-1;
-			first = (index==0);		
+			index = parent.Children.Count-1;
+			first = (index==0);
 
 			parent.Aborted += new WizardHandle(OnAborted);
 			parent.Finished += new WizardHandle(OnFinished);
 			parent.Loaded += new WizardHandle(OnLoaded);
-		}	
-	
+		}
+
 		internal void RemoveParent(Wizard parent)
-		{			
+		{
 			if (parent==null) return;
 			parent.Aborted -= new WizardHandle(OnAborted);
 			parent.Finished -= new WizardHandle(OnFinished);
 			parent.Loaded -= new WizardHandle(OnLoaded);
-		}	
+		}
 
 		Wizard parent;
 		public Wizard ParentWizard
 		{
 			get
-			{				
+			{
 				return parent;
-			}				
+			}
 		}
 
 		bool first;
 		public bool First
 		{
-			get
-			{				
-				return first;
-			}
-			set 
-			{
-				first = value;
-			}
+			get { return first; }
+			set { first = value; }
 		}
 
 		bool last;
 		public bool Last
 		{
-			get
-			{			
-				return last;
-			}
-			set 
-			{
-				last = value;
-			}
+			get { return last; }
+			set { last = value; }
 		}
 
 		int index;
 		public int Index
 		{
-			get
-			{
-				return index;
-			}
+			get { return index; }
 		}
 
 		protected void OnLoaded(Wizard sender)
@@ -165,7 +136,6 @@ namespace SimPe.Wizards
 
 		internal void OnShowed(Wizard sender)
 		{
-            //if (Activated!=null) Activated(sender, this);
             if (Activated != null)
             {
                 foreach (Delegate d in Activated.GetInvocationList())
@@ -178,15 +148,14 @@ namespace SimPe.Wizards
                     {
                         System.Diagnostics.Debug.WriteLine("WizardStepPanel.Activated handler failed: " +
                             d.Method.DeclaringType.FullName + "." + d.Method.Name);
-
                         System.Diagnostics.Debug.WriteLine(ex.ToString());
-                        throw; // keep crashing so you don't hide the bug
+                        throw;
                     }
                 }
             }
         }
 
-		public event WizardStepHandle Loaded;
+		public new event WizardStepHandle Loaded;
 		public event WizardStepHandle Aborted;
 		public event WizardStepHandle Finished;
 
@@ -196,6 +165,6 @@ namespace SimPe.Wizards
 		public event WizardStepHandle Activated;
 
 		#endregion
-		
+
 	}
 }

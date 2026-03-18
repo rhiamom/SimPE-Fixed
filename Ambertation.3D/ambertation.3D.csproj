@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyName>ambertation.3D</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>12.0</LangVersion>

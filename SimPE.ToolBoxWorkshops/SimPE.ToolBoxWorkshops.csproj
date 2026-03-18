@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	  <TargetFrameworks>net8.0-windows</TargetFrameworks>
+	  <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPe.Plugin.Tool.Dockable</RootNamespace>
     <AssemblyName>simpe.workshop.plugin</AssemblyName>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
     <StartupObject />
     <PostBuildEvent />
     <Configurations>Debug;Release;x86</Configurations>

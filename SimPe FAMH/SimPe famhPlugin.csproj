@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>simpe.famh.plugin</AssemblyName>
     <RootNamespace>SimPe.Plugin</RootNamespace>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <UseWindowsForms>True</UseWindowsForms>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    
+    <TargetFramework>net8.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>

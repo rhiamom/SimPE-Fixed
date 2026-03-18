@@ -6,4 +6,10 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- Avalonia core for all projects — Avalonia.Desktop goes on SimPE.Main only -->
+    <PackageReference Include="Avalonia" Version="11.2.7" />
+  </ItemGroup>
+  <!-- Compile Remove for *.Designer.cs and EmbeddedResource Remove for *.resx are in Directory.Build.targets
+       (must run after SDK default includes, which are added after Directory.Build.props is processed) -->
 </Project>

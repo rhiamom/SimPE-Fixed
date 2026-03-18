@@ -22,7 +22,7 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.Wizards
 {

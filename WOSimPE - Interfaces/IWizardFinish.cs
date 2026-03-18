@@ -22,7 +22,6 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
 
 namespace SimPe.Wizards
 {

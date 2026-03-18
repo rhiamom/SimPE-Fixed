@@ -1,10 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
     <StartupObject />
     <PostBuildEvent>if not exist "$(SolutionDir)bin\$(Configuration)\" mkdir "$(SolutionDir)bin\$(Configuration)\"
 if not exist "$(SolutionDir)SimPE.Main\bin\$(Configuration)\" mkdir "$(SolutionDir)SimPE.Main\bin\$(Configuration)\"
@@ -31,6 +30,12 @@ copy "$(OutDir)$(AssemblyName).dll" "$(SolutionDir)SimPE.Main\bin\$(Configuratio
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Form1.cs" />
+    <Compile Remove="Form1.Designer.cs" />
+    <Compile Remove="Program.cs" />
+    <Compile Remove="Properties\Settings.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Wizard.cs">

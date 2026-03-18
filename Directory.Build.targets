@@ -16,6 +16,17 @@
 		<GenerateResourceWarnOnBinaryFormatterUse>false</GenerateResourceWarnOnBinaryFormatterUse>
 	</PropertyGroup>
 
+	<!-- Exclude *.Designer.cs and *.resx — removed here (not in .props) so it runs after SDK default includes -->
+	<ItemGroup>
+		<Compile Remove="**\*.Designer.cs" />
+		<EmbeddedResource Remove="**\*.resx" />
+	</ItemGroup>
+
+	<!-- Suppress Windows CMD PostBuildEvent scripts on non-Windows -->
+	<PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+		<PostBuildEvent />
+	</PropertyGroup>
+
 	<Target Name="SimPeCopyToUnifiedBin" AfterTargets="Build" Condition=" '$(SimPeUnifiedOutDir)' != '' ">
 		<!-- Ensure destination exists -->
 		<MakeDir Directories="$(SimPeUnifiedOutDir)"

@@ -22,64 +22,58 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
-using System.Windows.Forms;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Collections;
+using Avalonia.Controls;
+using Avalonia.Layout;
+using Avalonia.Media;
+using Avalonia.Threading;
 
 namespace SimPe.Wizards
 {
 	/// <summary>
 	/// This implements a basic Wizard
 	/// </summary>
-	[Designer(typeof(SimPe.Wizards.WizardDesigner)), ToolboxBitmapAttribute(typeof(TabControl))]
-	
 	public class Wizard : Panel
 	{
 		int cur;
-		
 
 		public Wizard()
 		{
-			this.BackColor = Color.Transparent;
-			this.DockPadding.All = 8;
-
+			this.Background = Brushes.Transparent;
 			img = null;
-			this.ControlAdded += new ControlEventHandler(Wizard_ControlAdded);
-			this.ControlRemoved += new ControlEventHandler(Wizard_ControlRemoved);
-		}			
+			this.Children.CollectionChanged += Wizard_ChildrenChanged;
+		}
 
-		internal bool Contains(WizardStepPanel iws) 
+		internal bool Contains(WizardStepPanel iws)
 		{
-			return Controls.Contains(iws);
-		}		
+			return Children.Contains(iws);
+		}
 
 		#region IWizard Member
 
 		[Browsable(false)]
-		public Control WizardContainer 
+		public Control WizardContainer
 		{
-			get{ return this; }
-			
-		}		
+			get { return this; }
+		}
 
-		Image img;
-		public virtual System.Drawing.Image Image
+		IImage img;
+		public virtual IImage Image
 		{
-			get{ return img;}
+			get { return img; }
 			set { img = value; }
 		}
 
 		public int StepCount
 		{
-			get { return Controls.Count; }
+			get { return Children.Count; }
 		}
 
 		public int CurrentStepNumber
 		{
 			get { return cur; }
-			set 
+			set
 			{
 				if (value == cur) this.JumpToStep(value);
 			}
@@ -88,231 +82,186 @@ namespace SimPe.Wizards
 		[Browsable(false)]
 		public WizardStepPanel CurrentStep
 		{
-			get
-			{
-				return (WizardStepPanel)Controls[cur];
-			}
+			get { return (WizardStepPanel)Children[cur]; }
 		}
 
 		bool ne;
 		[Browsable(false)]
-		public bool NextEnabled 
+		public bool NextEnabled
 		{
-			get {return ne;}
-			set 
+			get { return ne; }
+			set
 			{
-				if (value!=ne)
+				if (value != ne)
 				{
 					ne = value;
-					if (ChangedNextState!=null) ChangedNextState(this);
+					ChangedNextState?.Invoke(this);
 				}
 			}
 		}
 
 		bool pe;
 		[Browsable(false)]
-		public bool PrevEnabled 
+		public bool PrevEnabled
 		{
-			get {return pe;}
-			set 
+			get { return pe; }
+			set
 			{
-				if (value!=pe)
+				if (value != pe)
 				{
 					pe = value;
-					if (ChangedNextState!=null) ChangedPrevState(this);
+					ChangedPrevState?.Invoke(this);
 				}
 			}
 		}
 
 		bool fe;
 		[Browsable(false)]
-		public bool FinishEnabled 
+		public bool FinishEnabled
 		{
-			get {return fe;}
-			set 
+			get { return fe; }
+			set
 			{
-				if (value!=fe)
+				if (value != fe)
 				{
 					fe = value;
-					if (ChangedNextState!=null) ChangedFinishState(this);
+					ChangedFinishState?.Invoke(this);
 				}
 			}
 		}
 
 		public bool JumpToStep(int nr)
 		{
-			
-			if (nr<0) return false;
-			if (nr>=Controls.Count) return false;
-			
-			if (this.DesignMode) 
-			{
-				this.CurrentStep.Client.Visible = false;
-				this.cur = nr;
-				this.CurrentStep.Client.Visible = true;
-				return false;
-			}
+			if (nr < 0) return false;
+			if (nr >= Children.Count) return false;
+
 			int lastnr = cur;
-			if (nr>=cur) 
+			if (nr >= cur)
 			{
-				for (int i=cur+1; i<=nr; i++) 
+				for (int i = cur + 1; i <= nr; i++)
 				{
-					((WizardStepPanel)Controls[i]).OnPrepare(this, nr);
-					if (PrepareStep!=null) PrepareStep(this, (WizardStepPanel)Controls[i], nr);			
+					((WizardStepPanel)Children[i]).OnPrepare(this, nr);
+					PrepareStep?.Invoke(this, (WizardStepPanel)Children[i], nr);
 				}
-			} 
-			else 
-			{
-				for (int i=cur; i>nr; i--) 
-				{
-					((WizardStepPanel)Controls[i]).OnRollback(this, nr);	
-					if (RollbackStep!=null) RollbackStep(this, (WizardStepPanel)Controls[i], nr);
-				}
-
-				((WizardStepPanel)Controls[nr]).OnPrepare(this, nr);
-				if (PrepareStep!=null) PrepareStep(this, (WizardStepPanel)Controls[nr], nr);			
 			}
+			else
+			{
+				for (int i = cur; i > nr; i--)
+				{
+					((WizardStepPanel)Children[i]).OnRollback(this, nr);
+					RollbackStep?.Invoke(this, (WizardStepPanel)Children[i], nr);
+				}
+				((WizardStepPanel)Children[nr]).OnPrepare(this, nr);
+				PrepareStep?.Invoke(this, (WizardStepPanel)Children[nr], nr);
+			}
+
 			WizardEventArgs e = new WizardEventArgs(
-				(WizardStepPanel)Controls[nr], 
-				!((WizardStepPanel)Controls[nr]).Last, 
-				!((WizardStepPanel)Controls[nr]).First, 
-				((WizardStepPanel)Controls[nr]).Last);
-			((WizardStepPanel)Controls[nr]).OnShow(this, e);
+				(WizardStepPanel)Children[nr],
+				!((WizardStepPanel)Children[nr]).Last,
+				!((WizardStepPanel)Children[nr]).First,
+				((WizardStepPanel)Children[nr]).Last);
+			((WizardStepPanel)Children[nr]).OnShow(this, e);
 
 			if (e.Cancel) return false;
-			if (ShowStep!=null) ShowStep(this, e);
+			ShowStep?.Invoke(this, e);
 			if (e.Cancel) return false;
 
-			foreach (Control c in Controls) c.Visible = false;
-			this.CurrentStep.Client.Visible = false;
+			foreach (Control c in Children) c.IsVisible = false;
+			this.CurrentStep.Client.IsVisible = false;
 			this.cur = nr;
-			this.CurrentStep.Client.Visible = true;
+			this.CurrentStep.Client.IsVisible = true;
 			this.NextEnabled = e.EnableNext;
 			this.PrevEnabled = e.EnablePrev;
 			this.FinishEnabled = e.CanFinish;
-		
-		((WizardStepPanel)Controls[nr]).OnShowed(this);
-			if (ShowedStep!=null) ShowedStep(this, lastnr);
+
+			((WizardStepPanel)Children[nr]).OnShowed(this);
+			ShowedStep?.Invoke(this, lastnr);
 			return true;
 		}
 
 		public void Start()
 		{
-			if (Loaded!=null) Loaded(this);
-			
+			Loaded?.Invoke(this);
 			this.cur = 0;
 			this.JumpToStep(0);
 		}
 
-		public bool GoNext()
+		public bool GoNext() => JumpToStep(CurrentStepNumber + 1);
+		public bool GoPrev() => JumpToStep(CurrentStepNumber - 1);
+		public void Finish() => Finished?.Invoke(this);
+		public void Abort() => Aborted?.Invoke(this);
+
+		public new event WizardHandle Loaded;
+		public event WizardHandle Aborted;
+		public event WizardHandle Finished;
+		public event WizardStepChangeHandle PrepareStep;
+		public event WizardStepChangeHandle RollbackStep;
+		public event WizardChangeHandle ShowStep;
+		public event WizardShowedHandle ShowedStep;
+		public event WizardHandle ChangedNextState;
+		public event WizardHandle ChangedPrevState;
+		public event WizardHandle ChangedFinishState;
+
+		#endregion
+
+		internal string HintName
 		{
-			return this.JumpToStep(this.CurrentStepNumber+1);
+			get { return Name; }
 		}
 
-		public bool GoPrev()
-		{			
-			return this.JumpToStep(this.CurrentStepNumber-1);
-		}		
-
-		public void Finish()
+		private void Wizard_ChildrenChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (Finished!=null) Finished(this);
-		}
-
-		public void Abort()
-		{
-			if (Aborted!=null) Aborted(this);
-		}
-
-		public event SimPe.Wizards.WizardHandle Loaded;
-
-		public event SimPe.Wizards.WizardHandle Aborted;
-
-		public event SimPe.Wizards.WizardHandle Finished;
-
-		public event SimPe.Wizards.WizardStepChangeHandle PrepareStep;
-
-		public event SimPe.Wizards.WizardStepChangeHandle RollbackStep;
-
-		public event SimPe.Wizards.WizardChangeHandle ShowStep;
-
-		public event SimPe.Wizards.WizardShowedHandle ShowedStep;
-
-		public event SimPe.Wizards.WizardHandle ChangedNextState;
-
-		public event SimPe.Wizards.WizardHandle ChangedPrevState;
-
-		public event SimPe.Wizards.WizardHandle ChangedFinishState;
-
-		#endregion		
-
-		internal string HintName 
-		{
-			get { return Text+" ("+Name+")"; }
-		}
-
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			base.OnPaint(e);
-
-			if (this.DesignMode) 
+			if (e.Action == NotifyCollectionChangedAction.Add && e.NewItems != null)
 			{
-				e.Graphics.DrawRectangle(new Pen(Color.FromArgb(90, Color.DarkRed),1), 0, 0, Width-1, Height-1);
-				SizeF sz = e.Graphics.MeasureString(HintName, Font);
-				e.Graphics.DrawString(HintName, Font, new SolidBrush(Color.FromArgb(90, Color.DarkRed)), 2, (int)(Height-sz.Height)-2);
+				foreach (var item in e.NewItems)
+					Wizard_ControlAdded(item as Control);
+			}
+			else if (e.Action == NotifyCollectionChangedAction.Remove && e.OldItems != null)
+			{
+				foreach (var item in e.OldItems)
+					Wizard_ControlRemoved(item as Control);
 			}
 		}
 
-		private void Wizard_ControlAdded(object sender, ControlEventArgs e)
+		private void Wizard_ControlAdded(Control control)
 		{
-			//MessageBox.Show("adding");
-			if (!(e.Control is WizardStepPanel)) 
+			if (!(control is WizardStepPanel))
 			{
-				Controls.Remove(e.Control);
+				// Defer removal to avoid modifying Children during CollectionChanged
+				Dispatcher.UIThread.Post(() => Children.Remove(control));
 				return;
-			}			
-			//MessageBox.Show("doadd");
+			}
 
 			WizardStepPanel iws = null;
-			for (int i=Controls.Count-1; i>=0; i--) 
+			for (int i = Children.Count - 1; i >= 0; i--)
 			{
-				Control c = Controls[i];
-				if (c is WizardStepPanel) 
+				Control c = (Control)Children[i];
+				if (c is WizardStepPanel)
 				{
-					if (iws==null) iws = (WizardStepPanel)c;
-					else 
+					if (iws == null) iws = (WizardStepPanel)c;
+					else
 					{
 						((WizardStepPanel)c).Last = false;
-						((WizardStepPanel)c).Visible = false;
+						((WizardStepPanel)c).IsVisible = false;
 					}
 				}
-				
 			}
-			if (iws==null) return;
-			if (!this.DesignMode) iws.Client.Visible = false;						
+			if (iws == null) return;
+			iws.Client.IsVisible = false;
 
 			iws.SetupParent(this);
-			iws.Client.Parent = this.WizardContainer;			
-			iws.Dock = DockStyle.Fill;			
+			iws.HorizontalAlignment = HorizontalAlignment.Stretch;
+			iws.VerticalAlignment = VerticalAlignment.Stretch;
 			iws.Last = true;
-			iws.First = (Controls.Count==0);
-			iws.Visible = true;						
+			iws.First = (Children.Count == 0);
+			iws.IsVisible = true;
 		}
 
-		private void Wizard_ControlRemoved(object sender, ControlEventArgs e)
-		{			
-			//MessageBox.Show("removing");
-			if (!(e.Control is WizardStepPanel)) return;
-			//MessageBox.Show("doremoving");
-			WizardStepPanel iws  = (WizardStepPanel)e.Control;
-			
+		private void Wizard_ControlRemoved(Control control)
+		{
+			if (!(control is WizardStepPanel)) return;
+			WizardStepPanel iws = (WizardStepPanel)control;
 			iws.RemoveParent(this);
-			iws.Parent = null;
 		}
-
-		
-
 	}
-
-	
 }

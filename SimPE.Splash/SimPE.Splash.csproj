@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPe.Windows.Forms</RootNamespace>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
     <StartupObject />
     <PostBuildEvent />
     <Configurations>Debug;Release;x86</Configurations>
@@ -32,6 +32,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <!-- WinForms form files excluded — will be replaced with Avalonia windows -->
+  <ItemGroup>
+    <Compile Remove="SplashForm.cs" />
+    <Compile Remove="HelpForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="TransparentButton.cs">

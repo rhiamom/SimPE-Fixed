@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ProjectType>Local</ProjectType>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
@@ -16,8 +16,8 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
     <PostBuildEvent />
     <AssemblyTitle>SimPe Wizard : Household Wardrobe Cleaner</AssemblyTitle>
     <Product>SimPe Wizards</Product>

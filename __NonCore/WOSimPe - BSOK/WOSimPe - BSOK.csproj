@@ -3,8 +3,8 @@
     <AssemblyName>wosimpe.bsok.plugin</AssemblyName>
     <RootNamespace>SimPe.Wizards</RootNamespace>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <UseWindowsForms>True</UseWindowsForms>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    
+    <TargetFramework>net8.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>

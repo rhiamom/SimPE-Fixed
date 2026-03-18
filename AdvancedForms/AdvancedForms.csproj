@@ -2,8 +2,8 @@
   <PropertyGroup>
     <AssemblyName>AdvancedForms</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <UseWindowsForms>True</UseWindowsForms>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    
+    <TargetFramework>net8.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
@@ -11,9 +11,10 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup />
-  <ItemGroup />
+  <!-- All source excluded — WinForms extension of NetDocks, will be replaced with Avalonia docking -->
   <ItemGroup>
-    
+    <Compile Remove="**\*.cs" />
+    <Compile Include="AdvancedFormsStubs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetDocks\NetDocks.csproj" />

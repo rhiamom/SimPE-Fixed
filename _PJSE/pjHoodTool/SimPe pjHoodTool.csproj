@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>pjHoodTool</RootNamespace>
     <AssemblyName>pjHoodTool.plugin</AssemblyName>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
     <PostBuildEvent />
     <Configurations>Debug;Release;x86</Configurations>
   </PropertyGroup>

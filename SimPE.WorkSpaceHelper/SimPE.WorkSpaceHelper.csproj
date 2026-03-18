@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPe</RootNamespace>
     <AssemblyName>simpe.workspace.plugin</AssemblyName>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
     <StartupObject />
     <PostBuildEvent />
     <Configurations>Debug;Release;x86</Configurations>
@@ -27,7 +27,7 @@
     <OutputPath>..\bin\Debug\Plugins\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DockPanelSuite" Version="3.1.1" />
+    <!-- DockPanelSuite removed — WinForms docking, will be replaced with Avalonia docking -->
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>

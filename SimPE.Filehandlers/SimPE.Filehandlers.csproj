@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>SimPe.PackedFiles.Handlers</RootNamespace>
     <AssemblyName>simpe.filehandler</AssemblyName>
-    <UseWindowsForms>true</UseWindowsForms>
-    <UseWPF>true</UseWPF>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
+    
     <StartupObject />
     <PostBuildEvent />
     <Configurations>Debug;Release;x86</Configurations>

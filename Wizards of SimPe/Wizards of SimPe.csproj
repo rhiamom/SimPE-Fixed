@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ProjectType>Local</ProjectType>
     <ApplicationIcon>Simpe2.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
@@ -16,8 +16,8 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    
+    
     <PostBuildEvent />
     <AssemblyTitle>Wizards of SimPe</AssemblyTitle>
     <Description>This is something like SimPe Light. A very easy way to use some of the most Popular SimPe Tools.</Description>

@@ -58,7 +58,7 @@ namespace SimPe.Wizards
 		protected abstract bool Init();
 		#region IWizardForm Member
 
-		public abstract System.Windows.Forms.Panel WizardWindow
+		public abstract Avalonia.Controls.Panel WizardWindow
 		{
 			get;
 		}

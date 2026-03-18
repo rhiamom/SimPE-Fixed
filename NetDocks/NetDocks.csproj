@@ -2,8 +2,8 @@
   <PropertyGroup>
     <AssemblyName>NetDocks</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <UseWindowsForms>True</UseWindowsForms>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    
+    <TargetFramework>net8.0</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
@@ -13,6 +13,11 @@
   <PropertyGroup>
     <RootNamespace />
   </PropertyGroup>
+  <!-- All source excluded — WinForms docking library, will be replaced with Avalonia docking -->
+  <ItemGroup>
+    <Compile Remove="**\*.cs" />
+    <Compile Include="NetDocksStubs.cs" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="Ambertation.Windows.Forms.dockhint.PNG" />
     <None Remove="Ambertation.Windows.Forms.bottom.png" />
