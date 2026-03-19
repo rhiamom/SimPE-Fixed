@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/catherinegramze/Library/Developer/SimPE-Fixed/SimPE.Sims/*.Designer.cs)",
+      "Bash(head -20 ls /Users/catherinegramze/Library/Developer/SimPE-Fixed/SimPE.Sims/SCOR/*.Designer.cs)"
+    ]
+  }
+}
