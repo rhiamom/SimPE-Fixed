@@ -620,7 +620,7 @@ namespace Ambertation.Windows.Forms
 		/// <summary>
 		/// Fires, when the USers Scrolls
 		/// </summary>
-		public new event ScrollEventHandler Scroll;
+		public event ScrollEventHandler Scroll;
 
 		/// <summary>
 		/// Fires, whenever the Selection get's changed
@@ -758,14 +758,14 @@ namespace Ambertation.Windows.Forms
 			
 			bm = new Rectangle(6, 6, 6, 6);
 			border = new Image[8];
-            border[0] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.tl.png"));
-            border[1] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.t.png"));
-			border[2] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.tr.png"));
-			border[3] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.r.png"));
-			border[4] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.br.png"));
-			border[5] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.b.png"));
-			border[6] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.bl.png"));
-			border[7] = Image.FromStream(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.l.png"));
+            border[0] = SimPe.Helper.LoadImage(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.tl.png"));
+            border[1] = SimPe.Helper.LoadImage(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.t.png"));
+			border[2] = SimPe.Helper.LoadImage(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.tr.png"));
+			border[3] = SimPe.Helper.LoadImage(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.r.png"));
+			border[4] = SimPe.Helper.LoadImage(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.br.png"));
+			border[5] = SimPe.Helper.LoadImage(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.b.png"));
+			border[6] = SimPe.Helper.LoadImage(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.bl.png"));
+			border[7] = SimPe.Helper.LoadImage(typeof(global::SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.Helper.l.png"));
 
 
 			#region Add ScrollBar
@@ -779,11 +779,7 @@ namespace Ambertation.Windows.Forms
 			#endregion
 			
 			
-			base.Font = new Font("Courier New", 10, Font.Style, Font.Unit);
-			hfont = new Font(Font.FontFamily, Font.Size, FontStyle.Bold, Font.Unit);
-            
-            MatchSize();			
-			RedrawGraphics();			
+			// Font/rendering skipped — System.Drawing not available on this platform
 		}
 
         public void AddHighlightInterval(int start, int end)

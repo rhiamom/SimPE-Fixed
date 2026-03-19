@@ -10,7 +10,7 @@ namespace SimPe
         public IPackedFileDescriptor Descriptor { get; }
 
         public string Name     => Descriptor.Filename ?? string.Empty;
-        public string Type     => Descriptor.TypeName?.Name ?? $"0x{Descriptor.Type:X8}";
+        public string Type     => Descriptor.TypeName?.shortname ?? $"0x{Descriptor.Type:X8}";
         public string Group    => $"0x{Descriptor.Group:X8}";
         public string InstanceHi => $"0x{Descriptor.SubType:X8}";
         public string Instance => $"0x{Descriptor.Instance:X8}";

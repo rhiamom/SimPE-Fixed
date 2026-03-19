@@ -169,7 +169,7 @@ namespace SimPe.PackedFiles.Wrapper
 				"Quaxi",
 				"This File is a structured Text File (like an .ini or .xml File), that contains Key Value Pairs.",
 				8,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.cpf.png"))				
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.cpf.png"))				
 				);   
 		}
 

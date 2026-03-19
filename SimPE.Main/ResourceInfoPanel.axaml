@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="SimPe.ResourceInfoPanel">
+    <ScrollViewer>
+        <Grid ColumnDefinitions="Auto,12,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+              Margin="12,10">
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Type"        FontWeight="SemiBold" FontSize="11" Margin="0,3"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" x:Name="LblType"   FontSize="11" Margin="0,3"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Group"       FontWeight="SemiBold" FontSize="11" Margin="0,3"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" x:Name="LblGroup"  FontSize="11" Margin="0,3"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Instance Hi" FontWeight="SemiBold" FontSize="11" Margin="0,3"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" x:Name="LblInstHi" FontSize="11" Margin="0,3"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Instance"    FontWeight="SemiBold" FontSize="11" Margin="0,3"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" x:Name="LblInst"   FontSize="11" Margin="0,3"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Offset"      FontWeight="SemiBold" FontSize="11" Margin="0,3"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" x:Name="LblOffset" FontSize="11" Margin="0,3"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Size"        FontWeight="SemiBold" FontSize="11" Margin="0,3"/>
+            <TextBlock Grid.Row="5" Grid.Column="2" x:Name="LblSize"   FontSize="11" Margin="0,3"/>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Compressed"  FontWeight="SemiBold" FontSize="11" Margin="0,3"/>
+            <TextBlock Grid.Row="6" Grid.Column="2" x:Name="LblComp"   FontSize="11" Margin="0,3"/>
+
+            <TextBlock Grid.Row="7" Grid.Column="0" Text="Filename"    FontWeight="SemiBold" FontSize="11" Margin="0,3"/>
+            <TextBlock Grid.Row="7" Grid.Column="2" x:Name="LblFile"   FontSize="11" Margin="0,3" TextWrapping="Wrap"/>
+
+        </Grid>
+    </ScrollViewer>
+</UserControl>

@@ -124,7 +124,7 @@ namespace SimPe.Cache
 				byte[] data = reader.ReadBytes(size);
 				MemoryStream ms = new MemoryStream(data);
 
-				thumb = Image.FromStream(ms);				
+				thumb = Helper.LoadImage(ms);				
 			}
 		}
 

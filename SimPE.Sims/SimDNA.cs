@@ -139,7 +139,7 @@ namespace SimPe.PackedFiles.Wrapper
 				"Quaxi",
 				"This File contains the DNA of a Sim.",
 				1,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.dna.png"))				
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.dna.png"))				
 				);   
 		}
 

@@ -100,7 +100,7 @@ namespace SimPe.Plugin
 				"Quaxi",
 				"This File contains the Memories and Inventories of all Sims and Lots that Live in this Neighbourhood.",
 				2,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.ngbh.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.ngbh.png"))
 				); 
 		}
 		#endregion		

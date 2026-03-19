@@ -59,16 +59,20 @@ namespace SimPe
 		void LoadTGI(string xmlfilename)
 		{
 			map.Clear();
-			if (!System.IO.File.Exists(xmlfilename)) 
-			{
-				Helper.ExceptionMessage(new Warning("Unable to load TGI description", "The File \""+xmlfilename+"\" was not found on the system"));
-				return;
-			}
-			
-			
-			//read XML File
+
 			System.Xml.XmlDocument xmlfile = new XmlDocument();
-			xmlfile.Load(xmlfilename);
+			if (System.IO.File.Exists(xmlfilename))
+			{
+				xmlfile.Load(xmlfilename);
+			}
+			else
+			{
+				// Fall back to the embedded tgi.xml resource
+				var stream = typeof(TGILoader).Assembly
+					.GetManifestResourceStream("SimPe.IconXmlResources.tgi.xml");
+				if (stream == null) return;
+				xmlfile.Load(stream);
+			}
 
 			//seek Root Node
 			XmlNodeList XMLData = xmlfile.GetElementsByTagName("tgi");					

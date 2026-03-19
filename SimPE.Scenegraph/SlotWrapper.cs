@@ -105,7 +105,7 @@ namespace SimPe.PackedFiles.Wrapper
 				"Quaxi",
 				"",
 				1,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.slot.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.slot.png"))
 				);   
 		}
 

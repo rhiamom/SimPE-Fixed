@@ -164,6 +164,62 @@ namespace SimPe
 		public string[] InstalledEPExecutables => new string[0];
 		#endregion
 
+		#region Settings
+		public bool WasQAUser
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("WasQAUser", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("WasQAUser", value); }
+		}
+
+		public int LoadOnlySimsStory
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToInt32(rkf.GetValue("LoadOnlySimsStory", 0)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("LoadOnlySimsStory", value); }
+		}
+
+		public SimPe.Data.MetaData.Languages LanguageCode
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return (SimPe.Data.MetaData.Languages)Convert.ToInt32(rkf.GetValue("LanguageCode", 0)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("LanguageCode", (int)value); }
+		}
+
+		public bool HiddenMode
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("HiddenMode", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("HiddenMode", value); }
+		}
+
+		public bool AsynchronLoad
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("AsynchronLoad", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("AsynchronLoad", value); }
+		}
+
+		public bool WaitingScreen
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("WaitingScreen", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("WaitingScreen", value); }
+		}
+
+		public uint CachedUserId
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToUInt32(rkf.GetValue("CachedUserId", (uint)0)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("CachedUserId", value); }
+		}
+
+		public string Username
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return (string)rkf.GetValue("Username", ""); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("Username", value); }
+		}
+
+		public string Password
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return (string)rkf.GetValue("Password", ""); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("Password", value); }
+		}
+		#endregion
+
 		#region Wrappers
 		/// <summary>
 		/// Returns the Priority for the Wrapper identified with the given UID
@@ -877,5 +933,284 @@ namespace SimPe
 		}
 		#endregion
          */
+
+		public bool UseBigIcons
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("UseBigIcons", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("UseBigIcons", value); }
+		}
+
+		public bool ShowStartupSplash
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ShowStartupSplash", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ShowStartupSplash", value); }
+		}
+
+		public enum ResourceListFormats { JustLongType = 0, LongTypeNames = 1, ShortTypeNames = 2, JustNames = 3 }
+
+		public enum ResourceListUnnamedFormats { FullTGI = 0, Instance = 1, TypeGroup = 2 }
+
+		public ResourceListFormats ResourceListFormat
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return (ResourceListFormats)Convert.ToInt32(rkf.GetValue("ResourceListFormat", (int)ResourceListFormats.LongTypeNames)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ResourceListFormat", (int)value); }
+		}
+
+		public bool AutoBackup
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("AutoBackup", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("AutoBackup", value); }
+		}
+
+		public bool UsePackageMaintainer
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("UsePackageMaintainer", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("UsePackageMaintainer", value); }
+		}
+
+		public int BigPackageResourceCount
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToInt32(rkf.GetValue("BigPackageResourceCount", 200)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("BigPackageResourceCount", value); }
+		}
+
+		public ResourceListUnnamedFormats ResourceListUnknownDescriptionFormat
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return (ResourceListUnnamedFormats)Convert.ToInt32(rkf.GetValue("ResourceListUnknownDescriptionFormat", (int)ResourceListUnnamedFormats.FullTGI)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ResourceListUnknownDescriptionFormat", (int)value); }
+		}
+
+		public bool UseExpansions2
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("UseExpansions2", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("UseExpansions2", value); }
+		}
+
+		public bool LoadMetaInfo
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("LoadMetaInfo", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("LoadMetaInfo", value); }
+		}
+
+		public bool MultipleFiles
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("MultipleFiles", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("MultipleFiles", value); }
+		}
+
+		public bool Silent
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("Silent", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("Silent", value); }
+		}
+
+		// ── Additional settings ──────────────────────────────────────────
+		public bool AllowChangeOfSecondaryAspiration
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("AllowChangeOfSecondaryAspiration", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("AllowChangeOfSecondaryAspiration", value); }
+		}
+		public bool AllowLotZero
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("AllowLotZero", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("AllowLotZero", value); }
+		}
+		public bool AsynchronSort
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("AsynchronSort", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("AsynchronSort", value); }
+		}
+		public bool CorrectJointDefinitionOnExport
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("CorrectJointDefinitionOnExport", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("CorrectJointDefinitionOnExport", value); }
+		}
+		public bool CresPrioritize
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("CresPrioritize", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("CresPrioritize", value); }
+		}
+		public bool DecodeFilenamesState
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("DecodeFilenamesState", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("DecodeFilenamesState", value); }
+		}
+		public bool DeepSimScan
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("DeepSimScan", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("DeepSimScan", value); }
+		}
+		public bool DeepSimTemplateScan
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("DeepSimTemplateScan", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("DeepSimTemplateScan", value); }
+		}
+		public bool EnableSound
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("EnableSound", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("EnableSound", value); }
+		}
+		public bool FirefoxTabbing
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("FirefoxTabbing", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("FirefoxTabbing", value); }
+		}
+		public string GmdcExtension
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return (string)rkf.GetValue("GmdcExtension", "obj"); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("GmdcExtension", value); }
+		}
+		public int GraphLineMode
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToInt32(rkf.GetValue("GraphLineMode", 0)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("GraphLineMode", value); }
+		}
+		public bool GraphQuality
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("GraphQuality", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("GraphQuality", value); }
+		}
+		public double ImportExportScaleFactor
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToDouble(rkf.GetValue("ImportExportScaleFactor", 1.0)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ImportExportScaleFactor", value); }
+		}
+		public int LayoutVersion
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToInt32(rkf.GetValue("LayoutVersion", 0)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("LayoutVersion", value); }
+		}
+		public bool LoadAllNeighbourhoods
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("LoadAllNeighbourhoods", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("LoadAllNeighbourhoods", value); }
+		}
+		public bool LoadOWFast
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("LoadOWFast", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("LoadOWFast", value); }
+		}
+		public bool LoadTableAtStartup
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("LoadTableAtStartup", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("LoadTableAtStartup", value); }
+		}
+		public bool LockDocks
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("LockDocks", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("LockDocks", value); }
+		}
+		public int MaxSearchResults
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToInt32(rkf.GetValue("MaxSearchResults", 100)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("MaxSearchResults", value); }
+		}
+		public int OWThumbSize
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToInt32(rkf.GetValue("OWThumbSize", 64)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("OWThumbSize", value); }
+		}
+		public bool OWincludewalls
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("OWincludewalls", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("OWincludewalls", value); }
+		}
+		public bool OWtrimnames
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("OWtrimnames", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("OWtrimnames", value); }
+		}
+		public enum ReportFormats { Html = 0, Csv = 1, CSV = 1, Text = 2 }
+		public ReportFormats ReportFormat
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return (ReportFormats)Convert.ToInt32(rkf.GetValue("ReportFormat", (int)ReportFormats.Html)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ReportFormat", (int)value); }
+		}
+		public bool ResoruceTreeAllwaysAutoselect
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ResoruceTreeAllwaysAutoselect", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ResoruceTreeAllwaysAutoselect", value); }
+		}
+		public enum ResourceListExtensionFormats { Short = 0, Long = 1, Hex = 2 }
+		public ResourceListExtensionFormats ResourceListExtensionFormat
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return (ResourceListExtensionFormats)Convert.ToInt32(rkf.GetValue("ResourceListExtensionFormat", (int)ResourceListExtensionFormats.Short)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ResourceListExtensionFormat", (int)value); }
+		}
+		public bool ResourceListInstanceFormatDecOnly
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ResourceListInstanceFormatDecOnly", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ResourceListInstanceFormatDecOnly", value); }
+		}
+		public bool ResourceListInstanceFormatHexOnly
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ResourceListInstanceFormatHexOnly", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ResourceListInstanceFormatHexOnly", value); }
+		}
+		public bool ResourceListShowExtensions
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ResourceListShowExtensions", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ResourceListShowExtensions", value); }
+		}
+		public bool ShowJointNames
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ShowJointNames", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ShowJointNames", value); }
+		}
+		public bool ShowMoreSkills
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ShowMoreSkills", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ShowMoreSkills", value); }
+		}
+		public bool ShowObjdNames
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ShowObjdNames", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ShowObjdNames", value); }
+		}
+		public bool ShowProgressWhenPackageLoads
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ShowProgressWhenPackageLoads", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ShowProgressWhenPackageLoads", value); }
+		}
+		public bool ShowWaitBarPermanent
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ShowWaitBarPermanent", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ShowWaitBarPermanent", value); }
+		}
+		public bool ShowWelcomeOnStartup
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("ShowWelcomeOnStartup", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("ShowWelcomeOnStartup", value); }
+		}
+		public bool SimpleResourceSelect
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("SimpleResourceSelect", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("SimpleResourceSelect", value); }
+		}
+		public int SortProcessCount
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToInt32(rkf.GetValue("SortProcessCount", 1)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("SortProcessCount", value); }
+		}
+		public bool UpdateResourceListWhenTGIChanges
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("UpdateResourceListWhenTGIChanges", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("UpdateResourceListWhenTGIChanges", value); }
+		}
+		public bool UseCache
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("UseCache", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("UseCache", value); }
+		}
+		public bool UseMaxisGroupsCache
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("UseMaxisGroupsCache", true)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("UseMaxisGroupsCache", value); }
+		}
+		public bool WaitingScreenTopMost
+		{
+			get { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); return Convert.ToBoolean(rkf.GetValue("WaitingScreenTopMost", false)); }
+			set { XmlRegistryKey rkf = xrk.CreateSubKey("Settings"); rkf.SetValue("WaitingScreenTopMost", value); }
+		}
 	}
 }

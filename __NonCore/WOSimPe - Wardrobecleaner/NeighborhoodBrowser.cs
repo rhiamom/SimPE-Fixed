@@ -82,7 +82,7 @@ namespace SimPe.Plugin.UI
             if (System.IO.File.Exists(name))
 			{
 				System.IO.Stream st = System.IO.File.OpenRead(name);
-				Image img = Image.FromStream(st);
+				Image img = Helper.LoadImage(st);
 				st.Close();
 				WaitingScreen.UpdateImage(ImageLoader.Preview(img, WaitingScreen.ImageSize));
 				this.ilist.Images.Add(img);

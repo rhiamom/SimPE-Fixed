@@ -82,7 +82,7 @@ namespace SimPe.Plugin
 				"Quaxi",
 				"This File describes a ColorOption for a Mesh Group / Subset. It is needed to provide an additional Colour for Objects.",
 				4,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.mmat.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.mmat.png"))
 				);   
 		}
 

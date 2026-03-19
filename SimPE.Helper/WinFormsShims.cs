@@ -758,10 +758,12 @@ namespace System.Windows.Forms
     public enum RichTextBoxSelectionTypes { Empty, Text, Object, MultiChar, MultiObject }
     public enum PictureBoxSizeMode { Normal, StretchImage, AutoSize, CenterImage, Zoom }
 
-    public class PictureBox : Control
+    public class PictureBox : Control, System.ComponentModel.ISupportInitialize
     {
         public System.Drawing.Image Image { get; set; }
         public PictureBoxSizeMode SizeMode { get; set; }
+        void System.ComponentModel.ISupportInitialize.BeginInit() { }
+        void System.ComponentModel.ISupportInitialize.EndInit() { }
     }
 
     public class ProgressBar : Control

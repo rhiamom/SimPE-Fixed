@@ -65,7 +65,7 @@ namespace SimPe.Plugin
                 var stream = asm.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.familyties.png");
                 if (stream != null)
                 {
-                    icon = System.Drawing.Image.FromStream(stream);
+                    icon = Helper.LoadImage(stream);
                 }
                 else
                 {
@@ -79,11 +79,7 @@ namespace SimPe.Plugin
                     "Error loading wrapper icon SimPe.PackedFiles.Wrapper.familyties.png: " + ex);
             }
 
-            // Fallback: if we couldn't load the real icon, use a small blank bitmap
-            if (icon == null)
-            {
-                icon = new System.Drawing.Bitmap(16, 16);
-            }
+            // Icon fallback removed — System.Drawing.Bitmap not supported on macOS/Linux.
 
             return new AbstractWrapperInfo(
                 "Extended Family Ties Wrapper",

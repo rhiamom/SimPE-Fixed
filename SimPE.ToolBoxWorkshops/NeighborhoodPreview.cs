@@ -384,7 +384,7 @@ namespace SimPe.Plugin.Tool.Dockable
 				SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 				str.ProcessData(ctss, pkg);
 
-               return str.LanguageItems(Helper.WindowsRegistry.LanguageCode);
+               return str.LanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);
 				
 			} 
 			return null;

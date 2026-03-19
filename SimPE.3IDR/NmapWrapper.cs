@@ -116,7 +116,7 @@ namespace SimPe.Plugin
 				"Quaxi",
 				"---",
 				4,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.view_tree.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.view_tree.png"))
 				); 
 		}
 

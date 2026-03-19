@@ -68,7 +68,7 @@ namespace SimPe.Actions.Default
 		{
 			get
 			{
-				return System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.actionclone.png"));
+				return Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.actionclone.png"));
 			}
 		}
 		#endregion

@@ -324,7 +324,7 @@ namespace SimPe.PackedFiles.Wrapper
                 if (img == null || img.Width < 8)
                 {
                     // Fallback: use generic "no sim" icon
-                    img = System.Drawing.Image.FromStream(
+                    img = Helper.LoadImage(
                         typeof(SDesc).Assembly.GetManifestResourceStream(
                             "SimPe.PackedFiles.Wrapper.noone.png"
                         )

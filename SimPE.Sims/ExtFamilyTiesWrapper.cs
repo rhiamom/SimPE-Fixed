@@ -47,7 +47,7 @@ namespace SimPe.PackedFiles.Wrapper
 				"Quaxi",
 				"Contains all Familyties that are stored in a Neighbourhood.",
 				2,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.familyties.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.familyties.png"))
 				); 
 		}
 		#endregion

@@ -40,7 +40,7 @@ namespace SimPe.PackedFiles.Wrapper
             if (RelatedImage == null)
             {
                 var asm = typeof(SimPe.Helper).Assembly;
-                RelatedImage = Image.FromStream(asm.GetManifestResourceStream("SimPe.IconXmlResources.related.png"));
+                RelatedImage = Helper.LoadImage(asm.GetManifestResourceStream("SimPe.IconXmlResources.related.png"));
             }
             InitializeComponent();
             showrel = true;

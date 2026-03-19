@@ -147,9 +147,7 @@ namespace Ambertation.Windows.Forms
 			vs = HexViewControl.ViewState.Hex;
 			edit = false;
 
-			efont = new Font(Font.FontFamily, Font.Size, FontStyle.Bold, Font.Unit);
-			tfont = new Font(Font.FontFamily, Font.Size, FontStyle.Regular, Font.Unit);
-			BuildInterface();
+			// Font/BuildInterface skipped — System.Drawing not available on this platform
 		}
 		#region Event Override
 

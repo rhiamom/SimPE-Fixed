@@ -7,7 +7,7 @@ namespace SimPe.Interfaces
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Button btStart = new System.Windows.Forms.Button();
         private Ambertation.Windows.Forms.XPTaskBoxSimple grp = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-        private new void InitializeComponent() { }
+        private void InitializeComponent() { }
     }
 }
 
@@ -20,7 +20,7 @@ namespace SimPe.Plugin.Tool.Dockable.Finder
         private System.Windows.Forms.Label label2 = new System.Windows.Forms.Label();
         private System.Windows.Forms.TextBox tbMatch = new System.Windows.Forms.TextBox();
         private System.Windows.Forms.ComboBox cbType = new System.Windows.Forms.ComboBox();
-        protected new void InitializeComponent() { }
+        protected void InitializeComponent() { }
     }
 
     partial class FindInSG
@@ -46,7 +46,7 @@ namespace SimPe.Plugin.Tool.Dockable.Finder
         private System.Windows.Forms.Label label4 = new System.Windows.Forms.Label();
         private System.Windows.Forms.TextBox tbName = new System.Windows.Forms.TextBox();
         private System.Windows.Forms.TextBox tbType = new System.Windows.Forms.TextBox();
-        private void InitializeComponent() { }
+        private new void InitializeComponent() { }
     }
 
     partial class FindTGI

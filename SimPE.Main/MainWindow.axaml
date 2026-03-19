@@ -1,5 +1,8 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SimPe"
+        xmlns:avaloniaHex="clr-namespace:AvaloniaHex;assembly=AvaloniaHex"
+        xmlns:rendering="clr-namespace:AvaloniaHex.Rendering;assembly=AvaloniaHex"
         x:Class="SimPe.MainWindow"
         Title="SimPE - Sims Package Editor"
         Width="1200" Height="800"
@@ -14,6 +17,7 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_New"            x:Name="MenuFileNew"/>
                 <MenuItem Header="_Open..."         x:Name="MenuFileOpen"/>
+                <MenuItem Header="_Close"          x:Name="MenuFileClose"/>
                 <MenuItem Header="_Save"            x:Name="MenuFileSave"/>
                 <MenuItem Header="Save _As..."      x:Name="MenuFileSaveAs"/>
                 <Separator/>
@@ -44,28 +48,6 @@
                 <MenuItem Header="_About SimPE"     x:Name="MenuHelpAbout"/>
             </MenuItem>
         </Menu>
-
-        <!-- ═══════════════════════════════════════════════════════════ -->
-        <!-- Toolbar                                                     -->
-        <!-- ═══════════════════════════════════════════════════════════ -->
-        <Border DockPanel.Dock="Top"
-                Background="#F0F0F0"
-                BorderBrush="#CCCCCC"
-                BorderThickness="0,0,0,1">
-            <StackPanel Orientation="Horizontal" Margin="2,2">
-                <Button x:Name="TbNew"     Content="New"     Margin="1" Padding="6,2"/>
-                <Button x:Name="TbOpen"    Content="Open"    Margin="1" Padding="6,2"/>
-                <Button x:Name="TbSave"    Content="Save"    Margin="1" Padding="6,2"/>
-                <Button x:Name="TbClose"   Content="Close"   Margin="1" Padding="6,2"/>
-                <Separator Width="1" Background="#CCCCCC" Margin="6,2"/>
-                <Button x:Name="TbAdd"     Content="Add"     Margin="1" Padding="6,2"/>
-                <Button x:Name="TbDelete"  Content="Delete"  Margin="1" Padding="6,2"/>
-                <Button x:Name="TbExport"  Content="Export"  Margin="1" Padding="6,2"/>
-                <Button x:Name="TbImport"  Content="Import"  Margin="1" Padding="6,2"/>
-                <Button x:Name="TbReplace" Content="Replace" Margin="1" Padding="6,2"/>
-                <Button x:Name="TbClone"   Content="Clone"   Margin="1" Padding="6,2"/>
-            </StackPanel>
-        </Border>
 
         <!-- ═══════════════════════════════════════════════════════════ -->
         <!-- Status bar                                                  -->
@@ -205,25 +187,77 @@
                           Background="#CCCCCC"/>
 
             <!-- ─────────────────────────────────────────────────────── -->
-            <!-- Lower panel — plugin / wrapper editor                   -->
-            <!-- Future: replace ContentControl with Dock.Avalonia host  -->
+            <!-- Lower panel — tabbed: Resource Info / Hex / Converter / Plugin -->
             <!-- ─────────────────────────────────────────────────────── -->
-            <Border Grid.Row="2"
-                    Background="#FAFAFA"
-                    BorderBrush="#DCDCDC"
-                    BorderThickness="0,0,0,0">
-                <DockPanel>
-                    <Border DockPanel.Dock="Top"
-                            Background="#E4E4E4"
-                            Padding="6,3">
-                        <TextBlock Text="Plugin"
-                                   FontWeight="SemiBold"
-                                   FontSize="11"/>
-                    </Border>
-                    <!-- Plugin panels loaded here at runtime -->
+            <TabControl Grid.Row="2" x:Name="LowerTabs" Background="#FAFAFA">
+
+                <!-- Resource Info tab -->
+                <TabItem Header="Resource Info">
+                    <local:ResourceInfoPanel x:Name="ResInfoPanel"/>
+                </TabItem>
+
+                <!-- Hex View tab -->
+                <TabItem Header="Hex View">
+                    <avaloniaHex:HexEditor x:Name="HexEditor"
+                                           FontFamily="Cascadia Code,JetBrains Mono,Monospace,monospace"
+                                           FontSize="12">
+                        <avaloniaHex:HexEditor.Columns>
+                            <rendering:OffsetColumn />
+                            <rendering:HexColumn />
+                            <rendering:AsciiColumn />
+                        </avaloniaHex:HexEditor.Columns>
+                    </avaloniaHex:HexEditor>
+                </TabItem>
+
+                <!-- Converter tab -->
+                <TabItem Header="Converter">
+                    <ScrollViewer>
+                        <Grid ColumnDefinitions="80,8,160,16,80,8,160"
+                              RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                              Margin="12,10">
+
+                            <!-- Left column -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Offset"  FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="0" Grid.Column="2" x:Name="CvOffset" IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Byte"    FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="1" Grid.Column="2" x:Name="CvByte"   IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="UShort"  FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="2" Grid.Column="2" x:Name="CvUShort" IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="UInt"    FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="3" Grid.Column="2" x:Name="CvUInt"   IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="ULong"   FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="4" Grid.Column="2" x:Name="CvULong"  IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <!-- Right column -->
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="Float"   FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="0" Grid.Column="6" x:Name="CvFloat"  IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="4" Text="Double"  FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="1" Grid.Column="6" x:Name="CvDouble" IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="4" Text="Short"   FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="2" Grid.Column="6" x:Name="CvShort"  IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="4" Text="Int"     FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="3" Grid.Column="6" x:Name="CvInt"    IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="4" Text="Bits"    FontWeight="SemiBold" FontSize="11" VerticalAlignment="Center" Margin="0,3"/>
+                            <TextBox   Grid.Row="4" Grid.Column="6" x:Name="CvBits"   IsReadOnly="True" FontFamily="Monospace" FontSize="11" Margin="0,2"/>
+
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- Plugin tab — plugin-specific editor UI loads here -->
+                <TabItem Header="Plugin">
                     <ContentControl x:Name="PluginPanel"/>
-                </DockPanel>
-            </Border>
+                </TabItem>
+
+            </TabControl>
 
         </Grid>
     </DockPanel>

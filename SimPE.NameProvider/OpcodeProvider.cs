@@ -131,7 +131,7 @@ namespace SimPe.Providers
                             if (sitems.Length > 0)
                             {
                                 str.ProcessData(sitems[0]);
-                                SimPe.PackedFiles.Wrapper.StrItemList strs = str.LanguageItems(Helper.WindowsRegistry.LanguageCode);
+                                SimPe.PackedFiles.Wrapper.StrItemList strs = str.LanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);
                                 if (strs.Length > 0) name = strs[0].Title;
 
 

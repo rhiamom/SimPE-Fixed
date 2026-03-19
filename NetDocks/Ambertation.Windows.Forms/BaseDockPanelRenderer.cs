@@ -271,7 +271,7 @@ public abstract class BaseDockPanelRenderer : BaseControlRenderer, IDisposable
 		Stream manifestResourceStream = GetType().Assembly.GetManifestResourceStream(name);
 		if (manifestResourceStream != null)
 		{
-			Image image = Image.FromStream(manifestResourceStream);
+			Image image = Helper.LoadImage(manifestResourceStream);
 			int num = (r.Width - image.Width) / 2 + r.Left;
 			int num2 = (r.Height - image.Height) / 2 + r.Top;
 			g.DrawImage(image, num + 1, num2 + 1);

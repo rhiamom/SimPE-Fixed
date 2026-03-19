@@ -61,7 +61,7 @@ namespace SimPe.Plugin
 				"Pumuckl, Quaxi",
 				"This File is part of the Scenegraph. It contains the Texture for a Mesh Group/Subset.",
 				13,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.txtr.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.txtr.png"))
 				); 
 		}
 		#endregion

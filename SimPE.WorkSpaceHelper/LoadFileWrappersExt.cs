@@ -100,7 +100,7 @@ namespace SimPe
 					if (parent!=null) 
 					{						
 						System.IO.Stream imgstr = a.GetManifestResourceStream("SimPe."+parts[i]+".png");
-						if (imgstr!=null) mi.Image = System.Drawing.Image.FromStream(imgstr);
+						if (imgstr!=null) mi.Image = Helper.LoadImage(imgstr);
 						parent.Insert(0, mi);
 					}
 					

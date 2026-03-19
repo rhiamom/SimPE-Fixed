@@ -59,7 +59,7 @@ namespace SimPe.PackedFiles.Wrapper
                 "Quaxi",
                 "---",
                 2,
-                System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.pic.png"))
+                Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.pic.png"))
                 );
         }
         #endregion
@@ -141,7 +141,7 @@ namespace SimPe.PackedFiles.Wrapper
                     {
                         using (var ims = new System.IO.MemoryStream(bytes))
                         {
-                            image = System.Drawing.Image.FromStream(ims);
+                            image = Helper.LoadImage(ims);
                             return true;
                         }
                     }
@@ -160,7 +160,7 @@ namespace SimPe.PackedFiles.Wrapper
                 {
                     using (var ims = new System.IO.MemoryStream(bytes))
                     {
-                        image = System.Drawing.Image.FromStream(ims);
+                        image = Helper.LoadImage(ims);
                         return true;
                     }
                 }

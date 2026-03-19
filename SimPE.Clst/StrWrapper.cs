@@ -328,7 +328,7 @@ namespace SimPe.PackedFiles.Wrapper
 				"Quaxi",
                 "This Wrapper is overridden by 'PJSE STR#/TTAs/CTSS Wrapper' if it's enabled",
 				9,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.txt.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Wrapper.txt.png"))
 				);
 		}
 
@@ -391,7 +391,7 @@ namespace SimPe.PackedFiles.Wrapper
 			get
 			{
 				string n = "filename="+this.FileName+", languages="+this.Languages.Length.ToString()+", lines="+this.Items.Length.ToString();
-				foreach (StrToken i in this.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode))
+				foreach (StrToken i in this.FallbackedLanguageItems((Data.MetaData.Languages)Helper.WindowsRegistry.LanguageCode))
 					if (i.Title != "")
 						return n + ", first=" + i.Title;
 				return n + " (no strings)";

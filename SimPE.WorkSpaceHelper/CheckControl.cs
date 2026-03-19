@@ -71,7 +71,7 @@ namespace SimPe
 			name = "SimPe."+name+".png";
 			System.IO.Stream s = typeof(CheckControl).Assembly.GetManifestResourceStream(name);
 			if (s==null) return new Bitmap(1, 1);
-			return Image.FromStream(s);
+			return Helper.LoadImage(s);
 		}
 
 		static Image iok, ifail, iunk,iwarn;

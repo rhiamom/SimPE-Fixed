@@ -397,7 +397,7 @@ namespace SimPe.PackedFiles.Wrapper
 				"This file is used to set up the basic catalogue properties of an Object. " +
 					"It also contains the unique ID for the Object (or part of the Object).",
 				7,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.objd.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.objd.png"))
 				);
 		}
 		protected override void Serialize(System.IO.BinaryWriter writer)

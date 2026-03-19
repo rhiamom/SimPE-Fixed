@@ -75,7 +75,7 @@ namespace SimPe.Windows.Forms
                 {
                     if (s != null)
                     {
-                        bg = Image.FromStream(s);
+                        bg = Helper.LoadImage(s);
                     }
                     else
                     {

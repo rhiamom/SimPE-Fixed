@@ -136,7 +136,7 @@ namespace SimPe.Cache
                     try
                     {
                         using (var ms = new MemoryStream(thumbData))
-                            thumb = Image.FromStream(ms);
+                            thumb = Helper.LoadImage(ms);
                     }
                     catch
                     {

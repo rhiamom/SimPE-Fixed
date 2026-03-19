@@ -46,12 +46,12 @@ namespace SimPe
         protected static void Initialize()
         {
             if (resource != null) return;
-
-            Localization l = new Localization();
-            System.Reflection.Assembly myAssembly = l.GetType().Assembly;
-
-            // IMPORTANT: use the real base name of the embedded resource
-            resource = new ResourceManager("SimPE.Localization", myAssembly);
+            try
+            {
+                Localization l = new Localization();
+                resource = new ResourceManager("SimPe.Localization", l.GetType().Assembly);
+            }
+            catch { }
         }
 
         /// <summary>
@@ -59,24 +59,31 @@ namespace SimPe
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        /// <remarks>If there is no Translation, the passsed string will be returned</remarks>
+        /// <remarks>If there is no Translation, the passed string will be returned</remarks>
         public static string GetString(string name)
 		{
-			string res = Manager.GetString(name);
-			if (res==null) res = Manager.GetString(name.Trim().ToLower());
-			if (res==null) res = name;
-
-			return res;
+            try
+            {
+                if (resource == null) Initialize();
+                if (resource != null)
+                {
+                    string res = resource.GetString(name);
+                    if (res == null) res = resource.GetString(name.Trim().ToLower());
+                    if (res != null) return res;
+                }
+            }
+            catch { }
+			return name;
 		}
 
 		/// <summary>
-		/// Returns the currrent Resource Manager
+		/// Returns the current Resource Manager
 		/// </summary>
-		public static ResourceManager Manager 
+		public static ResourceManager Manager
 		{
-			get { 
+			get {
 				if (resource==null) Initialize();
-				return resource; 
+				return resource;
 			}
 		}
 

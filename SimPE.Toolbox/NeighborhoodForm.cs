@@ -246,7 +246,7 @@ namespace SimPe.Plugin
                 try
                 {
                     System.IO.Stream st = System.IO.File.OpenRead(name);
-                    Image img = Image.FromStream(st);
+                    Image img = Helper.LoadImage(st);
                     st.Close();
                     st.Dispose();
                     st = null;
@@ -592,7 +592,7 @@ namespace SimPe.Plugin
                                 throw new Exception("Preview PNG is unexpectedly large: " + fi.Length);
 
                             using (System.IO.Stream st = System.IO.File.OpenRead(name))
-                            using (Image tmp = Image.FromStream(st, true, true))
+                            using (Image tmp = Helper.LoadImage(st, true, true))
                             {
                                 // Force full decode NOW (inside try/catch), and detach from the stream
                                 using (Bitmap bmp = new Bitmap(tmp))

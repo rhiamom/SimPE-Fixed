@@ -51,7 +51,7 @@ namespace SimPe.Plugin
 		{
 			get
 			{
-                return System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.ColorBinningTool.png"));
+                return Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.ColorBinningTool.png"));
 			}
 		}
     }

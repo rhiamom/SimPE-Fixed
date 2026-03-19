@@ -517,7 +517,7 @@ namespace SimPe.PackedFiles.UserInterface
 					img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(sdesc.Image, new Point(0,0), Color.Magenta);
 
 			if (img == null)
-                img = Image.FromStream(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
+                img = Helper.LoadImage(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
 
             img = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, pbImage.Size, 12, Color.FromArgb(90, Color.Black), SimPe.PackedFiles.Wrapper.SimPoolControl.GetImagePanelColor(Sdesc), Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
 			this.pbImage.Image = img;

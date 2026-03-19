@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+using System.Drawing; // Color, Size, Point — plain structs, no GDI+ rendering
+using Avalonia;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using Size = System.Drawing.Size;
+using Point = System.Drawing.Point;
 using Ambertation.Collections;
 using Ambertation.Geometry;
 using Ambertation.Geometry.Collections;
@@ -315,7 +318,7 @@ public class Mesh : Node
 		return null;
 	}
 
-	public Image CreateNormalMap()
+	public WriteableBitmap CreateNormalMap()
 	{
 		if (Material.Texture.Available)
 		{
@@ -371,71 +374,127 @@ public class Mesh : Node
 		}
 	}
 
-	public Image CreateNormalMap(Size sz, bool tangentspace)
+	public WriteableBitmap CreateNormalMap(Size sz, bool tangentspace)
 	{
 		if (t.Count == 0 || bmn.Count == 0)
 		{
 			return null;
 		}
-		Bitmap bitmap = new Bitmap(sz.Width, sz.Height, PixelFormat.Format32bppArgb);
-		Graphics graphics = Graphics.FromImage(bitmap);
-		graphics.SmoothingMode = SmoothingMode.None;
-		graphics.CompositingQuality = CompositingQuality.HighQuality;
-		graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-		graphics.FillRectangle(new SolidBrush(Color.FromArgb(127, 127, 255)), 0, 0, bitmap.Width - 1, bitmap.Height - 1);
-		Color[] array = new Color[3];
-		Point[] array2 = new Point[3];
+		var bitmap = new WriteableBitmap(
+			new PixelSize(sz.Width, sz.Height),
+			new Vector(96, 96),
+			PixelFormat.Bgra8888,
+			AlphaFormat.Opaque);
+
+		// Fill background: normal map neutral = (127, 127, 255) → BGRA: 255, 127, 127, 255
+		using (var fb = bitmap.Lock())
+		{
+			unsafe
+			{
+				byte* ptr = (byte*)(void*)fb.Address;
+				int stride = fb.RowBytes;
+				for (int py = 0; py < sz.Height; py++)
+					for (int px = 0; px < sz.Width; px++)
+					{
+						int off = py * stride + px * 4;
+						ptr[off]     = 255; // B
+						ptr[off + 1] = 127; // G
+						ptr[off + 2] = 127; // R
+						ptr[off + 3] = 255; // A
+					}
+			}
+		}
+
+		Color[] colors = new Color[3];
+		Point[] points = new Point[3];
 		Vector3Collection vector3Collection = new Vector3Collection();
 		Vector3Collection vector3Collection2 = new Vector3Collection();
 		if (tangentspace)
 		{
 			PrepareTangentSpace(vector3Collection, vector3Collection2);
 		}
-		foreach (Vector3i faceIndex in FaceIndices)
+
+		using (var fb = bitmap.Lock())
 		{
-			for (int i = 0; i < 3; i++)
+			foreach (Vector3i faceIndex in FaceIndices)
 			{
-				int index = faceIndex[i];
-				Vector3 vector = bmn[index];
-				if (Normals.Count >= 0 && tangentspace)
+				for (int i = 0; i < 3; i++)
 				{
-					Vector3 vector2 = n[index];
-					Vector3 unitVector = (vector2 + vector).UnitVector;
-					Vector3 vector3 = vector3Collection[index];
-					Vector3 vector4 = vector3Collection2[index];
-					Ambertation.Geometry.Matrix matrix = new Ambertation.Geometry.Matrix();
-					matrix.MakeIdentity();
-					Vector3.SetMatrixRow(matrix, 0, vector3.UnitVector);
-					Vector3.SetMatrixRow(matrix, 1, vector4.UnitVector);
-					Vector3.SetMatrixRow(matrix, 2, unitVector.UnitVector);
-					vector = matrix * unitVector;
+					int index = faceIndex[i];
+					Vector3 vector = bmn[index];
+					if (Normals.Count >= 0 && tangentspace)
+					{
+						Vector3 vector2 = n[index];
+						Vector3 unitVector = (vector2 + vector).UnitVector;
+						Vector3 vector3 = vector3Collection[index];
+						Vector3 vector4 = vector3Collection2[index];
+						Ambertation.Geometry.Matrix matrix = new Ambertation.Geometry.Matrix();
+						matrix.MakeIdentity();
+						Vector3.SetMatrixRow(matrix, 0, vector3.UnitVector);
+						Vector3.SetMatrixRow(matrix, 1, vector4.UnitVector);
+						Vector3.SetMatrixRow(matrix, 2, unitVector.UnitVector);
+						vector = matrix * unitVector;
+					}
+					ref Color reference = ref colors[i];
+					reference = Color.FromArgb(
+						Clamp((vector.X + 1.0) * 0.5 * 255.0, 255),
+						Clamp((vector.Y + 1.0) * 0.5 * 255.0, 255),
+						Clamp((vector.Z + 1.0) * 0.5 * 255.0, 255));
+					int x = Clamp(t[index].X * (double)sz.Width, sz.Width);
+					int y = sz.Height - Clamp(t[index].Y * (double)sz.Height, sz.Height);
+					ref Point reference2 = ref points[i];
+					reference2 = new Point(x, y);
 				}
-				ref Color reference = ref array[i];
-				reference = Color.FromArgb(Clamp((vector.X + 1.0) * 0.5 * 255.0, 255), Clamp((vector.Y + 1.0) * 0.5 * 255.0, 255), Clamp((vector.Z + 1.0) * 0.5 * 255.0, 255));
-				int x = Clamp(t[index].X * (double)bitmap.Width, bitmap.Width);
-				int y = bitmap.Height - Clamp(t[index].Y * (double)bitmap.Height, bitmap.Height);
-				ref Point reference2 = ref array2[i];
-				reference2 = new Point(x, y);
+				Interpolate(fb, sz.Width, sz.Height, colors, points);
 			}
-			Interpolate(graphics, array, array2);
 		}
+
 		vector3Collection.Dispose();
 		vector3Collection2.Dispose();
-		graphics.Dispose();
 		return bitmap;
 	}
 
-	protected static void Interpolate(Graphics g, Color[] cl, Point[] pos)
+	/// <summary>
+	/// Software triangle rasterizer with per-vertex colour interpolation —
+	/// replaces GDI+ PathGradientBrush (cross-platform, pure Avalonia WriteableBitmap).
+	/// </summary>
+	protected static void Interpolate(ILockedFramebuffer fb, int bmpW, int bmpH, Color[] cl, Point[] pos)
 	{
-		GraphicsPath graphicsPath = new GraphicsPath();
-		graphicsPath.AddLines(pos);
-		graphicsPath.CloseFigure();
-		PathGradientBrush pathGradientBrush = new PathGradientBrush(pos);
-		pathGradientBrush.SurroundColors = cl;
-		pathGradientBrush.CenterPoint = pos[0];
-		pathGradientBrush.CenterColor = cl[0];
-		g.DrawPath(new Pen(pathGradientBrush, 2f), graphicsPath);
-		g.FillPath(pathGradientBrush, graphicsPath);
+		int x0 = pos[0].X, y0 = pos[0].Y;
+		int x1 = pos[1].X, y1 = pos[1].Y;
+		int x2 = pos[2].X, y2 = pos[2].Y;
+
+		int minX = Math.Max(0, Math.Min(x0, Math.Min(x1, x2)));
+		int maxX = Math.Min(bmpW - 1, Math.Max(x0, Math.Max(x1, x2)));
+		int minY = Math.Max(0, Math.Min(y0, Math.Min(y1, y2)));
+		int maxY = Math.Min(bmpH - 1, Math.Max(y0, Math.Max(y1, y2)));
+
+		float denom = (float)((y1 - y2) * (x0 - x2) + (x2 - x1) * (y0 - y2));
+		if (Math.Abs(denom) < 0.001f) return;
+
+		unsafe
+		{
+			byte* ptr = (byte*)(void*)fb.Address;
+			int stride = fb.RowBytes;
+			for (int py = minY; py <= maxY; py++)
+			{
+				for (int px = minX; px <= maxX; px++)
+				{
+					float w0 = ((y1 - y2) * (px - x2) + (x2 - x1) * (py - y2)) / denom;
+					float w1 = ((y2 - y0) * (px - x2) + (x0 - x2) * (py - y2)) / denom;
+					float w2 = 1f - w0 - w1;
+					if (w0 < 0 || w1 < 0 || w2 < 0) continue;
+					byte r = (byte)(w0 * cl[0].R + w1 * cl[1].R + w2 * cl[2].R);
+					byte g = (byte)(w0 * cl[0].G + w1 * cl[1].G + w2 * cl[2].G);
+					byte b = (byte)(w0 * cl[0].B + w1 * cl[1].B + w2 * cl[2].B);
+					int off = py * stride + px * 4;
+					ptr[off]     = b; // B (BGRA order)
+					ptr[off + 1] = g;
+					ptr[off + 2] = r;
+					ptr[off + 3] = 255;
+				}
+			}
+		}
 	}
 
 	public override void Dispose()

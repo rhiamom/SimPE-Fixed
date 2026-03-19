@@ -217,12 +217,14 @@ namespace SimPe.Plugin
 				{
 					try
 					{
-						System.Drawing.Image img = System.Drawing.Image.FromStream(s);
-						if (absimgpath!=null) img.Save(System.IO.Path.Combine(absimgpath, g.Name+".png"), System.Drawing.Imaging.ImageFormat.Png);
-						mat.Texture.FileName = imgfolder+g.Name+".png";
-						mat.Texture.Size = img.Size;
+						var img = new Avalonia.Media.Imaging.Bitmap(s);
+						if (absimgpath != null)
+							using (var fs = System.IO.File.OpenWrite(System.IO.Path.Combine(absimgpath, g.Name + ".png")))
+								img.Save(fs);
+						mat.Texture.FileName = imgfolder + g.Name + ".png";
+						mat.Texture.Size = new System.Drawing.Size(img.PixelSize.Width, img.PixelSize.Height);
 						mat.Texture.TextureImage = img;
-					} 
+					}
 					catch {}
 				}
 				Ambertation.Scenes.Mesh m = scn.CreateMesh(g.Name, mat);

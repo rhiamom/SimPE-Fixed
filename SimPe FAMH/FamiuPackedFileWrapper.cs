@@ -76,7 +76,7 @@ namespace SimPe.Plugin
                     {
                         SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
                         str.ProcessData(pfd, package);
-                        SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+                        SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);
                         if (items.Length > 0) name = items[0].Title;
                     }
                 }
@@ -109,7 +109,7 @@ namespace SimPe.Plugin
                         {
                             SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
                             str.ProcessData(pfd, pkg);
-                            SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+                            SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);
                             if (items.Length > 0) subh = items[0].Title;
                         }
                         else subh = "Tutorial";
@@ -178,7 +178,7 @@ namespace SimPe.Plugin
                 "Chris",
                 "Contains the history of a well played family",
                 1,
-                System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.book.png"))
+                Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.book.png"))
                 );
         }
 

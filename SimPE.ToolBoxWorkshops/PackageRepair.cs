@@ -82,7 +82,7 @@ namespace SimPe.Plugin.Tool.Window
 		{
 			get
 			{
-				return System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.Tool.Dockable.repair.png"));
+				return Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.Tool.Dockable.repair.png"));
 			}
 		}
 

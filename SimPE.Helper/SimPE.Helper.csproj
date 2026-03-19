@@ -9,7 +9,7 @@
     <StartupObject />
 	  <PostBuildEvent />
     <Configurations>Debug;Release;x86</Configurations>
-	  <NoWarn>$(NoWarn);NU1701;CS0012</NoWarn>
+	  <NoWarn>$(NoWarn);NU1701;CS0012;CS0108;CS0109;CS0114</NoWarn>
 	  <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
 	  <AssemblyName>simpe.helper</AssemblyName>
   </PropertyGroup>
@@ -856,4 +856,23 @@
   <ItemGroup>
     <ProjectReference Include="..\NetDocks\NetDocks.csproj" />
   </ItemGroup>
+
+  <!-- Re-include Localization resx files after the global EmbeddedResource Remove in Directory.Build.targets.
+       Items added inside a Target are not affected by static Remove globs. -->
+  <Target Name="ReIncludeLocalizationResx" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <!-- Neutral (English) resource — embedded in the main assembly -->
+      <EmbeddedResource Include="Localization.resx">
+        <LogicalName>SimPe.Localization.resources</LogicalName>
+      </EmbeddedResource>
+      <!-- Culture satellite assemblies -->
+      <EmbeddedResource Include="Localization.de.resx">    <Culture>de</Culture>    <LogicalName>SimPe.Localization.de.resources</LogicalName>    </EmbeddedResource>
+      <EmbeddedResource Include="Localization.en-US.resx"> <Culture>en-US</Culture> <LogicalName>SimPe.Localization.en-US.resources</LogicalName> </EmbeddedResource>
+      <EmbeddedResource Include="Localization.fr.resx">    <Culture>fr</Culture>    <LogicalName>SimPe.Localization.fr.resources</LogicalName>    </EmbeddedResource>
+      <EmbeddedResource Include="Localization.it.resx">    <Culture>it</Culture>    <LogicalName>SimPe.Localization.it.resources</LogicalName>    </EmbeddedResource>
+      <EmbeddedResource Include="Localization.pl.resx">    <Culture>pl</Culture>    <LogicalName>SimPe.Localization.pl.resources</LogicalName>    </EmbeddedResource>
+      <EmbeddedResource Include="Localization.ru.resx">    <Culture>ru</Culture>    <LogicalName>SimPe.Localization.ru.resources</LogicalName>    </EmbeddedResource>
+    </ItemGroup>
+  </Target>
+
 </Project>

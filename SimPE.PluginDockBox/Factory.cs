@@ -42,7 +42,7 @@ namespace SimPe.Plugin.Tool.Dockable
         public DockboxFactory()
     : base()
         {
-            rd = new ResourceDock();
+            // ResourceDock is WinForms — not constructed on this platform
         }
         #endregion
 

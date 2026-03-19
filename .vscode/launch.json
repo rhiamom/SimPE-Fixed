@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/SimPE.Main.exe",
+            "program": "${workspaceFolder}/bin/Debug/SimPE.Main.dll",
             "args": [],
             "cwd": "${workspaceFolder}/bin/Debug",
             "console": "internalConsole",

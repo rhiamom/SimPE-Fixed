@@ -19,7 +19,7 @@ namespace SimPe.PackedFiles.Wrapper
         private System.Windows.Forms.Label label1 = new System.Windows.Forms.Label();
         private System.Windows.Forms.Panel panel1 = new System.Windows.Forms.Panel();
         private System.Windows.Forms.Panel panel2 = new System.Windows.Forms.Panel();
-        private new void InitializeComponent() { }
+        private void InitializeComponent() { }
     }
 }
 

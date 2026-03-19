@@ -45,7 +45,7 @@ public class WhidbeyRenderDockHints : BaseControlRenderer, IRenderDockHints, ICo
 		{
 			if (hintcenter == null)
 			{
-				hintcenter = Image.FromStream(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.dockhint.PNG")) as Bitmap;
+				hintcenter = Helper.LoadImage(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.dockhint.PNG")) as Bitmap;
 			}
 			return hintcenter;
 		}
@@ -57,7 +57,7 @@ public class WhidbeyRenderDockHints : BaseControlRenderer, IRenderDockHints, ICo
 		{
 			if (hintleft == null)
 			{
-				hintleft = Image.FromStream(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.left.png")) as Bitmap;
+				hintleft = Helper.LoadImage(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.left.png")) as Bitmap;
 			}
 			return hintleft;
 		}
@@ -69,7 +69,7 @@ public class WhidbeyRenderDockHints : BaseControlRenderer, IRenderDockHints, ICo
 		{
 			if (hinttop == null)
 			{
-				hinttop = Image.FromStream(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.top.png")) as Bitmap;
+				hinttop = Helper.LoadImage(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.top.png")) as Bitmap;
 			}
 			return hinttop;
 		}
@@ -81,7 +81,7 @@ public class WhidbeyRenderDockHints : BaseControlRenderer, IRenderDockHints, ICo
 		{
 			if (hintright == null)
 			{
-				hintright = Image.FromStream(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.right.png")) as Bitmap;
+				hintright = Helper.LoadImage(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.right.png")) as Bitmap;
 			}
 			return hintright;
 		}
@@ -93,7 +93,7 @@ public class WhidbeyRenderDockHints : BaseControlRenderer, IRenderDockHints, ICo
 		{
 			if (hintbottom == null)
 			{
-				hintbottom = Image.FromStream(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.bottom.png")) as Bitmap;
+				hintbottom = Helper.LoadImage(typeof(DockHint).Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.bottom.png")) as Bitmap;
 			}
 			return hintbottom;
 		}

@@ -310,12 +310,12 @@ namespace SimPe
         public Image GetImage(SimPe.Interfaces.IWrapper wrapper)
         {
             if (uids.Contains(wrapper.WrapperDescription.UID))
-                return System.Drawing.Image.FromStream(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.error.png"));
+                return Helper.LoadImage(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.error.png"));
 
             if (wrapper.Priority >= 0)
-                return System.Drawing.Image.FromStream(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.enabled.png"));
+                return Helper.LoadImage(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.enabled.png"));
 
-            return System.Drawing.Image.FromStream(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.disabled.png"));
+            return Helper.LoadImage(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.disabled.png"));
         }
 
         internal void SetPanel(SimPe.Interfaces.IWrapper wrapper, PluginPanel pn)
@@ -340,11 +340,11 @@ namespace SimPe
         {
             if (pn.Height == pn.DisplayRectangle.Top + 1)
             {
-                return System.Drawing.Image.FromStream(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.expand.png"));
+                return Helper.LoadImage(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.expand.png"));
             }
             else
             {
-                return System.Drawing.Image.FromStream(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.shrink.png"));
+                return Helper.LoadImage(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.shrink.png"));
             }
 
         }
@@ -543,7 +543,7 @@ namespace SimPe
                 pb.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 var stream = typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.multienabled.png");
                 if (stream != null)
-                    pb.Image = System.Drawing.Image.FromStream(stream);
+                    pb.Image = Helper.LoadImage(stream);
                 pb.Click += new EventHandler(pn_Click);
                 this.toolTip1.SetToolTip(pb, "Allows Multiple instance");
 
@@ -559,7 +559,7 @@ namespace SimPe
                 var asm = System.Reflection.Assembly.Load("simpe.helper");
                 asm.GetManifestResourceStream("SimPe.IconXml.multienabled.png");
                 if (stream != null)
-                    pb.Image = System.Drawing.Image.FromStream(stream);
+                    pb.Image = Helper.LoadImage(stream);
                 pb.BackColor = Color.Transparent;
 
                 this.toolTip1.SetToolTip(pb, "Allows Multiple instance.");
@@ -576,7 +576,7 @@ namespace SimPe
                 if (wrapper.AllowMultipleInstances) pb.Left = pn.Width - 4 * pb.Width - pb.Top;
                 else pb.Left = pn.Width - 3 * pb.Width - pb.Top;
                 pb.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                pb.Image = System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.IconXml.error.png")).GetThumbnailImage(16, 16, new Image.GetThumbnailImageAbort(ThumbnailCallback), IntPtr.Zero); ;
+                pb.Image = Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.IconXml.error.png")).GetThumbnailImage(16, 16, new Image.GetThumbnailImageAbort(ThumbnailCallback), IntPtr.Zero); ;
                 pb.BackColor = Color.Transparent;
                 this.toolTip1.SetToolTip(pb, "This wrapper caused an Error while loading.");
             }

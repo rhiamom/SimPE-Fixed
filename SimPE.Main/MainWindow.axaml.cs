@@ -1,7 +1,9 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Selection;
 using Avalonia.Platform.Storage;
+using AvaloniaHex.Document;
 using SimPe.Interfaces.Files;
+using SimPe.Interfaces.Scenegraph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace SimPe
     public partial class MainWindow : Window
     {
         private SimPe.Packages.GeneratableFile _package;
+        private byte[] _currentBytes;
 
         public MainWindow()
         {
@@ -23,17 +26,20 @@ namespace SimPe
         // Event wiring
         // ─────────────────────────────────────────────────────────────
 
+        public event Action<IScenegraphFileIndexItem> ResourceSelected;
+
         private void WireEvents()
         {
             MenuFileOpen.Click  += async (_, _) => await OpenPackage();
-            TbOpen.Click        += async (_, _) => await OpenPackage();
 
             MenuFileClose.Click += (_, _) => ClosePackage();
-            TbClose.Click       += (_, _) => ClosePackage();
 
             MenuFileExit.Click  += (_, _) => Close();
 
             ResourceTree.SelectionChanged += OnTreeSelectionChanged;
+            ResourceList.SelectionChanged += OnListSelectionChanged;
+
+            HexEditor.Caret.LocationChanged += (_, _) => UpdateConverter();
         }
 
         // ─────────────────────────────────────────────────────────────
@@ -42,36 +48,42 @@ namespace SimPe
 
         private async Task OpenPackage()
         {
-            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-            {
-                Title         = "Open Package",
-                AllowMultiple = false,
-                FileTypeFilter = new[]
-                {
-                    new FilePickerFileType("Sims 2 Package")
-                    {
-                        Patterns = new[] { "*.package", "*.package.disabled" }
-                    },
-                    new FilePickerFileType("All Files") { Patterns = new[] { "*.*" } }
-                }
-            });
-
-            if (files.Count == 0) return;
-
-            ClosePackage();
-
-            string path = files[0].Path.LocalPath;
             try
             {
+                var topLevel = TopLevel.GetTopLevel(this);
+                if (topLevel == null) { StatusText.Text = "Error: no TopLevel"; return; }
+
+                var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+                {
+                    Title         = "Open Package",
+                    AllowMultiple = false,
+                    FileTypeFilter = new[]
+                    {
+                        new FilePickerFileType("Sims 2 Package")
+                        {
+                            Patterns = new[] { "*.package", "*.package.disabled" }
+                        },
+                        new FilePickerFileType("All Files") { Patterns = new[] { "*.*" } }
+                    }
+                });
+
+                if (files.Count == 0) return;
+
+                ClosePackage();
+
+                string path = files[0].Path.LocalPath;
                 StatusText.Text = "Loading…";
                 _package = SimPe.Packages.File.LoadFromFile(path, true);
+                if (_package == null) { StatusText.Text = "Error: LoadFromFile returned null"; return; }
+                ExtractEmbeddedFilenames();
                 PopulateTree();
                 ShowAll();
                 Title = $"SimPE — {System.IO.Path.GetFileName(path)}";
             }
             catch (Exception ex)
             {
-                StatusText.Text = $"Error: {ex.Message}";
+                StatusText.Text = $"Error: {ex.GetType().Name}: {ex.Message}";
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
             }
         }
 
@@ -83,8 +95,11 @@ namespace SimPe
         {
             if (_package == null) return;
             _package = null;
+            _currentBytes = null;
             ResourceTree.ItemsSource = null;
             ResourceList.ItemsSource = null;
+            HexEditor.Document = new MemoryBinaryDocument(Array.Empty<byte>());
+            ClearConverter();
             Title = "SimPE — Sims Package Editor";
             StatusText.Text = "Ready";
         }
@@ -96,9 +111,9 @@ namespace SimPe
         private void PopulateTree()
         {
             var nodes = _package.Index
-                .GroupBy(pfd => pfd.TypeName?.Name ?? $"0x{pfd.Type:X8}")
-                .OrderBy(g => g.Key)
-                .Select(g => new ResourceTypeNode(g.Key, g.ToList()))
+                .GroupBy(pfd => pfd.Type)
+                .OrderBy(g => SimPe.Data.MetaData.FindTypeAlias(g.Key)?.Name ?? $"0x{g.Key:X8}")
+                .Select(g => new ResourceTypeNode(SimPe.Data.MetaData.FindTypeAlias(g.Key), g.ToList()))
                 .ToList();
 
             ResourceTree.ItemsSource = nodes;
@@ -129,6 +144,111 @@ namespace SimPe
             ResourceList.ItemsSource = descriptors
                 .Select(pfd => new ResourceListItem(pfd))
                 .ToList();
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // Resource selection
+        // ─────────────────────────────────────────────────────────────
+
+        // ─────────────────────────────────────────────────────────────
+        // Embedded filename extraction
+        // ─────────────────────────────────────────────────────────────
+
+        /// <summary>
+        /// For resource types that embed their filename in the first bytes of data,
+        /// read those bytes and set Filename on the descriptor so the list shows
+        /// meaningful names instead of TGI hex strings.
+        /// </summary>
+        private void ExtractEmbeddedFilenames()
+        {
+            foreach (var pfd in _package.Index)
+            {
+                try
+                {
+                    var handler = FileTable.WrapperRegistry?.FindHandler(pfd.Type)
+                                  as SimPe.Interfaces.Plugin.Internal.IPackedFileWrapper;
+                    if (handler == null) continue;
+                    handler.ProcessData(pfd, _package, false);
+                }
+                catch { /* leave filename as default hex string */ }
+            }
+        }
+
+        private void OnListSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ResourceList.SelectedItem is ResourceListItem item)
+            {
+                ResInfoPanel.Show(item.Descriptor, _package);
+
+                try
+                {
+                    var pf = _package.Read(item.Descriptor);
+                    _currentBytes = pf?.UncompressedData ?? Array.Empty<byte>();
+                }
+                catch
+                {
+                    _currentBytes = Array.Empty<byte>();
+                }
+
+                HexEditor.Document = new MemoryBinaryDocument(_currentBytes);
+                ClearConverter();
+
+                var fileItem = new SimPe.Plugin.FileIndexItem(item.Descriptor, _package);
+                ResourceSelected?.Invoke(fileItem);
+            }
+            else
+            {
+                _currentBytes = null;
+                HexEditor.Document = new MemoryBinaryDocument(Array.Empty<byte>());
+                ClearConverter();
+                PluginPanel.Content = null;
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────────
+        // Converter
+        // ─────────────────────────────────────────────────────────────
+
+        private void UpdateConverter()
+        {
+            byte[] b = _currentBytes;
+            if (b == null || b.Length == 0) { ClearConverter(); return; }
+
+            long pos = (long)HexEditor.Caret.Location.ByteIndex;
+            if (pos < 0 || pos >= b.Length) { ClearConverter(); return; }
+
+            CvOffset.Text = $"0x{pos:X8}";
+            CvByte.Text   = $"0x{b[pos]:X2}";
+            CvBits.Text   = Convert.ToString(b[pos], 2).PadLeft(8, '0');
+
+            if (pos + 1 < b.Length)
+            {
+                ushort us = BitConverter.ToUInt16(b, (int)pos);
+                CvUShort.Text = $"0x{us:X4}";
+                CvShort.Text  = BitConverter.ToInt16(b, (int)pos).ToString();
+            }
+
+            if (pos + 3 < b.Length)
+            {
+                uint ui = BitConverter.ToUInt32(b, (int)pos);
+                CvUInt.Text  = $"0x{ui:X8}";
+                CvInt.Text   = BitConverter.ToInt32(b, (int)pos).ToString();
+                CvFloat.Text = BitConverter.ToSingle(b, (int)pos).ToString("G9");
+            }
+
+            if (pos + 7 < b.Length)
+            {
+                ulong ul = BitConverter.ToUInt64(b, (int)pos);
+                CvULong.Text  = $"0x{ul:X16}";
+                CvDouble.Text = BitConverter.ToDouble(b, (int)pos).ToString("G17");
+            }
+        }
+
+        private void ClearConverter()
+        {
+            CvOffset.Text = CvByte.Text = CvUShort.Text = CvShort.Text =
+            CvUInt.Text   = CvInt.Text  = CvULong.Text  = CvFloat.Text =
+            CvDouble.Text = CvBits.Text = string.Empty;
         }
     }
 }

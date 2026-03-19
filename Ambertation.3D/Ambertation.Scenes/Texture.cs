@@ -1,7 +1,8 @@
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
+using System.Drawing; // Size — plain struct, no GDI+ rendering
 using System.IO;
+using Avalonia.Media.Imaging;
+using Bitmap = Avalonia.Media.Imaging.Bitmap;
 
 namespace Ambertation.Scenes;
 
@@ -11,7 +12,7 @@ public class Texture : IDisposable
 
 	private Size sz;
 
-	private Image img;
+	private Bitmap img;
 
 	private object tag;
 
@@ -19,54 +20,32 @@ public class Texture : IDisposable
 
 	public string FileName
 	{
-		get
-		{
-			return flname;
-		}
-		set
-		{
-			flname = value;
-		}
+		get => flname;
+		set => flname = value;
 	}
 
 	public Size Size
 	{
-		get
-		{
-			return sz;
-		}
-		set
-		{
-			sz = value;
-		}
+		get => sz;
+		set => sz = value;
 	}
 
-	public Image TextureImage
+	/// <summary>Loaded texture image, as an Avalonia Bitmap.</summary>
+	public Bitmap TextureImage
 	{
-		get
-		{
-			return img;
-		}
+		get => img;
 		set
 		{
 			img = value;
 			if (img != null)
-			{
-				Size = img.Size;
-			}
+				Size = new Size(img.PixelSize.Width, img.PixelSize.Height);
 		}
 	}
 
 	public object Tag
 	{
-		get
-		{
-			return tag;
-		}
-		set
-		{
-			tag = value;
-		}
+		get => tag;
+		set => tag = value;
 	}
 
 	internal Texture(string filename, Size sz)
@@ -80,25 +59,6 @@ public class Texture : IDisposable
 		LoadTexture(flname);
 	}
 
-	public static ImageFormat GetImageFormatFromName(string flname)
-	{
-		switch (Path.GetExtension(flname).Trim().ToLower())
-		{
-		case ".png":
-			return ImageFormat.Png;
-		case ".jpg":
-		case ".jpeg":
-			return ImageFormat.Jpeg;
-		case ".tif":
-		case ".tiff":
-			return ImageFormat.Tiff;
-		case ".gif":
-			return ImageFormat.Gif;
-		default:
-			return ImageFormat.Bmp;
-		}
-	}
-
 	public void ExportTextureImage()
 	{
 		ExportTextureImage(img, flname);
@@ -107,60 +67,48 @@ public class Texture : IDisposable
 	public override string ToString()
 	{
 		if (Available)
-		{
 			return flname + " (" + sz.ToString() + ")";
-		}
 		return GetType().Name;
 	}
 
-	protected bool ExportTextureImage(Image img, string flname)
+	protected bool ExportTextureImage(Bitmap img, string flname)
 	{
-		if (img != null && flname != null)
+		if (img == null || flname == null) return false;
+		try
 		{
-			ImageFormat imageFormatFromName = GetImageFormatFromName(flname);
-			string directoryName = Path.GetDirectoryName(flname);
-			try
-			{
-				if (!Directory.Exists(directoryName))
-				{
-					Directory.CreateDirectory(directoryName);
-				}
-				img.Save(flname, imageFormatFromName);
-				return true;
-			}
-			catch
-			{
-			}
+			string dir = Path.GetDirectoryName(flname);
+			if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+				Directory.CreateDirectory(dir);
+			// Avalonia Bitmap.Save writes PNG — suitable for all texture export paths
+			using var stream = File.OpenWrite(flname);
+			img.Save(stream);
+			return true;
 		}
-		return false;
+		catch
+		{
+			return false;
+		}
 	}
 
 	protected void LoadTexture(string flname)
 	{
-		if (flname == null)
-		{
-			return;
-		}
+		if (flname == null) return;
 		if (!File.Exists(flname))
-		{
 			flname = Path.GetFileName(flname);
-		}
-		if (File.Exists(flname))
+		if (!File.Exists(flname)) return;
+		img = null;
+		try
 		{
-			img = null;
-			try
-			{
-				img = Image.FromFile(flname);
-				Size = img.Size;
-			}
-			catch
-			{
-			}
+			img = new Bitmap(flname);
+			if (img != null)
+				sz = new Size(img.PixelSize.Width, img.PixelSize.Height);
 		}
+		catch { }
 	}
 
 	public void Dispose()
 	{
+		img?.Dispose();
 		img = null;
 		flname = null;
 	}

@@ -11,10 +11,13 @@ namespace SimPe
         public string DisplayName { get; }
         public List<IPackedFileDescriptor> Descriptors { get; }
 
-        public ResourceTypeNode(string typeName, List<IPackedFileDescriptor> descriptors)
+        public ResourceTypeNode(SimPe.Data.TypeAlias alias, List<IPackedFileDescriptor> descriptors)
         {
-            Descriptors  = descriptors;
-            DisplayName  = $"{typeName}  ({descriptors.Count})";
+            Descriptors = descriptors;
+            string label = (alias != null && alias.Name != null)
+                ? $"{alias.Name} ({alias.shortname}) ({descriptors.Count})"
+                : $"0x{descriptors[0].Type:X8} ({descriptors.Count})";
+            DisplayName = label;
         }
     }
 }

@@ -1756,7 +1756,7 @@ namespace SimPe.PackedFiles.Wrapper
                     }
                 }
 
-                return new System.Drawing.Bitmap(1, 1);
+                return null;
 
             }
         }
@@ -1955,7 +1955,7 @@ namespace SimPe.PackedFiles.Wrapper
                 "Quaxi",
                 "This File contains Settings (like interests, friendships, money, age, gender...) for one Sim.",
                 17,
-                System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.sdsc.png"))
+                Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.PackedFiles.Handlers.sdsc.png"))
                 );
         }
 

@@ -165,7 +165,7 @@ namespace SimPe.PackedFiles.Wrapper
 			else
 			{
 				var asm = typeof(SimPe.Helper).Assembly;
-				imgbig = Image.FromStream(asm.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
+				imgbig = Helper.LoadImage(asm.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
 			}
             imgbig = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(
                 imgbig,

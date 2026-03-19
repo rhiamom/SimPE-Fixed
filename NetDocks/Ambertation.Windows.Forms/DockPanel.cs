@@ -613,7 +613,7 @@ public class DockPanel : NCUserControl
 		Stream manifestResourceStream = GetType().Assembly.GetManifestResourceStream("Ambertation.Windows.Forms.dockimg.png");
 		if (manifestResourceStream != null)
 		{
-			img = Image.FromStream(manifestResourceStream);
+			img = Helper.LoadImage(manifestResourceStream);
 		}
 		else
 		{

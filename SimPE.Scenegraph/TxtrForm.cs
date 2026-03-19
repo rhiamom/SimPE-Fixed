@@ -675,7 +675,7 @@ namespace SimPe.Plugin
 				{
 					ImageData id = (ImageData)cbitem.Items[cbitem.SelectedIndex];
 					System.IO.Stream s = System.IO.File.OpenRead(ofd.FileName);
-					Image img = Image.FromStream(s);
+					Image img = Helper.LoadImage(s);
 					s.Close();
 					s.Dispose();
 					s = null;
@@ -1090,7 +1090,7 @@ namespace SimPe.Plugin
 				{
 					ImageData id = (ImageData)cbitem.Items[cbitem.SelectedIndex];
 					System.IO.Stream s = System.IO.File.OpenRead(ofd.FileName);
-					Image img = Image.FromStream(s);
+					Image img = Helper.LoadImage(s);
 					s.Close();
 					s.Dispose();
 					s = null;

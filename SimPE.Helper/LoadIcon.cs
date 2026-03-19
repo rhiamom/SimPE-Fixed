@@ -93,7 +93,7 @@ namespace SimPe
                     return null;
                 }
 
-                return Image.FromStream(stream);
+                return Helper.LoadImage(stream);
             }
         }
 

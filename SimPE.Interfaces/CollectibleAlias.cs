@@ -59,10 +59,7 @@ namespace SimPe.Providers
             this.id = id;
             this.nr = nr;
             this.name = name;
-            if (img == null)
-            {
-                img = new System.Drawing.Bitmap(32, 32);
-            }
+            if (img == null) { /* icon unavailable on non-Windows */ }
             this.img = img;
         }
 

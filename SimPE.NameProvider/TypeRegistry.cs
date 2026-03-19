@@ -120,46 +120,8 @@ namespace SimPe.PackedFiles
 			settings = new ArrayList();
 			listeners = new SimPe.Collections.InternalListeners();
 
-			il = new System.Windows.Forms.ImageList();
-			il.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-
-			// Use the assembly that actually contains this class
-			var asm = this.GetType().Assembly;
-
-			// Debug: list all resource names so we can inspect later in Output ? Debug
-			//System.Diagnostics.Debug.WriteLine("=== Resources in " + asm.FullName + " ===");
-			foreach (string name in asm.GetManifestResourceNames())
-			{
-				System.Diagnostics.Debug.WriteLine("RES: " + name);
-			}
-
-			// Helper local function to safely load an image or fall back to a blank one
-			System.Drawing.Image LoadIconOrPlaceholder(string resourceName)
-			{
-				try
-				{
-					var stream = asm.GetManifestResourceStream(resourceName);
-					if (stream != null)
-					{
-						return System.Drawing.Image.FromStream(stream);
-					}
-					else
-					{
-						System.Diagnostics.Debug.WriteLine("Missing resource: " + resourceName + " (stream was null)");
-					}
-				}
-				catch (System.Exception ex)
-				{
-					System.Diagnostics.Debug.WriteLine("Error loading resource " + resourceName + ": " + ex);
-				}
-
-				// Fallback: return a simple 16x16 blank bitmap so we never crash
-				return new System.Drawing.Bitmap(16, 16);
-			}
-
-			// NOTE: adjust the resource names here later if needed
-			il.Images.Add(LoadIconOrPlaceholder("SimPe.NameProvider.empty.png"));
-			il.Images.Add(LoadIconOrPlaceholder("SimPe.NameProvider.binary.png"));
+			// Icon loading skipped — System.Drawing.Common is Windows-only.
+			il = null;
 		}
 
         #region IWrapperRegistry Member
@@ -174,7 +136,7 @@ namespace SimPe.PackedFiles
                     handlers.Add((SimPe.Interfaces.Plugin.IFileWrapper)wrapper);
                     if (wrapper.WrapperDescription is AbstractWrapperInfo)
                     {
-                        if (wrapper.WrapperDescription.Icon != null)
+                        if (il != null && wrapper.WrapperDescription.Icon != null)
                         {
                             ((AbstractWrapperInfo)wrapper.WrapperDescription).IconIndex = il.Images.Count;
                             il.Images.Add(wrapper.WrapperDescription.Icon);

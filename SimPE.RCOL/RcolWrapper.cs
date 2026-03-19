@@ -218,7 +218,7 @@ namespace SimPe.Plugin
 				"Quaxi",
 				"This File is part of the Scenegraph. The Scenegraph is used to build the 3D Objects in \"The Sims 2\".",
 				10,
-				System.Drawing.Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.resource.png"))
+				Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.Plugin.resource.png"))
 				); 
 		}
 

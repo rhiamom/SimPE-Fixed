@@ -73,7 +73,7 @@ namespace Ambertation.Renderer
             this.RoundedEdges = false;
 
             if (menupattern == null)
-                menupattern = Image.FromStream(this.GetType().Assembly.GetManifestResourceStream("SimPe.pattern.gif"));            
+                menupattern = SimPe.Helper.LoadImage(this.GetType().Assembly.GetManifestResourceStream("SimPe.pattern.gif"));            
         }
 
         static Image menupattern;
