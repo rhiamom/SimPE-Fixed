@@ -43,7 +43,7 @@ namespace SimPe.Windows.Forms
             allowselectevent = true;
             InitializeComponent();
 
-            if (Helper.WindowsRegistry.UseBigIcons) tv.Font = new System.Drawing.Font("Tahoma", this.Font.Size + 5F); // was 3F
+            if (Helper.XmlRegistry.UseBigIcons) tv.Font = new System.Drawing.Font("Tahoma", this.Font.Size + 5F); // was 3F
 
             typebuilder = new ResourceTreeNodesByType();
             groupbuilder = new ResourceTreeNodesByGroup();
@@ -103,7 +103,7 @@ namespace SimPe.Windows.Forms
             firstnode.Expand();
 
             allowselectevent = selectevent;
-            if (!dontselect && (maps.Everything.Count <= Helper.WindowsRegistry.BigPackageResourceCount || Helper.WindowsRegistry.ResoruceTreeAllwaysAutoselect))
+            if (!dontselect && (maps.Everything.Count <= Helper.XmlRegistry.BigPackageResourceCount || Helper.XmlRegistry.ResoruceTreeAllwaysAutoselect))
             {
                 if (!SelectID(firstnode, builder.LastSelectedId))
                 {

@@ -629,7 +629,7 @@ namespace pjse
 
             if (str != null)
             {
-                FallbackStrItem fsi = str[(byte)SimPe.Helper.WindowsRegistry.LanguageCode, sid];
+                FallbackStrItem fsi = str[(byte)SimPe.Helper.XmlRegistry.LanguageCode, sid];
                 if (fsi != null)
                 {
                     String s = "";
@@ -696,7 +696,7 @@ namespace pjse
         {
             if (instruction == null || instruction.Parent == null || instruction.Parent.FileDescriptor == null)
             {
-                if (SimPe.Helper.WindowsRegistry.Silent) return null;
+                if (SimPe.Helper.XmlRegistry.Silent) return null;
                 else throw new InvalidOperationException("Can't read STR# for instruction with no parent");
             }
 
@@ -900,7 +900,7 @@ namespace pjse
         {
             if (instruction == null || instruction.Parent == null || instruction.Parent.FileDescriptor == null)
             {
-                if (SimPe.Helper.WindowsRegistry.Silent) return null;
+                if (SimPe.Helper.XmlRegistry.Silent) return null;
                 else throw new InvalidOperationException("Can't read TPRP for instruction with no parent");
             }
 
@@ -977,7 +977,7 @@ namespace pjse
 
             if (instruction == null || instruction.Parent == null || instruction.Parent.FileDescriptor == null)
             {
-                if (SimPe.Helper.WindowsRegistry.Silent) return null;
+                if (SimPe.Helper.XmlRegistry.Silent) return null;
                 else throw new InvalidOperationException("Can't read BCON for instruction with no parent");
             }
 

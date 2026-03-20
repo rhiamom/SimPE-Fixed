@@ -690,7 +690,7 @@ namespace pjse
         static FileTableSettings() { fts = new FileTableSettings(); }
 
         const string BASENAME = "PJSE\\Bhav";
-        SimPe.XmlRegistryKey xrk = SimPe.Helper.WindowsRegistry.PluginRegistryKey;
+        SimPe.XmlRegistryKey xrk = SimPe.Helper.XmlRegistry.PluginRegistryKey;
         public FileTableSettings() : base(rm) { }
 
         [System.ComponentModel.Category("FT")]
@@ -698,14 +698,14 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 object o = rkf.GetValue("loadAtStartup", false);
                 return Convert.ToBoolean(o);
             }
 
             set
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 rkf.SetValue("loadAtStartup", value);
             }
         }

@@ -691,7 +691,7 @@ namespace SimPe
                 try
                 {
                     string path;
-                    if (Helper.WindowsRegistry.LoadOnlySimsStory == 0)
+                    if (Helper.XmlRegistry.LoadOnlySimsStory == 0)
                         path = System.IO.Path.Combine(PersonalFolder, "EA Games");
                     else
                         path = System.IO.Path.Combine(PersonalFolder, "Electronic Arts"); // For Sim Stories
@@ -714,7 +714,7 @@ namespace SimPe
             {
                 try
                 {
-                    XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                    XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                     object o = rkf.GetValue("SavegamePath");
                     if (o == null)
                     {
@@ -734,7 +734,7 @@ namespace SimPe
             }
             set
             {
-                XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                 if (value == "") rkf.DeleteSubKey("SavegamePath", false);
                 else rkf.SetValue("SavegamePath", value);
             }
@@ -780,7 +780,7 @@ namespace SimPe
             {
                 try
                 {
-                    XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                    XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                     object o = rkf.GetValue("NvidiaDDS");
                     if (o == null) return "";
                     return o.ToString();
@@ -792,7 +792,7 @@ namespace SimPe
             }
             set
             {
-                XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                 rkf.SetValue("NvidiaDDS", value);
             }
         }

@@ -82,7 +82,7 @@ namespace SimPe.PackedFiles.UserInterface
 			//
 			InitializeComponent();
 
-            this.llcreate.Visible = Helper.WindowsRegistry.HiddenMode;
+            this.llcreate.Visible = Helper.XmlRegistry.HiddenMode;
 		}
 
 		/// <summary>

@@ -129,6 +129,21 @@ namespace SimPe
 
         public static DialogResult Show(IWin32Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
             => Show(text, caption);
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text)
+            => Show(text, "");
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption)
+            => Show(text, caption);
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible)
+            => Show(text, caption);
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons)
+            => Show(text, caption);
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
+            => Show(text, caption);
     }
 
     // ── SelectSimFolder ──────────────────────────────────────────────────────

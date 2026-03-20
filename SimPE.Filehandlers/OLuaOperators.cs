@@ -520,7 +520,7 @@ namespace SimPe.PackedFiles.Wrapper.Lua
 
 		public override string ToString()
 		{
-			if (Helper.WindowsRegistry.HiddenMode)
+			if (Helper.XmlRegistry.HiddenMode)
 				return this.GetType().Name+": "+ToAsmString();
 			else
 				return ToAsmString();

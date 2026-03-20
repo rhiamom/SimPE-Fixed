@@ -57,8 +57,8 @@ namespace SimPe.Windows.Forms
             lbtxt.Text = msg;
 
             lbver.Text = Helper.VersionToString(Helper.SimPeVersion);
-            if (Helper.WindowsRegistry.HiddenMode && Helper.QARelease) lbver.Text += " [Debug, QA]";
-            else if (Helper.WindowsRegistry.HiddenMode) lbver.Text += " [Debug]";
+            if (Helper.XmlRegistry.HiddenMode && Helper.QARelease) lbver.Text += " [Debug, QA]";
+            else if (Helper.XmlRegistry.HiddenMode) lbver.Text += " [Debug]";
             else if (Helper.QARelease) lbver.Text += " [QA]";
         }
 
@@ -79,7 +79,7 @@ namespace SimPe.Windows.Forms
                     }
                     else
                     {
-                        // No embedded image found – just leave bg = null
+                        // No embedded image found ï¿½ just leave bg = null
                         // You can choose a solid background below.
                         bg = null;
                     }

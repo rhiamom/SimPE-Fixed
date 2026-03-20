@@ -34,7 +34,7 @@ namespace SimPe.Plugin
     /// <summary>
     /// Summary description for ScannerForm.
     /// </summary>
-    internal class ScannerForm : System.Windows.Forms.Form
+    internal class ScannerForm : Avalonia.Controls.Window
     {
         #region Windows Form Designer generated code
         private System.Windows.Forms.Button btclear;
@@ -172,7 +172,7 @@ namespace SimPe.Plugin
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -181,7 +181,6 @@ namespace SimPe.Plugin
                     components.Dispose();
                 }
             }
-            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -222,7 +221,7 @@ namespace SimPe.Plugin
             Label lb = new Label();
             lb.AutoSize = true;
             lb.Text = scanner.ToString() + ":";
-            lb.Font = new Font(Font.Name, Font.Size, FontStyle.Bold);
+            lb.Font = new System.Drawing.Font("Verdana", 8.25f, System.Drawing.FontStyle.Bold);
             lb.ForeColor = this.gbinfo.ForeColor;
             //this.visualStyleProvider1.SetVisualStyleSupport(lb, true);
 
@@ -387,7 +386,7 @@ namespace SimPe.Plugin
 
         void UpdateList(bool savecache, bool rescan)
         {
-            if (Helper.WindowsRegistry.UseCache && savecache) cachefile.Save();
+            if (Helper.XmlRegistry.UseCache && savecache) cachefile.Save();
             if (rescan) Scan(null, (System.Windows.Forms.LinkLabelLinkClickedEventArgs)null);
             else SelectItem(lv, null);
         }
@@ -447,7 +446,6 @@ namespace SimPe.Plugin
             this.gbinfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.thumb)).BeginInit();
             this.panel1.SuspendLayout();
-            this.SuspendLayout();
             // 
             // cbfolder
             // 
@@ -863,13 +861,10 @@ namespace SimPe.Plugin
             // 
             // ScannerForm
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(8, 19);
-            this.ClientSize = new System.Drawing.Size(964, 602);
-            this.Controls.Add(this.panel1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ScannerForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Folder Scanner";
+            this.Width = 964;
+            this.Height = 602;
+            this.Title = "Folder Scanner";
+            this.WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner;
             this.tabControl1.ResumeLayout(false);
             this.tbscanners.ResumeLayout(false);
             this.tbscanners.PerformLayout();
@@ -882,7 +877,6 @@ namespace SimPe.Plugin
             ((System.ComponentModel.ISupportInitialize)(this.thumb)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.ResumeLayout(false);
 
         }
         #endregion
@@ -930,7 +924,7 @@ namespace SimPe.Plugin
             try
             {
                 btscan.Enabled = false;
-                if (Helper.WindowsRegistry.UseCache) cachefile.LoadFiles();
+                if (Helper.XmlRegistry.UseCache) cachefile.LoadFiles();
 
                 //Setup ListView
                 lv.SmallImageList = null;
@@ -962,12 +956,8 @@ namespace SimPe.Plugin
                 scanClicked = StopScan;
                 btscan.Enabled = true;
                 WaitingScreen.Stop();
-                Cursor.Current = Cursors.AppStarting;
-
                 //scan all Files
                 Scan(folder, cbrec.Checked, scanners);
-
-                Cursor.Current = Cursors.Default;
                 WaitingScreen.Wait();
                 WaitingScreen.Message = "Finishing scan";
 
@@ -977,7 +967,7 @@ namespace SimPe.Plugin
 
                 try
                 {
-                    if (Helper.WindowsRegistry.UseCache && cachechg) cachefile.Save();
+                    if (Helper.XmlRegistry.UseCache && cachechg) cachefile.Save();
                 }
                 catch (Exception ex)
                 {
@@ -1083,7 +1073,7 @@ namespace SimPe.Plugin
 
         private void ReloadCache(object sender, System.EventArgs e)
         {
-            if (Helper.WindowsRegistry.UseCache) cachefile.Load(SimPe.Cache.PackageCacheFile.CacheFileName);
+            if (Helper.XmlRegistry.UseCache) cachefile.Load(SimPe.Cache.PackageCacheFile.CacheFileName);
         }
 
         private void SetEnabledState(object sender, System.EventArgs e)
@@ -1132,7 +1122,7 @@ namespace SimPe.Plugin
                 try
                 {
                     WaitingScreen.UpdateMessage("Writing Cache");
-                    if (Helper.WindowsRegistry.UseCache) cachefile.Save();
+                    if (Helper.XmlRegistry.UseCache) cachefile.Save();
                 }
                 catch (Exception ex)
                 {
@@ -1150,7 +1140,7 @@ namespace SimPe.Plugin
         {
             DialogResult dr = DialogResult.Yes;
 
-            if (!Helper.WindowsRegistry.Silent) dr = MessageBox.Show("Do you really want to clear the Cache?", "Confirm", MessageBoxButtons.YesNo);
+            if (!Helper.XmlRegistry.Silent) dr = MessageBox.Show("Do you really want to clear the Cache?", "Confirm", MessageBoxButtons.YesNo);
 
             if (dr == DialogResult.Yes)
             {

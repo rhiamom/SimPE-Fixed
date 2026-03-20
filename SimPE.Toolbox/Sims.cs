@@ -32,7 +32,7 @@ namespace SimPe.Plugin
 	/// <summary>
 	/// Summary description for Sims.
 	/// </summary>
-	public class Sims : System.Windows.Forms.Form
+	public class Sims : Avalonia.Controls.Window
 	{
 		private System.Windows.Forms.ImageList ilist;
 		private System.Windows.Forms.ListView lv;
@@ -89,7 +89,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected virtual void Dispose( bool disposing )
 		{
 			if( disposing )
 			{
@@ -100,7 +100,6 @@ namespace SimPe.Plugin
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
@@ -146,7 +145,6 @@ namespace SimPe.Plugin
             this.cbadults = new System.Windows.Forms.CheckBox();
             this.cbdetail = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
             // 
             // ilist
             // 
@@ -354,23 +352,9 @@ namespace SimPe.Plugin
             // Sims
             // 
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.cbdetail);
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lbUbi);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.lv);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Sims";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
 
 		}
 		#endregion
@@ -500,7 +484,7 @@ namespace SimPe.Plugin
 
         protected void FillList()
 		{
-            this.Cursor = Cursors.WaitCursor;
+            this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
             WaitingScreen.Wait();
             ilist.Images.Clear();
 			this.iListSmall.Images.Clear();
@@ -534,7 +518,7 @@ namespace SimPe.Plugin
             {
                 lv.EndUpdate();
                 WaitingScreen.Stop(this);
-                this.Cursor = Cursors.Default;
+                this.Cursor = null;
             }
         }
 
@@ -575,7 +559,7 @@ namespace SimPe.Plugin
 			this.package = package;
 			
 			lv.ListViewItemSorter = sorter;
-			this.Cursor = Cursors.WaitCursor;
+			this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 			
 			SimPe.Plugin.Idno idno = SimPe.Plugin.Idno.FromPackage(package);
 			if (idno!=null) this.lbUbi.Visible = (idno.Type != NeighborhoodType.Normal );
@@ -587,7 +571,7 @@ namespace SimPe.Plugin
 
 			FillList();
 			
-			this.Cursor = Cursors.Default;
+			this.Cursor = null;
 			
 			RemoteControl.ShowSubForm(this);
 
@@ -642,7 +626,7 @@ namespace SimPe.Plugin
         {
             get
             {
-                XmlRegistryKey rkf = Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("SimBrowser");
+                XmlRegistryKey rkf = Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("SimBrowser");
                 object o = rkf.GetValue("UseBiggerIcons", false);
                 return Convert.ToBoolean(o);
             }

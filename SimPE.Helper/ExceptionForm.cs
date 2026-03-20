@@ -57,7 +57,7 @@ namespace SimPe
 			InitializeComponent();
 
 			//
-			// TODO: Fügen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
+			// TODO: Fï¿½gen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
 			//
 		}
 
@@ -354,7 +354,7 @@ namespace SimPe
 			text = text.Replace("\n", @"\par\pard");
 			frm.rtb.Rtf = text;
 
-			if (Helper.WindowsRegistry.HiddenMode)
+			if (Helper.XmlRegistry.HiddenMode)
 			{
 				frm.lldetail.Visible = false;
 			} 

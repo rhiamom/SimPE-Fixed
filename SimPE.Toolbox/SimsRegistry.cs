@@ -35,7 +35,7 @@ namespace SimPe.Plugin
 		public SimsRegistry(Sims form)
 		{
 			this.form = form;
-			xrk = Helper.WindowsRegistry.PluginRegistryKey;
+			xrk = Helper.XmlRegistry.PluginRegistryKey;
 
             form.ckbPlayable.Checked = this.ShowPlayable;
             form.ckbPlayable.CheckedChanged += new EventHandler(ckbPlayable_CheckedChanged);

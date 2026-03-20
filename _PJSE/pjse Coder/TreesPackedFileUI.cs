@@ -50,7 +50,7 @@ namespace SimPe.Plugin
             tm.AddControl(this.taskBox1);
             tm.AddControl(this.taskBox2);
 
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons && Screen.PrimaryScreen.WorkingArea.Width > 1600)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons && Screen.PrimaryScreen.WorkingArea.Width > 1600)
             {
                 listLast.Font = new System.Drawing.Font("Verdana", 12F);
                 listList.Font = new System.Drawing.Font("Verdana", 12F);

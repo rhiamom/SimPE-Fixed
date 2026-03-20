@@ -63,11 +63,11 @@ namespace SimPe
             // Panels are positioned correctly by enforcement code in ReloadLayout().
             // ToFile(SimPeLayoutW) is intentionally omitted until save logic is fixed.
 
-            MyButtonItem.SetLayoutInformations(this);
+            MyButtonItem.SetLayoutInformations(tbContainer);
 
-            Helper.WindowsRegistry.Layout.PluginActionBoxExpanded = true;
-            Helper.WindowsRegistry.Layout.DefaultActionBoxExpanded = true;
-            Helper.WindowsRegistry.Layout.ToolActionBoxExpanded = true;
+            Helper.XmlRegistry.Layout.PluginActionBoxExpanded = true;
+            Helper.XmlRegistry.Layout.DefaultActionBoxExpanded = true;
+            Helper.XmlRegistry.Layout.ToolActionBoxExpanded = true;
 
             resourceViewManager1.StoreLayout();
         }
@@ -87,16 +87,16 @@ namespace SimPe
 {
     // Panel positions are enforced entirely by ReloadLayout() — no file/stream needed.
 
-    Helper.WindowsRegistry.Layout.PluginActionBoxExpanded = false;
-    Helper.WindowsRegistry.Layout.DefaultActionBoxExpanded = true;
-    Helper.WindowsRegistry.Layout.ToolActionBoxExpanded = false;
+    Helper.XmlRegistry.Layout.PluginActionBoxExpanded = false;
+    Helper.XmlRegistry.Layout.DefaultActionBoxExpanded = true;
+    Helper.XmlRegistry.Layout.ToolActionBoxExpanded = false;
 
-    Helper.WindowsRegistry.Layout.TypeColumnWidth = 204;
-    Helper.WindowsRegistry.Layout.GroupColumnWidth = 100;
-    Helper.WindowsRegistry.Layout.InstanceHighColumnWidth = 100;
-    Helper.WindowsRegistry.Layout.InstanceColumnWidth = 100;
-    Helper.WindowsRegistry.Layout.OffsetColumnWidth = 100;
-    Helper.WindowsRegistry.Layout.SizeColumnWidth = 100;
+    Helper.XmlRegistry.Layout.TypeColumnWidth = 204;
+    Helper.XmlRegistry.Layout.GroupColumnWidth = 100;
+    Helper.XmlRegistry.Layout.InstanceHighColumnWidth = 100;
+    Helper.XmlRegistry.Layout.InstanceColumnWidth = 100;
+    Helper.XmlRegistry.Layout.OffsetColumnWidth = 100;
+    Helper.XmlRegistry.Layout.SizeColumnWidth = 100;
     FixVisibleState(tbTools);
     FixVisibleState(tbAction);
     FixVisibleState(toolBar1);
@@ -118,7 +118,6 @@ namespace SimPe
         /// </summary>
         void ReloadLayout()
         {
-            this.SuspendLayout();
 
             // Delete any stale simpe.layout — saving is disabled so any existing file is
             // from a prior session and will produce wrong panel positions.
@@ -161,7 +160,7 @@ namespace SimPe
             resourceViewManager1.RestoreLayout();
 
             UpdateDockMenus();
-            MyButtonItem.GetLayoutInformations(this);
+            MyButtonItem.GetLayoutInformations(tbContainer);
 
             FixCheckedState(tbTools);
             FixCheckedState(toolBar1);
@@ -176,11 +175,10 @@ namespace SimPe
                 if (dp != null)
                     tsmi.Checked = dp.IsOpen;
             }
-            this.ResumeLayout();
 
             // For layout resets triggered after the form is already shown (e.g. Reset Layout
             // menu action), BeginInvoke is still needed to let dock events settle first.
-            this.BeginInvoke((Action)EnsureKeyPanelsVisible);
+            Avalonia.Threading.Dispatcher.UIThread.Post(EnsureKeyPanelsVisible);
         }
 
         /// <summary>
@@ -199,7 +197,7 @@ namespace SimPe
 
         void MainForm_FirstShown(object sender, EventArgs e)
         {
-            this.Shown -= MainForm_FirstShown;
+            this.Opened -= MainForm_FirstShown;
             EnsureKeyPanelsVisible();
         }
 

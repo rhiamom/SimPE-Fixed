@@ -193,11 +193,11 @@ namespace SimPe
 
                 pkg = SimPe.Packages.File.LoadFromFile(e.FileName, sync);
 
-                if (pkg.Index.Length < Helper.WindowsRegistry.BigPackageResourceCount)
+                if (pkg.Index.Length < Helper.XmlRegistry.BigPackageResourceCount)
                     pkg.LoadCompressedState();
 
                 this.SetupEvents(true);
-                Helper.WindowsRegistry.AddRecentFile(flname);
+                Helper.XmlRegistry.AddRecentFile(flname);
 
                 Wait.SubStop();
 
@@ -248,7 +248,7 @@ namespace SimPe
 
 				if (savetocopy) Package.FileName = oname;
 
-				Helper.WindowsRegistry.AddRecentFile(e.FileName);
+				Helper.XmlRegistry.AddRecentFile(e.FileName);
 				
 
 				Wait.SubStop();
@@ -302,7 +302,7 @@ namespace SimPe
 				this.SetupEvents(true);	
 			}
 
-			if (pkg.FileName!=null) Helper.WindowsRegistry.AddRecentFile(pkg.FileName);
+			if (pkg.FileName!=null) Helper.XmlRegistry.AddRecentFile(pkg.FileName);
 			if (AfterFileLoad!=null) AfterFileLoad(this);
 
 			return true;
@@ -313,7 +313,7 @@ namespace SimPe
 		/// </summary>
 		public void UpdateProviders()
 		{
-			if (Helper.IsNeighborhoodFile(FileName) && (Helper.WindowsRegistry.LoadMetaInfo))
+			if (Helper.IsNeighborhoodFile(FileName) && (Helper.XmlRegistry.LoadMetaInfo))
 			{
 				SimPe.Interfaces.Files.IPackageFile pkg = Package;
 				try
@@ -330,7 +330,7 @@ namespace SimPe
 			}
 			else
             {
-                if (Helper.IsLotCatalogFile(FileName) && (Helper.WindowsRegistry.LoadMetaInfo))
+                if (Helper.IsLotCatalogFile(FileName) && (Helper.XmlRegistry.LoadMetaInfo))
                 {
                     FileTable.ProviderRegistry.SimFamilynameProvider.BasePackage = pkg;
                     FileTable.ProviderRegistry.SimDescriptionProvider.BasePackage = pkg;
@@ -445,7 +445,7 @@ namespace SimPe
 		{
 			menu.DropDownItems.Clear();
 
-			string[] files = Helper.WindowsRegistry.GetRecentFiles();
+			string[] files = Helper.XmlRegistry.GetRecentFiles();
 			foreach (string file in files)
 			{
 				if (System.IO.File.Exists(file)) 

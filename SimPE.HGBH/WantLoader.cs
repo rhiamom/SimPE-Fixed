@@ -136,7 +136,7 @@ namespace SimPe.Plugin
 			if (cachefile!=null) return;
 
             cachefile = new WantCacheFile();
-            if (!Helper.WindowsRegistry.UseCache) return;
+            if (!Helper.XmlRegistry.UseCache) return;
             Wait.SubStart();
             Wait.Message = "Loading Cache";
 			try 
@@ -155,7 +155,7 @@ namespace SimPe.Plugin
 		/// </summary>
 		public static void SaveCache()
 		{
-			if (!Helper.WindowsRegistry.UseCache) return;
+			if (!Helper.XmlRegistry.UseCache) return;
 			if (cachefile==null) return;
 
             Wait.SubStart();
@@ -212,7 +212,7 @@ namespace SimPe.Plugin
 			get 
 			{
 				if (str==null) return "0x"+Helper.HexString(guid);
-				return str.FallbackedLanguageItem(Helper.WindowsRegistry.LanguageCode, 0).Title;
+				return str.FallbackedLanguageItem(Helper.XmlRegistry.LanguageCode, 0).Title;
 			}
 		}
 

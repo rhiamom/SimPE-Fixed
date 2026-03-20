@@ -35,7 +35,7 @@ namespace pjOBJDTool
 		/// Windows Registry Link
 		/// </summary>
 		static SimPe.Registry registry;
-		internal static SimPe.Registry WindowsRegistry 
+		internal static SimPe.Registry XmlRegistry 
 		{
 			get { return registry; }
 		}
@@ -49,7 +49,7 @@ namespace pjOBJDTool
 			this.reg = reg;
 			this.prov = prov;
 
-			if (registry==null) registry = SimPe.Helper.WindowsRegistry;
+			if (registry==null) registry = SimPe.Helper.XmlRegistry;
         }
 
         #region ITool Member

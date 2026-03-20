@@ -112,7 +112,7 @@ namespace SimPe.PackedFiles.UserInterface
 			//
             InitializeComponent();
             
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
                 this.lv.Font = new System.Drawing.Font("Verdana", 10F);
 		}
 

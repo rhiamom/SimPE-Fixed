@@ -207,8 +207,8 @@ namespace SimPe.Providers
 			if (turnons!=null) return;
             turnons = new System.Collections.Generic.Dictionary<int, string>();
             if (SimPe.PathProvider.Global.EPInstalled < 2 && SimPe.PathProvider.Global.STInstalled < 28) return;
-            if (Helper.WindowsRegistry.LoadOnlySimsStory == 0) to1 = 14;
-            else if (Helper.WindowsRegistry.LoadOnlySimsStory > 0) to1 = 12;
+            if (Helper.XmlRegistry.LoadOnlySimsStory == 0) to1 = 14;
+            else if (Helper.XmlRegistry.LoadOnlySimsStory > 0) to1 = 12;
 
             SimPe.Packages.File pkg = SimPe.Packages.File.LoadFromFile(System.IO.Path.Combine(PathProvider.Global.Latest.InstallFolder, @"TSData\Res\Text\UIText.package"));
 			SimPe.PackedFiles.Wrapper.Str str = new Str();
@@ -217,7 +217,7 @@ namespace SimPe.Providers
 			if (pfd!=null) 
 			{
 				str.ProcessData(pfd, pkg);
-				SimPe.PackedFiles.Wrapper.StrItemList strs = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+				SimPe.PackedFiles.Wrapper.StrItemList strs = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
                 if (to1 == 14)
                 {
                     for (int i = 0; i < strs.Count; i++)
@@ -300,7 +300,7 @@ namespace SimPe.Providers
             if (pfd != null)
             {
                 str.ProcessData(pfd, pkg);
-                SimPe.PackedFiles.Wrapper.StrItemList strs = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);                
+                SimPe.PackedFiles.Wrapper.StrItemList strs = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);                
                     
                 pkg = SimPe.Packages.File.LoadFromFile(System.IO.Path.Combine(PathProvider.Global.Latest.InstallFolder, @"TSData\Res\UI\ui.package"));
                 pfd = pkg.FindFile(0, 0, 0xA99D8A11, 0xACDC6300);
@@ -334,7 +334,7 @@ namespace SimPe.Providers
                     catch (Exception e)
                     {
                         //System.Diagnostics.Debug.WriteLine("ERROR during Voyage Collectible Image Parsing:\n" + e.ToString());
-                        if (Helper.WindowsRegistry.HiddenMode) Helper.ExceptionMessage(e);
+                        if (Helper.XmlRegistry.HiddenMode) Helper.ExceptionMessage(e);
                     }
                 }
             }

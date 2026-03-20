@@ -57,7 +57,7 @@ namespace SimPe.Plugin
 
 			try 
 			{
-				tb.Visible = Helper.WindowsRegistry.HiddenMode;
+				tb.Visible = Helper.XmlRegistry.HiddenMode;
 				SetContent();
 			} 
 			catch {}

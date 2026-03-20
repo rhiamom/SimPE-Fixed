@@ -62,7 +62,7 @@ namespace SimPe.Plugin.TabPage
             ThemeManager tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.pg);
 
-            if (Helper.WindowsRegistry.UseBigIcons) this.pg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular);
+            if (Helper.XmlRegistry.UseBigIcons) this.pg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular);
 		}
 
 		/// <summary>

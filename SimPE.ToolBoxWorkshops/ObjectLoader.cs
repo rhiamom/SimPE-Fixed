@@ -59,7 +59,7 @@ namespace SimPe.Plugin.Tool.Dockable
 			cachechg = false;
 			cachefile = new SimPe.Cache.ObjectLoaderCacheFile();
 		
-			if (!Helper.WindowsRegistry.UseCache) return;
+			if (!Helper.XmlRegistry.UseCache) return;
 			Wait.Message = "Loading Cache";
 			try 
 			{
@@ -78,7 +78,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		/// </summary>
 		void SaveCacheIndex()
 		{
-			if (!Helper.WindowsRegistry.UseCache) return;
+			if (!Helper.XmlRegistry.UseCache) return;
 			if (!cachechg && !ObjectReader.changedcache) return;
 			Wait.Message = "Saving Cache";
 
@@ -96,7 +96,7 @@ namespace SimPe.Plugin.Tool.Dockable
 			Interfaces.Scenegraph.IScenegraphFileIndexItem[] nrefitems = FileTable.FileIndex.Sort(FileTable.FileIndex.FindFile(type, true));
 			string len = " / " + nrefitems.Length.ToString();
 
-			SimPe.Data.MetaData.Languages deflang = Helper.WindowsRegistry.LanguageCode;
+			SimPe.Data.MetaData.Languages deflang = Helper.XmlRegistry.LanguageCode;
 			Wait.Message = "Loading Walls, Fences and Floors";
 			Wait.MaxProgress = nrefitems.Length;
 			foreach (Interfaces.Scenegraph.IScenegraphFileIndexItem lnrefitem in nrefitems)
@@ -166,7 +166,7 @@ namespace SimPe.Plugin.Tool.Dockable
 
 			string len = " / " + nrefitems.Length.ToString();
 
-			SimPe.Data.MetaData.Languages deflang = Helper.WindowsRegistry.LanguageCode;
+			SimPe.Data.MetaData.Languages deflang = Helper.XmlRegistry.LanguageCode;
 			Wait.Message = "Loading Objects";
 			Wait.MaxProgress = nrefitems.Length;
 			foreach (Interfaces.Scenegraph.IScenegraphFileIndexItem lnrefitem in nrefitems)
@@ -253,7 +253,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		ArrayList pict;
 		internal ObjectConsumer(ProducerThread pt) : base(pt)
 		{
-			deflang = Helper.WindowsRegistry.LanguageCode;
+			deflang = Helper.XmlRegistry.LanguageCode;
 
 			this.pict = new ArrayList();
 			SimPe.PackedFiles.Wrapper.Picture pw = new SimPe.PackedFiles.Wrapper.Picture();
@@ -419,7 +419,7 @@ namespace SimPe.Plugin.Tool.Dockable
 
 			a.Tag = os;
 
-			if (Helper.WindowsRegistry.ShowObjdNames) a.Name = oci.ObjectFileName;	
+			if (Helper.XmlRegistry.ShowObjdNames) a.Name = oci.ObjectFileName;	
 			else a.Name = oci.Name;
 			a.Name +=  " (cached)";
 			Image img = oci.Thumbnail;			
@@ -443,7 +443,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		public ObjectLoader(ImageList ilist)
 		{
 			if (ilist==null) ilist=new ImageList();			
-			ilist.ImageSize = new System.Drawing.Size(Helper.WindowsRegistry.OWThumbSize,Helper.WindowsRegistry.OWThumbSize);
+			ilist.ImageSize = new System.Drawing.Size(Helper.XmlRegistry.OWThumbSize,Helper.XmlRegistry.OWThumbSize);
 			ilist.ColorDepth = ColorDepth.Depth32Bit;
 
 			this.ilist = ilist;
@@ -467,7 +467,7 @@ namespace SimPe.Plugin.Tool.Dockable
 						oci.Tag = item;
 						oci.Useable = false;
 
-						ObjectConsumer.DoConsume(oci, null, Helper.WindowsRegistry.LanguageCode);
+						ObjectConsumer.DoConsume(oci, null, Helper.XmlRegistry.LanguageCode);
 
 						first = false;
 					}
@@ -549,9 +549,9 @@ namespace SimPe.Plugin.Tool.Dockable
 			if (id==0) 
 			{
                 twine = a.ToString();
-                if (Helper.WindowsRegistry.OWtrimnames)
+                if (Helper.XmlRegistry.OWtrimnames)
                 {
-                    while (twine.StartsWith("\"") || twine.StartsWith("“") || twine.StartsWith("‘") || twine.StartsWith(" ") || twine.StartsWith("_") || twine.StartsWith("."))
+                    while (twine.StartsWith("\"") || twine.StartsWith("ï¿½") || twine.StartsWith("ï¿½") || twine.StartsWith(" ") || twine.StartsWith("_") || twine.StartsWith("."))
                     {
                         twine = twine.Substring(1, twine.Length - 1);
                     }
@@ -572,8 +572,8 @@ namespace SimPe.Plugin.Tool.Dockable
 				else if (oci.Thumbnail!=null) 
 				{
 					Image img = oci.Thumbnail;
-					//if (Helper.WindowsRegistry.GraphQuality) img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new System.Drawing.Point(0,0), System.Drawing.Color.Magenta);
-					img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, ilist.ImageSize.Width, ilist.ImageSize.Height, Helper.WindowsRegistry.GraphQuality);
+					//if (Helper.XmlRegistry.GraphQuality) img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new System.Drawing.Point(0,0), System.Drawing.Color.Magenta);
+					img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, ilist.ImageSize.Width, ilist.ImageSize.Height, Helper.XmlRegistry.GraphQuality);
 
 					ilist.Images.Add(img);
 					tn.ImageIndex = ilist.Images.Count-1;					

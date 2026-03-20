@@ -63,7 +63,7 @@ namespace SimPe.Windows.Forms
 
             if (sc == ResourceViewManager.SortColumn.Name)
             {
-                if (Helper.WindowsRegistry.AsynchronSort)
+                if (Helper.XmlRegistry.AsynchronSort)
                     SimPe.Wait.SubStart(names.Count);
                 
                 SimPe.Wait.Message = SimPe.Localization.GetString("Loading embedded resource names...");

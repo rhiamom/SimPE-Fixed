@@ -97,7 +97,7 @@ namespace SimPe.Providers
 			memories = new Hashtable();
 			//if (BasePackage==null) return;
 
-			Registry reg = Helper.WindowsRegistry;
+			Registry reg = Helper.XmlRegistry;
 			ArrayList list = new ArrayList();
 			Interfaces.Files.IPackedFileDescriptor pfd;					
 			
@@ -131,7 +131,7 @@ namespace SimPe.Providers
                             if (sitems.Length > 0)
                             {
                                 str.ProcessData(sitems[0]);
-                                SimPe.PackedFiles.Wrapper.StrItemList strs = str.LanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);
+                                SimPe.PackedFiles.Wrapper.StrItemList strs = str.LanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.XmlRegistry.LanguageCode);
                                 if (strs.Length > 0) name = strs[0].Title;
 
 
@@ -264,7 +264,7 @@ namespace SimPe.Providers
 		{
 			if (BasePackage==null) 
 			{
-				Registry reg = Helper.WindowsRegistry;
+				Registry reg = Helper.XmlRegistry;
 				string file = System.IO.Path.Combine(SimPe.PathProvider.Global.GetExpansion(Expansions.BaseGame).InstallFolder, "TSData\\Res\\Objects\\objects.package");				
 				if (System.IO.File.Exists(file)) 
 				{

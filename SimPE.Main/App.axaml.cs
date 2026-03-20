@@ -17,7 +17,7 @@ namespace SimPe
             {
                 Helper.LoadGameRootFromFile();
                 InitializeWrappers();
-                desktop.MainWindow = new MainWindow();
+                desktop.MainWindow = new MainForm();
             }
             base.OnFrameworkInitializationCompleted();
         }

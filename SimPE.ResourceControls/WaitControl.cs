@@ -60,7 +60,7 @@ namespace SimPe
             ShowText = true;
             nowp = -1;
 
-            if (SimPe.Helper.WindowsRegistry.ShowWaitBarPermanent)
+            if (SimPe.Helper.XmlRegistry.ShowWaitBarPermanent)
             {
                 ThemeManager.Global.AddControl(this.statusStrip1);
             }
@@ -195,7 +195,7 @@ namespace SimPe
             }
             else
             {
-                if (!this.DesignMode && !Helper.WindowsRegistry.ShowWaitBarPermanent) this.Visible = false;
+                if (!this.DesignMode && !Helper.XmlRegistry.ShowWaitBarPermanent) this.Visible = false;
                 this.Message = "";
                 this.Progress = 0;
                 this.ShowProgress = false;

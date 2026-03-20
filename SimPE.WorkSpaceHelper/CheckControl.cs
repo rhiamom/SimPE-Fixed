@@ -35,7 +35,7 @@ namespace SimPe
 		Unknown, Ok, Fail, Warning
 	}
 	/// <summary>
-	/// Zusammenfassung für CheckControl.
+	/// Zusammenfassung fï¿½r CheckControl.
 	/// </summary>
 	public class CheckControl : System.Windows.Forms.UserControl
 	{
@@ -56,7 +56,7 @@ namespace SimPe
 				ControlStyles.ResizeRedraw 
 				| ControlStyles.DoubleBuffer
 				,true);
-			// Dieser Aufruf ist für den Windows Form-Designer erforderlich.
+			// Dieser Aufruf ist fï¿½r den Windows Form-Designer erforderlich.
 			InitializeComponent();
 
 			try 
@@ -135,8 +135,8 @@ namespace SimPe
 
 		#region Vom Komponenten-Designer generierter Code
 		/// <summary> 
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -421,7 +421,7 @@ namespace SimPe
 				foreach (ExpansionItem ei in PathProvider.Global.Expansions)
 				{
                     if (!ei.Exists) continue;
-					path = ei.InstallFolder;//Helper.WindowsRegistry.GetExecutableFolder(ep);
+					path = ei.InstallFolder;//Helper.XmlRegistry.GetExecutableFolder(ep);
 					string name = ei.ExeName;
 
 					test = System.IO.Path.Combine(path, "TSBin"+Helper.PATH_SEP+name);

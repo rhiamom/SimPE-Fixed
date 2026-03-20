@@ -24,249 +24,291 @@
 using System;
 using System.Drawing;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
 using SimPe.Interfaces.Plugin;
+using Avalonia.Controls.Templates;
+using Avalonia.Media;
 
 namespace SimPe.Plugin
 {
-	/// <summary>
-	/// Summary description for NeighborhoodForm.
-	/// </summary>
-	public class NeighborhoodForm : System.Windows.Forms.Form
-	{
-        private System.Windows.Forms.Panel pnBackup;
-        private System.Windows.Forms.Panel pnOptions;
-		private System.Windows.Forms.ListView lv;
-		private System.Windows.Forms.ImageList ilist;
-		private System.Windows.Forms.Button btnOpen;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button3;
-        private ComboBox cbtypes;
-        private Label label1;
-		private System.ComponentModel.IContainer components;
-        private Button btnClose;
-        private System.Windows.Forms.Panel pnBoPeep;
-        private PictureBox pbox;
+    // ── View-model item for each neighborhood shown in the ListBox ────────────
+    class NeighborhoodItem
+    {
+        public Avalonia.Media.Imaging.Bitmap Image { get; set; }
+        public string Text    { get; set; }
+        public string FilePath { get; set; }   // formerly SubItems[1]
+        public string Name    { get; set; }    // formerly SubItems[2]
+        public string Label   { get; set; }    // formerly SubItems[3]
+        public string ToolTip { get; set; }
+    }
+
+    /// <summary>
+    /// Summary description for NeighborhoodForm.
+    /// </summary>
+    public class NeighborhoodForm : Avalonia.Controls.Window
+    {
+        // ── Avalonia controls ────────────────────────────────────────────────
+        private Avalonia.Controls.ListBox          lv;
+        private Avalonia.Controls.ComboBox         cbtypes;
+        private Avalonia.Controls.TextBlock        label1;
+        private Avalonia.Controls.Button           btnOpen;
+        private Avalonia.Controls.Button           button2;
+        private Avalonia.Controls.Button           button3;
+        private Avalonia.Controls.Button           btnClose;
+        private Avalonia.Controls.Image            pbox;
+        private Avalonia.Controls.StackPanel       pnBackup;
+        private Avalonia.Controls.StackPanel       pnOptions;
+        private Avalonia.Controls.Grid             pnBoPeep;
         ThemeManager tm;
 
-		public NeighborhoodForm()
-		{
-			InitializeComponent();
+        // ── Backing collections ──────────────────────────────────────────────
+        private ObservableCollection<NeighborhoodItem> lvItems = new ObservableCollection<NeighborhoodItem>();
+        private ObservableCollection<NgbhType>         cbItems = new ObservableCollection<NgbhType>();
 
-            tm =ThemeManager.Global.CreateChild();
-            tm.AddControl(this.pnBoPeep);
-            tm.AddControl(this.pnBackup);
-            tm.AddControl(this.pnOptions);
-            
-            if (UserVerification.HaveUserId) this.lv.ShowItemToolTips = true;
-		}
+        // ── Modal result ─────────────────────────────────────────────────────
+        public System.Windows.Forms.DialogResult DialogResult { get; set; }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
+        public NeighborhoodForm()
+        {
+            InitializeComponent();
+            tm = ThemeManager.Global.CreateChild();
+            // ThemeManager.AddControl expects WinForms Control — skip for Avalonia panels
+        }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
                 if (tm != null)
                 {
                     tm.Clear();
                     tm.Parent = null;
                     tm = null;
                 }
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+                // Dispose Avalonia bitmaps held by list items
+                foreach (var item in lvItems)
+                    item.Image?.Dispose();
+            }
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NeighborhoodForm));
-            this.lv = new System.Windows.Forms.ListView();
-            this.ilist = new System.Windows.Forms.ImageList(this.components);
-            this.btnOpen = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.pnBackup = new System.Windows.Forms.Panel();
-            this.pbox = new System.Windows.Forms.PictureBox();
-            this.pnOptions = new System.Windows.Forms.Panel();
-            this.cbtypes = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.pnBoPeep = new System.Windows.Forms.Panel();
-            this.pnBackup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
-            this.pnOptions.SuspendLayout();
-            this.pnBoPeep.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // lv
-            // 
-            resources.ApplyResources(this.lv, "lv");
-            this.lv.HideSelection = false;
-            this.lv.LargeImageList = this.ilist;
-            this.lv.MultiSelect = false;
-            this.lv.Name = "lv";
-            this.lv.UseCompatibleStateImageBehavior = false;
-            this.lv.SelectedIndexChanged += new System.EventHandler(this.NgbSelect);
-            this.lv.DoubleClick += new System.EventHandler(this.NgbOpen);
-            // 
-            // ilist
-            // 
-            this.ilist.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            resources.ApplyResources(this.ilist, "ilist");
-            this.ilist.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // btnOpen
-            // 
-            resources.ApplyResources(this.btnOpen, "btnOpen");
-            this.btnOpen.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Click += new System.EventHandler(this.NgbOpen);
-            // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.Click += new System.EventHandler(this.NgbBackup);
-            // 
-            // button3
-            // 
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.Name = "button3";
-            this.button3.Click += new System.EventHandler(this.NgbRestoreBackup);
-            // 
-            // pnBackup
-            // 
-            resources.ApplyResources(this.pnBackup, "pnBackup");
-            this.pnBackup.BackColor = System.Drawing.Color.Transparent;
-            this.pnBackup.Controls.Add(this.pbox);
-            this.pnBackup.Controls.Add(this.button3);
-            this.pnBackup.Controls.Add(this.button2);
-            this.pnBackup.Name = "pnBackup";
-            // 
-            // pbox
-            // 
-            resources.ApplyResources(this.pbox, "pbox");
-            this.pbox.Name = "pbox";
-            this.pbox.TabStop = false;
-            // 
-            // pnOptions
-            // 
-            resources.ApplyResources(this.pnOptions, "pnOptions");
-            this.pnOptions.BackColor = System.Drawing.Color.Transparent;
-            this.pnOptions.Controls.Add(this.cbtypes);
-            this.pnOptions.Controls.Add(this.label1);
-            this.pnOptions.Name = "pnOptions";
-            // 
-            // cbtypes
-            // 
-            this.cbtypes.FormattingEnabled = true;
-            resources.ApplyResources(this.cbtypes, "cbtypes");
-            this.cbtypes.Name = "cbtypes";
-            this.cbtypes.SelectedIndexChanged += new System.EventHandler(this.cbtypes_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // btnClose
-            // 
-            resources.ApplyResources(this.btnClose, "btnClose");
-            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Name = "btnClose";
-            // 
-            // pnBoPeep
-            // 
-            this.pnBoPeep.BackColor = System.Drawing.Color.Transparent;
-            this.pnBoPeep.Controls.Add(this.pnOptions);
-            this.pnBoPeep.Controls.Add(this.btnClose);
-            this.pnBoPeep.Controls.Add(this.btnOpen);
-            this.pnBoPeep.Controls.Add(this.lv);
-            this.pnBoPeep.Controls.Add(this.pnBackup);
-            resources.ApplyResources(this.pnBoPeep, "pnBoPeep");
-            this.pnBoPeep.Name = "pnBoPeep";
-            // 
-            // NeighborhoodForm
-            // 
-            this.AcceptButton = this.btnOpen;
-            resources.ApplyResources(this, "$this");
-            this.CancelButton = this.btnClose;
-            this.Controls.Add(this.pnBoPeep);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "NeighborhoodForm";
-            this.pnBackup.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbox)).EndInit();
-            this.pnOptions.ResumeLayout(false);
-            this.pnOptions.PerformLayout();
-            this.pnBoPeep.ResumeLayout(false);
-            this.ResumeLayout(false);
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.Title  = "Neighborhood Browser";
+            this.Width  = 660;
+            this.Height = 520;
+            this.MinWidth  = 400;
+            this.MinHeight = 320;
+            this.WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner;
+            this.CanResize = true;
 
-		}
-		#endregion
+            // ── ListBox (replaces WinForms ListView with LargeImageList) ─────
+            lv = new Avalonia.Controls.ListBox();
+            lv.ItemsSource   = lvItems;
+            lv.SelectionMode = Avalonia.Controls.SelectionMode.Single;
+            lv.ItemsPanel    = new FuncTemplate<Avalonia.Controls.Panel>(() =>
+                new Avalonia.Controls.WrapPanel { Orientation = Avalonia.Layout.Orientation.Horizontal });
+            lv.ItemTemplate  = new FuncDataTemplate<NeighborhoodItem>((item, _) =>
+            {
+                if (item == null) return new Avalonia.Controls.TextBlock { Text = string.Empty };
+
+                var imgCtrl = new Avalonia.Controls.Image
+                {
+                    Width   = 120,
+                    Height  = 90,
+                    Stretch = Avalonia.Media.Stretch.Uniform,
+                    Source  = item.Image
+                };
+
+                var tb = new Avalonia.Controls.TextBlock
+                {
+                    Text           = item.Text,
+                    TextWrapping   = Avalonia.Media.TextWrapping.Wrap,
+                    TextAlignment  = Avalonia.Media.TextAlignment.Center,
+                    MaxWidth       = 130
+                };
+
+                var sp = new Avalonia.Controls.StackPanel
+                {
+                    Orientation = Avalonia.Layout.Orientation.Vertical,
+                    Margin      = new Avalonia.Thickness(4),
+                    Width       = 134
+                };
+                if (item.ToolTip != null)
+                    Avalonia.Controls.ToolTip.SetTip(sp, item.ToolTip);
+
+                sp.Children.Add(imgCtrl);
+                sp.Children.Add(tb);
+                return sp;
+            }, false);
+            lv.SelectionChanged += (s, e) => NgbSelect(s, EventArgs.Empty);
+
+            // ── ComboBox (replaces cbtypes) ──────────────────────────────────
+            cbtypes = new Avalonia.Controls.ComboBox();
+            cbtypes.ItemsSource = cbItems;
+            cbtypes.MinWidth    = 200;
+            cbtypes.SelectionChanged += (s, e) => cbtypes_SelectedIndexChanged(s, EventArgs.Empty);
+
+            // ── Label ────────────────────────────────────────────────────────
+            label1 = new Avalonia.Controls.TextBlock();
+            label1.Text = SimPe.Localization.GetString("Type") + ":";
+            label1.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center;
+            label1.Margin = new Avalonia.Thickness(0, 0, 6, 0);
+
+            // ── Buttons ──────────────────────────────────────────────────────
+            btnOpen = new Avalonia.Controls.Button();
+            btnOpen.Content  = SimPe.Localization.GetString("Open");
+            btnOpen.MinWidth = 80;
+            btnOpen.IsEnabled = false;
+            btnOpen.Click += (s, e) => NgbOpen(s, EventArgs.Empty);
+
+            button2 = new Avalonia.Controls.Button();
+            button2.Content  = SimPe.Localization.GetString("Backup");
+            button2.MinWidth = 80;
+            button2.IsEnabled = false;
+            button2.Click += (s, e) => NgbBackup(s, EventArgs.Empty);
+
+            button3 = new Avalonia.Controls.Button();
+            button3.Content  = SimPe.Localization.GetString("Restore Backup");
+            button3.MinWidth = 100;
+            button3.IsEnabled = false;
+            button3.Click += (s, e) => NgbRestoreBackup(s, EventArgs.Empty);
+
+            btnClose = new Avalonia.Controls.Button();
+            btnClose.Content  = SimPe.Localization.GetString("Close");
+            btnClose.MinWidth = 80;
+            btnClose.Click += (s, e) =>
+            {
+                DialogResult = System.Windows.Forms.DialogResult.Cancel;
+                Close();
+            };
+
+            // ── Smiley icon image (replaces PictureBox pbox) ─────────────────
+            pbox        = new Avalonia.Controls.Image();
+            pbox.Width  = 32;
+            pbox.Height = 32;
+            pbox.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center;
+
+            // ── pnOptions: label + cbtypes (type selector row) ───────────────
+            pnOptions = new Avalonia.Controls.StackPanel();
+            pnOptions.Orientation = Avalonia.Layout.Orientation.Horizontal;
+            pnOptions.Margin      = new Avalonia.Thickness(4, 2, 4, 2);
+            pnOptions.Children.Add(label1);
+            pnOptions.Children.Add(cbtypes);
+
+            // ── pnBackup: backup/restore buttons + smiley ────────────────────
+            pnBackup = new Avalonia.Controls.StackPanel();
+            pnBackup.Orientation = Avalonia.Layout.Orientation.Horizontal;
+            pnBackup.Spacing     = 4;
+            pnBackup.Margin      = new Avalonia.Thickness(4, 2, 4, 2);
+            pnBackup.Children.Add(button2);
+            pnBackup.Children.Add(button3);
+            pnBackup.Children.Add(pbox);
+
+            // ── Button bar at the bottom ──────────────────────────────────────
+            var buttonBar = new Avalonia.Controls.StackPanel();
+            buttonBar.Orientation         = Avalonia.Layout.Orientation.Horizontal;
+            buttonBar.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right;
+            buttonBar.Spacing             = 4;
+            buttonBar.Margin              = new Avalonia.Thickness(4, 4, 4, 4);
+            buttonBar.Children.Add(btnOpen);
+            buttonBar.Children.Add(btnClose);
+
+            // ── Bottom area: type selector, backup bar, button row ────────────
+            var bottomArea = new Avalonia.Controls.StackPanel();
+            bottomArea.Orientation = Avalonia.Layout.Orientation.Vertical;
+            bottomArea.Children.Add(pnOptions);
+            bottomArea.Children.Add(pnBackup);
+            bottomArea.Children.Add(buttonBar);
+
+            // ── Main grid: lv fills top, bottomArea at bottom ─────────────────
+            pnBoPeep = new Avalonia.Controls.Grid();
+            pnBoPeep.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(1, Avalonia.Controls.GridUnitType.Star));
+            pnBoPeep.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
+            Avalonia.Controls.Grid.SetRow(lv,         0);
+            Avalonia.Controls.Grid.SetRow(bottomArea, 1);
+            pnBoPeep.Children.Add(lv);
+            pnBoPeep.Children.Add(bottomArea);
+
+            this.Content = pnBoPeep;
+        }
+        #endregion
 
 
         bool lodesubs = true;
-        public bool ShowSubHoods { get { return lodesubs; } set { lodesubs = value; } }
+        public bool ShowSubHoods      { get { return lodesubs;    } set { lodesubs    = value; } }
 
         bool ngbhBUMgr = true;
-        public bool ShowBackupManager { get { return ngbhBUMgr; } set { ngbhBUMgr = value; } }
+        public bool ShowBackupManager { get { return ngbhBUMgr;   } set { ngbhBUMgr   = value; } }
 
         bool loadNgbh = true;
-        public bool LoadNgbh { get { return loadNgbh; } set { loadNgbh = value; } }
+        public bool LoadNgbh          { get { return loadNgbh;    } set { loadNgbh    = value; } }
 
         NgbhType ngbh = null;
-        public string SelectedNgbh { get { return ngbh == null ? null : ngbh.FileName; } }
+        public string SelectedNgbh    { get { return ngbh == null ? null : ngbh.FileName; } }
 
-		SimPe.Packages.GeneratableFile package;
-		SimPe.Packages.File source_package;
-		Interfaces.IProviderRegistry prov;
-		bool changed;
+        SimPe.Packages.GeneratableFile package;
+        SimPe.Packages.File source_package;
+        Interfaces.IProviderRegistry prov;
+        bool changed;
 
-		protected void AddImage(string path) 
-		{
-			string name = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), System.IO.Path.GetFileNameWithoutExtension(path)+".png");
-			//name = System.IO.Path.Combine(path, name);
-			if (System.IO.File.Exists(name)) 
-			{
+        // ── Helper: convert System.Drawing.Image to Avalonia Bitmap ──────────
+        private static Avalonia.Media.Imaging.Bitmap ToAvaloniaBitmap(System.Drawing.Image img)
+        {
+            if (img == null) return null;
+            try
+            {
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    ms.Position = 0;
+                    return new Avalonia.Media.Imaging.Bitmap(ms);
+                }
+            }
+            catch { return null; }
+        }
+
+        protected Avalonia.Media.Imaging.Bitmap AddImage(string path)
+        {
+            string name = System.IO.Path.Combine(
+                System.IO.Path.GetDirectoryName(path),
+                System.IO.Path.GetFileNameWithoutExtension(path) + ".png");
+
+            if (System.IO.File.Exists(name))
+            {
                 try
                 {
                     System.IO.Stream st = System.IO.File.OpenRead(name);
-                    Image img = Helper.LoadImage(st);
+                    System.Drawing.Image img = Helper.LoadImage(st);
                     st.Close();
                     st.Dispose();
                     st = null;
-                    if (WaitingScreen.Running) WaitingScreen.UpdateImage(ImageLoader.Preview(img, WaitingScreen.ImageSize));
-                    this.ilist.Images.Add(img);
-                    return;
+                    if (WaitingScreen.Running)
+                        WaitingScreen.UpdateImage(ImageLoader.Preview(img, WaitingScreen.ImageSize));
+                    var bmp = ToAvaloniaBitmap(img);
+                    img.Dispose();
+                    return bmp;
                 }
-                catch(System.ArgumentException) { }
-			}
-            this.ilist.Images.Add(new Bitmap(SimPe.GetImage.Network));
+                catch (System.ArgumentException) { }
+            }
+
+            using (var fallback = new System.Drawing.Bitmap(SimPe.GetImage.Network))
+                return ToAvaloniaBitmap(fallback);
         }
 
-		protected void AddNeighborhood(ExpansionItem.NeighborhoodPath np, string path) 
-		{
-			AddNeighborhood(np, path, "_Neighborhood.package");
-			/*int i=1;
-			while (AddNeighborhood(path, "_University"+Helper.MinStrLength(i.ToString(), 3)+".package")) 
-			{
-				i++;
-			}*/
+        protected void AddNeighborhood(ExpansionItem.NeighborhoodPath np, string path)
+        {
+            AddNeighborhood(np, path, "_Neighborhood.package");
         }
 
         protected string NeighborhoodIdentifier(string flname)
@@ -274,46 +316,52 @@ namespace SimPe.Plugin
             return System.IO.Path.GetFileNameWithoutExtension(flname).Replace("_Neighborhood", "");
         }
 
-		protected bool AddNeighborhood(ExpansionItem.NeighborhoodPath np, string path, string filename) 
-		{
+        protected bool AddNeighborhood(ExpansionItem.NeighborhoodPath np, string path, string filename)
+        {
             Application.DoEvents();
-			string flname = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), System.IO.Path.Combine(System.IO.Path.GetFileName(path), System.IO.Path.GetFileName(path)+filename));
-			if (!System.IO.File.Exists(flname)) return false;
+            string flname = System.IO.Path.Combine(
+                System.IO.Path.GetDirectoryName(path),
+                System.IO.Path.Combine(
+                    System.IO.Path.GetFileName(path),
+                    System.IO.Path.GetFileName(path) + filename));
+            if (!System.IO.File.Exists(flname)) return false;
 
-			AddImage(flname);
-			flname = System.IO.Path.Combine(path, flname);
-			string name = flname;
-			string actime = "";
-			bool ret = false;
-			if (System.IO.File.Exists(name)) 
-			{
-                actime = " (" + System.IO.File.GetLastWriteTime(name).ToString() + ") ";
+            var bmp    = AddImage(flname);
+            flname     = System.IO.Path.Combine(path, flname);
+            string name    = flname;
+            string actime  = "";
+            bool ret       = false;
+
+            if (System.IO.File.Exists(name))
+            {
+                actime  = " (" + System.IO.File.GetLastWriteTime(name).ToString() + ") ";
                 actime += NeighborhoodIdentifier(flname);
-				ret = true;
-				try 
-				{
-					SimPe.Packages.File pk = SimPe.Packages.File.LoadFromFile(name);
+                ret     = true;
+                try
+                {
+                    SimPe.Packages.File pk = SimPe.Packages.File.LoadFromFile(name);
                     NeighbourhoodTipe t;
                     name = LoadLabel(pk, out t);
-				} 
-				catch (Exception) {}
-				
-			} 
+                }
+                catch (Exception) { }
+            }
 
-			ListViewItem lvi = new ListViewItem();
-			lvi.Text = name+actime;
-            if (np.Lable != "") lvi.Text = np.Lable + ": " + lvi.Text;
-			lvi.ImageIndex = ilist.Images.Count -1;
-			lvi.SubItems.Add(flname);
-			lvi.SubItems.Add(name);
-            lvi.SubItems.Add(np.Lable);
-            if (UserVerification.HaveUserId)
-                lvi.ToolTipText = flname;
+            string displayText = name + actime;
+            if (np.Lable != "") displayText = np.Lable + ": " + displayText;
 
-			lv.Items.Add(lvi);
+            var item = new NeighborhoodItem
+            {
+                Image    = bmp,
+                Text     = displayText,
+                FilePath = flname,
+                Name     = name,
+                Label    = np.Lable,
+                ToolTip  = UserVerification.HaveUserId ? flname : null
+            };
+            lvItems.Add(item);
 
-			return ret;
-		}
+            return ret;
+        }
 
         private static string LoadLabel(SimPe.Packages.File pk, out NeighbourhoodTipe type)
         {
@@ -326,7 +374,7 @@ namespace SimPe.Plugin
                 {
                     SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
                     str.ProcessData(pfd, pk);
-                    name = str.FallbackedLanguageItem(Helper.WindowsRegistry.LanguageCode, 0).Title;
+                    name = str.FallbackedLanguageItem(Helper.XmlRegistry.LanguageCode, 0).Title;
                 }
                 else
                     if (pk.FileName.Contains("Tutorial")) name = "Tutorial"; // CJH
@@ -340,36 +388,33 @@ namespace SimPe.Plugin
                 }
                 else
                     if (pk.FileName.Contains("Tutorial")) type = NeighbourhoodTipe.Tutorial;
-                //pk.Reader.Close();
             }
-            finally
-            {
-                //pk.Reader.Close();
-            }
+            finally { }
             return name;
         }
 
-		protected void UpdateList()
-		{
+        protected void UpdateList()
+        {
             WaitingScreen.Wait();
             Application.DoEvents();
 
             try
             {
-                lv.Items.Clear();
-                ilist.Images.Clear();
+                // Dispose and clear existing thumbnail bitmaps
+                foreach (var old in lvItems)
+                    old.Image?.Dispose();
+                lvItems.Clear();
 
                 ExpansionItem.NeighborhoodPaths paths = PathProvider.Global.GetNeighborhoodsForGroup(PathProvider.Global.CurrentGroup);
                 foreach (ExpansionItem.NeighborhoodPath path in paths)
                 {
                     string sourcepath = path.Path;
-                    // string[] dirs = System.IO.Directory.GetDirectories(sourcepath, "????");
                     string[] dirs = System.IO.Directory.GetDirectories(sourcepath, "*"); // CJH - removes the 4 char limit
                     foreach (string dir in dirs)
-                        if (!dir.Contains("Tutorial")) 
+                        if (!dir.Contains("Tutorial"))
                             AddNeighborhood(path, dir);
                 }
-                if (Helper.WindowsRegistry.LoadAllNeighbourhoods && loadNgbh)
+                if (Helper.XmlRegistry.LoadAllNeighbourhoods && loadNgbh)
                 {
                     if (PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists)
                     {
@@ -414,33 +459,31 @@ namespace SimPe.Plugin
                 WaitingScreen.UpdateImage(null);
                 WaitingScreen.Stop(this);
             }
-		}
+        }
 
-		
-		public IToolResult Execute(ref SimPe.Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
-		{
-			this.Cursor = Cursors.WaitCursor;
-			this.package = null;
-			this.prov = prov;
-			source_package = (SimPe.Packages.File)package;
-			changed = false;
-			UpdateList();
-			this.Cursor = Cursors.Default;
-            pnBackup.Visible = ngbhBUMgr;
-            pnOptions.Visible = lodesubs;
-			RemoteControl.ShowSubForm(this);
-			if (this.package!=null) package=this.package;
-			return new Plugin.ToolResult(false, ((this.package!=null) || (changed)));
-		}
+
+        public IToolResult Execute(ref SimPe.Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
+        {
+            this.Cursor     = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
+            this.package    = null;
+            this.prov       = prov;
+            source_package  = (SimPe.Packages.File)package;
+            changed         = false;
+            UpdateList();
+            this.Cursor     = null;
+            pnBackup.IsVisible  = ngbhBUMgr;
+            pnOptions.IsVisible = lodesubs;
+            RemoteControl.ShowSubForm(this);
+            if (this.package != null) package = this.package;
+            return new Plugin.ToolResult(false, ((this.package != null) || (changed)));
+        }
 
         class NgbhType
         {
             string name, file; NeighbourhoodTipe type;
 
-            public string FileName
-            {
-                get { return file; }
-            }
+            public string FileName { get { return file; } }
+
             public NgbhType(string file, string name, NeighbourhoodTipe type)
             {
                 this.name = name;
@@ -454,16 +497,16 @@ namespace SimPe.Plugin
             }
         }
 
-		private void NgbSelect(object sender, System.EventArgs e)
-		{
-			//button1.Enabled = (lv.SelectedItems.Count>0);
-            button2.Enabled = (lv.SelectedItems.Count > 0);
-			button3.Enabled = button2.Enabled;
+        private void NgbSelect(object sender, System.EventArgs e)
+        {
+            var selected = lv.SelectedItem as NeighborhoodItem;
+            button2.IsEnabled = selected != null;
+            button3.IsEnabled = selected != null;
 
-            cbtypes.Items.Clear();
-            if (lv.SelectedItems.Count > 0)
+            cbItems.Clear();
+            if (selected != null)
             {
-                string path = System.IO.Path.GetDirectoryName(lv.SelectedItems[0].SubItems[1].Text);
+                string path  = System.IO.Path.GetDirectoryName(selected.FilePath);
                 string[] files = System.IO.Directory.GetFiles(path, "*.package");
 
                 foreach (string file in files)
@@ -473,104 +516,105 @@ namespace SimPe.Plugin
                     string name = LoadLabel(pk, out type);
                     NgbhType nt = new NgbhType(file, name, type);
 
-                    cbtypes.Items.Add(nt);
-                    if (Helper.EqualFileName(file, lv.SelectedItems[0].SubItems[1].Text))
-                        cbtypes.SelectedIndex = cbtypes.Items.Count - 1;
+                    cbItems.Add(nt);
+                    if (Helper.EqualFileName(file, selected.FilePath))
+                        cbtypes.SelectedIndex = cbItems.Count - 1;
                 }
-                if (cbtypes.SelectedIndex < 0 && cbtypes.Items.Count > 0)
+                if (cbtypes.SelectedIndex < 0 && cbItems.Count > 0)
                     cbtypes.SelectedIndex = 0;
             }
             SetSmilyIcon("none");
         }
 
-		private void NgbOpen(object sender, System.EventArgs e)
-		{
-			if (lv.SelectedItems.Count<=0) return;
+        private void NgbOpen(object sender, System.EventArgs e)
+        {
+            if (lv.SelectedItem == null) return;
 
             ngbh = cbtypes.SelectedItem as NgbhType;
             if (ngbh != null)
             {
                 if (loadNgbh) package = SimPe.Packages.GeneratableFile.LoadFromFile(ngbh.FileName);
-                this.DialogResult = DialogResult.OK;
+                DialogResult = System.Windows.Forms.DialogResult.OK;
                 Close();
             }
-		}
+        }
 
-		protected void CloseIfOpened(string path)
-		{
-			if (source_package!=null)
-			{
-				if (source_package.SaveFileName.Trim().ToLower().StartsWith(path.ToLower()))
-				{
-					if(source_package.Reader != null)				
-					{
-						changed = true;
-						//source_package.Reader.Close();
-					}
-				}
-			}
-		}
+        protected void CloseIfOpened(string path)
+        {
+            if (source_package != null)
+            {
+                if (source_package.SaveFileName.Trim().ToLower().StartsWith(path.ToLower()))
+                {
+                    if (source_package.Reader != null)
+                    {
+                        changed = true;
+                    }
+                }
+            }
+        }
 
-		private void NgbBackup(object sender, System.EventArgs e)
-		{
-			if (lv.SelectedItems.Count<=0) return;
+        private void NgbBackup(object sender, System.EventArgs e)
+        {
+            var selected = lv.SelectedItem as NeighborhoodItem;
+            if (selected == null) return;
 
-			SimPe.Packages.StreamFactory.CloseAll();
-			string path = System.IO.Path.GetDirectoryName(lv.SelectedItems[0].SubItems[1].Text).Trim();
-            string lable = lv.SelectedItems[0].SubItems[3].Text;
-			
-			//if a File in the current Neighborhood is opened - close it!
-			CloseIfOpened(path);
-			try 
-			{
-				//create a Backup Folder
-				string name = System.IO.Path.GetFileName(path);
+            SimPe.Packages.StreamFactory.CloseAll();
+            string path  = System.IO.Path.GetDirectoryName(selected.FilePath).Trim();
+            string lable = selected.Label;
+
+            //if a File in the current Neighborhood is opened - close it!
+            CloseIfOpened(path);
+            try
+            {
+                //create a Backup Folder
+                string name = System.IO.Path.GetFileName(path);
                 if (lable != "") name = lable + "_" + name;
                 long grp = PathProvider.Global.SaveGamePathProvidedByGroup(path);
                 if (grp > 1) name = grp.ToString() + "_" + name;
 
                 string backuppath = System.IO.Path.Combine(PathProvider.Global.BackupFolder, name);
-				string subname = DateTime.Now.ToString();
-				backuppath = System.IO.Path.Combine(backuppath, subname.Replace("\\", "-").Replace("/", "-").Replace(":", "-"));
-				if (!System.IO.Directory.Exists(backuppath)) System.IO.Directory.CreateDirectory(backuppath);
+                string subname    = DateTime.Now.ToString();
+                backuppath        = System.IO.Path.Combine(backuppath, subname.Replace("\\", "-").Replace("/", "-").Replace(":", "-"));
+                if (!System.IO.Directory.Exists(backuppath)) System.IO.Directory.CreateDirectory(backuppath);
 
-				Helper.CopyDirectory(path, backuppath, true);
+                Helper.CopyDirectory(path, backuppath, true);
                 SetSmilyIcon("happy");
-			} 
-			catch (Exception ex) 
-			{
+            }
+            catch (Exception ex)
+            {
                 Helper.ExceptionMessage("", ex);
                 SetSmilyIcon("sad");
-			}
-		}
+            }
+        }
 
-		private void NgbRestoreBackup(object sender, System.EventArgs e)
-		{
-			if (lv.SelectedItems.Count<=0) return;
+        private void NgbRestoreBackup(object sender, System.EventArgs e)
+        {
+            var selected = lv.SelectedItem as NeighborhoodItem;
+            if (selected == null) return;
 
-			string path = System.IO.Path.GetDirectoryName(lv.SelectedItems[0].SubItems[1].Text).Trim();
-			
-			//if a File in the current Neighborhood is opened - close it!
-			CloseIfOpened(path);			
+            string path = System.IO.Path.GetDirectoryName(selected.FilePath).Trim();
 
-			NgbBackup nb = new NgbBackup();
+            //if a File in the current Neighborhood is opened - close it!
+            CloseIfOpened(path);
+
+            NgbBackup nb = new NgbBackup();
             nb.Text += " (";
-            if (lv.SelectedItems[0].SubItems[3].Text != "") nb.Text += lv.SelectedItems[0].SubItems[3].Text + ": ";
-            nb.Text += lv.SelectedItems[0].SubItems[2].Text.Trim() + ")";
+            if (selected.Label != "") nb.Text += selected.Label + ": ";
+            nb.Text += selected.Name.Trim() + ")";
             if (UserVerification.HaveUserId) nb.Text += " " + NeighborhoodIdentifier(path);
-            nb.Execute(path, package, prov, lv.SelectedItems[0].SubItems[3].Text);			
-			UpdateList();
+            nb.Execute(path, package, prov, selected.Label);
+            UpdateList();
             SetSmilyIcon("none");
-		}
+        }
 
         private void cbtypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnOpen.Enabled = cbtypes.SelectedItem != null;
+            btnOpen.IsEnabled = cbtypes.SelectedItem != null;
 
             if (!lodesubs)
                 return;
 
-            Image newImg = null;
+            System.Drawing.Image newImg = null;
 
             if (cbtypes.SelectedItem != null)
             {
@@ -588,21 +632,18 @@ namespace SimPe.Plugin
                         {
                             // Optional: quick sanity check on file size (previews should not be enormous)
                             var fi = new System.IO.FileInfo(name);
-                            if (fi.Length > 20 * 1024 * 1024) // 20MB cap - adjust if needed
+                            if (fi.Length > 20 * 1024 * 1024) // 20MB cap
                                 throw new Exception("Preview PNG is unexpectedly large: " + fi.Length);
 
                             using (System.IO.Stream st = System.IO.File.OpenRead(name))
-                            using (Image tmp = Helper.LoadImage(st, true, true))
+                            using (System.Drawing.Image tmp = Helper.LoadImage(st, true, true))
+                            using (System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(tmp))
                             {
-                                // Force full decode NOW (inside try/catch), and detach from the stream
-                                using (Bitmap bmp = new Bitmap(tmp))
-                                {
-                                    // Sanity check on dimensions
-                                    if (bmp.Width > 4096 || bmp.Height > 4096 || bmp.Width <= 0 || bmp.Height <= 0)
-                                        throw new Exception($"Preview PNG has invalid size {bmp.Width}x{bmp.Height}");
+                                // Sanity check on dimensions
+                                if (bmp.Width > 4096 || bmp.Height > 4096 || bmp.Width <= 0 || bmp.Height <= 0)
+                                    throw new Exception($"Preview PNG has invalid size {bmp.Width}x{bmp.Height}");
 
-                                    newImg = new Bitmap(bmp); // clone to keep after disposing bmp/tmp/stream
-                                }
+                                newImg = new System.Drawing.Bitmap(bmp);
                             }
                         }
                         catch
@@ -613,31 +654,19 @@ namespace SimPe.Plugin
                 }
             }
 
-            // Dispose previous image to avoid leaks
-            Image oldImg = this.pnBoPeep.BackgroundImage;
-            //this.pnBoPeep.BackgroundImage = newImg;
-            if (oldImg != null && !object.ReferenceEquals(oldImg, newImg))
-                oldImg.Dispose();
+            // Background image not supported on Avalonia controls — dispose preview
+            if (newImg != null) newImg.Dispose();
         }
-
-
 
         private void SetSmilyIcon(string hapy)
         {
             uint inst = 0xABBA2585;
-            if (hapy == "none") { pbox.Image = null; return; }
+            if      (hapy == "none")  { pbox.Source = null; return; }
             else if (hapy == "happy") inst = 0xABBA2575;
-            else if (hapy == "sad") inst = 0xABBA2591;
-            /*
-            if (pbpay.Value == 1) inst = 0xABBA2595;
-            if (pbpay.Value == 2) inst = 0xABBA2591;
-            if (pbpay.Value == 3) inst = 0xABBA2588;
-            if (pbpay.Value == 4) inst = 0xABBA2585;
-            if (pbpay.Value == 5) inst = 0xABBA2582;
-            if (pbpay.Value == 6) inst = 0xABBA2578;
-            if (pbpay.Value == 7) inst = 0xABBA2575;
-            */
-            SimPe.Packages.File pkg = SimPe.Packages.File.LoadFromFile(System.IO.Path.Combine(PathProvider.Global.Latest.InstallFolder, "TSData\\Res\\UI\\ui.package"));
+            else if (hapy == "sad")   inst = 0xABBA2591;
+
+            SimPe.Packages.File pkg = SimPe.Packages.File.LoadFromFile(
+                System.IO.Path.Combine(PathProvider.Global.Latest.InstallFolder, "TSData\\Res\\UI\\ui.package"));
             if (pkg != null)
             {
                 SimPe.Interfaces.Files.IPackedFileDescriptor pfd = pkg.FindFile(0x856DDBAC, 0, 0x499DB772, inst);
@@ -645,11 +674,11 @@ namespace SimPe.Plugin
                 {
                     SimPe.PackedFiles.Wrapper.Picture pic = new SimPe.PackedFiles.Wrapper.Picture();
                     pic.ProcessData(pfd, pkg);
-                    pbox.Image = pic.Image;
+                    pbox.Source = ToAvaloniaBitmap(pic.Image);
                 }
-                else pbox.Image = null;
+                else pbox.Source = null;
             }
-            else pbox.Image = null;
+            else pbox.Source = null;
         }
-	}
+    }
 }

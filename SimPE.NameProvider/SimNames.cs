@@ -153,7 +153,7 @@ namespace SimPe.Providers
             tags[2] = Localization.Manager.GetString("Unknown");
 			tags[3] = hasagedata;
 			tags[4] = null; 
-			/*if (Helper.WindowsRegistry.HiddenMode)
+			/*if (Helper.XmlRegistry.HiddenMode)
 				tags[5] = (!hasagedata) && (fl.FindFiles(0xAC506764).Length>0); //if this is true, the Sim has a Problem, and the package was probably split
 			else
 				tags[5] = false;*/
@@ -174,7 +174,7 @@ namespace SimPe.Providers
 			{
 				SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 				str.ProcessData(str_pfd, fl);
-				SimPe.PackedFiles.Wrapper.StrItemList its = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+				SimPe.PackedFiles.Wrapper.StrItemList its = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
 				if (its.Length>0) 
 				{
 #if DEBUG
@@ -223,14 +223,14 @@ namespace SimPe.Providers
 
 		protected void ScanFileTable()
 		{
-            if (Helper.StartedGui == Executable.Classic || !Helper.WindowsRegistry.DeepSimScan) return;
-            if (Helper.WindowsRegistry.DeepSimTemplateScan) characterfi.Load();
+            if (Helper.StartedGui == Executable.Classic || !Helper.XmlRegistry.DeepSimScan) return;
+            if (Helper.XmlRegistry.DeepSimTemplateScan) characterfi.Load();
 
             FileTable.FileIndex.AddChild(characterfi); // why if not DeepSimTemplateScan
 			try 
 			{
 				ScanFileTable(0x80);
-                if (Helper.WindowsRegistry.DeepSimTemplateScan) ScanFileTable(0x81); // some templates are instance 0x81
+                if (Helper.XmlRegistry.DeepSimTemplateScan) ScanFileTable(0x81); // some templates are instance 0x81
 			}
 			finally 
 			{
@@ -241,7 +241,7 @@ namespace SimPe.Providers
 		protected void ScanFileTable(uint inst)
 		{
             // Mystery Sim - Girl GUID 0x6DD33865 group 0x7FBA59DA, Instance 0x000041A7 / Mystery Sim - Boy GUID 0x006D2D59 group 0x7FCB2EBC img instance 1 - Type normal
-            if (Helper.StartedGui == Executable.Classic || !Helper.WindowsRegistry.DeepSimScan) return;
+            if (Helper.StartedGui == Executable.Classic || !Helper.XmlRegistry.DeepSimScan) return;
 			SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFileDiscardingGroup(Data.MetaData.OBJD_FILE, inst);
 			Wait.MaxProgress = items.Length;
 			int ct = 0;
@@ -252,7 +252,7 @@ namespace SimPe.Providers
 
                 SimPe.PackedFiles.Wrapper.ExtObjd objd = new SimPe.PackedFiles.Wrapper.ExtObjd();
                 objd.ProcessData(item);
-                if (Helper.WindowsRegistry.DeepSimTemplateScan && objd.Type == Data.ObjectTypes.Template)
+                if (Helper.XmlRegistry.DeepSimTemplateScan && objd.Type == Data.ObjectTypes.Template)
                     AddSim(objd, ref ct, step, true);
 
                 if (objd.Type == Data.ObjectTypes.Person)
@@ -327,7 +327,7 @@ namespace SimPe.Providers
             if (names != null) return; // if names were set by other thread then lets not do it again (and again, and again etc.)
 			names = new Hashtable();
 			if (!Directory.Exists(dir)) return;
-			if (Helper.WindowsRegistry.DeepSimScan && Helper.StartedGui!=Executable.Classic) 
+			if (Helper.XmlRegistry.DeepSimScan && Helper.StartedGui!=Executable.Classic) 
 				FileTable.FileIndex.Load();
 			this.ExecuteThread(ThreadPriority.AboveNormal, "Sim Name Provider", true, true);						
 		}

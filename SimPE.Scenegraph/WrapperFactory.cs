@@ -60,7 +60,7 @@ namespace SimPe.Plugin
 		/// Loads the GroupCache
 		/// </summary>
         /// <param name="force">Will force the load of the GroupsCache even 
-        /// if <see cref="Helper.WindowsRegistry.UseMaxisGroupsCache"/> is set to false</param>
+        /// if <see cref="Helper.XmlRegistry.UseMaxisGroupsCache"/> is set to false</param>
 		public static void LoadGroupCache(bool force)
 		{
             if (FileTable.GroupCache != null ) return;
@@ -68,7 +68,7 @@ namespace SimPe.Plugin
 
 			SimPe.PackedFiles.Wrapper.GroupCache gc = new SimPe.PackedFiles.Wrapper.GroupCache();
 
-            if (!Helper.WindowsRegistry.UseMaxisGroupsCache && !force)
+            if (!Helper.XmlRegistry.UseMaxisGroupsCache && !force)
             {
                 FileTable.GroupCache = gc;
                 return;

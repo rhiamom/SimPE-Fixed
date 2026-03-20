@@ -380,7 +380,7 @@ namespace SimPe.Plugin
 
 
 					//Add a FrameList
-					if (ab2.MaxPart3FrameCount>0 && Helper.WindowsRegistry.HiddenMode) 
+					if (ab2.MaxPart3FrameCount>0 && Helper.XmlRegistry.HiddenMode) 
 					{
 						System.Windows.Forms.TreeNode frames = new System.Windows.Forms.TreeNode("(Block Frames)");
 						tn2.Nodes.Add(frames);
@@ -429,7 +429,7 @@ namespace SimPe.Plugin
             // this.someList = null;
             // this.someDisposable?.Dispose();
 
-            // If there’s nothing special to clean up, this can stay empty.
+            // If thereï¿½s nothing special to clean up, this can stay empty.
         }
     }
 

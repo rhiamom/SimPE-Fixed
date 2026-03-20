@@ -350,7 +350,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		private void myrepaint()
 		{
-            SimPe.RemoteControl.ApplicationForm.Cursor = Cursors.WaitCursor;
+            SimPe.RemoteControl.ApplicationForm.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
             //this.Parent.Cursor = Cursors.WaitCursor;
 			//SimPe.Wait.Start(wrapper.Count);
 			try
@@ -380,7 +380,7 @@ namespace SimPe.PackedFiles.UserInterface
 			}
 			finally
 			{
-                SimPe.RemoteControl.ApplicationForm.Cursor = Cursors.Default;
+                SimPe.RemoteControl.ApplicationForm.Cursor = null;
                 //this.Parent.Cursor = Cursors.Default;
                 //SimPe.Wait.Stop();
 			}

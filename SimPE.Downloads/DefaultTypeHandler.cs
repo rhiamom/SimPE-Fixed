@@ -447,7 +447,7 @@ namespace SimPe.Plugin.Downloads
 				SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 				str.ProcessData(ctss, pkg);
 
-				return str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+				return str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
 				
 			} 
 

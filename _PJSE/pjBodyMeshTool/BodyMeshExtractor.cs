@@ -357,12 +357,12 @@ namespace pj
                 if (mesh.ToLower().StartsWith("yf")) mesh = "af" + mesh.Substring(2);
 
                 bool success = true;
-                SimPe.RemoteControl.ApplicationForm.Cursor = Cursors.WaitCursor;
+                SimPe.RemoteControl.ApplicationForm.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
                 success = success && findAndAdd(mesh, SimPe.Data.MetaData.GMDC, "Sims03.package");
                 success = success && findAndAdd(mesh, SimPe.Data.MetaData.GMND, "Sims04.package");
                 success = success && findAndAdd(mesh, SimPe.Data.MetaData.SHPE, "Sims05.package");
                 success = success && findAndAdd(mesh, SimPe.Data.MetaData.CRES, "Sims06.package");
-                SimPe.RemoteControl.ApplicationForm.Cursor = Cursors.Default;
+                SimPe.RemoteControl.ApplicationForm.Cursor = null;
                 if (!success)
                     MessageBox.Show(L.Get("notAllPartsFound") + m,
                         L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Warning);

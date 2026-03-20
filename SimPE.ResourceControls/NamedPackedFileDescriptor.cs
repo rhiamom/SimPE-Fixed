@@ -66,7 +66,7 @@ namespace SimPe.Windows.Forms
         {
             if (realname == null)
             {
-                if (Helper.WindowsRegistry.DecodeFilenamesState)
+                if (Helper.XmlRegistry.DecodeFilenamesState)
                 {                    
                     SimPe.Interfaces.Plugin.Internal.IPackedFileWrapper wrp = FileTable.WrapperRegistry.FindHandler(pfd.Type);
                     if (wrp != null)

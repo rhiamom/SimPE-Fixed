@@ -56,7 +56,7 @@ namespace SimPe.Plugin.Tool.Dockable
             tm.AddControl(this.xpGradientPanel1);
             tm.AddControl(this.tbResult);
             tm.AddControl(this.toolBar1);
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
                 toolBar1.ImageScalingSize = new System.Drawing.Size(32, 32);            
 
             sorter = new ColumnSorter();
@@ -66,7 +66,7 @@ namespace SimPe.Plugin.Tool.Dockable
             lv.View = SteepValley.Windows.Forms.ExtendedView.Details;
 
             packages = new System.Collections.Generic.List<string>();
-            threads = new System.Threading.Thread[Helper.WindowsRegistry.SortProcessCount / 2];
+            threads = new System.Threading.Thread[Helper.XmlRegistry.SortProcessCount / 2];
 
             runningthreads = 0;
             CreateThreads(false);
@@ -261,7 +261,7 @@ namespace SimPe.Plugin.Tool.Dockable
         {
             lock (lv)
             {
-                if (lv.Items.Count > Helper.WindowsRegistry.MaxSearchResults)
+                if (lv.Items.Count > Helper.XmlRegistry.MaxSearchResults)
                 {
                     truncated = true;
                     return;
@@ -365,7 +365,7 @@ namespace SimPe.Plugin.Tool.Dockable
             lv.DoubleBuffering = true;
 
             if (searchtool!=null) searchtool.NotifyFinishedSearch();
-            pnErr.Text = pnErr.Text.Replace("{nr}", Helper.WindowsRegistry.MaxSearchResults.ToString());
+            pnErr.Text = pnErr.Text.Replace("{nr}", Helper.XmlRegistry.MaxSearchResults.ToString());
             pnErr.Visible = truncated;
             Wait.Stop();
 

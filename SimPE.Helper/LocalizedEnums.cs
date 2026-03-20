@@ -388,7 +388,7 @@ namespace SimPe.Data
 					return "Mansion and Gardens";
 
 				// Special case: Castaway Stories being detected as Seasons (Stories mode 28)
-				if (Helper.WindowsRegistry.LoadOnlySimsStory == 28 && s == "Seasons")
+				if (Helper.XmlRegistry.LoadOnlySimsStory == 28 && s == "Seasons")
 					return "Castaway";
 
 				return s;

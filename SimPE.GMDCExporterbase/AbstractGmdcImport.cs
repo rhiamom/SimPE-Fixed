@@ -123,7 +123,7 @@ namespace SimPe.Plugin.Gmdc
 			order = new ElementOrder(ElementSorting.XZY);
 			ab1 = new ImportedFrameBlocks();
 
-			ab1.AuskelCorrection = Helper.WindowsRegistry.CorrectJointDefinitionOnExport;
+			ab1.AuskelCorrection = Helper.XmlRegistry.CorrectJointDefinitionOnExport;
 		}
 
 		
@@ -286,7 +286,7 @@ namespace SimPe.Plugin.Gmdc
 				//if (minct==int.MaxValue) minct=0;							
 			}
 
-			if (Helper.WindowsRegistry.ShowJointNames)
+			if (Helper.XmlRegistry.ShowJointNames)
 			{
 				foreach (ImportedBone bn in bns)
 				{

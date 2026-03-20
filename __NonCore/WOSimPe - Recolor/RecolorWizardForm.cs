@@ -31,7 +31,7 @@ using System.Data;
 namespace SimPe.Wizards
 {
 	/// <summary>
-	/// Zusammenfassung für RecolourWizardForm.
+	/// Zusammenfassung fï¿½r RecolourWizardForm.
 	/// </summary>
 	public class RecolourWizardForm : System.Windows.Forms.Form
 	{
@@ -77,13 +77,13 @@ namespace SimPe.Wizards
 		public RecolourWizardForm()
 		{
 			//
-			// Erforderlich für die Windows Form-Designerunterstützung
+			// Erforderlich fï¿½r die Windows Form-Designerunterstï¿½tzung
 			//
 			InitializeComponent();
 
 			ShowSelection();
 			loaded = false;
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
             {
                 this.cbalpha.Location = new System.Drawing.Point(395, 105);
                 this.cbalpha.Size = new System.Drawing.Size(153, 22);
@@ -114,8 +114,8 @@ namespace SimPe.Wizards
 
 		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{

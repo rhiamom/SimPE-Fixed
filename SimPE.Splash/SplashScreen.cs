@@ -63,7 +63,7 @@ namespace SimPe
         {
             mmsg = "";
 
-            if (Helper.WindowsRegistry.ShowStartupSplash || (Helper.WindowsRegistry.GetPreviousVersion() != Helper.SimPeVersionLong))
+            if (Helper.XmlRegistry.ShowStartupSplash || (Helper.XmlRegistry.GetPreviousVersion() != Helper.SimPeVersionLong))
             {
                 t = new System.Threading.Thread(new System.Threading.ThreadStart(StartThread));
                 t.Start();

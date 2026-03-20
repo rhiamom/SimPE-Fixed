@@ -76,7 +76,7 @@ namespace SimPe.Plugin
 			get 
 			{
 				if (ctss==null) return package.FileName;
-				SimPe.PackedFiles.Wrapper.StrItemList items = ctss.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+				SimPe.PackedFiles.Wrapper.StrItemList items = ctss.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
 				if (items.Length>0) return items[0].Title;
 
 				return package.FileName;

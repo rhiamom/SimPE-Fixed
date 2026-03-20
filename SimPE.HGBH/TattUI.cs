@@ -54,7 +54,7 @@ namespace SimPe.Plugin
             // Required designer variable.
 			InitializeComponent();
             
-            if (Helper.WindowsRegistry.UseBigIcons) this.lb.Font = new System.Drawing.Font("Courier New", 12F);
+            if (Helper.XmlRegistry.UseBigIcons) this.lb.Font = new System.Drawing.Font("Courier New", 12F);
 		}
 
 		/// <summary> 

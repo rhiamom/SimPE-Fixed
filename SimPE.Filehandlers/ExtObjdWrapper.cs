@@ -353,7 +353,7 @@ namespace SimPe.PackedFiles.Wrapper
                         nref.ProcessData(pfd, package);
 
                         gooee = nref.FileName +
-                                Helper.WindowsRegistry.CachedUserId.ToString() +
+                                Helper.XmlRegistry.CachedUserId.ToString() +
                                 Convert.ToString(this.FileDescriptor.Instance);
 
                         gid = Hashes.GetCrc32(gooee);

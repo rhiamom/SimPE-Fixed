@@ -84,7 +84,7 @@ namespace SimPe.PackedFiles.UserInterface
 			alHex16 = new ArrayList(tbua);
 
             pjse.FileTable.GFT.FiletableRefresh += new EventHandler(GFT_FiletableRefresh);
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lvObjfItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
                 this.chAction.Width = 350;

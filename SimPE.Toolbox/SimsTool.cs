@@ -38,7 +38,7 @@ namespace SimPe.Plugin
 		/// Windows Registry Link
 		/// </summary>
 		static SimPe.Registry registry;
-		internal static Registry WindowsRegistry 
+		internal static Registry XmlRegistry 
 		{
 			get { return registry; }
 		}
@@ -51,7 +51,7 @@ namespace SimPe.Plugin
 			this.reg = reg;
 			this.prov = prov;
 
-			if (registry==null) registry = Helper.WindowsRegistry;
+			if (registry==null) registry = Helper.XmlRegistry;
 		}
 
         #region ITool Member
@@ -86,7 +86,7 @@ namespace SimPe.Plugin
                 return new Plugin.ToolResult(false, false);
             }
 			Sims sims = new Sims();
-			sims.Text = Localization.Manager.GetString("simsbrowser");
+			sims.Title = Localization.Manager.GetString("simsbrowser");
 
 			return sims.Execute(ref pfd, ref package, prov);
 		}

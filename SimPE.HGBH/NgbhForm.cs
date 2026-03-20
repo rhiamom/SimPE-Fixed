@@ -492,7 +492,7 @@ namespace SimPe.Plugin
 			if (tbFlag.Tag!=null) return;
 			try 
 			{
-				if (Helper.WindowsRegistry.HiddenMode)
+				if (Helper.XmlRegistry.HiddenMode)
 					GetSelectedItem().Value = Helper.StringToUInt16(tbval.Text, GetSelectedItem().Value, 16);
 				else
 					GetSelectedItem().Value = Helper.StringToUInt16(tbval.Text, GetSelectedItem().Value, 10);
@@ -675,7 +675,7 @@ namespace SimPe.Plugin
 
 			this.tbUnk.Enabled = (uint)GetSelectedItem().ParentSlot.Version >= (uint)NgbhVersion.Nightlife;
 			this.tbUnk.Text = "0x"+Helper.HexString(GetSelectedItem().InventoryNumber);
-			if (Helper.WindowsRegistry.HiddenMode)
+			if (Helper.XmlRegistry.HiddenMode)
 				this.tbval.Text = "0x"+Helper.HexString(GetSelectedItem().Value);
 			else
 				this.tbval.Text = GetSelectedItem().Value.ToString();

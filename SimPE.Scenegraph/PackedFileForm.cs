@@ -70,7 +70,7 @@ namespace SimPe.Plugin
 			// Required designer variable.
 			//
             InitializeComponent();
-            if (Helper.WindowsRegistry.UseBigIcons) this.lblist.Font = new System.Drawing.Font(this.lblist.Font.FontFamily, 11F);
+            if (Helper.XmlRegistry.UseBigIcons) this.lblist.Font = new System.Drawing.Font(this.lblist.Font.FontFamily, 11F);
 		}
 
 		/// <summary>

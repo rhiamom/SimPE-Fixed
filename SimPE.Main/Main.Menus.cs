@@ -157,8 +157,8 @@ namespace SimPe
         /// </summary>
         void InitMenuItems()
         {
-            this.miMetaInfo.Checked = !Helper.WindowsRegistry.LoadMetaInfo;
-            this.miFileNames.Checked = Helper.WindowsRegistry.DecodeFilenamesState;
+            this.miMetaInfo.Checked = !Helper.XmlRegistry.LoadMetaInfo;
+            this.miFileNames.Checked = Helper.XmlRegistry.DecodeFilenamesState;
 
             AddDockMenus();
             UpdateMenuItems();
@@ -215,7 +215,7 @@ namespace SimPe
                 // If Helper.GameRootPath is already set,
                 // you can prefill the dialog here.
 
-                if (dlg.ShowDialog(this) == DialogResult.OK)
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     // Values have already been saved inside GameRootDialog:
                     // Helper.GameRootPath

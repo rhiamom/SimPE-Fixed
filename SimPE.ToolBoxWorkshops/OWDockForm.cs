@@ -868,8 +868,8 @@ namespace SimPe.Plugin.Tool.Dockable
 				else if (oci.Thumbnail!=null) 
 				{
 					Image img = oci.Thumbnail;
-					//if (Helper.WindowsRegistry.GraphQuality) img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new System.Drawing.Point(0,0), System.Drawing.Color.Magenta);
-					img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, ilist.ImageSize.Width, ilist.ImageSize.Height, Helper.WindowsRegistry.GraphQuality);
+					//if (Helper.XmlRegistry.GraphQuality) img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new System.Drawing.Point(0,0), System.Drawing.Color.Magenta);
+					img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, ilist.ImageSize.Width, ilist.ImageSize.Height, Helper.XmlRegistry.GraphQuality);
 
 					ilist.Images.Add(img);
 					tn.ImageIndex = ilist.Images.Count-1;					

@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace SimPe
 {
-    public partial class MainWindow : Window
+    public partial class MainForm : Window
     {
         private SimPe.Packages.GeneratableFile _package;
         private byte[] _currentBytes;
 
-        public MainWindow()
+        public MainForm()
         {
             InitializeComponent();
             WireEvents();
@@ -32,7 +32,7 @@ namespace SimPe
         {
             MenuFileOpen.Click  += async (_, _) => await OpenPackage();
 
-            MenuFileClose.Click += (_, _) => ClosePackage();
+            MenuFileClose.Click += (_, _) => ResetPackageUI();
 
             MenuFileExit.Click  += (_, _) => Close();
 
@@ -69,13 +69,12 @@ namespace SimPe
 
                 if (files.Count == 0) return;
 
-                ClosePackage();
+                ResetPackageUI();
 
                 string path = files[0].Path.LocalPath;
                 StatusText.Text = "Loading…";
                 _package = SimPe.Packages.File.LoadFromFile(path, true);
                 if (_package == null) { StatusText.Text = "Error: LoadFromFile returned null"; return; }
-                ExtractEmbeddedFilenames();
                 PopulateTree();
                 ShowAll();
                 Title = $"SimPE — {System.IO.Path.GetFileName(path)}";
@@ -91,7 +90,7 @@ namespace SimPe
         // Close
         // ─────────────────────────────────────────────────────────────
 
-        private void ClosePackage()
+        private void ResetPackageUI()
         {
             if (_package == null) return;
             _package = null;
@@ -142,37 +141,13 @@ namespace SimPe
         private void PopulateList(IEnumerable<IPackedFileDescriptor> descriptors)
         {
             ResourceList.ItemsSource = descriptors
-                .Select(pfd => new ResourceListItem(pfd))
+                .Select(pfd => new ResourceListItem(pfd, _package))
                 .ToList();
         }
 
         // ─────────────────────────────────────────────────────────────
         // Resource selection
         // ─────────────────────────────────────────────────────────────
-
-        // ─────────────────────────────────────────────────────────────
-        // Embedded filename extraction
-        // ─────────────────────────────────────────────────────────────
-
-        /// <summary>
-        /// For resource types that embed their filename in the first bytes of data,
-        /// read those bytes and set Filename on the descriptor so the list shows
-        /// meaningful names instead of TGI hex strings.
-        /// </summary>
-        private void ExtractEmbeddedFilenames()
-        {
-            foreach (var pfd in _package.Index)
-            {
-                try
-                {
-                    var handler = FileTable.WrapperRegistry?.FindHandler(pfd.Type)
-                                  as SimPe.Interfaces.Plugin.Internal.IPackedFileWrapper;
-                    if (handler == null) continue;
-                    handler.ProcessData(pfd, _package, false);
-                }
-                catch { /* leave filename as default hex string */ }
-            }
-        }
 
         private void OnListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

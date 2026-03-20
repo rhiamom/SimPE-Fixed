@@ -233,7 +233,7 @@ namespace SimPe
             CheckBox cbDontShow = new CheckBox();
             cbDontShow.Text = "Don't show this again on startup";
             cbDontShow.AutoSize = true;
-            cbDontShow.Checked = !Helper.WindowsRegistry.ShowWelcomeOnStartup;
+            cbDontShow.Checked = !Helper.XmlRegistry.ShowWelcomeOnStartup;
             cbDontShow.BackColor = System.Drawing.SystemColors.Control;
             cbDontShow.Anchor = System.Windows.Forms.AnchorStyles.Bottom
                               | System.Windows.Forms.AnchorStyles.Right;
@@ -246,7 +246,7 @@ namespace SimPe
 
 			f.ShowDialog();
 
-            Helper.WindowsRegistry.ShowWelcomeOnStartup = !cbDontShow.Checked;
+            Helper.XmlRegistry.ShowWelcomeOnStartup = !cbDontShow.Checked;
 		}
 
         //static System.Threading.Thread uthread;

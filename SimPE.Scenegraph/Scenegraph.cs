@@ -389,12 +389,12 @@ namespace SimPe.Plugin
 			if (cachefile!=null) return;
 			
 			cachefile = new SimPe.Cache.MMATCacheFile();
-            if (Helper.WindowsRegistry.UseCache) cachefile.Load(Helper.SimPeLanguageCache);
+            if (Helper.XmlRegistry.UseCache) cachefile.Load(Helper.SimPeLanguageCache);
 		}
 
 		static void SaveCache() 
 		{
-            if (Helper.WindowsRegistry.UseCache) cachefile.Save(Helper.SimPeLanguageCache);
+            if (Helper.XmlRegistry.UseCache) cachefile.Save(Helper.SimPeLanguageCache);
 		}
 		#endregion
 
@@ -983,7 +983,7 @@ namespace SimPe.Plugin
 						} 
 						catch (Exception ex)
 						{
-                            if (Helper.WindowsRegistry.HiddenMode) 
+                            if (Helper.XmlRegistry.HiddenMode) 
 								Helper.ExceptionMessage("", ex);
 						}
 					}
@@ -1091,7 +1091,7 @@ namespace SimPe.Plugin
                 }
                 catch (Exception ex)
                 {
-                    if (Helper.WindowsRegistry.HiddenMode)
+                    if (Helper.XmlRegistry.HiddenMode)
                         Helper.ExceptionMessage("", ex);
                 }
             }

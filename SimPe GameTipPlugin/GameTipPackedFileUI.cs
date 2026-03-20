@@ -230,7 +230,7 @@ namespace SimPe.Plugin
                 {
                     SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
                     str.ProcessData(pfd, package);
-                    SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+                    SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
                     if (items.Length > gtnm) gtnametxt.Text = items[gtnm].Title;
                     if (items.Length > gthd) gtheadtxt.Text = items[gthd].Title;
                     if (items.Length > gtby) gtbodytxt.Text = items[gtby].Title;

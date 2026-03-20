@@ -282,7 +282,7 @@ namespace SimPe.PackedFiles.Wrapper
                         SimPe.PackedFiles.Wrapper.Str str = new Str();
                         str.ProcessData(pfd, package);
 
-                        SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+                        SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
                         if (items.Length > 0) name = items[0].Title;
                     }
                 }

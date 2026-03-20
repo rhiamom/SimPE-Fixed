@@ -55,7 +55,7 @@ namespace pjse
 			//
             InitializeComponent();
 
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lbItemList.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
                 this.Size = new System.Drawing.Size(600, 373);

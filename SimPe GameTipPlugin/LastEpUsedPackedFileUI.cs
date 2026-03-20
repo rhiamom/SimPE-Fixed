@@ -77,7 +77,7 @@ namespace SimPe.Plugin
         {
             InitializeComponent();
  
-            if (PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists) // && Helper.WindowsRegistry.LoadOnlySimsStory == 28)
+            if (PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists) // && Helper.XmlRegistry.LoadOnlySimsStory == 28)
             {
                 Wait.Start(117);
                 Wait.Message = "Loading Castaway Goals...";

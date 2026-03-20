@@ -290,7 +290,7 @@ namespace SimPe
             else n += "Folder: ";
             if (!IsUseable) n = "(Unused) " + n;
             else if (!IsAvail) n = "(Missing) " + n;
-            if (!Helper.WindowsRegistry.UseExpansions2 && type.ToString() == "Extra")
+            if (!Helper.XmlRegistry.UseExpansions2 && type.ToString() == "Extra")
                 n += "{Store}" + path;
             else
                 n += "{" + type.ToString() + "}" + path;

@@ -112,8 +112,8 @@ namespace SimPe
 
             InitTheme();
 
-            dockBottom.Height = ((this.Height * 3) / 4);
-            this.Text += " (Version " + Helper.SimPeVersion.ProductVersion + ")";
+            dockBottom.Height = (int)((this.Height * 3) / 4);
+            this.Title += " (Version " + Helper.SimPeVersion.ProductVersion + ")";
             
 
 
@@ -126,7 +126,7 @@ namespace SimPe
             Ambertation.Windows.Forms.Serializer.Global.Register(tbContainer);
             Ambertation.Windows.Forms.Serializer.Global.Register(manager);
 
-            this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+            this.Closing += (_, _) => saveProfile();
 
             manager.NoCleanup = false;
             //manager.ForceCleanUp();
@@ -137,7 +137,7 @@ namespace SimPe
             waitControl1.ShowProgress = false;
             waitControl1.Progress = 0;
             waitControl1.Message = "";
-            waitControl1.Visible = Helper.WindowsRegistry.ShowWaitBarPermanent;
+            waitControl1.Visible = Helper.XmlRegistry.ShowWaitBarPermanent;
             // Debug aid � useful when diagnosing game path / FileTable issues
             //System.Diagnostics.Debug.WriteLine("[SetupMainForm] GameRootPath = '" + (Helper.GameRootPath ?? "<null>") + "'");
         }
@@ -145,8 +145,6 @@ namespace SimPe
         void LoadForm(object sender, System.EventArgs e)
         {
             SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Starting Main Form"));
-
-            this.SuspendLayout();
 
             dcFilter.Collapse(false);
 
@@ -163,32 +161,28 @@ namespace SimPe
             const int CurrentLayoutVersion = 1;
 
             if (!System.IO.File.Exists(SimPe.Helper.DataFolder.SimPeLayout)
-                || Helper.WindowsRegistry.LayoutVersion < CurrentLayoutVersion)
+                || Helper.XmlRegistry.LayoutVersion < CurrentLayoutVersion)
             {
                 ResetLayout(this, null);
-                Helper.WindowsRegistry.LayoutVersion = CurrentLayoutVersion;
+                Helper.XmlRegistry.LayoutVersion = CurrentLayoutVersion;
             }
             else
                 ReloadLayout();
 
             //Set the Lock State of the Docks
-            MakeFloatable(!Helper.WindowsRegistry.LockDocks);
+            MakeFloatable(!Helper.XmlRegistry.LockDocks);
 
             manager.Visible = true;
             tbContainer.Visible = true;
 
-            this.ResumeLayout();
-
             SimPe.Splash.Screen.Stop();
 
-            // Shown fires after the form is fully painted and all dock managers have
-            // finished their own initialization — more reliable than BeginInvoke from Load.
-            this.Shown += MainForm_FirstShown;
+            this.Opened += MainForm_FirstShown;
 
-            if (Helper.WindowsRegistry.ShowWelcomeOnStartup)
+            if (Helper.XmlRegistry.ShowWelcomeOnStartup)
                 About.ShowWelcome();
 
-            //if (Helper.WindowsRegistry.CheckForUpdates)
+            //if (Helper.XmlRegistry.CheckForUpdates)
                 //About.ShowUpdate();
         }
     }

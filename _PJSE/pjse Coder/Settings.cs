@@ -40,7 +40,7 @@ namespace pjse
         static Settings() { settings = new Settings(); }
 
         const string BASENAME = "PJSE\\Bhav";
-        SimPe.XmlRegistryKey xrk = SimPe.Helper.WindowsRegistry.PluginRegistryKey;
+        SimPe.XmlRegistryKey xrk = SimPe.Helper.XmlRegistry.PluginRegistryKey;
         public Settings() : base(rm) { }
 
         public event EventHandler DecimalDOValueChanged;
@@ -53,7 +53,7 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 object o = rkf.GetValue("decimalDOValue", false);
                 return Convert.ToBoolean(o);
             }
@@ -62,7 +62,7 @@ namespace pjse
             {
                 if (DecimalDOValue != value)
                 {
-                    SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                    SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                     rkf.SetValue("decimalDOValue", value);
                     OnDecimalDOValueChanged(this, new EventArgs());
                 }
@@ -80,7 +80,7 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 object o = rkf.GetValue("attrPickerAsText", true);
                 return Convert.ToBoolean(o);
             }
@@ -89,7 +89,7 @@ namespace pjse
             {
                 if (InstancePickerAsText != value)
                 {
-                    SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                    SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                     rkf.SetValue("attrPickerAsText", value);
                     OnInstancePickerAsTextChanged(this, new EventArgs());
                 }
@@ -102,14 +102,14 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("PJSE\\Bhav");
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("PJSE\\Bhav");
                 object o = rkf.GetValue("showSpecialButtons", false);
                 return Convert.ToBoolean(o);
             }
 
             set
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("PJSE\\Bhav");
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("PJSE\\Bhav");
                 rkf.SetValue("showSpecialButtons", value);
             }
 
@@ -120,14 +120,14 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 object o = rkf.GetValue("strShowDefault", false);
                 return Convert.ToBoolean(o);
             }
 
             set
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 rkf.SetValue("strShowDefault", value);
             }
         }
@@ -137,14 +137,14 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 object o = rkf.GetValue("strShowDesc", false);
                 return Convert.ToBoolean(o);
             }
 
             set
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 rkf.SetValue("strShowDesc", value);
             }
         }
@@ -154,14 +154,14 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 object o = rkf.GetValue("loadGUIDIndexAtStartup", true);
                 return Convert.ToBoolean(o);
             }
 
             set
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 rkf.SetValue("loadGUIDIndexAtStartup", value);
             }
         }

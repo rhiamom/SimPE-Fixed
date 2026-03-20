@@ -542,16 +542,16 @@ namespace SimPe.Interfaces.Plugin
                     if (ta != null)
                     {
 
-                        if (Helper.WindowsRegistry.ResourceListFormat == Registry.ResourceListFormats.JustLongType) { res = ta.Name; if (res == "") res = null; }
+                        if (Helper.XmlRegistry.ResourceListFormat == Registry.ResourceListFormats.JustLongType) { res = ta.Name; if (res == "") res = null; }
                         else res = GetResourceName(ta);
                         if (res == null) res = GetEmbeddedFileName(ta);
                         if (res == null) res = FileDescriptor.ToResListString();
                         else if (ta.Name == null) res = SimPe.Localization.GetString("Unknown") + ": " + res;
                         else
                         {
-                            if (Helper.WindowsRegistry.ResourceListFormat == Registry.ResourceListFormats.LongTypeNames)
+                            if (Helper.XmlRegistry.ResourceListFormat == Registry.ResourceListFormats.LongTypeNames)
                                 res = ta.Name + ": " + res;
-                            else if (Helper.WindowsRegistry.ResourceListFormat == Registry.ResourceListFormats.ShortTypeNames)
+                            else if (Helper.XmlRegistry.ResourceListFormat == Registry.ResourceListFormats.ShortTypeNames)
                                 res = ta.shortname + ": " + res;
                             else if (res.Trim() == "")
                                 res = "[" + ta.Name + "]";

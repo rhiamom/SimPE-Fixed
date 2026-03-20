@@ -55,7 +55,7 @@ namespace SimPe.PackedFiles.UserInterface
 			this.Text = "Sim DNA";
 			this.Commited += new EventHandler(SimDNAUI_Commited);
             
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
                 this.lbcpf.Font = new System.Drawing.Font("Verdana", 12F);
 		}
 
@@ -207,12 +207,12 @@ namespace SimPe.PackedFiles.UserInterface
                 pbDom.SelectedObject = Sdna.Dominant;
                 pbRec.SelectedObject = Sdna.Recessive;
 
-                // Chris Hatch bodyshape UI removed – hide this label entirely
+                // Chris Hatch bodyshape UI removed ï¿½ hide this label entirely
                 lbbody.Visible = false;
             }
             else
             {
-                // No DNA present – fall back to CPF list view
+                // No DNA present ï¿½ fall back to CPF list view
                 label2.Visible = pbRec.Visible = lbbody.Visible = label1.Visible = pbDom.Visible = false;
                 lbcpf.Visible = true;
                 lbcpf.Items.Clear();

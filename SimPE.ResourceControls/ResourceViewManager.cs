@@ -122,7 +122,7 @@ namespace SimPe.Windows.Forms
 
                 if (newpkg != null)
                 {
-                    if (Helper.WindowsRegistry.ShowProgressWhenPackageLoads || !Helper.WindowsRegistry.AsynchronSort)
+                    if (Helper.XmlRegistry.ShowProgressWhenPackageLoads || !Helper.XmlRegistry.AsynchronSort)
                         Wait.Start(newpkg.Index.Length);
                     else Wait.Start();
                     Wait.Message = SimPe.Localization.GetString("Loading package...");
@@ -130,11 +130,11 @@ namespace SimPe.Windows.Forms
                     foreach (SimPe.Interfaces.Files.IPackedFileDescriptor pfd in newpkg.Index)
                     {
                         NamedPackedFileDescriptor npfd = new NamedPackedFileDescriptor(pfd, newpkg);
-                        if (!Helper.WindowsRegistry.AsynchronSort) npfd.GetRealName();
+                        if (!Helper.XmlRegistry.AsynchronSort) npfd.GetRealName();
 
                         maps.Everything.Add(npfd);
                         AddResourceToMaps(npfd);
-                        if (Helper.WindowsRegistry.ShowProgressWhenPackageLoads || !Helper.WindowsRegistry.AsynchronSort) Wait.Progress = ct++;
+                        if (Helper.XmlRegistry.ShowProgressWhenPackageLoads || !Helper.XmlRegistry.AsynchronSort) Wait.Progress = ct++;
                     }
                     Wait.Stop();
                 }
@@ -158,7 +158,7 @@ namespace SimPe.Windows.Forms
             maps.Clear(false);            
             foreach (NamedPackedFileDescriptor npfd in maps.Everything)
             {
-                if (!Helper.WindowsRegistry.AsynchronSort) npfd.GetRealName();
+                if (!Helper.XmlRegistry.AsynchronSort) npfd.GetRealName();
                 AddResourceToMaps(npfd);
             }
             if (tv != null) tv.SetResourceMaps(maps, false, false);
@@ -173,8 +173,8 @@ namespace SimPe.Windows.Forms
 
             bool isNeighborhood = Helper.IsNeighborhoodFile(filonam);
 
-            if ((maps.Everything.Count > Helper.WindowsRegistry.BigPackageResourceCount &&
-                 !Helper.WindowsRegistry.ResoruceTreeAllwaysAutoselect) || isNeighborhood)
+            if ((maps.Everything.Count > Helper.XmlRegistry.BigPackageResourceCount &&
+                 !Helper.XmlRegistry.ResoruceTreeAllwaysAutoselect) || isNeighborhood)
             {
                 donotselect = true;
                 lv.Clear();
@@ -263,7 +263,7 @@ namespace SimPe.Windows.Forms
 
         internal static int GetIndexForResourceType(uint type)
         {
-            if (Helper.WindowsRegistry.DecodeFilenamesState)
+            if (Helper.XmlRegistry.DecodeFilenamesState)
             {
                 SimPe.Interfaces.Plugin.Internal.IPackedFileWrapper wrp = FileTable.WrapperRegistry.FindHandler(type);
                 if (wrp != null)

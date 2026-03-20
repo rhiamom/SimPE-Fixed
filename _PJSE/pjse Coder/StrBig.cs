@@ -53,7 +53,7 @@ namespace pjse
 			//
 			InitializeComponent();
 
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
                 this.ClientSize = new System.Drawing.Size(684, 482);

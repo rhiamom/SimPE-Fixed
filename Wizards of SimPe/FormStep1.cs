@@ -60,7 +60,7 @@ namespace SimPe.Wizards
 			}
 
 			pnwizard.Height = top;
-            if (Helper.WindowsRegistry.UseBigIcons) this.Font = new System.Drawing.Font("Tahoma", 12F);
+            if (Helper.XmlRegistry.UseBigIcons) this.Font = new System.Drawing.Font("Tahoma", 12F);
 		}
 
 		Panel BuildWizardPanel(IWizardEntry we)

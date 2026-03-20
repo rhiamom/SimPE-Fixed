@@ -1313,14 +1313,14 @@ namespace SimPe.PackedFiles.Wrapper
 
 			if (ObjLuaFunction.DEBUG )
 			{
-				if (SimPe.Helper.WindowsRegistry.HiddenMode)
+				if (SimPe.Helper.XmlRegistry.HiddenMode)
 					return ret+"; //"+name;
 				else
 					return ret+"; //"+name+": "+GetOpcodeDescription(oc);
 			} 
 			else 
 			{
-				if (SimPe.Helper.WindowsRegistry.HiddenMode)
+				if (SimPe.Helper.XmlRegistry.HiddenMode)
 					return ret+"; //"+name;
 				else
 					return ret+"; //"+GetOpcodeDescription(oc);

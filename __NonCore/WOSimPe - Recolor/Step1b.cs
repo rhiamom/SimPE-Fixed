@@ -49,7 +49,7 @@ namespace SimPe.Wizards
 
 		protected override bool Init()
         {
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
             SimPe.Plugin.SubsetSelectForm.ImageSize = new System.Drawing.Size(120, 120);
             else
             SimPe.Plugin.SubsetSelectForm.ImageSize = new System.Drawing.Size(60, 60);

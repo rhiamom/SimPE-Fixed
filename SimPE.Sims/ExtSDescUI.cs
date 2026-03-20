@@ -82,10 +82,10 @@ namespace SimPe.PackedFiles.UserInterface
             this.biMisc.Tag = pnMisc;
 
             // Hidden-mode options
-            this.tbsim.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
-            this.miRelink.Enabled = Helper.WindowsRegistry.HiddenMode;
-            this.tbBugColl.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
-            this.tbHobbyPre.Visible = Helper.WindowsRegistry.HiddenMode;
+            this.tbsim.ReadOnly = !Helper.XmlRegistry.HiddenMode;
+            this.miRelink.Enabled = Helper.XmlRegistry.HiddenMode;
+            this.tbBugColl.ReadOnly = !Helper.XmlRegistry.HiddenMode;
+            this.tbHobbyPre.Visible = Helper.XmlRegistry.HiddenMode;
 
             InitDropDowns();
             SelectButton(biId);
@@ -106,8 +106,8 @@ namespace SimPe.PackedFiles.UserInterface
 
 		void Initialize()
 		{			
-			this.tbEp3Flag.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
-			this.tbEp3Lot.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
+			this.tbEp3Flag.ReadOnly = !Helper.XmlRegistry.HiddenMode;
+			this.tbEp3Lot.ReadOnly = !Helper.XmlRegistry.HiddenMode;
 
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ExtSDesc));
 			this.Commited += new System.EventHandler(this.ExtSDesc_Commited);
@@ -250,7 +250,7 @@ namespace SimPe.PackedFiles.UserInterface
 			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Criminal));
 			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Military));
 
-            if ((SimPe.PathProvider.Global.EPInstalled >= 1) || (Helper.WindowsRegistry.HiddenMode))
+            if ((SimPe.PathProvider.Global.EPInstalled >= 1) || (Helper.XmlRegistry.HiddenMode))
             {
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Paranormal));
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.NaturalScientist));
@@ -258,7 +258,7 @@ namespace SimPe.PackedFiles.UserInterface
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Artist));
             }
 
-            if ((SimPe.PathProvider.Global.EPInstalled >= 8) || (Helper.WindowsRegistry.HiddenMode))
+            if ((SimPe.PathProvider.Global.EPInstalled >= 8) || (Helper.XmlRegistry.HiddenMode))
             {
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Adventurer));
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Education));
@@ -279,7 +279,7 @@ namespace SimPe.PackedFiles.UserInterface
 			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderScience));
 			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderSlacker));
 
-            if ((SimPe.PathProvider.Global.EPInstalled >= 8) || (Helper.WindowsRegistry.HiddenMode))
+            if ((SimPe.PathProvider.Global.EPInstalled >= 8) || (Helper.XmlRegistry.HiddenMode))
             {
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderAdventurer));
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderEducation));
@@ -289,14 +289,14 @@ namespace SimPe.PackedFiles.UserInterface
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderMusic));
             }
 
-            if ((SimPe.PathProvider.Global.EPInstalled >= 6) || (Helper.WindowsRegistry.HiddenMode))
+            if ((SimPe.PathProvider.Global.EPInstalled >= 6) || (Helper.XmlRegistry.HiddenMode))
             {
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.PetSecurity));
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.PetService));
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.PetShowBiz));
             }
 
-            if ((SimPe.PathProvider.Global.EPInstalled >= 13) || (Helper.WindowsRegistry.HiddenMode))
+            if ((SimPe.PathProvider.Global.EPInstalled >= 13) || (Helper.XmlRegistry.HiddenMode))
             {
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Construction));
                 this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Dance));
@@ -377,7 +377,7 @@ namespace SimPe.PackedFiles.UserInterface
 		
 				miOpenChar.Enabled = System.IO.File.Exists(Sdesc.CharacterFileName) && !Sdesc.IsNPC;
 				miOpenCloth.Enabled = miOpenChar.Enabled;
-				miRelink.Enabled = /*miOpenChar.Enabled &&*/ Helper.WindowsRegistry.HiddenMode;
+				miRelink.Enabled = /*miOpenChar.Enabled &&*/ Helper.XmlRegistry.HiddenMode;
 
 				if (System.IO.File.Exists(Sdesc.CharacterFileName))
 					miOpenChar.Text = strresources.GetString("miOpenChar.Text")+" ("+System.IO.Path.GetFileNameWithoutExtension(Sdesc.CharacterFileName)+")";
@@ -435,7 +435,7 @@ namespace SimPe.PackedFiles.UserInterface
 		{
 			this.cbmajor.SelectedIndex = 0;
 			this.tbmajor.Text = "0x"+Helper.HexString((uint)sdesc.University.Major);		
-			this.tbmajor.Visible = Helper.WindowsRegistry.HiddenMode;
+			this.tbmajor.Visible = Helper.XmlRegistry.HiddenMode;
 			this.cbmajor.SelectedIndex = this.cbmajor.Items.Count -1;
 			for (int i=0;i<this.cbmajor.Items.Count;i++)
 			{					 
@@ -507,7 +507,7 @@ namespace SimPe.PackedFiles.UserInterface
 			this.tbsimdescname.Text = sdesc.SimName;
 			this.tbsimdescfamname.Text = sdesc.SimFamilyName;
 			this.tbsim.Text = "0x"+Helper.HexString(sdesc.SimId);
-			this.tbsim.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
+			this.tbsim.ReadOnly = !Helper.XmlRegistry.HiddenMode;
 			this.tbfaminst.Text = "0x"+Helper.HexString(sdesc.FamilyInstance);
 			
 			Image img = null;
@@ -563,7 +563,7 @@ namespace SimPe.PackedFiles.UserInterface
 			//school
 			this.cbschooltype.SelectedIndex = 0;
 			this.tbschooltype.Visible = true;
-			this.tbschooltype.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
+			this.tbschooltype.ReadOnly = !Helper.XmlRegistry.HiddenMode;
 			for(int i=0; i<this.cbschooltype.Items.Count; i++)
 			{
 				Data.LocalizedSchoolType type;
@@ -866,7 +866,7 @@ namespace SimPe.PackedFiles.UserInterface
 				if (Sdesc.SimName!=tbsimdescname.Text) Sdesc.SimName = this.tbsimdescname.Text;
 				if (Sdesc.SimFamilyName!=tbsimdescfamname.Text) Sdesc.SimFamilyName = this.tbsimdescfamname.Text;
 				
-				this.tbsim.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
+				this.tbsim.ReadOnly = !Helper.XmlRegistry.HiddenMode;
 				
 			
 				
@@ -1435,7 +1435,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		void DiplayRelation(PackedFiles.Wrapper.ExtSDesc src, PackedFiles.Wrapper.ExtSDesc dst, CommonSrel c)
 		{
-			if (src.Equals(dst) && (c==dstRel || !Helper.WindowsRegistry.HiddenMode)) 
+			if (src.Equals(dst) && (c==dstRel || !Helper.XmlRegistry.HiddenMode)) 
 			{
 				c.Srel = null;
 			} 
@@ -1469,7 +1469,7 @@ namespace SimPe.PackedFiles.UserInterface
 		{
 			if (lv.SelectedItems.Count==1) 
 			{
-				if (Helper.WindowsRegistry.HiddenMode)
+				if (Helper.XmlRegistry.HiddenMode)
 					this.miAddRelation.Enabled = ((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]).GroupIndex==1;
 				else
 					this.miAddRelation.Enabled = ((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]).GroupIndex==1 && !Sdesc.Equals(lv.SelectedItems[0].Tag);
@@ -1828,8 +1828,8 @@ namespace SimPe.PackedFiles.UserInterface
         {
             intern = true;
             /*if ((int)sdesc.Version < (int)SimPe.PackedFiles.Wrapper.SDescVersions.Freetime) cbaspiration.Enabled = true;
-            else cbaspiration.Enabled = Helper.WindowsRegistry.AllowChangeOfSecondaryAspiration;*/
-            cbaspiration2.Enabled = Helper.WindowsRegistry.AllowChangeOfSecondaryAspiration;
+            else cbaspiration.Enabled = Helper.XmlRegistry.AllowChangeOfSecondaryAspiration;*/
+            cbaspiration2.Enabled = Helper.XmlRegistry.AllowChangeOfSecondaryAspiration;
             
             if (cbHobbyEnth.SelectedIndex<0) cbHobbyEnth.SelectedIndex = 0;
             else this.EnthusiasmIndexChanged(cbHobbyEnth, null);

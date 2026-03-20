@@ -95,8 +95,8 @@ namespace SimPe.Plugin
 
 			sorter = new ColumnSorter();
 
-			if (Helper.WindowsRegistry.Username.Trim()!="")
-				this.tbname.Text = Helper.WindowsRegistry.Username+"-";
+			if (Helper.XmlRegistry.Username.Trim()!="")
+				this.tbname.Text = Helper.XmlRegistry.Username+"-";
 		}
 
 		/// <summary>
@@ -790,7 +790,7 @@ namespace SimPe.Plugin
 					{
 						SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 						str.ProcessData(pfds[0], package);
-						SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+						SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
 						if (items!=null) if (items.Length>0) desc = items[0].Title;
 					} 
 					else 
@@ -1057,7 +1057,7 @@ namespace SimPe.Plugin
 				}
 			}
 
-			if (Helper.WindowsRegistry.HiddenMode) llfix.Enabled = true;
+			if (Helper.XmlRegistry.HiddenMode) llfix.Enabled = true;
             
             bool oner = (lv.SelectedItems.Count==1);
 			foreach (ListViewItem lvi in lv.SelectedItems) 
@@ -1151,7 +1151,7 @@ namespace SimPe.Plugin
 				foreach (ListViewItem lvi in lv.SelectedItems) 
 				{
 					//only non EP Ready packages
-					if ((!Helper.WindowsRegistry.HiddenMode) && (lvi.SubItems[4].Text != STR_NOT_EP)) continue;
+					if ((!Helper.XmlRegistry.HiddenMode) && (lvi.SubItems[4].Text != STR_NOT_EP)) continue;
 
 					string filename = System.IO.Path.Combine(lbdir.Text, lvi.Text+".package");
 					pb.Value = (pos++ * pb.Maximum) / count;

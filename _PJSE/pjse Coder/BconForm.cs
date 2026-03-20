@@ -82,7 +82,7 @@ namespace SimPe.PackedFiles.UserInterface
 			// TODO: Add any constructor code after InitializeComponent call
 			//
             pjse.FileTable.GFT.FiletableRefresh += new System.EventHandler(this.FiletableRefresh);
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.lvConstants.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            if (SimPe.Helper.XmlRegistry.UseBigIcons) this.lvConstants.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
         }
 
 		/// <summary>

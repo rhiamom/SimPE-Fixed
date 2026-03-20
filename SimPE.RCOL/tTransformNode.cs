@@ -100,7 +100,7 @@ namespace SimPe.Plugin.TabPage
             InitializeComponent();
 
             this.UseVisualStyleBackColor = true;
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.lb_tn.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
+            if (SimPe.Helper.XmlRegistry.UseBigIcons) this.lb_tn.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
 		}
 
 		/// <summary>

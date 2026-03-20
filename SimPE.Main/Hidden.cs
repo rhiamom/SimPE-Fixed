@@ -30,7 +30,7 @@ using System.Windows.Forms;
 namespace SimPe
 {
 	/// <summary>
-	/// Zusammenfassung für Hidden.
+	/// Zusammenfassung fï¿½r Hidden.
 	/// </summary>
 	public class Hidden : System.Windows.Forms.Form
 	{
@@ -52,11 +52,11 @@ namespace SimPe
 		public Hidden()
 		{
 			//
-			// Erforderlich für die Windows Form-Designerunterstützung
+			// Erforderlich fï¿½r die Windows Form-Designerunterstï¿½tzung
 			//
 			InitializeComponent();
 
-			button3.Visible = Helper.WindowsRegistry.HiddenMode;
+			button3.Visible = Helper.XmlRegistry.HiddenMode;
 		}
 
 		/// <summary>
@@ -76,8 +76,8 @@ namespace SimPe
 
 		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -222,7 +222,7 @@ namespace SimPe
         private void UpdateDialog()
         {
             this.tbComp.Text = SimPe.Packages.PackedFile.CompressionStrength.ToString();
-            tbBig.Text = Helper.WindowsRegistry.BigPackageResourceCount.ToString();
+            tbBig.Text = Helper.XmlRegistry.BigPackageResourceCount.ToString();
 
             this.lbMem.Text = GC.GetTotalMemory(false).ToString("N0") + " Byte";
         }
@@ -232,7 +232,7 @@ namespace SimPe
 			try 
 			{
 				SimPe.Packages.PackedFile.CompressionStrength = Convert.ToInt32(this.tbComp.Text);
-				Helper.WindowsRegistry.BigPackageResourceCount = Convert.ToInt32(tbBig.Text);
+				Helper.XmlRegistry.BigPackageResourceCount = Convert.ToInt32(tbBig.Text);
 			} 
 			catch {}
 		}
@@ -266,7 +266,7 @@ namespace SimPe
             f.FormBorderStyle = FormBorderStyle.SizableToolWindow;
             f.Text = "SimPE Settings";
 
-            pg.SelectedObject = Helper.WindowsRegistry;
+            pg.SelectedObject = Helper.XmlRegistry;
             f.ShowDialog();
             UpdateDialog();
         }

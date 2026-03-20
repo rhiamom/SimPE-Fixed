@@ -46,7 +46,7 @@ namespace SimPe.PackedFiles.UserInterface
 		{
             InitializeComponent();
 
-            if (Helper.WindowsRegistry.UseBigIcons) this.lbgroup.Font = new System.Drawing.Font(this.lbgroup.Font.FontFamily, 11F);
+            if (Helper.XmlRegistry.UseBigIcons) this.lbgroup.Font = new System.Drawing.Font(this.lbgroup.Font.FontFamily, 11F);
 
 		}
 

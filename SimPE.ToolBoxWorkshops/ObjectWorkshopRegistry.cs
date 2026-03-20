@@ -35,7 +35,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		public ObjectWorkshopRegistry(dcObjectWorkshop dock)
 		{
 			this.dock = dock;
-			xrk = Helper.WindowsRegistry.PluginRegistryKey;
+			xrk = Helper.XmlRegistry.PluginRegistryKey;
 			
 			try { dock.cbTask.SelectedIndex = LastOWAction;	} 
 			catch {	dock.cbTask.SelectedIndex = 0;}

@@ -22,16 +22,17 @@
  ***************************************************************************/
 
 using System;
+using Avalonia.Controls;
 using SimPe.Interfaces;
 
 namespace SimPe
 {
 	/// <summary>
-	/// This calss can be used to control SimPe from a Plugin.
+	/// This class can be used to control SimPe from a Plugin.
 	/// </summary>
 	public class RemoteControl
 	{
-		public class ControlEventArgs : System.EventArgs 
+		public class ControlEventArgs : System.EventArgs
 		{
 			object[] data;
 			uint target;
@@ -52,8 +53,8 @@ namespace SimPe
 
 			public object Item
 			{
-				get 
-				{ 
+				get
+				{
 					if (data.Length==0) return null;
 					else return data[0];
 				}
@@ -61,7 +62,7 @@ namespace SimPe
 
 			public object Items
 			{
-				get 
+				get
 				{
 					return data;
 				}
@@ -97,7 +98,6 @@ namespace SimPe
 			}
 		}
 
-
 		public static void AddMessage(object sender, ControlEventArgs e)
 		{
 			foreach (MessageQueueItemInfo mqi in events)
@@ -127,78 +127,68 @@ namespace SimPe
 		/// </summary>
         public delegate void ShowDockDelegate(Ambertation.Windows.Forms.DockPanel doc, bool hide);
 
-		#region Application Form
-		static System.Windows.Forms.Form appform;
+		#region Application Window
+		static Window appform;
 		/// <summary>
-		/// Returns the Main Application Form
+		/// Returns the Main Application Window
 		/// </summary>
-		public static System.Windows.Forms.Form ApplicationForm
+		public static Window ApplicationForm
 		{
-			get {return appform;}
+			get { return appform; }
 			set {
 				appform = value;
-				if (appform!=null)
+				if (appform != null)
 					appstate = appform.WindowState;
 				else
-					appstate = System.Windows.Forms.FormWindowState.Maximized;
+					appstate = WindowState.Maximized;
 			}
 		}
 
-		static bool VisibleForm(System.Windows.Forms.Form form)
+		static bool VisibleForm(Window form)
 		{
-			if (!form.ShowInTaskbar) return false;
-			if (form.FormBorderStyle == System.Windows.Forms.FormBorderStyle.FixedToolWindow) return false;
-			if (form.FormBorderStyle == System.Windows.Forms.FormBorderStyle.SizableToolWindow) return false;
-			if (form.MinimizeBox == false) return false;
-
-			return true;
+			return form.ShowInTaskbar;
 		}
 
-		public static void ShowSubForm(System.Windows.Forms.Form form)
+		public static void ShowSubForm(Window form)
 		{
-			if (VisibleForm(form)) HideApplicationForm();
-			form.ShowDialog(ApplicationForm);
-			if (VisibleForm(form)) ShowApplicationForm();
+			bool hide = VisibleForm(form);
+			if (hide) HideApplicationForm();
+			form.Show();
+			if (hide) ShowApplicationForm();
 		}
 
 		public static void HideApplicationForm()
 		{
-			if (ApplicationForm==null) return;
-			
-			if (ApplicationForm.Visible) 
-			{
+			if (ApplicationForm == null) return;
+			if (ApplicationForm.IsVisible)
 				ApplicationForm.Hide();
+		}
+
+		public static void ShowApplicationForm()
+		{
+			if (ApplicationForm == null) return;
+			if (!ApplicationForm.IsVisible)
+			{
+				ApplicationForm.Show();
 				ApplicationForm.ShowInTaskbar = true;
 			}
 		}
 
-		public static void ShowApplicationForm()
-		{			
-			if (ApplicationForm==null) return;
-			if (!ApplicationForm.Visible) 
-			{
-				ApplicationForm.Show();
-				ApplicationForm.ShowInTaskbar = true;
-			}			
-		}
-
-		static System.Windows.Forms.FormWindowState appstate;
+		static WindowState appstate;
 		public static void MinimizeApplicationForm()
 		{
-			if (ApplicationForm==null) return;
-			
-			if (ApplicationForm.WindowState!=System.Windows.Forms.FormWindowState.Minimized)
+			if (ApplicationForm == null) return;
+			if (ApplicationForm.WindowState != WindowState.Minimized)
 			{
 				appstate = ApplicationForm.WindowState;
-				ApplicationForm.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+				ApplicationForm.WindowState = WindowState.Minimized;
 			}
 		}
 
 		public static void RestoreApplicationForm()
 		{
-			
-			if (ApplicationForm==null) return;
-			if (ApplicationForm.WindowState==System.Windows.Forms.FormWindowState.Minimized)
+			if (ApplicationForm == null) return;
+			if (ApplicationForm.WindowState == WindowState.Minimized)
 				ApplicationForm.WindowState = appstate;
 		}
 		#endregion
@@ -236,8 +226,6 @@ namespace SimPe
 		/// <summary>
 		/// Show/Hide a given Dock
 		/// </summary>
-		/// <param name="doc"></param>
-		/// <param name="hide"></param>
 		public static void ShowDock(Ambertation.Windows.Forms.DockPanel doc, bool hide)
 		{
 			if (sdd==null) return;
@@ -247,17 +235,15 @@ namespace SimPe
 		/// <summary>
 		/// Open a Package in the main SimPe Gui
 		/// </summary>
-		/// <param name="filename">The Filename of the package</param>
-		/// <returns>true, if the package was opened</returns>
-		public static bool OpenPackage(string filename) 
+		public static bool OpenPackage(string filename)
 		{
 			if (op==null) return false;
 
-			try 
+			try
 			{
 				return op(filename);
-			} 
-			catch (Exception ex) 
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("Unable to open a Package in the SimPe GUI. (file="+filename+")", ex);
 			}
@@ -277,17 +263,15 @@ namespace SimPe
 		/// <summary>
 		/// Open a Package in the main SimPe Gui
 		/// </summary>
-		/// <param name="filename">The Filename of the package</param>
-		/// <returns>true, if the package was opened</returns>
-		public static bool OpenMemoryPackage(SimPe.Interfaces.Files.IPackageFile pkg) 
+		public static bool OpenMemoryPackage(SimPe.Interfaces.Files.IPackageFile pkg)
 		{
 			if (omp==null) return false;
 
-			try 
+			try
 			{
 				return omp(pkg);
-			} 
-			catch (Exception ex) 
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("Unable to open a Package in the SimPe GUI. (package="+pkg.ToString()+")", ex);
 			}
@@ -297,30 +281,24 @@ namespace SimPe
 		/// <summary>
 		/// Open a Package in the main SimPe Gui
 		/// </summary>
-		/// <param name="pfd">The FileDescriptor</param>
-		/// <param name="pkg">The package the descriptor is in</param>
-		/// <returns>true, if the package was opened</returns>
-		public static bool OpenPackedFile(SimPe.Interfaces.Files.IPackedFileDescriptor pfd, SimPe.Interfaces.Files.IPackageFile pkg) 
+		public static bool OpenPackedFile(SimPe.Interfaces.Files.IPackedFileDescriptor pfd, SimPe.Interfaces.Files.IPackageFile pkg)
 		{
 			return OpenPackedFile(FileTable.FileIndex.CreateFileIndexItem(pfd, pkg));
 		}
 
-
 		/// <summary>
 		/// Open a Package in the main SimPe Gui
 		/// </summary>
-		/// <param name="pfd">The FileDescriptor</param>
-		/// <returns>true, if the package was opened</returns>
-		public static bool OpenPackedFile(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii) 
+		public static bool OpenPackedFile(SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii)
 		{
 			if (opf==null) return false;
 
-			try 
+			try
 			{
 				return opf(fii);
-			} 
-			catch (Exception ex) 
-			{                
+			}
+			catch (Exception ex)
+			{
 				Helper.ExceptionMessage("Unable to open a resource in the SimPe GUI. ("+fii.ToString()+")", ex);
 			}
 			return false;
@@ -329,12 +307,15 @@ namespace SimPe
 		/// <summary>
 		/// Displays a certain Help Topic
 		/// </summary>
-		/// <param name="url">Url (can be a local File) of the Help Document</param>
 		public static void ShowHelp(string url)
         {
             try
             {
-                System.Windows.Forms.Help.ShowHelp(ApplicationForm, url);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
             }
             catch { }
 		}
@@ -342,37 +323,17 @@ namespace SimPe
 		/// <summary>
 		/// Displays a certain Help Topic
 		/// </summary>
-		/// <param name="url">Url (can be a local File) of the Help Document</param>
-		/// <param name="topic">the Topic in that document</param>
-		/// <remarks>Produces an URL like "url#topic"</remarks>
 		public static void ShowHelp(string url, string topic)
 		{
-            try
-            {
-                System.Windows.Forms.Help.ShowHelp(ApplicationForm, url, topic);
-            }
-            catch { }
+            ShowHelp(string.IsNullOrEmpty(topic) ? url : url + "#" + topic);
 		}
 
 		/// <summary>
-		/// Displays a Form, with the passed Custom Settings
+		/// Displays a Form with the passed Custom Settings.
+		/// TODO: replace with Avalonia settings dialog (no PropertyGrid in Avalonia).
 		/// </summary>
-		/// <param name="settings"></param>
 		public static void ShowCustomSettings(SimPe.Interfaces.ISettings settings)
 		{
-			System.Windows.Forms.Form f = new System.Windows.Forms.Form();
-			f.Text = settings.ToString();
-			f.Width = 600;
-			f.Height = 450;
-			f.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-			f.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-
-			System.Windows.Forms.PropertyGrid pg = new System.Windows.Forms.PropertyGrid();
-			f.Controls.Add(pg);
-			pg.Dock = System.Windows.Forms.DockStyle.Fill;
-			pg.SelectedObject = settings.GetSettingsObject();
-			RemoteControl.ShowSubForm(f);
-			f.Dispose();
 		}
 
         public delegate void ResourceListSelectionChangedHandler(object sender, SimPe.Events.ResourceEventArgs e);

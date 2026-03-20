@@ -64,7 +64,7 @@ namespace SimPe.Plugin
 										  ,new Ttab()
 									  };
                 }
-                else if (!UserVerification.HaveValidUserId || Helper.WindowsRegistry.HiddenMode)
+                else if (!UserVerification.HaveValidUserId || Helper.XmlRegistry.HiddenMode)
                 {
                     return new IWrapper[] {
 										   new Bcon()

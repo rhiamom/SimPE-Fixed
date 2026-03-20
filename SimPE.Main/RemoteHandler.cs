@@ -22,8 +22,7 @@
  ***************************************************************************/
 
 using System;
-using static Ambertation.Windows.Forms.APIHelp;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Avalonia.Controls;
 namespace SimPe
 {
 	/// <summary>
@@ -35,7 +34,7 @@ namespace SimPe
 		SimPe.ResourceLoader rl;
 		System.Windows.Forms.ToolStripMenuItem docs;
 		PluginManager plugger;
-        internal RemoteHandler(System.Windows.Forms.Form form, LoadedPackage lp, ResourceLoader rl, System.Windows.Forms.ToolStripMenuItem docmenu) 
+        internal RemoteHandler(Window form, LoadedPackage lp, ResourceLoader rl, System.Windows.Forms.ToolStripMenuItem docmenu)
 		{
 			this.lp = lp;
 			this.rl = rl;
@@ -80,8 +79,8 @@ namespace SimPe
                 {
                     if (!fii.Package.Equals(lp.Package))
                     {
-                        int bprc = Helper.WindowsRegistry.BigPackageResourceCount;
-                        Helper.WindowsRegistry.BigPackageResourceCount = int.MaxValue;
+                        int bprc = Helper.XmlRegistry.BigPackageResourceCount;
+                        Helper.XmlRegistry.BigPackageResourceCount = int.MaxValue;
 
                         SimPe.Packages.GeneratableFile genFile = fii.Package as SimPe.Packages.GeneratableFile;
                         bool loadedOk;
@@ -93,13 +92,13 @@ namespace SimPe
                             string fn = fii.Package.FileName;
                             if (string.IsNullOrEmpty(fn))
                             {
-                                Helper.WindowsRegistry.BigPackageResourceCount = bprc;
+                                Helper.XmlRegistry.BigPackageResourceCount = bprc;
                                 return false;
                             }
                             loadedOk = lp.LoadFromFile(fn, true);
                         }
 
-                        Helper.WindowsRegistry.BigPackageResourceCount = bprc;
+                        Helper.XmlRegistry.BigPackageResourceCount = bprc;
                         if (!loadedOk) return false;
                     }
                 }

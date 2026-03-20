@@ -119,7 +119,7 @@ namespace SimPe.Plugin.Gmdc.Importer
 				else if (line == "s") { ; }//smoothing Group;
 				else if (line == "mtllib") { ; }//material file;
 				else if (line == "usemtl") { ; }//material assignement;
-				else if (Helper.WindowsRegistry.HiddenMode) lineerror = "[Warning:] Unknown token. (will be ignored)";
+				else if (Helper.XmlRegistry.HiddenMode) lineerror = "[Warning:] Unknown token. (will be ignored)";
 
 
 				if (lineerror!=null) 
@@ -160,7 +160,7 @@ namespace SimPe.Plugin.Gmdc.Importer
 				}
 			} 
 
-			if (tokens.Length<3 || (tokens.Length!=3 && Helper.WindowsRegistry.HiddenMode))  lineerror = "No FloatTriplet line";
+			if (tokens.Length<3 || (tokens.Length!=3 && Helper.XmlRegistry.HiddenMode))  lineerror = "No FloatTriplet line";
 		}
 
 		/// <summary>
@@ -188,7 +188,7 @@ namespace SimPe.Plugin.Gmdc.Importer
 				}
 			} 
 
-			if (tokens.Length<2 || (tokens.Length!=2 && Helper.WindowsRegistry.HiddenMode)) lineerror = "No FloatPair line";
+			if (tokens.Length<2 || (tokens.Length!=2 && Helper.XmlRegistry.HiddenMode)) lineerror = "No FloatPair line";
 		}
 
 		/// <summary>

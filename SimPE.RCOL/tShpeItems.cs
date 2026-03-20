@@ -68,7 +68,7 @@ namespace SimPe.Plugin.TabPage
             InitializeComponent();
 
             this.UseVisualStyleBackColor = true;
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lbitem.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
             }

@@ -112,7 +112,7 @@ namespace SimPe.Plugin
             }
             else s = SimPe.Localization.GetString("Unknown");
 
-			if (Helper.WindowsRegistry.HiddenMode) 
+			if (Helper.XmlRegistry.HiddenMode) 
 			{
 				return s + " (0x"+Helper.HexString(SimInstance)+"): "+" "+loyalty.ToString()+" ("+this.LoyaltyStars.ToString()+")";
 			} 

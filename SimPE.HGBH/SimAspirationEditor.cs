@@ -85,7 +85,7 @@ namespace SimPe.Plugin
 
             sim.CharacterDescription.Aspiration = (SimPe.Data.MetaData.AspirationTypes)a;
 
-            if (SimPe.Helper.WindowsRegistry.AllowChangeOfSecondaryAspiration && chg2)
+            if (SimPe.Helper.XmlRegistry.AllowChangeOfSecondaryAspiration && chg2)
             {
                 NgbhItem itm = GetSecondaryAspirationToken(sim, true);
                 itm.Value = v;
@@ -105,7 +105,7 @@ namespace SimPe.Plugin
             ngbh = null;
             if (sim == null) return;
             if (sim.Package == null) return;
-            if (!SimPe.Helper.WindowsRegistry.AllowChangeOfSecondaryAspiration) return;
+            if (!SimPe.Helper.XmlRegistry.AllowChangeOfSecondaryAspiration) return;
 
             SimPe.Interfaces.Plugin.IFileWrapper wrapper =
                 (SimPe.Interfaces.Plugin.IFileWrapper)FileTable.WrapperRegistry.FindHandler(SimPe.Data.MetaData.MEMORIES);
@@ -142,7 +142,7 @@ namespace SimPe.Plugin
 
         protected ushort GetSecondaryAspirationValue(SDesc sim)
         {
-            if (!SimPe.Helper.WindowsRegistry.AllowChangeOfSecondaryAspiration) return 0;
+            if (!SimPe.Helper.XmlRegistry.AllowChangeOfSecondaryAspiration) return 0;
             NgbhItem ni = GetSecondaryAspirationToken(sim, false);
             if (ni == null) return 0;
             return ni.Value;

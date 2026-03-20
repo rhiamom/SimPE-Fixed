@@ -248,7 +248,7 @@ namespace SimPe.Providers
 		{
 			if (BasePackage==null) 
 			{
-				Registry reg = Helper.WindowsRegistry;
+				Registry reg = Helper.XmlRegistry;
 				string file = System.IO.Path.Combine(PathProvider.Global.GetExpansion(Expansions.BaseGame).InstallFolder, "TSData\\Res\\Catalog\\Skins\\Skins.package");				
 				if (System.IO.File.Exists(file)) 
 				{

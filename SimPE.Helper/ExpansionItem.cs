@@ -168,8 +168,8 @@ namespace SimPe
 
                 exe = (string)key.GetValue("ExeName", "Sims2.exe");
 
-                if (Helper.WindowsRegistry.LoadOnlySimsStory > 0)
-                    isfound = (version == Helper.WindowsRegistry.LoadOnlySimsStory);
+                if (Helper.XmlRegistry.LoadOnlySimsStory > 0)
+                    isfound = (version == Helper.XmlRegistry.LoadOnlySimsStory);
                 else
                     isfound = (version == 0 || flag.SimStory == true);
 
@@ -323,7 +323,7 @@ namespace SimPe
                         }
                         catch (Exception ex)
                         {
-                            if (Helper.WindowsRegistry.HiddenMode) Helper.ExceptionMessage(ex);
+                            if (Helper.XmlRegistry.HiddenMode) Helper.ExceptionMessage(ex);
                         }
                     }
                     else
@@ -406,7 +406,7 @@ namespace SimPe
                 if (isfound) return true;
                 try
                 {
-                    XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                    XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                     object o = rkf.GetValue(IdKey + "Path");
                     return o != null && System.IO.Directory.Exists(o.ToString());
                 }
@@ -546,7 +546,7 @@ namespace SimPe
             {
                 try
                 {
-                    XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                    XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                     object o = rkf.GetValue(IdKey + "Path");
                     if (o != null && System.IO.Directory.Exists(o.ToString()))
                         return o.ToString();
@@ -566,7 +566,7 @@ namespace SimPe
             {
                 try
                 {
-                    XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                    XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                     object o = rkf.GetValue(IdKey+"Path");
                     if (o == null)
                     {
@@ -587,7 +587,7 @@ namespace SimPe
             }
             set
             {
-                XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                 if (value == "") rkf.DeleteSubKey(IdKey + "Path", false);
                 else rkf.SetValue(IdKey+"Path", value);
             }
@@ -648,7 +648,7 @@ namespace SimPe
             {
                 try
                 {
-                    XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
+                    XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey("Settings");
                     object o = rkf.GetValue(IdKey + "Path");
                     if (o == null) return null;
                     else

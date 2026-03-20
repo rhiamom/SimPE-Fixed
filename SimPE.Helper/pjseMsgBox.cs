@@ -96,6 +96,9 @@ namespace System.Windows.Forms
         public static DialogResult Show(IWin32Window owner, string text)
         { return (new pjseMsgBox(text, "", "001", null, null, null)).ShowDialog(owner); }
 
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text)
+        { return (new pjseMsgBox(text, "", "001", null, null, null)).ShowDialog(); }
+
 
         /// <summary>
         /// Displays a message box with specified text and caption.
@@ -115,6 +118,9 @@ namespace System.Windows.Forms
         /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
         public static DialogResult Show(IWin32Window owner, string text, string caption)
         { return (new pjseMsgBox(text, caption, "001", null, null, null)).ShowDialog(owner); }
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption)
+        { return (new pjseMsgBox(text, caption, "001", null, null, null)).ShowDialog(); }
 
 
         /// <summary>
@@ -139,6 +145,9 @@ namespace System.Windows.Forms
         /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
         public static DialogResult Show(IWin32Window owner, string text, string caption, Boolset buttonsVisible)
         { return (new pjseMsgBox(text, caption, buttonsVisible, null, null, null)).ShowDialog(owner); }
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible)
+        { return (new pjseMsgBox(text, caption, buttonsVisible, null, null, null)).ShowDialog(); }
 
 
         /// <summary>
@@ -167,6 +176,9 @@ namespace System.Windows.Forms
         /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
         public static DialogResult Show(IWin32Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons)
         { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, null)).ShowDialog(owner); }
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons)
+        { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, null)).ShowDialog(); }
 
 
         /// <summary>
@@ -197,5 +209,8 @@ namespace System.Windows.Forms
         /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
         public static DialogResult Show(IWin32Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
         { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, resultSet)).ShowDialog(owner); }
+
+        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
+        { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, resultSet)).ShowDialog(); }
     }
 }

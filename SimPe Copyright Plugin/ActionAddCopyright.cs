@@ -72,7 +72,7 @@ namespace SimPe.Plugin.Tool.Action
 				mmat.Items = (SimPe.PackedFiles.Wrapper.CpfItem[]) Helper.Add(mmat.Items, item);
 			}
 
-            if (UserVerification.HaveValidUserId) mmat.GetItem("copyright").StringValue = form.tbMMAT.Text + " By " + form.tbCreator.Text + " (0x" + Helper.HexString(Helper.WindowsRegistry.CachedUserId) +")";
+            if (UserVerification.HaveValidUserId) mmat.GetItem("copyright").StringValue = form.tbMMAT.Text + " By " + form.tbCreator.Text + " (0x" + Helper.HexString(Helper.XmlRegistry.CachedUserId) +")";
             else mmat.GetItem("copyright").StringValue = form.tbMMAT.Text + " By " + form.tbCreator.Text;
 			mmat.SynchronizeUserData(true, true);
 		}
@@ -125,7 +125,7 @@ namespace SimPe.Plugin.Tool.Action
 			dle.Extension.Items[0] = new ExtensionItem();
 			dle.Extension.Items[0].Typecode = ExtensionItem.ItemTypes.String;
 			dle.Extension.Items[0].Name = "created by";
-            if (UserVerification.HaveValidUserId) dle.Extension.Items[0].String = form.tbCreator.Text + " (0x" + Helper.HexString(Helper.WindowsRegistry.CachedUserId) + ")";
+            if (UserVerification.HaveValidUserId) dle.Extension.Items[0].String = form.tbCreator.Text + " (0x" + Helper.HexString(Helper.XmlRegistry.CachedUserId) + ")";
 			else dle.Extension.Items[0].String = form.tbCreator.Text;
 			
 			dle.Extension.Items[1] = new ExtensionItem();

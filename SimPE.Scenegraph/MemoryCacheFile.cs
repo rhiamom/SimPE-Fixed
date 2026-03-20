@@ -204,7 +204,7 @@ namespace SimPe.Cache
 				{
 					SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 					str.ProcessData(sitems[0]);
-					SimPe.PackedFiles.Wrapper.StrItemList strs = str.LanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);																
+					SimPe.PackedFiles.Wrapper.StrItemList strs = str.LanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.XmlRegistry.LanguageCode);																
 					if (strs.Length>0) mci.Name = strs[0].Title;
 								
 					//not found?

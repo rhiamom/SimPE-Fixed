@@ -80,7 +80,7 @@ namespace SimPe.Plugin.Tool
         public static void Execute(SimPe.Events.ResourceContainers es)
         {
             //Select the Type
-            if (Helper.WindowsRegistry.ReportFormat == Registry.ReportFormats.CSV)
+            if (Helper.XmlRegistry.ReportFormat == Registry.ReportFormats.CSV)
                 Serializer.Formater = new CsvSerializer();
 
             System.Collections.Hashtable map = new System.Collections.Hashtable();

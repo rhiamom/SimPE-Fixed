@@ -92,7 +92,7 @@ namespace SimPe.Windows.Forms
 
         private void lv_Click(object sender, EventArgs e)
         {
-            if (Helper.WindowsRegistry.SimpleResourceSelect) OnSelectResource();
+            if (Helper.XmlRegistry.SimpleResourceSelect) OnSelectResource();
         }
 
         private void lv_MouseUp(object sender, MouseEventArgs e)
@@ -119,7 +119,7 @@ namespace SimPe.Windows.Forms
 
         private void lv_DoubleClick(object sender, EventArgs e)
         {
-            if (!Helper.WindowsRegistry.SimpleResourceSelect) OnSelectResource();
+            if (!Helper.XmlRegistry.SimpleResourceSelect) OnSelectResource();
         }
 
         bool ctrldown = false;
@@ -160,7 +160,7 @@ namespace SimPe.Windows.Forms
         protected void OnSelectResource()
         {      
             bool rctrl = ctrldown;
-            if (!Helper.WindowsRegistry.FirefoxTabbing) rctrl = false;
+            if (!Helper.XmlRegistry.FirefoxTabbing) rctrl = false;
 
             selresea = new SelectResourceEventArgs(rctrl);
             if (SelectedResource != null) {

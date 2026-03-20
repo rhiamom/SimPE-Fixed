@@ -56,7 +56,7 @@ namespace SimPe.PackedFiles.UserInterface
 
             InitializeComponent();
 
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
                 this.lbsims.Font = new System.Drawing.Font("Tahoma", 12);
 
             // NEW: create and add the CommonSrel control

@@ -195,7 +195,7 @@ namespace SimPe.Plugin
         //this.cborient.ResourceManager = SimPe.Localization.Manager;
         //this.cborient.Enum = typeof(Plugin.LotOrientation);
 
-        //if (!Helper.WindowsRegistry.UseBigIcons)
+        //if (!Helper.XmlRegistry.UseBigIcons)
         //{
         //this.pb.Size = new System.Drawing.Size(124, 108);
         //this.pb.Location = new System.Drawing.Point(25, 56);

@@ -75,8 +75,8 @@ namespace SimPe.Plugin.Gmdc
 					mi = SimPe.Geometry.Matrixd.GetIdentity(3, 3);	
 				}
 
-				ms = SimPe.Geometry.Matrixd.Scale(Helper.WindowsRegistry.ImportExportScaleFactor).To33Matrix();
-				msi = SimPe.Geometry.Matrixd.Scale(1.0/Helper.WindowsRegistry.ImportExportScaleFactor).To33Matrix();				
+				ms = SimPe.Geometry.Matrixd.Scale(Helper.XmlRegistry.ImportExportScaleFactor).To33Matrix();
+				msi = SimPe.Geometry.Matrixd.Scale(1.0/Helper.XmlRegistry.ImportExportScaleFactor).To33Matrix();				
 							
 				if (m.Orthogonal) 
 				{

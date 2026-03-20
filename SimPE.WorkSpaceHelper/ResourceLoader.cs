@@ -280,7 +280,7 @@ namespace SimPe
             }
 
             // only one File at a Time?
-            if (!Helper.WindowsRegistry.MultipleFiles) this.Clear();
+            if (!Helper.XmlRegistry.MultipleFiles) this.Clear();
 
             // get the Wrapper
             SimPe.Interfaces.Plugin.IFileWrapper wrapper = GetWrapper(fii);
@@ -525,7 +525,7 @@ namespace SimPe
 		/// <param name="wrapper"></param>
 		/// <returns>true, if the Wrapper was unloaded completely (false if User decided to answer with Cancel)</returns>
 		/// <remarks>When there are uncommitted changes, the Method will
-		/// Prompt the User (if <see cref="SimPe.Helper.WindowsRegistry.Silent"/> is not set)
+		/// Prompt the User (if <see cref="SimPe.Helper.XmlRegistry.Silent"/> is not set)
 		/// if the changes should be committed</remarks>
 		bool UnloadWrapper(SimPe.Interfaces.Plugin.IFileWrapper wrapper)
 		{
@@ -534,7 +534,7 @@ namespace SimPe
 			if (wrapper.GetType().GetInterface("IPackedFileSaveExtension", false) == typeof(SimPe.Interfaces.Plugin.Internal.IPackedFileSaveExtension))
 			{
 				SimPe.Interfaces.Plugin.Internal.IPackedFileSaveExtension wrp = (SimPe.Interfaces.Plugin.Internal.IPackedFileSaveExtension)wrapper;
-				if ((wrp.Changed) && (!Helper.WindowsRegistry.Silent))
+				if ((wrp.Changed) && (!Helper.XmlRegistry.Silent))
 				{
 					MessageBoxButtons mbb = MessageBoxButtons.YesNoCancel;
 					if (wrp.FileDescriptor!=null)
@@ -619,7 +619,7 @@ namespace SimPe
 						string flname = wrapper.Package.FileName;
 						if (flname==null) flname="";
 						System.Windows.Forms.DialogResult dr = System.Windows.Forms.DialogResult.Yes;
-						if (!Helper.WindowsRegistry.Silent)
+						if (!Helper.XmlRegistry.Silent)
 							dr = Message.Show(SimPe.Localization.GetString("reschanged").Replace("{name}", doc.Text).Replace("{filename}", flname), SimPe.Localization.GetString("changed?"), System.Windows.Forms.MessageBoxButtons.YesNo);
 
 						if (dr==System.Windows.Forms.DialogResult.Yes)

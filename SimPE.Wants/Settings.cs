@@ -34,8 +34,8 @@ namespace SimPe.Wants
     class Settings : SimPe.GlobalizedObject
     {
         const string BASENAME = "PJSE\\Wants";
-        SimPe.XmlRegistryKey xrk = SimPe.Helper.WindowsRegistry.PluginRegistryKey;
-        SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+        SimPe.XmlRegistryKey xrk = SimPe.Helper.XmlRegistry.PluginRegistryKey;
+        SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
         public Settings() : base(new ResourceManager(typeof(Settings))) { }
 
         private static Settings settings = new Settings();

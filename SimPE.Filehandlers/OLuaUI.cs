@@ -54,7 +54,7 @@ namespace SimPe.PackedFiles.UserInterface
 			InitializeComponent();
 
 			this.button2.Enabled = Helper.QARelease;
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.tv.Font = new System.Drawing.Font("Tahoma", 12F);
+            if (SimPe.Helper.XmlRegistry.UseBigIcons) this.tv.Font = new System.Drawing.Font("Tahoma", 12F);
         }
 
 		/// <summary> 

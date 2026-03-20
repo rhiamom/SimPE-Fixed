@@ -39,7 +39,7 @@ namespace SimPe
         #region Layout stuff
         public static void GetLayoutInformations(Control b)
         {
-            ArrayList list = Helper.WindowsRegistry.Layout.VisibleToolbarButtons;
+            ArrayList list = Helper.XmlRegistry.Layout.VisibleToolbarButtons;
             GetLayoutInformations(b, list);
         }
 
@@ -67,7 +67,7 @@ namespace SimPe
             ArrayList list = new ArrayList();
             SetLayoutInformations(b, list);
 
-            Helper.WindowsRegistry.Layout.VisibleToolbarButtons = list;
+            Helper.XmlRegistry.Layout.VisibleToolbarButtons = list;
         }
 
         static void SetLayoutInformations(Control b, ArrayList list)

@@ -36,7 +36,7 @@ namespace SimPe.Plugin
 	/// <summary>
 	/// Summary description for Workshop.
 	/// </summary>
-	public class Workshop : System.Windows.Forms.Form
+	public class Workshop : Avalonia.Controls.Window
 	{
 		private System.Windows.Forms.TabControl tabControl2;
 		private System.Windows.Forms.TabPage tabPage1;
@@ -291,7 +291,7 @@ namespace SimPe.Plugin
 			cachechg = false;
             cachefile = new SimPe.Cache.ObjectLoaderCacheFile();
 		
-			if (!Helper.WindowsRegistry.UseCache) return;
+			if (!Helper.XmlRegistry.UseCache) return;
 			WaitingScreen.UpdateMessage("Loading Cache");
             try
             {
@@ -310,7 +310,7 @@ namespace SimPe.Plugin
 		/// </summary>
 		void SaveCacheIndex()
 		{
-			if (!Helper.WindowsRegistry.UseCache) return;
+			if (!Helper.XmlRegistry.UseCache) return;
 			if (!cachechg) return;
 			if (WaitingScreen.Running) WaitingScreen.UpdateMessage("Saving Cache");
 
@@ -325,7 +325,7 @@ namespace SimPe.Plugin
 			{								
 				DateTime start = DateTime.Now;						
 				WaitingScreen.Wait();
-				this.ilist.ImageSize = new Size(Helper.WindowsRegistry.OWThumbSize, Helper.WindowsRegistry.OWThumbSize);
+				this.ilist.ImageSize = new Size(Helper.XmlRegistry.OWThumbSize, Helper.XmlRegistry.OWThumbSize);
 				//LoadCachIndex();
 				lbobj.BeginUpdate();
 				tv.BeginUpdate();
@@ -348,7 +348,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected virtual void Dispose( bool disposing )
 		{
 			if( disposing )
 			{
@@ -357,7 +357,6 @@ namespace SimPe.Plugin
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
@@ -408,7 +407,6 @@ namespace SimPe.Plugin
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.SuspendLayout();
             // 
             // lbobj
             // 
@@ -734,16 +732,11 @@ namespace SimPe.Plugin
             // 
             // Workshop
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(512, 518);
-            this.Controls.Add(this.tabControl2);
-            this.Controls.Add(this.groupBox1);
-            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources1.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(520, 320);
-            this.Name = "Workshop";
-            this.Text = "Object Workshop (biggest thanks to RGiles and Numenor)";
+            this.Width = 512;
+            this.Height = 518;
+            this.MinWidth = 520;
+            this.MinHeight = 320;
+            this.Title = "Object Workshop (biggest thanks to RGiles and Numenor)";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -755,7 +748,6 @@ namespace SimPe.Plugin
             this.tabPage3.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.ResumeLayout(false);
 		}
 		#endregion
 
@@ -790,7 +782,7 @@ namespace SimPe.Plugin
 			}
 			package = null;
 
-			if (!Helper.WindowsRegistry.LoadOWFast) BuildListing();
+			if (!Helper.XmlRegistry.LoadOWFast) BuildListing();
 			else tabControl2.SelectedIndex = 2;
 			RemoteControl.ShowSubForm(this);
 
@@ -821,7 +813,7 @@ namespace SimPe.Plugin
 		{
 			try 
 			{
-				this.Cursor = Cursors.WaitCursor;
+				this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 				IAlias a = new Data.Alias(0, "");
 				Interfaces.Files.IPackedFileDescriptor pfd = null;
 				uint localgroup = Data.MetaData.LOCAL_GROUP;
@@ -932,7 +924,7 @@ namespace SimPe.Plugin
 			finally 
 			{
 				WaitingScreen.Stop(this);			
-				this.Cursor = Cursors.Default;
+				this.Cursor = null;
 			}
 		}		
 
@@ -1312,7 +1304,7 @@ namespace SimPe.Plugin
 		
 		private void ol_Finished(object sender, EventArgs e)
 		{
-			this.Invoke(new InvokeTargetFinish(invoke_Finished), new object[] {sender, e});		
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => invoke_Finished(sender, e));
 		}
 
 		private void invoke_Finished(object sender, EventArgs e)
@@ -1329,7 +1321,7 @@ namespace SimPe.Plugin
 
 		private void ol_LoadedItem(SimPe.Cache.ObjectCacheItem oci, SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, Alias a)
 		{
-			this.Invoke(new InvokeTargetLoad(invoke_LoadedItem), new object[] {oci, fii, a});
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => invoke_LoadedItem(oci, fii, a));
 		}
 
 		private void invoke_LoadedItem(SimPe.Cache.ObjectCacheItem oci, SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii, Alias a)

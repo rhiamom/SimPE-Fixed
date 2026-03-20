@@ -30,7 +30,7 @@ using System.Windows.Forms;
 namespace SimPe.Plugin
 {
 	/// <summary>
-	/// Zusammenfassung für fAnimResourceConst.
+	/// Zusammenfassung fï¿½r fAnimResourceConst.
 	/// </summary>
 	public class fAnimResourceConst : System.Windows.Forms.Form
 	{
@@ -52,11 +52,11 @@ namespace SimPe.Plugin
 		public fAnimResourceConst()
 		{
 			//
-			// Erforderlich für die Windows Form-Designerunterstützung
+			// Erforderlich fï¿½r die Windows Form-Designerunterstï¿½tzung
 			//
 			InitializeComponent();
 
-			llAdd.Visible = Helper.WindowsRegistry.HiddenMode;
+			llAdd.Visible = Helper.XmlRegistry.HiddenMode;
 		}
 
 		/// <summary>
@@ -76,8 +76,8 @@ namespace SimPe.Plugin
 
 		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -275,9 +275,9 @@ namespace SimPe.Plugin
 					for (int i=0; i<afs.Length; i++) {
 						if (afs[0].Type == FrameType.Translation) 
 							sw.WriteLine((i+1).ToString()+" "+
-								(afs[i].Float_X * -1 * Helper.WindowsRegistry.ImportExportScaleFactor).ToString("N12", System.Globalization.CultureInfo.InvariantCulture)+" "+
-								(afs[i].Float_Z * Helper.WindowsRegistry.ImportExportScaleFactor).ToString("N12", System.Globalization.CultureInfo.InvariantCulture)+" "+
-								(afs[i].Float_Y * Helper.WindowsRegistry.ImportExportScaleFactor).ToString("N12", System.Globalization.CultureInfo.InvariantCulture));
+								(afs[i].Float_X * -1 * Helper.XmlRegistry.ImportExportScaleFactor).ToString("N12", System.Globalization.CultureInfo.InvariantCulture)+" "+
+								(afs[i].Float_Z * Helper.XmlRegistry.ImportExportScaleFactor).ToString("N12", System.Globalization.CultureInfo.InvariantCulture)+" "+
+								(afs[i].Float_Y * Helper.XmlRegistry.ImportExportScaleFactor).ToString("N12", System.Globalization.CultureInfo.InvariantCulture));
 						else
 							sw.WriteLine((i+1).ToString()+" "+
 								(afs[i].Float_X * -1 ).ToString("N12", System.Globalization.CultureInfo.InvariantCulture)+" "+

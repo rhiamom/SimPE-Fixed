@@ -36,17 +36,8 @@ namespace SimPe
 	/// <summary>
 	/// Zusammenfassung f�r MainForm.
 	/// </summary>
-	public partial class MainForm : System.Windows.Forms.Form
+	public partial class MainForm
 	{
-        public MainForm()
-		{
-			//
-			// Erforderlich f�r die Windows Form-Designerunterst�tzung
-			//
-			InitializeComponent();
-
-            SetupMainForm();
-        }
 
 
 
@@ -135,7 +126,7 @@ namespace SimPe
 		/// </summary>
 		void UpdateFileInfo()
 		{
-			if (package.Loaded) Text = "SimPe - "+package.FileName;
+			if (package.Loaded) Title = "SimPe - "+package.FileName;
 			UpdateMenuItems();
 		}		
 
@@ -317,7 +308,7 @@ namespace SimPe
 
 		private void dc_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
-			if (e.Button==MouseButtons.Middle && Helper.WindowsRegistry.FirefoxTabbing && dc.ActiveDocument is WeifenLuo.WinFormsUI.Docking.DockContent activeDoc)
+			if (e.Button==MouseButtons.Middle && Helper.XmlRegistry.FirefoxTabbing && dc.ActiveDocument is WeifenLuo.WinFormsUI.Docking.DockContent activeDoc)
 			{
 				resloader.CloseDocument(activeDoc);
 			}
@@ -455,7 +446,7 @@ namespace SimPe
 			ToolStripMenuItem mi = (ToolStripMenuItem)sender;
 			mi.Checked = !mi.Checked;
 
-			Helper.WindowsRegistry.LoadMetaInfo = !mi.Checked;
+			Helper.XmlRegistry.LoadMetaInfo = !mi.Checked;
 		}
 
 		private void Activate_miFileNames(object sender, System.EventArgs e)
@@ -463,7 +454,7 @@ namespace SimPe
 			ToolStripMenuItem mi = (ToolStripMenuItem)sender;
 			mi.Checked = !mi.Checked;
 
-			Helper.WindowsRegistry.DecodeFilenamesState = mi.Checked;
+			Helper.XmlRegistry.DecodeFilenamesState = mi.Checked;
 		}
 
 		private void Activate_miExit(object sender, System.EventArgs e)
@@ -483,7 +474,7 @@ namespace SimPe
 
 			System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = SimPe.PathProvider.Global.SimsApplication;
-			if (Helper.WindowsRegistry.EnableSound) 
+			if (Helper.XmlRegistry.EnableSound) 
 			{
 				p.StartInfo.Arguments = "-w -r800x600 -skipintro -skipverify";
 			} 
@@ -757,9 +748,9 @@ namespace SimPe
         /// </summary>
         private void saveProfile()
         {
-            Helper.WindowsRegistry.Flush(); // Writes SimPeXREGW
+            Helper.XmlRegistry.Flush(); // Writes SimPeXREGW
             StoreLayout(); // Writes SimPeLayoutW
-            Helper.WindowsRegistry.Layout.Flush(); // Writes Layout2XREGW
+            Helper.XmlRegistry.Layout.Flush(); // Writes Layout2XREGW
             File.SetLastWriteTime(Helper.DataFolder.FoldersXREGW, DateTime.Now); // It was written by the Options form
         }
         private void tsmiSaveProfile_Click(object sender, EventArgs e)

@@ -173,7 +173,7 @@ namespace SimPe.PackedFiles.UserInterface
 			ComboBox[] cb = { tba1 ,tba2 ,cbFormat ,};
 			alHex16cb = new ArrayList(cb);
 
-            this.button1.Visible = (UserVerification.HaveValidUserId && !Helper.WindowsRegistry.HiddenMode);
+            this.button1.Visible = (UserVerification.HaveValidUserId && !Helper.XmlRegistry.HiddenMode);
 
 			this.gbSpecial.Visible =
 				this.cbSpecial.Checked = pjse.Settings.PJSE.ShowSpecialButtons;
@@ -836,7 +836,7 @@ namespace SimPe.PackedFiles.UserInterface
 
         private void SetComments()
         {
-            if (!UserVerification.HaveValidUserId || Helper.WindowsRegistry.HiddenMode) return;
+            if (!UserVerification.HaveValidUserId || Helper.XmlRegistry.HiddenMode) return;
             SimPe.Plugin.TreesPackedFileWrapper tpfw = (SimPe.Plugin.TreesPackedFileWrapper)wrapper.SiblingResource(0x54524545);
             if (tpfw == null) return;
             int indx = 0;
@@ -991,7 +991,7 @@ namespace SimPe.PackedFiles.UserInterface
             {
                 this.lbHidesOP.Visible = this.tbHidesOP.Visible = this.llHidesOP.Visible = false;
                 this.llHidesOP.Tag = null;
-                if (wrapper.SiblingResource(0x54524545) != null && UserVerification.HaveValidUserId && !Helper.WindowsRegistry.HiddenMode)
+                if (wrapper.SiblingResource(0x54524545) != null && UserVerification.HaveValidUserId && !Helper.XmlRegistry.HiddenMode)
                 {
                     pjse_banner1.TreeVisible = true;
                     pjse_banner1.TreeEnabled = wrapper.SiblingResource(0x54524545).Package == wrapper.Package;
@@ -1016,7 +1016,7 @@ namespace SimPe.PackedFiles.UserInterface
             else
             {
                 ttBhavForm.SetToolTip(tbFilename, expName + ": 0x" + SimPe.Helper.HexString((ushort)wrapper.FileDescriptor.Instance));
-                pjse_banner1.TreeVisible = (wrapper.SiblingResource(0x54524545) != null && UserVerification.HaveValidUserId && !Helper.WindowsRegistry.HiddenMode);
+                pjse_banner1.TreeVisible = (wrapper.SiblingResource(0x54524545) != null && UserVerification.HaveValidUserId && !Helper.XmlRegistry.HiddenMode);
             }
             SetComments();
         }

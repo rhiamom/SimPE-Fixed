@@ -32,7 +32,7 @@ namespace SimPe
 	/// Handles Layout Settings for the Application
 	/// </summary>
 	/// <remarks>You cannot create instance of this class, use the 
-	/// <see cref="SimPe.Helper.WindowsRegistry.Layout"/> Field to access the LayoutRegistry</remarks>
+	/// <see cref="SimPe.Helper.XmlRegistry.Layout"/> Field to access the LayoutRegistry</remarks>
 	public class LayoutRegistry
 	{
 		#region Attributes		
@@ -131,7 +131,7 @@ namespace SimPe
             get
             {
                 // Classic preset: no theming
-                if (Helper.WindowsRegistry.Layout.IsClassicPreset)
+                if (Helper.XmlRegistry.Layout.IsClassicPreset)
                     return 0;
 
                 // Read the stored theme id from the XML registry

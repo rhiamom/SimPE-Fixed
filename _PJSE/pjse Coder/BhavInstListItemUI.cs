@@ -57,7 +57,7 @@ namespace SimPe.PackedFiles.UserInterface
 
             if (strTrue == null) strTrue = this.trueTarget.Text;
             if (strFalse == null) strFalse = this.falseTarget.Text;
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons && Screen.PrimaryScreen.WorkingArea.Width > 1600)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons && Screen.PrimaryScreen.WorkingArea.Width > 1600)
             {
                 bhavInstListItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F); // 12 works well like this but it is a bit close, tried 11.25F was OK
                 trueTarget.Location = new System.Drawing.Point(476, 9); // up 10 back 40  - for 10F up 4 back 20 - try down 2 forward 5

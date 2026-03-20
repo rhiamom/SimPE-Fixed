@@ -144,7 +144,7 @@ namespace SimPe.Providers
 					{
 						SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 						str.ProcessData(stri);
-						SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);						
+						SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);						
 						if (items.Length>0) 
 						{
 							string ret = items[0].Title;
@@ -266,7 +266,7 @@ namespace SimPe.Providers
 						SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 						str.ProcessData(pfd, pkg);
 
-						SimPe.PackedFiles.Wrapper.StrItemList list = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+						SimPe.PackedFiles.Wrapper.StrItemList list = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
 						if (list.Count>0) name = list[0].Title;
 					}
 

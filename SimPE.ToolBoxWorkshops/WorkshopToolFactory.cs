@@ -68,7 +68,7 @@ namespace SimPe.Plugin
             if (Helper.StartedGui == Executable.Classic) docks.Add(new WorkshopTool(this.LinkedRegistry, this.LinkedProvider));
             else docks.Add(new SimPe.Plugin.Tool.Dockable.ObectWorkshopDockTool());
             docks.Add(new SimPe.Plugin.Tool.Dockable.PackageDetailDockTool());
-            if (Helper.WindowsRegistry.HiddenMode) docks.Add(new SimPe.Plugin.Tool.Window.PackageRepairTool()); 
+            if (Helper.XmlRegistry.HiddenMode) docks.Add(new SimPe.Plugin.Tool.Window.PackageRepairTool()); 
         }
 
 		public IToolPlugin[] KnownTools
@@ -86,7 +86,7 @@ namespace SimPe.Plugin
 #if UNREACHABLE
                 if (Helper.StartedGui == Executable.Classic)
                 {
-                    if (Helper.WindowsRegistry.HiddenMode)
+                    if (Helper.XmlRegistry.HiddenMode)
                     {
                         Last = new IToolPlugin[]{
 											  new SimPe.Plugin.Tool.Dockable.PackageDetailDockTool(),
@@ -102,7 +102,7 @@ namespace SimPe.Plugin
                 }
                 else
                 {
-                    if (Helper.WindowsRegistry.HiddenMode)
+                    if (Helper.XmlRegistry.HiddenMode)
                     {
                         Last = new IToolPlugin[]{
 											  new SimPe.Plugin.Tool.Dockable.ObectWorkshopDockTool(),

@@ -52,7 +52,7 @@ namespace SimPe.Plugin
                 tm.AddControl(this.panel3);
 
             // Use larger font if requested
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
             {
                 this.lblist.Font = new System.Drawing.Font(this.lblist.Font.FontFamily, 11F);
             }

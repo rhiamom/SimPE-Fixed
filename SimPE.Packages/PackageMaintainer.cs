@@ -69,7 +69,7 @@ namespace SimPe.Packages
 		/// <param name="pkg"></param>
 		internal void RemovePackage(GeneratableFile pkg)
 		{
-			if (!Helper.WindowsRegistry.UsePackageMaintainer) return;
+			if (!Helper.XmlRegistry.UsePackageMaintainer) return;
 			if (pkg==null) return;			
 
 			RemovePackage(pkg.FileName);
@@ -113,7 +113,7 @@ namespace SimPe.Packages
 		internal void SyncFileIndex(GeneratableFile pkg)
 		{
 			this.FileIndex.Clear();
-			if (pkg.Index.Length <= Helper.WindowsRegistry.BigPackageResourceCount)
+			if (pkg.Index.Length <= Helper.XmlRegistry.BigPackageResourceCount)
 				this.FileIndex.AddIndexFromPackage(pkg);
 		}
 
@@ -143,7 +143,7 @@ namespace SimPe.Packages
 			if (filename==null) ret =  GeneratableFile.CreateNew();
 			else 
 			{			
-				if (!Helper.WindowsRegistry.UsePackageMaintainer)  ret = new GeneratableFile(filename);
+				if (!Helper.XmlRegistry.UsePackageMaintainer)  ret = new GeneratableFile(filename);
 				else
                 {
 					if (!ht.ContainsKey(filename)) ht[filename] = new GeneratableFile(filename);

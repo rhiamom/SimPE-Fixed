@@ -388,11 +388,11 @@ namespace SimPe.Packages
 
         string GetResDescString()
         {
-            if (Helper.WindowsRegistry.ResourceListUnknownDescriptionFormat == Registry.ResourceListUnnamedFormats.FullTGI)
+            if (Helper.XmlRegistry.ResourceListUnknownDescriptionFormat == Registry.ResourceListUnnamedFormats.FullTGI)
             return Helper.HexString(this.Type) + " - " + Helper.HexString(this.SubType) +
                 " - " + Helper.HexString(this.Group) + " - " + Helper.HexString(this.Instance);
 
-            if (Helper.WindowsRegistry.ResourceListUnknownDescriptionFormat == Registry.ResourceListUnnamedFormats.Instance)
+            if (Helper.XmlRegistry.ResourceListUnknownDescriptionFormat == Registry.ResourceListUnnamedFormats.Instance)
                 return Helper.HexString(this.SubType)+" - "+Helper.HexString(this.Instance);
 
             return Helper.HexString(this.SubType) + " - " + Helper.HexString(this.Group) + " - " + Helper.HexString(this.Instance);
@@ -400,13 +400,13 @@ namespace SimPe.Packages
 
         public string ToResListString()
         {
-            if (Helper.WindowsRegistry.ResourceListFormat == Registry.ResourceListFormats.ShortTypeNames)
+            if (Helper.XmlRegistry.ResourceListFormat == Registry.ResourceListFormats.ShortTypeNames)
                 return this.TypeName.shortname + ": " + GetResDescString();
 
-            if (Helper.WindowsRegistry.ResourceListFormat == Registry.ResourceListFormats.JustNames)
+            if (Helper.XmlRegistry.ResourceListFormat == Registry.ResourceListFormats.JustNames)
                 return this.TypeName.ToString();
 
-            if (Helper.WindowsRegistry.ResourceListFormat == Registry.ResourceListFormats.JustLongType)
+            if (Helper.XmlRegistry.ResourceListFormat == Registry.ResourceListFormats.JustLongType)
                 return this.TypeName.ToString();
 
             //if ((this.Size==0) && (this.Offset==0)) name += " [UserFile]";

@@ -40,7 +40,7 @@ namespace SimPe.Wants
             cbVersion.Items.AddRange(XWNTWrapper.ValidVersions.ToArray());
             cbProperty.Items.AddRange(XWNTItem.ValidKeys.ToArray());
 
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
                 this.lvWants.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
         }
 

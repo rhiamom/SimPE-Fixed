@@ -480,7 +480,7 @@ namespace SimPe.Plugin
 		#region Extensions by Theo
         void menu_VisibleChanged(object sender, EventArgs e)
         {
-            miFix.Enabled = (this.Ngbh != null) && Helper.WindowsRegistry.HiddenMode;
+            miFix.Enabled = (this.Ngbh != null) && Helper.XmlRegistry.HiddenMode;
             miNuke.Enabled = (spc.SelectedSim != null);
         }
 

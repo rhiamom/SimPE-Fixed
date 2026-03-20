@@ -33,7 +33,7 @@ namespace SimPe.Plugin
 	/// <summary>
 	/// Summary description for Search.
 	/// </summary>
-	public class Search : System.Windows.Forms.Form
+	public class Search : Avalonia.Controls.Window
 	{
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
@@ -84,13 +84,13 @@ namespace SimPe.Plugin
             ThemeManager tm = ThemeManager.Global.CreateChild();
             tm.AddControl(this.panel1);
             
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.lblist.Font = new System.Drawing.Font("Verdana", 11F);
+            if (SimPe.Helper.XmlRegistry.UseBigIcons) this.lblist.Font = new System.Drawing.Font("Verdana", 11F);
 		}
 
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected virtual void Dispose( bool disposing )
 		{
 			if( disposing )
 			{
@@ -99,7 +99,6 @@ namespace SimPe.Plugin
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
@@ -153,7 +152,6 @@ namespace SimPe.Plugin
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.SuspendLayout();
             // 
             // tabControl1
             // 
@@ -548,14 +546,9 @@ namespace SimPe.Plugin
             // 
             // Search
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(784, 501);
-            this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Width = 784; this.Height = 501;
             this.Name = "Search";
-            this.ShowInTaskbar = false;
-            this.Text = "Search";
+            this.Title = "Search";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -568,7 +561,6 @@ namespace SimPe.Plugin
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -588,7 +580,7 @@ namespace SimPe.Plugin
 				lblist.Items.Clear();
 				//lblist.BeginUpdate();
 				this.btopen.Enabled = false;
-				Cursor = Cursors.WaitCursor;
+				Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 
 				int count = 0;
 				foreach (Interfaces.Files.IPackedFileDescriptor pfd in pfds) 
@@ -608,7 +600,7 @@ namespace SimPe.Plugin
 			}
 			finally 
 			{
-				Cursor = Cursors.Default;
+				Cursor = null;
 				pb.Value = 0;
 				//lblist.EndUpdate();
 			}

@@ -141,7 +141,7 @@ namespace SimPe.PackedFiles.Wrapper
 		bool locked;
 		protected override void Unserialize(System.IO.BinaryReader reader)
 		{            
-            //lock (SimPe.Helper.WindowsRegistry)
+            //lock (SimPe.Helper.XmlRegistry)
             {
                 if (locked) { return; }
                 base.Unserialize(reader);
@@ -152,7 +152,7 @@ namespace SimPe.PackedFiles.Wrapper
 
 		protected override void Serialize(System.IO.BinaryWriter writer)
 		{
-            //lock (SimPe.Helper.WindowsRegistry)
+            //lock (SimPe.Helper.XmlRegistry)
             {
                 if (locked) { return; }
                 base.Serialize(writer);

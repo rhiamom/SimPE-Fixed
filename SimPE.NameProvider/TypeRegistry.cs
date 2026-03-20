@@ -101,7 +101,7 @@ namespace SimPe.PackedFiles
 		/// </summary>
 		public TypeRegistry()
 		{
-			reg = Helper.WindowsRegistry;
+			reg = Helper.XmlRegistry;
 			handlers = new ArrayList();
 			opcodeprovider = new SimPe.Providers.Opcodes();
 			simfamilynames = new SimPe.Providers.SimFamilyNames();

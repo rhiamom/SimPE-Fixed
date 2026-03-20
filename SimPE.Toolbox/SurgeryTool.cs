@@ -36,7 +36,7 @@ namespace SimPe.Plugin
 		/// Windows Registry Link
 		/// </summary>
 		static SimPe.Registry registry;
-		internal static Registry WindowsRegistry 
+		internal static Registry XmlRegistry 
 		{
 			get { return registry; }
 		}
@@ -49,7 +49,7 @@ namespace SimPe.Plugin
 			this.reg = reg;
 			this.prov = prov;
 
-			if (registry==null) registry = Helper.WindowsRegistry;
+			if (registry==null) registry = Helper.XmlRegistry;
 		}
 
         #region ITool Member
@@ -82,7 +82,7 @@ namespace SimPe.Plugin
                 return new Plugin.ToolResult(false, false);
             }
             if (surg == null) surg = new Surgery();
-            surg.Text = Localization.Manager.GetString("Sims Surgery Tool");
+            surg.Title = Localization.Manager.GetString("Sims Surgery Tool");
 
 			return surg.Execute(ref pfd, ref package, prov);
 		}

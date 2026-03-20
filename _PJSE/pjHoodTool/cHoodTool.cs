@@ -143,7 +143,7 @@ namespace pjHoodTool
                 if (incski)
                 {
                     heady += ",Body,Charisma,Cleaning,Cooking,Creativity,Fatness,Logic,Mechanical";
-                    if (Helper.WindowsRegistry.ShowMoreSkills)
+                    if (Helper.XmlRegistry.ShowMoreSkills)
                         heady += ",Art,Music";
                 }
 
@@ -229,10 +229,10 @@ namespace pjHoodTool
             {
                 ctss = new StrWrapper();
                 ctss.ProcessData(pfds[0], pkg);
-                if (ctss[(byte)Helper.WindowsRegistry.LanguageCode, 0] == null)
+                if (ctss[(byte)Helper.XmlRegistry.LanguageCode, 0] == null)
                     hoodName = q(ctss[1, 0]);
                 else
-                    hoodName = q(ctss[(byte)Helper.WindowsRegistry.LanguageCode, 0]);
+                    hoodName = q(ctss[(byte)Helper.XmlRegistry.LanguageCode, 0]);
             }
             else hoodName = hood; // Tutorial Hood has no CTSS
 
@@ -284,10 +284,10 @@ namespace pjHoodTool
                             {
                                 ctss = new StrWrapper();
                                 ctss.ProcessData(pfds[0], pkg);
-                                if (ctss[(byte)Helper.WindowsRegistry.LanguageCode, 0] == null)
+                                if (ctss[(byte)Helper.XmlRegistry.LanguageCode, 0] == null)
                                     hoodName = q(ctss[1, 0]);
                                 else
-                                    hoodName = q(ctss[(byte)Helper.WindowsRegistry.LanguageCode, 0]);
+                                    hoodName = q(ctss[(byte)Helper.XmlRegistry.LanguageCode, 0]);
 
                                 System.Windows.Forms.Application.DoEvents();
                                 splash("Loading Subhood : " + hoodName);
@@ -347,21 +347,21 @@ namespace pjHoodTool
                     {
                         StrWrapper ctss = new StrWrapper();
                         ctss.ProcessData(pfds[0], pkg);
-                        if (ctss[(byte)Helper.WindowsRegistry.LanguageCode, 0] == null)
+                        if (ctss[(byte)Helper.XmlRegistry.LanguageCode, 0] == null)
                             desc = q(ctss[1, 0]) + ",";
                         else
-                            desc = q(ctss[(byte)Helper.WindowsRegistry.LanguageCode, 0]) + ","; // firstname
+                            desc = q(ctss[(byte)Helper.XmlRegistry.LanguageCode, 0]) + ","; // firstname
 
-                        if (ctss[(byte)Helper.WindowsRegistry.LanguageCode, 2] == null)
+                        if (ctss[(byte)Helper.XmlRegistry.LanguageCode, 2] == null)
                             desc += q(ctss[1, 2]) + "";
                         else
-                            desc += q(ctss[(byte)Helper.WindowsRegistry.LanguageCode, 2]) + ""; // lastname
+                            desc += q(ctss[(byte)Helper.XmlRegistry.LanguageCode, 2]) + ""; // lastname
                         if (incdes)
                         {
-                            if (ctss[(byte)Helper.WindowsRegistry.LanguageCode, 1] == null)
+                            if (ctss[(byte)Helper.XmlRegistry.LanguageCode, 1] == null)
                                 desc += "," + q(ctss[1, 1]).Replace(",", " ").Replace("\r", "").Replace("\n", " ") + "";
                             else
-                                desc += "," + q(ctss[(byte)Helper.WindowsRegistry.LanguageCode, 1]).Replace(",", " ").Replace("\r", "").Replace("\n", " ") + ""; // description
+                                desc += "," + q(ctss[(byte)Helper.XmlRegistry.LanguageCode, 1]).Replace(",", " ").Replace("\r", "").Replace("\n", " ") + ""; // description
                         }
                     }
                     catch
@@ -462,7 +462,7 @@ namespace pjHoodTool
                 "," + sdsc.Skills.Logic +
                 "," + sdsc.Skills.Mechanical +
                 "," + sdsc.Skills.Romance;
-            //if (Helper.WindowsRegistry.ShowMoreSkills)
+            //if (Helper.XmlRegistry.ShowMoreSkills)
             //skills += "," + sdsc.Skills.Art + "," + sdsc.Skills.Music;
             skills += "";
             #endregion
@@ -747,7 +747,7 @@ namespace pjHoodTool
             nfm.LoadNgbh = false;
             nfm.ShowBackupManager = false;
             nfm.ShowSubHoods = false;
-            nfm.Text = "Close window without selection to extract all";
+            nfm.Title = "Close window without selection to extract all";
             SimPe.Interfaces.Plugin.IToolResult ret = nfm.Execute(ref package, null);
 
             string hood = "";
@@ -809,8 +809,8 @@ namespace pjHoodTool
             string group = "";
             int groupno = 0;
             bool dun = getim.Settings;
-            bool previ = Helper.WindowsRegistry.LoadTableAtStartup;
-            Helper.WindowsRegistry.LoadTableAtStartup = false;
+            bool previ = Helper.XmlRegistry.LoadTableAtStartup;
+            Helper.XmlRegistry.LoadTableAtStartup = false;
             while (argv.Count > i)
             {
                 if (ArgParser.Parse(argv, i, "-out", ref outpath)) continue;
@@ -846,7 +846,7 @@ namespace pjHoodTool
             splash = delegate(string message) { SimPe.Splash.Screen.SetMessage(message); };
             Rufio(outpath, hood, groupno);
             splash("");
-            Helper.WindowsRegistry.LoadTableAtStartup = previ;
+            Helper.XmlRegistry.LoadTableAtStartup = previ;
             return true;
         }
 

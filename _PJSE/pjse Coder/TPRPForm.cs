@@ -83,7 +83,7 @@ namespace SimPe.PackedFiles.UserInterface
 			alHex32 = new ArrayList(dw);
 
             pjse.FileTable.GFT.FiletableRefresh += new EventHandler(GFT_FiletableRefresh);
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lvParams.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
                 this.lvLocals.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
@@ -128,14 +128,14 @@ namespace SimPe.PackedFiles.UserInterface
 		{
 			get
 			{
-				XmlRegistryKey  rkf = Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("PJSE\\TPRP");
+				XmlRegistryKey  rkf = Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("PJSE\\TPRP");
 				object o = rkf.GetValue("initialTab", 1);
 				return Convert.ToInt16(o);
 			}
 
 			set
 			{
-				XmlRegistryKey rkf = Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("PJSE\\TPRP");
+				XmlRegistryKey rkf = Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("PJSE\\TPRP");
 				rkf.SetValue("initialTab", value);
 			}
 

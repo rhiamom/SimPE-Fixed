@@ -34,7 +34,7 @@ namespace SimPe.Plugin
 		/// Windows Registry Link
 		/// </summary>
 		static SimPe.Registry registry;
-		internal static Registry WindowsRegistry 
+		internal static Registry XmlRegistry 
 		{
 			get { return registry; }
 		}
@@ -47,7 +47,7 @@ namespace SimPe.Plugin
 			this.reg = reg;
 			this.prov = prov;
 
-			if (registry==null) registry = Helper.WindowsRegistry;
+			if (registry==null) registry = Helper.XmlRegistry;
 		}
 
 		#region ITool Member

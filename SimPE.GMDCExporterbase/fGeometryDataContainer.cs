@@ -191,7 +191,7 @@ namespace SimPe.Plugin
 			Gmdc.ElementIdentity[] eis = (Gmdc.ElementIdentity[])System.Enum.GetValues(typeof(Gmdc.ElementIdentity));
 			foreach (Gmdc.ElementIdentity e in eis) this.cbid.Items.Add(e);
 
-			this.cbCorrect.Checked = Helper.WindowsRegistry.CorrectJointDefinitionOnExport;
+			this.cbCorrect.Checked = Helper.XmlRegistry.CorrectJointDefinitionOnExport;
 			SimPe.Plugin.Gmdc.ElementSorting[] vs = (SimPe.Plugin.Gmdc.ElementSorting[])System.Enum.GetValues(typeof(SimPe.Plugin.Gmdc.ElementSorting));
 			foreach (SimPe.Plugin.Gmdc.ElementSorting es in vs) {
 				if (es == ElementSorting.Preview) continue;
@@ -201,7 +201,7 @@ namespace SimPe.Plugin
 
             if (DefaultSelectedAxisIndex >= 0 && DefaultSelectedAxisIndex < cbaxis.Items.Count) cbaxis.SelectedIndex = DefaultSelectedAxisIndex;
 
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
             {
                 this.lbmodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
                 this.lb_itemsa.Font = new System.Drawing.Font("Verdana", 12F);
@@ -2235,9 +2235,9 @@ namespace SimPe.Plugin
 				//dxprev.ResetDefaultViewport();
 				//dxprev.Settings.Aspect = (float)dxprev.Width/(float)dxprev.Height;	
 			}
-			/*dxprev.Viewport.NearPlane = Helper.WindowsRegistry.ImportExportScaleFactor / 10;
+			/*dxprev.Viewport.NearPlane = Helper.XmlRegistry.ImportExportScaleFactor / 10;
 			dxprev.Viewport.FarPlane = dxprev.Viewport.NearPlane * 10000;
-			dxprev.Viewport.BoundingSphereRadius = Math.Min(dxprev.Viewport.BoundingSphereRadius, Helper.WindowsRegistry.ImportExportScaleFactor);*/
+			dxprev.Viewport.BoundingSphereRadius = Math.Min(dxprev.Viewport.BoundingSphereRadius, Helper.XmlRegistry.ImportExportScaleFactor);*/
 			//dxprev.Viewport.Aspect = (float)dxprev.Width/(float)dxprev.Height;
 		}
 
@@ -2369,7 +2369,7 @@ namespace SimPe.Plugin
 
 		private void cbCorrect_CheckedChanged(object sender, System.EventArgs e)
 		{
-			Helper.WindowsRegistry.CorrectJointDefinitionOnExport = this.cbCorrect.Checked;
+			Helper.XmlRegistry.CorrectJointDefinitionOnExport = this.cbCorrect.Checked;
 		}
 
 		
@@ -2451,13 +2451,13 @@ namespace SimPe.Plugin
 		{
 			get 
 			{
-				XmlRegistryKey  rkf = Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("SceneGraph");
+				XmlRegistryKey  rkf = Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("SceneGraph");
 				object o = rkf.GetValue("DefaultAxis", 1);
 				return Convert.ToInt32(o);
 			}
 			set
 			{
-				XmlRegistryKey rkf = Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("SceneGraph");
+				XmlRegistryKey rkf = Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("SceneGraph");
 				rkf.SetValue("DefaultAxis", value);
 			}
 		}
@@ -2702,7 +2702,7 @@ namespace SimPe.Plugin
 				{
 					GeometryDataContainer gmdc = (GeometryDataContainer) this.tMesh.Tag;
 					
-					StartImport(ofd, gmdc, Helper.WindowsRegistry.GmdcExtension, (ElementSorting)cbaxis.Items[cbaxis.SelectedIndex], false);
+					StartImport(ofd, gmdc, Helper.XmlRegistry.GmdcExtension, (ElementSorting)cbaxis.Items[cbaxis.SelectedIndex], false);
 				}				
 			}
 			catch (Exception exception1)
@@ -2789,7 +2789,7 @@ namespace SimPe.Plugin
 			{
 				//Now perpare the Import
 				IGmdcImporter importer = ExporterLoader.Importers[ofd.FilterIndex-1];
-				Helper.WindowsRegistry.GmdcExtension = importer.FileExtension;
+				Helper.XmlRegistry.GmdcExtension = importer.FileExtension;
 				importer.Component.Sorting = sorting;
 				System.IO.FileStream meshreader = File.OpenRead(ofd.FileName);
 
@@ -2845,7 +2845,7 @@ namespace SimPe.Plugin
 				{
 					//Now perfor the Export
 					IGmdcExporter exporter = ExporterLoader.Exporters[sfd.FilterIndex-1];
-					Helper.WindowsRegistry.GmdcExtension = exporter.FileExtension;
+					Helper.XmlRegistry.GmdcExtension = exporter.FileExtension;
 					exporter.Component.Sorting = sorting;	
 					exporter.CorrectJointSetup = corjoints;
 					if (!sfd.FileName.Trim().ToLower().EndsWith(exporter.FileExtension.Trim().ToLower())) sfd.FileName += exporter.FileExtension;
@@ -2880,7 +2880,7 @@ namespace SimPe.Plugin
 				if (this.tMesh.Tag != null)
 				{
 					GeometryDataContainer gmdc = (GeometryDataContainer) this.tMesh.Tag;
-					StartExport(sfd, gmdc, Helper.WindowsRegistry.GmdcExtension, GetModelsExt(), (ElementSorting)cbaxis.Items[cbaxis.SelectedIndex], cbCorrect.Checked);
+					StartExport(sfd, gmdc, Helper.XmlRegistry.GmdcExtension, GetModelsExt(), (ElementSorting)cbaxis.Items[cbaxis.SelectedIndex], cbCorrect.Checked);
 					
 				}				
 			}

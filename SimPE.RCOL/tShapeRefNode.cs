@@ -90,7 +90,7 @@ namespace SimPe.Plugin.TabPage
             InitializeComponent();
 
             this.UseVisualStyleBackColor = true;
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lb_srn_b.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
                 this.lb_srn_a.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);

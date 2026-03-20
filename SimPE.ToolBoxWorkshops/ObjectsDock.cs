@@ -186,15 +186,15 @@ namespace SimPe.Plugin.Tool.Dockable
 			tm.AddControl(this.gbRecolor);
 			tm.AddControl(this.gbClone);
             
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
                 toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);  
 
 			biFinish.Visible = wizard1.FinishEnabled;
 			this.biAbort.Visible = wizard1.PrevEnabled;
 			biNext.Enabled = wizard1.NextEnabled;
 			biPrev.Enabled = wizard1.PrevEnabled;						
-			ilist.ImageSize = new Size(Helper.WindowsRegistry.OWThumbSize, Helper.WindowsRegistry.OWThumbSize);
-			tv.ItemHeight = Helper.WindowsRegistry.OWThumbSize + 1;
+			ilist.ImageSize = new Size(Helper.XmlRegistry.OWThumbSize, Helper.XmlRegistry.OWThumbSize);
+			tv.ItemHeight = Helper.XmlRegistry.OWThumbSize + 1;
 			registry = new ObjectWorkshopRegistry(this);
 		}
 
@@ -946,7 +946,7 @@ namespace SimPe.Plugin.Tool.Dockable
 		{
 			if (a==null) return;
 
-            //if (oci.Class == SimPe.Cache.ObjectClass.XObject && !Helper.WindowsRegistry.OWincludewalls) return;
+            //if (oci.Class == SimPe.Cache.ObjectClass.XObject && !Helper.XmlRegistry.OWincludewalls) return;
 
 			string[][] cats = oci.ObjectCategory;			
 			foreach (string[] ss in cats)				

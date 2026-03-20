@@ -35,7 +35,7 @@ namespace SimPe.Plugin
 		/// Windows Registry Link
 		/// </summary>
 		static SimPe.Registry registry;
-		internal static Registry WindowsRegistry 
+		internal static Registry XmlRegistry 
 		{
 			get { return registry; }
 		}
@@ -48,7 +48,7 @@ namespace SimPe.Plugin
 			this.reg = reg;
 			this.prov = prov;
 
-			if (registry==null) registry = Helper.WindowsRegistry;
+			if (registry==null) registry = Helper.XmlRegistry;
 		}
 
 		#region ITool Member
@@ -82,7 +82,7 @@ namespace SimPe.Plugin
 				}
 			}
 			NeighborhoodForm nf = new NeighborhoodForm();
-			nf.Text = Localization.Manager.GetString("neighborhoodbrowser");
+			nf.Title = Localization.Manager.GetString("neighborhoodbrowser");
 
             Interfaces.Plugin.IToolResult ret = nf.Execute(ref package, prov);
 			if (ret.ChangedPackage) pfd = null;

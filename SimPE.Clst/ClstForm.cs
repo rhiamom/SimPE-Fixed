@@ -54,7 +54,7 @@ namespace SimPe.PackedFiles.UserInterface
             InitializeComponent();
 
             // No ThemeManager here anymore
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
                 this.lbclst.Font = new System.Drawing.Font("Verdana", 11F);
         }
 

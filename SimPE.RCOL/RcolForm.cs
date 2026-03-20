@@ -100,7 +100,7 @@ namespace SimPe.Plugin
             SimPe.ThemeManager.Global.AddControl(this.btadd);
             SimPe.ThemeManager.Global.AddControl(this.btdown);
 
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lbblocks.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
                 this.lbref.Font    = new System.Drawing.Font(base.Font.FontFamily, 11F);

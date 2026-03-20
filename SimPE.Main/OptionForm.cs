@@ -81,47 +81,47 @@ namespace SimPe
         void Execute()
         {
             this.Tag = true;
-            //linkLabel3.Enabled = (Helper.WindowsRegistry.EPInstalled>=1);
+            //linkLabel3.Enabled = (Helper.XmlRegistry.EPInstalled>=1);
             tbgame.Text = PathProvider.Global[Expansions.BaseGame].InstallFolder;
             tbep1.Text = PathProvider.Global[Expansions.University].InstallFolder;
             tbep2.Text = PathProvider.Global[Expansions.Business].InstallFolder;
-            //tbep1.Text = Helper.WindowsRegistry.RealEP1GamePath;
+            //tbep1.Text = Helper.XmlRegistry.RealEP1GamePath;
             tbsavegame.Text = PathProvider.SimSavegameFolder;
             tbdds.Text = PathProvider.Global.NvidiaDDSPath;
-            this.cbdebug.Checked = Helper.WindowsRegistry.GameDebug;
-            cbautobak.Checked = Helper.WindowsRegistry.AutoBackup;
-            cbblur.Checked = Helper.WindowsRegistry.BlurNudity;
-            cbsound.Checked = Helper.WindowsRegistry.EnableSound;
-            cbwait.Checked = Helper.WindowsRegistry.WaitingScreen;
-            cbow.Checked = Helper.WindowsRegistry.LoadOWFast;
-            cbsilent.Checked = Helper.WindowsRegistry.Silent;
-            cbcache.Checked = Helper.WindowsRegistry.UseCache;
-            cbshowobjd.Checked = Helper.WindowsRegistry.ShowObjdNames;
-            cbhidden.Checked = Helper.WindowsRegistry.HiddenMode;
-            cbjointname.Checked = Helper.WindowsRegistry.ShowJointNames;
-            tbthumb.Text = Helper.WindowsRegistry.OWThumbSize.ToString();
-            tbscale.Text = Helper.WindowsRegistry.ImportExportScaleFactor.ToString();
-            //cbupdate.Checked = Helper.WindowsRegistry.CheckForUpdates;
-            cbpkgmaint.Checked = Helper.WindowsRegistry.UsePackageMaintainer;
-            cbmulti.Checked = Helper.WindowsRegistry.MultipleFiles;
-            cbSimple.Checked = Helper.WindowsRegistry.SimpleResourceSelect;
-            cbFirefox.Checked = Helper.WindowsRegistry.FirefoxTabbing;
-            cbDeep.Checked = Helper.WindowsRegistry.DeepSimScan;
-            cbSimTemp.Checked = Helper.WindowsRegistry.DeepSimTemplateScan;
-            cbAsync.Checked = Helper.WindowsRegistry.AsynchronLoad;
+            this.cbdebug.Checked = Helper.XmlRegistry.GameDebug;
+            cbautobak.Checked = Helper.XmlRegistry.AutoBackup;
+            cbblur.Checked = Helper.XmlRegistry.BlurNudity;
+            cbsound.Checked = Helper.XmlRegistry.EnableSound;
+            cbwait.Checked = Helper.XmlRegistry.WaitingScreen;
+            cbow.Checked = Helper.XmlRegistry.LoadOWFast;
+            cbsilent.Checked = Helper.XmlRegistry.Silent;
+            cbcache.Checked = Helper.XmlRegistry.UseCache;
+            cbshowobjd.Checked = Helper.XmlRegistry.ShowObjdNames;
+            cbhidden.Checked = Helper.XmlRegistry.HiddenMode;
+            cbjointname.Checked = Helper.XmlRegistry.ShowJointNames;
+            tbthumb.Text = Helper.XmlRegistry.OWThumbSize.ToString();
+            tbscale.Text = Helper.XmlRegistry.ImportExportScaleFactor.ToString();
+            //cbupdate.Checked = Helper.XmlRegistry.CheckForUpdates;
+            cbpkgmaint.Checked = Helper.XmlRegistry.UsePackageMaintainer;
+            cbmulti.Checked = Helper.XmlRegistry.MultipleFiles;
+            cbSimple.Checked = Helper.XmlRegistry.SimpleResourceSelect;
+            cbFirefox.Checked = Helper.XmlRegistry.FirefoxTabbing;
+            cbDeep.Checked = Helper.XmlRegistry.DeepSimScan;
+            cbSimTemp.Checked = Helper.XmlRegistry.DeepSimTemplateScan;
+            cbAsync.Checked = Helper.XmlRegistry.AsynchronLoad;
 
-            cbLock.Checked = Helper.WindowsRegistry.LockDocks;
-            cbsplash.Checked = Helper.WindowsRegistry.ShowStartupSplash;
-            cbAsyncSort.Checked = Helper.WindowsRegistry.AsynchronSort;
-            cbRLTGI.SelectedValue = Helper.WindowsRegistry.ResourceListUnknownDescriptionFormat;
-            cbRLNames.SelectedValue = Helper.WindowsRegistry.ResourceListFormat;
-            cbRLExt.SelectedValue = Helper.WindowsRegistry.ResourceListExtensionFormat;
+            cbLock.Checked = Helper.XmlRegistry.LockDocks;
+            cbsplash.Checked = Helper.XmlRegistry.ShowStartupSplash;
+            cbAsyncSort.Checked = Helper.XmlRegistry.AsynchronSort;
+            cbRLTGI.SelectedValue = Helper.XmlRegistry.ResourceListUnknownDescriptionFormat;
+            cbRLNames.SelectedValue = Helper.XmlRegistry.ResourceListFormat;
+            cbRLExt.SelectedValue = Helper.XmlRegistry.ResourceListExtensionFormat;
 
             this.cbLock_CheckedChanged(cbLock, null);
 
-            /*this.tbUserId.Text = "0x" + Helper.HexString(Helper.WindowsRegistry.CachedUserId);
-            this.tbUsername.Text = Helper.WindowsRegistry.Username;
-            this.tbPassword.Text = Helper.WindowsRegistry.Password;*/
+            /*this.tbUserId.Text = "0x" + Helper.HexString(Helper.XmlRegistry.CachedUserId);
+            this.tbUsername.Text = Helper.XmlRegistry.Username;
+            this.tbPassword.Text = Helper.XmlRegistry.Password;*/
 
             this.tbep1.ReadOnly = (PathProvider.Global.EPInstalled < 1);
             this.tbep2.ReadOnly = (PathProvider.Global.EPInstalled < 2);
@@ -130,19 +130,19 @@ namespace SimPe
             llsetep1.Enabled = button5.Enabled;
             llNightlife.Enabled = btNightlife.Enabled;
 
-            if (((byte)Helper.WindowsRegistry.LanguageCode <= cblang.Items.Count) && ((byte)Helper.WindowsRegistry.LanguageCode > 0))
+            if (((byte)Helper.XmlRegistry.LanguageCode <= cblang.Items.Count) && ((byte)Helper.XmlRegistry.LanguageCode > 0))
             {
-                cblang.SelectedIndex = (byte)Helper.WindowsRegistry.LanguageCode - 1;
+                cblang.SelectedIndex = (byte)Helper.XmlRegistry.LanguageCode - 1;
             }
 
             //Favorite Theme
-            GuiTheme gt = (GuiTheme)Helper.WindowsRegistry.Layout.SelectedTheme;
+            GuiTheme gt = (GuiTheme)Helper.XmlRegistry.Layout.SelectedTheme;
             for (int i = 0; i < cbThemes.Items.Count; i++)
                 if ((GuiTheme)cbThemes.Items[i] == gt)
                     cbThemes.SelectedIndex = i;
 
             //Report Format
-            SimPe.Registry.ReportFormats rf = (SimPe.Registry.ReportFormats)Helper.WindowsRegistry.ReportFormat;
+            SimPe.Registry.ReportFormats rf = (SimPe.Registry.ReportFormats)Helper.XmlRegistry.ReportFormat;
             for (int i = 0; i < cbReport.Items.Count; i++)
                 if ((SimPe.Registry.ReportFormats)cbReport.Items[i] == rf)
                     cbReport.SelectedIndex = i;
@@ -156,53 +156,53 @@ namespace SimPe
 
         private void SaveOptionsClick(object sender, System.EventArgs e)
         {
-            /*Helper.WindowsRegistry.SimsPath = this.tbgame.Text;
-            Helper.WindowsRegistry.SimsEP1Path = this.tbep1.Text;
-            Helper.WindowsRegistry.SimsEP2Path = this.tbep2.Text;
-            Helper.WindowsRegistry.SimSavegameFolder = this.tbsavegame.Text;*/
+            /*Helper.XmlRegistry.SimsPath = this.tbgame.Text;
+            Helper.XmlRegistry.SimsEP1Path = this.tbep1.Text;
+            Helper.XmlRegistry.SimsEP2Path = this.tbep2.Text;
+            Helper.XmlRegistry.SimSavegameFolder = this.tbsavegame.Text;*/
             PathProvider.Global.NvidiaDDSPath = tbdds.Text;
-            Helper.WindowsRegistry.LanguageCode = (Data.MetaData.Languages)cblang.SelectedIndex + 1;
-            Helper.WindowsRegistry.GameDebug = cbdebug.Checked;
-            Helper.WindowsRegistry.AutoBackup = cbautobak.Checked;
-            //Helper.WindowsRegistry.BlurNudity = cbblur.Checked;
-            Helper.WindowsRegistry.EnableSound = cbsound.Checked;
-            Helper.WindowsRegistry.WaitingScreen = cbwait.Checked;
-            Helper.WindowsRegistry.LoadOWFast = cbow.Checked;
-            Helper.WindowsRegistry.Silent = cbsilent.Checked;
-            Helper.WindowsRegistry.UseCache = cbcache.Checked;
-            Helper.WindowsRegistry.ShowObjdNames = cbshowobjd.Checked;
-            Helper.WindowsRegistry.HiddenMode = cbhidden.Checked;
-            Helper.WindowsRegistry.ShowJointNames = cbjointname.Checked;
-            //Helper.WindowsRegistry.CheckForUpdates = cbupdate.Checked;
-            Helper.WindowsRegistry.UsePackageMaintainer = cbpkgmaint.Checked;
-            Helper.WindowsRegistry.MultipleFiles = cbmulti.Checked;
-            Helper.WindowsRegistry.Layout.SelectedTheme = (byte)cbThemes.Items[cbThemes.SelectedIndex];
-            Helper.WindowsRegistry.SimpleResourceSelect = cbSimple.Checked;
-            Helper.WindowsRegistry.FirefoxTabbing = cbFirefox.Checked;
-            Helper.WindowsRegistry.DeepSimScan = cbDeep.Checked;
-            Helper.WindowsRegistry.DeepSimTemplateScan = cbSimTemp.Checked;
-            Helper.WindowsRegistry.AsynchronLoad = cbAsync.Checked;
-            Helper.WindowsRegistry.ReportFormat = (Registry.ReportFormats)cbReport.SelectedItem;
-            Helper.WindowsRegistry.LockDocks = cbLock.Checked;
-            Helper.WindowsRegistry.ShowStartupSplash = cbsplash.Checked;
+            Helper.XmlRegistry.LanguageCode = (Data.MetaData.Languages)cblang.SelectedIndex + 1;
+            Helper.XmlRegistry.GameDebug = cbdebug.Checked;
+            Helper.XmlRegistry.AutoBackup = cbautobak.Checked;
+            //Helper.XmlRegistry.BlurNudity = cbblur.Checked;
+            Helper.XmlRegistry.EnableSound = cbsound.Checked;
+            Helper.XmlRegistry.WaitingScreen = cbwait.Checked;
+            Helper.XmlRegistry.LoadOWFast = cbow.Checked;
+            Helper.XmlRegistry.Silent = cbsilent.Checked;
+            Helper.XmlRegistry.UseCache = cbcache.Checked;
+            Helper.XmlRegistry.ShowObjdNames = cbshowobjd.Checked;
+            Helper.XmlRegistry.HiddenMode = cbhidden.Checked;
+            Helper.XmlRegistry.ShowJointNames = cbjointname.Checked;
+            //Helper.XmlRegistry.CheckForUpdates = cbupdate.Checked;
+            Helper.XmlRegistry.UsePackageMaintainer = cbpkgmaint.Checked;
+            Helper.XmlRegistry.MultipleFiles = cbmulti.Checked;
+            Helper.XmlRegistry.Layout.SelectedTheme = (byte)cbThemes.Items[cbThemes.SelectedIndex];
+            Helper.XmlRegistry.SimpleResourceSelect = cbSimple.Checked;
+            Helper.XmlRegistry.FirefoxTabbing = cbFirefox.Checked;
+            Helper.XmlRegistry.DeepSimScan = cbDeep.Checked;
+            Helper.XmlRegistry.DeepSimTemplateScan = cbSimTemp.Checked;
+            Helper.XmlRegistry.AsynchronLoad = cbAsync.Checked;
+            Helper.XmlRegistry.ReportFormat = (Registry.ReportFormats)cbReport.SelectedItem;
+            Helper.XmlRegistry.LockDocks = cbLock.Checked;
+            Helper.XmlRegistry.ShowStartupSplash = cbsplash.Checked;
 
-            Helper.WindowsRegistry.AsynchronSort = cbAsyncSort.Checked;
-            Helper.WindowsRegistry.ResourceListExtensionFormat = (Registry.ResourceListExtensionFormats)cbRLExt.SelectedValue;
-            Helper.WindowsRegistry.ResourceListFormat = (Registry.ResourceListFormats)cbRLNames.SelectedValue;
-            Helper.WindowsRegistry.ResourceListUnknownDescriptionFormat = (Registry.ResourceListUnnamedFormats)cbRLTGI.SelectedValue;
+            Helper.XmlRegistry.AsynchronSort = cbAsyncSort.Checked;
+            Helper.XmlRegistry.ResourceListExtensionFormat = (Registry.ResourceListExtensionFormats)cbRLExt.SelectedValue;
+            Helper.XmlRegistry.ResourceListFormat = (Registry.ResourceListFormats)cbRLNames.SelectedValue;
+            Helper.XmlRegistry.ResourceListUnknownDescriptionFormat = (Registry.ResourceListUnnamedFormats)cbRLTGI.SelectedValue;
 
-            //Helper.WindowsRegistry.Username = tbUsername.Text;
-            //Helper.WindowsRegistry.Password = tbPassword.Text;
-            //Helper.WindowsRegistry.CachedUserId = Helper.StringToUInt32(tbUserId.Text, 0, 16);
+            //Helper.XmlRegistry.Username = tbUsername.Text;
+            //Helper.XmlRegistry.Password = tbPassword.Text;
+            //Helper.XmlRegistry.CachedUserId = Helper.StringToUInt32(tbUserId.Text, 0, 16);
 
             try
             {
-                Helper.WindowsRegistry.OWThumbSize = Convert.ToInt32(tbthumb.Text);
-                Helper.WindowsRegistry.ImportExportScaleFactor = Convert.ToSingle(tbscale.Text);
+                Helper.XmlRegistry.OWThumbSize = Convert.ToInt32(tbthumb.Text);
+                Helper.XmlRegistry.ImportExportScaleFactor = Convert.ToSingle(tbscale.Text);
             }
             catch { }
 
-            Helper.WindowsRegistry.Flush();
+            Helper.XmlRegistry.Flush();
 
             Close();
         }
@@ -675,7 +675,7 @@ namespace SimPe
             foreach (SimPe.Interfaces.IWrapper wrapper in wrappers)
             {
                 if (!(wrapper is SimPe.PackedFiles.Wrapper.ErrorWrapper))
-                    Helper.WindowsRegistry.SetWrapperPriority(wrapper.WrapperDescription.UID, wrapper.Priority);
+                    Helper.XmlRegistry.SetWrapperPriority(wrapper.WrapperDescription.UID, wrapper.Priority);
             }
         }
 
@@ -841,7 +841,7 @@ namespace SimPe
 
         private void button8_Click(object sender, System.EventArgs e)
         {
-            Helper.WindowsRegistry.ClearRecentFileList();
+            Helper.XmlRegistry.ClearRecentFileList();
         }
 
         private void tbPassword_Leave(object sender, System.EventArgs e)
@@ -886,8 +886,8 @@ namespace SimPe
 
         private void cbblur_CheckedChanged(object sender, System.EventArgs e)
         {
-            Helper.WindowsRegistry.BlurNudity = cbblur.Checked;
-            cbblur.Checked = Helper.WindowsRegistry.BlurNudity;
+            Helper.XmlRegistry.BlurNudity = cbblur.Checked;
+            cbblur.Checked = Helper.XmlRegistry.BlurNudity;
         }
 
         private void cbDeep_CheckedChanged(object sender, System.EventArgs e)
@@ -914,7 +914,7 @@ namespace SimPe
 
         void cbautobak_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbautobak.CheckState == CheckState.Checked && Helper.WindowsRegistry.AutoBackup == false)
+            if (cbautobak.CheckState == CheckState.Checked && Helper.XmlRegistry.AutoBackup == false)
                 MessageBox.Show(Localization.GetString("cbautobak_CheckedChanged"), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 

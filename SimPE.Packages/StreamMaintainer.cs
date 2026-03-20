@@ -121,7 +121,7 @@ namespace SimPe.Packages
 				fs = new FileStream(name, System.IO.FileMode.OpenOrCreate, fa);
 			} 
 			catch (Exception ex){
-                if (Helper.WindowsRegistry.HiddenMode) Helper.ExceptionMessage("", ex);
+                if (Helper.XmlRegistry.HiddenMode) Helper.ExceptionMessage("", ex);
 				return false;
 			}
 			return true;

@@ -278,7 +278,7 @@ namespace SimPe
 		/// </summary>
 		public void DeleteSettings() 
 		{
-			XmlRegistryKey rk = Helper.WindowsRegistry.RegistryKey.CreateSubKey("ExtTools");
+			XmlRegistryKey rk = Helper.XmlRegistry.RegistryKey.CreateSubKey("ExtTools");
 			rk.DeleteSubKey(Helper.HexString(type)+"-"+name, false);
 		}
 
@@ -287,7 +287,7 @@ namespace SimPe
 		/// </summary>
 		public void SaveSettings() 
 		{
-			XmlRegistryKey rk = Helper.WindowsRegistry.RegistryKey.CreateSubKey("ExtTools");
+			XmlRegistryKey rk = Helper.XmlRegistry.RegistryKey.CreateSubKey("ExtTools");
 			rk = rk.CreateSubKey(Helper.HexString(type)+"-"+name);
 
 			rk.SetValue("name", Name);
@@ -363,14 +363,14 @@ namespace SimPe
 		{
 			if (items==null) return;
 
-			string[] names = Helper.WindowsRegistry.RegistryKey.CreateSubKey("ExtTools").GetSubKeyNames();
+			string[] names = Helper.XmlRegistry.RegistryKey.CreateSubKey("ExtTools").GetSubKeyNames();
 
 			foreach (string name in names) 
 			{
-				Helper.WindowsRegistry.RegistryKey.CreateSubKey("ExtTools").DeleteSubKey(name, false);
+				Helper.XmlRegistry.RegistryKey.CreateSubKey("ExtTools").DeleteSubKey(name, false);
 			}
-			Helper.WindowsRegistry.RegistryKey.DeleteSubKey("ExtTools", false);
-			XmlRegistryKey rk = Helper.WindowsRegistry.RegistryKey.CreateSubKey("ExtTools");
+			Helper.XmlRegistry.RegistryKey.DeleteSubKey("ExtTools", false);
+			XmlRegistryKey rk = Helper.XmlRegistry.RegistryKey.CreateSubKey("ExtTools");
 
 			foreach (ToolLoaderItemExt tli in items) 
 			{
@@ -382,7 +382,7 @@ namespace SimPe
 		{
 			ArrayList list = new ArrayList();
 
-			XmlRegistryKey rk = Helper.WindowsRegistry.RegistryKey.CreateSubKey("ExtTools");
+			XmlRegistryKey rk = Helper.XmlRegistry.RegistryKey.CreateSubKey("ExtTools");
 			string[] names = rk.GetSubKeyNames();
 
 			foreach (string name in names) 

@@ -80,7 +80,7 @@ namespace SimPe.Plugin.TabPage
             btnExport.Top = btnImport.Top = btnMerge.Top = gbprop.Bottom + 12;
             this.UseVisualStyleBackColor = true;
             
-            if (Helper.WindowsRegistry.UseBigIcons) this.lbprop.Font = new System.Drawing.Font(this.lbprop.Font.FontFamily, 11F);
+            if (Helper.XmlRegistry.UseBigIcons) this.lbprop.Font = new System.Drawing.Font(this.lbprop.Font.FontFamily, 11F);
 		}
 
 		/// <summary>

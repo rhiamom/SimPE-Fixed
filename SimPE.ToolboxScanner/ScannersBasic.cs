@@ -337,7 +337,7 @@ namespace SimPe.Plugin.Scanner
 				SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 				str.ProcessData(pfds[0], si.Package, false);
 
-				SimPe.PackedFiles.Wrapper.StrItemList list = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+				SimPe.PackedFiles.Wrapper.StrItemList list = str.FallbackedLanguageItems(Helper.XmlRegistry.LanguageCode);
                 foreach (SimPe.PackedFiles.Wrapper.StrToken item in list) 
 				{
 					if (item.Title.Trim()!="") 

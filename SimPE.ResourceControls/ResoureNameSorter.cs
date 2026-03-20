@@ -37,7 +37,7 @@ namespace SimPe.Windows.Forms
         int ticket;
         public ResoureNameSorter(ResourceListViewExt parent, ResourceViewManager.ResourceNameList names, int ticket)
         {
-            int numberofthreads = Helper.WindowsRegistry.SortProcessCount;
+            int numberofthreads = Helper.XmlRegistry.SortProcessCount;
             handle = parent.Handle;
             this.parent = parent;
             this.ticket = ticket;
@@ -47,7 +47,7 @@ namespace SimPe.Windows.Forms
             
 
             counter = 0;
-            if (Helper.WindowsRegistry.AsynchronSort)
+            if (Helper.XmlRegistry.AsynchronSort)
             {
                 started = numberofthreads;                
                 for (int i = 0; i < numberofthreads; i++)
@@ -83,7 +83,7 @@ namespace SimPe.Windows.Forms
                 {
                     if (names.Count == 0) break;
                     pfd = names.Pop();
-                    if (Helper.WindowsRegistry.AsynchronSort)
+                    if (Helper.XmlRegistry.AsynchronSort)
                         SimPe.Wait.Progress = counter++;
                 }
                 pfd.GetRealName();

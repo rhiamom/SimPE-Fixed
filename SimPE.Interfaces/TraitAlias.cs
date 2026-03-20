@@ -50,7 +50,7 @@ namespace SimPe.Providers
 
         public override string ToString()
         {
-            if (Helper.WindowsRegistry.HiddenMode) return name + " (0x" + Helper.HexString(id) + ")";
+            if (Helper.XmlRegistry.HiddenMode) return name + " (0x" + Helper.HexString(id) + ")";
             return name;
         }
     }

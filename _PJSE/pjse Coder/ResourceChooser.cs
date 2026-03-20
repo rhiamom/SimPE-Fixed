@@ -78,7 +78,7 @@ namespace pjse
             // Required for Windows Form Designer support
             //
             InitializeComponent();
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
                 this.OK.Location = new System.Drawing.Point(431, 261); // -15
@@ -113,14 +113,14 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 object o = rkf.GetValue("chooserOrder", 0);
                 return (int)Math.Max(Convert.ToUInt32(o), 1);
             }
 
             set
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 rkf.SetValue("chooserOrder", value);
             }
         }
@@ -129,7 +129,7 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 ResourceChooser rc = new ResourceChooser();
                 object w = rkf.GetValue("chooserSize.Width", rc.Size.Width);
                 object h = rkf.GetValue("chooserSize.Height", rc.Size.Height);
@@ -138,7 +138,7 @@ namespace pjse
 
             set
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 rkf.SetValue("chooserSize.Width", value.Width);
                 rkf.SetValue("chooserSize.Height", value.Height);
             }
@@ -158,14 +158,14 @@ namespace pjse
         {
             get
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 object o = rkf.GetValue("rcPersistentTab", false);
                 return Convert.ToInt32(o);
             }
 
             set
             {
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey(BASENAME);
                 rkf.SetValue("rcPersistentTab", value);
             }
 

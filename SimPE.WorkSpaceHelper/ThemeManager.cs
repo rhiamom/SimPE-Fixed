@@ -360,7 +360,7 @@ namespace SimPe
         {
             get
             {
-                if (tm==null) tm = new ThemeManager((GuiTheme)Helper.WindowsRegistry.Layout.SelectedTheme);
+                if (tm==null) tm = new ThemeManager((GuiTheme)Helper.XmlRegistry.Layout.SelectedTheme);
                 return tm;
             }
         }

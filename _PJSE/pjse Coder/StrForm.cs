@@ -101,7 +101,7 @@ namespace SimPe.PackedFiles.UserInterface
             alBigBtn = new ArrayList(ab);
 
             pjse.FileTable.GFT.FiletableRefresh += new EventHandler(GFT_FiletableRefresh);
-            if (Helper.WindowsRegistry.UseBigIcons) this.lvStrItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            if (Helper.XmlRegistry.UseBigIcons) this.lvStrItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
         }
 
         void GFT_FiletableRefresh(object sender, EventArgs e)

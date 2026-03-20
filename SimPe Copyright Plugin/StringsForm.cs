@@ -62,8 +62,8 @@ namespace SimPe.Plugin
             tm.AddControl(this.GradientPanel);
 
 			this.tbDate.Text = DateTime.Now.ToString();
-            if (Helper.WindowsRegistry.Username.Trim() != "")
-                this.tbCreator.Text = Helper.WindowsRegistry.Username;
+            if (Helper.XmlRegistry.Username.Trim() != "")
+                this.tbCreator.Text = Helper.XmlRegistry.Username;
 		}
 
 		/// <summary>

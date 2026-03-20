@@ -58,7 +58,7 @@ namespace SimPe.Plugin.TabPage
             InitializeComponent();
 
             this.UseVisualStyleBackColor = true;
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.tbtype.Font = new System.Drawing.Font("Verdana", 12F);
                 this.tbdsc.Font = new System.Drawing.Font("Verdana", 12F);

@@ -48,7 +48,7 @@ namespace SimPe.Plugin
             // Required designer variable.
 			//
             InitializeComponent();
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
             {
                 this.lbimg.Font = new System.Drawing.Font("Verdana", 11F);
                 this.tblifo.Font = new System.Drawing.Font("Verdana", 12F);
@@ -1217,11 +1217,11 @@ namespace SimPe.Plugin
 			}
 		}
 
-		private void BuildMipMap(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private async void BuildMipMap(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{
-			try 
+			try
 			{
-				Size sz = SimPe.Plugin.ImageSize.Execute(SelectedImageData().TextureSize);
+				Size sz = await SimPe.Plugin.ImageSize.Execute(SelectedImageData().TextureSize);
 				cbitem.Tag = true;
 				lbimg.Items.Clear();
 				int wd = 1;

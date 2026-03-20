@@ -291,17 +291,17 @@ namespace SimPe
 
 		public static bool HaveUserId
 		{
-			get {return (Helper.WindowsRegistry.CachedUserId!=0) && (Helper.WindowsRegistry.Username.Trim()!="");}
+			get {return (Helper.XmlRegistry.CachedUserId!=0) && (Helper.XmlRegistry.Username.Trim()!="");}
 		}
 
 		public static bool HaveValidUserId
 		{
-			get {return HaveUserId && ValidUserId(Helper.WindowsRegistry.CachedUserId, Helper.WindowsRegistry.Username, Helper.WindowsRegistry.Password);}
+			get {return HaveUserId && ValidUserId(Helper.XmlRegistry.CachedUserId, Helper.XmlRegistry.Username, Helper.XmlRegistry.Password);}
 		}
 
 		public static uint UserId
 		{
-			get { return Helper.WindowsRegistry.CachedUserId; }
+			get { return Helper.XmlRegistry.CachedUserId; }
 		}
 	}
 }

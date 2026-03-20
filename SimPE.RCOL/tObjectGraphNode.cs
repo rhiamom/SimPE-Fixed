@@ -71,7 +71,7 @@ namespace SimPe.Plugin.TabPage
             InitializeComponent();
 
             this.UseVisualStyleBackColor = true;
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lb_ogn.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
                 this.tb_ogn_file.Font = new System.Drawing.Font("Verdana", 12F);

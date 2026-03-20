@@ -250,7 +250,7 @@ namespace SimPe.Plugin
 			gc.AutoSize = true;
 			this.coords.Clear();
 			this.names.Clear();
-            if (Helper.WindowsRegistry.CresPrioritize)
+            if (Helper.XmlRegistry.CresPrioritize)
             {
                 if (WaitingScreen.Running) WaitingScreen.UpdateMessage("Scaning CRES Tree");
                 pfds = pkg.FindFiles(Data.MetaData.CRES);

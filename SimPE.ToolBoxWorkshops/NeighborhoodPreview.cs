@@ -244,8 +244,8 @@ namespace SimPe.Plugin.Tool.Dockable
 
 		protected void ClearScreen()
 		{
-			label5.Visible = Helper.WindowsRegistry.HiddenMode;
-            lbVer.Visible = Helper.WindowsRegistry.HiddenMode;
+			label5.Visible = Helper.XmlRegistry.HiddenMode;
+            lbVer.Visible = Helper.XmlRegistry.HiddenMode;
 
 			if (this.CatalogDescription!=null) 
 			{
@@ -384,7 +384,7 @@ namespace SimPe.Plugin.Tool.Dockable
 				SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 				str.ProcessData(ctss, pkg);
 
-               return str.LanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);
+               return str.LanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.XmlRegistry.LanguageCode);
 				
 			} 
 			return null;

@@ -185,12 +185,12 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbBuildSort.Items.Add(new SimPe.Data.LocalizedBuildSubSort(Data.BuildFunctionSubSort.Openings_Gate));
             this.cbBuildSort.Items.Add(new SimPe.Data.LocalizedBuildSubSort(Data.BuildFunctionSubSort.Openings_Arch));
             this.cbBuildSort.Items.Add(new SimPe.Data.LocalizedBuildSubSort(Data.BuildFunctionSubSort.Openings_TallDoor));
-            if (Helper.WindowsRegistry.HiddenMode) this.cbBuildSort.Items.Add(new SimPe.Data.LocalizedBuildSubSort(Data.BuildFunctionSubSort.unknown));
+            if (Helper.XmlRegistry.HiddenMode) this.cbBuildSort.Items.Add(new SimPe.Data.LocalizedBuildSubSort(Data.BuildFunctionSubSort.unknown));
 
 			//this.cbsort.Enum = typeof(Data.ObjFunctionSubSort);
 			//.cbsort.ResourceManager = SimPe.Localization.Manager;
             
-            if (Helper.WindowsRegistry.UseBigIcons) this.pg.Font = new System.Drawing.Font("Verdana", 10.25F, System.Drawing.FontStyle.Regular);
+            if (Helper.XmlRegistry.UseBigIcons) this.pg.Font = new System.Drawing.Font("Verdana", 10.25F, System.Drawing.FontStyle.Regular);
             
             if (!UserVerification.HaveUserId || SimPe.PathProvider.Global.EPInstalled <= 1)
             {
@@ -272,7 +272,7 @@ namespace SimPe.PackedFiles.UserInterface
 					}
 					catch (Exception ex)
 					{
-                        if (Helper.WindowsRegistry.HiddenMode) Helper.ExceptionMessage("Error converting " + name, ex);
+                        if (Helper.XmlRegistry.HiddenMode) Helper.ExceptionMessage("Error converting " + name, ex);
 					}
 				}
 
@@ -427,14 +427,14 @@ namespace SimPe.PackedFiles.UserInterface
         {
             get
             {
-                XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey(subKey);
+                XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey(subKey);
                 object o = rkf.GetValue("initialTab", 0);
                 return Convert.ToInt16(o);
             }
 
             set
             {
-                XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey(subKey);
+                XmlRegistryKey rkf = Helper.XmlRegistry.RegistryKey.CreateSubKey(subKey);
                 rkf.SetValue("initialTab", value);
             }
 
@@ -516,7 +516,7 @@ namespace SimPe.PackedFiles.UserInterface
                 this.cbBuildSort.SelectedIndex = 0;
                 if (objd.BuildType.Value != 0)
                 {
-                    if (Helper.WindowsRegistry.HiddenMode) this.cbBuildSort.SelectedIndex = 19; // set to unknown
+                    if (Helper.XmlRegistry.HiddenMode) this.cbBuildSort.SelectedIndex = 19; // set to unknown
                     for (int i = 0; i < this.cbBuildSort.Items.Count; i++)
                     {
                         object o = this.cbBuildSort.Items[i];
@@ -533,7 +533,7 @@ namespace SimPe.PackedFiles.UserInterface
                 // Clean SimPE has no Subhoods API; remove Chris Hatch "gooee" registry.
                 // Leave tooltips blank or basic GUID info if desired.
 
-                if (!Helper.WindowsRegistry.HiddenMode && UserVerification.HaveUserId)
+                if (!Helper.XmlRegistry.HiddenMode && UserVerification.HaveUserId)
                 {
                     this.toolTip1.SetToolTip(this.tbgrid, objd.GridAlignedGuid.ToString("X8"));
                     this.toolTip1.SetToolTip(this.tbdiag, objd.DiagonalGuid.ToString("X8"));
@@ -2007,7 +2007,7 @@ namespace SimPe.PackedFiles.UserInterface
                 wrapper.DiagonalGuid = Convert.ToUInt32(this.tbdiag.Text, 16);
                 wrapper.GridAlignedGuid = Convert.ToUInt32(this.tbgrid.Text, 16);
                 wrapper.Changed = true;
-                if (!Helper.WindowsRegistry.HiddenMode && UserVerification.HaveUserId)
+                if (!Helper.XmlRegistry.HiddenMode && UserVerification.HaveUserId)
                 {
                     //this.toolTip1.SetToolTip(this.tbgrid, SimPe.Plugin.Subhoods.getgooee(wrapper.GridAlignedGuid));
                     //this.toolTip1.SetToolTip(this.tbdiag, SimPe.Plugin.Subhoods.getgooee(wrapper.DiagonalGuid));

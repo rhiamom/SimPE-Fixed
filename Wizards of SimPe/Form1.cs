@@ -78,7 +78,7 @@ namespace SimPe.Wizards
 			Wait.Bar = new SimPe.Wizards.WaitBarControl(this);	
 			if (SimPe.FileTable.FileIndex==null) SimPe.FileTable.FileIndex = new SimPe.Plugin.FileIndex();
 			SimPe.Packages.PackageMaintainer.Maintainer.FileIndex = SimPe.FileTable.FileIndex;
-            if (Helper.WindowsRegistry.UseBigIcons) this.pndrop.Font = new System.Drawing.Font("Tahoma", 12F);
+            if (Helper.XmlRegistry.UseBigIcons) this.pndrop.Font = new System.Drawing.Font("Tahoma", 12F);
 		}
 
 		/// <summary>
@@ -336,21 +336,21 @@ namespace SimPe.Wizards
 		{
 			try 
 			{
-				bool adv = SimPe.Helper.WindowsRegistry.HiddenMode;
-				bool asy = SimPe.Helper.WindowsRegistry.AsynchronLoad;
+				bool adv = SimPe.Helper.XmlRegistry.HiddenMode;
+				bool asy = SimPe.Helper.XmlRegistry.AsynchronLoad;
                 //bool i = SimPe.Helper.ChrisMode;
 
-				SimPe.Helper.WindowsRegistry.HiddenMode = false;
-				SimPe.Helper.WindowsRegistry.AsynchronLoad = false;
+				SimPe.Helper.XmlRegistry.HiddenMode = false;
+				SimPe.Helper.XmlRegistry.AsynchronLoad = false;
 				SimPe.Plugin.ScenegraphWrapperFactory.InitRcolBlocks();
                 form1 = new Form1();
                 Application.EnableVisualStyles();
 				Application.Run(form1);
 
-				SimPe.Helper.WindowsRegistry.HiddenMode = adv;
-				SimPe.Helper.WindowsRegistry.AsynchronLoad = asy;
+				SimPe.Helper.XmlRegistry.HiddenMode = adv;
+				SimPe.Helper.XmlRegistry.AsynchronLoad = asy;
 
-				SimPe.Helper.WindowsRegistry.Flush();
+				SimPe.Helper.XmlRegistry.Flush();
 			} 
 			catch (Exception ex)
 			{
@@ -457,7 +457,7 @@ namespace SimPe.Wizards
 				e.Cancel = (MessageBox.Show("This Wizard is not finished yet.\n\nDo you want to quit anyway?", "Information", MessageBoxButtons.YesNo)!=DialogResult.Yes);
 			}
 
-			if (!e.Cancel) Helper.WindowsRegistry.Flush();
+			if (!e.Cancel) Helper.XmlRegistry.Flush();
 		}
 
 		/// <summary>

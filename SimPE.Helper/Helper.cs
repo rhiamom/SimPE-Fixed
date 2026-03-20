@@ -133,9 +133,9 @@ namespace SimPe
         //end of new game detection
 
         /// <summary>
-        /// Returns the Link to the Windows Registry
+        /// Returns the application settings (XML-backed)
         /// </summary>
-        public static Registry WindowsRegistry
+        public static Registry XmlRegistry
 		{
 			get { 
 				if (reg==null) reg = new Registry();
@@ -531,10 +531,10 @@ namespace SimPe
 		/// <returns></returns>
 		public static string GetSimPeLanguageCache(string prefix)
         {
-            if (Helper.WindowsRegistry.LoadOnlySimsStory > 0)
-                return Path.Combine(Helper.SimPeDataPath, prefix + Helper.HexString((byte)Helper.WindowsRegistry.LanguageCode) + Convert.ToString(Helper.WindowsRegistry.LoadOnlySimsStory) + ".simpepkg");
+            if (Helper.XmlRegistry.LoadOnlySimsStory > 0)
+                return Path.Combine(Helper.SimPeDataPath, prefix + Helper.HexString((byte)Helper.XmlRegistry.LanguageCode) + Convert.ToString(Helper.XmlRegistry.LoadOnlySimsStory) + ".simpepkg");
             else
-                return Path.Combine(Helper.SimPeDataPath, prefix+Helper.HexString((byte)Helper.WindowsRegistry.LanguageCode)+".simpepkg");
+                return Path.Combine(Helper.SimPeDataPath, prefix+Helper.HexString((byte)Helper.XmlRegistry.LanguageCode)+".simpepkg");
 		}
 
 		/// <summary>
@@ -900,7 +900,7 @@ namespace SimPe
 		{
 			get
 			{
-                if (WindowsRegistry.Layout.IsClassicPreset == true) return Executable.Classic;
+                if (XmlRegistry.Layout.IsClassicPreset == true) return Executable.Classic;
                 return Executable.Default;
 			}
 		}
@@ -1292,7 +1292,7 @@ namespace SimPe
 		{
 			get 
 			{
-                return Helper.WindowsRegistry.HiddenMode;
+                return Helper.XmlRegistry.HiddenMode;
 			}
 		}
 

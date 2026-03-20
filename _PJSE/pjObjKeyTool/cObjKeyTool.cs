@@ -534,7 +534,7 @@ namespace pj
                 return;
             }
 
-            SimPe.RemoteControl.ApplicationForm.Cursor = Cursors.WaitCursor;
+            SimPe.RemoteControl.ApplicationForm.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
             SimPe.Wait.Start();
 
             List<AbstractWrapper[]> fragKeys = findFragKeys();
@@ -573,7 +573,7 @@ namespace pj
                 addFile(objKey3IDR);
 
             SimPe.Wait.Stop();
-            SimPe.RemoteControl.ApplicationForm.Cursor = Cursors.Default;
+            SimPe.RemoteControl.ApplicationForm.Cursor = null;
         }
 
         #region ITool Members

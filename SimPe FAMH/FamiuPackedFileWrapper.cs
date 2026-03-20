@@ -76,7 +76,7 @@ namespace SimPe.Plugin
                     {
                         SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
                         str.ProcessData(pfd, package);
-                        SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);
+                        SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.XmlRegistry.LanguageCode);
                         if (items.Length > 0) name = items[0].Title;
                     }
                 }
@@ -109,7 +109,7 @@ namespace SimPe.Plugin
                         {
                             SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
                             str.ProcessData(pfd, pkg);
-                            SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.WindowsRegistry.LanguageCode);
+                            SimPe.PackedFiles.Wrapper.StrItemList items = str.FallbackedLanguageItems((SimPe.PackedFiles.Wrapper.StrLanguage)(int)Helper.XmlRegistry.LanguageCode);
                             if (items.Length > 0) subh = items[0].Title;
                         }
                         else subh = "Tutorial";
@@ -213,7 +213,7 @@ namespace SimPe.Plugin
 
                     fval[(i * 42) + 41] = Convert.ToUInt16(reader.ReadByte());
 
-                    if (Helper.WindowsRegistry.AllowLotZero || fval[i * 42] > 0)
+                    if (Helper.XmlRegistry.AllowLotZero || fval[i * 42] > 0)
                         if ((fval[(i * 42) + 1] < 33) && (fval[(i * 42) + 2] + fval[(i * 42) + 3] + fval[(i * 42) + 4] + fval[(i * 42) + 5] == fval[(i * 42) + 1])) goodsex++;
                 }
             }

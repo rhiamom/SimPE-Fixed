@@ -62,7 +62,7 @@ namespace SimPe.Plugin
 
 				SetContent();
 				this.Enabled = false;
-				cbCtrl.Enabled = Helper.WindowsRegistry.HiddenMode;
+				cbCtrl.Enabled = Helper.XmlRegistry.HiddenMode;
 			}
 			catch {}
 		}
@@ -817,7 +817,7 @@ namespace SimPe.Plugin
 			this.pnValue.Visible = (smt==SimMemoryType.Skill || smt == SimMemoryType.Badge || smt==SimMemoryType.ValueToken);
 			this.pnFlags.Visible = true;
 
-			this.pnListing.Visible = Helper.WindowsRegistry.HiddenMode;
+			this.pnListing.Visible = Helper.XmlRegistry.HiddenMode;
 		}
 
 		void SetMe(SimPe.PackedFiles.Wrapper.SimComboBox cb)

@@ -167,7 +167,7 @@ namespace pj
         {
             InitializeComponent();
 
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
                 this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
 
             this.cbusecres.Checked = Settings.BodyMeshExtractUseCres;

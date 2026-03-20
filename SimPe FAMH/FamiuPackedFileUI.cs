@@ -56,7 +56,7 @@ namespace SimPe.Plugin
                 tm.AddControl(this.gtname);
             }
             fundGraph.BarColour = simGraph.BarColour = booby.ThemeManager.Global.ThemeColorDark;
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
             {
                 this.pbImage.Size = new System.Drawing.Size(168, 168);
                 this.pbImage.Location = new System.Drawing.Point(6, 28);
@@ -68,7 +68,7 @@ namespace SimPe.Plugin
             base.RefreshGUI();
 
             this.CanCommit = Wrapper.isnew;
-            if (Helper.WindowsRegistry.Layout.SelectedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
+            if (Helper.XmlRegistry.Layout.SelectedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
             else if (booby.PrettyGirls.PervyMode) this.BackgroundImage = booby.PrettyGirls.RandomChick;
             if (Wrapper.FamiThumb != null)
                 pbImage.Image = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(Wrapper.FamiThumb, pbImage.Size, 12, Color.FromArgb(90, Color.Black), SystemColors.ControlDarkDark, Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
@@ -82,8 +82,8 @@ namespace SimPe.Plugin
             RefreshGraphs();
             if (Wrapper.Version == 86) fundGraph.Title = "Resources";
             else fundGraph.Title = "Family Funds";
-            shwraw = Helper.WindowsRegistry.HiddenMode;
-            btRawd.Visible = !Helper.WindowsRegistry.HiddenMode;
+            shwraw = Helper.XmlRegistry.HiddenMode;
+            btRawd.Visible = !Helper.XmlRegistry.HiddenMode;
             lbraw.Text = "Data :";
             btRawd.Text = "Show Raw Data";
             filimuptext();
@@ -292,7 +292,7 @@ namespace SimPe.Plugin
         }
         private bool TestIsValid(int boobnow)
         {
-            if (boobname[boobnow * 42] == 0 && !Helper.WindowsRegistry.AllowLotZero) return false; // Lot Number, only sims in a playable family could age a day
+            if (boobname[boobnow * 42] == 0 && !Helper.XmlRegistry.AllowLotZero) return false; // Lot Number, only sims in a playable family could age a day
             if (boobname[(boobnow * 42) + 1] > 32) return false; // too many sims to be correct
             if (boobname[(boobnow * 42) + 2] + boobname[(boobnow * 42) + 3] + boobname[(boobnow * 42) + 4] + boobname[(boobnow * 42) + 5] != boobname[(boobnow * 42) + 1]) return false; // bad checksum
             return true;

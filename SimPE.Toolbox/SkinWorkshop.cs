@@ -36,7 +36,7 @@ namespace SimPe.Plugin
 	/// <summary>
 	/// Summary description for SkinWorkshop.
 	/// </summary>
-	public class SkinWorkshop : System.Windows.Forms.Form
+	public class SkinWorkshop : Avalonia.Controls.Window
     {
 		private System.Windows.Forms.OpenFileDialog ofd;
         private System.Windows.Forms.CheckBox cbfix;
@@ -88,7 +88,7 @@ namespace SimPe.Plugin
 			cachechg = false;
 			cachefile = new SimPe.Cache.ObjectCacheFile();
 		
-			if (!Helper.WindowsRegistry.UseCache) return;
+			if (!Helper.XmlRegistry.UseCache) return;
             if (WaitingScreen.Running) WaitingScreen.UpdateMessage("Loading Cache");
 			try 
 			{
@@ -107,7 +107,7 @@ namespace SimPe.Plugin
 		/// </summary>
 		void SaveCacheIndex()
 		{
-			if (!Helper.WindowsRegistry.UseCache) return;
+			if (!Helper.XmlRegistry.UseCache) return;
 			if (!cachechg) return;
             if (WaitingScreen.Running) WaitingScreen.UpdateMessage("Saving Cache");
 
@@ -159,7 +159,7 @@ namespace SimPe.Plugin
                             o[1] = nrefitem.LocalGroup;
                             o[2] = nrefitem.FileDescriptor.Instance;
                             a.Tag = o;
-                            if (Helper.WindowsRegistry.ShowObjdNames) a.Name = oci.ObjectFileName;
+                            if (Helper.XmlRegistry.ShowObjdNames) a.Name = oci.ObjectFileName;
                             else a.Name = oci.Name;
                             Image img = oci.Thumbnail;
                             lbobj.Items.Add(a);
@@ -217,7 +217,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected virtual void Dispose( bool disposing )
 		{
 			if( disposing )
 			{
@@ -226,7 +226,6 @@ namespace SimPe.Plugin
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
@@ -251,7 +250,6 @@ namespace SimPe.Plugin
             this.panel1.SuspendLayout();
             this.taskBox2.SuspendLayout();
             this.taskBox1.SuspendLayout();
-            this.SuspendLayout();
             // 
             // lbobj
             // 
@@ -371,22 +369,16 @@ namespace SimPe.Plugin
             // 
             // SkinWorkshop
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(11, 24);
-            this.ClientSize = new System.Drawing.Size(795, 518);
-            this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MinimumSize = new System.Drawing.Size(817, 480);
+            this.Width = 795; this.Height = 518;
+            this.MinWidth = 817; this.MinHeight = 480;
             this.Name = "SkinWorkshop";
-            this.Opacity = 0.96D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Skin Workshop (biggest thanks to RGiles and Numenor)";
+            this.WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner;
+            this.Title = "Skin Workshop (biggest thanks to RGiles and Numenor)";
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.panel1.ResumeLayout(false);
             this.taskBox2.ResumeLayout(false);
             this.taskBox1.ResumeLayout(false);
             this.taskBox1.PerformLayout();
-            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -431,7 +423,7 @@ namespace SimPe.Plugin
         {
             try
             {
-                this.Cursor = Cursors.WaitCursor;
+                this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
                 IAlias a = new Data.Alias(0, "");
                 Interfaces.Files.IPackedFileDescriptor pfd = null;
                 uint localgroup = Data.MetaData.LOCAL_GROUP;
@@ -492,7 +484,7 @@ namespace SimPe.Plugin
             finally
             {
                 WaitingScreen.Stop(this);
-                this.Cursor = Cursors.Default;
+                this.Cursor = null;
             }
         }
 

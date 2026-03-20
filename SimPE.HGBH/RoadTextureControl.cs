@@ -68,7 +68,7 @@ namespace SimPe.Plugin
 
             ThemeManager.Global.AddControl(this.xpTaskBoxSimple1);
             
-            if (Helper.WindowsRegistry.UseBigIcons) this.lb.Font = new System.Drawing.Font("Tahoma", 12F);
+            if (Helper.XmlRegistry.UseBigIcons) this.lb.Font = new System.Drawing.Font("Tahoma", 12F);
 			cbType.Enum = typeof(RoadTexture.RoadTextureType);
 		}
 

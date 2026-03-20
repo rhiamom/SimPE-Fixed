@@ -47,7 +47,7 @@ namespace SimPe.Plugin
 			// Required designer variable.
 			//
             InitializeComponent();
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
             {
                 this.tbflname.Font = new System.Drawing.Font("Verdana", 12F);
                 this.tbflname.Location = new System.Drawing.Point(11, 56);

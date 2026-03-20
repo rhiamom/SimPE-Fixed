@@ -33,9 +33,9 @@ using Ambertation.Windows.Forms.Graph;
 namespace SimPe.Plugin
 {
 	/// <summary>
-	/// Zusammenfassung für ScenegraphForm.
+	/// Zusammenfassung fï¿½r ScenegraphForm.
 	/// </summary>
-	public class ScenegraphForm : System.Windows.Forms.Form
+	public class ScenegraphForm : Avalonia.Controls.Window
 	{
         private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.GroupBox groupBox1;
@@ -58,7 +58,7 @@ namespace SimPe.Plugin
 		public ScenegraphForm()
 		{
 			//
-			// Erforderlich für die Windows Form-Designerunterstützung
+			// Erforderlich fï¿½r die Windows Form-Designerunterstï¿½tzung
 			//
 			InitializeComponent();
 
@@ -67,12 +67,12 @@ namespace SimPe.Plugin
 			foreach (Ambertation.Windows.Forms.Graph.LinkControlLineMode l in ls) 
 			{				
 				this.cbLineStyle.Items.Add(l);
-				if ((int)l == Helper.WindowsRegistry.GraphLineMode) this.cbLineStyle.SelectedIndex=cbLineStyle.Items.Count-1;
+				if ((int)l == Helper.XmlRegistry.GraphLineMode) this.cbLineStyle.SelectedIndex=cbLineStyle.Items.Count-1;
 			}
 //			if (cbLineStyle.SelectedIndex==-1) cbLineStyle.SelectedIndex = 2;
 
-			cbQuality.Checked = Helper.WindowsRegistry.GraphQuality;
-            cbPriority.Checked = Helper.WindowsRegistry.CresPrioritize;
+			cbQuality.Checked = Helper.XmlRegistry.GraphQuality;
+            cbPriority.Checked = Helper.XmlRegistry.CresPrioritize;
 
 			cbQuality_CheckedChanged(cbQuality, null);
             cbLineStyle_SelectedIndexChanged(cbLineStyle, null);
@@ -83,7 +83,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Die verwendeten Ressourcen bereinigen.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected virtual void Dispose( bool disposing )
 		{
 			if( disposing )
 			{
@@ -92,13 +92,12 @@ namespace SimPe.Plugin
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
 		}
 
 		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -119,7 +118,6 @@ namespace SimPe.Plugin
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
             // 
             // panel2
             // 
@@ -274,21 +272,14 @@ namespace SimPe.Plugin
             // 
             // ScenegraphForm
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(9, 21);
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 470);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
-            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ScenegraphForm";
-            this.Text = "Scenegrapher";
+            this.Width = 800;
+            this.Height = 470;
+            this.Title = "Scenegrapher";
             this.panel2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -385,8 +376,8 @@ namespace SimPe.Plugin
 
                 WaitingScreen.Stop();
                 TimeSpan runtime = DateTime.Now.Subtract(start);
-                if (Helper.WindowsRegistry.HiddenMode)
-                    Text = "Runtime: " + runtime.TotalSeconds + " sek. = " + runtime.TotalMinutes + " min.";
+                if (Helper.XmlRegistry.HiddenMode)
+                    Title = "Runtime: " + runtime.TotalSeconds + " sek. = " + runtime.TotalMinutes + " min.";
                 RemoteControl.ShowSubForm(this);
 
                 pfd = this.pfd;
@@ -411,19 +402,19 @@ namespace SimPe.Plugin
 		private void cbQuality_CheckedChanged(object sender, System.EventArgs e)
 		{
 			gb.Graph.Quality = cbQuality.Checked;
-			Helper.WindowsRegistry.GraphQuality = gb.Graph.Quality;
+			Helper.XmlRegistry.GraphQuality = gb.Graph.Quality;
 		}
 
 		private void cbLineStyle_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			if (cbLineStyle.SelectedIndex<0) return;
 			gb.Graph.LineMode = (Ambertation.Windows.Forms.Graph.LinkControlLineMode)cbLineStyle.Items[cbLineStyle.SelectedIndex];
-			Helper.WindowsRegistry.GraphLineMode = (int)gb.Graph.LineMode;
+			Helper.XmlRegistry.GraphLineMode = (int)gb.Graph.LineMode;
 		}
 
         private void cbPriority_CheckedChanged(object sender, EventArgs e)
         {
-            Helper.WindowsRegistry.CresPrioritize = cbPriority.Checked;
+            Helper.XmlRegistry.CresPrioritize = cbPriority.Checked;
         }
 
 		

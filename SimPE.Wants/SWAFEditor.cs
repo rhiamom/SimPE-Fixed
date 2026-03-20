@@ -51,7 +51,7 @@ namespace SimPe.Wants
             }
 
 
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
                 this.lvItems.Font = new System.Drawing.Font("Verdana", 10F);
 
             internalchg = true;
@@ -1098,7 +1098,7 @@ namespace SimPe.Wants
             SimPe.Interfaces.Files.IPackageFile package = wrapper.Package;
 
             Sims sims = new Sims();
-            sims.Text = Localization.Manager.GetString("simsbrowser");
+            sims.Title = Localization.Manager.GetString("simsbrowser");
             Interfaces.Plugin.IToolResult res = sims.Execute(ref pfd, ref package, FileTable.ProviderRegistry);
             if (pfd == null) return;
 

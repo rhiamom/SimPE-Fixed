@@ -56,7 +56,7 @@ namespace SimPe.Plugin.UI
 		public HouseholdBrowser()
 		{
 			InitializeComponent();
-            if (Helper.WindowsRegistry.UseBigIcons)
+            if (Helper.XmlRegistry.UseBigIcons)
             {
                 this.label1.Size = new System.Drawing.Size(256, 18);
                 this.label2.Size = new System.Drawing.Size(283, 18);

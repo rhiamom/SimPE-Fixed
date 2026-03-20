@@ -58,7 +58,7 @@ namespace SimPe.Plugin
 		
 			
 
-			this.CanCommit = Helper.WindowsRegistry.HiddenMode;
+			this.CanCommit = Helper.XmlRegistry.HiddenMode;
 			//ThemeManager.AddControl(this.toolBar1);
             
                 ThemeManager tm = ThemeManager.Global.CreateChild();

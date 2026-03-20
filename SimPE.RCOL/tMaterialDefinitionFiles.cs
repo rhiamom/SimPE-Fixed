@@ -59,7 +59,7 @@ namespace SimPe.Plugin.TabPage
 			//
             InitializeComponent();
 
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lbfl.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
                 this.tblistfile.Font = new System.Drawing.Font(base.Font.FontFamily, 12F);

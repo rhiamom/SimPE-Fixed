@@ -116,8 +116,8 @@ namespace SimPe.Plugin.Scanner
             cbsexes[0] = cbmale; cbmale.Tag = Data.Sex.Male;
             cbsexes[1] = cbfemale; cbfemale.Tag = Data.Sex.Female;
 
-			if (Helper.WindowsRegistry.Username.Trim()!="")
-				this.tbname.Text = Helper.WindowsRegistry.Username+"-";
+			if (Helper.XmlRegistry.Username.Trim()!="")
+				this.tbname.Text = Helper.XmlRegistry.Username+"-";
 
 			this.cbskins.SelectedIndex = 0;
             sfd.InitialDirectory = PathProvider.SimSavegameFolder;

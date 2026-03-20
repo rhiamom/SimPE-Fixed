@@ -578,7 +578,7 @@ namespace SimPe.Plugin
             name = name.Replace("$Constant:4097:7", "X Number of");
             if (name.Trim() == "")
             {
-                if (SimPe.Helper.WindowsRegistry.HiddenMode) name = "---";
+                if (SimPe.Helper.XmlRegistry.HiddenMode) name = "---";
                 else name = "[GUID=0x" + Helper.HexString(this.guid) + "]";
             }
 			if (!this.Flags.IsVisible) name = "[invisible] "+name;
@@ -604,7 +604,7 @@ namespace SimPe.Plugin
 				name += "}";
 			}
 
-            if (SimPe.Helper.WindowsRegistry.HiddenMode) name += " [GUID=0x" + Helper.HexString(this.guid) + "]";
+            if (SimPe.Helper.XmlRegistry.HiddenMode) name += " [GUID=0x" + Helper.HexString(this.guid) + "]";
 			return /*data.Length.ToString()+" "+*/name;
 		}		
 

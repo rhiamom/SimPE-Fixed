@@ -391,7 +391,7 @@ namespace SimPe.PackedFiles.Wrapper
 			get
 			{
 				string n = "filename="+this.FileName+", languages="+this.Languages.Length.ToString()+", lines="+this.Items.Length.ToString();
-				foreach (StrToken i in this.FallbackedLanguageItems((Data.MetaData.Languages)Helper.WindowsRegistry.LanguageCode))
+				foreach (StrToken i in this.FallbackedLanguageItems((Data.MetaData.Languages)Helper.XmlRegistry.LanguageCode))
 					if (i.Title != "")
 						return n + ", first=" + i.Title;
 				return n + " (no strings)";

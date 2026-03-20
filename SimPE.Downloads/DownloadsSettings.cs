@@ -38,7 +38,7 @@ namespace SimPe.Plugin.Downloads
 		XmlRegistryKey xrk;			
 		public DownloadsSettings() : base(rm)
 		{
-			xrk = Helper.WindowsRegistry.PluginRegistryKey;
+			xrk = Helper.XmlRegistry.PluginRegistryKey;
 		}
 
 		[System.ComponentModel.Category("Other")]

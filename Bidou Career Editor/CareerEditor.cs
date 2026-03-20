@@ -5722,7 +5722,7 @@ namespace SimPe.Plugin
 				miEnglishOnly.Checked = englishOnly;
 
                 if (catalogueDesc.Languages.Length <= 1) currentLanguage = 1;
-                else currentLanguage = (byte)Helper.WindowsRegistry.LanguageCode; // CJH
+                else currentLanguage = (byte)Helper.XmlRegistry.LanguageCode; // CJH
 
                 internalchg = true;
 

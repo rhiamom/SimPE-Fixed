@@ -333,7 +333,7 @@ namespace SimPe.PackedFiles.Wrapper
                 else
                 {
                     // Knockout transparency for Sims with real thumbnails
-                    if (Helper.WindowsRegistry.GraphQuality)
+                    if (Helper.XmlRegistry.GraphQuality)
                     {
                         img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(
                             img,
@@ -348,7 +348,7 @@ namespace SimPe.PackedFiles.Wrapper
                     img,
                     48,
                     48,
-                    Helper.WindowsRegistry.GraphQuality
+                    Helper.XmlRegistry.GraphQuality
                 );
 
                 // Original logic for choosing the panel color (non-Chris)

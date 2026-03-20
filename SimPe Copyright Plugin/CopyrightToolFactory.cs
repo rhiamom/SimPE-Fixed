@@ -116,7 +116,7 @@ namespace SimPe.Plugin
         {
             get
             {
-                if (Helper.StartedGui == Executable.Classic || Helper.WindowsRegistry.HiddenMode)
+                if (Helper.StartedGui == Executable.Classic || Helper.XmlRegistry.HiddenMode)
                 {
                     return new IHelp[0];
                 }

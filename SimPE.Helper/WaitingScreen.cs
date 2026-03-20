@@ -60,6 +60,7 @@ namespace SimPe
         /// Show the WaitingScreen for a specific form
         /// </summary>
         public static void Wait(Form form) { Screen.doWait(form); }
+        public static void Wait(Avalonia.Controls.Window form) { Screen.doWait(); }
         /// <summary>
         /// Show the WaitingScreen
         /// </summary>
@@ -69,6 +70,7 @@ namespace SimPe
         /// </summary>
         /// <param name="form">The form to focus</param>
         public static void Stop(Form form) { Stop(); form.Activate(); }
+        public static void Stop(Avalonia.Controls.Window form) { Stop(); form.Activate(); }
         /// <summary>
         /// Stop the WaitingScreen
         /// </summary>
@@ -118,7 +120,7 @@ namespace SimPe
             if (count > 1) return;
 
             Application.UseWaitCursor = true;
-            if (!Helper.WindowsRegistry.WaitingScreen) return;
+            if (!Helper.XmlRegistry.WaitingScreen) return;
             lock (lockFrm)
             {
                 if (parent != form)
@@ -146,7 +148,7 @@ namespace SimPe
         private WaitingScreen()
         {
             System.Diagnostics.Trace.WriteLine("SimPe.WaitingScreen..ctor(): " + count);
-            if (Helper.WindowsRegistry.WaitingScreen)
+            if (Helper.XmlRegistry.WaitingScreen)
             {
                 lock (lockFrm)
                 {

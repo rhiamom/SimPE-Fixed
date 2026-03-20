@@ -33,7 +33,7 @@ namespace pjHoodTool
 {
     public partial class Settims : Form
     {
-        internal SimPe.XmlRegistryKey xrk = SimPe.Helper.WindowsRegistry.PluginRegistryKey;
+        internal SimPe.XmlRegistryKey xrk = SimPe.Helper.XmlRegistry.PluginRegistryKey;
         string[] noo = new string[13] { "1", ",1", ",1", ",1", ",1", ",1", ",1", ",1", ",1", ",1", ",1", ",1", ",.txt" }; //default values
         bool dun = true; // dummy variable, never actually used - always true
         public Settims()
@@ -90,7 +90,7 @@ namespace pjHoodTool
                 {
                     temp += s;
                 }
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("PJSE\\HoodTool");
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("PJSE\\HoodTool");
                 object o = rkf.GetValue("SavedValue", temp);
                 string[] now = Convert.ToString(o).Split(",".ToCharArray());
                 cHoodTool.incbas = now[0] == "1";
@@ -124,7 +124,7 @@ namespace pjHoodTool
                 if (cbshowbusi.Checked) temp += ",1"; else temp += ",0";
                 if (cbExcludeLots.Checked) temp += ",0"; else temp += ",1"; // checking switches off
                 if (rbcsv.Checked) temp += ",.csv"; else temp += ",.txt";
-                SimPe.XmlRegistryKey rkf = SimPe.Helper.WindowsRegistry.PluginRegistryKey.CreateSubKey("PJSE\\HoodTool");
+                SimPe.XmlRegistryKey rkf = SimPe.Helper.XmlRegistry.PluginRegistryKey.CreateSubKey("PJSE\\HoodTool");
                 rkf.SetValue("SavedValue", temp);
             }
         }

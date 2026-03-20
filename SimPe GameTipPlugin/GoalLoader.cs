@@ -135,7 +135,7 @@ namespace SimPe.Plugin
 			if (cachefile!=null) return;
 
             cachefile = new GoalCacheFile();
-            if (!Helper.WindowsRegistry.UseCache) return;
+            if (!Helper.XmlRegistry.UseCache) return;
 			try 
 			{
 				cachefile.Load(Helper.SimPeLanguageCache, true);
@@ -151,7 +151,7 @@ namespace SimPe.Plugin
 		/// </summary>
 		public static void SaveCache()
 		{
-            if (!Helper.WindowsRegistry.UseCache) return;
+            if (!Helper.XmlRegistry.UseCache) return;
             if (cachefile == null || !hasnew) return;
 			cachefile.Save(Helper.SimPeLanguageCache);
 		}
@@ -206,7 +206,7 @@ namespace SimPe.Plugin
 			{
                 string stg;
 				if (str==null) return "0x"+Helper.HexString(guid);
-                stg = str.FallbackedLanguageItem(Helper.WindowsRegistry.LanguageCode, 0).Title.Replace("$NeighborLocal:2", "True Love");
+                stg = str.FallbackedLanguageItem(Helper.XmlRegistry.LanguageCode, 0).Title.Replace("$NeighborLocal:2", "True Love");
                 return stg.Replace("$NeighborLocal:3", "Orangutan");
 			}
 		}
@@ -272,7 +272,7 @@ namespace SimPe.Plugin
 		/// </summary>
         static void LoadGoals()
         {
-            if (PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists && Helper.WindowsRegistry.LoadOnlySimsStory != 28)
+            if (PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists && Helper.XmlRegistry.LoadOnlySimsStory != 28)
             {
                 string gly = (System.IO.Path.Combine(PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).InstallFolder, "TSData\\Res\\Wants\\Goals.package"));
                 FileTable.FileIndex.AddIndexFromPackage(gly);

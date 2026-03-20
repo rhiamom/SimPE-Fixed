@@ -33,7 +33,7 @@ namespace Ambertation.Threading
 	{
 		bool async;
 
-		public StoppableThread() : this(SimPe.Helper.WindowsRegistry.AsynchronLoad) {}
+		public StoppableThread() : this(SimPe.Helper.XmlRegistry.AsynchronLoad) {}
 		public StoppableThread(bool async)
 		{
 			this.async = async;

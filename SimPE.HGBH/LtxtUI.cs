@@ -265,7 +265,7 @@ namespace SimPe.Plugin
             form.tbu5.ReadOnly = form.tbApBase.ReadOnly = form.tbu6.ReadOnly = form.tbu7.ReadOnly = !form.lbApts.Enabled;
 
             form.llAptBase.Enabled = (wrp.ApartmentBase != 0);
-            form.btnAddApt.Visible = form.btnDelApt.Visible = (wrp.Version >= LtxtVersion.Apartment || wrp.SubVersion >= LtxtSubVersion.Apartment) && Helper.WindowsRegistry.HiddenMode;
+            form.btnAddApt.Visible = form.btnDelApt.Visible = (wrp.Version >= LtxtVersion.Apartment || wrp.SubVersion >= LtxtSubVersion.Apartment) && Helper.XmlRegistry.HiddenMode;
             form.btnAddApt.Enabled = form.btnDelApt.Enabled = (wrp.Type == Ltxt.LotType.ApartmentBase);
             form.btnDelApt.Enabled = form.llFamily.Enabled = form.llSubLot.Enabled = false;
 

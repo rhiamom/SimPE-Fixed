@@ -44,7 +44,7 @@ namespace SimPe.Windows.Forms
             this.vis = visible;
             if (regular == null)
             {
-                if (Helper.WindowsRegistry.UseBigIcons)
+                if (Helper.XmlRegistry.UseBigIcons)
                 {
                     regular = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, System.Drawing.FontStyle.Regular, Font.Unit);
                     strike = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, System.Drawing.FontStyle.Strikeout, Font.Unit);
@@ -70,9 +70,9 @@ namespace SimPe.Windows.Forms
             subitems[3] = "0x" + Helper.HexString(pfd.Descriptor.SubType); // InstHi
 
             // Inst
-            if (Helper.WindowsRegistry.ResourceListInstanceFormatHexOnly)
+            if (Helper.XmlRegistry.ResourceListInstanceFormatHexOnly)
                 subitems[4] = "0x" + Helper.HexString(pfd.Descriptor.Instance);
-            else if (Helper.WindowsRegistry.ResourceListInstanceFormatDecOnly)
+            else if (Helper.XmlRegistry.ResourceListInstanceFormatDecOnly)
                 subitems[4] = ((int)pfd.Descriptor.Instance).ToString();
             else
                 subitems[4] = "0x" + Helper.HexString(pfd.Descriptor.Instance) + " (" + ((int)pfd.Descriptor.Instance).ToString() + ")";
@@ -98,11 +98,11 @@ namespace SimPe.Windows.Forms
 
         string GetExtText()
         {
-            if (Helper.WindowsRegistry.ResourceListExtensionFormat == Registry.ResourceListExtensionFormats.Short)
+            if (Helper.XmlRegistry.ResourceListExtensionFormat == Registry.ResourceListExtensionFormats.Short)
                 return pfd.Descriptor.TypeName.shortname;
-            if (Helper.WindowsRegistry.ResourceListExtensionFormat == Registry.ResourceListExtensionFormats.Long)
+            if (Helper.XmlRegistry.ResourceListExtensionFormat == Registry.ResourceListExtensionFormats.Long)
                 return pfd.Descriptor.TypeName.Name;
-            if (Helper.WindowsRegistry.ResourceListExtensionFormat == Registry.ResourceListExtensionFormats.Hex)
+            if (Helper.XmlRegistry.ResourceListExtensionFormat == Registry.ResourceListExtensionFormats.Hex)
                 return "0x"+Helper.HexString(pfd.Descriptor.Type);
 
             return "";
@@ -159,12 +159,12 @@ namespace SimPe.Windows.Forms
                 else
                     this.Text = pfd.Descriptor.ToResListString();
 
-                if (Helper.WindowsRegistry.ResourceListShowExtensions) this.SubItems[1].Text = GetExtText();
+                if (Helper.XmlRegistry.ResourceListShowExtensions) this.SubItems[1].Text = GetExtText();
                 this.SubItems[2].Text = "0x" + Helper.HexString(pfd.Descriptor.Group);
                 this.SubItems[3].Text = "0x" + Helper.HexString(pfd.Descriptor.SubType);
-	            if (Helper.WindowsRegistry.ResourceListInstanceFormatHexOnly)
+	            if (Helper.XmlRegistry.ResourceListInstanceFormatHexOnly)
 	                this.SubItems[4].Text = "0x" + Helper.HexString(pfd.Descriptor.Instance);
-	            else if (Helper.WindowsRegistry.ResourceListInstanceFormatDecOnly)
+	            else if (Helper.XmlRegistry.ResourceListInstanceFormatDecOnly)
 	                this.SubItems[4].Text = ((int)pfd.Descriptor.Instance).ToString();
 	            else
 	                this.SubItems[4].Text = "0x" + Helper.HexString(pfd.Descriptor.Instance) + " (" + ((int)pfd.Descriptor.Instance).ToString() + ")";

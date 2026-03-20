@@ -33,7 +33,7 @@ namespace SimPe.Plugin
 	/// <summary>
 	/// Summary description for PhotoStudio.
 	/// </summary>
-	public class PhotoStudio : System.Windows.Forms.Form
+	public class PhotoStudio : Avalonia.Controls.Window
 	{
 		private System.Windows.Forms.ImageList ilist;
 		private System.Windows.Forms.ToolTip toolTip1;
@@ -119,7 +119,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected virtual void Dispose( bool disposing )
 		{
 			if( disposing )
 			{
@@ -128,7 +128,6 @@ namespace SimPe.Plugin
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
@@ -168,7 +167,6 @@ namespace SimPe.Plugin
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.SuspendLayout();
             // 
             // ilist
             // 
@@ -336,11 +334,7 @@ namespace SimPe.Plugin
             // PhotoStudio
             // 
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MaximizeBox = false;
             this.Name = "PhotoStudio";
-            this.ShowInTaskbar = false;
             ((System.ComponentModel.ISupportInitialize)(this.pbpreview)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -349,7 +343,6 @@ namespace SimPe.Plugin
             this.tabPage2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.ResumeLayout(false);
 
 		}
 		#endregion
@@ -385,7 +378,7 @@ namespace SimPe.Plugin
 		SimPe.Interfaces.Files.IPackageFile package;
 		public Interfaces.Plugin.IToolResult Execute(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov) 
 		{
-			this.Cursor = Cursors.WaitCursor;
+			this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 			
 			this.pfd = null;
 			this.package = null;
@@ -414,7 +407,7 @@ namespace SimPe.Plugin
                 }
 			}
 
-			this.Cursor = Cursors.Default;
+			this.Cursor = null;
 			RemoteControl.ShowSubForm(this);
 
 			if (this.pfd!=null) pfd = this.pfd;
@@ -640,10 +633,10 @@ namespace SimPe.Plugin
 			{
 				try 
 				{
-					this.Cursor = Cursors.WaitCursor;
+					this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 					this.package = BuildPicture(sfd.FileName, img, (PhotoStudioTemplate)lvbase.SelectedItems[0].Tag, SelectedFormat(), (cbquality.SelectedIndex==2), true, cbflip.Checked);
 					((SimPe.Packages.GeneratableFile)this.package).Save();
-					this.Cursor = Cursors.Default;
+					this.Cursor = null;
 					Close();
 				} 
 				catch (Exception ex) 
@@ -656,7 +649,7 @@ namespace SimPe.Plugin
 		Image preview;
 		private void lvbase_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			this.Cursor = Cursors.WaitCursor;
+			this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 			if (tabControl1.SelectedIndex==0) 
 			{
 				preview = this.ShowPreview(loadimg);
@@ -676,7 +669,7 @@ namespace SimPe.Plugin
 			
 			
 			pbpreview.Image = SimPe.Plugin.ImageLoader.Preview(preview, pbpreview.Size);
-			this.Cursor = Cursors.Default;
+			this.Cursor = null;
 		}
 
 		private void pbpreview_Click(object sender, System.EventArgs e)

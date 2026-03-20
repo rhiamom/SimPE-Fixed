@@ -55,7 +55,7 @@ namespace pjse.BhavOperandWizards.Wiz0x0001
 			// Required designer variable.
 			//
             InitializeComponent();
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons) this.lbGenericSimsCallparms.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            if (SimPe.Helper.XmlRegistry.UseBigIcons) this.lbGenericSimsCallparms.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
 		}
 
 		/// <summary>

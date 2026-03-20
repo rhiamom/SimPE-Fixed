@@ -31,7 +31,7 @@ namespace SimPe
 	/// Handles Application Settings stored in the Registry
 	/// </summary>
 	/// <remarks>You cannot create instance of this class, use the 
-	/// <see cref="SimPe.Helper.WindowsRegistry"/> Field to acces the Registry</remarks>
+	/// <see cref="SimPe.Helper.XmlRegistry"/> Field to acces the Registry</remarks>
 	public class Registry
 	{
 		#region Attributes

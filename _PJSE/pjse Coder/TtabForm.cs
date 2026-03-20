@@ -190,7 +190,7 @@ namespace SimPe.PackedFiles.UserInterface
             //foreach (Label l in al)
             //    l.Left = cbAttenuationCode.Left - l.Width - 6;
             
-            if (SimPe.Helper.WindowsRegistry.UseBigIcons)
+            if (SimPe.Helper.XmlRegistry.UseBigIcons)
             {
                 this.lbttab.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
                 this.splitContainer1.SplitterDistance = 400;

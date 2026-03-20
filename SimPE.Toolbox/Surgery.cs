@@ -30,9 +30,9 @@ using System.Windows.Forms;
 namespace SimPe.Plugin
 {
 	/// <summary>
-	/// Zusammenfassung für Sims.
+	/// Zusammenfassung fï¿½r Sims.
 	/// </summary>
-	public class Surgery : System.Windows.Forms.Form
+	public class Surgery : Avalonia.Controls.Window
 	{
 		private System.Windows.Forms.ImageList ilist;
 		private System.Windows.Forms.ListView lv;
@@ -65,7 +65,7 @@ namespace SimPe.Plugin
 		public Surgery()
 		{
 			//
-			// Erforderlich für die Windows Form-Designerunterstützung
+			// Erforderlich fï¿½r die Windows Form-Designerunterstï¿½tzung
 			//
 			InitializeComponent();
 
@@ -75,7 +75,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Die verwendeten Ressourcen bereinigen.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected virtual void Dispose( bool disposing )
 		{
 			if( disposing )
 			{
@@ -84,13 +84,12 @@ namespace SimPe.Plugin
 					components.Dispose();
 				}
 			}
-			base.Dispose( disposing );
 		}
 
 		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -127,7 +126,6 @@ namespace SimPe.Plugin
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbarche)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.SuspendLayout();
             // 
             // ilist
             // 
@@ -328,13 +326,6 @@ namespace SimPe.Plugin
             // Surgery
             // 
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.lv);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox3);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "Surgery";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -343,8 +334,6 @@ namespace SimPe.Plugin
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbarche)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
 
 		}
 		#endregion
@@ -513,7 +502,7 @@ namespace SimPe.Plugin
 		SimPe.Interfaces.Files.IPackageFile ngbh;
 		public Interfaces.Plugin.IToolResult Execute(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov) 
 		{
-			this.Cursor = Cursors.WaitCursor;
+			this.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 			
 			this.pfd = null;
 			this.prov = prov;
@@ -552,7 +541,7 @@ namespace SimPe.Plugin
                     AddSim(sdesc);
                 }
 
-                this.Cursor = Cursors.Default;
+                this.Cursor = null;
                 this.llusearche.Enabled = false;
                 this.llusepatient.Enabled = false;
                 this.llexport.Enabled = false;

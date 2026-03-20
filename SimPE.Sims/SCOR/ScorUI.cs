@@ -32,7 +32,7 @@ using SimPe.PackedFiles.Wrapper;
 namespace SimPe.PackedFiles.UserInterface
 {
 	/// <summary>
-	/// Zusammenfassung für ScorUI.
+	/// Zusammenfassung fï¿½r ScorUI.
 	/// </summary>
 	public class ScorUI : 
 		//System.Windows.Forms.UserControl 
@@ -54,7 +54,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		public ScorUI()
 		{
-			// Dieser Aufruf ist für den Windows Form-Designer erforderlich.
+			// Dieser Aufruf ist fï¿½r den Windows Form-Designer erforderlich.
 			InitializeComponent();
             btAdd.Enabled = false;
             btRem.Enabled = false;
@@ -62,7 +62,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 			this.Text = "Sim Scores";
 			this.Commited += new EventHandler(ScorUI_Commited);
-			this.CanCommit = Helper.WindowsRegistry.HiddenMode;
+			this.CanCommit = Helper.XmlRegistry.HiddenMode;
 		}
 
 		/// <summary> 
@@ -82,8 +82,8 @@ namespace SimPe.PackedFiles.UserInterface
 
 		#region Vom Komponenten-Designer generierter Code
 		/// <summary> 
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -305,12 +305,12 @@ namespace SimPe.PackedFiles.UserInterface
                     si.Gui.Dock = DockStyle.Fill;
                 }
             }
-            btRem.Enabled = lb.SelectedItem != null && Helper.WindowsRegistry.HiddenMode; ;
+            btRem.Enabled = lb.SelectedItem != null && Helper.XmlRegistry.HiddenMode; ;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-             btAdd.Enabled = cbType.SelectedItem!=null && Helper.WindowsRegistry.HiddenMode;
+             btAdd.Enabled = cbType.SelectedItem!=null && Helper.XmlRegistry.HiddenMode;
         }
 
         private void btAdd_Click(object sender, EventArgs e)

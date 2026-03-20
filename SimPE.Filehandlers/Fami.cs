@@ -56,7 +56,7 @@ namespace SimPe.PackedFiles.UserInterface
 			form.tbname.Text = fami.Name;
 			form.tbmoney.Text = fami.Money.ToString();            
 			form.tbfamily.Text = fami.Friends.ToString();
-            if (Helper.WindowsRegistry.AllowLotZero && fami.LotInstance == 0 && fami.FileDescriptor.Instance > 0 && fami.FileDescriptor.Instance < 32512)
+            if (Helper.XmlRegistry.AllowLotZero && fami.LotInstance == 0 && fami.FileDescriptor.Instance > 0 && fami.FileDescriptor.Instance < 32512)
                 form.tblotinst.Text = "Sim Bin";
             else
                 form.tblotinst.Text = "0x"+Helper.HexString(fami.LotInstance);
