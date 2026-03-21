@@ -93,7 +93,7 @@ namespace SimPe.Interfaces
 		/// <summary>
 		/// Contains a Listing of all available Wrapper Icons
 		/// </summary>
-		System.Windows.Forms.ImageList WrapperImageList
+		System.Collections.Generic.List<Avalonia.Media.Imaging.Bitmap> WrapperImageList
 		{
 			get;
 		}

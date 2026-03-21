@@ -1,4 +1,4 @@
-﻿/***************************************************************************
+/***************************************************************************
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
@@ -9,79 +9,61 @@
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
 using System;
-using System.Drawing;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
+using Avalonia.Media;
 
 namespace Ambertation.Windows.Forms
 {
     /// <summary>
-    /// Stub implementation of LabeledProgressBar used by ExtSDescUI.
-    /// Provides the same public surface as the original GraphControl version
-    /// but without the advanced rendering. Enough for compatibility.
+    /// A progress bar with a caption label on the left and a value label on
+    /// the right.  Ported from the WinForms Panel-based version; uses an
+    /// Avalonia Grid for layout.
     /// </summary>
-    public class LabeledProgressBar : Panel
+    public class LabeledProgressBar : UserControl
     {
-        private readonly Label captionLabel;
-        private readonly Label valueLabel;
-        private readonly ProgressBar bar;
+        readonly TextBlock captionLabel;
+        readonly TextBlock valueLabel;
+        readonly ProgressBar bar;
+        readonly Grid grid;
 
         public LabeledProgressBar()
         {
-            captionLabel = new Label();
-            valueLabel = new Label();
-            bar = new ProgressBar();
+            captionLabel = new TextBlock { VerticalAlignment = VerticalAlignment.Center };
+            valueLabel   = new TextBlock { VerticalAlignment = VerticalAlignment.Center, TextAlignment = Avalonia.Media.TextAlignment.Right };
+            bar          = new ProgressBar { VerticalAlignment = VerticalAlignment.Center };
 
-            captionLabel.AutoSize = true;
-            captionLabel.Dock = DockStyle.Left;
-            captionLabel.TextAlign = ContentAlignment.MiddleLeft;
+            grid = new Grid();
+            grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+            grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
+            grid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
 
-            valueLabel.AutoSize = true;
-            valueLabel.Dock = DockStyle.Right;
-            valueLabel.TextAlign = ContentAlignment.MiddleRight;
+            Grid.SetColumn(captionLabel, 0);
+            Grid.SetColumn(bar,          1);
+            Grid.SetColumn(valueLabel,   2);
 
-            bar.Dock = DockStyle.Fill;
+            grid.Children.Add(captionLabel);
+            grid.Children.Add(bar);
+            grid.Children.Add(valueLabel);
 
-            // order matters with Dock: add Fill first, then the sides
-            Controls.Add(bar);
-            Controls.Add(valueLabel);
-            Controls.Add(captionLabel);
+            Content = grid;
 
-            // Default values
-            DisplayOffset = 0;
-            NumberScale = 1.0;
-            TokenCount = 0;
-            SelectedColor = SystemColors.Highlight;
-            UnselectedColor = SystemColors.ControlDark;
-            NumberFormat = "0";
-            Style = ProgresBarStyle.Normal;
+            // Defaults
+            DisplayOffset   = 0;
+            NumberScale     = 1.0;
+            TokenCount      = 0;
+            NumberFormat    = "0";
+            Style_          = ProgresBarStyle.Normal;
         }
 
         // ─────────────────────────────────────────────────────────
         //     Basic UI properties
         // ─────────────────────────────────────────────────────────
-
-        public override string Text
-        {
-            get => base.Text;
-            set
-            {
-                base.Text = value;
-                captionLabel.Text = value;
-            }
-        }
 
         public string LabelText
         {
@@ -91,13 +73,10 @@ namespace Ambertation.Windows.Forms
 
         public int Value
         {
-            get => bar.Value;
+            get => (int)bar.Value;
             set
             {
-                int v = value;
-                if (v < bar.Minimum) v = bar.Minimum;
-                if (v > bar.Maximum) v = bar.Maximum;
-
+                double v = Math.Max(bar.Minimum, Math.Min(bar.Maximum, value));
                 bar.Value = v;
                 UpdateLabelText();
                 Changed?.Invoke(this, EventArgs.Empty);
@@ -105,159 +84,92 @@ namespace Ambertation.Windows.Forms
             }
         }
 
-
-        public int Maximum
+        public double Maximum
         {
             get => bar.Maximum;
             set => bar.Maximum = value;
         }
 
-        public int Minimum
+        public double Minimum
         {
             get => bar.Minimum;
             set => bar.Minimum = value;
         }
 
         // ─────────────────────────────────────────────────────────
-        //     Extended properties expected by ExtSDescUI
+        //     Extended properties
         // ─────────────────────────────────────────────────────────
 
-        private double numberScale = 1.0;
-        private int displayOffset = 0;
-        private Color selectedColor = Color.Lime;
-        private Color unselectedColor = Color.Black;
-        private int tokenCount = 10;
-        private string numberFormat = "{0}";
-        private int numberOffset = 0;
+        double numberScale = 1.0;
+        int displayOffset = 0;
+        int tokenCount = 10;
+        string numberFormat = "{0}";
+        int numberOffset = 0;
+        System.Drawing.Color selectedColor   = System.Drawing.Color.Lime;
+        System.Drawing.Color unselectedColor = System.Drawing.Color.Black;
 
         public double NumberScale
         {
             get => numberScale;
-            set
-            {
-                numberScale = value;
-                UpdateLabelText();
-            }
+            set { numberScale = value; UpdateLabelText(); }
         }
 
         public int NumberOffset
         {
             get => numberOffset;
-            set
-            {
-                numberOffset = value;
-                UpdateLabelText();
-            }
+            set { numberOffset = value; UpdateLabelText(); }
         }
+
         public int DisplayOffset
         {
             get => displayOffset;
-            set
-            {
-                displayOffset = value;
-                UpdateLabelText();
-            }
+            set { displayOffset = value; UpdateLabelText(); }
         }
 
-        public Color SelectedColor
+        public System.Drawing.Color SelectedColor
         {
             get => selectedColor;
-            set
-            {
-                selectedColor = value;
-                Invalidate(); // we’re not doing fancy painting yet, but this is future-proof
-            }
+            set { selectedColor = value; InvalidateVisual(); }
         }
 
-        public Color UnselectedColor
+        public System.Drawing.Color UnselectedColor
         {
             get => unselectedColor;
-            set
-            {
-                unselectedColor = value;
-                Invalidate();
-            }
+            set { unselectedColor = value; InvalidateVisual(); }
         }
 
         public int TokenCount
         {
             get => tokenCount;
-            set
-            {
-                tokenCount = value;
-                Invalidate();
-            }
+            set { tokenCount = value; InvalidateVisual(); }
         }
 
         public string NumberFormat
         {
             get => numberFormat;
-            set
-            {
-                numberFormat = string.IsNullOrEmpty(value) ? "{0}" : value;
-                UpdateLabelText();
-            }
+            set { numberFormat = string.IsNullOrEmpty(value) ? "{0}" : value; UpdateLabelText(); }
         }
 
-        public override Font Font
+        ProgresBarStyle style_ = ProgresBarStyle.Normal;
+        public ProgresBarStyle Style_
         {
-            get => base.Font;
-            set
-            {
-                base.Font = value;
-                captionLabel.Font = value;
-                valueLabel.Font = value;
-            }
-        }
-
-        public override Color ForeColor
-        {
-            get => base.ForeColor;
-            set
-            {
-                base.ForeColor = value;
-                captionLabel.ForeColor = value;
-                valueLabel.ForeColor = value;
-            }
-        }
-
-
-        private ProgresBarStyle style = ProgresBarStyle.Normal;
-
-        public ProgresBarStyle Style
-        {
-            get => style;
-            set
-            {
-                style = value;
-                Invalidate();
-            }
+            get => style_;
+            set { style_ = value; InvalidateVisual(); }
         }
 
         // ─────────────────────────────────────────────────────────
-        //     Events expected by ExtSDescUI
+        //     Events
         // ─────────────────────────────────────────────────────────
         private void UpdateLabelText()
         {
-            double scaled = (bar.Value + numberOffset) * numberScale + displayOffset;
-
-            // If numberFormat is "{0}" or "{0:N2}", treat it as a composite format string.
+            double scaled = ((int)bar.Value + numberOffset) * numberScale + displayOffset;
             if (!string.IsNullOrEmpty(numberFormat) && numberFormat.Contains("{0"))
                 valueLabel.Text = string.Format(numberFormat, scaled);
             else
                 valueLabel.Text = scaled.ToString(string.IsNullOrEmpty(numberFormat) ? "0" : numberFormat);
         }
 
-
-        /// <summary>
-        /// Raised when the bar appearance or value changes.
-        /// </summary>
         public event EventHandler Changed;
-
-        /// <summary>
-        /// Raised specifically when the numeric value changes.
-        /// </summary>
         public event EventHandler ChangedValue;
-
     }
 }

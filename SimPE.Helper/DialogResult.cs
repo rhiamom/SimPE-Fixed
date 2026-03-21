@@ -1,7 +1,4 @@
 /***************************************************************************
- *   Copyright (C) 2005 by Ambertation                                     *
- *   quaxi@ambertation.de                                                  *
- *                                                                         *
  *   Copyright (C) 2025 by GramzeSweatshop                                 *
  *   rhiamom@mac.com                                                       *
  *                                                                         *
@@ -21,50 +18,21 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-using System;
-using Avalonia.Media.Imaging;
-
 namespace SimPe
 {
-	/// <summary>
-	/// This class can be used to interface the StatusBar of the Main GUI, which will display
-	/// something like the WaitingScreen
-	/// </summary>
-	public interface IWaitingBarControl
-	{
-		bool Running
-		{
-			get;
-		}
-
-		string Message
-		{
-			get;
-			set;
-		}
-
-		Bitmap? Image
-		{
-			get;
-			set;
-		}
-
-		int MaxProgress
-		{
-			get;
-			set;
-		}
-
-		int Progress
-		{
-			get;
-			set;
-		}
-
-		void Wait();
-		void Wait(int max);
-		void Stop();
-
-        bool ShowProgress { get; set; }
-	}
+    /// <summary>
+    /// Specifies the return value of a dialog.  Values match WinForms DialogResult
+    /// for source compatibility when callers are ported.
+    /// </summary>
+    public enum DialogResult
+    {
+        None   = 0,
+        OK     = 1,
+        Cancel = 2,
+        Abort  = 3,
+        Retry  = 4,
+        Ignore = 5,
+        Yes    = 6,
+        No     = 7,
+    }
 }

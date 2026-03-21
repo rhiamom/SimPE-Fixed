@@ -22,12 +22,12 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
 using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Layout;
 using SimPe.Interfaces.Scenegraph;
-using Ambertation.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -35,760 +35,258 @@ namespace SimPe.Plugin
 	/// Summary description for RcolForm.
 	/// </summary>
 	public class RcolForm : SimPe.Windows.Forms.WrapperBaseControl
-	{		
-		private System.Windows.Forms.LinkLabel llfix;
-		private System.Windows.Forms.LinkLabel llhash;
-		private System.Windows.Forms.TextBox tbflname;
-		private System.Windows.Forms.Label label2;
-		internal System.Windows.Forms.ComboBox cbitem;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPage2;
-		internal System.Windows.Forms.ListBox lbref;
-		private System.Windows.Forms.TabControl childtc;
-		private System.Windows.Forms.Panel pntypes;
-		internal System.Windows.Forms.LinkLabel lladd;
-		internal System.Windows.Forms.LinkLabel lldelete;
-		internal System.Windows.Forms.TextBox tbsubtype;
-		internal System.Windows.Forms.TextBox tbinstance;
-		private System.Windows.Forms.Label label11;
-		internal System.Windows.Forms.TextBox tbtype;
-		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.Label label10;
-		internal System.Windows.Forms.TextBox tbgroup;
-		internal System.Windows.Forms.ComboBox cbtypes;
-		private System.Windows.Forms.Button btref;
-		private System.Windows.Forms.TabPage tabPage3;
-		private System.Windows.Forms.ListBox lbblocks;
-		private System.Windows.Forms.Button btup;
-		private System.Windows.Forms.Button btdown;
-		private System.Windows.Forms.Button btadd;
-		private System.Windows.Forms.Button btdel;
-		private System.Windows.Forms.ComboBox cbblocks;
-		private System.Windows.Forms.Label label1;
-		internal System.Windows.Forms.TabPage tpref;
-		internal System.Windows.Forms.TreeView tv;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.TextBox tbrefgroup;
-		private System.Windows.Forms.TextBox tbrefinst;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.TextBox tbfile;
-		private System.Windows.Forms.LinkLabel linkLabel1;
-		internal System.Windows.Forms.TabControl tbResource;
-        private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple1;
-        private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple2;
-        private System.Windows.Forms.Panel gradientpanel1;
-        private System.Windows.Forms.Panel gradientpanel2;
-        private System.Windows.Forms.Panel gradientpanel3;
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.Container components = null;
+	{
+		// ── Controls ────────────────────────────────────────────────────────
+		private Avalonia.Controls.Button     llfix;
+		private Avalonia.Controls.Button     llhash;
+		private Avalonia.Controls.TextBox    tbflname;
+		private Avalonia.Controls.TextBlock  label2;
+		internal Avalonia.Controls.ComboBox  cbitem;
+		private Avalonia.Controls.TabItem    tabPage1;
+		private Avalonia.Controls.TabItem    tabPage2;
+		internal Avalonia.Controls.ListBox   lbref;
+		private Avalonia.Controls.TabControl childtc;
+		private Avalonia.Controls.Panel      pntypes;
+		internal Avalonia.Controls.Button    lladd;
+		internal Avalonia.Controls.Button    lldelete;
+		internal Avalonia.Controls.TextBox   tbsubtype;
+		internal Avalonia.Controls.TextBox   tbinstance;
+		private Avalonia.Controls.TextBlock  label11;
+		internal Avalonia.Controls.TextBox   tbtype;
+		private Avalonia.Controls.TextBlock  label8;
+		private Avalonia.Controls.TextBlock  label9;
+		private Avalonia.Controls.TextBlock  label10;
+		internal Avalonia.Controls.TextBox   tbgroup;
+		internal Avalonia.Controls.ComboBox  cbtypes;
+		private Avalonia.Controls.Button     btref;
+		private Avalonia.Controls.TabItem    tabPage3;
+		private Avalonia.Controls.ListBox    lbblocks;
+		private Avalonia.Controls.Button     btup;
+		private Avalonia.Controls.Button     btdown;
+		private Avalonia.Controls.Button     btadd;
+		private Avalonia.Controls.Button     btdel;
+		private Avalonia.Controls.ComboBox   cbblocks;
+		private Avalonia.Controls.TextBlock  label1;
+		internal Avalonia.Controls.TabItem   tpref;
+		internal Avalonia.Controls.TreeView  tv;
+		private Avalonia.Controls.TextBlock  label3;
+		private Avalonia.Controls.TextBlock  label4;
+		private Avalonia.Controls.TextBox    tbrefgroup;
+		private Avalonia.Controls.TextBox    tbrefinst;
+		private Avalonia.Controls.TextBlock  label5;
+		private Avalonia.Controls.TextBox    tbfile;
+		private Avalonia.Controls.Button     linkLabel1;
+		internal Avalonia.Controls.TabControl tbResource;
 
-        public RcolForm() : base()
-        {
-            InitializeComponent();
-
-            SimPe.ThemeManager.Global.AddControl(this.xpTaskBoxSimple1);
-            SimPe.ThemeManager.Global.AddControl(this.xpTaskBoxSimple2);
-            SimPe.ThemeManager.Global.AddControl(this.gradientpanel1);
-            SimPe.ThemeManager.Global.AddControl(this.gradientpanel2);
-            SimPe.ThemeManager.Global.AddControl(this.gradientpanel3);
-            SimPe.ThemeManager.Global.AddControl(this.btup);
-            SimPe.ThemeManager.Global.AddControl(this.btdel);
-            SimPe.ThemeManager.Global.AddControl(this.btadd);
-            SimPe.ThemeManager.Global.AddControl(this.btdown);
-
-            if (SimPe.Helper.XmlRegistry.UseBigIcons)
-            {
-                this.lbblocks.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
-                this.lbref.Font    = new System.Drawing.Font(base.Font.FontFamily, 11F);
-                this.tv.Font       = new System.Drawing.Font(base.Font.FontFamily, 11F);
-                this.tbflname.Font = new System.Drawing.Font(base.Font.FontFamily, 12F);
-            }
-
-            foreach (Interfaces.IAlias alias in SimPe.Helper.TGILoader.FileTypes)
-                cbtypes.Items.Add(alias);
-        }
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        protected override void Dispose( bool disposing )
+		public RcolForm() : base()
 		{
-			if( disposing )
-			{				
-				
-				this.ClearControlTags();
-				if(components != null)
-				{
-					components.Dispose();
-				}
+			BuildLayout();
+
+			if (SimPe.Helper.XmlRegistry.UseBigIcons)
+			{
+				// Avalonia FontSize instead of System.Drawing.Font
+				lbblocks.FontSize = 11;
+				lbref.FontSize    = 11;
+				tv.FontSize       = 11;
+				tbflname.FontSize = 12;
 			}
-			base.Dispose( disposing );
+
+			foreach (Interfaces.IAlias alias in SimPe.Helper.TGILoader.FileTypes)
+				cbtypes.Items.Add(alias);
+
+			this.Commited += Commit;
 		}
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
+		private void BuildLayout()
 		{
-            this.tbResource = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbflname = new System.Windows.Forms.TextBox();
-            this.childtc = new System.Windows.Forms.TabControl();
-            this.label1 = new System.Windows.Forms.Label();
-            this.llhash = new System.Windows.Forms.LinkLabel();
-            this.llfix = new System.Windows.Forms.LinkLabel();
-            this.cbitem = new System.Windows.Forms.ComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.gradientpanel1 = new System.Windows.Forms.Panel();
-            this.lbref = new System.Windows.Forms.ListBox();
-            this.xpTaskBoxSimple2 = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-            this.pntypes = new System.Windows.Forms.Panel();
-            this.lladd = new System.Windows.Forms.LinkLabel();
-            this.lldelete = new System.Windows.Forms.LinkLabel();
-            this.tbsubtype = new System.Windows.Forms.TextBox();
-            this.tbinstance = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tbtype = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tbgroup = new System.Windows.Forms.TextBox();
-            this.cbtypes = new System.Windows.Forms.ComboBox();
-            this.btref = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.gradientpanel3 = new System.Windows.Forms.Panel();
-            this.lbblocks = new System.Windows.Forms.ListBox();
-            this.btup = new System.Windows.Forms.Button();
-            this.cbblocks = new System.Windows.Forms.ComboBox();
-            this.btadd = new System.Windows.Forms.Button();
-            this.btdown = new System.Windows.Forms.Button();
-            this.btdel = new System.Windows.Forms.Button();
-            this.tpref = new System.Windows.Forms.TabPage();
-            this.gradientpanel2 = new System.Windows.Forms.Panel();
-            this.tv = new System.Windows.Forms.TreeView();
-            this.xpTaskBoxSimple1 = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbfile = new System.Windows.Forms.TextBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbrefinst = new System.Windows.Forms.TextBox();
-            this.tbrefgroup = new System.Windows.Forms.TextBox();
-            this.tbResource.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.gradientpanel1.SuspendLayout();
-            this.xpTaskBoxSimple2.SuspendLayout();
-            this.pntypes.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.gradientpanel3.SuspendLayout();
-            this.tpref.SuspendLayout();
-            this.gradientpanel2.SuspendLayout();
-            this.xpTaskBoxSimple1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // tbResource
-            // 
-            this.tbResource.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbResource.Controls.Add(this.tabPage1);
-            this.tbResource.Controls.Add(this.tabPage2);
-            this.tbResource.Controls.Add(this.tabPage3);
-            this.tbResource.Controls.Add(this.tpref);
-            this.tbResource.Location = new System.Drawing.Point(8, 32);
-            this.tbResource.Name = "tbResource";
-            this.tbResource.SelectedIndex = 0;
-            this.tbResource.Size = new System.Drawing.Size(752, 261);
-            this.tbResource.TabIndex = 20;
-            this.tbResource.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.tbflname);
-            this.tabPage1.Controls.Add(this.childtc);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.llhash);
-            this.tabPage1.Controls.Add(this.llfix);
-            this.tabPage1.Controls.Add(this.cbitem);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(744, 228);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Content";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 17);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Blocklist:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // tbflname
-            // 
-            this.tbflname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbflname.Location = new System.Drawing.Point(72, 32);
-            this.tbflname.Name = "tbflname";
-            this.tbflname.Size = new System.Drawing.Size(510, 26);
-            this.tbflname.TabIndex = 9;
-            this.tbflname.TextChanged += new System.EventHandler(this.ChangeFileName);
-            // 
-            // childtc
-            // 
-            this.childtc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.childtc.Location = new System.Drawing.Point(8, 64);
-            this.childtc.Multiline = true;
-            this.childtc.Name = "childtc";
-            this.childtc.SelectedIndex = 0;
-            this.childtc.Size = new System.Drawing.Size(728, 161);
-            this.childtc.TabIndex = 20;
-            this.childtc.SelectedIndexChanged += new System.EventHandler(this.ChildTabPageChanged);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 17);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "Filename:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // llhash
-            // 
-            this.llhash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.llhash.AutoSize = true;
-            this.llhash.BackColor = System.Drawing.Color.Transparent;
-            this.llhash.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llhash.Location = new System.Drawing.Point(664, 40);
-            this.llhash.Name = "llhash";
-            this.llhash.Size = new System.Drawing.Size(113, 21);
-            this.llhash.TabIndex = 18;
-            this.llhash.TabStop = true;
-            this.llhash.Text = "assign Hash";
-            this.llhash.Visible = false;
-            this.llhash.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BuildFilename);
-            // 
-            // llfix
-            // 
-            this.llfix.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.llfix.AutoSize = true;
-            this.llfix.BackColor = System.Drawing.Color.Transparent;
-            this.llfix.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llfix.Location = new System.Drawing.Point(608, 40);
-            this.llfix.Name = "llfix";
-            this.llfix.Size = new System.Drawing.Size(68, 21);
-            this.llfix.TabIndex = 19;
-            this.llfix.TabStop = true;
-            this.llfix.Text = "fix TGI";
-            this.llfix.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.FixTGI);
-            // 
-            // cbitem
-            // 
-            this.cbitem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbitem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbitem.Location = new System.Drawing.Point(72, 8);
-            this.cbitem.Name = "cbitem";
-            this.cbitem.Size = new System.Drawing.Size(664, 28);
-            this.cbitem.TabIndex = 7;
-            this.cbitem.SelectedIndexChanged += new System.EventHandler(this.SelectRcolItem);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.gradientpanel1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(746, 228);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Reference";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // gradientpanel1
-            // 
-            this.gradientpanel1.BackColor = System.Drawing.SystemColors.Control;
-            this.gradientpanel1.Controls.Add(this.lbref);
-            this.gradientpanel1.Controls.Add(this.xpTaskBoxSimple2);
-            this.gradientpanel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gradientpanel1.Location = new System.Drawing.Point(0, 0);
-            this.gradientpanel1.Name = "gradientpanel1";
-            this.gradientpanel1.Size = new System.Drawing.Size(746, 228);
-            this.gradientpanel1.TabIndex = 44;
-            // 
-            // lbref
-            // 
-            this.lbref.AllowDrop = true;
-            this.lbref.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbref.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbref.IntegralHeight = false;
-            this.lbref.ItemHeight = 20;
-            this.lbref.Location = new System.Drawing.Point(0, 0);
-            this.lbref.Name = "lbref";
-            this.lbref.Size = new System.Drawing.Size(288, 228);
-            this.lbref.TabIndex = 0;
-            this.lbref.SelectedIndexChanged += new System.EventHandler(this.SelectReference);
-            this.lbref.DragDrop += new System.Windows.Forms.DragEventHandler(this.PackageItemDrop);
-            this.lbref.DragEnter += new System.Windows.Forms.DragEventHandler(this.PackageItemDragEnter);
-            // 
-            // xpTaskBoxSimple2
-            // 
-            this.xpTaskBoxSimple2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.xpTaskBoxSimple2.BackColor = System.Drawing.Color.Transparent;
-            this.xpTaskBoxSimple2.Controls.Add(this.pntypes);
-            this.xpTaskBoxSimple2.Controls.Add(this.btref);
-            this.xpTaskBoxSimple2.Location = new System.Drawing.Point(296, 0);
-            this.xpTaskBoxSimple2.Name = "xpTaskBoxSimple2";
-            this.xpTaskBoxSimple2.Padding = new System.Windows.Forms.Padding(4, 44, 4, 4);
-            this.xpTaskBoxSimple2.Size = new System.Drawing.Size(440, 152);
-            this.xpTaskBoxSimple2.TabIndex = 43;
-            // 
-            // pntypes
-            // 
-            this.pntypes.Controls.Add(this.lladd);
-            this.pntypes.Controls.Add(this.lldelete);
-            this.pntypes.Controls.Add(this.tbsubtype);
-            this.pntypes.Controls.Add(this.tbinstance);
-            this.pntypes.Controls.Add(this.label11);
-            this.pntypes.Controls.Add(this.tbtype);
-            this.pntypes.Controls.Add(this.label8);
-            this.pntypes.Controls.Add(this.label9);
-            this.pntypes.Controls.Add(this.label10);
-            this.pntypes.Controls.Add(this.tbgroup);
-            this.pntypes.Controls.Add(this.cbtypes);
-            this.pntypes.Location = new System.Drawing.Point(8, 48);
-            this.pntypes.Name = "pntypes";
-            this.pntypes.Size = new System.Drawing.Size(424, 96);
-            this.pntypes.TabIndex = 19;
-            // 
-            // lladd
-            // 
-            this.lladd.AutoSize = true;
-            this.lladd.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lladd.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lladd.LinkArea = new System.Windows.Forms.LinkArea(0, 9);
-            this.lladd.Location = new System.Drawing.Point(344, 80);
-            this.lladd.Name = "lladd";
-            this.lladd.Size = new System.Drawing.Size(38, 25);
-            this.lladd.TabIndex = 19;
-            this.lladd.TabStop = true;
-            this.lladd.Text = "add";
-            this.lladd.UseCompatibleTextRendering = true;
-            this.lladd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SRNItemsAAdd);
-            // 
-            // lldelete
-            // 
-            this.lldelete.AutoSize = true;
-            this.lldelete.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lldelete.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lldelete.LinkArea = new System.Windows.Forms.LinkArea(0, 7);
-            this.lldelete.Location = new System.Drawing.Point(372, 80);
-            this.lldelete.Name = "lldelete";
-            this.lldelete.Size = new System.Drawing.Size(59, 25);
-            this.lldelete.TabIndex = 18;
-            this.lldelete.TabStop = true;
-            this.lldelete.Text = "delete";
-            this.lldelete.UseCompatibleTextRendering = true;
-            this.lldelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SRNItemsADelete);
-            // 
-            // tbsubtype
-            // 
-            this.tbsubtype.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbsubtype.Location = new System.Drawing.Point(72, 24);
-            this.tbsubtype.Name = "tbsubtype";
-            this.tbsubtype.Size = new System.Drawing.Size(100, 27);
-            this.tbsubtype.TabIndex = 12;
-            this.tbsubtype.TextChanged += new System.EventHandler(this.AutoChangeReference);
-            // 
-            // tbinstance
-            // 
-            this.tbinstance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbinstance.Location = new System.Drawing.Point(72, 72);
-            this.tbinstance.Name = "tbinstance";
-            this.tbinstance.Size = new System.Drawing.Size(100, 27);
-            this.tbinstance.TabIndex = 14;
-            this.tbinstance.TextChanged += new System.EventHandler(this.AutoChangeReference);
-            // 
-            // label11
-            // 
-            this.label11.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label11.Location = new System.Drawing.Point(8, 80);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(60, 17);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "Instance:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // tbtype
-            // 
-            this.tbtype.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbtype.Location = new System.Drawing.Point(72, 0);
-            this.tbtype.Name = "tbtype";
-            this.tbtype.Size = new System.Drawing.Size(100, 27);
-            this.tbtype.TabIndex = 11;
-            this.tbtype.TextChanged += new System.EventHandler(this.tbtype_TextChanged);
-            // 
-            // label8
-            // 
-            this.label8.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label8.Location = new System.Drawing.Point(8, 8);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(60, 17);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "File Type:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(8, 56);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(60, 17);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Group:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label10.Location = new System.Drawing.Point(8, 32);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(60, 17);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "Sub Typ:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // tbgroup
-            // 
-            this.tbgroup.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbgroup.Location = new System.Drawing.Point(72, 48);
-            this.tbgroup.Name = "tbgroup";
-            this.tbgroup.Size = new System.Drawing.Size(100, 27);
-            this.tbgroup.TabIndex = 13;
-            this.tbgroup.TextChanged += new System.EventHandler(this.AutoChangeReference);
-            // 
-            // cbtypes
-            // 
-            this.cbtypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbtypes.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbtypes.ItemHeight = 21;
-            this.cbtypes.Location = new System.Drawing.Point(176, 0);
-            this.cbtypes.Name = "cbtypes";
-            this.cbtypes.Size = new System.Drawing.Size(240, 29);
-            this.cbtypes.Sorted = true;
-            this.cbtypes.TabIndex = 16;
-            this.cbtypes.SelectedIndexChanged += new System.EventHandler(this.SelectType);
-            // 
-            // btref
-            // 
-            this.btref.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btref.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btref.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.btref.ForeColor = System.Drawing.SystemColors.Window;
-            this.btref.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btref.Location = new System.Drawing.Point(408, 17);
-            this.btref.Name = "btref";
-            this.btref.Size = new System.Drawing.Size(21, 21);
-            this.btref.TabIndex = 42;
-            this.btref.Text = "u";
-            this.btref.Click += new System.EventHandler(this.ShowPackageSelector);
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.gradientpanel3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(746, 228);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Edit Blocks";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // gradientpanel3
-            // 
-            this.gradientpanel3.BackColor = System.Drawing.SystemColors.Control;
-            this.gradientpanel3.Controls.Add(this.lbblocks);
-            this.gradientpanel3.Controls.Add(this.btup);
-            this.gradientpanel3.Controls.Add(this.cbblocks);
-            this.gradientpanel3.Controls.Add(this.btadd);
-            this.gradientpanel3.Controls.Add(this.btdown);
-            this.gradientpanel3.Controls.Add(this.btdel);
-            this.gradientpanel3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gradientpanel3.Location = new System.Drawing.Point(0, 0);
-            this.gradientpanel3.Name = "gradientpanel3";
-            this.gradientpanel3.Size = new System.Drawing.Size(746, 228);
-            this.gradientpanel3.TabIndex = 6;
-            // 
-            // lbblocks
-            // 
-            this.lbblocks.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbblocks.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lbblocks.HorizontalScrollbar = true;
-            this.lbblocks.IntegralHeight = false;
-            this.lbblocks.ItemHeight = 20;
-            this.lbblocks.Location = new System.Drawing.Point(0, 0);
-            this.lbblocks.Name = "lbblocks";
-            this.lbblocks.Size = new System.Drawing.Size(549, 228);
-            this.lbblocks.TabIndex = 0;
-            this.lbblocks.SelectedIndexChanged += new System.EventHandler(this.lbblocks_SelectedIndexChanged);
-            // 
-            // btup
-            // 
-            this.btup.Enabled = false;
-            this.btup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btup.Location = new System.Drawing.Point(555, 3);
-            this.btup.Name = "btup";
-            this.btup.Size = new System.Drawing.Size(48, 23);
-            this.btup.TabIndex = 1;
-            this.btup.Text = "Up";
-            this.btup.Click += new System.EventHandler(this.btup_Click);
-            // 
-            // cbblocks
-            // 
-            this.cbblocks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbblocks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbblocks.Location = new System.Drawing.Point(555, 127);
-            this.cbblocks.Name = "cbblocks";
-            this.cbblocks.Size = new System.Drawing.Size(183, 28);
-            this.cbblocks.Sorted = true;
-            this.cbblocks.TabIndex = 5;
-            // 
-            // btadd
-            // 
-            this.btadd.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btadd.Location = new System.Drawing.Point(555, 96);
-            this.btadd.Name = "btadd";
-            this.btadd.Size = new System.Drawing.Size(72, 23);
-            this.btadd.TabIndex = 3;
-            this.btadd.Text = "Add";
-            this.btadd.Click += new System.EventHandler(this.btadd_Click);
-            // 
-            // btdown
-            // 
-            this.btdown.Enabled = false;
-            this.btdown.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btdown.Location = new System.Drawing.Point(555, 34);
-            this.btdown.Name = "btdown";
-            this.btdown.Size = new System.Drawing.Size(48, 23);
-            this.btdown.TabIndex = 2;
-            this.btdown.Text = "Down";
-            this.btdown.Click += new System.EventHandler(this.btdown_Click);
-            // 
-            // btdel
-            // 
-            this.btdel.Enabled = false;
-            this.btdel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btdel.Location = new System.Drawing.Point(555, 65);
-            this.btdel.Name = "btdel";
-            this.btdel.Size = new System.Drawing.Size(72, 23);
-            this.btdel.TabIndex = 4;
-            this.btdel.Text = "Delete";
-            this.btdel.Click += new System.EventHandler(this.btdel_Click);
-            // 
-            // tpref
-            // 
-            this.tpref.Controls.Add(this.gradientpanel2);
-            this.tpref.Location = new System.Drawing.Point(4, 29);
-            this.tpref.Name = "tpref";
-            this.tpref.Size = new System.Drawing.Size(746, 228);
-            this.tpref.TabIndex = 3;
-            this.tpref.Text = "All References";
-            this.tpref.UseVisualStyleBackColor = true;
-            // 
-            // gradientpanel2
-            // 
-            this.gradientpanel2.BackColor = System.Drawing.SystemColors.Control;
-            this.gradientpanel2.Controls.Add(this.tv);
-            this.gradientpanel2.Controls.Add(this.xpTaskBoxSimple1);
-            this.gradientpanel2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gradientpanel2.Location = new System.Drawing.Point(0, 0);
-            this.gradientpanel2.Name = "gradientpanel2";
-            this.gradientpanel2.Size = new System.Drawing.Size(746, 228);
-            this.gradientpanel2.TabIndex = 3;
-            // 
-            // tv
-            // 
-            this.tv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tv.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tv.HideSelection = false;
-            this.tv.Location = new System.Drawing.Point(0, 0);
-            this.tv.Name = "tv";
-            this.tv.Size = new System.Drawing.Size(288, 228);
-            this.tv.TabIndex = 0;
-            this.tv.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SelectRefItem);
-            // 
-            // xpTaskBoxSimple1
-            // 
-            this.xpTaskBoxSimple1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.xpTaskBoxSimple1.BackColor = System.Drawing.Color.Transparent;
-            this.xpTaskBoxSimple1.Controls.Add(this.label4);
-            this.xpTaskBoxSimple1.Controls.Add(this.label3);
-            this.xpTaskBoxSimple1.Controls.Add(this.tbfile);
-            this.xpTaskBoxSimple1.Controls.Add(this.linkLabel1);
-            this.xpTaskBoxSimple1.Controls.Add(this.label5);
-            this.xpTaskBoxSimple1.Controls.Add(this.tbrefinst);
-            this.xpTaskBoxSimple1.Controls.Add(this.tbrefgroup);
-            this.xpTaskBoxSimple1.Location = new System.Drawing.Point(296, 0);
-            this.xpTaskBoxSimple1.Name = "xpTaskBoxSimple1";
-            this.xpTaskBoxSimple1.Padding = new System.Windows.Forms.Padding(4, 44, 4, 4);
-            this.xpTaskBoxSimple1.Size = new System.Drawing.Size(440, 152);
-            this.xpTaskBoxSimple1.TabIndex = 2;
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(16, 80);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 17);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Instance:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 56);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 17);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Group:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // tbfile
-            // 
-            this.tbfile.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tbfile.Font = new System.Drawing.Font("Tahoma", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbfile.Location = new System.Drawing.Point(16, 120);
-            this.tbfile.Name = "tbfile";
-            this.tbfile.ReadOnly = true;
-            this.tbfile.Size = new System.Drawing.Size(406, 30);
-            this.tbfile.TabIndex = 4;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(40, 104);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(62, 20);
-            this.linkLabel1.TabIndex = 6;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "reload";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(8, 104);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 21);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "File:";
-            // 
-            // tbrefinst
-            // 
-            this.tbrefinst.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tbrefinst.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbrefinst.Location = new System.Drawing.Point(80, 80);
-            this.tbrefinst.Name = "tbrefinst";
-            this.tbrefinst.ReadOnly = true;
-            this.tbrefinst.Size = new System.Drawing.Size(88, 27);
-            this.tbrefinst.TabIndex = 3;
-            this.tbrefinst.Text = "0x00000000";
-            // 
-            // tbrefgroup
-            // 
-            this.tbrefgroup.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tbrefgroup.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbrefgroup.Location = new System.Drawing.Point(80, 48);
-            this.tbrefgroup.Name = "tbrefgroup";
-            this.tbrefgroup.ReadOnly = true;
-            this.tbrefgroup.Size = new System.Drawing.Size(88, 27);
-            this.tbrefgroup.TabIndex = 2;
-            this.tbrefgroup.Text = "0x00000000";
-            // 
-            // RcolForm
-            // 
-            this.Controls.Add(this.tbResource);
-            this.GradCentre = 0.02F;
-            this.HeaderText = "Generic Rcol Editor";
-            this.Location = new System.Drawing.Point(48, 32);
-            this.Name = "RcolForm";
-            this.Size = new System.Drawing.Size(768, 301);
-            this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Commited += new System.EventHandler(this.Commit);
-            this.tbResource.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.gradientpanel1.ResumeLayout(false);
-            this.xpTaskBoxSimple2.ResumeLayout(false);
-            this.pntypes.ResumeLayout(false);
-            this.pntypes.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.gradientpanel3.ResumeLayout(false);
-            this.tpref.ResumeLayout(false);
-            this.gradientpanel2.ResumeLayout(false);
-            this.xpTaskBoxSimple1.ResumeLayout(false);
-            this.xpTaskBoxSimple1.PerformLayout();
-            this.ResumeLayout(false);
+			// ── Reference Tab (tpref) ──────────────────────────────────────
+			label3    = new Avalonia.Controls.TextBlock { Text = "Group:" };
+			label4    = new Avalonia.Controls.TextBlock { Text = "Instance:" };
+			label5    = new Avalonia.Controls.TextBlock { Text = "File:" };
+			tbrefgroup = new Avalonia.Controls.TextBox { Text = "0x00000000", IsReadOnly = true };
+			tbrefinst  = new Avalonia.Controls.TextBox { Text = "0x00000000", IsReadOnly = true };
+			tbfile     = new Avalonia.Controls.TextBox { IsReadOnly = true };
+			linkLabel1 = new Avalonia.Controls.Button { Content = "reload" };
+			linkLabel1.Click += linkLabel1_LinkClicked;
 
+			tv = new Avalonia.Controls.TreeView();
+			tv.SelectionChanged += SelectRefItem;
+			DragDrop.SetAllowDrop(tv, false);
+
+			var refDetails = new StackPanel { Orientation = Orientation.Vertical, Spacing = 4 };
+			refDetails.Children.Add(label3);
+			refDetails.Children.Add(tbrefgroup);
+			refDetails.Children.Add(label4);
+			refDetails.Children.Add(tbrefinst);
+			refDetails.Children.Add(label5);
+			refDetails.Children.Add(linkLabel1);
+			refDetails.Children.Add(tbfile);
+
+			var refPanel = new Grid();
+			refPanel.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+			refPanel.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+			Grid.SetColumn(tv,         0);
+			Grid.SetColumn(refDetails, 1);
+			refPanel.Children.Add(tv);
+			refPanel.Children.Add(refDetails);
+
+			tpref = new Avalonia.Controls.TabItem { Header = "All References", Content = refPanel };
+
+			// ── Content Tab (tabPage1) ─────────────────────────────────────
+			label2   = new Avalonia.Controls.TextBlock { Text = "Blocklist:" };
+			label1   = new Avalonia.Controls.TextBlock { Text = "Filename:" };
+			cbitem   = new Avalonia.Controls.ComboBox();
+			cbitem.SelectionChanged += SelectRcolItem;
+
+			tbflname = new Avalonia.Controls.TextBox();
+			tbflname.TextChanged += ChangeFileName;
+
+			llhash = new Avalonia.Controls.Button { Content = "assign Hash", IsVisible = false };
+			llhash.Click += BuildFilename;
+			llfix  = new Avalonia.Controls.Button { Content = "fix TGI" };
+			llfix.Click  += FixTGI;
+
+			childtc = new Avalonia.Controls.TabControl();
+			childtc.SelectionChanged += ChildTabPageChanged;
+
+			var fnRow = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 4 };
+			fnRow.Children.Add(label1);
+			fnRow.Children.Add(tbflname);
+			fnRow.Children.Add(llhash);
+			fnRow.Children.Add(llfix);
+
+			var contentPanel = new StackPanel { Orientation = Orientation.Vertical, Spacing = 4 };
+			contentPanel.Children.Add(label2);
+			contentPanel.Children.Add(cbitem);
+			contentPanel.Children.Add(fnRow);
+			contentPanel.Children.Add(childtc);
+
+			tabPage1 = new Avalonia.Controls.TabItem { Header = "Content", Content = contentPanel };
+
+			// ── Reference Tab (tabPage2) ───────────────────────────────────
+			lbref = new Avalonia.Controls.ListBox();
+			lbref.SelectionChanged += SelectReference;
+			DragDrop.SetAllowDrop(lbref, true);
+			lbref.AddHandler(DragDrop.DropEvent,     new EventHandler<Avalonia.Input.DragEventArgs>(PackageItemDrop));
+			lbref.AddHandler(DragDrop.DragOverEvent, new EventHandler<Avalonia.Input.DragEventArgs>(PackageItemDragEnter));
+
+			label8  = new Avalonia.Controls.TextBlock { Text = "File Type:" };
+			label9  = new Avalonia.Controls.TextBlock { Text = "Group:" };
+			label10 = new Avalonia.Controls.TextBlock { Text = "Sub Typ:" };
+			label11 = new Avalonia.Controls.TextBlock { Text = "Instance:" };
+			tbtype     = new Avalonia.Controls.TextBox();
+			tbtype.TextChanged += tbtype_TextChanged;
+			tbsubtype  = new Avalonia.Controls.TextBox();
+			tbsubtype.TextChanged += AutoChangeReference;
+			tbgroup    = new Avalonia.Controls.TextBox();
+			tbgroup.TextChanged += AutoChangeReference;
+			tbinstance = new Avalonia.Controls.TextBox();
+			tbinstance.TextChanged += AutoChangeReference;
+			cbtypes    = new Avalonia.Controls.ComboBox();
+			cbtypes.SelectionChanged += SelectType;
+			lladd      = new Avalonia.Controls.Button { Content = "add" };
+			lladd.Click    += SRNItemsAAdd;
+			lldelete   = new Avalonia.Controls.Button { Content = "delete" };
+			lldelete.Click += SRNItemsADelete;
+			btref      = new Avalonia.Controls.Button { Content = "u" };
+			btref.Click    += ShowPackageSelector;
+
+			pntypes = new Avalonia.Controls.Panel();
+			var pntypesStack = new StackPanel { Orientation = Orientation.Vertical, Spacing = 2 };
+			pntypesStack.Children.Add(new StackPanel { Orientation = Orientation.Horizontal, Spacing = 4, Children = { label8,  tbtype,  cbtypes } });
+			pntypesStack.Children.Add(new StackPanel { Orientation = Orientation.Horizontal, Spacing = 4, Children = { label10, tbsubtype } });
+			pntypesStack.Children.Add(new StackPanel { Orientation = Orientation.Horizontal, Spacing = 4, Children = { label9,  tbgroup } });
+			pntypesStack.Children.Add(new StackPanel { Orientation = Orientation.Horizontal, Spacing = 4, Children = { label11, tbinstance } });
+			pntypesStack.Children.Add(new StackPanel { Orientation = Orientation.Horizontal, Spacing = 4, Children = { lladd, lldelete, btref } });
+			pntypes.Children.Add(pntypesStack);
+
+			var refTabPanel = new Grid();
+			refTabPanel.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+			refTabPanel.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+			Grid.SetColumn(lbref,   0);
+			Grid.SetColumn(pntypes, 1);
+			refTabPanel.Children.Add(lbref);
+			refTabPanel.Children.Add(pntypes);
+
+			tabPage2 = new Avalonia.Controls.TabItem { Header = "Reference", Content = refTabPanel };
+
+			// ── Edit Blocks Tab (tabPage3) ─────────────────────────────────
+			lbblocks = new Avalonia.Controls.ListBox();
+			lbblocks.SelectionChanged += lbblocks_SelectedIndexChanged;
+
+			btup   = new Avalonia.Controls.Button { Content = "Up",     IsEnabled = false };
+			btdown = new Avalonia.Controls.Button { Content = "Down",   IsEnabled = false };
+			btdel  = new Avalonia.Controls.Button { Content = "Delete", IsEnabled = false };
+			btadd  = new Avalonia.Controls.Button { Content = "Add" };
+			btup.Click    += btup_Click;
+			btdown.Click  += btdown_Click;
+			btdel.Click   += btdel_Click;
+			btadd.Click   += btadd_Click;
+
+			cbblocks = new Avalonia.Controls.ComboBox();
+
+			var blockButtons = new StackPanel { Orientation = Orientation.Vertical, Spacing = 4 };
+			blockButtons.Children.Add(btup);
+			blockButtons.Children.Add(btdown);
+			blockButtons.Children.Add(btdel);
+			blockButtons.Children.Add(btadd);
+			blockButtons.Children.Add(cbblocks);
+
+			var blocksPanel = new Grid();
+			blocksPanel.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+			blocksPanel.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+			Grid.SetColumn(lbblocks,     0);
+			Grid.SetColumn(blockButtons, 1);
+			blocksPanel.Children.Add(lbblocks);
+			blocksPanel.Children.Add(blockButtons);
+
+			tabPage3 = new Avalonia.Controls.TabItem { Header = "Edit Blocks", Content = blocksPanel };
+
+			// ── Main TabControl ────────────────────────────────────────────
+			tbResource = new Avalonia.Controls.TabControl();
+			tbResource.Items.Add(tabPage1);
+			tbResource.Items.Add(tabPage2);
+			tbResource.Items.Add(tabPage3);
+			// tpref is added/removed dynamically by RcolUI
+			tbResource.SelectionChanged += tabControl1_SelectedIndexChanged;
+
+			this.Content = tbResource;
 		}
-		#endregion
+
+		public void Dispose()
+		{
+			// no-op
+		}
 
 		internal Rcol wrapper = null;
 
         internal void BuildChildTabControl(AbstractRcolBlock rb)
         {
-            childtc.TabPages.Clear();
+            childtc.Items.Clear();
 
             if (rb == null) return;
             if (rb.TabPage != null) rb.AddToTabControl(childtc);
         }
 
-        private void SelectRcolItem(object sender, System.EventArgs e)
+        private void SelectRcolItem(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
-			if (cbitem.Tag!=null) return;
-			if (cbitem.SelectedIndex<0) return;
-			try 
+			if (cbitem.Tag != null) return;
+			if (cbitem.SelectedIndex < 0) return;
+			try
 			{
 				cbitem.Tag = true;
 				SimPe.CountedListItem cli = (SimPe.CountedListItem)cbitem.Items[cbitem.SelectedIndex];
 				AbstractRcolBlock rb = (AbstractRcolBlock)cli.Object;
-				tbflname.Enabled = (rb.NameResource!=null);
-				llhash.Enabled = tbflname.Enabled;
-				llfix.Enabled = tbflname.Enabled;
+				tbflname.IsEnabled = (rb.NameResource != null);
+				llhash.IsEnabled   = tbflname.IsEnabled;
+				llfix.IsEnabled    = tbflname.IsEnabled;
 
-				if (rb.NameResource!=null) tbflname.Text = rb.NameResource.FileName;
+				if (rb.NameResource != null) tbflname.Text = rb.NameResource.FileName;
 				else tbflname.Text = "";
 
 				BuildChildTabControl(rb);
-			} 
-			catch (Exception ex) 
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
@@ -800,88 +298,87 @@ namespace SimPe.Plugin
 
 		private void ChangeFileName(object sender, System.EventArgs e)
 		{
-			if (cbitem.Tag!=null) return;
-			if (cbitem.SelectedIndex<0) return;
-			try 
+			if (cbitem.Tag != null) return;
+			if (cbitem.SelectedIndex < 0) return;
+			try
 			{
-				cbitem.Tag = true;				
+				cbitem.Tag = true;
 				SimPe.CountedListItem cli = (SimPe.CountedListItem)cbitem.Items[cbitem.SelectedIndex];
 				AbstractRcolBlock rb = (AbstractRcolBlock)cli.Object;
-				if (rb.NameResource!=null) 
+				if (rb.NameResource != null)
 				{
 					rb.NameResource.FileName = tbflname.Text;
 					cbitem.Items[cbitem.SelectedIndex] = cli;
-					cbitem.Text = cli.ToString();
+					// No cbitem.Text in Avalonia – selection label is handled by ComboBox itself
 				}
-			} 
-			catch (Exception ex) 
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage(Localization.Manager.GetString("erropenfile"), ex);
 			}
-			
-			finally 
+			finally
 			{
 				cbitem.Tag = null;
 			}
 		}
 
-		private void BuildFilename(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void BuildFilename(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			string fl = Hashes.StripHashFromName(this.tbflname.Text);
 			this.tbflname.Text = Hashes.AssembleHashedFileName(wrapper.Package.FileGroupHash, fl);
 		}
 
-		private void FixTGI(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void FixTGI(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			string fl = Hashes.StripHashFromName(this.tbflname.Text);
-			if (wrapper!=null)
-				if (wrapper.FileDescriptor!=null) 
+			if (wrapper != null)
+				if (wrapper.FileDescriptor != null)
 				{
 					wrapper.FileDescriptor.Instance = Hashes.InstanceHash(fl);
-					wrapper.FileDescriptor.SubType = Hashes.SubTypeHash(fl);
+					wrapper.FileDescriptor.SubType  = Hashes.SubTypeHash(fl);
 				}
 		}
 
 		private void Commit(object sender, System.EventArgs e)
 		{
-			try 
+			try
 			{
 				wrapper.SynchronizeUserData();
-				MessageBox.Show(Localization.Manager.GetString("commited"));
-			} 
-			catch (Exception ex) 
+				Message.Show(Localization.Manager.GetString("commited"), "Commit", MessageBoxButtons.OK);
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage(Localization.Manager.GetString("errwritingfile"), ex);
 			}
 		}
 
-		private void SelectType(object sender, System.EventArgs e)
+		private void SelectType(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
 			if (cbtypes.Tag != null) return;
-			tbtype.Text = "0x"+Helper.HexString(((SimPe.Data.TypeAlias)cbtypes.Items[cbtypes.SelectedIndex]).Id);
+			tbtype.Text = "0x" + Helper.HexString(((SimPe.Data.TypeAlias)cbtypes.Items[cbtypes.SelectedIndex]).Id);
 		}
 
-		protected void Change() 
+		protected void Change()
 		{
-			if (lbref.Tag!=null) return;
-			if (lbref.SelectedIndex<0) return;
-			try 
+			if (lbref.Tag != null) return;
+			if (lbref.SelectedIndex < 0) return;
+			try
 			{
 				lbref.Tag = true;
 				Interfaces.Files.IPackedFileDescriptor pfd = (Interfaces.Files.IPackedFileDescriptor)this.lbref.Items[lbref.SelectedIndex];
 
-				pfd.Type = Convert.ToUInt32(this.tbtype.Text, 16);
-				pfd.SubType = Convert.ToUInt32(this.tbsubtype.Text, 16);
-				pfd.Group = Convert.ToUInt32(this.tbgroup.Text, 16);
+				pfd.Type     = Convert.ToUInt32(this.tbtype.Text, 16);
+				pfd.SubType  = Convert.ToUInt32(this.tbsubtype.Text, 16);
+				pfd.Group    = Convert.ToUInt32(this.tbgroup.Text, 16);
 				pfd.Instance = Convert.ToUInt32(this.tbinstance.Text, 16);
 
 				lbref.Items[lbref.SelectedIndex] = pfd;
-			} 
-			catch (Exception) 
-			{
-				//Helper.ExceptionMessage("", ex);
 			}
-			finally 
+			catch (Exception)
+			{
+				// suppress
+			}
+			finally
 			{
 				lbref.Tag = null;
 			}
@@ -894,10 +391,10 @@ namespace SimPe.Plugin
 			cbtypes.Tag = true;
 			Data.TypeAlias a = Data.MetaData.FindTypeAlias(Helper.HexStringToUInt(tbtype.Text));
 
-			int ct=0;
-			foreach(Data.TypeAlias i in cbtypes.Items) 
-			{								
-				if (i==a) 
+			int ct = 0;
+			foreach (Data.TypeAlias i in cbtypes.Items)
+			{
+				if (i == a)
 				{
 					cbtypes.SelectedIndex = ct;
 					cbtypes.Tag = null;
@@ -908,28 +405,26 @@ namespace SimPe.Plugin
 
 			cbtypes.SelectedIndex = -1;
 			cbtypes.Tag = null;
-
-			
 		}
 
-		private void SelectReference(object sender, System.EventArgs e)
+		private void SelectReference(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
-			if (lbref.Tag!=null) return;
-			if (lbref.SelectedIndex<0) return;
-			try 
+			if (lbref.Tag != null) return;
+			if (lbref.SelectedIndex < 0) return;
+			try
 			{
 				lbref.Tag = true;
 				Interfaces.Files.IPackedFileDescriptor pfd = (Interfaces.Files.IPackedFileDescriptor)this.lbref.Items[lbref.SelectedIndex];
-				this.tbtype.Text = "0x"+Helper.HexString(pfd.Type);
-				this.tbsubtype.Text = "0x"+Helper.HexString(pfd.SubType);
-				this.tbgroup.Text = "0x"+Helper.HexString(pfd.Group);
-				this.tbinstance.Text = "0x"+Helper.HexString(pfd.Instance);
-			} 
-			catch (Exception ex) 
+				this.tbtype.Text     = "0x" + Helper.HexString(pfd.Type);
+				this.tbsubtype.Text  = "0x" + Helper.HexString(pfd.SubType);
+				this.tbgroup.Text    = "0x" + Helper.HexString(pfd.Group);
+				this.tbinstance.Text = "0x" + Helper.HexString(pfd.Instance);
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
-			finally 
+			finally
 			{
 				lbref.Tag = null;
 			}
@@ -940,15 +435,15 @@ namespace SimPe.Plugin
 			Change();
 		}
 
-		private void SRNItemsAAdd(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void SRNItemsAAdd(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			try 
+			try
 			{
 				Interfaces.Files.IPackedFileDescriptor pfd = new SimPe.Packages.PackedFileDescriptor();
 
-				pfd.Type = Convert.ToUInt32(this.tbtype.Text, 16);
-				pfd.SubType = Convert.ToUInt32(this.tbsubtype.Text, 16);
-				pfd.Group = Convert.ToUInt32(this.tbgroup.Text, 16);
+				pfd.Type     = Convert.ToUInt32(this.tbtype.Text, 16);
+				pfd.SubType  = Convert.ToUInt32(this.tbsubtype.Text, 16);
+				pfd.Group    = Convert.ToUInt32(this.tbgroup.Text, 16);
 				pfd.Instance = Convert.ToUInt32(this.tbinstance.Text, 16);
 
 				wrapper.ReferencedFiles = (Interfaces.Files.IPackedFileDescriptor[])Helper.Add(wrapper.ReferencedFiles, pfd);
@@ -956,75 +451,69 @@ namespace SimPe.Plugin
 
 				wrapper.Changed = true;
 			}
-			catch (Exception ex) 
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
 		}
 
-		private void SRNItemsADelete(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void SRNItemsADelete(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if (lbref.SelectedIndex<0) return;
-			try 
+			if (lbref.SelectedIndex < 0) return;
+			try
 			{
 				Interfaces.Files.IPackedFileDescriptor pfd = (Interfaces.Files.IPackedFileDescriptor)this.lbref.Items[lbref.SelectedIndex];
-				
+
 				wrapper.ReferencedFiles = (Interfaces.Files.IPackedFileDescriptor[])Helper.Delete(wrapper.ReferencedFiles, pfd);
 				lbref.Items.Remove(pfd);
 
 				wrapper.Changed = true;
 
-				btup.Enabled = btdown.Enabled = btdel.Enabled = false;
+				btup.IsEnabled = btdown.IsEnabled = btdel.IsEnabled = false;
 			}
-			catch (Exception ex) 
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
 		}
 
 		#region Package Selector
-		private void ShowPackageSelector(object sender, System.EventArgs e)
+		private void ShowPackageSelector(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			SimPe.PackageSelectorForm form = new SimPe.PackageSelectorForm();
 			form.Execute(wrapper.Package);
 		}
 
-		private void ItemQueryContinueDragTarget(object sender, QueryContinueDragEventArgs e)
+		private void PackageItemDragEnter(object sender, Avalonia.Input.DragEventArgs e)
 		{
-			if (e.KeyState==0) e.Action = DragAction.Drop;
-			else e.Action = DragAction.Continue;
-		}
-
-		private void PackageItemDragEnter(object sender, DragEventArgs e)
-		{
-			if (e.Data.GetDataPresent(typeof(SimPe.Packages.PackedFileDescriptor))) 
-			{				
-				e.Effect = DragDropEffects.Copy;	
-			}
-			else 
+			if (e.Data.Contains(typeof(SimPe.Packages.PackedFileDescriptor).FullName))
 			{
-				e.Effect = DragDropEffects.None;
-			}					
+				e.DragEffects = Avalonia.Input.DragDropEffects.Copy;
+			}
+			else
+			{
+				e.DragEffects = Avalonia.Input.DragDropEffects.None;
+			}
 		}
 
-		private void PackageItemDrop(object sender, System.Windows.Forms.DragEventArgs e)
+		private void PackageItemDrop(object sender, Avalonia.Input.DragEventArgs e)
 		{
-			try 
+			try
 			{
 				lbref.Tag = true;
 				Interfaces.Files.IPackedFileDescriptor pfd = null;
-				pfd = (Interfaces.Files.IPackedFileDescriptor)e.Data.GetData(typeof(SimPe.Packages.PackedFileDescriptor));
-				
+				pfd = e.Data.Get(typeof(SimPe.Packages.PackedFileDescriptor).FullName) as Interfaces.Files.IPackedFileDescriptor;
+
 				wrapper.ReferencedFiles = (Interfaces.Files.IPackedFileDescriptor[])Helper.Add(wrapper.ReferencedFiles, pfd);
 				this.lbref.Items.Add(pfd);
 
 				wrapper.Changed = true;
 			}
-			catch (Exception ex) 
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
-			} 
-			finally 
+			}
+			finally
 			{
 				lbref.Tag = null;
 			}
@@ -1036,109 +525,107 @@ namespace SimPe.Plugin
 			this.cbitem.Items.Clear();
 
 			this.tbflname.Text = "";
-			this.childtc.TabPages.Clear();
+			this.childtc.Items.Clear();
 			foreach (SimPe.CountedListItem o in this.lbblocks.Items) cbitem.Items.Add(o);
 
-			if (cbitem.Items.Count>0) cbitem.SelectedIndex = 0;
+			if (cbitem.Items.Count > 0) cbitem.SelectedIndex = 0;
 		}
 
-		private void tabControl1_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void tabControl1_SelectedIndexChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
-			//Display the Block Editor
-			if (tbResource.TabPages[tbResource.SelectedIndex] == this.tabPage3) 
+			// Display the Block Editor when tabPage3 is selected
+			if (tbResource.SelectedIndex >= 0 && tbResource.Items[tbResource.SelectedIndex] == this.tabPage3)
 			{
 				this.lbblocks.Items.Clear();
-				foreach(IRcolBlock irb in wrapper.Blocks) SimPe.CountedListItem.AddHex(lbblocks, irb);
+				foreach (IRcolBlock irb in wrapper.Blocks) SimPe.CountedListItem.AddHex(lbblocks, irb);
 
 				this.cbblocks.Items.Clear();
 				foreach (string s in Rcol.Tokens.Keys)
 				{
-					try 
-					{					
+					try
+					{
 						Type t = (Type)Rcol.Tokens[s];
 						IRcolBlock irb = AbstractRcolBlock.Create(t, null);
 						cbblocks.Items.Add(irb);
 					}
-					catch (Exception ex) 
+					catch (Exception ex)
 					{
-						Helper.ExceptionMessage("Error in Block "+s, ex);
+						Helper.ExceptionMessage("Error in Block " + s, ex);
 					}
-				} //foreach
-				if (cbblocks.Items.Count>0) cbblocks.SelectedIndex = 0;
+				}
+				if (cbblocks.Items.Count > 0) cbblocks.SelectedIndex = 0;
 			}
 		}
 
-		private void btup_Click(object sender, System.EventArgs e)
+		private void btup_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if (lbblocks.SelectedIndex<1) return;
-			try 
+			if (lbblocks.SelectedIndex < 1) return;
+			try
 			{
-				object o = lbblocks.Items[lbblocks.SelectedIndex-1];
-				lbblocks.Items[lbblocks.SelectedIndex-1] = lbblocks.Items[lbblocks.SelectedIndex];
-				lbblocks.Items[lbblocks.SelectedIndex] = o;
+				object o = lbblocks.Items[lbblocks.SelectedIndex - 1];
+				lbblocks.Items[lbblocks.SelectedIndex - 1] = lbblocks.Items[lbblocks.SelectedIndex];
+				lbblocks.Items[lbblocks.SelectedIndex]     = o;
 
-				wrapper.Blocks[lbblocks.SelectedIndex] = (AbstractRcolBlock)((SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex]).Object;
-				wrapper.Blocks[lbblocks.SelectedIndex-1] = (AbstractRcolBlock)((SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex-1]).Object;
+				wrapper.Blocks[lbblocks.SelectedIndex]     = (AbstractRcolBlock)((SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex]).Object;
+				wrapper.Blocks[lbblocks.SelectedIndex - 1] = (AbstractRcolBlock)((SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex - 1]).Object;
 				lbblocks.SelectedIndex--;
 
 				UpdateComboBox();
-
-			} 
-			catch (Exception ex) 
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
 		}
 
-		private void btdown_Click(object sender, System.EventArgs e)
+		private void btdown_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if (lbblocks.SelectedIndex<0) return;
-			if (lbblocks.SelectedIndex>lbblocks.Items.Count-2) return;
-			try 
+			if (lbblocks.SelectedIndex < 0) return;
+			if (lbblocks.SelectedIndex > lbblocks.Items.Count - 2) return;
+			try
 			{
-				object o = lbblocks.Items[lbblocks.SelectedIndex+1];
-				lbblocks.Items[lbblocks.SelectedIndex+1] = lbblocks.Items[lbblocks.SelectedIndex];
-				lbblocks.Items[lbblocks.SelectedIndex] = o;
-				wrapper.Blocks[lbblocks.SelectedIndex] = (AbstractRcolBlock)((SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex]).Object;
-				wrapper.Blocks[lbblocks.SelectedIndex+1] = (AbstractRcolBlock)((SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex+1]).Object;
+				object o = lbblocks.Items[lbblocks.SelectedIndex + 1];
+				lbblocks.Items[lbblocks.SelectedIndex + 1] = lbblocks.Items[lbblocks.SelectedIndex];
+				lbblocks.Items[lbblocks.SelectedIndex]     = o;
+				wrapper.Blocks[lbblocks.SelectedIndex]     = (AbstractRcolBlock)((SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex]).Object;
+				wrapper.Blocks[lbblocks.SelectedIndex + 1] = (AbstractRcolBlock)((SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex + 1]).Object;
 				lbblocks.SelectedIndex++;
 
 				UpdateComboBox();
-			} 
-			catch (Exception ex) 
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
 		}
 
-		private void btadd_Click(object sender, System.EventArgs e)
+		private void btadd_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			try 
+			try
 			{
-				//SimPe.CountedListItem cli = (SimPe.CountedListItem);
 				IRcolBlock irb = ((IRcolBlock)cbblocks.Items[cbblocks.SelectedIndex]).Create();
 				if (irb is AbstractRcolBlock) ((AbstractRcolBlock)irb).Parent = wrapper;
 				SimPe.CountedListItem.AddHex(this.lbblocks, irb);
 				wrapper.Blocks = (IRcolBlock[])Helper.Add(wrapper.Blocks, irb, typeof(IRcolBlock));
 				UpdateComboBox();
-			} 
-			catch (Exception ex) 
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
 		}
 
-		private void lbblocks_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void lbblocks_SelectedIndexChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
-			btup.Enabled = btdown.Enabled = btdel.Enabled = false;
-			if (lbblocks.SelectedIndex<0) return;
-			btup.Enabled = btdown.Enabled = btdel.Enabled = true;
+			btup.IsEnabled = btdown.IsEnabled = btdel.IsEnabled = false;
+			if (lbblocks.SelectedIndex < 0) return;
+			btup.IsEnabled = btdown.IsEnabled = btdel.IsEnabled = true;
 		}
 
-		private void btdel_Click(object sender, System.EventArgs e)
+		private void btdel_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if (lbblocks.SelectedIndex<0) return;
-			try 
+			if (lbblocks.SelectedIndex < 0) return;
+			try
 			{
 				SimPe.CountedListItem cli = (SimPe.CountedListItem)lbblocks.Items[lbblocks.SelectedIndex];
 				IRcolBlock irb = ((IRcolBlock)cli.Object);
@@ -1146,92 +633,71 @@ namespace SimPe.Plugin
 				wrapper.Blocks = (IRcolBlock[])Helper.Delete(wrapper.Blocks, irb, typeof(IRcolBlock));
 
 				UpdateComboBox();
-			} 
-			catch (Exception ex) 
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
 		}
 
-		private void SelectRefItem(object sender, System.Windows.Forms.TreeViewEventArgs e)
+		private void SelectRefItem(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
-			if (e.Node.Tag!=null) 
+			Avalonia.Controls.TreeViewItem node = (Avalonia.Controls.TreeViewItem)tv.SelectedItem;
+			if (node == null) return;
+			if (node.Tag != null)
 			{
-				Interfaces.Files.IPackedFileDescriptor pfd = (Interfaces.Files.IPackedFileDescriptor)e.Node.Tag;
-				tbrefgroup.Text = "0x"+Helper.HexString(pfd.Group);
-				tbrefinst.Text = "0x"+Helper.HexString(pfd.Instance);
+				Interfaces.Files.IPackedFileDescriptor pfd = (Interfaces.Files.IPackedFileDescriptor)node.Tag;
+				tbrefgroup.Text = "0x" + Helper.HexString(pfd.Group);
+				tbrefinst.Text  = "0x" + Helper.HexString(pfd.Instance);
 
 				SimPe.FileTable.FileIndex.Load();
 				SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFile(pfd, null);
-				if (items.Length == 0) 
+				if (items.Length == 0)
 				{
 					SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem item = FileTable.FileIndex.FindFileByName(pfd.Filename, pfd.Type, pfd.Group, true);
-					if (item!=null) {
+					if (item != null)
+					{
 						items = new SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem[1];
 						items[0] = item;
 					}
 				}
-				if (items.Length==0) 
+				if (items.Length == 0)
 				{
 					Interfaces.Files.IPackedFileDescriptor npfd = (Interfaces.Files.IPackedFileDescriptor)pfd.Clone();
 					npfd.SubType = 0;
 					items = FileTable.FileIndex.FindFile(npfd, null);
 				}
 
-				
-				if (items.Length>0) 
+				if (items.Length > 0)
 				{
 					tbfile.Text = items[0].Package.FileName;
-				} 
-				else 
+				}
+				else
 				{
 					tbfile.Text = "[unreferenced]";
 				}
 			}
 		}
 
-		private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void linkLabel1_LinkClicked(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			WaitingScreen.Wait();
-            try { SimPe.FileTable.FileIndex.ForceReload(); }
-            finally { WaitingScreen.Stop(); }
+			try   { SimPe.FileTable.FileIndex.ForceReload(); }
+			finally { WaitingScreen.Stop(); }
 		}
 
-		private void ChildTabPageChanged(object sender, System.EventArgs e)
+		private void ChildTabPageChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
 			wrapper.ChildTabPageChanged(this, e);
 		}
 
-		/*private void ChildTabPageChanged(object sender, System.EventArgs e)
-		{
-			if (lbblocks.SelectedIndex<0) return;
-			try 
-			{
-				IRcolBlock irb = (IRcolBlock)lbblocks.Items[lbblocks.SelectedIndex];
-				this.lbblocks.Items.Remove(irb);
-				wrapper.Blocks = (IRcolBlock[])Helper.Delete(wrapper.Blocks, irb, typeof(IRcolBlock));
-
-				UpdateComboBox();
-			} 
-			catch (Exception ex) 
-			{
-				Helper.ExceptionMessage("", ex);
-			}
-		}*/
-
-		void ClearControlTags(Control c)
-		{
-			foreach (Control cc in c.Controls)
-			{
-				cc.Tag = null;
-				ClearControlTags(cc);
-			}
-
-		}
 		internal void ClearControlTags()
 		{
-			if (this.Controls==null) return;
-			ClearControlTags(this);
+			// In Avalonia we do not iterate WinForms Control.Controls;
+			// tags are cleared on individual controls as needed.
+			cbitem.Tag   = null;
+			lbref.Tag    = null;
+			cbtypes.Tag  = null;
 		}
 	}
 }

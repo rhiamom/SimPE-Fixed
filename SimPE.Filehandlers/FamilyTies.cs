@@ -22,13 +22,13 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
-using System.Drawing;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 using SimPe.PackedFiles.Wrapper.Supporting;
 using SimPe.Data;
 using SimPe;
+
 namespace SimPe.PackedFiles.UserInterface
 {
 	/// <summary>
@@ -38,17 +38,14 @@ namespace SimPe.PackedFiles.UserInterface
 	{
 		protected void ResetPanel(Wrapper.FamilyTies famt)
 		{
-			form.cballtieablesims.Items.Clear();			
-			form.cballtieablesims.Sorted = false;
+			form.cballtieablesims.Items.Clear();
 			Interfaces.Files.IPackedFileDescriptor[] pfds = famt.Package.FindFiles(Data.MetaData.SIM_DESCRIPTION_FILE);
 			Wrapper.SDesc sdesc = new SimPe.PackedFiles.Wrapper.SDesc(famt.NameProvider, null, null);
-			foreach (Interfaces.Files.IPackedFileDescriptor pfd in pfds) 
+			foreach (Interfaces.Files.IPackedFileDescriptor pfd in pfds)
 			{
 				Wrapper.Supporting.FamilyTieSim fts = new FamilyTieSim((ushort)pfd.Instance, null, famt);
 				form.cballtieablesims.Items.Add(fts);
 			}
-			
-			form.cballtieablesims.Sorted = true;
 
             form.cbtietype.Items.Clear();
             form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MyMotherIs));
@@ -58,9 +55,9 @@ namespace SimPe.PackedFiles.UserInterface
             form.cbtietype.Items.Add(new LocalizedFamilyTieTypes(Data.MetaData.FamilyTieTypes.MyChildIs));
             form.cbtietype.SelectedIndex = 2;
 
-            form.btaddtie.Enabled = false;
-			form.btdeletetie.Enabled = false;
-			form.btnewtie.Enabled = false;
+            form.btaddtie.IsEnabled = false;
+			form.btdeletetie.IsEnabled = false;
+			form.btnewtie.IsEnabled = false;
 
 			form.lbties.Items.Clear();
 		}
@@ -69,7 +66,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		public Control GUIHandle
 		{
-			get 
+			get
 			{
 				return form.familytiePanel;
 			}
@@ -80,18 +77,15 @@ namespace SimPe.PackedFiles.UserInterface
 			Wrapper.FamilyTies famt = (Wrapper.FamilyTies)wrapper;
 			form.wrapper = famt;
 			ResetPanel(famt);
-			
+
 			FamilyTieSim[] sims = famt.Sims;
 			form.cbtiesims.Items.Clear();
-			//form.cbtiesims.Sorted = false;
-			foreach(FamilyTieSim sim in sims) 
+			foreach(FamilyTieSim sim in sims)
 			{
 				form.cbtiesims.Items.Add(sim);
 			}
-			//form.cbtiesims.Sorted = true;
 		}
 
-		
-		#endregion		
+		#endregion
 	}
 }

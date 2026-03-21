@@ -25,6 +25,7 @@ using System;
 using System.Collections;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces.Scenegraph;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -244,7 +245,7 @@ namespace SimPe.Plugin
 		TabPage.MatdForm tMaterialDefinitionProperties;
 		TabPage.MaterialDefinitionCategories tMaterialDefinitionCat;
 		TabPage.MaterialDefinitionFiles tMaterialDefinitionFiles;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -269,7 +270,7 @@ namespace SimPe.Plugin
 			{
 				tMaterialDefinition.tb_ver.Text = "0x"+Helper.HexString(this.version);
 		
-				tMaterialDefinitionProperties.lldel.Enabled = false;
+				tMaterialDefinitionProperties.lldel.IsEnabled = false;
 				tMaterialDefinitionProperties.lbprop.Items.Clear();
 				foreach (MaterialDefinitionProperty mdp in this.Properties) tMaterialDefinitionProperties.lbprop.Items.Add(mdp);
 				
@@ -288,16 +289,16 @@ namespace SimPe.Plugin
 			}
 		}
 
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			tMaterialDefinitionProperties.Tag = this;
-			tc.TabPages.Add(tMaterialDefinitionProperties);
+			tc.Items.Add(tMaterialDefinitionProperties);
 			
 			tMaterialDefinitionFiles.Tag = this;
-			tc.TabPages.Add(tMaterialDefinitionFiles);
+			tc.Items.Add(tMaterialDefinitionFiles);
 		{
 			tMaterialDefinitionCat.Tag = this;
-			tc.TabPages.Add(tMaterialDefinitionCat);
+			tc.Items.Add(tMaterialDefinitionCat);
 		}
 
 			tc.SelectedIndex = 1;			
@@ -519,10 +520,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tMaterialDefinition!=null) this.tMaterialDefinition.Dispose();
-			if (tMaterialDefinitionProperties!=null) tMaterialDefinitionProperties.Dispose();
-			if (tMaterialDefinitionCat!=null) tMaterialDefinitionCat.Dispose();
-			if (tMaterialDefinitionFiles!=null) tMaterialDefinitionFiles.Dispose();
+			/* TabItem subclasses do not implement IDisposable — no-op */
 			tMaterialDefinitionFiles = null;
 			tMaterialDefinitionCat = null;
 			tMaterialDefinitionProperties = null;

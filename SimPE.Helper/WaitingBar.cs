@@ -22,40 +22,39 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
-using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
+using Avalonia.Media.Imaging;
 
 namespace SimPe
 {
 	/// <summary>
-	/// This calass can be used to interface the StatusBar of the Main GUI, which will display 
+	/// This class can be used to interface the StatusBar of the Main GUI, which will display
 	/// something like the WaitingScreen
 	/// </summary>
 	public class Wait
 	{
 		static IWaitingBarControl bar;
-        static Stack<SessionData> mystack = new Stack<SessionData>();		
+        static Stack<SessionData> mystack = new Stack<SessionData>();
 		public const int TIMEOUT = 10000;
 
 		public static IWaitingBarControl Bar
 		{
-			set 
-			{ 
-				bar = value; 				
+			set
+			{
+				bar = value;
 			}
 		}
 
 		public static bool Running
 		{
-			get 
-			{ 
+			get
+			{
 				if (bar!=null) return bar.Running;
 				return false;
 			}
 		}
-	
+
         public static string Message
         {
             get
@@ -67,59 +66,53 @@ namespace SimPe
             {
                 if (value.IndexOf("Custom") > -1)
                 {
-
                     if (bar != null) bar.Message = value;
-                    Application.DoEvents();
                 }
             }
         }
 
-		public static Image Image
+		public static Bitmap? Image
 		{
-			get 
-			{ 
-				if (bar!=null) return bar.Image; 
-				return null;
-			} 
-			set 
+			get
 			{
-				//lock (sync) 
+				if (bar!=null) return bar.Image;
+				return null;
+			}
+			set
+			{
+				//lock (sync)
 				{
 					//if (bar!=null) bar.Image = value;
 				}
 			}
 		}
 
-		
+
         public static int Progress
 		{
-			get 
+			get
 			{
                 if (bar != null) return bar.Progress;
                 return 0;
-				/*if (bar!=null) return bar.Progress; 
-				return IntMaxProgress;*/
-				
-			} 
-			set 
+			}
+			set
 			{
                 if (bar!=null) bar.Progress = value;
-                Application.DoEvents();
 			}
 		}
 
 		public static int MaxProgress
 		{
-			get 
+			get
 			{
                 if (bar != null) return bar.MaxProgress;
                 return 1;
-			} 	
-			set 
-			{
-                if (bar!=null) bar.MaxProgress = value;		
 			}
-		}        
+			set
+			{
+                if (bar!=null) bar.MaxProgress = value;
+			}
+		}
 
         public static void SubStart()
         {
@@ -139,27 +132,26 @@ namespace SimPe
         {
             Stop();
         }
-		
+
 		public static void Start()
 		{
-			if (bar!=null) 
+			if (bar!=null)
 			{
                 CommonStart();
                 bar.ShowProgress = false;
                 if (!bar.Running) bar.Wait();
-				
-			}			
-		}		
+			}
+		}
 
 		public static void Start(int max)
 		{
-			
-			if (bar!=null) 
+
+			if (bar!=null)
 			{
                 CommonStart();
                 if (!bar.Running) bar.Wait(max);
                 else bar.MaxProgress = max;
-			}			
+			}
 		}
 
         public static void Stop()
@@ -181,7 +173,7 @@ namespace SimPe
                 sd = mystack.Pop();
 
                 if (mystack.Count == 0)
-                    if (bar != null) bar.Stop();                
+                    if (bar != null) bar.Stop();
             }
 
             if (force)
@@ -196,7 +188,6 @@ namespace SimPe
 
         static void CommonStart()
         {
-            //bar.Message = SimPe.Localization.GetString("Please wait");
             lock (mystack) { mystack.Push(BuildSessionData()); }
             Message = "";
             MaxProgress = Progress = 0;
@@ -208,7 +199,7 @@ namespace SimPe
             public int Progress;
             public int MaxProgress;
         }
-		
+
 
         private static SessionData BuildSessionData()
         {
@@ -218,7 +209,7 @@ namespace SimPe
             sd.MaxProgress = (bar == null || !bar.ShowProgress) ? 0 : MaxProgress;
             return sd;
         }
-		
+
         private static void ReloadSession(SessionData sd)
         {
             try

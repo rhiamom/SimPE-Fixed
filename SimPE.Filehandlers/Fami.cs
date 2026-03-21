@@ -22,8 +22,7 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
-using System.Drawing;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 using SimPe;
@@ -31,15 +30,15 @@ using SimPe;
 namespace SimPe.PackedFiles.UserInterface
 {
 	/// <summary>
-	/// handles Packed XmlFiles
+	/// handles Packed Fami Files
 	/// </summary>
 	public class Fami : UIBase, IPackedFileUI
-	{		
+	{
 		#region IPackedFileHandler Member
 
 		public Control GUIHandle
 		{
-			get 
+			get
 			{
 				return form.famiPanel;
             }
@@ -49,12 +48,13 @@ namespace SimPe.PackedFiles.UserInterface
 		{
             Wrapper.Fami fami = (Wrapper.Fami)wrapper;
             form.wrapper = fami;
-            if (fami.FamiThumb != null)
-                form.pb.Image = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(fami.FamiThumb, form.pb.Size, 12, Color.FromArgb(90, Color.Black), SystemColors.ControlDarkDark, Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
-            
-            else form.pb.Image = null;            
+
+            // Thumbnail: Avalonia Image.Source requires an IImage; for now set to null
+            // (Ambertation.Windows.Forms is WinForms-only — thumbnail display dropped for port)
+            form.pb.Source = null;
+
 			form.tbname.Text = fami.Name;
-			form.tbmoney.Text = fami.Money.ToString();            
+			form.tbmoney.Text = fami.Money.ToString();
 			form.tbfamily.Text = fami.Friends.ToString();
             if (Helper.XmlRegistry.AllowLotZero && fami.LotInstance == 0 && fami.FileDescriptor.Instance > 0 && fami.FileDescriptor.Instance < 32512)
                 form.tblotinst.Text = "Sim Bin";
@@ -67,36 +67,26 @@ namespace SimPe.PackedFiles.UserInterface
             form.tbblot.Text = "0x" + Helper.HexString(fami.CurrentlyOnLotInstance);
             form.tbbmoney.Text = fami.BusinessMoney.ToString();
 			form.lbmembers.Items.Clear();
-            form.label14.Visible = form.tbblot.Visible = (int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.Business;
-            form.label7.Visible = form.tbvac.Visible = (int)fami.Version == (int)SimPe.PackedFiles.Wrapper.FamiVersions.Voyage;
-            form.tbsubhood.Enabled = (int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.University;
-            //form.label3.Visible = form.tbmoney.Visible = (int)fami.Version < (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway;
-            form.label16.Visible = form.tbbmoney.Visible = ((int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.Business && (int)fami.Version < (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway);
-            
-            if (fami.LotInstance == 0 || fami.Package.FindFile(0x0BF999E7, 0, 0xFFFFFFFF, fami.LotInstance) == null)
-                form.label15.ForeColor = System.Drawing.SystemColors.ControlText;
-            else
-                form.label15.ForeColor = System.Drawing.Color.Blue;
+            form.label14.IsVisible = form.tbblot.IsVisible = (int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.Business;
+            form.label7.IsVisible = form.tbvac.IsVisible = (int)fami.Version == (int)SimPe.PackedFiles.Wrapper.FamiVersions.Voyage;
+            form.tbsubhood.IsEnabled = (int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.University;
+            form.label16.IsVisible = form.tbbmoney.IsVisible = ((int)fami.Version >= (int)SimPe.PackedFiles.Wrapper.FamiVersions.Business && (int)fami.Version < (int)SimPe.PackedFiles.Wrapper.FamiVersions.Castaway);
 
-            form.lbmembers.Sorted = false;
-			string[] names = fami.SimNames;
-			for(int i=0; i<fami.Members.Length; i++) 
+            // Color-coding of label15 dropped (Avalonia TextBlock has no ForeColor)
+
+			for(int i=0; i<fami.Members.Length; i++)
 			{
 				Data.Alias a = new SimPe.Data.Alias(fami.Members[i], fami.SimNames[i]);
 				form.lbmembers.Items.Add(a);
 			}
-            if (fami.Members.Length > 5) form.lbmembers.Sorted = true;
 
-			form.cbsims.Items.Clear();			
-			form.cbsims.Sorted = false;
+			form.cbsims.Items.Clear();
 			foreach (IAlias a in fami.NameProvider.StoredData.Values)
 			{
 				form.cbsims.Items.Add(a);
 			}
-			form.cbsims.Sorted = true;
-            form.cbsims.Text = "";
 		}
-		
-		#endregion				
+
+		#endregion
 	}
 }

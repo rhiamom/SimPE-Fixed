@@ -246,7 +246,7 @@ namespace SimPe.Cache
 			{
 				pic.ProcessData(iitems[0]);
 				mci.Icon = pic.Image;
-				Wait.Image = mci.Icon;
+				// Wait.Image = mci.Icon; // System.Drawing.Image → Avalonia.Bitmap conversion not available
 			}
 
 			Wait.Message = mci.Name;

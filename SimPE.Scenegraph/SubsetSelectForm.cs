@@ -52,101 +52,28 @@ namespace SimPe.Plugin
 			InitializeComponent();
 
 			//
-			// TODO: Fügen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
+			// TODO: Fï¿½gen Sie den Konstruktorcode nach dem Aufruf von InitializeComponent hinzu
 			//
 		}
 
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected new void Dispose(bool disposing)
 		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubsetSelectForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbauto = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.pnselect = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.cbauto);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.pnselect);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(532, 437);
-            this.panel1.TabIndex = 0;
-            // 
-            // cbauto
-            // 
-            this.cbauto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbauto.Checked = true;
-            this.cbauto.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbauto.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbauto.Location = new System.Drawing.Point(12, 389);
-            this.cbauto.Name = "cbauto";
-            this.cbauto.Size = new System.Drawing.Size(360, 36);
-            this.cbauto.TabIndex = 3;
             this.cbauto.Text = "Autoselect matching Textures";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(412, 401);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 34);
-            this.button1.TabIndex = 2;
             this.button1.Text = "OK";
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pnselect
-            // 
-            this.pnselect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnselect.AutoScroll = true;
-            this.pnselect.Location = new System.Drawing.Point(0, 0);
-            this.pnselect.Name = "pnselect";
-            this.pnselect.Size = new System.Drawing.Size(532, 389);
-            this.pnselect.TabIndex = 1;
-            // 
-            // SubsetSelectForm
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(9, 21);
-            this.ClientSize = new System.Drawing.Size(544, 446);
-            this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "SubsetSelectForm";
-            this.Text = "Subset Selection";
-            this.Closing += new System.ComponentModel.CancelEventHandler(this.DoClosing);
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-
 		}
 		#endregion
 
@@ -274,7 +201,7 @@ namespace SimPe.Plugin
 				gr.DrawLine(new Pen(Color.Orange, 2), il.ImageSize.Width / 2, 0, il.ImageSize.Width / 2, il.ImageSize.Height);
 
 				gr.FillEllipse(new Pen(Color.Orange, 1).Brush, (ImageSize.Width-24)/2, 4, 24, 24);
-				Font ft = new Font("Verdana", 16.0f, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Pixel);
+				System.Drawing.Font ft = new System.Drawing.Font("Verdana", 16.0f, System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
 				
 				gr.DrawString(mmats.Count.ToString(), ft, new Pen(Color.White).Brush, new RectangleF((ImageSize.Width-24)/2+2, 6, 20, 20));
 
@@ -479,7 +406,7 @@ namespace SimPe.Plugin
 		{
 			if (!CanContinue) 
 			{
-				System.Windows.Forms.MessageBox.Show("Please select a Texture in each Subset!", "Warning");
+				SimPe.Message.Show("Please select a Texture in each Subset!", "Warning");
 				e.Cancel = true;
 			}
 		}

@@ -25,6 +25,7 @@ using System;
 using System.Collections;
 using SimPe.Interfaces.Plugin;
 using SimPe.Geometry;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -481,7 +482,7 @@ namespace SimPe.Plugin
 		}
 
 		TabPage.Extension form = null;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -512,7 +513,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.form!=null) this.form.Dispose();
+			/* form.Dispose() — TabItem does not implement IDisposable */
 			form = null;
 		}
 

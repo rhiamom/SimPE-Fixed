@@ -22,12 +22,12 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
 using System.Drawing;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 using SimPe.PackedFiles.Wrapper.Supporting;
 using SimPe.Data;
+using Avalonia.Controls;
 
 namespace SimPe.PackedFiles.UserInterface
 {
@@ -44,9 +44,9 @@ namespace SimPe.PackedFiles.UserInterface
 
 		#region IPackedFileHandler Member
 
-		public Control GUIHandle
+		public Avalonia.Controls.Control GUIHandle
 		{
-			get 
+			get
 			{
 				return form.pnfamt;
 			}
@@ -57,7 +57,7 @@ namespace SimPe.PackedFiles.UserInterface
 			Wrapper.ExtFamilyTies famt = (Wrapper.ExtFamilyTies)wrapper;
 			form.wrapper = famt;
 
-            form.cbLock.Checked = false;
+            form.cbLock.IsChecked = false;
 			form.pool.SelectedElement = null;
 			form.pool.Package = null;
 			form.pool_SelectedSimChanged(null, null, null);				

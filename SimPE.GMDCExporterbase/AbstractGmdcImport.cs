@@ -255,7 +255,7 @@ namespace SimPe.Plugin.Gmdc
 		{
 			get 
 			{
-				if (importoptionsresult==null) importoptionsresult = new ImportOptions(System.Windows.Forms.DialogResult.Cancel, false, false, false);
+				if (importoptionsresult==null) importoptionsresult = new ImportOptions(SimPe.DialogResult.Cancel, false, false, false);
 				return importoptionsresult;
 			}
 			set 
@@ -295,7 +295,7 @@ namespace SimPe.Plugin.Gmdc
 			}
 
 			importoptionsresult = ImportGmdcGroupsForm.Execute(gmdc, grps, bns);
-			return importoptionsresult.Result == System.Windows.Forms.DialogResult.OK;
+			return importoptionsresult.Result == SimPe.DialogResult.OK;
 		}
 
 		

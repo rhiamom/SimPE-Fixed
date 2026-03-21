@@ -25,7 +25,6 @@ using System;
 using System.Xml;
 using System.IO;
 using System.Collections;
-using System.Windows.Forms;
 
 namespace SimPe
 {
@@ -40,7 +39,7 @@ namespace SimPe
 		/// <param name="filename">Filename of package.xml File describing the Package</param>
 		/// <param name="pb">A Progressbar indicating the progress</param>
 		/// <returns>Binary Reader representing the Package File</returns>
-		public static System.IO.BinaryReader OpenExtractedPackage(ProgressBar pb, string filename) 
+		public static System.IO.BinaryReader OpenExtractedPackage(object pb, string filename)
 		{
 			string path = System.IO.Path.GetDirectoryName(filename);			
 			System.Xml.XmlDocument xmlfile = new XmlDocument();
@@ -59,15 +58,8 @@ namespace SimPe
 				object o = node.Attributes["type"].Value; if (o==null) o="1";
 				type = (Data.MetaData.IndexTypes)uint.Parse(o.ToString());
 				
-				if (pb!=null) pb.Maximum = node.ChildNodes.Count;
-				int count = 0;
-				foreach (XmlNode subnode in node) 
+					foreach (XmlNode subnode in node)
 				{
-					if (pb!=null) 
-					{
-						pb.Value = count++;
-						System.Windows.Forms.Application.DoEvents();
-					}
 					///a New FileItem
 					if (subnode.LocalName == "packedfile") 
 					{
@@ -91,7 +83,7 @@ namespace SimPe
 
 			System.IO.MemoryStream ms = file.Build();
 			file.EndUpdate();
-			if (pb!=null) pb.Value = pb.Maximum;
+			// progress not tracked in Avalonia port
 			return new System.IO.BinaryReader(ms);
 		}
 

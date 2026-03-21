@@ -63,8 +63,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    
-    
+    <!-- Exclude WinForms-only files that have no Avalonia equivalent yet -->
+    <Compile Remove="GlossyRenderer.cs" />
+    <Compile Remove="ToolStripColorTable.cs" />
+    <Compile Remove="MyButtonItem.cs" />
+    <Compile Remove="ToolMenuItemExt.cs" />
+    <Compile Remove="LoadFileWrappers.cs" />
+    <Compile Remove="LoadFileWrappersExt.cs" />
+    <Compile Remove="LoadHelpTopics.cs" />
+    <Compile Remove="ResourceLoader.cs" />
   </ItemGroup>
 
   <ItemGroup>

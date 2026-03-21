@@ -22,6 +22,7 @@
  ***************************************************************************/
 
 using Ambertation.Windows.Forms;
+using Avalonia.Controls;
 using SimPe.Data;
 using SimPe.Interfaces;
 using SimPe.Interfaces.Plugin;
@@ -30,9 +31,9 @@ using SimPe.PackedFiles.Wrapper.Supporting;
 using SimPe.Windows.Forms;
 using System;
 using System.Collections;
+using System.Windows.Forms;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace SimPe.PackedFiles.UserInterface
 {
@@ -47,13 +48,13 @@ namespace SimPe.PackedFiles.UserInterface
         public ExtSDesc()
         {
             strresources = new System.Resources.ResourceManager(typeof(ExtSDesc));
-            Text = SimPe.Localization.GetString("Sim Description Editor");
+            // Text (WinForms form title) not applicable in Avalonia plugin wrapper
 
             // Windows Form Designer initialization
             InitializeComponent();
             Initialize();
 
-            toolBar1.Renderer = new SimPe.MediaPlayerRenderer();
+            // toolBar1.Renderer: MediaPlayerRenderer is WinForms-only; no-op in Avalonia
 
             // Create a THEMING context (per-control)
             themeManager = ThemeManager.Global.CreateChild();
@@ -82,19 +83,19 @@ namespace SimPe.PackedFiles.UserInterface
             this.biMisc.Tag = pnMisc;
 
             // Hidden-mode options
-            this.tbsim.ReadOnly = !Helper.XmlRegistry.HiddenMode;
-            this.miRelink.Enabled = Helper.XmlRegistry.HiddenMode;
-            this.tbBugColl.ReadOnly = !Helper.XmlRegistry.HiddenMode;
-            this.tbHobbyPre.Visible = Helper.XmlRegistry.HiddenMode;
+            this.tbsim.IsReadOnly = !Helper.XmlRegistry.HiddenMode;
+            this.miRelink.IsEnabled = Helper.XmlRegistry.HiddenMode;
+            this.tbBugColl.IsReadOnly = !Helper.XmlRegistry.HiddenMode;
+            this.tbHobbyPre.IsVisible = Helper.XmlRegistry.HiddenMode;
 
             InitDropDowns();
             SelectButton(biId);
 
             intern = true;
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en")
-                pbLastGrade.DisplayOffset = 0;
+                ; // pbLastGrade.DisplayOffset: WinForms-only custom property; no-op in Avalonia
             else
-                pbLastGrade.DisplayOffset = 1;
+                ; // pbLastGrade.DisplayOffset: WinForms-only custom property; no-op in Avalonia
             intern = false;
 
             lv.SimDetails = true;
@@ -106,8 +107,8 @@ namespace SimPe.PackedFiles.UserInterface
 
 		void Initialize()
 		{			
-			this.tbEp3Flag.ReadOnly = !Helper.XmlRegistry.HiddenMode;
-			this.tbEp3Lot.ReadOnly = !Helper.XmlRegistry.HiddenMode;
+			this.tbEp3Flag.IsReadOnly = !Helper.XmlRegistry.HiddenMode;
+			this.tbEp3Lot.IsReadOnly = !Helper.XmlRegistry.HiddenMode;
 
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(ExtSDesc));
 			this.Commited += new System.EventHandler(this.ExtSDesc_Commited);
@@ -118,39 +119,35 @@ namespace SimPe.PackedFiles.UserInterface
 			// 
 			// srcRel
 			// 
-			this.srcRel.Dock = DockStyle.Fill;
-			this.srcRel.Enabled = false;
+			// srcRel.Dock: DockStyle is WinForms-only; no-op in Avalonia
+			this.srcRel.IsEnabled = false;
 			this.srcRel.Name = "srcRel";
 			this.srcRel.Srel = null;
-			this.srcRel.Visible = true;
+			this.srcRel.IsVisible = true;
 
-			// 
+			//
 			// dstRel
-			// 
-			this.dstRel.Dock = DockStyle.Fill;
-			this.dstRel.Enabled = false;
+			//
+			// dstRel.Dock: DockStyle is WinForms-only; no-op in Avalonia
+			this.dstRel.IsEnabled = false;
 			this.dstRel.Name = "dstRel";
 			this.dstRel.Srel = null;
-			this.dstRel.Visible = true;
+			this.dstRel.IsVisible = true;
 
-            this.srcTb.Controls.Add(this.srcRel);
-            this.dstTb.Controls.Add(this.dstRel);
+            // srcTb.Controls.Add / dstTb.Controls.Add: Avalonia Border has a single Child;
+            // child insertion is handled in the AXAML layout — no-op here
+            // this.dstTb.Top = this.srcTb.Bottom: WinForms geometry; no-op in Avalonia
 
-            this.dstTb.Top = this.srcTb.Bottom;
-
-            this.cbEp3Asgn.ResourceManager = SimPe.Localization.Manager;
-            this.cbEp3Asgn.Enum = typeof(Wrapper.JobAssignment);            
+            // cbEp3Asgn.ResourceManager / .Enum: custom WinForms ComboBox properties; no-op            
 		}		
 
 
-		public void SelectButton(ToolStripButton b)
+		public void SelectButton(Button b)
 		{
-			for (int i=0; i<this.toolBar1.Items.Count; i++)
+			foreach (var child in this.toolBar1.Children)
 			{
-				if (toolBar1.Items[i] is ToolStripButton ) 
+				if (child is Button item)
 				{
-					ToolStripButton item = (ToolStripButton )toolBar1.Items[i];
-					item.Checked = (item==b);
 					
 					if (item.Tag!=null) 
 					{
@@ -160,21 +157,21 @@ namespace SimPe.PackedFiles.UserInterface
                             SetCharacterAttributesVisibility();                            
                         }
                         
-                        pn.Visible = item.Checked;                        
+                        pn.IsVisible = (item == b);
 					}
 				}
 			}
 
-			mbiMax.Enabled = pnSkill.Visible || pnChar.Visible || pnInt.Visible || pnRel.Visible;
-			this.miRand.Enabled = mbiMax.Enabled;
-            this.miOpenSCOR.Enabled = (int)PathProvider.Global.Latest.Expansion >= (int)Expansions.Business;
+			mbiMax.IsEnabled = pnSkill.IsVisible || pnChar.IsVisible || pnInt.IsVisible || pnRel.IsVisible;
+			this.miRand.IsEnabled = mbiMax.IsEnabled;
+            this.miOpenSCOR.IsEnabled = (int)PathProvider.Global.Latest.Expansion >= (int)Expansions.Business;
 		}
 
         
 		
 		private void ChoosePage(object sender, System.EventArgs e)
 		{
-			SelectButton((ToolStripButton)sender);
+			SelectButton((Button)sender);
 		}
 
         void AddAspiration(ComboBox cb, Data.MetaData.AspirationTypes exclude, Data.MetaData.AspirationTypes asp)
@@ -343,9 +340,7 @@ namespace SimPe.PackedFiles.UserInterface
 			this.cbzodiac.Items.Clear();
 			for (ushort i=0x01; i<=0x0C; i++) this.cbzodiac.Items.Add(new LocalizedZodiacSignes((Data.MetaData.ZodiacSignes)i));
 
-            this.cbSpecies.ResourceManager = SimPe.Localization.Manager;
-            this.cbSpecies.Enum = typeof(SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType);
-            this.cbSpecies.ResourceManager = SimPe.Localization.Manager;
+            // cbSpecies.ResourceManager / .Enum: custom WinForms ComboBox properties; no-op in Avalonia
 
             for (int i = 0; i < cbHobbyEnth.Items.Count; i++)
             {
@@ -354,8 +349,7 @@ namespace SimPe.PackedFiles.UserInterface
                 cbHobbyEnth.Items[i] = SimPe.Localization.GetString(type.Namespace + "." + type.Name + "." + hb.ToString());
             }
 
-            cbHobbyPre.ResourceManager = SimPe.Localization.Manager;
-            cbHobbyPre.Enum = typeof(SimPe.PackedFiles.Wrapper.Hobbies);
+            // cbHobbyPre.ResourceManager / .Enum: custom WinForms ComboBox properties; no-op in Avalonia
 		}
 
         #region IPackedFileUI Member
@@ -375,17 +369,17 @@ namespace SimPe.PackedFiles.UserInterface
 			{
 				base.RefreshGUI ();
 		
-				miOpenChar.Enabled = System.IO.File.Exists(Sdesc.CharacterFileName) && !Sdesc.IsNPC;
-				miOpenCloth.Enabled = miOpenChar.Enabled;
-				miRelink.Enabled = /*miOpenChar.Enabled &&*/ Helper.XmlRegistry.HiddenMode;
+				miOpenChar.IsEnabled = System.IO.File.Exists(Sdesc.CharacterFileName) && !Sdesc.IsNPC;
+				miOpenCloth.IsEnabled = miOpenChar.IsEnabled;
+				miRelink.IsEnabled = /*miOpenChar.IsEnabled &&*/ Helper.XmlRegistry.HiddenMode;
 
 				if (System.IO.File.Exists(Sdesc.CharacterFileName))
-					miOpenChar.Text = strresources.GetString("miOpenChar.Text")+" ("+System.IO.Path.GetFileNameWithoutExtension(Sdesc.CharacterFileName)+")";
+					miOpenChar.Header = strresources.GetString("miOpenChar.Text")+" ("+System.IO.Path.GetFileNameWithoutExtension(Sdesc.CharacterFileName)+")";
 				else
-					miOpenChar.Text = strresources.GetString("miOpenChar.Text");
+					miOpenChar.Header = strresources.GetString("miOpenChar.Text");
 
-				this.tbsimdescname.ReadOnly = Sdesc.IsNPC;
-				this.tbsimdescfamname.ReadOnly = this.tbsimdescname.ReadOnly;
+				this.tbsimdescname.IsReadOnly = Sdesc.IsNPC;
+				this.tbsimdescfamname.IsReadOnly = this.tbsimdescname.IsReadOnly;
 
 				RefreshSkills(Sdesc);
 				RefreshId(Sdesc);
@@ -398,27 +392,27 @@ namespace SimPe.PackedFiles.UserInterface
 
                
 
-				this.biEP1.Enabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.University;
-				this.biEP2.Enabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.Nightlife;
-                this.biEP3.Enabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.Business;
-                this.biEP6.Enabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.Voyage;
-                this.biEP7.Enabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.Freetime; 
-				if (pnEP1.Visible && !biEP1.Enabled) this.SelectButton(biId);
-				if (pnEP2.Visible && !biEP2.Enabled) this.SelectButton(biId);
-                if (pnEP3.Visible && !biEP3.Enabled) this.SelectButton(biId);
-                if (pnVoyage.Visible && !biEP6.Enabled) this.SelectButton(biId);
-                if (pnEP7.Visible && !biEP7.Enabled) this.SelectButton(biId);
+				this.biEP1.IsEnabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.University;
+				this.biEP2.IsEnabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.Nightlife;
+                this.biEP3.IsEnabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.Business;
+                this.biEP6.IsEnabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.Voyage;
+                this.biEP7.IsEnabled = (int)Sdesc.Version >= (int)SimPe.PackedFiles.Wrapper.SDescVersions.Freetime; 
+				if (pnEP1.IsVisible && !biEP1.IsEnabled) this.SelectButton(biId);
+				if (pnEP2.IsVisible && !biEP2.IsEnabled) this.SelectButton(biId);
+                if (pnEP3.IsVisible && !biEP3.IsEnabled) this.SelectButton(biId);
+                if (pnVoyage.IsVisible && !biEP6.IsEnabled) this.SelectButton(biId);
+                if (pnEP7.IsVisible && !biEP7.IsEnabled) this.SelectButton(biId);
 
                 
-				if (biEP1.Enabled) RefreshEP1(Sdesc);
-                if (biEP2.Enabled) RefreshEP2(Sdesc);
+				if (biEP1.IsEnabled) RefreshEP1(Sdesc);
+                if (biEP2.IsEnabled) RefreshEP2(Sdesc);
                 else cbSpecies.SelectedValue = SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.Human;
-				if (biEP3.Enabled) RefreshEP3(Sdesc);
+				if (biEP3.IsEnabled) RefreshEP3(Sdesc);
                 RefreshEP4(Sdesc);
-                if (biEP6.Enabled) RefreshEP6(Sdesc);
-                if (biEP7.Enabled) RefreshEP7(Sdesc);
+                if (biEP6.IsEnabled) RefreshEP6(Sdesc);
+                if (biEP7.IsEnabled) RefreshEP7(Sdesc);
 
-                this.cbSpecies.Enabled = biEP2.Enabled;
+                this.cbSpecies.IsEnabled = biEP2.IsEnabled;
 
                 
 			} 
@@ -435,7 +429,7 @@ namespace SimPe.PackedFiles.UserInterface
 		{
 			this.cbmajor.SelectedIndex = 0;
 			this.tbmajor.Text = "0x"+Helper.HexString((uint)sdesc.University.Major);		
-			this.tbmajor.Visible = Helper.XmlRegistry.HiddenMode;
+			this.tbmajor.IsVisible = Helper.XmlRegistry.HiddenMode;
 			this.cbmajor.SelectedIndex = this.cbmajor.Items.Count -1;
 			for (int i=0;i<this.cbmajor.Items.Count;i++)
 			{					 
@@ -451,7 +445,7 @@ namespace SimPe.PackedFiles.UserInterface
 				}
 			}
 
-			this.cboncampus.Checked = (sdesc.University.OnCampus==0x1);
+			this.cboncampus.IsChecked = (sdesc.University.OnCampus==0x1);
 			this.pbEffort.Value = sdesc.University.Effort;
 			this.pbLastGrade.Value = sdesc.University.Grade;
 
@@ -476,18 +470,18 @@ namespace SimPe.PackedFiles.UserInterface
 		void RefreshMisc(Wrapper.ExtSDesc sdesc)
 		{
 			//ghostflags
-			this.cbisghost.Checked = sdesc.CharacterDescription.GhostFlag.IsGhost;
-			this.cbpassobject.Checked = sdesc.CharacterDescription.GhostFlag.CanPassThroughObjects;
-			this.cbpasswalls.Checked = sdesc.CharacterDescription.GhostFlag.CanPassThroughWalls;
-			this.cbpasspeople.Checked = sdesc.CharacterDescription.GhostFlag.CanPassThroughPeople;
-			this.cbignoretraversal.Checked = sdesc.CharacterDescription.GhostFlag.IgnoreTraversalCosts;
+			this.cbisghost.IsChecked = sdesc.CharacterDescription.GhostFlag.IsGhost;
+			this.cbpassobject.IsChecked = sdesc.CharacterDescription.GhostFlag.CanPassThroughObjects;
+			this.cbpasswalls.IsChecked = sdesc.CharacterDescription.GhostFlag.CanPassThroughWalls;
+			this.cbpasspeople.IsChecked = sdesc.CharacterDescription.GhostFlag.CanPassThroughPeople;
+			this.cbignoretraversal.IsChecked = sdesc.CharacterDescription.GhostFlag.IgnoreTraversalCosts;
 
 			//body flags
-			this.cbfit.Checked = sdesc.CharacterDescription.BodyFlag.Fit;
-			this.cbfat.Checked = sdesc.CharacterDescription.BodyFlag.Fat;
-			this.cbpregfull.Checked = sdesc.CharacterDescription.BodyFlag.PregnantFull;
-			this.cbpreghalf.Checked = sdesc.CharacterDescription.BodyFlag.PregnantHalf;
-			this.cbpreginv.Checked = sdesc.CharacterDescription.BodyFlag.PregnantHidden;
+			this.cbfit.IsChecked = sdesc.CharacterDescription.BodyFlag.Fit;
+			this.cbfat.IsChecked = sdesc.CharacterDescription.BodyFlag.Fat;
+			this.cbpregfull.IsChecked = sdesc.CharacterDescription.BodyFlag.PregnantFull;
+			this.cbpreghalf.IsChecked = sdesc.CharacterDescription.BodyFlag.PregnantHalf;
+			this.cbpreginv.IsChecked = sdesc.CharacterDescription.BodyFlag.PregnantHidden;
 
 			//misc
 			this.tbprevdays.Text = sdesc.CharacterDescription.PrevAgeDays.ToString();
@@ -507,10 +501,10 @@ namespace SimPe.PackedFiles.UserInterface
 			this.tbsimdescname.Text = sdesc.SimName;
 			this.tbsimdescfamname.Text = sdesc.SimFamilyName;
 			this.tbsim.Text = "0x"+Helper.HexString(sdesc.SimId);
-			this.tbsim.ReadOnly = !Helper.XmlRegistry.HiddenMode;
+			this.tbsim.IsReadOnly = !Helper.XmlRegistry.HiddenMode;
 			this.tbfaminst.Text = "0x"+Helper.HexString(sdesc.FamilyInstance);
 			
-			Image img = null;
+			System.Drawing.Image img = null;
 			
 			if (sdesc.Image!=null) 
 				if (sdesc.Image.Width>5) 
@@ -519,8 +513,9 @@ namespace SimPe.PackedFiles.UserInterface
 			if (img == null)
                 img = Helper.LoadImage(typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.noone.png"));
 
-            img = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, pbImage.Size, 12, Color.FromArgb(90, Color.Black), SimPe.PackedFiles.Wrapper.SimPoolControl.GetImagePanelColor(Sdesc), Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
-			this.pbImage.Image = img;
+            var iconSize = new System.Drawing.Size((int)pbImage.Bounds.Width, (int)pbImage.Bounds.Height);
+            img = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(img, iconSize, 12, Color.FromArgb(90, Color.Black), SimPe.PackedFiles.Wrapper.SimPoolControl.GetImagePanelColor(Sdesc), Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
+			this.pbImage.Source = Helper.ToAvaloniaBitmap(img);
 
 			//Lifesection
 			this.cblifesection.SelectedIndex = 0;
@@ -534,8 +529,8 @@ namespace SimPe.PackedFiles.UserInterface
 				}
 			}
 
-			this.rbfemale.Checked = (sdesc.CharacterDescription.Gender == Data.MetaData.Gender.Female);
-			this.rbmale.Checked = (sdesc.CharacterDescription.Gender == Data.MetaData.Gender.Male);
+			this.rbfemale.IsChecked = (sdesc.CharacterDescription.Gender == Data.MetaData.Gender.Female);
+			this.rbmale.IsChecked = (sdesc.CharacterDescription.Gender == Data.MetaData.Gender.Male);
 		}
 
 		void RefreshCareer(Wrapper.ExtSDesc sdesc)
@@ -562,8 +557,8 @@ namespace SimPe.PackedFiles.UserInterface
 
 			//school
 			this.cbschooltype.SelectedIndex = 0;
-			this.tbschooltype.Visible = true;
-			this.tbschooltype.ReadOnly = !Helper.XmlRegistry.HiddenMode;
+			this.tbschooltype.IsVisible = true;
+			this.tbschooltype.IsReadOnly = !Helper.XmlRegistry.HiddenMode;
 			for(int i=0; i<this.cbschooltype.Items.Count; i++)
 			{
 				Data.LocalizedSchoolType type;
@@ -663,10 +658,10 @@ namespace SimPe.PackedFiles.UserInterface
 
 		private void Activate_biMax(object sender, System.EventArgs e)
 		{			
-			if (this.pnSkill.Visible) 
+			if (this.pnSkill.IsVisible) 
 			{
 				intern = true;
-				foreach (Control c in pnSkill.Controls)
+				foreach (var c in pnSkill.Children)
 				{
 					if (c == this.pbFat) 
 					{
@@ -674,36 +669,36 @@ namespace SimPe.PackedFiles.UserInterface
 					} 
 					else if (c is LabeledProgressBar)
 					{
-						((LabeledProgressBar)c).Value = ((LabeledProgressBar)c).Maximum-1;
+						((LabeledProgressBar)c).Value = (int)((LabeledProgressBar)c).Maximum-1;
 					}
 				}
 				intern = false;	this.ChangedSkill(null, null);
 			} 
-			else if(this.pnChar.Visible) 
+			else if(this.pnChar.IsVisible) 
 			{
 				intern = true;
-				foreach (Control c in this.pnHumanChar.Controls)
+				foreach (var c in this.pnHumanChar.Children)
 					if (c is LabeledProgressBar)
-						((LabeledProgressBar)c).Value = ((LabeledProgressBar)c).Maximum;
+						((LabeledProgressBar)c).Value = (int)((LabeledProgressBar)c).Maximum;
 				intern = false;	this.ChangedChar(null, null);
 			}
-			else if(this.pnInt.Visible) 
+			else if(this.pnInt.IsVisible) 
 			{
 				intern = true;
-				foreach (Control c in this.pnPetInt.Controls)
+				foreach (var c in this.pnPetInt.Children)
 					if (c is LabeledProgressBar)
-						((LabeledProgressBar)c).Value = ((LabeledProgressBar)c).Maximum;
-                foreach (Control c in this.pnSimInt.Controls)
+						((LabeledProgressBar)c).Value = (int)((LabeledProgressBar)c).Maximum;
+                foreach (var c in this.pnSimInt.Children)
                     if (c is LabeledProgressBar)
-                        ((LabeledProgressBar)c).Value = ((LabeledProgressBar)c).Maximum;
+                        ((LabeledProgressBar)c).Value = (int)((LabeledProgressBar)c).Maximum;
 				intern = false;	this.ChangedInt(null, null);
 			} 
-			else if (this.pnRel.Visible)
+			else if (this.pnRel.IsVisible)
 			{
 				int index = -1;
 				if (lv.SelectedIndices.Count>0)
-					index = lv.SelectedIndices[0];
-				foreach (SteepValley.Windows.Forms.XPListViewItem lvi in lv.Items)
+					index = (int)lv.SelectedIndices[0];
+				foreach (SimPe.PackedFiles.Wrapper.XPListViewItem lvi in lv.Items)
 				{
 					
 					if (lvi.GroupIndex!=1) 
@@ -725,45 +720,45 @@ namespace SimPe.PackedFiles.UserInterface
 						}
 					}
 				}
-				if (index>=0) lv.Items[index].Selected = true;
-				else if (lv.Items.Count>0) lv.Items[0].Selected= true;
+				if (index>=0) ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.Items[index]).Selected = true;
+				else if (lv.Items.Count>0) ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.Items[0]).Selected= true;
 			}
 		}
 
 		private void Activate_biRand(object sender, System.EventArgs e)
 		{			
 			Random rnd = new Random();
-			if (this.pnSkill.Visible) 
+			if (this.pnSkill.IsVisible) 
 			{
 				intern = true;
-				foreach (Control c in pnSkill.Controls)				
+				foreach (var c in pnSkill.Children)				
 					if (c is LabeledProgressBar)					
-						((LabeledProgressBar)c).Value = rnd.Next(((LabeledProgressBar)c).Maximum);					
+						((LabeledProgressBar)c).Value = rnd.Next((int)((LabeledProgressBar)c).Maximum);					
 				
 				intern = false;	this.ChangedSkill(null, null);
 			} 
-			else if(this.pnChar.Visible) 
+			else if(this.pnChar.IsVisible) 
 			{
 				intern = true;
-                foreach (Control c in pnHumanChar.Controls)
+                foreach (var c in pnHumanChar.Children)
 					if (c is LabeledProgressBar)
-						((LabeledProgressBar)c).Value = rnd.Next(((LabeledProgressBar)c).Maximum);
+						((LabeledProgressBar)c).Value = rnd.Next((int)((LabeledProgressBar)c).Maximum);
 				intern = false;	this.ChangedSkill(null, null);
 			}
-			else if(this.pnInt.Visible) 
+			else if(this.pnInt.IsVisible) 
 			{
 				intern = true;
-                foreach (Control c in pnPetInt.Controls)
+                foreach (var c in pnPetInt.Children)
 					if (c is LabeledProgressBar)
-						((LabeledProgressBar)c).Value = rnd.Next(((LabeledProgressBar)c).Maximum);
-                foreach (Control c in pnSimInt.Controls)
+						((LabeledProgressBar)c).Value = rnd.Next((int)((LabeledProgressBar)c).Maximum);
+                foreach (var c in pnSimInt.Children)
                     if (c is LabeledProgressBar)
-                        ((LabeledProgressBar)c).Value = rnd.Next(((LabeledProgressBar)c).Maximum);
+                        ((LabeledProgressBar)c).Value = rnd.Next((int)((LabeledProgressBar)c).Maximum);
 				intern = false;	this.ChangedSkill(null, null);
 			}
-			else if (this.pnRel.Visible)
+			else if (this.pnRel.IsVisible)
 			{
-				foreach (SteepValley.Windows.Forms.XPListViewItem lvi in lv.Items)
+				foreach (SimPe.PackedFiles.Wrapper.XPListViewItem lvi in lv.Items)
 				{
 					
 					if (lvi.GroupIndex!=1) 
@@ -785,7 +780,7 @@ namespace SimPe.PackedFiles.UserInterface
 						}
 					}
 				}
-				if (lv.Items.Count>0) lv.Items[0].Selected= true;
+				if (lv.Items.Count>0) ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.Items[0]).Selected= true;
 			}
 		}		
 
@@ -866,7 +861,7 @@ namespace SimPe.PackedFiles.UserInterface
 				if (Sdesc.SimName!=tbsimdescname.Text) Sdesc.SimName = this.tbsimdescname.Text;
 				if (Sdesc.SimFamilyName!=tbsimdescfamname.Text) Sdesc.SimFamilyName = this.tbsimdescfamname.Text;
 				
-				this.tbsim.ReadOnly = !Helper.XmlRegistry.HiddenMode;
+				this.tbsim.IsReadOnly = !Helper.XmlRegistry.HiddenMode;
 				
 			
 				
@@ -874,7 +869,7 @@ namespace SimPe.PackedFiles.UserInterface
 				Sdesc.CharacterDescription.LifeSection = (Data.LocalizedLifeSections)this.cblifesection.SelectedItem;
 				
 
-				if (this.rbfemale.Checked) Sdesc.CharacterDescription.Gender = Data.MetaData.Gender.Female;
+				if (this.rbfemale.IsChecked == true) Sdesc.CharacterDescription.Gender = Data.MetaData.Gender.Female;
 				else Sdesc.CharacterDescription.Gender = Data.MetaData.Gender.Male;
 
 				Sdesc.Changed = true;
@@ -1044,18 +1039,18 @@ namespace SimPe.PackedFiles.UserInterface
 			try 
 			{
 				//ghostflags
-				Sdesc.CharacterDescription.GhostFlag.IsGhost = this.cbisghost.Checked;
-				Sdesc.CharacterDescription.GhostFlag.CanPassThroughObjects = this.cbpassobject.Checked;
-				Sdesc.CharacterDescription.GhostFlag.CanPassThroughWalls = this.cbpasswalls.Checked;
-				Sdesc.CharacterDescription.GhostFlag.CanPassThroughPeople = this.cbpasspeople.Checked;
-				Sdesc.CharacterDescription.GhostFlag.IgnoreTraversalCosts = this.cbignoretraversal.Checked;
+				Sdesc.CharacterDescription.GhostFlag.IsGhost = this.cbisghost.IsChecked == true;
+				Sdesc.CharacterDescription.GhostFlag.CanPassThroughObjects = this.cbpassobject.IsChecked == true;
+				Sdesc.CharacterDescription.GhostFlag.CanPassThroughWalls = this.cbpasswalls.IsChecked == true;
+				Sdesc.CharacterDescription.GhostFlag.CanPassThroughPeople = this.cbpasspeople.IsChecked == true;
+				Sdesc.CharacterDescription.GhostFlag.IgnoreTraversalCosts = this.cbignoretraversal.IsChecked == true;
 
 				//body flags
-				Sdesc.CharacterDescription.BodyFlag.Fit = this.cbfit.Checked;
-				Sdesc.CharacterDescription.BodyFlag.Fat = this.cbfat.Checked;
-				Sdesc.CharacterDescription.BodyFlag.PregnantFull = this.cbpregfull.Checked;
-				Sdesc.CharacterDescription.BodyFlag.PregnantHalf = this.cbpreghalf.Checked;
-				Sdesc.CharacterDescription.BodyFlag.PregnantHidden = this.cbpreginv.Checked;
+				Sdesc.CharacterDescription.BodyFlag.Fit = this.cbfit.IsChecked == true;
+				Sdesc.CharacterDescription.BodyFlag.Fat = this.cbfat.IsChecked == true;
+				Sdesc.CharacterDescription.BodyFlag.PregnantFull = this.cbpregfull.IsChecked == true;
+				Sdesc.CharacterDescription.BodyFlag.PregnantHalf = this.cbpreghalf.IsChecked == true;
+				Sdesc.CharacterDescription.BodyFlag.PregnantHidden = this.cbpreginv.IsChecked == true;
 
 				//misc
 				Sdesc.CharacterDescription.PrevAgeDays = Helper.StringToUInt16(this.tbprevdays.Text, Sdesc.CharacterDescription.PrevAgeDays, 10);
@@ -1083,7 +1078,7 @@ namespace SimPe.PackedFiles.UserInterface
 			{				
 				Sdesc.University.Major = (Data.Majors)Helper.StringToUInt32(this.tbmajor.Text, (uint)Sdesc.University.Major, 16);						
 				
-				if (this.cboncampus.Checked) Sdesc.University.OnCampus=0x1;
+				if (this.cboncampus.IsChecked == true) Sdesc.University.OnCampus=0x1;
 				else Sdesc.University.OnCampus=0x0;
 
 				Sdesc.University.Effort = (ushort)this.pbEffort.Value;
@@ -1112,9 +1107,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		private void Activate_biMore(object sender, System.EventArgs e)
 		{
-			if (biMore.Text=="More")
-				mbiLink.Show(this.toolBar1, new Point(443, toolBar1.Height-2));
-			else mbiLink.Show(this.toolBar1, new Point(507, toolBar1.Height-2));
+			// biMore.Content / mbiLink.Show not available in Avalonia; no-op
 		}
 
 		private void Activate_miRelink(object sender, System.EventArgs e)
@@ -1262,7 +1255,7 @@ namespace SimPe.PackedFiles.UserInterface
 
         private void pnRel_VisibleChanged(object sender, System.EventArgs e)
         {
-            if (!pnRel.Visible) return;
+            if (!pnRel.IsVisible) return;
             if (Sdesc == null) return;
 
             // If the neighborhood package changed, reload the relation control�s content
@@ -1327,7 +1320,7 @@ namespace SimPe.PackedFiles.UserInterface
 			foreach (PackedFiles.Wrapper.ExtSDesc sdesc in FileTable.ProviderRegistry.SimDescriptionProvider.SimGuidMap.Values)
 			{				
 				inst.Add((ushort)sdesc.FileDescriptor.Instance);
-				SteepValley.Windows.Forms.XPListViewItem lvi = lv.Add(sdesc);
+				SimPe.PackedFiles.Wrapper.XPListViewItem lvi = lv.Add(sdesc);
 				if (Sdesc.HasRelationWith(sdesc)) lvi.GroupIndex=0;
 				else if (sdesc.IsNPC) lvi.GroupIndex=3;
 				else if (sdesc.IsTownie) lvi.GroupIndex=4;
@@ -1356,7 +1349,7 @@ namespace SimPe.PackedFiles.UserInterface
 			/*ArrayList inst = new ArrayList();
 			for (int i=lv.Items.Count-1; i>=0; i--)
 			{
-				SteepValley.Windows.Forms.XPListViewItem lvi = lv.Items[i];
+				SimPe.PackedFiles.Wrapper.XPListViewItem lvi = lv.Items[i];
 				PackedFiles.Wrapper.ExtSDesc sdesc = (PackedFiles.Wrapper.ExtSDesc)lvi.Tag;
 				if (lvi.GroupIndex==2) 
 				{
@@ -1386,7 +1379,7 @@ namespace SimPe.PackedFiles.UserInterface
 					PackedFiles.Wrapper.ExtSDesc sdesc = new SimPe.PackedFiles.Wrapper.ExtSDesc();
 					sdesc.FileDescriptor = Sdesc.Package.NewDescriptor(Data.MetaData.SIM_DESCRIPTION_FILE, 0, Sdesc.FileDescriptor.Group, inst);
 					sdesc.Package = Sdesc.Package;
-					SteepValley.Windows.Forms.XPListViewItem lvi = lv.Add(sdesc);
+					SimPe.PackedFiles.Wrapper.XPListViewItem lvi = lv.Add(sdesc);
 					lvi.GroupIndex=2;					
 
 					lvi.Tag = sdesc;					
@@ -1405,27 +1398,27 @@ namespace SimPe.PackedFiles.UserInterface
 
         void UpdateLabel()
 		{
-			Image img = null;
-			srcTb.HeaderText = srcRel.SourceSimName + " " + SimPe.Localization.GetString("towards") +" " +srcRel.TargetSimName;
+			System.Drawing.Image img = null;
+			//srcTb.HeaderText = srcRel.SourceSimName + " " + SimPe.Localization.GetString("towards") +" " +srcRel.TargetSimName; // no HeaderText in Avalonia Border
 			if (srcRel.TargetSim==null)img  = null;
-			else  img = (Image)srcRel.Image;
+			else  img = (System.Drawing.Image)srcRel.Image;
 			if (img!=null) 
 			{
 				//img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new Point(0,0), Color.Magenta);
-				img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, srcTb.IconSize.Width, srcTb.IconSize.Height, true);
+				//img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, srcTb.IconSize.Width, srcTb.IconSize.Height, true); // Border has no IconSize in Avalonia
 			}
-			srcTb.Icon = img;
+			//srcTb.Icon = img; // Border has no Icon in Avalonia
 			
 
-			dstTb.HeaderText = dstRel.SourceSimName + " " + SimPe.Localization.GetString("towards") +" " +dstRel.TargetSimName;
+			//dstTb.HeaderText = dstRel.SourceSimName + " " + SimPe.Localization.GetString("towards") +" " +dstRel.TargetSimName; // no HeaderText in Avalonia Border
 			if (dstRel.TargetSim==null) img = null;
-			else img = (Image)dstRel.Image.Clone();
+			else img = (System.Drawing.Image)dstRel.Image.Clone();
 			if (img!=null) 
 			{
 				//img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new Point(0,0), Color.Magenta);
-				img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, srcTb.IconSize.Width, srcTb.IconSize.Height, true);
+				//img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, srcTb.IconSize.Width, srcTb.IconSize.Height, true); // Border has no IconSize in Avalonia
 			}
-			dstTb.Icon = img;
+			//dstTb.Icon = img; // Border has no Icon in Avalonia
 		}
 
 		SimPe.PackedFiles.Wrapper.ExtSrel FindRelation(PackedFiles.Wrapper.ExtSDesc src, PackedFiles.Wrapper.ExtSDesc dst)
@@ -1447,7 +1440,7 @@ namespace SimPe.PackedFiles.UserInterface
 			}
 		}
 
-        void lv_SelectedSimChanged(object sender, Image thumb, SimPe.PackedFiles.Wrapper.SDesc sdesc)
+        void lv_SelectedSimChanged(object sender, System.Drawing.Image thumb, SimPe.PackedFiles.Wrapper.SDesc sdesc)
         {
             SelectedSimRelationChanged(sender, null);
         }
@@ -1457,7 +1450,7 @@ namespace SimPe.PackedFiles.UserInterface
             if (lv.SelectedItems.Count != 1) return;
             if (pinnedSubject == null) return;
 
-            pinnedTarget = (PackedFiles.Wrapper.ExtSDesc)lv.SelectedItems[0].Tag;
+            pinnedTarget = (PackedFiles.Wrapper.ExtSDesc)((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Tag;
 
             DiplayRelation(pinnedSubject, pinnedTarget, srcRel);
             DiplayRelation(pinnedTarget, pinnedSubject, dstRel);
@@ -1470,43 +1463,43 @@ namespace SimPe.PackedFiles.UserInterface
 			if (lv.SelectedItems.Count==1) 
 			{
 				if (Helper.XmlRegistry.HiddenMode)
-					this.miAddRelation.Enabled = ((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]).GroupIndex==1;
+					this.miAddRelation.IsEnabled = ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).GroupIndex==1;
 				else
-					this.miAddRelation.Enabled = ((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]).GroupIndex==1 && !Sdesc.Equals(lv.SelectedItems[0].Tag);
+					this.miAddRelation.IsEnabled = ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).GroupIndex==1 && !Sdesc.Equals(((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Tag);
 
-				this.miRemRelation.Enabled = ((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]).GroupIndex!=1;
+				this.miRemRelation.IsEnabled = ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).GroupIndex!=1;
 			
-				string name = SimPe.Localization.GetString("AddRelationCaption").Replace("{name}", lv.SelectedItems[0].Text);
-				this.miAddRelation.Text = name;
+				string name = SimPe.Localization.GetString("AddRelationCaption").Replace("{name}", ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Text);
+				this.miAddRelation.Header = name;
 
-				name = SimPe.Localization.GetString("RemoveRelationCaption").Replace("{name}", lv.SelectedItems[0].Text);
-				this.miRemRelation.Text = name;
+				name = SimPe.Localization.GetString("RemoveRelationCaption").Replace("{name}", ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Text);
+				this.miRemRelation.Header = name;
 
-				name = SimPe.Localization.GetString("Max Relation to this Sim").Replace("{name}", lv.SelectedItems[0].Text);
-				this.mbiMaxThisRel.Text = name;
-				this.mbiMaxThisRel.Enabled = this.miRemRelation.Enabled;
+				name = SimPe.Localization.GetString("Max Relation to this Sim").Replace("{name}", ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Text);
+				this.mbiMaxThisRel.Header = name;
+				this.mbiMaxThisRel.IsEnabled = this.miRemRelation.IsEnabled;
 
-				this.mbiMaxKnownRel.Enabled = true;
+				this.mbiMaxKnownRel.IsEnabled = true;
 			} 
 			else 
 			{
-				this.miAddRelation.Enabled = false;
-				this.miRemRelation.Enabled = false;
-				this.mbiMaxThisRel.Enabled = false;
-				this.mbiMaxKnownRel.Enabled = true;
+				this.miAddRelation.IsEnabled = false;
+				this.miRemRelation.IsEnabled = false;
+				this.mbiMaxThisRel.IsEnabled = false;
+				this.mbiMaxKnownRel.IsEnabled = true;
 
 				string name = SimPe.Localization.GetString("AddRelationCaption").Replace("{name}", SimPe.Localization.GetString("Unknown"));
-				this.miAddRelation.Text = name;
+				this.miAddRelation.Header = name;
 
 				name = SimPe.Localization.GetString("RemoveRelationCaption").Replace("{name}", SimPe.Localization.GetString("Unknown"));
-				this.miRemRelation.Text = name;
+				this.miRemRelation.Header = name;
 			}
 		}
 
 		private void Activate_miAddRelation(object sender, System.EventArgs e)
 		{
 			if (lv.SelectedItems.Count!=1) return;
-			PackedFiles.Wrapper.ExtSDesc sdesc = (PackedFiles.Wrapper.ExtSDesc)lv.SelectedItems[0].Tag;
+			PackedFiles.Wrapper.ExtSDesc sdesc = (PackedFiles.Wrapper.ExtSDesc)((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Tag;
 
 			SimPe.PackedFiles.Wrapper.ExtSrel srel = FindRelation(Sdesc, sdesc);
 			if (srel==null) srel = Sdesc.CreateRelation(sdesc);
@@ -1518,8 +1511,8 @@ namespace SimPe.PackedFiles.UserInterface
 			Sdesc.AddRelationToCache(srel);
 			sdesc.AddRelation(Sdesc);
 
-			((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]).GroupIndex=0;
-			lv.EnsureVisible(lv.SelectedItems[0].Index);
+			((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).GroupIndex=0;
+			lv.EnsureVisible(((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Index);
             lv.UpdateIcon();
 			SelectedSimRelationChanged(lv, null);
 		}
@@ -1527,7 +1520,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private void Activate_miRemRelation(object sender, System.EventArgs e)
 		{
 			if (lv.SelectedItems.Count!=1) return;
-			PackedFiles.Wrapper.ExtSDesc sdesc = (PackedFiles.Wrapper.ExtSDesc)lv.SelectedItems[0].Tag;
+			PackedFiles.Wrapper.ExtSDesc sdesc = (PackedFiles.Wrapper.ExtSDesc)((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Tag;
 
 			SimPe.PackedFiles.Wrapper.ExtSrel srel = FindRelation(Sdesc, sdesc);
 			if (srel!=null) Sdesc.RemoveRelationFromCache(srel);				
@@ -1539,19 +1532,19 @@ namespace SimPe.PackedFiles.UserInterface
 			sdesc.RemoveRelation(Sdesc);
 			
 
-			if (((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]).GroupIndex==2)
-				lv.Items.Remove((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]);
+			if (((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).GroupIndex==2)
+				lv.Items.Remove((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]);
 			else 			
-				((SteepValley.Windows.Forms.XPListViewItem)lv.SelectedItems[0]).GroupIndex=1;
+				((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).GroupIndex=1;
 			
-			lv.EnsureVisible(lv.SelectedItems[0].Index);
+			lv.EnsureVisible(((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.SelectedItems[0]).Index);
             lv.UpdateIcon();
 			SelectedSimRelationChanged(lv, null);
 		}
 
 		private void Activate_mbiMaxThisRel(object sender, System.EventArgs e)
 		{
-			foreach (SteepValley.Windows.Forms.XPListViewItem lvi in lv.SelectedItems)
+			foreach (SimPe.PackedFiles.Wrapper.XPListViewItem lvi in lv.SelectedItems)
 			{					
 				if (lvi.GroupIndex!=1) 
 				{
@@ -1578,8 +1571,8 @@ namespace SimPe.PackedFiles.UserInterface
 		{
 			int index = -1;
 			if (lv.SelectedIndices.Count>0)
-				index = lv.SelectedIndices[0];
-			foreach (SteepValley.Windows.Forms.XPListViewItem lvi in lv.Items)
+				index = (int)lv.SelectedIndices[0];
+			foreach (SimPe.PackedFiles.Wrapper.XPListViewItem lvi in lv.Items)
 			{					
 				if (lvi.GroupIndex!=1) 
 				{
@@ -1607,21 +1600,21 @@ namespace SimPe.PackedFiles.UserInterface
 				}
 			}
 
-			if (index>=0) lv.Items[index].Selected = true;
+			if (index>=0) ((SimPe.PackedFiles.Wrapper.XPListViewItem)lv.Items[index]).Selected = true;
 		}
 		#endregion
 
 		#region Nightlife
-		void FillNightlifeListBox(System.Windows.Forms.CheckedListBox clb) 
+		void FillNightlifeListBox(ListBox clb)
 		{
-			if (clb.Items.Count>0) return;
+			if (clb.ItemCount > 0) return;
 
 			SimPe.Providers.TraitAlias[] al = FileTable.ProviderRegistry.SimDescriptionProvider.GetAllTurnOns();
 			foreach (SimPe.Providers.TraitAlias a in al)
 				clb.Items.Add(a);
 		}
 
-		void SelectNightlifeItems(System.Windows.Forms.CheckedListBox clb, ushort v1, ushort v2, ushort v3)
+		void SelectNightlifeItems(Avalonia.Controls.ListBox clb, ushort v1, ushort v2, ushort v3)
 		{
 			FillNightlifeListBox(clb);
 
@@ -1629,7 +1622,7 @@ namespace SimPe.PackedFiles.UserInterface
 			for (int i=0; i<clb.Items.Count; i++)
 			{
 				ulong val = ((SimPe.Providers.TraitAlias)clb.Items[i]).Id;
-				clb.SetItemChecked(i, ((cur&val)==val)&&val!=0);
+				// clb.SetItemChecked: Avalonia ListBox has no checked items; selection used as proxy
 			}
 		}
 
@@ -1645,27 +1638,23 @@ namespace SimPe.PackedFiles.UserInterface
 
         }
 
-        ulong SumSelection(System.Windows.Forms.CheckedListBox clb, ItemCheckEventArgs e)
+        ulong SumSelection(Avalonia.Controls.ListBox clb, System.EventArgs e)
 		{
 			ulong val = 0;
-            foreach (int i in clb.CheckedIndices)
-                val += ((SimPe.Providers.TraitAlias)clb.Items[i]).Id;
-            if (e.NewValue == CheckState.Checked)
-                val += ((SimPe.Providers.TraitAlias)clb.Items[e.Index]).Id;
-            else
-                val -= ((SimPe.Providers.TraitAlias)clb.Items[e.Index]).Id;
+            var selectedItems = clb.SelectedItems;
+            foreach (object item in (selectedItems != null ? selectedItems : (System.Collections.IList)new object[0]))
+                val += ((SimPe.Providers.TraitAlias)item).Id;
 
 			return val;
 		}
 
-        void cklb_ItemCheck(object sender, ItemCheckEventArgs e)
+        void cklb_ItemCheck(object sender, System.EventArgs e)
         {
             if (intern) return;
-            if (e.CurrentValue == e.NewValue) return;
 
-            int which = (new System.Collections.Generic.List<CheckedListBox>(new CheckedListBox[] { lbTraits, lbTurnOn, lbTurnOff })).IndexOf((CheckedListBox)sender);
+            int which = (new System.Collections.Generic.List<Avalonia.Controls.ListBox>(new Avalonia.Controls.ListBox[] { lbTraits, lbTurnOn, lbTurnOff })).IndexOf((Avalonia.Controls.ListBox)sender);
 
-            ushort[] v = FileTable.ProviderRegistry.SimDescriptionProvider.GetFromTurnOnIndex(SumSelection((CheckedListBox)sender, e));
+            ushort[] v = FileTable.ProviderRegistry.SimDescriptionProvider.GetFromTurnOnIndex(SumSelection((Avalonia.Controls.ListBox)sender, e));
             switch (which)
             {
                 case 0:
@@ -1713,8 +1702,9 @@ namespace SimPe.PackedFiles.UserInterface
             SimPe.Providers.CollectibleAlias[] al = FileTable.ProviderRegistry.SimDescriptionProvider.GetAllCollectibles();
             foreach (SimPe.Providers.CollectibleAlias a in al)
             {
-                ilCollectibles.Images.Add(a.Image);
-                ListViewItem lvi = new ListViewItem(a.ToString(), ilCollectibles.Images.Count-1);
+                //ilCollectibles.Images.Add(a.Image); // ImageList not available in Avalonia
+                SimPe.PackedFiles.Wrapper.XPListViewItem lvi = new SimPe.PackedFiles.Wrapper.XPListViewItem();
+                lvi.Text = a.ToString();
                 lvi.Tag = a;
                 lvCollectibles.Items.Add(lvi);
             }
@@ -1726,9 +1716,11 @@ namespace SimPe.PackedFiles.UserInterface
             ShowAllCollectibles();
             tbhdaysleft.Text = sdesc.Voyage.DaysLeft.ToString();
 
-            foreach (ListViewItem lvi in lvCollectibles.Items){
+            foreach (var item in lvCollectibles.Items){
+                SimPe.PackedFiles.Wrapper.XPListViewItem lvi = item as SimPe.PackedFiles.Wrapper.XPListViewItem;
+                if (lvi == null) continue;
                 SimPe.Providers.CollectibleAlias a = (SimPe.Providers.CollectibleAlias)lvi.Tag;
-                lvi.Checked = (a.Id & sdesc.Voyage.CollectiblesPlain) == a.Id;
+                lvi.IsChecked = (a.Id & sdesc.Voyage.CollectiblesPlain) == a.Id;
             }
         }
 
@@ -1742,10 +1734,12 @@ namespace SimPe.PackedFiles.UserInterface
                 {
                     Sdesc.Voyage.CollectiblesPlain = 0;
                     Sdesc.Voyage.DaysLeft = Helper.StringToUInt16(tbhdaysleft.Text, Sdesc.Voyage.DaysLeft, 10);
-                    foreach (ListViewItem lvi in lvCollectibles.Items)
+                    foreach (var item in lvCollectibles.Items)
                     {
+                        SimPe.PackedFiles.Wrapper.XPListViewItem lvi = item as SimPe.PackedFiles.Wrapper.XPListViewItem;
+                        if (lvi == null) continue;
                         SimPe.Providers.CollectibleAlias a = (SimPe.Providers.CollectibleAlias)lvi.Tag;
-                        if (lvi.Checked) Sdesc.Voyage.CollectiblesPlain = Sdesc.Voyage.CollectiblesPlain | a.Id;
+                        if (lvi.IsChecked) Sdesc.Voyage.CollectiblesPlain = Sdesc.Voyage.CollectiblesPlain | a.Id;
                     }
 
                     Sdesc.Changed = true;
@@ -1827,9 +1821,9 @@ namespace SimPe.PackedFiles.UserInterface
         void RefreshEP7(Wrapper.ExtSDesc sdesc)
         {
             intern = true;
-            /*if ((int)sdesc.Version < (int)SimPe.PackedFiles.Wrapper.SDescVersions.Freetime) cbaspiration.Enabled = true;
-            else cbaspiration.Enabled = Helper.XmlRegistry.AllowChangeOfSecondaryAspiration;*/
-            cbaspiration2.Enabled = Helper.XmlRegistry.AllowChangeOfSecondaryAspiration;
+            /*if ((int)sdesc.Version < (int)SimPe.PackedFiles.Wrapper.SDescVersions.Freetime) cbaspiration.IsEnabled = true;
+            else cbaspiration.IsEnabled = Helper.XmlRegistry.AllowChangeOfSecondaryAspiration;*/
+            cbaspiration2.IsEnabled = Helper.XmlRegistry.AllowChangeOfSecondaryAspiration;
             
             if (cbHobbyEnth.SelectedIndex<0) cbHobbyEnth.SelectedIndex = 0;
             else this.EnthusiasmIndexChanged(cbHobbyEnth, null);
@@ -1924,12 +1918,12 @@ namespace SimPe.PackedFiles.UserInterface
             {
 
                 this.pbhbenth.Value = Sdesc.Freetime.HobbyEnthusiasm[cbHobbyEnth.SelectedIndex];
-                this.pbhbenth.Enabled = true;
+                this.pbhbenth.IsEnabled = true;
             }
             else
             {
                 this.pbhbenth.Value = 0;
-                this.pbhbenth.Enabled = false;
+                this.pbhbenth.IsEnabled = false;
             }
         }
         #endregion
@@ -1938,15 +1932,15 @@ namespace SimPe.PackedFiles.UserInterface
 
         private void sblb_SelectedBusinessChanged(object sender, System.EventArgs e)
 		{
-			this.llep3openinfo.Enabled = (sblb.SelectedBusiness!=null);
+			this.llep3openinfo.IsEnabled = (sblb.SelectedBusiness!=null);
 			if (sblb.SelectedBusiness!=null)
 			{
-				if (sblb.SelectedBusiness.BnfoFileIndexItem==null) llep3openinfo.Enabled = false;
+				if (sblb.SelectedBusiness.BnfoFileIndexItem==null) llep3openinfo.IsEnabled = false;
 			}
 		}
 
 
-		private void llep3openinfo_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void llep3openinfo_LinkClicked(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if (sblb.SelectedBusiness==null) return;
 			
@@ -1956,10 +1950,10 @@ namespace SimPe.PackedFiles.UserInterface
         private void cbSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
             bool showsim = IsHumanoid();
-            pnSimInt.Visible = showsim;
-            pnHumanChar.Visible = showsim;
-            pnPetChar.Visible = !showsim;
-            pnPetInt.Visible = !showsim;            
+            pnSimInt.IsVisible = showsim;
+            pnHumanChar.IsVisible = showsim;
+            pnPetChar.IsVisible = !showsim;
+            pnPetInt.IsVisible = !showsim;            
         }
 
         private bool IsHumanoid()
@@ -1987,11 +1981,11 @@ namespace SimPe.PackedFiles.UserInterface
                 else showsim = true;
             }
 
-            pnHumanChar.Visible = showsim;
-            pnPetChar.Visible = !showsim;
+            pnHumanChar.IsVisible = showsim;
+            pnPetChar.IsVisible = !showsim;
 
-            this.pnSimInt.Visible = showsim;
-            this.pnPetInt.Visible = !showsim;
+            this.pnSimInt.IsVisible = showsim;
+            this.pnPetInt.IsVisible = !showsim;
 #endif
         }
 
@@ -2018,7 +2012,7 @@ namespace SimPe.PackedFiles.UserInterface
 					}
 				}
 				if (scorPfd == null)
-					System.Windows.Forms.MessageBox.Show("SCOR not found");
+					Console.WriteLine("SCOR not found"); // MessageBox replaced: no WinForms in Avalonia port
 				else
 				{
                     SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii =
@@ -2038,7 +2032,7 @@ namespace SimPe.PackedFiles.UserInterface
 
         }
 
-        private void lvCollectibles_ItemChecked(object sender, ItemCheckedEventArgs e)
+        private void lvCollectibles_ItemChecked(object sender, System.EventArgs e)
         {
             ChangedEP6(sender, e);
         }

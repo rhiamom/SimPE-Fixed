@@ -22,19 +22,16 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
-  <!-- WinForms UI forms excluded — replaced by FormsStubs.cs -->
+  <!-- Files excluded: WinForms-only, no Avalonia equivalent yet -->
   <ItemGroup>
-    <Compile Remove="WaitingForm.cs" />
-    <Compile Remove="ExceptionForm.cs" />
-    <Compile Remove="pjseMsgBox.cs" />
     <Compile Remove="SelectSimFolder.cs" />
-    <Compile Remove="LabelledBoolsetControl.cs" />
+    <Compile Remove="ColumnSorter.cs" />
+    <Compile Remove="pjseMsgBox.Designer.cs" />
+    <Compile Remove="LabelledBoolsetControl.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="LabelledBoolsetControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <EmbeddedResource Include="IconXmlResources\expansions.xreg" />
     <EmbeddedResource Include="IconXmlResources\propertydefinition.xsd">
       <SubType>Designer</SubType>

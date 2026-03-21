@@ -9,353 +9,212 @@
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Globalization;
-using System.Resources;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
+using System.IO;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using GdiSize                = System.Drawing.Size;
+using GdiPoint               = System.Drawing.Point;
+using AvSize                 = Avalonia.Size;
+using GdiPen                 = System.Drawing.Pen;
+using GdiLinearGradientBrush = System.Drawing.Drawing2D.LinearGradientBrush;
 
 namespace Ambertation.Windows.Forms
 {
-	
+    /// <summary>
+    /// A styled panel with a gradient header bar and body area.
+    /// Ported from the WinForms version; GDI+ rendering is kept for the
+    /// offscreen cache bitmap which is then composited via Avalonia.
+    /// </summary>
+    [DesignTimeVisible(true)]
+    public class XPTaskBoxSimple : Avalonia.Controls.Control
+    {
+        // Methods
+        public XPTaskBoxSimple()
+        {
+            headerh         = 22;
+            mstrHeaderText  = "";
+            bc              = System.Drawing.SystemColors.Window;
+            lhc             = System.Drawing.SystemColors.InactiveCaption;
+            rhc             = System.Drawing.SystemColors.Highlight;
+            bodc            = System.Drawing.SystemColors.InactiveCaptionText;
+            htc             = System.Drawing.SystemColors.ActiveCaptionText;
+            font            = new Font("Arial", 9f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point);
+            icsz            = new GdiSize(32, 32);
+            icpt            = new GdiPoint(4, 12);
+        }
 
-	/// <summary>
-	/// This is an c#-Version of a Control created by www.steepvalley.net. 
-	/// I translated it to remove the Expand/Collapse feature
-	/// </summary>
-	[DesignTimeVisible(true), ToolboxBitmapAttribute(typeof(GroupBox))]
-	public class XPTaskBoxSimple : Panel
-	{		
+        System.Drawing.Color lhc, rhc, bc, bodc, htc;
+        public System.Drawing.Color LeftHeaderColor
+        {
+            get => lhc;
+            set { if (lhc != value) { lhc = value; InvalidateCanvas(); } }
+        }
 
-		// Methods
-		public XPTaskBoxSimple()
-		{
-			headerh = 22;
-			this.mstrHeaderText = "";
-			this.InitializeComponent();
-			this.SetStyle(ControlStyles.ResizeRedraw, true);
-			this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-			this.SetStyle(ControlStyles.UserPaint, true);
-			this.SetStyle(ControlStyles.DoubleBuffer, true);
-			this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-			this.SetStyle(ControlStyles.ContainerControl, true);
-			base.BackColor = Color.Transparent;
+        public System.Drawing.Color RightHeaderColor
+        {
+            get => rhc;
+            set { if (rhc != value) { rhc = value; InvalidateCanvas(); } }
+        }
 
-			this.bc = SystemColors.Window;
-			this.lhc = SystemColors.InactiveCaption;
-			this.rhc = SystemColors.Highlight;
-			this.bodc = SystemColors.InactiveCaptionText;
-			this.htc = SystemColors.ActiveCaptionText;
+        public System.Drawing.Color BorderColor
+        {
+            get => bc;
+            set { if (bc != value) { bc = value; InvalidateCanvas(); } }
+        }
 
-			this.font = new Font(base.Font.Name, base.Font.Size+2, FontStyle.Bold, base.Font.Unit);
+        public System.Drawing.Color HeaderTextColor
+        {
+            get => htc;
+            set { if (htc != value) { htc = value; InvalidateCanvas(); } }
+        }
 
-			icsz = new Size(32, 32);
-			icpt = new Point(4, 12);
-		}
-		
-		Color lhc, rhc, bc, bodc, htc;
-		public Color LeftHeaderColor 
-		{
-			get {return lhc; }
-			set 
-			{
-				if (lhc != value) 
-				{
-					lhc=value;
-					this.Invalidate();
-				}
-			}
-		}
+        public System.Drawing.Color BodyColor
+        {
+            get => bodc;
+            set { if (bodc != value) { bodc = value; InvalidateCanvas(); } }
+        }
 
-		public Color RightHeaderColor 
-		{
-			get {return rhc; }
-			set 
-			{
-				if (rhc != value) 
-				{
-					rhc=value;
-					this.Invalidate();
-				}
-			}
-		}
+        Font font;
+        public Font HeaderFont
+        {
+            get => font;
+            set { if (font != value) { font = value; InvalidateCanvas(); } }
+        }
 
-		public Color BorderColor 
-		{
-			get {return bc; }
-			set 
-			{
-				if (bc != value) 
-				{
-					bc=value;
-					this.Invalidate();
-				}
-			}
-		}
+        System.Drawing.Bitmap canvas;
+        int canvasW, canvasH;
 
-		public Color HeaderTextColor 
-		{
-			get {return htc; }
-			set 
-			{
-				if (htc != value) 
-				{
-					htc=value;
-					this.Invalidate();
-				}
-			}
-		}
+        void InvalidateCanvas() { canvas = null; InvalidateVisual(); }
 
-		public Color BodyColor 
-		{
-			get {return bodc; }
-			set 
-			{
-				if (bodc != value) 
-				{
-					bodc=value;
-					this.Invalidate();
-				}
-			}
-		}
+        protected void RebuildCanvas(int w, int h)
+        {
+            if (canvas != null) canvas.Dispose();
+            canvas = null;
+            canvasW = w;
+            canvasH = h;
 
-		Font font;
-		public Font HeaderFont
-		{
-			get {return font; }
-			set 
-			{
-				if (font != value) 
-				{
-					font=value;
-					this.Invalidate();
-				}
-			}
-		}
+            if (w <= 7 || h <= headerh + 21) return;
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (this.components != null))
-			{
-				if (canvas!=null) canvas.Dispose();
-				canvas = null;
-				this.components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+            canvas = new System.Drawing.Bitmap(w, h);
+            System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(canvas);
+            Rectangle ef3  = new Rectangle(0, 16, w - 1, headerh);
+            Rectangle ef3b = new Rectangle(3, ef3.Bottom, w - 7, h - ef3.Bottom - 4);
+            Rectangle ef1  = new Rectangle(0, 16, w - 1, h - 0x11);
+            GraphicsPath path     = new GraphicsPath();
+            GdiLinearGradientBrush brush1  = new GdiLinearGradientBrush(ef3, LeftHeaderColor, RightHeaderColor, LinearGradientMode.Horizontal);
+            GdiPen borderpen = new GdiPen(BorderColor, 1f);
+            StringFormat format1  = new StringFormat
+            {
+                Alignment     = StringAlignment.Near,
+                LineAlignment = StringAlignment.Center,
+                Trimming      = StringTrimming.EllipsisCharacter,
+                FormatFlags   = StringFormatFlags.NoWrap,
+            };
+            borderpen.Alignment = PenAlignment.Inset;
+            g.SmoothingMode = SmoothingMode.HighQuality;
 
-		[DebuggerStepThrough]
-		private void InitializeComponent()
-		{
-			this.components = new Container();
-			
-			Size size1 = new Size(0x10, 0x10);
-			
-			this.DockPadding.Bottom = 4;
-			this.DockPadding.Left = 4;
-			this.DockPadding.Right = 4;
-			this.DockPadding.Top = 0x2c;
-			this.Name = "XPTaskBoxSimple";
-		}
+            path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef1, 7);
+            g.FillPath(brush1, path);
 
-		private void mThemeFormat_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			this.Invalidate();
-		}
+            path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef3b, 7);
+            g.FillPath(new SolidBrush(BodyColor), path);
 
-		Size icsz;
-		public Size IconSize
-		{
-			get { return icsz; }
-			set 
-			{
-				if (icsz!=value) 
-				{
-					icsz = value;
-					Invalidate();
-				}
-			}
-		}
+            path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef1, 7);
+            g.DrawPath(borderpen, path);
 
-		Point icpt;
-		public Point IconLocation
-		{
-			get { return icpt; }
-			set 
-			{
-				if (icpt!=value) 
-				{
-					icpt = value;
-					Invalidate();
-				}
-			}
-		}
+            Rectangle ef4;
+            if (mIcon != null)
+            {
+                GdiSize isize = mIcon.Size;
+                g.DrawImage(mIcon, new Rectangle(IconLocation, isize),
+                            new Rectangle(0, 0, mIcon.Width, mIcon.Height), GraphicsUnit.Pixel);
+                ef4 = new Rectangle(8 + isize.Width + IconLocation.X, 16, w - (isize.Width + IconLocation.X), headerh);
+            }
+            else
+            {
+                ef4 = new Rectangle(8, 16, w - 0x18, headerh);
+            }
+            g.DrawString(mstrHeaderText, HeaderFont, new SolidBrush(HeaderTextColor), ef4, format1);
 
-		System.Drawing.Bitmap canvas;
-		protected void RebuildCanvas()
-		{
-			if (canvas!=null) canvas.Dispose();
-			if (this.Width<=7 || this.Height<=headerh+21) 
-			{
-				canvas = null;
-				return;
-			}
-			canvas = new Bitmap(this.Width, this.Height);
-			System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(canvas);
-			Rectangle ef4;
-			g.SmoothingMode = SmoothingMode.HighQuality;
-			Rectangle ef3 = new Rectangle(0, 16, this.Width-1, headerh);
-			Rectangle ef3b = new Rectangle(3, ef3.Bottom, this.Width-7, this.Height-ef3.Bottom-4);
-			Rectangle ef2 = new Rectangle(0, 16+headerh+2, this.Width-1, (this.Height - 16+headerh+3));
-			Rectangle ef1 = new Rectangle(0, 16, this.Width-1,(this.Height - 0x11));
-			GraphicsPath path = new GraphicsPath();
-			LinearGradientBrush brush1 = new LinearGradientBrush(ef3, LeftHeaderColor, RightHeaderColor, LinearGradientMode.Horizontal);
-			Pen borderpen = new Pen(BorderColor, 1f);
-			StringFormat format1 = new StringFormat();
-			format1.Alignment = StringAlignment.Near;
-			format1.LineAlignment = StringAlignment.Center;
-			format1.Trimming = StringTrimming.EllipsisCharacter;
-			format1.FormatFlags = StringFormatFlags.NoWrap;
-			borderpen.Alignment = PenAlignment.Inset;
-			
-			
-			path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef1, 7);
-			g.FillPath(brush1, path);
-			
+            path.Dispose();
+            brush1.Dispose();
+            borderpen.Dispose();
+            format1.Dispose();
+            g.Dispose();
+        }
 
-			path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef3b, 7);			
-			g.FillPath(new SolidBrush(BodyColor), path);
+        public override void Render(DrawingContext context)
+        {
+            int w = (int)Bounds.Width;
+            int h = (int)Bounds.Height;
+            if (canvas == null || canvasW != w || canvasH != h)
+                RebuildCanvas(w, h);
+            if (canvas == null) { base.Render(context); return; }
 
-			path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef1, 7);			
-			g.DrawPath(borderpen, path);
-			if (this.mIcon != null)
-			{
-				Size size1 = mIcon.Size;
-				Rectangle rectangle1 = new Rectangle(IconLocation, size1);
-				g.DrawImage(
-					//Ambertation.Drawing.GraphicRoutines.ScaleImage(mIcon, size1.Width, size1.Height, true)					
-					mIcon
-					, rectangle1,
-					new Rectangle(0, 0, mIcon.Width, mIcon.Height), 
-					GraphicsUnit.Pixel);
-				ef4 = new Rectangle(8+size1.Width+IconLocation.X, 16, (this.Width - (size1.Width+IconLocation.X)), headerh);
-			}
-			else
-			{
-				ef4 = new Rectangle(8, 16, (this.Width - 0x18), headerh);
-			}
-			g.DrawString(this.mstrHeaderText, this.HeaderFont, new SolidBrush(this.HeaderTextColor), ef4, format1);
-			
-			path.Dispose();
-			brush1.Dispose();
-			borderpen.Dispose();
-			format1.Dispose();
-			g.Dispose();
-		}
-		
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			if (canvas==null) RebuildCanvas();
-			if (canvas!=null) e.Graphics.DrawImage(canvas, e.ClipRectangle, e.ClipRectangle, GraphicsUnit.Pixel);
-			base.OnPaint(e);
-		}
+            using var ms = new MemoryStream();
+            canvas.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            ms.Position = 0;
+            using var avBmp = new Avalonia.Media.Imaging.Bitmap(ms);
+            context.DrawImage(avBmp, new Rect(0, 0, w, h));
+        }
 
-		protected override void OnSizeChanged(EventArgs e)
-		{
-			base.OnSizeChanged (e);
-			RebuildCanvas();
-		}
+        protected override AvSize MeasureOverride(AvSize availableSize) => availableSize;
 
-		public new void Invalidate()
-		{
-			RebuildCanvas();
-			base.Invalidate();
-		}
+        protected override AvSize ArrangeOverride(AvSize finalSize)
+        {
+            canvas = null; // size changed — rebuild on next render
+            return base.ArrangeOverride(finalSize);
+        }
 
+        // Properties
+        [Category("Appearance"), DefaultValue("Title"), Localizable(true), Description("Caption text.")]
+        public string HeaderText
+        {
+            get => mstrHeaderText;
+            set { mstrHeaderText = value; InvalidateCanvas(); }
+        }
 
-		
+        [Localizable(true), Description("Icon"), Category("Appearance")]
+        public System.Drawing.Image Icon
+        {
+            get => mIcon;
+            set { mIcon = value; InvalidateCanvas(); }
+        }
 
-		// Properties
-		[Category("Appearance"), DefaultValue("Title"), Localizable(true), Browsable(true), Description("Caption text.")]
-		public string HeaderText
-		{
-			get
-			{
-				return this.mstrHeaderText;
-			}
-			set
-			{
-				this.mstrHeaderText = value;
-				this.Invalidate();
-			}
-		}
+        int headerh;
+        [Localizable(true), Description("Height of the Headline"), Category("Appearance"), DefaultValue(22)]
+        public int HeaderHeight
+        {
+            get => headerh;
+            set { headerh = value; InvalidateCanvas(); }
+        }
 
-		
+        GdiSize icsz;
+        public GdiSize IconSize
+        {
+            get => icsz;
+            set { if (icsz != value) { icsz = value; InvalidateCanvas(); } }
+        }
 
-		[Localizable(true), Description("Icon"), Category("Appearance"), DefaultValue(typeof(System.Drawing.Icon), "")]
-		public System.Drawing.Image Icon
-		{
-			get
-			{
-				return this.mIcon;
-			}
-			set
-			{
-				this.mIcon = value;
-				this.Invalidate();
-			}
-		}
+        GdiPoint icpt;
+        public GdiPoint IconLocation
+        {
+            get => icpt;
+            set { if (icpt != value) { icpt = value; InvalidateCanvas(); } }
+        }
 
-		int headerh;
-		[Localizable(true), Description("Hight of the Headline"), Category("Appearance"), DefaultValue(typeof(int), "22")]
-		public int HeaderHeight
-		{
-			get
-			{
-				return headerh;
-			}
-			set
-			{
-				headerh = value;
-				this.Invalidate();
-			}
-		}
+        [Browsable(false)]
+        internal Rectangle WorkspaceRect => new Rectangle(3, 0x29, (int)Bounds.Width - 7, (int)Bounds.Height - 40 - 4);
 
-		
-		
-
-		
-
-		[Browsable(false), Description("returns the usable region as Rectangle")]
-		internal Rectangle WorkspaceRect
-		{
-			get
-			{
-				return new Rectangle(3, 0x29, this.Width - 7, (this.Height - 40) - 4);
-			}
-		}
-
-
-		// Fields
-		private IContainer components;
-		private System.Drawing.Image mIcon;
-		private string mstrHeaderText;
-	}
+        private System.Drawing.Image mIcon;
+        private string mstrHeaderText;
+    }
 }

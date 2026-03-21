@@ -79,11 +79,11 @@ namespace SimPe.Plugin
 			tDirectionalLight.tb_l_8.Text = unknown10.ToString();
 			tDirectionalLight.tb_l_9.Text = unknown11.ToString();
 			
-			tDirectionalLight.label45.Visible = true;
-			tDirectionalLight.label46.Visible = true;
+			tDirectionalLight.label45.IsVisible = true;
+			tDirectionalLight.label46.IsVisible = true;
 
-			tDirectionalLight.tb_l_8.Visible = true;
-			tDirectionalLight.tb_l_9.Visible = true;
+			tDirectionalLight.tb_l_8.IsVisible = true;
+			tDirectionalLight.tb_l_9.IsVisible = true;
 		}
 	}
 }

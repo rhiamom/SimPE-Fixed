@@ -22,10 +22,8 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
 using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 
 namespace SimPe.Plugin.TabPage
@@ -33,171 +31,43 @@ namespace SimPe.Plugin.TabPage
 	/// <summary>
 	/// Summary description for MatdForm.
 	/// </summary>
-	public class MaterialDefinitionFiles : 
-		System.Windows.Forms.TabPage
-		//System.Windows.Forms.UserControl
+	public class MaterialDefinitionFiles : Avalonia.Controls.TabItem
 	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
-		
+		internal Avalonia.Controls.ListBox lbfl;
+		private Avalonia.Controls.TextBox tblistfile;
+		private Avalonia.Controls.TextBlock label6;
+		private Avalonia.Controls.Button linkLabel3;
+		private Avalonia.Controls.Button linkLabel4;
 
 		public MaterialDefinitionFiles()
 		{
-			SetStyle(
-				ControlStyles.SupportsTransparentBackColor |
-				ControlStyles.AllPaintingInWmPaint |
-				//ControlStyles.Opaque |
-				ControlStyles.UserPaint |
-				ControlStyles.ResizeRedraw 
-				| ControlStyles.DoubleBuffer
-				,true);
+			this.Header = "File List";
 
-			//
-			// Required designer variable.
-			//
-            InitializeComponent();
+			linkLabel4 = new Avalonia.Controls.Button { Content = "add" };
+			linkLabel4.Click += new EventHandler<Avalonia.Interactivity.RoutedEventArgs>(this.Add);
+			linkLabel3 = new Avalonia.Controls.Button { Content = "delete" };
+			linkLabel3.Click += new EventHandler<Avalonia.Interactivity.RoutedEventArgs>(this.Delete);
+			tblistfile = new Avalonia.Controls.TextBox { Text = "" };
+			tblistfile.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(this.ChangeListFile);
+			label6 = new Avalonia.Controls.TextBlock { Text = "Filename:" };
+			lbfl = new Avalonia.Controls.ListBox();
+			lbfl.SelectionChanged += new EventHandler<Avalonia.Controls.SelectionChangedEventArgs>(this.SelectListFile);
 
-            if (SimPe.Helper.XmlRegistry.UseBigIcons)
-            {
-                this.lbfl.Font = new System.Drawing.Font(base.Font.FontFamily, 11F);
-                this.tblistfile.Font = new System.Drawing.Font(base.Font.FontFamily, 12F);
-            }
-            this.UseVisualStyleBackColor = true;
+			Content = new Avalonia.Controls.StackPanel { Children = { lbfl, label6, tblistfile, linkLabel4, linkLabel3 } };
 		}
-
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				Tag = null;
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			this.linkLabel4 = new System.Windows.Forms.LinkLabel();
-			this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-			this.tblistfile = new System.Windows.Forms.TextBox();
-			this.label6 = new System.Windows.Forms.Label();
-			this.lbfl = new System.Windows.Forms.ListBox();
-			this.SuspendLayout();
-			// 
-			// tMaterialDefinitionFiles
-			// 
-			this.BackColor = System.Drawing.Color.White;
-			this.Controls.Add(this.linkLabel4);
-			this.Controls.Add(this.linkLabel3);
-			this.Controls.Add(this.tblistfile);
-			this.Controls.Add(this.label6);
-			this.Controls.Add(this.lbfl);
-			this.Location = new System.Drawing.Point(4, 22);
-			this.Name = "tMaterialDefinitionFiles";
-			this.Size = new System.Drawing.Size(744, 238);
-			this.TabIndex = 1;
-			this.Text = "File List";
-			// 
-			// linkLabel4
-			// 
-			this.linkLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.linkLabel4.AutoSize = true;
-			this.linkLabel4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.linkLabel4.Location = new System.Drawing.Point(656, 56);
-			this.linkLabel4.Name = "linkLabel4";
-			this.linkLabel4.Size = new System.Drawing.Size(28, 17);
-			this.linkLabel4.TabIndex = 8;
-			this.linkLabel4.TabStop = true;
-			this.linkLabel4.Text = "add";
-			this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Add);
-			// 
-			// linkLabel3
-			// 
-			this.linkLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.linkLabel3.AutoSize = true;
-			this.linkLabel3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.linkLabel3.Location = new System.Drawing.Point(692, 56);
-			this.linkLabel3.Name = "linkLabel3";
-			this.linkLabel3.Size = new System.Drawing.Size(44, 17);
-			this.linkLabel3.TabIndex = 7;
-			this.linkLabel3.TabStop = true;
-			this.linkLabel3.Text = "delete";
-			this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Delete);
-			// 
-			// tblistfile
-			// 
-			this.tblistfile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.tblistfile.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.tblistfile.Location = new System.Drawing.Point(440, 24);
-			this.tblistfile.Name = "tblistfile";
-			this.tblistfile.Size = new System.Drawing.Size(296, 21);
-			this.tblistfile.TabIndex = 6;
-			this.tblistfile.Text = "";
-			this.tblistfile.TextChanged += new System.EventHandler(this.ChangeListFile);
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.label6.Location = new System.Drawing.Point(432, 8);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(67, 17);
-			this.label6.TabIndex = 5;
-			this.label6.Text = "Filename:";
-			// 
-			// lbfl
-			// 
-			this.lbfl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left)));
-			this.lbfl.HorizontalScrollbar = true;
-			this.lbfl.IntegralHeight = false;
-			this.lbfl.Location = new System.Drawing.Point(8, 8);
-			this.lbfl.Name = "lbfl";
-			this.lbfl.Size = new System.Drawing.Size(416, 224);
-			this.lbfl.TabIndex = 4;
-			this.lbfl.SelectedIndexChanged += new System.EventHandler(this.SelectListFile);
-			// 
-			// MatdForm
-			// 			
-			this.ResumeLayout(false);
-		}
-		#endregion
-
-		internal System.Windows.Forms.ListBox lbfl;
-		private System.Windows.Forms.TextBox tblistfile;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.LinkLabel linkLabel3;
-		private System.Windows.Forms.LinkLabel linkLabel4;		
-				
-
-		
 
 		private void SelectListFile(object sender, System.EventArgs e)
 		{
 			if (tblistfile.Tag!=null) return;
 			if (lbfl.SelectedIndex<0) return;
-			
-			try 
+
+			try
 			{
 				tblistfile.Tag = true;
 				tblistfile.Text = (string)lbfl.Items[lbfl.SelectedIndex];
-			} 
+			}
 			catch (Exception) {}
-			finally 
+			finally
 			{
 				tblistfile.Tag = null;
 			}
@@ -208,8 +78,8 @@ namespace SimPe.Plugin.TabPage
 			if (this.Tag==null) return;
 			if (tblistfile.Tag!=null) return;
 			if (lbfl.SelectedIndex<0) return;
-			
-			try 
+
+			try
 			{
 				tblistfile.Tag = true;
 				lbfl.Items[lbfl.SelectedIndex] = tblistfile.Text;
@@ -218,15 +88,15 @@ namespace SimPe.Plugin.TabPage
 				md.Listing[lbfl.SelectedIndex] = tblistfile.Text;
 
 				md.Changed = true;
-			} 
+			}
 			catch (Exception) {}
-			finally 
+			finally
 			{
 				tblistfile.Tag = null;
 			}
 		}
 
-		private void Delete(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void Delete(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if (this.Tag==null) return;
 			if (lbfl.SelectedIndex<0) return;
@@ -235,10 +105,10 @@ namespace SimPe.Plugin.TabPage
 
 			lbfl.Items.Remove(lbfl.Items[lbfl.SelectedIndex]);
 
-			md.Changed = true;			
+			md.Changed = true;
 		}
 
-		private void Add(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void Add(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			if (this.Tag==null) return;
 			lbfl.Items.Add(tblistfile.Text);
@@ -248,6 +118,6 @@ namespace SimPe.Plugin.TabPage
 			md.Listing = (string[])Helper.Add(md.Listing, tblistfile.Text);
 
 			md.Changed = true;
-		}				
+		}
 	}
 }

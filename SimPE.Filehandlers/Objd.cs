@@ -23,8 +23,7 @@
 
 using System;
 using System.Collections;
-using System.Windows.Forms;
-using System.Drawing;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 
@@ -35,13 +34,11 @@ namespace SimPe.PackedFiles.UserInterface
 	/// </summary>
 	public class Objd : UIBase, IPackedFileUI
 	{
-		
-
 		#region IPackedFileHandler Member
 
 		public Control GUIHandle
 		{
-			get 
+			get
 			{
 				return form.objdPanel;
 			}
@@ -52,7 +49,7 @@ namespace SimPe.PackedFiles.UserInterface
 			Wrapper.Objd objd = (Wrapper.Objd)wrapper;
 			form.wrapper = objd;
 
-			form.tbsimid.Text = "0x"+Helper.HexString(objd.SimId);	
+			form.tbsimid.Text = "0x"+Helper.HexString(objd.SimId);
 			form.tbsimname.Text = objd.FileName;
 			form.tblottype.Text = "0x"+Helper.HexString(objd.Type);
 			form.lbtypename.Text = ((Data.ObjectTypes)objd.Type).ToString().Trim();
@@ -60,9 +57,8 @@ namespace SimPe.PackedFiles.UserInterface
             form.tbproxguid.Text = "0x" + Helper.HexString(objd.ProxyGuid);
 
 			Hashtable list = objd.Attributes;
-			form.pnelements.Controls.Clear();
+			form.pnelements.Children.Clear();
 
-			int top = 4;
 			ArrayList keys = new ArrayList();
 			foreach (string k in list.Keys) keys.Add("0x"+Helper.HexString((ushort)objd.GetAttributePosition(k))+": "+k);
 			keys.Sort();
@@ -70,102 +66,71 @@ namespace SimPe.PackedFiles.UserInterface
 			foreach (string k in keys)
 			{
 				string[] s = k.Split(":".ToCharArray(), 2);
-				Label lb = new Label();
-				lb.Parent = form.pnelements;
-				lb.AutoSize = true;
-				lb.Text = k+" = ";
-				lb.Top = top;
-				lb.Visible = true;
+
+				TextBlock lb = new TextBlock();
+				lb.Text = k + " = ";
 
 				TextBox tb = new TextBox();
-				tb.BorderStyle = BorderStyle.None;
-				tb.Parent = form.pnelements;
-				tb.Left = lb.Left + lb.Width;
-				tb.Top = lb.Bottom - tb.Height;
-				tb.Width = 50;
 				tb.Text = "0x"+Helper.HexString(objd.GetAttributeShort(s[1].Trim()));
 				tb.Tag = s[1].Trim();
-				tb.Visible = true;				
-				tb.TextChanged += new EventHandler(HexTextChanged);
+				tb.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(HexTextChanged);
 
 				TextBox tb2 = new TextBox();
-				tb2.BorderStyle = BorderStyle.None;
-				tb2.Parent = form.pnelements;
-				tb2.Left = tb.Left + tb.Width + 4;
-				tb2.Top = lb.Bottom - tb.Height;
-				tb2.Width = 100;
 				tb2.Text = ((short)objd.GetAttributeShort(s[1].Trim())).ToString();
 				tb2.Tag = null;
-				tb2.Visible = true;
-				tb2.TextChanged += new EventHandler(DecTextChanged);
-				
+				tb2.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(DecTextChanged);
 
-				top += Math.Max(lb.Height, tb.Height) + 2;
+				StackPanel row = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal };
+				row.Children.Add(lb);
+				row.Children.Add(tb);
+				row.Children.Add(tb2);
+				form.pnelements.Children.Add(row);
 			}
 		}
 
-		
 		#endregion
 
 		bool systentextupdate = false;
 
-		/// <summary>
-		/// Updates the Decimal View
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void HexTextChanged(object sender, EventArgs e)
+		private void HexTextChanged(object sender, Avalonia.Controls.TextChangedEventArgs e)
 		{
 			if (systentextupdate) return;
 			systentextupdate = true;
-			TextBox tb = (TextBox) sender;
+			TextBox tb = (TextBox)sender;
 
-			foreach (Control c in tb.Parent.Controls) 
+			if (tb.Parent is StackPanel row)
 			{
-				if (c.GetType()==typeof(TextBox)) 
+				foreach (Control c in row.Children)
 				{
-					TextBox tb2 = (TextBox)c;
-					if ((tb2.Top == tb.Top) && (tb2!=tb))
+					if (c is TextBox tb2 && tb2 != tb)
 					{
-						try 
-						{
-							tb2.Text = Convert.ToInt16(tb.Text, 16).ToString();
-						} 
-						catch (Exception) {}
+						try { tb2.Text = Convert.ToInt16(tb.Text, 16).ToString(); }
+						catch { }
 						break;
 					}
 				}
-			} //foreach
+			}
 			systentextupdate = false;
 		}
 
-		/// <summary>
-		/// Updates the Hex View
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void DecTextChanged(object sender, EventArgs e)
+		private void DecTextChanged(object sender, Avalonia.Controls.TextChangedEventArgs e)
 		{
 			if (systentextupdate) return;
 			systentextupdate = true;
-			TextBox tb = (TextBox) sender;
+			TextBox tb = (TextBox)sender;
 
-			foreach (Control c in tb.Parent.Controls) 
+			if (tb.Parent is StackPanel row)
 			{
-				if (c.GetType()==typeof(TextBox)) 
+				foreach (Control c in row.Children)
 				{
-					TextBox tb2 = (TextBox)c;
-					if ((tb2.Top == tb.Top) && (tb2!=tb))
+					if (c is TextBox tb2 && tb2 != tb)
 					{
-						try 
-						{
-							tb2.Text = "0x"+Helper.HexString((ushort)Convert.ToInt16(tb.Text));
-						} 
-						catch (Exception) {}
+						try { tb2.Text = "0x"+Helper.HexString((ushort)Convert.ToInt16(tb.Text)); }
+						catch { }
 						break;
 					}
 				}
-			} //foreach
+			}
 			systentextupdate = false;
 		}
 	}

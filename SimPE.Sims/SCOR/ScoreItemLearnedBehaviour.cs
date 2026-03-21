@@ -34,7 +34,7 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
             : base(si)
         {
             InitializeComponent();
-            llRemove.Enabled = false;
+            llRemove.IsEnabled = false;
 
         }
 
@@ -55,13 +55,13 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
                 cb.Items.Add(e);
             }
 
-            if (cb.Items.Count>0) cb.SelectedIndex = 0;
+            if (cb.ItemCount > 0) cb.SelectedIndex = 0;
         }
 
         internal override void Serialize(System.IO.BinaryWriter writer, bool last)
         {
             base.Serialize(writer, last);
-            writer.Write(cb.Items.Count);
+            writer.Write(cb.ItemCount);
             foreach (Element e in cb.Items)
             {
                 e.SaveData(writer);
@@ -69,11 +69,11 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
         }
 
         bool intern;
-        private void cb_SelectedIndexChanged(object sender, EventArgs ea)
+        private void cb_SelectedIndexChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs ea)
         {
             intern = true;
             Element e = cb.SelectedItem as Element;
-            llRemove.Enabled = e != null;
+            llRemove.IsEnabled = e != null;
             if (e != null)
             {
                 textBox1.Text = "0x" + Helper.HexString(e.Unknown1);
@@ -82,13 +82,13 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
                 textBox4.Text = "0x" + Helper.HexString(e.Unknown3);
 
                 textBox5.Text = BitConverter.ToSingle(BitConverter.GetBytes(e.Value), 0).ToString();
-                pbVal.Value = (int)e.Value;                
+                pbVal.Value = (double)e.Value;
                 cbGuid.SelectedGuid = e.Guid;
             }
             intern = false;
         }
 
-        private void textBox1_TextChanged_1(object sender, EventArgs ea)
+        private void textBox1_TextChanged_1(object sender, Avalonia.Controls.TextChangedEventArgs ea)
         {
             if (intern) return;
             Element e = cb.SelectedItem as Element;
@@ -97,15 +97,15 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
                 e.Unknown1 = (byte)Helper.StringToInt16(textBox1.Text, e.Unknown1, 16);
                 e.Unknown3 = (byte)Helper.StringToInt16(textBox4.Text, e.Unknown3, 16);
                 e.Guid = Helper.StringToUInt32(textBox2.Text, e.Guid, 16);
-                e.Value = (uint)pbVal.Value;                
+                e.Value = (uint)pbVal.Value;
                 Changed = true;
 
                 cb.Items[cb.SelectedIndex] = e;
-                cb.Refresh();
+                cb.InvalidateVisual();
             }
         }
 
-        private void cbGuid_SelectedIndexChanged(object sender, EventArgs es)
+        private void cbGuid_SelectedIndexChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs es)
         {
             Element e = cb.SelectedItem as Element;
             
@@ -115,7 +115,7 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
             }
         }
 
-        private void linkLabel2_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs es)
+        private void linkLabel2_LinkClicked(object sender, Avalonia.Interactivity.RoutedEventArgs es)
         {
             Element e = cb.SelectedItem as Element;
 
@@ -123,7 +123,7 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
             {
                 int index = Math.Max(0, cb.SelectedIndex);
                 cb.Items.Remove(e);
-                index = Math.Min(cb.Items.Count - 1, index);
+                index = Math.Min(cb.ItemCount - 1, index);
                 cb.SelectedIndex = index;
                 if (ParentItem != null)
                     if (ParentItem.Parent != null)
@@ -131,11 +131,11 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
             }
         }
 
-        void llAdd_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs es)
+        void llAdd_LinkClicked(object sender, Avalonia.Interactivity.RoutedEventArgs es)
         {
             Element e = new Element();
             cb.Items.Add(e);
-            cb.SelectedIndex = cb.Items.Count - 1;
+            cb.SelectedIndex = cb.ItemCount - 1;
             if (ParentItem != null)
                 if (ParentItem.Parent != null)
                     ParentItem.Parent.Changed = true;

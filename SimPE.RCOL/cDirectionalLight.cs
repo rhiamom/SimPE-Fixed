@@ -22,6 +22,7 @@
  ***************************************************************************/
 
 using System;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -204,7 +205,7 @@ namespace SimPe.Plugin
 		}
 
 		protected TabPage.DirectionalLight tDirectionalLight;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -229,18 +230,18 @@ namespace SimPe.Plugin
 			tDirectionalLight.tb_l_4.Text = green.ToString();
 			tDirectionalLight.tb_l_5.Text = blue.ToString();
 
-			tDirectionalLight.label39.Visible = false;
-			tDirectionalLight.label44.Visible = false;
-			tDirectionalLight.label45.Visible = false;
-			tDirectionalLight.label46.Visible = false;
+			tDirectionalLight.label39.IsVisible = false;
+			tDirectionalLight.label44.IsVisible = false;
+			tDirectionalLight.label45.IsVisible = false;
+			tDirectionalLight.label46.IsVisible = false;
 
-			tDirectionalLight.tb_l_6.Visible = false;
-			tDirectionalLight.tb_l_7.Visible = false;
-			tDirectionalLight.tb_l_8.Visible = false;
-			tDirectionalLight.tb_l_9.Visible = false;
+			tDirectionalLight.tb_l_6.IsVisible = false;
+			tDirectionalLight.tb_l_7.IsVisible = false;
+			tDirectionalLight.tb_l_8.IsVisible = false;
+			tDirectionalLight.tb_l_9.IsVisible = false;
 		}
 
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			base.ExtendTabControl (tc);
 			this.slb.AddToTabControl(tc);
@@ -253,7 +254,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tDirectionalLight!=null) this.tDirectionalLight.Dispose();
+			/* tDirectionalLight.Dispose() — TabItem does not implement IDisposable */
 			tDirectionalLight = null;
 		}
 

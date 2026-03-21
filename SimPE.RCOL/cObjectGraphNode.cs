@@ -25,6 +25,7 @@ using System;
 using System.Drawing;
 using System.Collections;
 using SimPe.Interfaces.Plugin;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -170,7 +171,7 @@ namespace SimPe.Plugin
 		}
 		
 		TabPage.ObjectGraphNode tObjectGraphNode;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -203,7 +204,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tObjectGraphNode!=null) this.tObjectGraphNode.Dispose();
+			/* tObjectGraphNode.Dispose() — TabItem does not implement IDisposable */
 			tObjectGraphNode = null;
 		}
 

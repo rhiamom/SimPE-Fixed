@@ -6,13 +6,13 @@ using System;
 namespace Ambertation.Graphics
 {
     /// <summary>Stub for DirectX render panel — will be replaced with Avalonia OpenGL.</summary>
-    public class DirectXPanel : System.Windows.Forms.Panel
+    public class DirectXPanel : Avalonia.Controls.Panel
     {
         public event EventHandler SceneUpdated;
     }
 
     /// <summary>Stub for render selection helper.</summary>
-    public class RenderSelection : System.Windows.Forms.Control
+    public class RenderSelection : Avalonia.Controls.Control
     {
         public IDisposable Scene { get; set; }
     }

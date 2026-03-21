@@ -25,216 +25,135 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Drawing.Imaging;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 
 namespace SimPe
 {
-	/// <summary>
-	/// Summary description for WaitingForm.
-	/// </summary>
-	internal class WaitingForm : Form
-	{
-        #region Form variables
-        private Panel panel1;
-        internal PictureBox pb;
-        private Label lbwait;
-		private Label lbmsg;
-        internal PictureBox pbsimpe;
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.Container components = null;
-        #endregion
+    /// <summary>
+    /// Borderless splash overlay shown during long operations.
+    /// Thread-safe: SetImage/SetMessage may be called from any thread.
+    /// Replaces WinForms WndProc message passing with Dispatcher.UIThread.InvokeAsync.
+    /// </summary>
+    internal class WaitingForm : Window
+    {
+        // Background: #666699 (original WinForms BackColor = Color.FromArgb(102,102,153))
+        static readonly IBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(102, 102, 153));
 
-		public WaitingForm()
-		{
-            System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm..ctor()");
-            //
-			// Required designer variable.
-			//
-			InitializeComponent();
-			//this.TopMost = Helper.XmlRegistry.WaitingScreenTopMost;
-            myhandle = Handle;
-            image = pbsimpe.Image;
-            message = lbmsg.Text;
+        readonly Avalonia.Controls.Image pb;        // custom image
+        readonly Avalonia.Controls.Image pbsimpe;   // simpe logo placeholder
+        readonly TextBlock lbwait;         // "Please wait..."
+        readonly TextBlock lbmsg;          // status message
 
-			//defimg = true;
-			//cycles = 20;
-			//alpha = 0xff;
-			//timer1.Enabled = true;
-		}
+        Bitmap? _image;
+        string _message = "";
+        readonly object _lock = new object();
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        protected override void Dispose(bool disposing)
+        public WaitingForm()
         {
-            if (disposing)
+            System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm..ctor()");
+
+            SystemDecorations = SystemDecorations.None;
+            Background = BackgroundBrush;
+            ShowInTaskbar = false;
+            CanResize = false;
+            Width = 220;
+            Height = 80;
+            Topmost = true;
+
+            pb = new Avalonia.Controls.Image
             {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
+                Width = 64, Height = 64,
+                Stretch = Stretch.Uniform,
+                IsVisible = false
+            };
+            pbsimpe = new Avalonia.Controls.Image
+            {
+                Width = 64, Height = 64,
+                Stretch = Stretch.Uniform,
+                IsVisible = true
+            };
+            lbwait = new TextBlock
+            {
+                Text = "Please wait...",
+                Foreground = Brushes.Gray,
+                FontSize = 12,
+                Margin = new Thickness(4, 0, 0, 2)
+            };
+            lbmsg = new TextBlock
+            {
+                Text = "",
+                Foreground = new SolidColorBrush(Color.FromRgb(204, 211, 213)),
+                FontSize = 11,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(4, 0, 0, 0)
+            };
+
+            var labelStack = new StackPanel
+            {
+                VerticalAlignment = VerticalAlignment.Center,
+                Children = { lbwait, lbmsg }
+            };
+
+            var imageStack = new StackPanel
+            {
+                Orientation = Avalonia.Layout.Orientation.Horizontal,
+                Children = { pb, pbsimpe }
+            };
+
+            var root = new DockPanel { LastChildFill = true };
+            DockPanel.SetDock(imageStack, Dock.Left);
+            root.Children.Add(imageStack);
+            root.Children.Add(labelStack);
+
+            Content = root;
         }
 
-        IntPtr myhandle;
-        internal System.Drawing.Image image = null;
-        string message = "";
-
-        const uint WM_CHANGE_MESSAGE = Ambertation.Windows.Forms.APIHelp.WM_APP + 0x0003;
-        const uint WM_CHANGE_IMAGE = Ambertation.Windows.Forms.APIHelp.WM_APP + 0x0004;
-        const uint WM_SHOW_HIDE = Ambertation.Windows.Forms.APIHelp.WM_APP + 0x0005;
-
-        object lockObj = new object();
-
-        public void SetImage(System.Drawing.Image image)
+        public void SetImage(Bitmap? image)
         {
             System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm.SetImage()");
-            lock (lockObj)
+            lock (_lock)
             {
-                if (this.image == image) return;
-                this.image = image;
-                Ambertation.Windows.Forms.APIHelp.SendMessage(myhandle, WM_CHANGE_IMAGE, 0, 0);
+                if (_image == image) return;
+                _image = image;
             }
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                pb.Source = _image;
+                pb.IsVisible = _image != null;
+                pbsimpe.IsVisible = _image == null;
+            });
         }
 
-        public System.Drawing.Image Image { get { return image; } }
+        public Bitmap? Image => _image;
 
         public void SetMessage(string message)
         {
             System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm.SetMessage(): " + message);
-            lock (lockObj)
+            lock (_lock)
             {
-                if (this.message == message) return;
-                this.message = message;
-                Ambertation.Windows.Forms.APIHelp.SendMessage(myhandle, WM_CHANGE_MESSAGE, 0, 0);
+                if (_message == message) return;
+                _message = message;
             }
+            Dispatcher.UIThread.InvokeAsync(() => lbmsg.Text = _message);
         }
 
-        public string Message { get { return message; } }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.HWnd == Handle)
-            {
-                if (m.Msg == WM_CHANGE_MESSAGE)
-                {
-                    System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm.WndProc() - WM_CHANGE_MESSAGE: " + message);
-                    lbmsg.Text = message;
-                }
-                else if (m.Msg == WM_CHANGE_IMAGE)
-                {
-                    System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm.WndProc() - WM_CHANGE_IMAGE");
-                    pb.Image = image;
-                    pb.Visible = (image != null);
-                    pbsimpe.Visible = (image == null);
-                }
-                else if (m.Msg == WM_SHOW_HIDE)
-                {
-                    int i = m.WParam.ToInt32();
-                    System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm.WndProc() - WM_SHOW_HIDE: " + i);
-                    if (i == 1) { this.Show(); this.Focus(); }
-                    else this.Hide();
-                }
-            }
-            base.WndProc(ref m);
-        }
+        public string Message => _message;
 
         public void StartSplash()
         {
             System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm.StartSplash()");
-            Ambertation.Windows.Forms.APIHelp.SendMessage(myhandle, WM_SHOW_HIDE, 1, 0);
+            Dispatcher.UIThread.InvokeAsync(() => Show());
         }
 
         public void StopSplash()
         {
             System.Diagnostics.Trace.WriteLine("SimPe.WaitingForm.StopSplash()");
-            Ambertation.Windows.Forms.APIHelp.SendMessage(myhandle, WM_SHOW_HIDE, 0, 0);
+            Dispatcher.UIThread.InvokeAsync(() => Hide());
         }
-
-
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WaitingForm));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lbmsg = new System.Windows.Forms.Label();
-            this.lbwait = new System.Windows.Forms.Label();
-            this.pb = new System.Windows.Forms.PictureBox();
-            this.pbsimpe = new System.Windows.Forms.PictureBox();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbsimpe)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.lbmsg);
-            this.panel1.Controls.Add(this.lbwait);
-            this.panel1.Controls.Add(this.pb);
-            this.panel1.Controls.Add(this.pbsimpe);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
-            // 
-            // lbmsg
-            // 
-            this.lbmsg.AccessibleRole = System.Windows.Forms.AccessibleRole.Text;
-            this.lbmsg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(211)))), ((int)(((byte)(213)))));
-            resources.ApplyResources(this.lbmsg, "lbmsg");
-            this.lbmsg.Name = "lbmsg";
-            // 
-            // lbwait
-            // 
-            this.lbwait.AccessibleRole = System.Windows.Forms.AccessibleRole.StaticText;
-            resources.ApplyResources(this.lbwait, "lbwait");
-            this.lbwait.ForeColor = System.Drawing.Color.Gray;
-            this.lbwait.Name = "lbwait";
-            // 
-            // pb
-            // 
-            this.pb.AccessibleRole = System.Windows.Forms.AccessibleRole.Graphic;
-            resources.ApplyResources(this.pb, "pb");
-            this.pb.Name = "pb";
-            this.pb.TabStop = false;
-            // 
-            // pbsimpe
-            // 
-            this.pbsimpe.AccessibleRole = System.Windows.Forms.AccessibleRole.Graphic;
-            resources.ApplyResources(this.pbsimpe, "pbsimpe");
-            this.pbsimpe.Name = "pbsimpe";
-            this.pbsimpe.TabStop = false;
-            // 
-            // WaitingForm
-            // 
-            this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            resources.ApplyResources(this, "$this");
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(153)))));
-            this.CausesValidation = false;
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "WaitingForm";
-            this.ShowInTaskbar = false;
-            this.TransparencyKey = System.Drawing.Color.Fuchsia;
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbsimpe)).EndInit();
-            this.ResumeLayout(false);
-
-		}
-		#endregion
-
     }
 }

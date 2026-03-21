@@ -25,8 +25,7 @@ using SimPe.Interfaces.Scenegraph;
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -128,15 +127,15 @@ namespace SimPe.Plugin
 			tc.Tag = cb;
 
 			//remove all additional Pages
-			for (int i=tc.TabPages.Count-1; i>=0; i--) 
-				if (tc.TabPages[i].Tag!=null) tc.TabPages.RemoveAt(i);
+			for (int i=tc.Items.Count-1; i>=0; i--)
+				if ((tc.Items[i] as TabItem)?.Tag!=null) tc.Items.RemoveAt(i);
 
 			if (ResourceTabPage!=null) 
 			{
 				ResourceTabPage.Tag = null;
 				InitResourceTabPage();
 				ResourceTabPage.Tag = this;
-				tc.TabPages.Add(ResourceTabPage);
+				tc.Items.Add(ResourceTabPage);
 
             }
 		}
@@ -168,8 +167,8 @@ namespace SimPe.Plugin
 			if (rb.TabPage!=null) 
 			{
 				rb.TabPage.Tag = rb;
-				rb.TabPage.Text = rb.BlockName;
-				tc.TabPages.Add(rb.TabPage);
+				rb.TabPage.Header = rb.BlockName;
+				tc.Items.Add(rb.TabPage);
 			}
 		}
 
@@ -274,7 +273,7 @@ namespace SimPe.Plugin
 		/// Returns a tabPage that contains a GUI for this Element
 		/// </summary>
 		[BrowsableAttribute(false)]
-		public virtual System.Windows.Forms.TabPage TabPage 
+		public virtual TabItem TabPage 
 		{
 			get { return null; }
 		}
@@ -284,7 +283,7 @@ namespace SimPe.Plugin
 		/// Page if the Block is is the first one
 		/// </summary>
 		[BrowsableAttribute(false)]
-		public virtual System.Windows.Forms.TabPage ResourceTabPage 
+		public virtual TabItem ResourceTabPage 
 		{
 			get { return null; }
 		}

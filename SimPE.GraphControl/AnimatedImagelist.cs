@@ -9,182 +9,116 @@
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
 using System;
-using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
-using Ambertation.Collections;
+using System.IO;
 using System.Threading;
+using Ambertation.Collections;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 
 namespace Ambertation.Windows.Forms
 {
-	/// <summary>
-	/// A Control that allows you to display the content of an Image List animated
-	/// </summary>
-	[Designer(typeof(AnimationDesigner)), ToolboxBitmapAttribute(typeof(ImageList))]
-	public class AnimatedImagelist : System.Windows.Forms.UserControl
-	{
-		/// <summary> 
-		/// Erforderliche Designervariable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// A control that cycles through an Images collection on a timer.
+    /// Ported from WinForms UserControl + System.Windows.Forms.Timer.
+    /// Uses Avalonia UserControl + DispatcherTimer for the animation loop
+    /// and GDI+ offscreen rendering to produce the frame.
+    /// </summary>
+    public class AnimatedImagelist : UserControl
+    {
+        readonly DispatcherTimer timer;
 
-		public AnimatedImagelist()
-		{
-			// Dieser Aufruf ist für den Windows Form-Designer erforderlich.
-			InitializeComponent();
+        public AnimatedImagelist()
+        {
+            index = 0;
+            list  = new Images();
 
-			SetStyle(
-				ControlStyles.SupportsTransparentBackColor |
-				ControlStyles.AllPaintingInWmPaint |
-				//ControlStyles.Opaque |
-				ControlStyles.UserPaint |
-				ControlStyles.ResizeRedraw 
-				| ControlStyles.DoubleBuffer
-				,true);
+            timer = new DispatcherTimer();
+            timer.Tick += timer_Tick;
+        }
 
-			index = 0;
-			BackColor = Color.Transparent;
-			timer = new System.Windows.Forms.Timer();
-			timer.Enabled = false;
-			doevents = false;
+        #region public Properties
+        public DispatcherTimer Timer => timer;
 
-			timer.Tick += new EventHandler(timer_Tick);
+        bool doevents;
+        public bool DoEvents
+        {
+            get => doevents;
+            set => doevents = value;
+        }
 
-			list = new Images();
-		}
+        int index;
+        public int CurrentIndex
+        {
+            get => index;
+            set
+            {
+                if (index != value)
+                {
+                    index = Math.Min(list.Count - 1, Math.Max(0, value));
+                    InvalidateVisual();
+                }
+            }
+        }
 
-		/// <summary> 
-		/// Die verwendeten Ressourcen bereinigen.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        Images list;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Images Images
+        {
+            get => list;
+            set => list = value;
+        }
+        #endregion
 
-		#region Properties
-		System.Windows.Forms.Timer timer;
-		public System.Windows.Forms.Timer Timer
-		{
-			get { return timer; }
-		}
-		#endregion
+        #region Rendering
+        public override void Render(DrawingContext context)
+        {
+            base.Render(context);
 
-		#region public Properties		
+            int w = (int)Bounds.Width;
+            int h = (int)Bounds.Height;
+            if (w <= 0 || h <= 0 || index < 0 || index >= list.Count) return;
 
-		bool doevents;
-		public bool DoEvents
-		{
-			get {return doevents;}
-			set {doevents = value; }
-		}
-		int index;
-		public int CurrentIndex 
-		{
-			get {return index;}
-			set 
-			{
-				if (index!=value) 
-				{					
-					index = Math.Min(list.Count-1, value);					
-					index = Math.Max(0, value);
-					this.Invalidate();
-				}
-			}
-		}
+            System.Drawing.Image src = list[index];
+            if (src == null) return;
 
-		Images list;
-		[DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-		public Images Images
-		{
-			get { return list; }
-			set { list = value; }
-		}
-		#endregion
+            // Scale GDI+ image to control size, then convert to Avalonia Bitmap.
+            using var scaled = Ambertation.Drawing.GraphicRoutines.ScaleImage(src, w, h, true);
+            using var bmp = new System.Drawing.Bitmap(w, h);
+            using var g = System.Drawing.Graphics.FromImage(bmp);
+            g.DrawImage(scaled, 0, 0, w, h);
 
-		#region Event override
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			e.Graphics.FillRectangle(new SolidBrush(this.BackColor), e.ClipRectangle);
-			
-			//alist.Draw(e.Graphics, 0, 0, index);
-			if (index>=0 && index<list.Count) 
-				e.Graphics.DrawImage(
-					Ambertation.Drawing.GraphicRoutines.ScaleImage(list[index], this.Width, this.Height, true),
-					e.ClipRectangle,
-					e.ClipRectangle,
-					GraphicsUnit.Pixel
-					);
-			
-		}
+            using var ms = new MemoryStream();
+            bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            ms.Position = 0;
+            using var avBmp = new Avalonia.Media.Imaging.Bitmap(ms);
+            context.DrawImage(avBmp, new Rect(0, 0, w, h));
+        }
+        #endregion
 
-		#endregion
+        [Browsable(false)]
+        public bool Running => timer.IsEnabled;
 
-		[Browsable(false)]
-		public bool Running
-		{
-			get { return timer.Enabled; }
-		}
+        public void Start()  { timer.IsEnabled = true; }
+        public void Pause()  { timer.IsEnabled = false; }
+        public void Stop()   { Pause(); index = 0; }
 
-		public void Start()
-		{
-			timer.Enabled = true;
-		}
-
-		public void Pause()
-		{
-			timer.Enabled = false;
-		}
-
-		public void Stop()
-		{
-			Pause();
-			index = 0;			
-		}
-
-		#region Vom Komponenten-Designer generierter Code
-		/// <summary> 
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			components = new System.ComponentModel.Container();
-		}
-		#endregion
-
-		private void timer_Tick(object sender, EventArgs e)
-		{
-			lock (timer) 
-			{
-				if (index<0) index = 0;
-				else if (index >=list.Count-1) index = 0;
-				else index++;
-			
-				this.Refresh();
-				if (doevents) Application.DoEvents();
-			}
-		}
-	}
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            lock (timer)
+            {
+                if (index < 0) index = 0;
+                else if (index >= list.Count - 1) index = 0;
+                else index++;
+                InvalidateVisual();
+            }
+        }
+    }
 }

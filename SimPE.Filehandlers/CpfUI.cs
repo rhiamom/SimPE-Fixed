@@ -65,7 +65,7 @@ namespace SimPe.PackedFiles.UserInterface
 		/// <summary>
 		/// Returns the Panel that will be displayed within SimPe
 		/// </summary>
-		public System.Windows.Forms.Control GUIHandle
+		public Avalonia.Controls.Control GUIHandle
 		{
 			get
 			{
@@ -90,8 +90,8 @@ namespace SimPe.PackedFiles.UserInterface
 				form.lbcpf.Items.Add(item);
 			}
 
-			form.llcpfchange.Enabled = false;
-			form.btprev.Visible = (fkt!=null);
+			form.llcpfchange.IsEnabled = false;
+			form.btprev.IsVisible = (fkt!=null);
 
 			form.fkt = this.fkt;
 		}		
@@ -101,7 +101,6 @@ namespace SimPe.PackedFiles.UserInterface
 		#region IDisposable Member
 		public virtual void Dispose()
 		{
-			this.form.Dispose();
 			this.fkt = null;
 		}
 		#endregion

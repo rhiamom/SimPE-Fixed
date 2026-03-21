@@ -2,7 +2,7 @@
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
- *   Copyright (C) 2025 by GramzeSweatshop                                 *
+ *   Copyright (C) 2025 by GramzeSweatShop                                 *
  *   rhiamom@mac.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -21,50 +21,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-using System;
-using Avalonia.Media.Imaging;
-
-namespace SimPe
+namespace SimPe.Plugin.TabPage
 {
-	/// <summary>
-	/// This class can be used to interface the StatusBar of the Main GUI, which will display
-	/// something like the WaitingScreen
-	/// </summary>
-	public interface IWaitingBarControl
-	{
-		bool Running
-		{
-			get;
-		}
-
-		string Message
-		{
-			get;
-			set;
-		}
-
-		Bitmap? Image
-		{
-			get;
-			set;
-		}
-
-		int MaxProgress
-		{
-			get;
-			set;
-		}
-
-		int Progress
-		{
-			get;
-			set;
-		}
-
-		void Wait();
-		void Wait(int max);
-		void Stop();
-
-        bool ShowProgress { get; set; }
-	}
+    /// <summary>Minimal stub for WinForms PropertyGrid - no Avalonia built-in equivalent.</summary>
+    public class PropertyGridStub
+    {
+        public object SelectedObject { get; set; }
+    }
 }

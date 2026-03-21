@@ -22,195 +22,140 @@
  ***************************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
+using Avalonia.Media;
+using Avalonia.Threading;
 
-namespace System.Windows.Forms
+namespace SimPe
 {
-    public partial class pjseMsgBox : Form
+    /// <summary>
+    /// Custom message box with up to 3 configurable buttons.
+    /// Moved from namespace System.Windows.Forms to namespace SimPe.
+    /// Callers that used the old WinForms version must be updated to use ShowAsync().
+    /// </summary>
+    public class pjseMsgBox : Window
     {
-        // public pjseMsgBox() : this("", "", "001", null, null, null) { }
+        DialogResult _result = DialogResult.None;
 
-        private pjseMsgBox(string text, string caption,
+        readonly Button button1;
+        readonly Button button2;
+        readonly Button button3;
+
+        pjseMsgBox(string text, string caption,
             Boolset buttonsVisible, Boolset bsBtns, string[] sBtns, DialogResult[] adr)
         {
-            InitializeComponent();
-
-            this.tbMessage.Text = text;
-            this.Text = caption;
-
             if (buttonsVisible.Length < 3)
                 throw new ArgumentException("need three (or more) flags", "buttonsVisible");
 
-            if (!buttonsVisible[0]) tlpButtons.Controls.Remove(button1);
-            if (!buttonsVisible[1]) tlpButtons.Controls.Remove(button2);
-            if (!buttonsVisible[2]) tlpButtons.Controls.Remove(button3);
+            Title = caption;
+            CanResize = false;
+            ShowInTaskbar = false;
+            SizeToContent = SizeToContent.WidthAndHeight;
+            SystemDecorations = SystemDecorations.BorderOnly;
+            MinWidth = 300;
 
-            if (bsBtns != null && sBtns != null)
+            var tbMessage = new TextBox
             {
-                if (bsBtns.Length >= 1 && sBtns.Length >= 1 && bsBtns[0]) button1.Text = sBtns[0];
-                if (bsBtns.Length >= 2 && sBtns.Length >= 2 && bsBtns[1]) button2.Text = sBtns[1];
-                if (bsBtns.Length >= 3 && sBtns.Length >= 3 && bsBtns[2]) button3.Text = sBtns[2];
-            }
-            if (adr != null)
-            {
-                if (bsBtns.Length >= 1 && adr.Length >= 1 && bsBtns[0]) button1.DialogResult = adr[0];
-                if (bsBtns.Length >= 2 && adr.Length >= 2 && bsBtns[1]) button2.DialogResult = adr[1];
-                if (bsBtns.Length >= 3 && adr.Length >= 3 && bsBtns[2]) button3.DialogResult = adr[2];
-            }
-            else
-            {
-                button1.DialogResult = DialogResult.OK;
-                button2.DialogResult = DialogResult.Cancel;
-                button3.DialogResult = DialogResult.None;
-            }
+                Text = text,
+                IsReadOnly = true,
+                BorderThickness = new Thickness(1),
+                Margin = new Thickness(8),
+                TextWrapping = TextWrapping.Wrap,
+                MinHeight = 60
+            };
 
-            int x = Convert.ToInt32((this.Width - tlpButtons.Width) / 2);
-            tlpButtons.Left = x;
+            button1 = MakeButton("OK",     DialogResult.OK,     adr, bsBtns, sBtns, 0);
+            button2 = MakeButton("Cancel", DialogResult.Cancel,  adr, bsBtns, sBtns, 1);
+            button3 = MakeButton("",       DialogResult.None,    adr, bsBtns, sBtns, 2);
 
-            this.AcceptButton = this.CancelButton = null;
-            foreach (Button b in new Button[] { button1, button2, button3 })
+            if (!buttonsVisible[0]) button1.IsVisible = false;
+            if (!buttonsVisible[1]) button2.IsVisible = false;
+            if (!buttonsVisible[2]) button3.IsVisible = false;
+
+            button1.Click += (_, _) => { _result = (DialogResult)button1.Tag!; Close(); };
+            button2.Click += (_, _) => { _result = (DialogResult)button2.Tag!; Close(); };
+            button3.Click += (_, _) => { _result = (DialogResult)button3.Tag!; Close(); };
+
+            var buttonRow = new StackPanel
             {
-                if (b.DialogResult == DialogResult.OK) this.AcceptButton = b;
-                if (b.DialogResult == DialogResult.Cancel) this.CancelButton = b;
-            }
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Spacing = 4,
+                Margin = new Thickness(8),
+                Children = { button1, button2, button3 }
+            };
+
+            var root = new StackPanel { Children = { tbMessage, buttonRow } };
+            Content = root;
         }
-        /// <summary>
-        /// Displays a message box with the specified text.
-        /// </summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        public static DialogResult Show(string text)
-        { return (new pjseMsgBox(text, "", "001", null, null, null)).ShowDialog(); }
 
-        /// <summary>
-        /// Displays a message box in front of the specified object and with the specified text.
-        /// </summary>
-        /// <param name="owner">An implementation of System.Windows.Forms.IWin32Window that will own the modal dialog box.</param>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        public static DialogResult Show(IWin32Window owner, string text)
-        { return (new pjseMsgBox(text, "", "001", null, null, null)).ShowDialog(owner); }
+        Button MakeButton(string defaultText, DialogResult defaultResult,
+            DialogResult[] adr, Boolset bsBtns, string[] sBtns, int index)
+        {
+            string text = defaultText;
+            DialogResult result = defaultResult;
 
-        public static DialogResult Show(Avalonia.Controls.Window owner, string text)
-        { return (new pjseMsgBox(text, "", "001", null, null, null)).ShowDialog(); }
+            if (bsBtns != null && bsBtns.Length > index && bsBtns[index])
+            {
+                if (sBtns != null && sBtns.Length > index) text = sBtns[index];
+                if (adr != null && adr.Length > index) result = adr[index];
+            }
+            else if (adr != null && adr.Length > index)
+            {
+                result = adr[index];
+            }
 
+            var btn = new Button { Content = text, Tag = result, MinWidth = 75 };
+            return btn;
+        }
 
-        /// <summary>
-        /// Displays a message box with specified text and caption.
-        /// </summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        public static DialogResult Show(string text, string caption)
-        { return (new pjseMsgBox(text, caption, "001", null, null, null)).ShowDialog(); }
+        // ── Static Show helpers ──────────────────────────────────────────────
+        // Callers that previously used System.Windows.Forms.pjseMsgBox must be
+        // updated to await these async methods.
 
-        /// <summary>
-        /// Displays a message box in front of the specified object and with the specified text and caption.
-        /// </summary>
-        /// <param name="owner">An implementation of System.Windows.Forms.IWin32Window that will own the modal dialog box.</param>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        public static DialogResult Show(IWin32Window owner, string text, string caption)
-        { return (new pjseMsgBox(text, caption, "001", null, null, null)).ShowDialog(owner); }
+        public static Task<DialogResult> ShowAsync(Window owner, string text)
+            => ShowAsync(owner, text, "", "001", null, null, null);
 
-        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption)
-        { return (new pjseMsgBox(text, caption, "001", null, null, null)).ShowDialog(); }
+        public static Task<DialogResult> ShowAsync(Window owner, string text, string caption)
+            => ShowAsync(owner, text, caption, "001", null, null, null);
 
+        public static Task<DialogResult> ShowAsync(Window owner, string text, string caption, Boolset buttonsVisible)
+            => ShowAsync(owner, text, caption, buttonsVisible, null, null, null);
 
-        /// <summary>
-        /// Displays a message box with specified text, caption, and buttons.
-        /// </summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttonsVisible">A Boolset of flags specifying which buttons should be visible.</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
-        public static DialogResult Show(string text, string caption, Boolset buttonsVisible)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, null, null, null)).ShowDialog(); }
+        public static Task<DialogResult> ShowAsync(Window owner, string text, string caption,
+            Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons)
+            => ShowAsync(owner, text, caption, buttonsVisible, buttonsOverride, buttons, null);
 
-        /// <summary>
-        /// Displays a message box in front of the specified object and with specified text, caption, and buttons.
-        /// </summary>
-        /// <param name="owner">An implementation of System.Windows.Forms.IWin32Window that will own the modal dialog box.</param>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttonsVisible">A Boolset of flags specifying which buttons should be visible.</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
-        public static DialogResult Show(IWin32Window owner, string text, string caption, Boolset buttonsVisible)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, null, null, null)).ShowDialog(owner); }
+        public static async Task<DialogResult> ShowAsync(Window owner, string text, string caption,
+            Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
+        {
+            var dlg = new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, resultSet);
+            if (owner != null)
+                await dlg.ShowDialog(owner);
+            else
+                dlg.Show();
+            return dlg._result;
+        }
 
-        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, null, null, null)).ShowDialog(); }
+        // Ownerless variants (for callers that don't have a window reference yet)
+        public static Task<DialogResult> ShowAsync(string text)
+            => ShowAsync(null, text, "", "001", null, null, null);
 
+        public static Task<DialogResult> ShowAsync(string text, string caption)
+            => ShowAsync(null, text, caption, "001", null, null, null);
 
-        /// <summary>
-        /// Displays a message box with specified text, caption, and buttons.
-        /// </summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttonsVisible">A Boolset of flags specifying which buttons should be visible.</param>
-        /// <param name="buttonsOverride">A Boolset of flags specifying which buttons should be overriden from buttons.</param>
-        /// <param name="buttons">Text for button faces</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
-        public static DialogResult Show(string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, null)).ShowDialog(); }
+        public static Task<DialogResult> ShowAsync(string text, string caption, Boolset buttonsVisible)
+            => ShowAsync(null, text, caption, buttonsVisible, null, null, null);
 
-        /// <summary>
-        /// Displays a message box in front of the specified object and with specified text, caption, and buttons.
-        /// </summary>
-        /// <param name="owner">An implementation of System.Windows.Forms.IWin32Window that will own the modal dialog box.</param>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttonsVisible">A Boolset of flags specifying which buttons should be visible.</param>
-        /// <param name="buttonsOverride">A Boolset of flags specifying which buttons should be overriden from buttons.</param>
-        /// <param name="buttons">Text for button faces</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
-        public static DialogResult Show(IWin32Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, null)).ShowDialog(owner); }
+        public static Task<DialogResult> ShowAsync(string text, string caption,
+            Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons)
+            => ShowAsync(null, text, caption, buttonsVisible, buttonsOverride, buttons, null);
 
-        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, null)).ShowDialog(); }
-
-
-        /// <summary>
-        /// Displays a message box with specified text, caption, and buttons.
-        /// </summary>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttonsVisible">A Boolset of flags specifying which buttons should be visible.</param>
-        /// <param name="buttonsOverride">A Boolset of flags specifying which buttons should be overriden from buttons.</param>
-        /// <param name="buttons">Text for button faces</param>
-        /// <param name="resultSet">DialogResult values for buttons</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
-        public static DialogResult Show(string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, resultSet)).ShowDialog(); }
-
-        /// <summary>
-        /// Displays a message box in front of the specified object and with specified text, caption, and buttons.
-        /// </summary>
-        /// <param name="owner">An implementation of System.Windows.Forms.IWin32Window that will own the modal dialog box.</param>
-        /// <param name="text">The text to display in the message box.</param>
-        /// <param name="caption">The text to display in the title bar of the message box.</param>
-        /// <param name="buttonsVisible">A Boolset of flags specifying which buttons should be visible.</param>
-        /// <param name="buttonsOverride">A Boolset of flags specifying which buttons should be overriden from buttons.</param>
-        /// <param name="buttons">Text for button faces</param>
-        /// <param name="resultSet">DialogResult values for buttons</param>
-        /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
-        /// <exception cref="System.ArgumentException">buttonsVisible must contain at least three flags</exception>
-        public static DialogResult Show(IWin32Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, resultSet)).ShowDialog(owner); }
-
-        public static DialogResult Show(Avalonia.Controls.Window owner, string text, string caption, Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
-        { return (new pjseMsgBox(text, caption, buttonsVisible, buttonsOverride, buttons, resultSet)).ShowDialog(); }
+        public static Task<DialogResult> ShowAsync(string text, string caption,
+            Boolset buttonsVisible, Boolset buttonsOverride, string[] buttons, DialogResult[] resultSet)
+            => ShowAsync(null, text, caption, buttonsVisible, buttonsOverride, buttons, resultSet);
     }
 }

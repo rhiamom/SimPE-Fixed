@@ -25,6 +25,7 @@ using System;
 using System.Collections;
 using SimPe.Interfaces.Plugin;
 using System.ComponentModel;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -181,47 +182,62 @@ namespace SimPe.Plugin
 		}
 
         /// <summary>
+        /// Recursively expand all TreeViewItems (Avalonia replacement for WinForms TreeView.ExpandAll)
+        /// </summary>
+        protected static void ExpandAllTreeItems(Avalonia.Controls.ItemCollection items)
+        {
+            foreach (var item in items)
+            {
+                if (item is Avalonia.Controls.TreeViewItem tvi)
+                {
+                    tvi.IsExpanded = true;
+                    ExpandAllTreeItems(tvi.Items);
+                }
+            }
+        }
+
+        /// <summary>
         /// Add a ChildNode (and all it's subChilds) to a TreeNode
         /// </summary>
         /// <param name="parent">The parent TreeNode</param>
         /// <param name="index">The Index of the Child Block in the Parent</param>
         /// <param name="child">The ChildBlock (can be null)</param>
-        protected void AddChildNode(System.Windows.Forms.TreeNodeCollection parent, int index, SimPe.Interfaces.Scenegraph.ICresChildren child)
+        protected void AddChildNode(Avalonia.Controls.ItemCollection parent, int index, SimPe.Interfaces.Scenegraph.ICresChildren child)
         {
             AddChildNode(parent, index, child, new System.Collections.Generic.HashSet<int>());
         }
 
-        protected void AddChildNode(System.Windows.Forms.TreeNodeCollection parent, int index, SimPe.Interfaces.Scenegraph.ICresChildren child, System.Collections.Generic.HashSet<int> visited)
+        protected void AddChildNode(Avalonia.Controls.ItemCollection parent, int index, SimPe.Interfaces.Scenegraph.ICresChildren child, System.Collections.Generic.HashSet<int> visited)
         {
             if (child == null)
             {
-                System.Windows.Forms.TreeNode unode = new System.Windows.Forms.TreeNode("[Error: Unsupported Child on Index " + index.ToString() + "]");
+                Avalonia.Controls.TreeViewItem unode = new Avalonia.Controls.TreeViewItem { Header = "[Error: Unsupported Child on Index " + index.ToString() + "]" };
                 unode.Tag = index;
-                unode.ImageIndex = 4;
-                unode.SelectedImageIndex = 4;
+//                unode.ImageIndex = 4;
+//                unode.SelectedImageIndex = 4;
                 parent.Add(unode);
                 return;
             }
 
             if (visited.Contains(index))
             {
-                System.Windows.Forms.TreeNode cnode = new System.Windows.Forms.TreeNode("[Circular Reference on Index " + index.ToString() + "]");
+                Avalonia.Controls.TreeViewItem cnode = new Avalonia.Controls.TreeViewItem { Header = "[Circular Reference on Index " + index.ToString() + "]" };
                 cnode.Tag = index;
-                cnode.ImageIndex = 4;
-                cnode.SelectedImageIndex = 4;
+//                cnode.ImageIndex = 4;
+//                cnode.SelectedImageIndex = 4;
                 parent.Add(cnode);
                 return;
             }
 
             visited.Add(index);
 
-            System.Windows.Forms.TreeNode node = new System.Windows.Forms.TreeNode("0x" + index.ToString("X") + ": " + child.ToString());
+            Avalonia.Controls.TreeViewItem node = new Avalonia.Controls.TreeViewItem { Header = "0x" + index.ToString("X") + ": " + child.ToString() };
             node.Tag = index;
-            node.ImageIndex = child.ImageIndex;
-            node.SelectedImageIndex = node.ImageIndex;
+            // node.ImageIndex = child.ImageIndex;  // ImageIndex not supported in Avalonia TreeViewItem
+//            node.SelectedImageIndex = node.ImageIndex;
             parent.Add(node);
 
-            foreach (int i in child.ChildBlocks) AddChildNode(node.Nodes, i, child.GetBlock(i), visited);
+            foreach (int i in child.ChildBlocks) AddChildNode(node.Items, i, child.GetBlock(i), visited);
         }
         #endregion
 
@@ -327,7 +343,7 @@ namespace SimPe.Plugin
 		}
 
 		TabPage.ResourceNode tResourceNode;		
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -337,7 +353,7 @@ namespace SimPe.Plugin
 		}
 
 		TabPage.Cres tCres;
-		public override System.Windows.Forms.TabPage ResourceTabPage
+		public override Avalonia.Controls.TabItem ResourceTabPage
 		{
 			get
 			{
@@ -356,10 +372,10 @@ namespace SimPe.Plugin
 			if (tResourceNode==null) tResourceNode = new SimPe.Plugin.TabPage.ResourceNode();
 			if (tCres==null) tCres = new SimPe.Plugin.TabPage.Cres();
 
-			this.tCres.cres_tv.Nodes.Clear();
+			this.tCres.cres_tv.Items.Clear();
 			tCres.tbfjoint.Text = "";
-			AddChildNode(this.tCres.cres_tv.Nodes, 0, this);
-			this.tCres.cres_tv.ExpandAll();
+			AddChildNode(this.tCres.cres_tv.Items, 0, this);
+			ExpandAllTreeItems(this.tCres.cres_tv.Items);
 		}
 
 		/// <summary>
@@ -377,7 +393,7 @@ namespace SimPe.Plugin
 			tResourceNode.tb_rn_ver.Text = "0x"+Helper.HexString(this.version);
 		}
 
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			base.ExtendTabControl (tc);
 			if (typecode==0x1)this.ctn.AddToTabControl(tc);
@@ -388,9 +404,8 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tResourceNode!=null) this.tResourceNode.Dispose();
+			/* TabItem subclasses do not implement IDisposable — no-op */
 			tResourceNode = null;
-			if (tCres!=null) tCres.Dispose();
 			tCres = null;
 			sgres = null;
 			ogn = null;

@@ -22,8 +22,7 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
-using System.Drawing;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 using SimPe.Data;
@@ -36,10 +35,7 @@ namespace SimPe.PackedFiles.UserInterface
 	/// </summary>
 	public class SRel : UIBase, IPackedFileUI
 	{
-		/// <summary>
-		/// Creates a new Instance and fills the aspiration Types into the correct Form
-		/// </summary>
-		public SRel() 
+		public SRel()
 		{
 			form.cbfamtype.Items.Clear();
 			form.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Unset_Unknown));
@@ -53,24 +49,24 @@ namespace SimPe.PackedFiles.UserInterface
 			form.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Sibling));
 			form.cbfamtype.Items.Add(new LocalizedRelationshipTypes(Data.MetaData.RelationshipTypes.Spouses));
 		}
+
 		#region IPackedFileHandler Member
 
 		public Control GUIHandle
 		{
-			get 
+			get
 			{
 				return form.realPanel;
 			}
 		}
 
 		public void UpdateGUI(SimPe.Interfaces.Plugin.IFileWrapper wrapper)
-		{			
+		{
 			Wrapper.SRel srel = (Wrapper.SRel)wrapper;
-			form.wrapper = srel;	
-		
+			form.wrapper = srel;
+
 			form.tbshortterm.Text = srel.Shortterm.ToString();
 			form.tblongterm.Text = srel.Longterm.ToString();
-
 
             List<CheckBox> ltcb = new List<CheckBox>(new CheckBox[] {
 				form.cbcrush, form.cblove, form.cbengaged, form.cbmarried, form.cbfriend, form.cbbuddie, form.cbsteady, form.cbenemy,
@@ -85,26 +81,25 @@ namespace SimPe.PackedFiles.UserInterface
                 Boolset bs2 = srel.RelationState2.Value;
                 for (int i = 0; i < ltcb.Count; i++)
                     if (ltcb[i] != null)
-                        ltcb[i].Checked = ((Boolset)(i < 16 ? bs1 : bs2))[i & 0x0f];
+                        ltcb[i].IsChecked = ((Boolset)(i < 16 ? bs1 : bs2))[i & 0x0f];
             }
             else
             {
                 Boolset bs1 = srel.RelationState.Value;
                 for (int i = 0; i < 16; i++)
                     if (ltcb[i] != null)
-                        ltcb[i].Checked = ((Boolset)(bs1))[i & 0x0f];
+                        ltcb[i].IsChecked = ((Boolset)(bs1))[i & 0x0f];
             }
 
 			form.cbfamtype.SelectedIndex = 0;
-			for (int i=1; i<form.cbfamtype.Items.Count; i++) 
-				if (form.cbfamtype.Items[i] == new Data.LocalizedRelationshipTypes(srel.FamilyRelation)) 
+			for (int i = 1; i < form.cbfamtype.ItemCount; i++)
+				if (form.cbfamtype.Items[i] == new Data.LocalizedRelationshipTypes(srel.FamilyRelation))
 				{
 					form.cbfamtype.SelectedIndex = i;
 					break;
 				}
 		}
 
-		
-		#endregion		
+		#endregion
 	}
 }

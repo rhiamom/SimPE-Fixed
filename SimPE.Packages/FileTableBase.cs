@@ -90,7 +90,7 @@ namespace SimPe
 
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\UI"), false, false));
 
-                        // Catalog contains buy/build entries – recurse here
+                        // Catalog contains buy/build entries ï¿½ recurse here
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Catalog"), true, false));
 
                         //Needed for the Extended Sdesc form popup window labels
@@ -101,11 +101,8 @@ namespace SimPe
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show(
-                        "SimPE could not build the FileTable from the game installation.\n\n" + ex.Message,
-                        "FileTable Error",
-                        System.Windows.Forms.MessageBoxButtons.OK,
-                        System.Windows.Forms.MessageBoxIcon.Error);
+                    System.Diagnostics.Trace.TraceError(
+                        "SimPE could not build the FileTable from the game installation.\n\n" + ex.Message);
 
                     // Preserve original behavior: fall back to MetaFolder
                     // (you can change this to 'return new ArrayList();' if you prefer)

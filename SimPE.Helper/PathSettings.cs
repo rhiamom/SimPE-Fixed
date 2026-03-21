@@ -52,7 +52,7 @@ namespace SimPe
             return userpath;
         }
 
-        [Category("BaseGame"), System.ComponentModel.Editor(typeof(SimPe.SelectSimFolderUITypeEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [Category("BaseGame")]
         public string SaveGamePath
         {
             get { return GetPath(PathProvider.SimSavegameFolder, PathProvider.RealSavegamePath); }

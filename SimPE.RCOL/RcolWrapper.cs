@@ -165,10 +165,24 @@ namespace SimPe.Plugin
 		static void LoadTokens(System.Reflection.Assembly a)
 		{
 			if (tokens==null) tokens = new Hashtable();
-			
+			if (a == null) return;
+
+			// Inline equivalent of SimPe.LoadFileWrappers.LoadPlugins (removed from build)
 			object[] args = new object[1]; args[0] = null;
-			object[] statics = SimPe.LoadFileWrappers.LoadPlugins(a, typeof(SimPe.Interfaces.Scenegraph.IRcolBlock), args);
-			foreach (SimPe.Interfaces.Scenegraph.IRcolBlock isb in statics) isb.Register(tokens);
+			Type interfaceType = typeof(SimPe.Interfaces.Scenegraph.IRcolBlock);
+			foreach (Type t in a.GetTypes())
+			{
+				if (t.IsInterface || t.IsAbstract) continue;
+				try
+				{
+					if (t.GetInterface(interfaceType.FullName) == null) continue;
+					object obj;
+					try { obj = System.Activator.CreateInstance(t, args); }
+					catch { try { obj = System.Activator.CreateInstance(t); } catch { continue; } }
+					if (obj is SimPe.Interfaces.Scenegraph.IRcolBlock isb) isb.Register(tokens);
+				}
+				catch { }
+			}
 		}
 		
 		/// <summary>

@@ -9,374 +9,276 @@
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Globalization;
-using System.Resources;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
+using System.IO;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
+using GdiPoint              = System.Drawing.Point;
+using AvSize                = Avalonia.Size;
+using GdiPen                = System.Drawing.Pen;
+using GdiLinearGradientBrush = System.Drawing.Drawing2D.LinearGradientBrush;
 
 namespace Ambertation.Windows.Forms
 {
-	
+    /// <summary>
+    /// A tab-selector panel with bezier-curved tab buttons along the bottom.
+    /// Ported from WinForms; GDI+ rendering is kept for the offscreen cache,
+    /// composited into Avalonia's render pipeline.
+    /// </summary>
+    [DesignTimeVisible(true)]
+    public class XPTaskBoxSelector : Avalonia.Controls.Control
+    {
+        // Methods
+        public XPTaskBoxSelector()
+        {
+            bc   = System.Drawing.SystemColors.Window;
+            lhc  = System.Drawing.SystemColors.InactiveCaption;
+            rhc  = System.Drawing.SystemColors.Highlight;
+            bodc = System.Drawing.SystemColors.InactiveCaptionText;
+            htc  = System.Drawing.SystemColors.ActiveCaptionText;
+            font = new Font("Arial", 9f, System.Drawing.FontStyle.Bold, GraphicsUnit.Point);
 
-	/// <summary>
-	/// This is an c#-Version of a Control created by www.steepvalley.net. 
-	/// I translated it to remove the Expand/Collapse feature
-	/// </summary>
-	[DesignTimeVisible(true), ToolboxBitmapAttribute(typeof(TabControl))]
-	public class XPTaskBoxSelector : Panel
-	{		
+            pages = new ArrayList();
+            pages.Add(new SelectorItem(this, "Hello"));
+            pages.Add(new SelectorItem(this, "Test"));
+            pages.Add(new SelectorItem(this, "Frank"));
+            pages.Add(new SelectorItem(this, "Bauer"));
+        }
 
-		// Methods
-		public XPTaskBoxSelector()
-		{
-			this.InitializeComponent();
-			this.SetStyle(ControlStyles.ResizeRedraw, true);
-			this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-			this.SetStyle(ControlStyles.UserPaint, true);
-			this.SetStyle(ControlStyles.DoubleBuffer, true);
-			this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-			this.SetStyle(ControlStyles.ContainerControl, true);
-			base.BackColor = Color.Transparent;
+        ArrayList pages;
 
-			this.bc = SystemColors.Window;
-			this.lhc = SystemColors.InactiveCaption;
-			this.rhc = SystemColors.Highlight;
-			this.bodc = SystemColors.InactiveCaptionText;
-			this.htc = SystemColors.ActiveCaptionText;
+        #region Public Properties
+        int selid;
+        public int SelectedIndex
+        {
+            get => selid;
+            set
+            {
+                if (value != selid && value >= 0 && value < pages.Count)
+                {
+                    mousesel = ((SelectorItem)pages[value]).BoundingRectangle.Location;
+                    DrawComplete();
+                    InvalidateVisual();
+                }
+            }
+        }
 
-			this.font = new Font(base.Font.Name, base.Font.Size+2, FontStyle.Bold, base.Font.Unit);			
-			pages = new ArrayList();
+        System.Drawing.Color lhc, rhc, bc, bodc, htc;
+        public System.Drawing.Color LeftHeaderColor
+        {
+            get => lhc;
+            set { if (lhc != value) { lhc = value; DrawComplete(); InvalidateVisual(); } }
+        }
 
-			pages.Add(new SelectorItem(this, "Hello"));
-			pages.Add(new SelectorItem(this, "Test"));
-			pages.Add(new SelectorItem(this, "Frank"));
-			pages.Add(new SelectorItem(this, "Bauer"));	
-		
-			DrawComplete();
-		}
+        public System.Drawing.Color RightHeaderColor
+        {
+            get => rhc;
+            set { if (rhc != value) { rhc = value; DrawComplete(); InvalidateVisual(); } }
+        }
 
-		ArrayList pages ;
-		
-		#region Public Properties
-		int selid;
-		public int SelectedIndex
-		{
-			get {return selid;}
-			set 
-			{
-				if (value!=selid)
-				{					
-					if (value>=0 && value<pages.Count) 
-					{
-						this.mousesel = ((SelectorItem)pages[value]).BoundingRectangle.Location;
-						DrawComplete();
-						Invalidate(SelectionRect, false);
-					}
-				}
-			}
-		}
-		Color lhc, rhc, bc, bodc, htc;
-		public Color LeftHeaderColor 
-		{
-			get {return lhc; }
-			set 
-			{
-				if (lhc != value) 
-				{
-					lhc=value;
-					DrawComplete();
-					this.Invalidate();
-				}
-			}
-		}
+        public System.Drawing.Color BorderColor
+        {
+            get => bc;
+            set { if (bc != value) { bc = value; DrawComplete(); InvalidateVisual(); } }
+        }
 
-		public Color RightHeaderColor 
-		{
-			get {return rhc; }
-			set 
-			{
-				if (rhc != value) 
-				{
-					rhc=value;
-					DrawComplete();
-					this.Invalidate();
-				}
-			}
-		}
+        public System.Drawing.Color HeaderTextColor
+        {
+            get => htc;
+            set { if (htc != value) { htc = value; DrawComplete(); InvalidateVisual(); } }
+        }
 
-		public Color BorderColor 
-		{
-			get {return bc; }
-			set 
-			{
-				if (bc != value) 
-				{
-					bc=value;
-					DrawComplete();
-					this.Invalidate();
-				}
-			}
-		}
+        public System.Drawing.Color BodyColor
+        {
+            get => bodc;
+            set { if (bodc != value) { bodc = value; DrawComplete(); InvalidateVisual(); } }
+        }
 
-		public Color HeaderTextColor 
-		{
-			get {return htc; }
-			set 
-			{
-				if (htc != value) 
-				{
-					htc=value;
-					DrawComplete();
-					Invalidate(SelectionRect, false);
-				}
-			}
-		}
+        Font font;
+        public Font HeaderFont
+        {
+            get => font;
+            set { if (font != value) { font = value; DrawComplete(); InvalidateVisual(); } }
+        }
+        #endregion
 
-		public Color BodyColor 
-		{
-			get {return bodc; }
-			set 
-			{
-				if (bodc != value) 
-				{
-					bodc=value;
-					DrawComplete();
-					this.Invalidate();
-				}
-			}
-		}
+        protected Rectangle SelectionRect
+        {
+            get
+            {
+                int h = (int)Bounds.Height;
+                int w = (int)Bounds.Width;
+                return new Rectangle(0, h - 25, w - 1, 22);
+            }
+        }
 
-		Font font;
-		public Font HeaderFont
-		{
-			get {return font; }
-			set 
-			{
-				if (font != value) 
-				{
-					font=value;
-					DrawComplete();
-					Invalidate(SelectionRect, false);
-				}
-			}
-		}
+        protected void DrawSelection(System.Drawing.Graphics g, Rectangle ef3)
+        {
+            int minleft = ef3.Right;
+            for (int i = 0; i < pages.Count; i++)
+            {
+                minleft -= ((SelectorItem)pages[i]).MinWidth;
+                minleft -= ef3.Height;
+            }
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (this.components != null))
-			{
-				this.components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
-		#endregion
+            selid = -1;
+            for (int i = 0; i < pages.Count; i++)
+            {
+                SelectorItem item = (SelectorItem)pages[i];
+                Rectangle rec = new Rectangle(minleft, ef3.Top, item.MinWidth + ef3.Height, ef3.Height);
+                item.DrawButton(g, rec, i == pages.Count - 1, rec.Contains(mouseloc), rec.Contains(mousesel));
+                if (rec.Contains(mousesel)) selid = i;
+                minleft += rec.Width;
+            }
+        }
 
-		[DebuggerStepThrough]
-		private void InitializeComponent()
-		{
-			this.components = new Container();
-			
-			Size size1 = new Size(0x10, 0x10);
-			
-			this.DockPadding.Bottom = 4;
-			this.DockPadding.Left = 4;
-			this.DockPadding.Right = 4;
-			this.DockPadding.Top = 0x2c;
-			this.Name = "XPTaskBoxSimple";
-		}
+        internal void UpdateSelection(SelectorItem sender)
+        {
+            DrawComplete();
+            InvalidateVisual();
+        }
 
-		private void mThemeFormat_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			this.Invalidate();
-		}
+        System.Drawing.Bitmap cachedimg;
+        int cachedW, cachedH;
 
-		protected Rectangle SelectionRect
-		{
-			get 
-			{ 
-				return new Rectangle(0, (this.Height - 25), this.Width-1, 22);
-			}
-		}
+        protected virtual void DrawComplete()
+        {
+            int w = (int)Bounds.Width;
+            int h = (int)Bounds.Height;
+            if (w <= 0 || h <= 0) return;
 
-		protected void DrawSelection(System.Drawing.Graphics g, Rectangle ef3)
-		{
-			int minleft = ef3.Right;
-			for (int i=0; i<pages.Count; i++)
-			{
-				minleft -= ((SelectorItem)pages[i]).MinWidth;
-				minleft -= ef3.Height;
-			}
+            if (cachedimg != null) cachedimg.Dispose();
+            cachedimg = new System.Drawing.Bitmap(w, h);
+            cachedW = w;
+            cachedH = h;
 
-			selid = -1;
-			for (int i=0; i<pages.Count; i++)
-			{
-				SelectorItem item = ((SelectorItem)pages[i]);				
-				Rectangle rec = new Rectangle(minleft, ef3.Top, item.MinWidth+ef3.Height, ef3.Height);
-				item.DrawButton(g, rec, i==pages.Count-1, rec.Contains(mouseloc), rec.Contains(mousesel));
-				if (rec.Contains(mousesel)) selid = i;
-				minleft += rec.Width;
-			}
-		}
+            System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(cachedimg);
+            Ambertation.Windows.Forms.Graph.GraphPanelElement.SetGraphicsMode(g, false);
 
-		internal void UpdateSelection(SelectorItem sender)
-		{
-			DrawComplete();
-			Invalidate(SelectionRect, false);
-		}
+            Rectangle ef3  = SelectionRect;
+            Rectangle ef3b = new Rectangle(3, 3, w - 7, h - ef3.Height - 6);
+            Rectangle ef1  = new Rectangle(0, 0, w - 1, h - 1);
 
-		Bitmap cachedimg;
-		protected override void OnPaint(PaintEventArgs e) 
-		{
-			//base.OnPaint(e);
-			
-			e.Graphics.DrawImage(cachedimg, e.ClipRectangle, e.ClipRectangle, GraphicsUnit.Pixel);			
-		}
+            GraphicsPath path = new GraphicsPath();
+            using var brush1 = new GdiLinearGradientBrush(ef3.IsEmpty ? new Rectangle(0,0,1,1) : ef3, LeftHeaderColor, RightHeaderColor, LinearGradientMode.Horizontal);
+            using var borderpen = new GdiPen(BorderColor, 1f);
+            using var format1 = new StringFormat
+            {
+                Alignment     = StringAlignment.Near,
+                LineAlignment = StringAlignment.Center,
+                Trimming      = StringTrimming.EllipsisCharacter,
+                FormatFlags   = StringFormatFlags.NoWrap,
+            };
+            borderpen.Alignment = PenAlignment.Inset;
 
-		protected virtual void DrawComplete()
-		{		
-			if (cachedimg!=null) cachedimg.Dispose();
+            path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef1, 7);
+            g.FillPath(brush1, path);
 
-			cachedimg = new Bitmap(Width, Height);
-			System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(cachedimg);
-			Ambertation.Windows.Forms.Graph.GraphPanelElement.SetGraphicsMode(g, false);
-			
-			Rectangle ef3 = this.SelectionRect;
-			Rectangle ef3b = new Rectangle(3, 3, this.Width-7, this.Height-ef3.Height-6);
-			Rectangle ef2 = new Rectangle(0, 24, this.Width-1, (this.Height - 25));
-			Rectangle ef1 = new Rectangle(0, 0, this.Width-1,(this.Height - 1));
-			GraphicsPath path = new GraphicsPath();
-			LinearGradientBrush brush1 = new LinearGradientBrush(ef3, LeftHeaderColor, RightHeaderColor, LinearGradientMode.Horizontal);
-			Pen borderpen = new Pen(BorderColor, 1f);
-			StringFormat format1 = new StringFormat();
-			format1.Alignment = StringAlignment.Near;
-			format1.LineAlignment = StringAlignment.Center;
-			format1.Trimming = StringTrimming.EllipsisCharacter;
-			format1.FormatFlags = StringFormatFlags.NoWrap;
-			borderpen.Alignment = PenAlignment.Inset;
-			
-			
-			path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef1, 7);
-			g.FillPath(brush1, path);
-			
-			DrawSelection(g, ef3);
+            DrawSelection(g, ef3);
 
-			path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef3b, 7);			
-			g.FillPath(new SolidBrush(BodyColor), path);
+            path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef3b, 7);
+            g.FillPath(new SolidBrush(BodyColor), path);
 
-			
+            path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef1, 7);
+            g.DrawPath(borderpen, path);
 
-			path = Ambertation.Drawing.GraphicRoutines.GethRoundRectPath(ef1, 7);			
-			g.DrawPath(borderpen, path);
-			
-			path.Dispose();
-			brush1.Dispose();
-			borderpen.Dispose();
-			format1.Dispose();
+            path.Dispose();
+            Ambertation.Windows.Forms.Graph.GraphPanelElement.SetGraphicsMode(g, true);
+            g.Dispose();
+        }
 
-			Ambertation.Windows.Forms.Graph.GraphPanelElement.SetGraphicsMode(g, true);
-			
-			g.Dispose();
-		}		
+        public override void Render(DrawingContext context)
+        {
+            int w = (int)Bounds.Width;
+            int h = (int)Bounds.Height;
+            if (cachedimg == null || cachedW != w || cachedH != h)
+                DrawComplete();
 
-		
+            if (cachedimg != null)
+            {
+                using var ms = new MemoryStream();
+                cachedimg.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                ms.Position = 0;
+                using var avBmp = new Avalonia.Media.Imaging.Bitmap(ms);
+                context.DrawImage(avBmp, new Rect(0, 0, w, h));
+            }
 
-				
+            base.Render(context);
+        }
 
-		
+        protected override AvSize ArrangeOverride(AvSize finalSize)
+        {
+            cachedimg = null; // size changed — rebuild on next render
+            return base.ArrangeOverride(finalSize);
+        }
 
-		[Browsable(false), Description("returns the usable region as Rectangle")]
-		internal Rectangle WorkspaceRect
-		{
-			get
-			{
-				return new Rectangle(3, 3, this.Width - 7, (this.Height - 22) - 4);
-			}
-		}
+        [Browsable(false)]
+        internal Rectangle WorkspaceRect
+            => new Rectangle(3, 3, (int)Bounds.Width - 7, (int)Bounds.Height - 22 - 4);
 
+        #region Pointer event overrides
+        GdiPoint mouseloc;
+        GdiPoint mousesel;
+        bool hadhover;
 
-		// Fields
-		private IContainer components;
+        protected override void OnPointerMoved(PointerEventArgs e)
+        {
+            base.OnPointerMoved(e);
+            var pos = e.GetPosition(this);
+            GdiPoint pt = new GdiPoint((int)pos.X, (int)pos.Y);
 
-		Point mouseloc;
-		Point mousesel;
-		bool hadhover;
-		protected override void OnMouseMove(MouseEventArgs e)
-		{
-			base.OnMouseMove (e);
-			Point pt = new Point(e.X, e.Y);
-			for (int i=0; i<pages.Count; i++)
-			{
-				SelectorItem item = ((SelectorItem)pages[i]);				
-				if (item.BoundingRectangle.Contains(pt)) 
-				{
-					hadhover = true;
-					mouseloc = pt;
-					DrawComplete();
-					Invalidate(SelectionRect, false);
-					return;
-				}
-			}	
-			mouseloc = pt;
-			if (hadhover) 
-			{
-				DrawComplete();
-				Invalidate(SelectionRect, false);
-			}
-			hadhover = false;
-		}
+            for (int i = 0; i < pages.Count; i++)
+            {
+                SelectorItem item = (SelectorItem)pages[i];
+                if (item.BoundingRectangle.Contains(pt))
+                {
+                    hadhover = true;
+                    mouseloc = pt;
+                    DrawComplete();
+                    InvalidateVisual();
+                    return;
+                }
+            }
+            mouseloc = pt;
+            if (hadhover) { DrawComplete(); InvalidateVisual(); }
+            hadhover = false;
+        }
 
-		protected override void OnMouseDown(MouseEventArgs e)
-		{
-			base.OnMouseDown (e);
-			if (e.Button==MouseButtons.Left) 
-			{
-				Point pt = new Point(e.X, e.Y);
-				for (int i=0; i<pages.Count; i++)
-				{
-					SelectorItem item = ((SelectorItem)pages[i]);				
-					if (item.BoundingRectangle.Contains(pt)) 
-					{
-						mousesel = pt;
-						DrawComplete();
-						Invalidate(SelectionRect, false);
-						return;
-					}
-				}
-			}
-		}
+        protected override void OnPointerPressed(PointerPressedEventArgs e)
+        {
+            base.OnPointerPressed(e);
+            if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed) return;
 
-		protected override void OnMouseLeave(EventArgs e)
-		{
-			base.OnMouseLeave (e);
-			mouseloc = new Point(0,0);
-			DrawComplete();
-			Invalidate(SelectionRect, false);
-		}
+            var pos = e.GetPosition(this);
+            GdiPoint pt = new GdiPoint((int)pos.X, (int)pos.Y);
+            for (int i = 0; i < pages.Count; i++)
+            {
+                SelectorItem item = (SelectorItem)pages[i];
+                if (item.BoundingRectangle.Contains(pt))
+                {
+                    mousesel = pt;
+                    DrawComplete();
+                    InvalidateVisual();
+                    return;
+                }
+            }
+        }
 
-		protected override void OnResize(EventArgs e)
-		{
-			DrawComplete();
-			base.OnResize (e);
-		}
-
-
-	}
+        protected override void OnPointerExited(PointerEventArgs e)
+        {
+            base.OnPointerExited(e);
+            mouseloc = new GdiPoint(0, 0);
+            DrawComplete();
+            InvalidateVisual();
+        }
+        #endregion
+    }
 }

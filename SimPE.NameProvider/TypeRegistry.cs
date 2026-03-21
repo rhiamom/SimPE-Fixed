@@ -94,7 +94,7 @@ namespace SimPe.PackedFiles
 		/// <summary>
 		/// Wrapper ImageList
 		/// </summary>
-		System.Windows.Forms.ImageList il;
+		System.Collections.Generic.List<Avalonia.Media.Imaging.Bitmap> il;
 
 		/// <summary>
 		/// Constructor of the class
@@ -136,13 +136,7 @@ namespace SimPe.PackedFiles
                     handlers.Add((SimPe.Interfaces.Plugin.IFileWrapper)wrapper);
                     if (wrapper.WrapperDescription is AbstractWrapperInfo)
                     {
-                        if (il != null && wrapper.WrapperDescription.Icon != null)
-                        {
-                            ((AbstractWrapperInfo)wrapper.WrapperDescription).IconIndex = il.Images.Count;
-                            il.Images.Add(wrapper.WrapperDescription.Icon);
-                        }
-                        else
-                            ((AbstractWrapperInfo)wrapper.WrapperDescription).IconIndex = 1;
+                        ((AbstractWrapperInfo)wrapper.WrapperDescription).IconIndex = 1;
                     }
                 }
             }
@@ -235,7 +229,7 @@ namespace SimPe.PackedFiles
 		/// <summary>
 		/// Contains a Listing of all available Wrapper Icons
 		/// </summary>
-		public System.Windows.Forms.ImageList WrapperImageList
+		public System.Collections.Generic.List<Avalonia.Media.Imaging.Bitmap> WrapperImageList
 		{
 			get {return il; }
 		}		

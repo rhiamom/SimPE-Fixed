@@ -110,7 +110,7 @@ namespace SimPe.Cache
                         containers.Add(cc);
                         if (withprogress) Wait.Progress = i;
                         // Only pump messages every 500 containers instead of every 10
-                        if (i % 500 == 0) System.Windows.Forms.Application.DoEvents();
+                        // DoEvents removed — not needed in Avalonia
                     }
                 }
                 finally

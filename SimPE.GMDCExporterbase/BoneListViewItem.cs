@@ -21,54 +21,57 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+// Ported from WinForms to Avalonia (Mac port).
+// ComboBox → Avalonia.Controls.ComboBox; Dispose() no-ops since Avalonia controls
+// do not implement IDisposable.
+
 using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
+using System.Windows.Forms;   // our compat stubs (ListViewItem, ListViewEx)
+using Avalonia.Controls;      // real Avalonia ComboBox
 
 namespace SimPe.Plugin.Gmdc
 {
-	
-	class BoneListViewItem : ListViewItem, System.IDisposable
+
+	class BoneListViewItem : System.Windows.Forms.ListViewItem, System.IDisposable
 	{
 		protected Ambertation.Scenes.Joint joint;
 		protected GenericMeshImport gmi;
-		ListViewEx parent;
-		ComboBox cbact, cbgroup;
+		System.Windows.Forms.ListViewEx parent;
+		Avalonia.Controls.ComboBox cbact, cbgroup;
 
 		public delegate void ActionChangedEvent(BoneListViewItem sender);
 		ActionChangedEvent fkt;
-		public BoneListViewItem(ListViewEx lv, Ambertation.Scenes.Joint joint, GenericMeshImport gmi, ActionChangedEvent fkt) : base()
+		public BoneListViewItem(System.Windows.Forms.ListViewEx lv, Ambertation.Scenes.Joint joint, GenericMeshImport gmi, ActionChangedEvent fkt) : base()
 		{
 			this.fkt = fkt;
 			parent = lv;
 			this.joint = joint;
 			this.gmi = gmi;
-				
-			cbact = new ComboBox();			
-			cbact.DropDownStyle = ComboBoxStyle.DropDownList;
-			cbact.SelectedIndexChanged += new EventHandler(cbact_SelectedIndexChanged);
+
+			cbact = new Avalonia.Controls.ComboBox();
+			cbact.SelectionChanged += cbact_SelectionChanged;
 			GenericMeshImport.JointImportAction[] acts = (GenericMeshImport.JointImportAction[])Enum.GetValues(typeof(GenericMeshImport.JointImportAction));
 			foreach (GenericMeshImport.JointImportAction a in acts)
 				cbact.Items.Add(a);
 			cbact.SelectedItem = GenericMeshImport.JointImportAction.Ignore;
 
-			cbgroup = new ComboBox();			
-			cbgroup.DropDownStyle = ComboBoxStyle.DropDownList;
+			cbgroup = new Avalonia.Controls.ComboBox();
 			cbgroup.Items.Add("["+SimPe.Localization.GetString("none")+"]");
 			foreach (GmdcJoint  j in gmi.Gmdc.Joints)
 				cbgroup.Items.Add(j);
-			cbgroup.SelectedItem = 0;
-			
-			
+			cbgroup.SelectedIndex = 0;
+
+
 			int i = gmi.Gmdc.FindJointByName(joint.Name);
-			if (i>=0) 
-			{				
+			if (i>=0)
+			{
 				Joint = gmi.Gmdc.Joints[i];
 				Action = GenericMeshImport.JointImportAction.Update;
 			}
-								
+
 			Setup();
 			parent.Items.Add(this);
 			parent.AddEmbeddedControl(cbact, 1, parent.Items.Count-1);
@@ -80,7 +83,7 @@ namespace SimPe.Plugin.Gmdc
 			Dispose();
 		}
 
-		
+
 
 		public GenericMeshImport.JointImportAction Action
 		{
@@ -90,17 +93,17 @@ namespace SimPe.Plugin.Gmdc
 
 		public GmdcJoint Joint
 		{
-			get 
+			get
 			{
 				if (cbgroup.SelectedItem==null) return null;
 				if (!(cbgroup.SelectedItem is GmdcJoint)) return null;
 				return cbgroup.SelectedItem as GmdcJoint;
 			}
-			set 
+			set
 			{
 				if (value==null) cbgroup.SelectedIndex=0;
 				else cbgroup.SelectedItem = value;
-					
+
 				if (cbgroup.SelectedIndex<0) cbgroup.SelectedIndex=0;
 			}
 		}
@@ -112,8 +115,8 @@ namespace SimPe.Plugin.Gmdc
 			this.SubItems.Add(Action.ToString()); //action
 			if (Joint!=null) this.SubItems.Add(Joint.Name); //target
 			else this.SubItems.Add("["+SimPe.Localization.GetString("none")+"]");
-			this.SubItems.Add(joint.GetAssignedVertexCount().ToString());			
-			
+			this.SubItems.Add(joint.GetAssignedVertexCount().ToString());
+
 			this.ForeColor = MyColor();
 		}
 
@@ -126,17 +129,18 @@ namespace SimPe.Plugin.Gmdc
 
 		public virtual void Dispose()
 		{
-			if (cbact!=null) 
+			if (cbact!=null)
 			{
-				cbact.SelectedIndexChanged -= new EventHandler(cbact_SelectedIndexChanged);
-				cbact.Dispose();
+				cbact.SelectionChanged -= cbact_SelectionChanged;
+				// Avalonia controls are not IDisposable — no Dispose() call needed
 			}
 			cbact = null;
 
-			if (cbgroup!=null) 
+			if (cbgroup!=null)
 			{
-				cbgroup.Dispose();
+				// Avalonia controls are not IDisposable — no Dispose() call needed
 			}
+			cbgroup = null;
 
 			parent = null;
 			joint = null;
@@ -147,9 +151,9 @@ namespace SimPe.Plugin.Gmdc
 		#endregion
 
 
-		private void cbact_SelectedIndexChanged(object sender, EventArgs e)
+		private void cbact_SelectionChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
-			fkt(this);
+			if (fkt != null) fkt(this);
 		}
 	}
 }

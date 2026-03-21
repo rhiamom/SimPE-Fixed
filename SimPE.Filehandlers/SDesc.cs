@@ -22,8 +22,7 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
-using System.Drawing;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 using SimPe.PackedFiles.Wrapper.Supporting;
@@ -80,11 +79,10 @@ namespace SimPe.PackedFiles.UserInterface
 
         #region IPackedFileHandler Member
 
-        public Control GUIHandle
+        public Avalonia.Controls.Control GUIHandle
         {
             get
             {
-                // For now we expose the whole SdscPanel as the UI for SDesc.
                 return sdscPanel;
             }
         }

@@ -22,8 +22,8 @@
  ***************************************************************************/
 
 using System;
-using SimPe.Events;
 using System.Windows.Forms;
+using SimPe.Events;
 using SimPe.Collections;
 
 namespace SimPe
@@ -385,85 +385,12 @@ namespace SimPe
 		}
 
 		/// <summary>
-		/// Executed when the user clicks on one of the RecentFiles Menu Items
+		/// Returns the list of recently opened file paths.
+		/// The Avalonia main window is responsible for building its own "Recent Files" menu.
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		void OpenRecent(object sender, System.EventArgs e)
+		public string[] GetRecentFiles()
 		{
-			if (sender is ToolStripMenuItem) 
-			{
-                ToolStripMenuItem mbi = (ToolStripMenuItem)sender;
-
-				FileNameEventArg me = new FileNameEventArg(mbi.Tag.ToString());									
-				if (BeforeRecentFileLoad!=null) BeforeRecentFileLoad(this, me);				
-
-				if (!me.Cancel)  				
-					if (LoadFromFile(me.FileName)) 
-						if (AfterRecentFileLoad!=null) AfterRecentFileLoad(this);							
-			}
-		}
-
-		/// <summary>
-		/// Get a fitting Shortcut
-		/// </summary>
-		/// <param name="i">Number of the Item</param>
-		/// <returns></returns>
-		System.Windows.Forms.Shortcut GetShortCut(int i)
-		{			
-			if (i==1) return System.Windows.Forms.Shortcut.Ctrl1;
-			if (i==2) return System.Windows.Forms.Shortcut.Ctrl2;
-			if (i==3) return System.Windows.Forms.Shortcut.Ctrl3;
-			if (i==4) return System.Windows.Forms.Shortcut.Ctrl4;
-			if (i==5) return System.Windows.Forms.Shortcut.Ctrl5;
-			if (i==6) return System.Windows.Forms.Shortcut.Ctrl6;
-			if (i==7) return System.Windows.Forms.Shortcut.Ctrl7;
-			if (i==8) return System.Windows.Forms.Shortcut.Ctrl8;
-			if (i==9) return System.Windows.Forms.Shortcut.Ctrl9;
-			if (i==10) return System.Windows.Forms.Shortcut.Ctrl0;
-
-			
-			if (i==11) return System.Windows.Forms.Shortcut.Alt1;
-			if (i==12) return System.Windows.Forms.Shortcut.Alt2;
-			if (i==13) return System.Windows.Forms.Shortcut.Alt3;
-			if (i==14) return System.Windows.Forms.Shortcut.Alt4;
-			if (i==15) return System.Windows.Forms.Shortcut.Alt5;
-			if (i==16) return System.Windows.Forms.Shortcut.Alt6;
-			if (i==17) return System.Windows.Forms.Shortcut.Alt7;
-			if (i==18) return System.Windows.Forms.Shortcut.Alt8;
-			if (i==19) return System.Windows.Forms.Shortcut.Alt9;
-			if (i==20) return System.Windows.Forms.Shortcut.Alt0;
-
-			return System.Windows.Forms.Shortcut.None;
-		}
-
-		/// <summary>
-		/// Add a List of recently Opened Files to the Menu
-		/// </summary>
-		/// <param name="menu"></param>
-        public void UpdateRecentFileMenu(System.Windows.Forms.ToolStripMenuItem menu)
-		{
-			menu.DropDownItems.Clear();
-
-			string[] files = Helper.XmlRegistry.GetRecentFiles();
-			foreach (string file in files)
-			{
-				if (System.IO.File.Exists(file)) 
-				{
-					string sname = file;
-					if (sname.Length>MAX_FILENAME_LENGTH) 
-						sname = "..."+sname.Substring(file.Length-MAX_FILENAME_LENGTH, MAX_FILENAME_LENGTH);
-
-                    System.Windows.Forms.ToolStripMenuItem mbi = new System.Windows.Forms.ToolStripMenuItem(sname);
-					mbi.Tag = file;
-					mbi.Click += new EventHandler(OpenRecent);
-                    System.Windows.Forms.KeysConverter kc = new KeysConverter();
-
-                    LoadFileWrappersExt.SetShurtcutKey(mbi, GetShortCut(menu.DropDownItems.Count + 1));					
-					
-					menu.DropDownItems.Add(mbi);
-				}
-			}
+			return Helper.XmlRegistry.GetRecentFiles();
 		}
 
 		/// <summary>

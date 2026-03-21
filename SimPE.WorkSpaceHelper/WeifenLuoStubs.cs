@@ -14,24 +14,30 @@ namespace WeifenLuo.WinFormsUI.Docking
     public class VS2015DarkTheme : ThemeBase { }
 
     /// <summary>Stub dock panel — will be replaced with Avalonia docking.</summary>
-    public class DockPanel : System.Windows.Forms.Panel
+    public class DockPanel
     {
-        public System.Windows.Forms.Control ActiveDocument => null;
+        public IDockContent ActiveDocument => null;
         public DocumentStyle DocumentStyle { get; set; }
         public ThemeBase Theme { get; set; }
-        public IDockContent[] DocumentsToArray() => System.Array.Empty<IDockContent>();
+        public IDockContent[] DocumentsToArray() => Array.Empty<IDockContent>();
     }
 
     /// <summary>Stub dockable content window — will be replaced with Avalonia docking.</summary>
-    public class DockContent : System.Windows.Forms.Form, IDockContent
+    public class DockContent : IDockContent
     {
         public DockPanel DockPanel => null;
         public DockState DockState { get; set; } = DockState.Document;
         public DockAreas DockAreas { get; set; } = DockAreas.Document;
         public DockPaneHandler DockHandler { get; } = new DockPaneHandler();
         public bool CloseButton { get; set; } = true;
+        public string Text { get; set; } = "";
+        public object Tag { get; set; }
+        public System.Drawing.Rectangle ClientRectangle => new System.Drawing.Rectangle(0, 0, 800, 600);
+        public event EventHandler FormClosing;
         public void Show(DockPanel dp) { }
         public void Show(DockPanel dp, DockState state) { }
+        public void Activate() { }
+        protected void OnFormClosing(EventArgs e) => FormClosing?.Invoke(this, e);
     }
 
     public class DockPaneHandler
@@ -40,7 +46,7 @@ namespace WeifenLuo.WinFormsUI.Docking
         public DockState DockState { get; set; } = DockState.Document;
         public DockPane Pane { get; }
         public DockPanel DockPanel { get; }
-        public System.Windows.Forms.Form Form { get; }
+        public DockContent Form { get; }
     }
 
     public class DockPane { }

@@ -23,7 +23,7 @@
 
 using System;
 using SimPe.Interfaces.Plugin;
-using System.Windows.Forms;
+using Avalonia.Controls;
 using SimPe.Interfaces.Scenegraph;
 
 namespace SimPe.Plugin
@@ -35,11 +35,9 @@ namespace SimPe.Plugin
 	{
 		#region Code to Startup the UI
 
-		
 		/// <summary>
 		/// Holds a reference to the Form containing the UI Panel
 		/// </summary>
-		//internal NgbhForm form;
 		RcolForm form;
 
 		/// <summary>
@@ -51,73 +49,75 @@ namespace SimPe.Plugin
 		}
 		#endregion
 
-		
+
 
 		#region IPackedFileUI Member
 
 		/// <summary>
 		/// Returns the Panel that will be displayed within SimPe
 		/// </summary>
-		public System.Windows.Forms.Control GUIHandle
+		public Avalonia.Controls.Control GUIHandle
 		{
 			get
 			{
-				if (form==null) return null;
+				if (form == null) return null;
 				return form;
 			}
 		}
 
 		/// <summary>
 		/// Is called by SimPe (through the Wrapper) when the Panel is going to be displayed, so
-		/// you should updatet the Data displayed by the Panel with the Attributes stored in the
+		/// you should update the Data displayed by the Panel with the Attributes stored in the
 		/// passed Wrapper.
 		/// </summary>
 		/// <param name="wrapper">The Attributes of this Wrapper have to be displayed</param>
 		public void UpdateGUI(IFileWrapper wrapper)
-		{			
-			Rcol wrp = (Rcol) wrapper;
+		{
+			Rcol wrp = (Rcol)wrapper;
 			form.wrapper = wrp;
 
 			form.cbitem.Items.Clear();
 			foreach (IRcolBlock rb in wrp.Blocks) SimPe.CountedListItem.AddHex(form.cbitem, rb);
-			if (form.cbitem.Items.Count>0) form.cbitem.SelectedIndex = 0;
+			if (form.cbitem.Items.Count > 0) form.cbitem.SelectedIndex = 0;
 			else form.BuildChildTabControl(null);
 
 			form.lbref.Items.Clear();
 			foreach (Interfaces.Files.IPackedFileDescriptor pfd in wrp.ReferencedFiles) form.lbref.Items.Add(pfd);
-			if (form.lbref.Items.Count>0) form.lbref.SelectedIndex = 0;
+			if (form.lbref.Items.Count > 0) form.lbref.SelectedIndex = 0;
 
-			form.tbResource.TabPages.Remove(form.tpref);
-			form.tv.Nodes.Clear();
-			if (typeof(IScenegraphItem)==wrp.GetType().GetInterface("IScenegraphItem")) 
+			form.tbResource.Items.Remove(form.tpref);
+			form.tv.Items.Clear();
+			if (typeof(IScenegraphItem) == wrp.GetType().GetInterface("IScenegraphItem"))
 			{
-				form.tbResource.TabPages.Add(form.tpref);
+				form.tbResource.Items.Add(form.tpref);
 				System.Collections.Hashtable refmap = ((IScenegraphItem)wrp).ReferenceChains;
-				foreach (string k in refmap.Keys) 
+				foreach (string k in refmap.Keys)
 				{
 					System.Collections.ArrayList l = (System.Collections.ArrayList)refmap[k];
-					TreeNode node = new TreeNode(k);
+					Avalonia.Controls.TreeViewItem node = new Avalonia.Controls.TreeViewItem { Header = k };
 
-					foreach (Interfaces.Files.IPackedFileDescriptor pfd in l) 
+					foreach (Interfaces.Files.IPackedFileDescriptor pfd in l)
 					{
-						TreeNode child = new TreeNode(pfd.Filename+": "+pfd.ToString());
-						child.Tag = pfd;
-						node.Nodes.Add(child);
+						Avalonia.Controls.TreeViewItem child = new Avalonia.Controls.TreeViewItem
+						{
+							Header = pfd.Filename + ": " + pfd.ToString(),
+							Tag    = pfd
+						};
+						node.Items.Add(child);
 					}
 
-					form.tv.Nodes.Add(node);
+					form.tv.Items.Add(node);
 				}
-			} 
+			}
 			form.tbResource.SelectedIndex = 0;
 
-			if (wrp.Blocks.Length>0) ((AbstractRcolBlock)wrp.Blocks[0]).AddToResourceTabControl(form.tbResource, form.cbitem);
+			if (wrp.Blocks.Length > 0) ((AbstractRcolBlock)wrp.Blocks[0]).AddToResourceTabControl(form.tbResource, form.cbitem);
 
-            form.Enabled = !wrp.Duff;
-			
-		}		
+			form.IsEnabled = !wrp.Duff;
+		}
 
 		#endregion
-		
+
 		#region IDisposable Member
 		public virtual void Dispose()
 		{

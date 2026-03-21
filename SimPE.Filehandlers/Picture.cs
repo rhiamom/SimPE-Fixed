@@ -22,23 +22,21 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
-using System.Drawing;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 
-namespace SimPe.PackedFiles.UserInterface 
+namespace SimPe.PackedFiles.UserInterface
 {
 	/// <summary>
 	/// handles Packed Jpeg Files
 	/// </summary>
 	public class Picture : UIBase, IPackedFileUI
 	{
-		
 		#region IPackedFileUI Member
 		public Control GUIHandle
 		{
-			get 
+			get
 			{
 				return form.JpegPanel;
 			}
@@ -47,12 +45,25 @@ namespace SimPe.PackedFiles.UserInterface
 		public void UpdateGUI(SimPe.Interfaces.Plugin.IFileWrapper wrapper)
 		{
 			form.picwrapper = wrapper;
-			PictureBox pb = form.pb;
-			Image img = ((SimPe.PackedFiles.Wrapper.Picture)wrapper).Image;
-			pb.Image = img;
+			Image pb = form.pb;
+			System.Drawing.Image img = ((SimPe.PackedFiles.Wrapper.Picture)wrapper).Image;
+			// Convert System.Drawing.Image to Avalonia IImage via stream
+			if (img != null)
+			{
+				try
+				{
+					using var ms = new System.IO.MemoryStream();
+					img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+					ms.Seek(0, System.IO.SeekOrigin.Begin);
+					pb.Source = new Avalonia.Media.Imaging.Bitmap(ms);
+				}
+				catch { pb.Source = null; }
+			}
+			else
+			{
+				pb.Source = null;
+			}
 		}
-
-		
 
 		#endregion
 	}

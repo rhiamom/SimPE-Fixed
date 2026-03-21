@@ -24,6 +24,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -322,7 +323,7 @@ namespace SimPe.Plugin
 
 		fAnimResourceConst form = null;
 		[BrowsableAttribute(false)]
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -339,41 +340,41 @@ namespace SimPe.Plugin
 		{
 			if (form==null) form = new fAnimResourceConst(); 
 			
-			form.tv.Nodes.Clear();
-			System.Windows.Forms.TreeNode btn = new System.Windows.Forms.TreeNode("Header");
+			form.tv.Items.Clear();
+			Avalonia.Controls.TreeViewItem btn = new Avalonia.Controls.TreeViewItem { Header = "Header" };
 			btn.Tag = this;
-			form.tv.Nodes.Add(btn);
+			form.tv.Items.Add(btn);
 
 			foreach (AnimBlock1 ab in this.ab1) 
 			{
-				System.Windows.Forms.TreeNode tn = new System.Windows.Forms.TreeNode(ab.ToString());
+				Avalonia.Controls.TreeViewItem tn = new Avalonia.Controls.TreeViewItem { Header = ab.ToString() };
 				tn.Tag = ab;
-				form.tv.Nodes.Add(tn);
+				form.tv.Items.Add(tn);
 				
 				foreach (AnimBlock2 ab2 in ab.Part2) 
 				{
-					System.Windows.Forms.TreeNode tn2 = new System.Windows.Forms.TreeNode(ab2.ToString());
+					Avalonia.Controls.TreeViewItem tn2 = new Avalonia.Controls.TreeViewItem { Header = ab2.ToString() };
 					tn2.Tag = ab2;
-					tn.Nodes.Add(tn2);
+					tn.Items.Add(tn2);
 					foreach (AnimBlock3 ab3 in ab2.Part3) 
 					{
-						System.Windows.Forms.TreeNode tn3 = new System.Windows.Forms.TreeNode(ab3.ToString());
+						Avalonia.Controls.TreeViewItem tn3 = new Avalonia.Controls.TreeViewItem { Header = ab3.ToString() };
 						tn3.Tag = ab3;
-						tn2.Nodes.Add(tn3);
+						tn2.Items.Add(tn3);
 					}
 
 					//Add a FrameList
 					if (ab2.FrameCount>0) 
 					{
-						System.Windows.Forms.TreeNode frames = new System.Windows.Forms.TreeNode("Frames");
-						tn2.Nodes.Add(frames);
+						Avalonia.Controls.TreeViewItem frames = new Avalonia.Controls.TreeViewItem { Header = "Frames" };
+						tn2.Items.Add(frames);
 						AnimationFrame[] afs = ab2.Frames;
 						for (int i=0; i< afs.Length; i++)
 						{
 							AnimationFrame af = afs[i];
-							System.Windows.Forms.TreeNode tnf = new System.Windows.Forms.TreeNode(af.ToString());
+							Avalonia.Controls.TreeViewItem tnf = new Avalonia.Controls.TreeViewItem { Header = af.ToString() };
 							tnf.Tag = af;
-							frames.Nodes.Add(tnf);
+							frames.Items.Add(tnf);
 						}
 						frames.Tag = afs;
 					}
@@ -382,15 +383,15 @@ namespace SimPe.Plugin
 					//Add a FrameList
 					if (ab2.MaxPart3FrameCount>0 && Helper.XmlRegistry.HiddenMode) 
 					{
-						System.Windows.Forms.TreeNode frames = new System.Windows.Forms.TreeNode("(Block Frames)");
-						tn2.Nodes.Add(frames);
+						Avalonia.Controls.TreeViewItem frames = new Avalonia.Controls.TreeViewItem { Header = "(Block Frames)" };
+						tn2.Items.Add(frames);
 						AnimationFrameAssembler[] afs = new AnimationFrameAssembler[ab2.MaxPart3FrameCount];
 						for (int i=0; i< ab2.MaxPart3FrameCount; i++)
 						{
 							AnimationFrameAssembler af = new AnimationFrameAssembler(ab2, i);
-							System.Windows.Forms.TreeNode tnf = new System.Windows.Forms.TreeNode(af.ToString());
+							Avalonia.Controls.TreeViewItem tnf = new Avalonia.Controls.TreeViewItem { Header = af.ToString() };
 							tnf.Tag = af;
-							frames.Nodes.Add(tnf);
+							frames.Items.Add(tnf);
 							afs[i] = af;
 						}
 						frames.Tag = afs;
@@ -399,23 +400,23 @@ namespace SimPe.Plugin
 
 				foreach (AnimBlock4 ab4 in ab.Part4) 
 				{
-					System.Windows.Forms.TreeNode tn4 = new System.Windows.Forms.TreeNode(ab4.ToString());
+					Avalonia.Controls.TreeViewItem tn4 = new Avalonia.Controls.TreeViewItem { Header = ab4.ToString() };
 					tn4.Tag = ab4;
-					tn.Nodes.Add(tn4);
+					tn.Items.Add(tn4);
 					foreach (AnimBlock5 ab5 in ab4.Part5) 
 					{
-						System.Windows.Forms.TreeNode tn5 = new System.Windows.Forms.TreeNode(ab5.ToString());
+						Avalonia.Controls.TreeViewItem tn5 = new Avalonia.Controls.TreeViewItem { Header = ab5.ToString() };
 						tn5.Tag = ab5;
-						tn4.Nodes.Add(tn5);
+						tn4.Items.Add(tn5);
 					}
 				}
 			}
 
 			foreach (AnimBlock6 ab in this.ab6) 
 			{
-				System.Windows.Forms.TreeNode tn = new System.Windows.Forms.TreeNode(ab.ToString());
+				Avalonia.Controls.TreeViewItem tn = new Avalonia.Controls.TreeViewItem { Header = ab.ToString() };
 				tn.Tag = ab;
-				form.tv.Nodes.Add(tn);
+				form.tv.Items.Add(tn);
 			}
 
 			form.tb_arc_ver.Tag = true;

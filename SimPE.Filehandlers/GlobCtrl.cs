@@ -22,10 +22,8 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
 using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 
 namespace SimPe.Plugin
@@ -49,9 +47,9 @@ namespace SimPe.Plugin
                 Glob wrp = (Glob)wrapper;
                 wrp.SemiGlobalName = this.cbseminame.Text;
                 wrp.FileName = tbfilenm.Text;
-                lbBloat.Visible = lbBug.Visible = false;
+                lbBloat.IsVisible = lbBug.IsVisible = false;
                 wrapper.SynchronizeUserData();
-                MessageBox.Show(Localization.Manager.GetString("commited"));
+                SimPe.Message.Show(Localization.Manager.GetString("commited"), null, System.Windows.Forms.MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
@@ -63,7 +61,6 @@ namespace SimPe.Plugin
         {
             if (cbseminame.Tag == null)
             {
-                tbgroup.ForeColor = System.Drawing.SystemColors.WindowText;
                 tbgroup.Text = "0x" + Helper.HexString(Hashes.GroupHash(cbseminame.Text));
                 try
                 {

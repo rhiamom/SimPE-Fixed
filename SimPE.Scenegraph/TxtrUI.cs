@@ -22,8 +22,8 @@
  ***************************************************************************/
 
 using System;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
-using System.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -63,7 +63,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Returns the Panel that will be displayed within SimPe
 		/// </summary>
-		public System.Windows.Forms.Control GUIHandle
+		public Avalonia.Controls.Control GUIHandle
 		{
 			get
 			{
@@ -110,7 +110,6 @@ namespace SimPe.Plugin
 		#region IDisposable Member
 		public virtual void Dispose()
 		{
-			this.form.Dispose();
 		}
 		#endregion
 	}

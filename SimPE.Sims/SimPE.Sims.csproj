@@ -99,7 +99,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SimPE.3IDR\SimPE.3IDR.csproj" />
     <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj" />
-    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj" />
     <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj" />
     <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj" />
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />

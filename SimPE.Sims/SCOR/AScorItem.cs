@@ -25,14 +25,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Text;
-using System.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.PackedFiles.Wrapper.SCOR
 {
     [System.ComponentModel.ToolboxItem(false)]
-    public  partial  class AScorItem : UserControl
+    public  partial  class AScorItem : Avalonia.Controls.UserControl
     {
         ScorItem parent;
         string name;

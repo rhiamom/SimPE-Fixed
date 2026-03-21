@@ -35,35 +35,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
+  <!-- Dead code / Windows-only files excluded from build -->
   <ItemGroup>
-    <Compile Update="AnimatedImagelist.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="LabeledProgressBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="GraphPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="HexEditControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="HexViewControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="TransparentCheckBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="TransparentGroupBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpTaskBoxSelector.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpTaskBoxSimple.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Remove="HexViewControl.cs" />
+    <Compile Remove="HexEditControl.cs" />
+    <Compile Remove="AnimatedDesigner.cs" />
+    <Compile Remove="UxTheme.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />

@@ -22,7 +22,6 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
 
 namespace SimPe.Plugin.Gmdc
 {
@@ -38,7 +37,7 @@ namespace SimPe.Plugin.Gmdc
 		/// <param name="cg">Want to clean the Groups</param>
 		/// <param name="cb">Want to clean the Joints</param>
 		/// <param name="uc">Want to Update the Crew, with the new Bone Hirarchy and Location</param>
-		public ImportOptions(DialogResult res, bool cg, bool cb, bool uc) 
+		public ImportOptions(SimPe.DialogResult res, bool cg, bool cb, bool uc)
 		{
 			this.res = res;
 			this.cleanbones = cb;
@@ -46,11 +45,11 @@ namespace SimPe.Plugin.Gmdc
 			this.updatecres = uc;
 		}
 
-		DialogResult res;
+		SimPe.DialogResult res;
 		/// <summary>
 		/// Should the Import be continued?
 		/// </summary>
-		public DialogResult Result 
+		public SimPe.DialogResult Result
 		{
 			get { return res; }
 		}

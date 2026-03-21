@@ -26,446 +26,272 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Windows.Forms;
+using System.IO;
+using Ambertation.Windows.Forms;
 using Ambertation.Windows.Forms.Graph;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 namespace Ambertation.Windows.Forms
 {
-	/// <summary>
-	/// This is a Dragable Panel
-	/// </summary>	
-	[ToolboxBitmapAttribute(typeof(Panel))]
-	public class GraphPanel : System.Windows.Forms.Panel
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// A custom-rendered panel that hosts GraphPanelElement items with
+    /// drag-and-drop support.  All drawing is done offscreen via GDI+
+    /// and composited into Avalonia's render pipeline.
+    /// </summary>
+    public class GraphPanel : Avalonia.Controls.Control
+    {
+        Ambertation.Collections.GraphElements li;
+        internal Ambertation.Collections.GraphElements LinkItems => li;
+        public  Ambertation.Collections.GraphElements Items      => li;
 
-		Ambertation.Collections.GraphElements li;
-		internal Ambertation.Collections.GraphElements LinkItems
-		{
-			get { return li;}
-		}
+        public GraphPanel()
+        {
+            li = new Ambertation.Collections.GraphElements();
+            li.ItemsChanged += li_ItemsChanged;
+            lm = Ambertation.Windows.Forms.Graph.LinkControlLineMode.Bezier;
+            quality   = true;
+            savebound = true;
+            minwd     = 0;
+            minhg     = 0;
+            lk        = false;
+            update    = false;
+            autosz    = false;
+        }
 
-		public Ambertation.Collections.GraphElements Items
-		{
-			get { return li;}
-		}
-		
-		public GraphPanel()
-		{
-			// Required designer variable.
-			InitializeComponent();
+        #region Properties
+        bool lk;
+        public bool LockItems
+        {
+            get => lk;
+            set
+            {
+                if (lk != value) { lk = value; SetLocked(); }
+            }
+        }
 
-			SetStyle(
-				ControlStyles.SupportsTransparentBackColor |
-				ControlStyles.AllPaintingInWmPaint |
-				//ControlStyles.Opaque |
-				ControlStyles.UserPaint |
-				ControlStyles.ResizeRedraw 
-				| ControlStyles.DoubleBuffer
-				,true);
-			li = new Ambertation.Collections.GraphElements();
-			li.ItemsChanged += new EventHandler(li_ItemsChanged);
-			this.BackColor = SystemColors.ControlLightLight;
-			lm = LinkControlLineMode.Bezier;
-			quality = true;
-			savebound = true;
-			minwd = 0;
-			minhg = 0;
-			lk = false;
-			update = false;
+        bool savebound;
+        public virtual bool SaveBounds
+        {
+            get => savebound;
+            set => savebound = value;
+        }
 
-			autosz = false;
-		}
+        bool autosz;
+        public bool AutoSizeToContent
+        {
+            get => autosz;
+            set
+            {
+                autosz = value;
+                li_ItemsChanged(li, null);
+            }
+        }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
+        Ambertation.Windows.Forms.Graph.LinkControlLineMode lm;
+        public Ambertation.Windows.Forms.Graph.LinkControlLineMode LineMode
+        {
+            get => lm;
+            set { lm = value; SetLinkLineMode(); }
+        }
 
-				if (li!=null) 
-				{
-					while (li.Count>0) 
-					{
-						GraphPanelElement l = li[0];
-						li.RemoveAt(0);
-						l.Dispose();
-					}
-				}
+        bool quality;
+        public bool Quality
+        {
+            get => quality;
+            set { quality = value; SetLinkQuality(); }
+        }
 
+        int minwd, minhg;
+        [Browsable(false)]
+        public new int MinWidth
+        {
+            get => minwd;
+            set { minwd = value; Width = Math.Max(Width, minwd); }
+        }
 
-			}
-			base.Dispose( disposing );
+        [Browsable(false)]
+        public new int MinHeight
+        {
+            get => minhg;
+            set { minhg = value; Height = Math.Max(Height, minhg); }
+        }
 
-		}
+        [Browsable(false)]
+        public GraphPanelElement SelectedElement
+        {
+            get
+            {
+                foreach (GraphPanelElement gpe in li)
+                    if (gpe is DragPanel dp && dp.Focused)
+                        return gpe;
+                return null;
+            }
+            set
+            {
+                if (value == null || !(value is DragPanel)) return;
+                if (li.Contains(value))
+                {
+                    GraphPanelElement[] elements = new GraphPanelElement[li.Count];
+                    li.CopyTo(elements);
+                    foreach (GraphPanelElement gpe in elements)
+                        if (gpe is DragPanel dp)
+                            dp.SetFocus(gpe == value);
+                }
+            }
+        }
+        #endregion
 
-		#region Windows Form Designer generated code
-		
+        #region Avalonia rendering
+        public override void Render(DrawingContext context)
+        {
+            if (update) return;
+            base.Render(context);
 
+            int w = (int)Bounds.Width;
+            int h = (int)Bounds.Height;
+            if (w <= 0 || h <= 0) return;
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			components = new System.ComponentModel.Container();
-		}
-		#endregion
+            // Draw all graph elements into an offscreen GDI+ bitmap.
+            using var gdiBmp = new System.Drawing.Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            using var g = System.Drawing.Graphics.FromImage(gdiBmp);
+            g.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.SystemColors.ControlLightLight), 0, 0, w, h);
+            GraphPanelElement.SetGraphicsMode(g, true);
+            var clipRect = new System.Drawing.Rectangle(0, 0, w, h);
+            foreach (GraphPanelElement c in li) c.OnPaint(g, clipRect);
 
-		#region Properties
-		public new Control Parent
-		{
-			get {return base.Parent;}
-			set 
-			{
-				if (base.Parent!=value)
-				{
-					if (Parent!=null) Parent.SizeChanged -= new EventHandler(Parent_SizeChanged);
-					base.Parent = value;
-					if (Parent!=null)
-					{
-						MinWidth = Parent.ClientRectangle.Width;
-						MinHeight = Parent.ClientRectangle.Height;
-						Parent.SizeChanged += new EventHandler(Parent_SizeChanged);
-					}
-				}
-			}
-		}
-		bool lk;
-		public bool LockItems
-		{
-			get {return lk;}
-			set { 
-				if (lk!=value)
-				{
-					lk = value;
-					SetLocked();
-				}
-			}
-		}
-		bool savebound;
-		public virtual bool SaveBounds
-		{
-			get { return savebound; }
-			set { savebound = value; }
-		}
+            // Convert to Avalonia Bitmap and draw.
+            using var ms = new MemoryStream();
+            gdiBmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            ms.Position = 0;
+            using var avBmp = new Avalonia.Media.Imaging.Bitmap(ms);
+            context.DrawImage(avBmp, new Rect(0, 0, w, h));
+        }
+        #endregion
 
-		bool autosz;
-		public override bool AutoSize
-		{
-			get {return autosz;}
-			set 
-			{
-				autosz = value;
-				this.li_ItemsChanged(li, null);
-				if (autosz) 
-				{
-					Dock = DockStyle.None;
-					this.SetBounds(0, 0, Width, Height);
-				}
-			}
-		}
-		Ambertation.Windows.Forms.Graph.LinkControlLineMode lm;
-		public Ambertation.Windows.Forms.Graph.LinkControlLineMode LineMode
-		{
-			get {return lm; }
-			set 
-			{				
-				lm = value;
-				this.SetLinkLineMode();
-			}
-		}
+        #region Pointer event overrides
+        protected override void OnPointerPressed(PointerPressedEventArgs e)
+        {
+            base.OnPointerPressed(e);
+            var pos  = e.GetPosition(this);
+            var pt   = e.GetCurrentPoint(this);
+            bool isLeft = pt.Properties.IsLeftButtonPressed;
+            var me = new MouseEventArgs(
+                isLeft ? MouseButtons.Left : MouseButtons.Right,
+                e.ClickCount, (int)pos.X, (int)pos.Y, 0);
 
-		bool quality;
-		public bool Quality
-		{
-			get { return quality; }
-			set 
-			{
-				quality = value;
-				this.SetLinkQuality();
-			}
-		}
-		int minwd, minhg;
-		[Browsable(false)]
-		public int MinWidth
-		{
-			get { 
-				if (this.DesignMode && Parent!=null) return Parent.Width;
-				
-				return minwd; 
-			}
-			set 
-			{
-				minwd = value;
-				Width = Math.Max(Width, minwd);
-			}
-		}
+            bool hit = false;
+            GraphPanelElement[] elements = new GraphPanelElement[li.Count];
+            li.CopyTo(elements);
+            for (int i = elements.Length - 1; i >= 0; i--)
+            {
+                GraphPanelElement c = elements[i];
+                if (c is DragPanel dp)
+                {
+                    if (!hit && dp.OnMouseDown(me))
+                    {
+                        if (isLeft) { hit = true; dp.SetFocus(true); continue; }
+                    }
+                    if (isLeft) dp.SetFocus(false);
+                }
+            }
+        }
 
-		[Browsable(false)]
-		public int MinHeight
-		{
-			get { 
-				if (this.DesignMode && Parent!=null) return Parent.Height;
-				return minhg; 
-			}
-			set 
-			{
-				minhg = value;
-				Height = Math.Max(Height, minhg);
-			}
-		}
+        protected override void OnPointerMoved(PointerEventArgs e)
+        {
+            base.OnPointerMoved(e);
+            var pos = e.GetPosition(this);
+            var pt  = e.GetCurrentPoint(this);
+            bool isLeft = pt.Properties.IsLeftButtonPressed;
+            var me = new MouseEventArgs(
+                isLeft ? MouseButtons.Left : MouseButtons.None,
+                0, (int)pos.X, (int)pos.Y, 0);
 
-		[Browsable(false)]
-		public override bool AutoScroll
-		{
-			get
-			{
-				return base.AutoScroll;
-			}
-			set
-			{				
-			}
-		}
+            for (int i = li.Count - 1; i >= 0; i--)
+            {
+                GraphPanelElement c = li[i];
+                if (c is DragPanel dp && dp.OnMouseMove(me)) break;
+            }
+        }
 
-		[Browsable(false)]
-		public GraphPanelElement SelectedElement
-		{
-			get 
-			{
-				foreach (GraphPanelElement gpe in li) 
-					if ( gpe is DragPanel) 					
-						if (((DragPanel)gpe).Focused)
-							return gpe;					
+        protected override void OnPointerReleased(PointerReleasedEventArgs e)
+        {
+            base.OnPointerReleased(e);
+            var pos = e.GetPosition(this);
+            var me = new MouseEventArgs(
+                e.InitialPressMouseButton == MouseButton.Left ? MouseButtons.Left : MouseButtons.Right,
+                0, (int)pos.X, (int)pos.Y, 0);
 
-				return null;
-			}
-			set 
-			{
-				if (value==null) return;
-				if (!(value is DragPanel)) return;
+            for (int i = li.Count - 1; i >= 0; i--)
+            {
+                GraphPanelElement c = li[i];
+                if (c is DragPanel dp && dp.OnMouseUp(me)) break;
+            }
+        }
+        #endregion
 
-				if (li.Contains(value))
-				{
-					GraphPanelElement[] elements = new GraphPanelElement[li.Count];
-					li.CopyTo(elements);
-					foreach (GraphPanelElement gpe in elements) 
-						if ( gpe is DragPanel)
-						{
-							((DragPanel)gpe).SetFocus(gpe==value);					
-							/*if (gpe==value)
-							{
-								Label lb = new Label();
-								lb.Location = gpe.Location;
-								lb.Visible = true;
-								lb.Parent = this;
-								
-								this.ScrollControlIntoView(lb);
-								lb.Parent = null;
-								lb.Dispose();
-							}*/
-						}
-				}
-			}
-		}
-		#endregion
+        void SetLinkLineMode()  { foreach (GraphPanelElement gpe in li) gpe.ChangedParent(); }
+        void SetLinkQuality()   { foreach (GraphPanelElement gpe in li) gpe.ChangedParent(); }
+        void SetLocked()
+        {
+            foreach (GraphPanelElement gpe in li)
+                if (gpe is DragPanel dp) dp.Movable = !lk;
+        }
 
-		
+        private void li_ItemsChanged(object sender, EventArgs e)
+        {
+            if (!autosz) return;
+            int mx = 0, my = 0;
+            foreach (GraphPanelElement gpe in li)
+            {
+                mx = Math.Max(mx, gpe.Right);
+                my = Math.Max(my, gpe.Bottom);
+            }
+            Width  = Math.Max(mx, minwd);
+            Height = Math.Max(my, minhg);
+        }
 
-		#region Event Override		
-		protected override void OnPaintBackground(PaintEventArgs e)
-		{					
-			base.OnPaintBackground (e);											
-		}
+        bool update;
+        public void BeginUpdate() { update = true; }
+        public void EndUpdate()   { update = false; InvalidateVisual(); }
 
-		
-		protected override void OnPaint(PaintEventArgs e)
-		{									
-			if (update) return;
-			base.OnPaint(e);
-			GraphPanelElement.SetGraphicsMode(e.Graphics, true);
-			foreach (GraphPanelElement c in li) c.OnPaint(e);	
-		}		
+        public void Clear()
+        {
+            while (li.Count > 0)
+            {
+                GraphPanelElement l = li[0];
+                li.RemoveAt(0);
+                l.Clear();
+                l.Parent = null;
+            }
+            InvalidateVisual();
+        }
 
-		protected override void OnMouseDown(MouseEventArgs e)
-		{
-			base.OnMouseDown (e);
-			bool hit = false;
-			GraphPanelElement[] elements = new GraphPanelElement[li.Count];
-			li.CopyTo(elements);
-			for (int i=elements.Length-1; i>=0; i--){
-				GraphPanelElement c = elements[i]; 
-			
-				if (c is DragPanel) 
-				{	
-					if (!hit) 
-						if (((DragPanel)c).OnMouseDown(e)) 
-						{	
-							if (e.Button==System.Windows.Forms.MouseButtons.Left) 
-							{
-								hit = true;
-								((DragPanel)c).SetFocus(true);
-								continue;
-							}
-						}
-					
-					if (e.Button==System.Windows.Forms.MouseButtons.Left) ((DragPanel)c).SetFocus(false);
-					
-				}
-			}
-		}
+        /// <summary>
+        /// Calculate the radius of a circle you can use to place items on.
+        /// </summary>
+        public static double GetPinCircleRadius(System.Drawing.Size centersize, System.Drawing.Size itemsize, int itemcount)
+        {
+            double alpha = Math.Max(0.01, Math.Min(Math.PI/2, 2*Math.PI / itemcount));
+            double l     = Math.Max(itemsize.Width, itemsize.Height) * Math.Sqrt(2);
+            double minl  = Math.Max(centersize.Width, centersize.Height) * Math.Sqrt(0.5) + l/2;
+            return Math.Max(l/(2*Math.Sin(alpha)), minl);
+        }
 
-		protected override void OnMouseMove(MouseEventArgs e)
-		{
-			base.OnMouseMove (e);
-			for (int i=li.Count-1; i>=0; i--)
-			{
-				GraphPanelElement c = li[i]; 
-			
-				if (c is DragPanel)  
-				{					
-					if (((DragPanel)c).OnMouseMove(e)) break;
-				}
-			}
-		}
+        public static System.Drawing.Point GetItemLocationOnPinCricle(System.Drawing.Point center, double r, int nr, int itemcount, System.Drawing.Size itemsize)
+        {
+            double alpha = (2*Math.PI / itemcount) * nr;
+            return new System.Drawing.Point(
+                center.X + (int)(Math.Cos(alpha)*r) - itemsize.Width/2,
+                center.Y + (int)(Math.Sin(alpha)*r) - itemsize.Height/2);
+        }
 
-		protected override void OnMouseUp(MouseEventArgs e)
-		{
-			base.OnMouseUp (e);
-			for (int i=li.Count-1; i>=0; i--)
-			{
-				GraphPanelElement c = li[i]; 
-			
-				if (c is DragPanel) 
-				{					
-					if (((DragPanel)c).OnMouseUp(e)) break;
-				}
-			}
-		}
-
-		protected override void AdjustFormScrollbars(bool displayScrollbars)
-		{
-			base.AdjustFormScrollbars (displayScrollbars);			
-		}
-
-
-		#endregion
-
-		void SetLinkLineMode()
-		{
-			foreach (GraphPanelElement gpe in li) gpe.ChangedParent();
-		}
-
-		void SetLinkQuality()
-		{
-			foreach (GraphPanelElement gpe in li) gpe.ChangedParent();
-		}
-
-		void SetSaveBound()
-		{
-			foreach (GraphPanelElement gpe in li) gpe.SaveBounds = this.SaveBounds;
-		}
-
-		void SetLocked()
-		{
-			foreach (GraphPanelElement gpe in li) 
-			{
-				if (gpe is DragPanel)
-					((DragPanel)gpe).Movable = !this.LockItems;
-			}
-		}
-
-		private void li_ItemsChanged(object sender, EventArgs e)
-		{
-			if (!autosz) return;
-			int mx = 0;
-			int my = 0;
-			foreach (GraphPanelElement gpe in li)
-			{
-				mx = Math.Max(mx, gpe.Right);
-				my = Math.Max(my, gpe.Bottom);
-			}
-
-			this.Width = Math.Max(mx, MinWidth);
-			this.Height = Math.Max(my, MinHeight);
-		}
-
-		private void Parent_SizeChanged(object sender, EventArgs e)
-		{
-			MinWidth = Parent.ClientRectangle.Width;
-			MinHeight = Parent.ClientRectangle.Height;
-		}
-
-		bool update;
-		public void BeginUpdate()
-		{
-			update = true;
-		}
-
-		public void EndUpdate()
-		{
-			update=false;
-			Refresh();
-		}
-
-		public void Clear()
-		{
-			while (li.Count>0) 
-			{
-				GraphPanelElement l = li[0];
-				li.RemoveAt(0);
-				l.Clear();
-				l.Parent = null;
-			}
-		
-			this.Refresh();
-		}
-
-		/// <summary>
-		/// Calculate the Radius of a Circle you can use to place Items on
-		/// </summary>
-		/// <param name="centersize">The Size of the Item that should be presented in the center of the Cricle</param>
-		/// <param name="itemsize">The size of the Items that should sourrpund the circle</param>
-		/// <param name="itemcount">The number of items that should surround the Center</param>
-		/// <returns>The calculated Radius</returns>
-		public static double GetPinCircleRadius(Size centersize, Size itemsize, int itemcount)
-		{
-			double alpha = Math.Max(0.01, Math.Min(Math.PI/2, 2*Math.PI / itemcount));
-			double l = Math.Max(itemsize.Width, itemsize.Height) * Math.Sqrt(2);
-			double minl = Math.Max(centersize.Width, centersize.Height) * Math.Sqrt(0.5) + l/2;
-
-			return Math.Max(l/(2*Math.Sin(alpha)), minl);
-		}
-
-		/// <summary>
-		/// Calculate sthe location of an Item on a Circle
-		/// </summary>
-		/// <param name="center">The centner of the Circle</param>
-		/// <param name="r">The radius (as caluclated in <see cref="GetPinCircleRadius"/>)</param>
-		/// <param name="nr">The number of the item on the circle</param>
-		/// <param name="itemcount">Maximum Number of Items on the circle</param>
-		/// <param name="itemsize">The Size of the Item</param>
-		/// <returns>the point for the given Location</returns>
-		public static Point GetItemLocationOnPinCricle(Point center, double r, int nr, int itemcount, Size itemsize)
-		{
-			double alpha = (2*Math.PI / itemcount) * nr;
-
-			return new Point(center.X+(int)(Math.Cos(alpha)*r)-itemsize.Width/2, center.Y+(int)(Math.Sin(alpha)*r)-itemsize.Height/2);
-		}
-
-		public static Point GetCenterLocationOnPinCircle(Point center, double r, Size itemsize)
-		{
-			return new Point(center.X-itemsize.Width/2, center.Y-itemsize.Height/2);
-		}
-	}
+        public static System.Drawing.Point GetCenterLocationOnPinCircle(System.Drawing.Point center, double r, System.Drawing.Size itemsize)
+        {
+            return new System.Drawing.Point(center.X - itemsize.Width/2, center.Y - itemsize.Height/2);
+        }
+    }
 }

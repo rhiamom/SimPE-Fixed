@@ -21,58 +21,59 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+// Ported from WinForms to Avalonia (Mac port).
+// ComboBox / CheckBox → Avalonia equivalents; Dispose() no-ops.
+
 using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
+using System.Windows.Forms;   // our compat stubs (ListViewItem, ListViewEx)
+using Avalonia.Controls;      // real Avalonia controls
 
 namespace SimPe.Plugin.Gmdc
 {
 
-	class MeshListViewItem : ListViewItem, System.IDisposable
+	class MeshListViewItem : System.Windows.Forms.ListViewItem, System.IDisposable
 	{
 		protected Ambertation.Scenes.Mesh mesh;
 		protected GenericMeshImport gmi;
-		ListViewEx parent;
-		ComboBox cbact, cbgroup;
-		CheckBox cbenv;
+		System.Windows.Forms.ListViewEx parent;
+		Avalonia.Controls.ComboBox cbact, cbgroup;
+		Avalonia.Controls.CheckBox cbenv;
 		public delegate void ActionChangedEvent(MeshListViewItem sender);
 		ActionChangedEvent fkt;
 
-		public MeshListViewItem(ListViewEx lv, Ambertation.Scenes.Mesh mesh, GenericMeshImport gmi, ActionChangedEvent fkt) : base()
+		public MeshListViewItem(System.Windows.Forms.ListViewEx lv, Ambertation.Scenes.Mesh mesh, GenericMeshImport gmi, ActionChangedEvent fkt) : base()
 		{
 			this.fkt = fkt;
 			parent = lv;
 			this.mesh = mesh;
 			this.gmi = gmi;
-				
-			cbact = new ComboBox();			
-			cbact.DropDownStyle = ComboBoxStyle.DropDownList;
-			cbact.SelectedIndexChanged += new EventHandler(cbact_SelectedIndexChanged);
+
+			cbact = new Avalonia.Controls.ComboBox();
+			cbact.SelectionChanged += cbact_SelectionChanged;
 			GenericMeshImport.ImportAction[] acts = (GenericMeshImport.ImportAction[])Enum.GetValues(typeof(GenericMeshImport.ImportAction));
 			foreach (GenericMeshImport.ImportAction a in acts)
 				cbact.Items.Add(a);
 			cbact.SelectedItem = GenericMeshImport.ImportAction.Add;
 
-			cbgroup = new ComboBox();			
-			cbgroup.DropDownStyle = ComboBoxStyle.DropDownList;
+			cbgroup = new Avalonia.Controls.ComboBox();
 			cbgroup.Items.Add("["+SimPe.Localization.GetString("none")+"]");
 			foreach (GmdcGroup  g in gmi.Gmdc.Groups)
 				cbgroup.Items.Add(g);
-			cbgroup.SelectedItem = 0;
+			cbgroup.SelectedIndex = 0;
 
-            cbenv = new System.Windows.Forms.CheckBox();
-			cbenv.BackColor = Color.Transparent;
-			cbenv.Checked = mesh.Envelopes.Count>0;
-            			
+			cbenv = new Avalonia.Controls.CheckBox();
+			cbenv.IsChecked = mesh.Envelopes.Count > 0;
+
 			int i = gmi.Gmdc.FindGroupByName(mesh.Name);
-			if (i>=0) 
-			{				
+			if (i>=0)
+			{
 				Group = gmi.Gmdc.Groups[i];
 				Action = GenericMeshImport.ImportAction.Replace;
 			}
-								
+
 			Setup();
 			parent.Items.Add(this);
 			parent.AddEmbeddedControl(cbact, 1, parent.Items.Count-1);
@@ -87,8 +88,8 @@ namespace SimPe.Plugin.Gmdc
 
 		public bool ImportEnvelope
 		{
-			get {return cbenv.Checked;}
-			set {cbenv.Checked = value;}
+			get {return cbenv.IsChecked ?? false;}
+			set {cbenv.IsChecked = value;}
 		}
 
 		public bool Shadow
@@ -105,17 +106,17 @@ namespace SimPe.Plugin.Gmdc
 
 		public new GmdcGroup Group
 		{
-			get 
+			get
 			{
 				if (cbgroup.SelectedItem==null) return null;
 				if (!(cbgroup.SelectedItem is GmdcGroup)) return null;
 				return cbgroup.SelectedItem as GmdcGroup;
 			}
-			set 
+			set
 			{
 				if (value==null) cbgroup.SelectedIndex=0;
 				else cbgroup.SelectedItem = value;
-					
+
 				if (cbgroup.SelectedIndex<0) cbgroup.SelectedIndex=0;
 			}
 		}
@@ -128,7 +129,7 @@ namespace SimPe.Plugin.Gmdc
 			if (Group!=null) this.SubItems.Add(Group.Name); //target
 			else this.SubItems.Add("["+SimPe.Localization.GetString("none")+"]");
 			this.SubItems.Add(mesh.FaceIndices.Count.ToString());
-			this.SubItems.Add(mesh.Vertices.Count.ToString());			
+			this.SubItems.Add(mesh.Vertices.Count.ToString());
 			this.SubItems.Add("");
 			this.SubItems.Add(mesh.Envelopes.Count.ToString());
 
@@ -137,10 +138,9 @@ namespace SimPe.Plugin.Gmdc
 
 		Color MyColor()
 		{
-           
-            if (mesh.Vertices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) return Color.Red;
-            if (mesh.FaceIndices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT) return Color.Red;
-            
+			if (mesh.Vertices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_VERTEX_AMOUNT) return Color.Red;
+			if (mesh.FaceIndices.Count > SimPe.Plugin.Gmdc.AbstractGmdcImporter.FEMBODY_FACE_AMOUNT) return Color.Red;
+
 			return Color.Black;
 		}
 
@@ -148,20 +148,16 @@ namespace SimPe.Plugin.Gmdc
 
 		public virtual void Dispose()
 		{
-			if (cbact!=null) 
+			if (cbact!=null)
 			{
-				cbact.SelectedIndexChanged -= new EventHandler(cbact_SelectedIndexChanged);
-				cbact.Dispose();
+				cbact.SelectionChanged -= cbact_SelectionChanged;
+				// Avalonia controls are not IDisposable — no Dispose() call needed
 			}
 			cbact = null;
 
-			if (cbgroup!=null) 
-			{
-				cbgroup.Dispose();
-			}
-
-			if (cbenv!=null)
-				cbenv.Dispose();
+			// Avalonia controls are not IDisposable — no Dispose() call needed
+			cbgroup = null;
+			cbenv = null;
 
 			parent = null;
 			mesh = null;
@@ -172,9 +168,9 @@ namespace SimPe.Plugin.Gmdc
 		#endregion
 
 
-		private void cbact_SelectedIndexChanged(object sender, EventArgs e)
+		private void cbact_SelectionChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
-			fkt(this);
+			if (fkt != null) fkt(this);
 		}
 
 

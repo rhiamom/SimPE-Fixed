@@ -26,7 +26,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Windows.Forms;
+using Ambertation.Windows.Forms;
 
 namespace Ambertation.Windows.Forms.Graph
 {
@@ -170,9 +170,9 @@ namespace Ambertation.Windows.Forms.Graph
 		#endregion
 
 		#region Events
-		public event System.Windows.Forms.MouseEventHandler MouseMove;
-		public event System.Windows.Forms.MouseEventHandler MouseUp;
-		public event System.Windows.Forms.MouseEventHandler MouseDown;
+		public event Ambertation.Windows.Forms.MouseEventHandler MouseMove;
+		public event Ambertation.Windows.Forms.MouseEventHandler MouseUp;
+		public event Ambertation.Windows.Forms.MouseEventHandler MouseDown;
 		public event System.EventHandler DoubleClick;
 		public event System.EventHandler Click;
 		#endregion

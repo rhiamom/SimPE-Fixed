@@ -23,213 +23,148 @@
 
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.PackedFiles.Wrapper
 {
-	/// <summary>
-	/// Summary description for SimComboBox.
-	/// </summary>
-	[System.ComponentModel.DefaultEvent("SelectedSimChanged")]
-	public class SimComboBox : System.Windows.Forms.UserControl
+    /// <summary>
+    /// Avalonia port of SimComboBox — a combo box filled with Sim names from the provider.
+    /// </summary>
+    [System.ComponentModel.DefaultEvent("SelectedSimChanged")]
+    public class SimComboBox : Avalonia.Controls.UserControl
     {
-        private System.Windows.Forms.ComboBox cb;
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+        private ComboBox cb = new ComboBox();
 
-		public SimComboBox()
-		{
-			// Required designer variable.
-			InitializeComponent();
+        public SimComboBox()
+        {
+            cb.SelectionChanged += cb_SelectedIndexChanged;
 
-			cb.Sorted = true;
-			try 
-			{
-				if (!this.DesignMode)
-					SimPe.FileTable.ProviderRegistry.SimDescriptionProvider.ChangedPackage += new EventHandler(SimDescriptionProvider_ChangedPackage);
-				needreload = true;
-			} 
-			catch {}
-		}
+            try
+            {
+                if (!IsInitialized)
+                    SimPe.FileTable.ProviderRegistry.SimDescriptionProvider.ChangedPackage += new EventHandler(SimDescriptionProvider_ChangedPackage);
+                needreload = true;
+            }
+            catch { }
+        }
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				SimPe.FileTable.ProviderRegistry.SimDescriptionProvider.ChangedPackage -= new EventHandler(SimDescriptionProvider_ChangedPackage);
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        public void Dispose()
+        {
+            try
+            {
+                SimPe.FileTable.ProviderRegistry.SimDescriptionProvider.ChangedPackage -= new EventHandler(SimDescriptionProvider_ChangedPackage);
+            }
+            catch { }
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            this.cb = new System.Windows.Forms.ComboBox();
-            this.SuspendLayout();
-            // 
-            // cb
-            // 
-            this.cb.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cb.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb.Location = new System.Drawing.Point(0, 0);
-            this.cb.Name = "cb";
-            this.cb.Size = new System.Drawing.Size(150, 21);
-            this.cb.TabIndex = 0;
-            this.cb.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
-            this.cb.TextChanged += new System.EventHandler(this.cb_TextChanged);
-            // 
-            // SimComboBox
-            // 
-            this.Controls.Add(this.cb);
-            this.Name = "SimComboBox";
-            this.Size = new System.Drawing.Size(150, 24);
-            this.ResumeLayout(false);
+        void SetContent()
+        {
+            cb.Items.Clear();
+            foreach (SimPe.PackedFiles.Wrapper.ExtSDesc sdsc in FileTable.ProviderRegistry.SimDescriptionProvider.SimInstance.Values)
+            {
+                SimPe.Interfaces.IAlias a = new SimPe.Data.StaticAlias(sdsc.SimId, sdsc.SimName + " " + sdsc.SimFamilyName, new object[] { sdsc });
+                cb.Items.Add(a);
+            }
+        }
 
-		}
-		#endregion
+        public ushort SelectedSimInstance
+        {
+            get
+            {
+                SimPe.PackedFiles.Wrapper.ExtSDesc sdsc = SelectedSim;
+                if (sdsc != null) return sdsc.Instance;
+                return 0xffff;
+            }
+            set
+            {
+                int id = -1;
+                int ct = 0;
+                foreach (SimPe.Interfaces.IAlias a in cb.Items)
+                {
+                    SimPe.PackedFiles.Wrapper.ExtSDesc s = a.Tag[0] as SimPe.PackedFiles.Wrapper.ExtSDesc;
+                    if (s.Instance == value)
+                    {
+                        id = ct;
+                        break;
+                    }
+                    ct++;
+                }
+                cb.SelectedIndex = id;
+            }
+        }
 
-		void SetContent()
-		{
-			cb.Items.Clear();
-			cb.Sorted = false;
-			foreach (SimPe.PackedFiles.Wrapper.ExtSDesc sdsc in FileTable.ProviderRegistry.SimDescriptionProvider.SimInstance.Values)
-			{
-				SimPe.Interfaces.IAlias a = new SimPe.Data.StaticAlias(sdsc.SimId, sdsc.SimName+" "+sdsc.SimFamilyName, new object[] {sdsc});
-				cb.Items.Add(a);
-			}
-			cb.Sorted = true;
-		}
+        public uint SelectedSimId
+        {
+            get
+            {
+                SimPe.PackedFiles.Wrapper.ExtSDesc sdsc = SelectedSim;
+                if (sdsc != null) return sdsc.SimId;
+                return 0xffffffff;
+            }
+            set
+            {
+                int id = -1;
+                int ct = 0;
+                foreach (SimPe.Interfaces.IAlias a in cb.Items)
+                {
+                    SimPe.PackedFiles.Wrapper.ExtSDesc s = a.Tag[0] as SimPe.PackedFiles.Wrapper.ExtSDesc;
+                    if (s.SimId == value)
+                    {
+                        id = ct;
+                        break;
+                    }
+                    ct++;
+                }
+                cb.SelectedIndex = id;
+            }
+        }
 
-		public ushort SelectedSimInstance
-		{
-			get 
-			{
-				SimPe.PackedFiles.Wrapper.ExtSDesc sdsc = SelectedSim;
-				if (sdsc!=null) return sdsc.Instance;
-				return 0xffff;
-			}
-			set 
-			{
-				int id = -1;
-				
-				int ct=0;
-				foreach (SimPe.Interfaces.IAlias a in cb.Items)
-				{
-					SimPe.PackedFiles.Wrapper.ExtSDesc s = a.Tag[0] as SimPe.PackedFiles.Wrapper.ExtSDesc;
-					if (s.Instance == value) 
-					{
-						id = ct;
-						break;
-					}					
-					ct++;
-				}			
-				cb.SelectedIndex = id;
-			}
-		}
+        public SimPe.PackedFiles.Wrapper.ExtSDesc SelectedSim
+        {
+            get
+            {
+                if (cb.SelectedItem == null) return null;
+                SimPe.Interfaces.IAlias a = cb.SelectedItem as SimPe.Interfaces.IAlias;
+                return a.Tag[0] as SimPe.PackedFiles.Wrapper.ExtSDesc;
+            }
+            set
+            {
+                int id = -1;
+                if (value != null)
+                {
+                    int ct = 0;
+                    foreach (SimPe.Interfaces.IAlias a in cb.Items)
+                    {
+                        SimPe.PackedFiles.Wrapper.ExtSDesc s = a.Tag[0] as SimPe.PackedFiles.Wrapper.ExtSDesc;
+                        if (s.Instance == value.Instance)
+                        {
+                            id = ct;
+                            break;
+                        }
+                        ct++;
+                    }
+                }
+                cb.SelectedIndex = id;
+            }
+        }
 
-		public uint SelectedSimId
-		{
-			get 
-			{
-				SimPe.PackedFiles.Wrapper.ExtSDesc sdsc = SelectedSim;
-				if (sdsc!=null) return sdsc.SimId;
-				return 0xffffffff;
-			}
-			set 
-			{
-				int id = -1;
-				
-				int ct=0;
-				foreach (SimPe.Interfaces.IAlias a in cb.Items)
-				{
-					SimPe.PackedFiles.Wrapper.ExtSDesc s = a.Tag[0] as SimPe.PackedFiles.Wrapper.ExtSDesc;
-					if (s.SimId == value) 
-					{
-						id = ct;
-						break;
-					}					
-					ct++;
-				}			
-				cb.SelectedIndex = id;
-			}
-		}
+        public void Reload()
+        {
+            needreload = false;
+            SetContent();
+        }
 
-		public SimPe.PackedFiles.Wrapper.ExtSDesc SelectedSim
-		{
-			get 
-			{
-				if (cb.SelectedItem==null) return null;
-				SimPe.Interfaces.IAlias a = cb.SelectedItem as SimPe.Interfaces.IAlias;
-				return a.Tag[0] as SimPe.PackedFiles.Wrapper.ExtSDesc;
-			}
-			set
-			{
-				int id = -1;
-				if (value!=null) 
-				{
-					int ct=0;
-					foreach (SimPe.Interfaces.IAlias a in cb.Items)
-					{
-						SimPe.PackedFiles.Wrapper.ExtSDesc s = a.Tag[0] as SimPe.PackedFiles.Wrapper.ExtSDesc;
-						if (s.Instance == value.Instance) 
-						{
-							id = ct;
-							break;
-						}					
-						ct++;
-					}
-				}
+        public event EventHandler SelectedSimChanged;
+        private void cb_SelectedIndexChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectedSimChanged != null) SelectedSimChanged(this, new EventArgs());
+        }
 
-				cb.SelectedIndex = id;
-			}
-		}
-
-		public void Reload()
-		{
-			needreload = false;
-			SetContent();
-			base.Refresh();
-		}
-
-		public event EventHandler SelectedSimChanged;
-		private void cb_SelectedIndexChanged(object sender, System.EventArgs e)
-		{
-			if (SelectedSimChanged!=null) SelectedSimChanged(this, new EventArgs());
-		}
-
-		bool needreload;
-		private void SimDescriptionProvider_ChangedPackage(object sender, EventArgs e)
-		{
-			needreload = true;
-			if (this.Visible) Reload();
-		}
-
-		protected override void OnVisibleChanged(EventArgs e)
-		{
-			base.OnVisibleChanged (e);
-			if (needreload && Visible) Reload();
-		}
-
-		private void cb_TextChanged(object sender, System.EventArgs e)
-		{
-			//cb.DroppedDown = true;
-		}
-
-	}
+        bool needreload;
+        private void SimDescriptionProvider_ChangedPackage(object sender, EventArgs e)
+        {
+            needreload = true;
+            if (this.IsVisible) Reload();
+        }
+    }
 }

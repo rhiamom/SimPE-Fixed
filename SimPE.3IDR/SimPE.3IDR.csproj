@@ -26,7 +26,6 @@
     <OutputPath>..\bin\Debug\Plugins\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj" />
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj" />
     <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj" />

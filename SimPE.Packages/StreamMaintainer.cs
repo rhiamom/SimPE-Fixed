@@ -220,25 +220,16 @@ namespace SimPe.Packages
 		public static void WriteToConsole()
 		{
 			InitTable();
-			System.Windows.Forms.Form f = new System.Windows.Forms.Form();
-			System.Windows.Forms.ListBox lb = new System.Windows.Forms.ListBox();
-			f.Controls.Add(lb);
-			lb.Dock = System.Windows.Forms.DockStyle.Fill;
-
-			foreach (string k in streams.Keys) 
+			foreach (string k in streams.Keys)
 			{
 				StreamItem si = streams[k] as StreamItem;
 				string add = k;
-				if (si!=null) add +=" ["+si.StreamState+"]";	
-				if (IsLocked(k, false)) add = "[locked] "+add;
-				else if (IsLocked(k, true)) add = "[ftlocked] "+add;
+				if (si != null) add += " [" + si.StreamState + "]";
+				if (IsLocked(k, false)) add = "[locked] " + add;
+				else if (IsLocked(k, true)) add = "[ftlocked] " + add;
 				if (PackageMaintainer.Maintainer.Contains(k)) add += "[managed]";
-				lb.Items.Add(add);
+				System.Diagnostics.Trace.WriteLine(add);
 			}
-
-			lb.Sorted = true;
-			f.ShowDialog();
-			f.Dispose();
 		}
 		/// <summary>
 		/// Removes all Files from the Teleport Folder

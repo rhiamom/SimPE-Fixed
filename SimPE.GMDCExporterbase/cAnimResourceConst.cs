@@ -328,11 +328,11 @@ namespace SimPe.Plugin.Anim
 
 		fAnimResourceConst form = null;
 		[BrowsableAttribute(false)]
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
-				if (form==null) form = new fAnimResourceConst(); 
+				if (form==null) form = new fAnimResourceConst();
 				return form.tMesh;
 			}
 		}
@@ -345,51 +345,45 @@ namespace SimPe.Plugin.Anim
 		{
 			if (form==null) form = new fAnimResourceConst(); 
 			
-			form.tv.Nodes.Clear();
-			System.Windows.Forms.TreeNode btn = new System.Windows.Forms.TreeNode("Header");
-			btn.Tag = this;
-			form.tv.Nodes.Add(btn);
+			form.tv.Items.Clear();
+			var btn = new Avalonia.Controls.TreeViewItem { Header = "Header", Tag = this };
+			form.tv.Items.Add(btn);
             // can get a null reference exception here, it seems some AnimationMeshBlocks may not be readable
             foreach (AnimationMeshBlock ab in this.ab1)
             {
                 try
                 {
-                    System.Windows.Forms.TreeNode tn = new System.Windows.Forms.TreeNode(ab.ToString());
-                    tn.Tag = ab;
-                    form.tv.Nodes.Add(tn);
+                    var tn = new Avalonia.Controls.TreeViewItem { Header = ab.ToString(), Tag = ab };
+                    form.tv.Items.Add(tn);
 
                     foreach (AnimationFrameBlock ab2 in ab.Part2)
                     {
-                        System.Windows.Forms.TreeNode tn2 = new System.Windows.Forms.TreeNode(ab2.ToString());
-                        tn2.Tag = ab2;
-                        tn.Nodes.Add(tn2);
+                        var tn2 = new Avalonia.Controls.TreeViewItem { Header = ab2.ToString(), Tag = ab2 };
+                        tn.Items.Add(tn2);
                         foreach (AnimationAxisTransformBlock ab3 in ab2.AxisSet)
                         {
-                            System.Windows.Forms.TreeNode tn3 = new System.Windows.Forms.TreeNode(ab3.ToString());
-                            tn3.Tag = ab3;
-                            tn2.Nodes.Add(tn3);
+                            var tn3 = new Avalonia.Controls.TreeViewItem { Header = ab3.ToString(), Tag = ab3 };
+                            tn2.Items.Add(tn3);
 
                             foreach (AnimationAxisTransform ab4 in ab3)
                             {
-                                System.Windows.Forms.TreeNode tn4 = new System.Windows.Forms.TreeNode(ab4.ToString());
-                                tn4.Tag = ab4;
-                                tn3.Nodes.Add(tn4);
+                                var tn4 = new Avalonia.Controls.TreeViewItem { Header = ab4.ToString(), Tag = ab4 };
+                                tn3.Items.Add(tn4);
                             }
                         }
 
                         //Add a FrameList
                         if (ab2.FrameCount > 0)
                         {
-                            System.Windows.Forms.TreeNode frames = new System.Windows.Forms.TreeNode("Frames");
-                            tn2.Nodes.Add(frames);
+                            var frames = new Avalonia.Controls.TreeViewItem { Header = "Frames" };
+                            tn2.Items.Add(frames);
                             AnimationFrame[] afs = ab2.Frames;
 
                             for (int i = 0; i < afs.Length; i++)
                             {
                                 AnimationFrame af = afs[i];
-                                System.Windows.Forms.TreeNode tnf = new System.Windows.Forms.TreeNode(af.ToString());
-                                tnf.Tag = af;
-                                frames.Nodes.Add(tnf);
+                                var tnf = new Avalonia.Controls.TreeViewItem { Header = af.ToString(), Tag = af };
+                                frames.Items.Add(tnf);
                             }
                             frames.Tag = afs;
                         }
@@ -397,16 +391,15 @@ namespace SimPe.Plugin.Anim
                         //Add a FrameList
                         if (ab2.FrameCount > 0)
                         {
-                            System.Windows.Forms.TreeNode frames = new System.Windows.Forms.TreeNode("Interpolated Frames");
-                            tn2.Nodes.Add(frames);
+                            var frames = new Avalonia.Controls.TreeViewItem { Header = "Interpolated Frames" };
+                            tn2.Items.Add(frames);
                             AnimationFrame[] afs = ab2.InterpolateMissingFrames();
 
                             for (int i = 0; i < afs.Length; i++)
                             {
                                 AnimationFrame af = afs[i];
-                                System.Windows.Forms.TreeNode tnf = new System.Windows.Forms.TreeNode(af.ToString());
-                                tnf.Tag = af;
-                                frames.Nodes.Add(tnf);
+                                var tnf = new Avalonia.Controls.TreeViewItem { Header = af.ToString(), Tag = af };
+                                frames.Items.Add(tnf);
                             }
                             frames.Tag = afs;
                         }
@@ -414,25 +407,22 @@ namespace SimPe.Plugin.Anim
 
                     foreach (AnimBlock4 ab4 in ab.Part4)
                     {
-                        System.Windows.Forms.TreeNode tn4 = new System.Windows.Forms.TreeNode(ab4.ToString());
-                        tn4.Tag = ab4;
-                        tn.Nodes.Add(tn4);
+                        var tn4 = new Avalonia.Controls.TreeViewItem { Header = ab4.ToString(), Tag = ab4 };
+                        tn.Items.Add(tn4);
                         foreach (AnimBlock5 ab5 in ab4.Part5)
                         {
-                            System.Windows.Forms.TreeNode tn5 = new System.Windows.Forms.TreeNode(ab5.ToString());
-                            tn5.Tag = ab5;
-                            tn4.Nodes.Add(tn5);
+                            var tn5 = new Avalonia.Controls.TreeViewItem { Header = ab5.ToString(), Tag = ab5 };
+                            tn4.Items.Add(tn5);
                         }
                     }
                 }
-                catch { btn.Text = "Header (faulty)"; }
+                catch { btn.Header = "Header (faulty)"; }
             }
 
-			foreach (AnimBlock6 ab in this.ab6) 
+			foreach (AnimBlock6 ab in this.ab6)
 			{
-				System.Windows.Forms.TreeNode tn = new System.Windows.Forms.TreeNode(ab.ToString());
-				tn.Tag = ab;
-				form.tv.Nodes.Add(tn);
+				var tn = new Avalonia.Controls.TreeViewItem { Header = ab.ToString(), Tag = ab };
+				form.tv.Items.Add(tn);
 			}
 
 			form.tb_arc_ver.Tag = true;
@@ -442,16 +432,16 @@ namespace SimPe.Plugin.Anim
 			form.ambc.MeshBlocks = this.ab1;
 		}
 
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
-			if (form==null) form = new fAnimResourceConst(); 
-			base.ExtendTabControl (tc);
+			if (form==null) form = new fAnimResourceConst();
+			base.ExtendTabControl(tc);
 
 			form.tMisc.Tag = this;
-			tc.TabPages.Add(form.tMisc);
+			tc.Items.Add(form.tMisc);
 
 			form.tAnimResourceConst.Tag = this;
-            tc.TabPages.Add(form.tAnimResourceConst);
+			tc.Items.Add(form.tAnimResourceConst);
 		}
 
 

@@ -22,7 +22,6 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
 using System.Drawing;
 
 namespace SimPe.Interfaces
@@ -30,7 +29,7 @@ namespace SimPe.Interfaces
 	/// <summary>
 	/// Defines extended properties for the <see cref="ITool"/> Interface.
 	/// </summary>
-	public interface IToolExt : IToolPlugin 
+	public interface IToolExt : IToolPlugin
 	{
 		/// <summary>
 		/// Returns null or the Icon that should be dispalyed for this Menu Item (can be null)
@@ -42,9 +41,10 @@ namespace SimPe.Interfaces
 		}
 
 		/// <summary>
-		/// Returns the wanted Shortcut
+		/// Returns the wanted Shortcut key code (0 = none).
+		/// Formerly System.Windows.Forms.Shortcut, replaced for cross-platform Avalonia port.
 		/// </summary>
-		System.Windows.Forms.Shortcut Shortcut
+		int Shortcut
 		{
 			get;
 		}

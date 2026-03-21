@@ -37,14 +37,12 @@
   <ItemGroup>
     <ProjectReference Include="..\SimPE.3IDR\SimPE.3IDR.csproj" />
     <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj" />
-    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj" />
     <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj" />
     <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterBase.csproj" />
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj" />
     <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj" />
     <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj" />
-    <ProjectReference Include="..\SimPE.Splash\SimPE.Splash.csproj" />
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj" />
   </ItemGroup>
   <ItemGroup>

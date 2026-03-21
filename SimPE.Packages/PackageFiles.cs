@@ -22,137 +22,85 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Layout;
 
 namespace SimPe
 {
-	/// <summary>
-	/// Summary description for PackageSelectorForm.
-	/// </summary>
-	public class PackageSelectorForm : System.Windows.Forms.Form
-	{
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label lbfile;
-		private System.Windows.Forms.ListBox lbfiles;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Displays a drag-and-drop helper listing the files in a package.
+    /// Ported from WinForms Form to Avalonia Window.
+    /// </summary>
+    public class PackageSelectorForm : Window
+    {
+        private TextBlock lbfile;
+        private ListBox   lbfiles;
 
-		public PackageSelectorForm()
-		{
-			//
-			// Required designer variable.
-			//
-			InitializeComponent();
-		}
+        public PackageSelectorForm()
+        {
+            Title     = "Package Selector";
+            Width     = 592;
+            Height    = 324;
+            MinWidth  = 440;
+            MinHeight = 232;
+            CanResize = true;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+            lbfile  = new TextBlock { Margin = new Thickness(16, 16, 0, 4), FontWeight = Avalonia.Media.FontWeight.Bold };
+            lbfiles = new ListBox   { Margin = new Thickness(24, 0, 24, 0) };
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(PackageSelectorForm));
-			this.label1 = new System.Windows.Forms.Label();
-			this.lbfile = new System.Windows.Forms.Label();
-			this.lbfiles = new System.Windows.Forms.ListBox();
-			this.SuspendLayout();
-			// 
-			// label1
-			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-			this.label1.Location = new System.Drawing.Point(8, 286);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(576, 32);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "You can use this Helper to Drag && Drop the Files from the current Package to " +
-				"a Reference List. The Item will be added to the List.";
-			// 
-			// lbfile
-			// 
-			this.lbfile.AutoSize = true;
-			this.lbfile.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.lbfile.Location = new System.Drawing.Point(16, 16);
-			this.lbfile.Name = "lbfile";
-			this.lbfile.Size = new System.Drawing.Size(67, 17);
-			this.lbfile.TabIndex = 1;
-			this.lbfile.Text = "Filename:";
-			// 
-			// lbfiles
-			// 
-			this.lbfiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.lbfiles.Location = new System.Drawing.Point(24, 32);
-			this.lbfiles.Name = "lbfiles";
-			this.lbfiles.Size = new System.Drawing.Size(552, 238);
-			this.lbfiles.TabIndex = 2;
-			this.lbfiles.MouseMove += new System.Windows.Forms.MouseEventHandler(this.StartDrop);
-			// 
-			// PackageSelectorForm
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-			this.ClientSize = new System.Drawing.Size(592, 324);
-			this.Controls.Add(this.lbfiles);
-			this.Controls.Add(this.lbfile);
-			this.Controls.Add(this.label1);
-			this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.MinimumSize = new System.Drawing.Size(440, 232);
-			this.Name = "PackageSelectorForm";
-			this.Text = "PackageSelectorForm";
-			this.ResumeLayout(false);
+            var helpText = new TextBlock
+            {
+                Text       = "You can use this helper to drag & drop files from the current package to a reference list.",
+                Margin     = new Thickness(8, 4, 8, 8),
+                TextWrapping = Avalonia.Media.TextWrapping.Wrap
+            };
 
-		}
-		#endregion
+            var grid = new Grid();
+            grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+            grid.RowDefinitions.Add(new RowDefinition(GridLength.Star));
+            grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
 
-		/// <summary>
-		/// Displays the Tool with the content of the passed Package
-		/// </summary>
-		/// <param name="package">The package you want to list</param>
-		public void Execute(SimPe.Interfaces.Files.IPackageFile package) 
-		{
-			this.lbfiles.Sorted = false;
-			this.lbfiles.Items.Clear();
-			this.lbfile.Text = package.FileName;
+            Grid.SetRow(lbfile,   0);
+            Grid.SetRow(lbfiles,  1);
+            Grid.SetRow(helpText, 2);
 
-			foreach (Interfaces.Files.IPackedFileDescriptor pfd in package.Index) lbfiles.Items.Add(pfd);
-			this.lbfiles.Sorted = true;
-			this.Show();
-		}
+            grid.Children.Add(lbfile);
+            grid.Children.Add(lbfiles);
+            grid.Children.Add(helpText);
 
-		private void StartDrop(object sender, System.Windows.Forms.MouseEventArgs e)
-		{
-			if (lbfiles.SelectedIndex<0) return;
+            Content = grid;
 
-			if (e.Button == MouseButtons.Left) 
-			{
-				lbfiles.DoDragDrop((Interfaces.Files.IPackedFileDescriptor)lbfiles.Items[lbfiles.SelectedIndex], DragDropEffects.Copy | DragDropEffects.Link);
+            lbfiles.PointerMoved += StartDrop;
+        }
 
-			}
-		}
-	}
+        /// <summary>
+        /// Displays the tool with the content of the passed package.
+        /// </summary>
+        public void Execute(SimPe.Interfaces.Files.IPackageFile package)
+        {
+            lbfiles.Items.Clear();
+            lbfile.Text = package.FileName;
+
+            foreach (Interfaces.Files.IPackedFileDescriptor pfd in package.Index)
+                lbfiles.Items.Add(pfd);
+
+            Show();
+        }
+
+        private void StartDrop(object sender, PointerEventArgs e)
+        {
+            if (lbfiles.SelectedIndex < 0) return;
+
+            if (e.GetCurrentPoint(lbfiles).Properties.IsLeftButtonPressed)
+            {
+                var descriptor = (Interfaces.Files.IPackedFileDescriptor)lbfiles.Items[lbfiles.SelectedIndex];
+                var dataObj    = new DataObject();
+                dataObj.Set(DataFormats.Text, descriptor.ToString());
+                DragDrop.DoDragDrop(e, dataObj, DragDropEffects.Copy | DragDropEffects.Link);
+            }
+        }
+    }
 }

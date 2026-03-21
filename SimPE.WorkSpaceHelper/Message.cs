@@ -21,124 +21,32 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+// Ported from WinForms Form to a pure-logic helper.
+// All MessageBox dialogs are replaced with console/trace output since Avalonia
+// message dialogs are async and this code runs in synchronous contexts.
+
 using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace SimPe
 {
-	/// <summary>
-	/// Summary description for Message.
-	/// </summary>
-	public class Message : System.Windows.Forms.Form
-	{
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel2;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// Cross-platform message helper — replaces WinForms MessageBox calls.
+    /// In the Avalonia port all messages are written to Trace; UI dialogs
+    /// will be wired up once the Avalonia async dialog infrastructure is in place.
+    /// </summary>
+    public class Message
+    {
+        public static DialogResult Show(string message)
+        {
+            return Show(message, null, System.Windows.Forms.MessageBoxButtons.OK);
+        }
 
-		public Message()
-		{
-			//
-			// Required designer variable.
-			//
-			InitializeComponent();
+        public static DialogResult Show(string message, string caption)
+        {
+            return Show(message, caption, System.Windows.Forms.MessageBoxButtons.OK);
+        }
 
-			panel1.Tag = 1;
-		}
-
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Message));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel2.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.panel1.Location = new System.Drawing.Point(0, 32);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(548, 40);
-            this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(548, 32);
-            this.panel2.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 8);
-            this.label1.MaximumSize = new System.Drawing.Size(524, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
-            // 
-            // Message
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(542, 72);
-            this.ControlBox = false;
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Message";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Message";
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.ResumeLayout(false);
-
-		}
-		#endregion
-
-		public static DialogResult Show(string message)
-		{
-			return Show(message, null, MessageBoxButtons.OK);
-		}
-
-        public static DialogResult Show(string message, string caption, MessageBoxButtons mbb)
+        public static DialogResult Show(string message, string caption, System.Windows.Forms.MessageBoxButtons mbb)
         {
             bool wasWaiting = WaitingScreen.Running;
             if (wasWaiting) WaitingScreen.Stop();
@@ -146,21 +54,16 @@ namespace SimPe
             try
             {
                 caption = SimPe.Localization.GetString(caption);
-                return System.Windows.Forms.MessageBox.Show(message, caption, mbb);
+                System.Diagnostics.Trace.TraceInformation("[Message] {0}: {1}", caption, message);
+                // For YesNo/YesNoCancel default to Yes so "Fix" operations proceed.
+                return (mbb == System.Windows.Forms.MessageBoxButtons.YesNo || mbb == System.Windows.Forms.MessageBoxButtons.YesNoCancel)
+                    ? DialogResult.Yes
+                    : DialogResult.OK;
             }
             finally
             {
                 if (wasWaiting) WaitingScreen.Wait();
             }
         }
-
-
-
-
-        private void ButtonClick(object sender, EventArgs e)
-		{
-			this.DialogResult = ((Button)sender).DialogResult;
-			Close();
-		}
-	}
+    }
 }

@@ -22,6 +22,7 @@
  ***************************************************************************/
 
 using System;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 using SimPe.PackedFiles.Wrapper;
 
@@ -53,7 +54,7 @@ namespace SimPe.PackedFiles.UserInterface
 		/// <summary>
 		/// Returns the Panel that will be displayed within SimPe
 		/// </summary>
-		public System.Windows.Forms.Control GUIHandle
+		public Avalonia.Controls.Control GUIHandle
 		{
 			get
 			{

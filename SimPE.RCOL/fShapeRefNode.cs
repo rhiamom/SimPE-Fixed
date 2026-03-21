@@ -22,61 +22,24 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
 using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
 	/// <summary>
 	/// This Form is no longer used...
 	/// </summary>
-	public class fShapeRefNode : System.Windows.Forms.Form
+	public class fShapeRefNode : Avalonia.Controls.UserControl
 	{
-		private System.ComponentModel.IContainer components;
-
 		public fShapeRefNode()
 		{
-			//
-			// Erforderlich für die Windows Form-Designerunterstützung
-			//
-			InitializeComponent();			
+			// No InitializeComponent â€” layout is empty
 		}
 
-		/// <summary>
-		/// Die verwendeten Ressourcen bereinigen.
-		/// </summary>
-		protected override void Dispose( bool disposing )
+		public void Dispose()
 		{
-			if( disposing )
-			{								
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
+			// no-op
 		}
-
-		#region Vom Windows Form-Designer generierter Code
-		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			// 
-			// fShapeRefNode
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-			this.ClientSize = new System.Drawing.Size(848, 302);
-			this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.Name = "fShapeRefNode";
-			this.Text = "fShapeRefNode";
-
-		}
-		#endregion		
-														
 	}
 }

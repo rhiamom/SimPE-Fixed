@@ -24,14 +24,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Text;
-using System.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.PackedFiles.Wrapper
 {
-    public partial class PetTraitSelect : UserControl
+    public partial class PetTraitSelect : Avalonia.Controls.UserControl
     {
         public enum Levels { High, Normal, Low };
         
@@ -46,15 +44,15 @@ namespace SimPe.PackedFiles.Wrapper
         {
             get
             {
-                if (rb1.Checked) return Levels.High;
-                if (rb3.Checked) return Levels.Low;
+                if (rb1.IsChecked == true) return Levels.High;
+                if (rb3.IsChecked == true) return Levels.Low;
                 return Levels.Normal;
             }
             set
             {
-                if (value == Levels.High) rb1.Checked = true;
-                else if (value == Levels.Low) rb3.Checked = true;
-                else rb2.Checked = true;
+                if (value == Levels.High) rb1.IsChecked = true;
+                else if (value == Levels.Low) rb3.IsChecked = true;
+                else rb2.IsChecked = true;
             }
         }
 

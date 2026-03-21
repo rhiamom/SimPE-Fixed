@@ -24,101 +24,152 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
 
-namespace System.Windows.Forms
+namespace SimPe
 {
-    public partial class LabelledBoolsetControl : UserControl
+    /// <summary>
+    /// Avalonia UserControl replacing the WinForms CheckedListBox-based boolset editor.
+    /// Moved from namespace System.Windows.Forms to namespace SimPe.
+    /// CheckedListBox replaced with a StackPanel of CheckBox controls inside a ScrollViewer.
+    /// </summary>
+    public class LabelledBoolsetControl : UserControl
     {
-        private Boolset boolset = (ushort)0;
-        private List<string> labels = new List<string>();
+        Boolset boolset = (ushort)0;
+        List<string> labels = new List<string>();
+
+        readonly StackPanel checkStack = new StackPanel();
+        readonly List<CheckBox> checkBoxes = new List<CheckBox>();
+        readonly Button btnAll;
+        readonly Button btnNone;
+
+        bool _suppressEvents = false;
 
         public LabelledBoolsetControl()
         {
-            InitializeComponent();
-            
+            btnAll = new Button { Content = "All", MinWidth = 45, Margin = new Thickness(2) };
+            btnNone = new Button { Content = "None", MinWidth = 45, Margin = new Thickness(2) };
+            btnAll.Click += BtnAll_Click;
+            btnNone.Click += BtnNone_Click;
+
+            var buttonRow = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Children = { btnAll, btnNone }
+            };
+
+            var scrollViewer = new ScrollViewer
+            {
+                Content = checkStack,
+                HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+                VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto
+            };
+
+            var root = new DockPanel { LastChildFill = true };
+            DockPanel.SetDock(buttonRow, Dock.Top);
+            root.Children.Add(buttonRow);
+            root.Children.Add(scrollViewer);
+
+            Content = root;
         }
 
-        private void btnAll_Click(object sender, EventArgs e)
+        void BtnAll_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            for (int i = 0; i < cklbBoolset.Items.Count; i++)
-                cklbBoolset.SetSelected(i, true);
+            _suppressEvents = true;
+            foreach (var cb in checkBoxes) cb.IsChecked = true;
+            _suppressEvents = false;
+            ushort old = boolset;
             boolset = (ushort)0xffff;
+            if (old != (ushort)boolset) OnValueChanged(this, EventArgs.Empty);
         }
 
-        private void btnNone_Click(object sender, EventArgs e)
+        void BtnNone_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            for (int i = 0; i < cklbBoolset.Items.Count; i++)
-                cklbBoolset.SetSelected(i, false);
+            _suppressEvents = true;
+            foreach (var cb in checkBoxes) cb.IsChecked = false;
+            _suppressEvents = false;
+            ushort old = boolset;
             boolset = (ushort)0;
+            if (old != (ushort)boolset) OnValueChanged(this, EventArgs.Empty);
         }
 
         [Browsable(true)]
-        [EditorBrowsable(0)]
         [Description("Show or Hide the All/None buttons")]
         public bool ButtonsVisible
         {
-            get { return btnAll.Visible && btnNone.Visible; }
-            set { btnAll.Visible = btnNone.Visible = value; }
+            get => btnAll.IsVisible && btnNone.IsVisible;
+            set => btnAll.IsVisible = btnNone.IsVisible = value;
         }
 
         [Browsable(true)]
-        [EditorBrowsable(0)]
         [Description("The unsigned short value representing the bit set to be edited")]
         public ushort Value
         {
-            get { return (ushort)boolset; }
+            get => (ushort)boolset;
             set
             {
                 ushort oldvalue = boolset;
                 boolset = value;
-                while (labels.Count < boolset.Length) labels.Add(labels.Count.ToString());
-                cklbBoolset.Items.Clear();
-                cklbBoolset.Items.AddRange(labels.ToArray());
-                for (int i = 0; i < boolset.Length; i++)
-                    cklbBoolset.SetItemChecked(i, boolset[i]);
-                if (oldvalue != boolset)
-                    OnValueChanged(this, new EventArgs());
+                RebuildCheckBoxes();
+                if (oldvalue != (ushort)boolset)
+                    OnValueChanged(this, EventArgs.Empty);
             }
         }
 
-        /// <summary>
-        /// Indicates the Value changed
-        /// </summary>
+        /// <summary>Indicates the Value changed.</summary>
         [Description("Indicates the Value changed")]
-        public event EventHandler ValueChanged;
+        public event EventHandler? ValueChanged;
+
         public virtual void OnValueChanged(object sender, EventArgs e)
         {
-            if (ValueChanged != null) ValueChanged(sender, e);
+            ValueChanged?.Invoke(sender, e);
         }
 
         [Browsable(true)]
-        [EditorBrowsable(0)]
         [Description("The collection representing the labels for the bits")]
         public List<string> Labels
         {
-            get { return labels; }
+            get => labels;
             set
             {
                 labels = value;
-                while (labels.Count < boolset.Length) labels.Add(labels.Count.ToString());
-                cklbBoolset.Items.Clear();
-                cklbBoolset.Items.AddRange(labels.ToArray());
-                for (int i = 0; i < boolset.Length; i++)
-                    cklbBoolset.SetItemChecked(i, boolset[i]);
+                RebuildCheckBoxes();
             }
         }
 
-        private void cklbBoolset_SelectedIndexChanged(object sender, EventArgs e)
+        void RebuildCheckBoxes()
         {
-            ushort oldvalue = boolset;
-            if (cklbBoolset.SelectedIndex >= 0)
-                boolset[cklbBoolset.SelectedIndex] = cklbBoolset.GetItemChecked(cklbBoolset.SelectedIndex);
-            if (oldvalue != boolset)
-                OnValueChanged(this, new EventArgs());
+            while (labels.Count < boolset.Length) labels.Add(labels.Count.ToString());
+
+            _suppressEvents = true;
+            checkStack.Children.Clear();
+            checkBoxes.Clear();
+
+            for (int i = 0; i < boolset.Length; i++)
+            {
+                string label = i < labels.Count ? labels[i] : i.ToString();
+                var cb = new CheckBox
+                {
+                    Content = label,
+                    IsChecked = boolset[i],
+                    Margin = new Thickness(2, 1, 2, 1)
+                };
+                int idx = i; // capture
+                cb.IsCheckedChanged += (_, _) =>
+                {
+                    if (_suppressEvents) return;
+                    ushort old = boolset;
+                    boolset[idx] = cb.IsChecked == true;
+                    if (old != (ushort)boolset)
+                        OnValueChanged(this, EventArgs.Empty);
+                };
+                checkBoxes.Add(cb);
+                checkStack.Children.Add(cb);
+            }
+
+            _suppressEvents = false;
         }
     }
 }

@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj" />
-    <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj" />
     <ProjectReference Include="..\SimPE.GraphControl\SimPE.GraphControl.csproj" />
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj" />

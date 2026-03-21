@@ -23,7 +23,6 @@
 
 using System;
 using SimPe.Interfaces.Plugin;
-using System.Windows.Forms;
 
 namespace SimPe.Plugin
 {
@@ -44,7 +43,6 @@ namespace SimPe.Plugin
 		/// </summary>
 		public NmapUI()
 		{
-			//form = WrapperFactory.form;
 			form = new NmapForm();
 		}
 		#endregion
@@ -52,14 +50,11 @@ namespace SimPe.Plugin
 		#region IPackedFileUI Member
 
 		/// <summary>
-		/// Returns the Panel that will be displayed within SimPe
+		/// Returns the Avalonia control that will be displayed within SimPe
 		/// </summary>
-		public System.Windows.Forms.Control GUIHandle
+		public Avalonia.Controls.Control GUIHandle
 		{
-			get
-			{
-				return form.wrapperPanel;
-			}
+			get { return form; }
 		}
 
 		/// <summary>

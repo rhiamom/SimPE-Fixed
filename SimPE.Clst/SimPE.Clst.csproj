@@ -26,9 +26,8 @@
     <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="StrListViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <!-- StrListViewer is dead code — defined but never referenced outside this file. -->
+    <Compile Remove="StrListViewer.cs" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>

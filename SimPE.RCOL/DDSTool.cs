@@ -23,11 +23,9 @@
 
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using Pfim;
-using System.Windows.Forms;
+using Avalonia.Controls;
 using BCnEncoder.Encoder;
 using BCnEncoder.Shared;
 
@@ -35,37 +33,23 @@ namespace SimPe.Plugin
 {
 	/// <summary>
 	/// Summary description for DDSTool.
+	/// Avalonia UserControl replacement (was WinForms Form).
 	/// </summary>
-	public class DDSTool : System.Windows.Forms.Form
+	public class DDSTool : Avalonia.Controls.UserControl
 	{
-		private System.Windows.Forms.LinkLabel linkLabel1;
-		private System.Windows.Forms.OpenFileDialog ofd;
-		private System.Windows.Forms.PictureBox pb;
-		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.CheckedListBox cbfilter;
-		private System.Windows.Forms.TextBox tblevel;
-		private System.Windows.Forms.TextBox tbwidth;
-		private System.Windows.Forms.TextBox tbheight;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.ComboBox cbformat;
-		private System.Windows.Forms.ComboBox cbsharpen;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+		private Avalonia.Controls.Button linkLabel1;
+		private Avalonia.Controls.Image pb;
+		private Avalonia.Controls.ListBox cbfilter;
+		private Avalonia.Controls.TextBox tblevel;
+		private Avalonia.Controls.TextBox tbwidth;
+		private Avalonia.Controls.TextBox tbheight;
+		private Avalonia.Controls.ComboBox cbformat;
+		private Avalonia.Controls.ComboBox cbsharpen;
+		private Avalonia.Controls.Button button1;
 
 		public DDSTool()
 		{
-			//
-			// Required designer variable.
-			//
-			InitializeComponent();
+			BuildLayout();
 
 			cbformat.Items.Clear();
 			cbformat.Items.Add(ImageLoader.TxtrFormats.DXT1Format);
@@ -73,351 +57,217 @@ namespace SimPe.Plugin
 			cbformat.Items.Add(ImageLoader.TxtrFormats.DXT5Format);
 		}
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
+		private void BuildLayout()
 		{
-			if( disposing )
+			// Image preview (was PictureBox / Ambertation ImagePanel)
+			pb = new Avalonia.Controls.Image { Width = 128, Height = 128, Stretch = Avalonia.Media.Stretch.Uniform };
+
+			// "open Image..." button (was LinkLabel)
+			linkLabel1 = new Avalonia.Controls.Button { Content = "open Image..." };
+			linkLabel1.Click += linkLabel1_Click;
+
+			// Settings group controls
+			var label1 = new Avalonia.Controls.TextBlock { Text = "Levels:" };
+			tblevel = new Avalonia.Controls.TextBox { Text = "0" };
+
+			var label2 = new Avalonia.Controls.TextBlock { Text = "Size:" };
+			tbwidth  = new Avalonia.Controls.TextBox { Text = "0", IsReadOnly = true };
+			var labelX = new Avalonia.Controls.TextBlock { Text = "x" };
+			tbheight = new Avalonia.Controls.TextBox { Text = "0", IsReadOnly = true };
+
+			var label3 = new Avalonia.Controls.TextBlock { Text = "Format:" };
+			cbformat = new Avalonia.Controls.ComboBox();
+
+			var label4 = new Avalonia.Controls.TextBlock { Text = "Sharpen:" };
+			cbsharpen = new Avalonia.Controls.ComboBox();
+			cbsharpen.Items.Add("None");
+			cbsharpen.Items.Add("Negative");
+			cbsharpen.Items.Add("Lighter");
+			cbsharpen.Items.Add("Darker");
+			cbsharpen.Items.Add("ContrastMore");
+			cbsharpen.Items.Add("ContrastLess");
+			cbsharpen.Items.Add("Smoothen");
+			cbsharpen.Items.Add("SharpenSoft");
+			cbsharpen.Items.Add("SharpenMedium");
+			cbsharpen.Items.Add("SharpenStrong");
+			cbsharpen.Items.Add("FindEdges");
+			cbsharpen.Items.Add("Contour");
+			cbsharpen.Items.Add("EdgeDetect");
+			cbsharpen.Items.Add("EdgeDetectSoft");
+			cbsharpen.Items.Add("Emboss");
+			cbsharpen.Items.Add("MeanRemoval");
+
+			var label5 = new Avalonia.Controls.TextBlock { Text = "Filter:" };
+			cbfilter = new Avalonia.Controls.ListBox();
+			cbfilter.Items.Add("dither");
+			cbfilter.Items.Add("Point");
+			cbfilter.Items.Add("Box");
+			cbfilter.Items.Add("Triangle");
+			cbfilter.Items.Add("Quadratic");
+			cbfilter.Items.Add("Cubic");
+			cbfilter.Items.Add("Catrom");
+			cbfilter.Items.Add("Mitchell");
+			cbfilter.Items.Add("Gaussian");
+			cbfilter.Items.Add("Sinc");
+			cbfilter.Items.Add("Bessel");
+			cbfilter.Items.Add("Hanning");
+			cbfilter.Items.Add("Hamming");
+			cbfilter.Items.Add("Blackman");
+			cbfilter.Items.Add("Kaiser");
+			cbfilter.SelectionMode = Avalonia.Controls.SelectionMode.Multiple;
+
+			// Settings grid
+			var settingsGrid = new Avalonia.Controls.Grid();
+			settingsGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(Avalonia.Controls.GridLength.Auto));
+			settingsGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
+			for (int r = 0; r < 5; r++)
+				settingsGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
+
+			// Row 0: Levels
+			Avalonia.Controls.Grid.SetRow(label1, 0); Avalonia.Controls.Grid.SetColumn(label1, 0);
+			Avalonia.Controls.Grid.SetRow(tblevel, 0); Avalonia.Controls.Grid.SetColumn(tblevel, 1);
+			// Row 1: Size
+			Avalonia.Controls.Grid.SetRow(label2, 1); Avalonia.Controls.Grid.SetColumn(label2, 0);
+			var sizeRow = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 4 };
+			sizeRow.Children.Add(tbwidth);
+			sizeRow.Children.Add(labelX);
+			sizeRow.Children.Add(tbheight);
+			Avalonia.Controls.Grid.SetRow(sizeRow, 1); Avalonia.Controls.Grid.SetColumn(sizeRow, 1);
+			// Row 2: Format
+			Avalonia.Controls.Grid.SetRow(label3, 2); Avalonia.Controls.Grid.SetColumn(label3, 0);
+			Avalonia.Controls.Grid.SetRow(cbformat, 2); Avalonia.Controls.Grid.SetColumn(cbformat, 1);
+			// Row 3: Sharpen
+			Avalonia.Controls.Grid.SetRow(label4, 3); Avalonia.Controls.Grid.SetColumn(label4, 0);
+			Avalonia.Controls.Grid.SetRow(cbsharpen, 3); Avalonia.Controls.Grid.SetColumn(cbsharpen, 1);
+			// Row 4: Filter
+			Avalonia.Controls.Grid.SetRow(label5, 4); Avalonia.Controls.Grid.SetColumn(label5, 0);
+			Avalonia.Controls.Grid.SetRow(cbfilter, 4); Avalonia.Controls.Grid.SetColumn(cbfilter, 1);
+
+			settingsGrid.Children.Add(label1);
+			settingsGrid.Children.Add(tblevel);
+			settingsGrid.Children.Add(label2);
+			settingsGrid.Children.Add(sizeRow);
+			settingsGrid.Children.Add(label3);
+			settingsGrid.Children.Add(cbformat);
+			settingsGrid.Children.Add(label4);
+			settingsGrid.Children.Add(cbsharpen);
+			settingsGrid.Children.Add(label5);
+			settingsGrid.Children.Add(cbfilter);
+
+			var settingsBorder = new Avalonia.Controls.Border
 			{
-				if(components != null)
+				BorderThickness = new Avalonia.Thickness(1),
+				Padding = new Avalonia.Thickness(4),
+				Child = settingsGrid
+			};
+
+			// Build button
+			button1 = new Avalonia.Controls.Button { Content = "Build", IsEnabled = false };
+			button1.Click += Build;
+
+			// Left column: image preview + open button
+			var leftPanel = new Avalonia.Controls.StackPanel { Spacing = 8 };
+			leftPanel.Children.Add(pb);
+			leftPanel.Children.Add(linkLabel1);
+
+			// Outer layout
+			var outerGrid = new Avalonia.Controls.Grid();
+			outerGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(Avalonia.Controls.GridLength.Auto));
+			outerGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
+			outerGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
+			outerGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
+
+			Avalonia.Controls.Grid.SetRow(leftPanel, 0); Avalonia.Controls.Grid.SetColumn(leftPanel, 0);
+			Avalonia.Controls.Grid.SetRow(settingsBorder, 0); Avalonia.Controls.Grid.SetColumn(settingsBorder, 1);
+			Avalonia.Controls.Grid.SetRow(button1, 1); Avalonia.Controls.Grid.SetColumn(button1, 1);
+			Avalonia.Controls.Grid.SetColumnSpan(button1, 1);
+
+			outerGrid.Children.Add(leftPanel);
+			outerGrid.Children.Add(settingsBorder);
+			outerGrid.Children.Add(button1);
+
+			Content = outerGrid;
+		}
+
+		// ── Helper: convert System.Drawing.Image to Avalonia Bitmap ──────────
+		private static Avalonia.Media.Imaging.Bitmap ToAvaloniaBitmap(System.Drawing.Image image)
+		{
+			if (image == null) return null;
+			try
+			{
+				using (var ms = new System.IO.MemoryStream())
 				{
-					components.Dispose();
+					image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+					ms.Position = 0;
+					return new Avalonia.Media.Imaging.Bitmap(ms);
 				}
 			}
-			base.Dispose( disposing );
+			catch { return null; }
 		}
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DDSTool));
-            this.pb = new System.Windows.Forms.PictureBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.ofd = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbformat = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tbheight = new System.Windows.Forms.TextBox();
-            this.tbwidth = new System.Windows.Forms.TextBox();
-            this.tblevel = new System.Windows.Forms.TextBox();
-            this.cbfilter = new System.Windows.Forms.CheckedListBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.cbsharpen = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // pb
-            // 
-            this.pb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pb.Location = new System.Drawing.Point(16, 24);
-            this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(128, 128);
-            this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pb.TabIndex = 0;
-            this.pb.TabStop = false;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(0, 4);
-            this.linkLabel1.Location = new System.Drawing.Point(48, 160);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(93, 18);
-            this.linkLabel1.TabIndex = 1;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "open Image...";
-            this.linkLabel1.UseCompatibleTextRendering = true;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // ofd
-            // 
-            this.ofd.Filter = "All Image Files (*.jpg;*.bmp;*.gif;*.png)|*.jpg;*.bmp;*.gif;*.png|Bitmap (*.bmp)|" +
-                "*.bmp|Gif (*.gif)|*.gif|JPEG File (*.jpg)|*.jpg|Png (*.png)|*.png|All Files (*.*" +
-                ")|*.*";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.cbformat);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.tbheight);
-            this.groupBox1.Controls.Add(this.tbwidth);
-            this.groupBox1.Controls.Add(this.tblevel);
-            this.groupBox1.Controls.Add(this.cbfilter);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.cbsharpen);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(160, 8);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 208);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Settings";
-            // 
-            // cbformat
-            // 
-            this.cbformat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbformat.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbformat.Items.AddRange(new object[] {
-            "None",
-            "Negative",
-            "Lighter",
-            "Darker",
-            "ContrastMore",
-            "ContrastLess",
-            "Smoothen",
-            "SharpenSoft",
-            "SharpenMedium",
-            "SharpenStrong",
-            "FindEdges",
-            "Contour",
-            "EdgeDetect",
-            "EdgeDetectSoft",
-            "Emboss",
-            "MeanRemoval"});
-            this.cbformat.Location = new System.Drawing.Point(80, 64);
-            this.cbformat.Name = "cbformat";
-            this.cbformat.Size = new System.Drawing.Size(224, 21);
-            this.cbformat.TabIndex = 12;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(136, 48);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(14, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "x";
-            // 
-            // tbheight
-            // 
-            this.tbheight.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbheight.Location = new System.Drawing.Point(152, 40);
-            this.tbheight.Name = "tbheight";
-            this.tbheight.ReadOnly = true;
-            this.tbheight.Size = new System.Drawing.Size(48, 21);
-            this.tbheight.TabIndex = 10;
-            this.tbheight.Text = "0";
-            // 
-            // tbwidth
-            // 
-            this.tbwidth.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbwidth.Location = new System.Drawing.Point(80, 40);
-            this.tbwidth.Name = "tbwidth";
-            this.tbwidth.ReadOnly = true;
-            this.tbwidth.Size = new System.Drawing.Size(48, 21);
-            this.tbwidth.TabIndex = 9;
-            this.tbwidth.Text = "0";
-            // 
-            // tblevel
-            // 
-            this.tblevel.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tblevel.Location = new System.Drawing.Point(80, 16);
-            this.tblevel.Name = "tblevel";
-            this.tblevel.Size = new System.Drawing.Size(80, 21);
-            this.tblevel.TabIndex = 8;
-            this.tblevel.Text = "0";
-            // 
-            // cbfilter
-            // 
-            this.cbfilter.CheckOnClick = true;
-            this.cbfilter.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbfilter.IntegralHeight = false;
-            this.cbfilter.Items.AddRange(new object[] {
-            "dither",
-            "Point",
-            "Box",
-            "Triangle",
-            "Quadratic",
-            "Cubic",
-            "Catrom",
-            "Mitchell",
-            "Gaussian",
-            "Sinc",
-            "Bessel",
-            "Hanning",
-            "Hamming",
-            "Blackman",
-            "Kaiser"});
-            this.cbfilter.Location = new System.Drawing.Point(80, 120);
-            this.cbfilter.Name = "cbfilter";
-            this.cbfilter.Size = new System.Drawing.Size(224, 80);
-            this.cbfilter.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(35, 120);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "Filter:";
-            // 
-            // cbsharpen
-            // 
-            this.cbsharpen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbsharpen.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbsharpen.Items.AddRange(new object[] {
-            "None",
-            "Negative",
-            "Lighter",
-            "Darker",
-            "ContrastMore",
-            "ContrastLess",
-            "Smoothen",
-            "SharpenSoft",
-            "SharpenMedium",
-            "SharpenStrong",
-            "FindEdges",
-            "Contour",
-            "EdgeDetect",
-            "EdgeDetectSoft",
-            "Emboss",
-            "MeanRemoval"});
-            this.cbsharpen.Location = new System.Drawing.Point(80, 88);
-            this.cbsharpen.Name = "cbsharpen";
-            this.cbsharpen.Size = new System.Drawing.Size(224, 21);
-            this.cbsharpen.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(16, 96);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Sharpen:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 72);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Format:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(40, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Size:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(28, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Levels:";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(397, 224);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Build";
-            this.button1.Click += new System.EventHandler(this.Build);
-            // 
-            // DDSTool
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(480, 254);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.pb);
-            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "DDSTool";
-            this.Text = "DDS Builder";
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
-		}
-		#endregion
-
-		Image img;
+		System.Drawing.Image img;
 		string imgname;
 		DDSData[] dds;
-		public DDSData[] Execute(int level, Size size, ImageLoader.TxtrFormats format) 
+
+		public DDSData[] Execute(int level, System.Drawing.Size size, ImageLoader.TxtrFormats format)
 		{
-			pb.Image = null;
-			img = null;
-			dds = null;
+			pb.Source = null;
+			img  = null;
+			dds  = null;
 
 			this.cbsharpen.SelectedIndex = 0;
-			this.tblevel.Text = level.ToString();
-			this.tbwidth.Text = size.Width.ToString();
-			this.tbheight.Text = size.Height.ToString();
+			this.tblevel.Text   = level.ToString();
+			this.tbwidth.Text   = size.Width.ToString();
+			this.tbheight.Text  = size.Height.ToString();
 
 			cbformat.SelectedIndex = 2;
-			for(int i=0; i<cbformat.Items.Count; i++)  
+			for (int i = 0; i < cbformat.Items.Count; i++)
 			{
 				ImageLoader.TxtrFormats fr = (ImageLoader.TxtrFormats)cbformat.Items[i];
-				if (fr==format) 
+				if (fr == format)
 				{
-					cbformat.SelectedIndex=i;
+					cbformat.SelectedIndex = i;
 					break;
 				}
 			}
 
-			this.button1.Enabled = false;
-			ShowDialog();
-
+			this.button1.IsEnabled = false;
+			// ShowDialog() is not available for UserControl — caller is responsible for display
 			return dds;
 		}
 
-		private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private async void linkLabel1_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			if (ofd.ShowDialog() == DialogResult.OK) 
+			var topLevel = Avalonia.Controls.TopLevel.GetTopLevel(this);
+			if (topLevel == null) return;
+
+			var files = await topLevel.StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
 			{
-				//System.IO.Stream s = System.IO.File.OpenRead(ofd.FileName);
-				//img = (Image)Helper.LoadImage(s).Clone();
-				//s.Close();
-				img = Image.FromFile(ofd.FileName);
+				Title = "Open Image",
+				AllowMultiple = false,
+				FileTypeFilter = new[]
+				{
+					new Avalonia.Platform.Storage.FilePickerFileType("All Image Files")
+					{
+						Patterns = new[] { "*.jpg", "*.bmp", "*.gif", "*.png" }
+					},
+					new Avalonia.Platform.Storage.FilePickerFileType("All Files")
+					{
+						Patterns = new[] { "*.*" }
+					}
+				}
+			});
 
-				imgname = ofd.FileName;
-				pb.Image = ImageLoader.Preview(img, pb.Size);				
+			if (files != null && files.Count > 0)
+			{
+				imgname = files[0].Path.LocalPath;
+				img = System.Drawing.Image.FromFile(imgname);
 
-				tbwidth.Text = img.Width.ToString();
+				pb.Source = ToAvaloniaBitmap(ImageLoader.Preview(img, new System.Drawing.Size(128, 128)));
+
+				tbwidth.Text  = img.Width.ToString();
 				tbheight.Text = img.Height.ToString();
-				this.button1.Enabled = (img!=null);				
+				button1.IsEnabled = (img != null);
 			}
 		}
 
@@ -520,7 +370,7 @@ namespace SimPe.Plugin
             }
         }
 
-        public static DDSData[] BuildDDS(Image img, int levels, ImageLoader.TxtrFormats format, string parameters)
+        public static DDSData[] BuildDDS(System.Drawing.Image img, int levels, ImageLoader.TxtrFormats format, string parameters)
         {
             string imgname = System.IO.Path.GetTempFileName() + ".png";
             img.Save(imgname, System.Drawing.Imaging.ImageFormat.Png);
@@ -534,31 +384,31 @@ namespace SimPe.Plugin
             }
         }
 
-        public static void AddDDsData(ImageData id, DDSData[] data) 
+        public static void AddDDsData(ImageData id, DDSData[] data)
 		{
 			id.TextureSize = data[0].ParentSize;
 			id.Format = data[0].Format;
 			id.MipMapLevels = (uint)data.Length;
 
-			id.MipMapBlocks[0].AddDDSData(data);			
+			id.MipMapBlocks[0].AddDDSData(data);
 		}
 
-		private void Build(object sender, System.EventArgs e)
+		private void Build(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			string arg = "-sharpenMethod "+cbsharpen.Text+" ";
-			foreach (string name in cbfilter.CheckedItems) 
+			string arg = "-sharpenMethod " + (cbsharpen.SelectedItem?.ToString() ?? "") + " ";
+			foreach (var item in cbfilter.SelectedItems)
 			{
-				arg +="-"+name+" ";
+				arg += "-" + item.ToString() + " ";
 			}
 
-			try 
+			try
 			{
 				dds = BuildDDS(img, Convert.ToInt32(tblevel.Text), (ImageLoader.TxtrFormats)cbformat.Items[cbformat.SelectedIndex], arg);
-				Close();
-			} catch (Exception ex) {
+			}
+			catch (Exception ex)
+			{
 				Helper.ExceptionMessage(ex);
 			}
-
 		}
 	}
 }

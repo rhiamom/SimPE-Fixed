@@ -23,10 +23,7 @@
 
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
+using Avalonia.Controls;
 using SimPe.Cache;
 
 namespace SimPe.PackedFiles.Wrapper
@@ -35,104 +32,54 @@ namespace SimPe.PackedFiles.Wrapper
 	/// Summary description for SimComboBox.
 	/// </summary>
 	[System.ComponentModel.DefaultEvent("SelectedObjectChanged")]
-	public class ObjectComboBox : System.Windows.Forms.UserControl
+	public class ObjectComboBox : Avalonia.Controls.UserControl
 	{
 		static MemoryCacheFile cachefile;
 
 		/// <summary>
 		/// Returns the MemoryObject Cache
 		/// </summary>
-		public static MemoryCacheFile ObjectCache 
+		public static MemoryCacheFile ObjectCache
 		{
-			get 
+			get
 			{
-				if (cachefile==null) cachefile = MemoryCacheFile.InitCacheFile();				
-
+				if (cachefile == null) cachefile = MemoryCacheFile.InitCacheFile();
 				return cachefile;
 			}
 		}
 
-        private System.Windows.Forms.ComboBox cb;
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+		private Avalonia.Controls.ComboBox cb;
 
 		public ObjectComboBox()
 		{
-			// Required designer variable.
-			InitializeComponent();
+			cb = new Avalonia.Controls.ComboBox();
+			cb.SelectionChanged += cb_SelectionChanged;
 
-			
-			loaded = false;	
+			var panel = new Avalonia.Controls.StackPanel();
+			panel.Children.Add(cb);
+			Content = panel;
+
+			loaded = false;
 			si = true;
 			sm = false;
-			st = false;		
+			st = false;
 			sjd = false;
 			sa = false;
 			sb = false;
 			sk = false;
 		}
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{				
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-
-		#region Windows Form Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            this.cb = new System.Windows.Forms.ComboBox();
-			this.SuspendLayout();
-			// 
-			// cb
-			// 
-			this.cb.Dock = System.Windows.Forms.DockStyle.Top;
-			this.cb.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.cb.Location = new System.Drawing.Point(0, 0);
-			this.cb.Name = "cb";
-			this.cb.Size = new System.Drawing.Size(150, 21);
-			this.cb.TabIndex = 0;
-			this.cb.TextChanged += new System.EventHandler(this.cb_TextChanged);
-			this.cb.SelectedIndexChanged += new System.EventHandler(this.cb_SelectedIndexChanged);
-			// 
-			// ObjectComboBox
-			// 
-			this.Controls.Add(this.cb);
-			this.Name = "ObjectComboBox";
-			this.Size = new System.Drawing.Size(150, 24);
-			this.ResumeLayout(false);
-
-		}
-		#endregion
-
 		void SetContent()
 		{
-			cb.BeginUpdate();
-			try 
+			try
 			{
 				if (!loaded) return;
-                if (this.DesignMode) return;
 
 				cb.Items.Clear();
-				cb.Sorted = false;
+				var list = new System.Collections.Generic.List<SimPe.Interfaces.IAlias>();
 				foreach (SimPe.Cache.MemoryCacheItem mci in ObjectCache.List)
 				{
-                    bool use = false;
+					bool use = false;
 					if (this.ShowInventory && mci.IsInventory && !mci.IsToken && !mci.IsMemory && !mci.IsJobData) use = true;
 					if (this.ShowTokens && mci.IsToken) use = true;
 					if (this.ShowMemories && !mci.IsToken && mci.IsMemory) use = true;
@@ -143,172 +90,116 @@ namespace SimPe.PackedFiles.Wrapper
 
 					if (!use) continue;
 
-                    SimPe.Interfaces.IAlias a = new SimPe.Data.StaticAlias(mci.Guid,
-                        mci.Name + " {" + mci.ObjdName + "}",
-                        new object[] { mci });
+					SimPe.Interfaces.IAlias a = new SimPe.Data.StaticAlias(mci.Guid,
+						mci.Name + " {" + mci.ObjdName + "}",
+						new object[] { mci });
 
+					list.Add(a);
+				}
+				list.Sort((x, y) => string.Compare(x.ToString(), y.ToString(), StringComparison.Ordinal));
+				foreach (var a in list)
 					cb.Items.Add(a);
-				}		
-				cb.Sorted = true;			
-				
-			} 
+			}
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
-			}
-			finally
-			{
-			    cb.EndUpdate();
 			}
 		}
 
 		bool si, st, sm, sjd, sa, sb, sk;
 		public bool ShowTokens
 		{
-			get {return st;}
-			set 
-			{
-				if (st!=value)
-				{
-					st = value;
-					SetContent();
-				}
-			}
+			get { return st; }
+			set { if (st != value) { st = value; SetContent(); } }
 		}
 
 		public bool ShowAspiration
 		{
-			get {return sa;}
-			set 
-			{
-				if (sa!=value)
-				{
-					sa = value;
-					SetContent();
-				}
-			}
+			get { return sa; }
+			set { if (sa != value) { sa = value; SetContent(); } }
 		}
 
 		public bool ShowBadge
 		{
-			get {return sb;}
-			set 
-			{
-				if (sb!=value)
-				{
-					sb = value;
-					SetContent();
-				}
-			}
+			get { return sb; }
+			set { if (sb != value) { sb = value; SetContent(); } }
 		}
 
 		public bool ShowSkill
 		{
-			get {return sk;}
-			set 
-			{
-				if (sk!=value)
-				{
-					sk = value;
-					SetContent();
-				}
-			}
+			get { return sk; }
+			set { if (sk != value) { sk = value; SetContent(); } }
 		}
 
 		public bool ShowMemories
 		{
-			get {return sm;}
-			set 
-			{
-				if (sm!=value)
-				{
-					sm = value;
-					SetContent();
-				}
-			}
+			get { return sm; }
+			set { if (sm != value) { sm = value; SetContent(); } }
 		}
 
 		public bool ShowInventory
 		{
-			get {return si;}
-			set 
-			{
-				if (si!=value)
-				{
-					si = value;
-					SetContent();
-				}
-			}
+			get { return si; }
+			set { if (si != value) { si = value; SetContent(); } }
 		}
 
 		public bool ShowJobData
 		{
-			get {return sjd;}
-			set 
-			{
-				if (sjd!=value)
-				{
-					sjd = value;
-					SetContent();
-				}
-			}
+			get { return sjd; }
+			set { if (sjd != value) { sjd = value; SetContent(); } }
 		}
-		
+
 		public uint SelectedGuid
 		{
-			get 
+			get
 			{
 				SimPe.Cache.MemoryCacheItem mci = SelectedItem;
-				
-				if (mci==null) return 0xffffffff;
+				if (mci == null) return 0xffffffff;
 				return mci.Guid;
 			}
 			set
 			{
 				int id = -1;
-				int ct=0;
+				int ct = 0;
 				foreach (SimPe.Interfaces.IAlias a in cb.Items)
 				{
 					SimPe.Cache.MemoryCacheItem mci = a.Tag[0] as SimPe.Cache.MemoryCacheItem;
-					if (mci.Guid == value) 
+					if (mci.Guid == value)
 					{
 						id = ct;
 						break;
-					}					
+					}
 					ct++;
 				}
-				
-
 				cb.SelectedIndex = id;
 			}
 		}
 
 		public SimPe.Cache.MemoryCacheItem SelectedItem
 		{
-			get 
+			get
 			{
-				if (cb.SelectedItem==null) return null;
+				if (cb.SelectedItem == null) return null;
 				SimPe.Interfaces.IAlias a = cb.SelectedItem as SimPe.Interfaces.IAlias;
 				return a.Tag[0] as SimPe.Cache.MemoryCacheItem;
 			}
 			set
 			{
 				int id = -1;
-				if (value!=null) 
+				if (value != null)
 				{
-					int ct=0;
+					int ct = 0;
 					foreach (SimPe.Interfaces.IAlias a in cb.Items)
 					{
 						SimPe.Cache.MemoryCacheItem mci = a.Tag[0] as SimPe.Cache.MemoryCacheItem;
-						if (mci.Guid == value.Guid) 
+						if (mci.Guid == value.Guid)
 						{
 							id = ct;
 							break;
-						}					
+						}
 						ct++;
 					}
 				}
-
 				cb.SelectedIndex = id;
 			}
 		}
@@ -318,25 +209,12 @@ namespace SimPe.PackedFiles.Wrapper
 		{
 			loaded = true;
 			SetContent();
-			base.Refresh();
 		}
 
 		public event EventHandler SelectedObjectChanged;
-		private void cb_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void cb_SelectionChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
 		{
-			if (SelectedObjectChanged!=null) SelectedObjectChanged(this, new EventArgs());
-		}		
-
-		protected override void OnVisibleChanged(EventArgs e)
-		{
-			base.OnVisibleChanged (e);
-			if (!loaded && Visible) Reload();
+			if (SelectedObjectChanged != null) SelectedObjectChanged(this, new EventArgs());
 		}
-
-		private void cb_TextChanged(object sender, System.EventArgs e)
-		{
-			//cb.DroppedDown = true;
-		}
-
 	}
 }

@@ -166,7 +166,16 @@ namespace SimPe.Providers
                             System.Drawing.Image img = pic.Image;
                             o[2] = img;
 
-                            WaitingScreen.Update(img, ct.ToString() + max);
+                            // Convert GDI Image to Avalonia Bitmap for WaitingScreen
+                            Avalonia.Media.Imaging.Bitmap? avBmp = null;
+                            if (img != null)
+                            {
+                                using var ms = new System.IO.MemoryStream();
+                                img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                ms.Seek(0, System.IO.SeekOrigin.Begin);
+                                avBmp = new Avalonia.Media.Imaging.Bitmap(ms);
+                            }
+                            WaitingScreen.Update(avBmp, ct.ToString() + max);
                         }
                         a.Tag = o;
                         if (!memories.Contains(objd.Guid)) memories.Add(objd.Guid, a);

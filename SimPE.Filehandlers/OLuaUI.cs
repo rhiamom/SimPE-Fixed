@@ -24,239 +24,113 @@
 using System;
 using SimPe.Interfaces.Plugin;
 using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.PackedFiles.UserInterface
 {
 	/// <summary>
-	/// Summary description for OLuaUI.
+	/// Avalonia port of ObjLua UI.
 	/// </summary>
-	public class ObjLua : System.Windows.Forms.UserControl, SimPe.Interfaces.Plugin.IPackedFileUI
+	public class ObjLua : UserControl, SimPe.Interfaces.Plugin.IPackedFileUI
 	{
-		private System.Windows.Forms.TreeView tv;
-		private System.Windows.Forms.Button btSave;
-		private System.Windows.Forms.Button btLoad;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox tbName;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button button2;
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+		private TreeView tv = new TreeView();
+		private Button btSave = new Button { Content = "Export..." };
+		private Button btLoad = new Button { Content = "Import..." };
+		private TextBlock label1 = new TextBlock { Text = "Name:" };
+		private TextBox tbName = new TextBox();
+		private Button button1 = new Button { Content = "Commit" };
+		private Button button2 = new Button { Content = "Export to Source..." };
 
 		public ObjLua()
 		{
-			// Required designer variable.
-			InitializeComponent();
+			button2.IsEnabled = Helper.QARelease;
 
-			this.button2.Enabled = Helper.QARelease;
-            if (SimPe.Helper.XmlRegistry.UseBigIcons) this.tv.Font = new System.Drawing.Font("Tahoma", 12F);
-        }
+			var topRow = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal };
+			topRow.Children.Add(label1);
+			topRow.Children.Add(tbName);
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
+			var bottomRow = new StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal };
+			bottomRow.Children.Add(btLoad);
+			bottomRow.Children.Add(btSave);
+			bottomRow.Children.Add(button1);
+			bottomRow.Children.Add(button2);
+
+			var grid = new Grid();
+			grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+			grid.RowDefinitions.Add(new RowDefinition(GridLength.Star));
+			grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+
+			Grid.SetRow(topRow, 0); grid.Children.Add(topRow);
+			Grid.SetRow(tv, 1); grid.Children.Add(tv);
+			Grid.SetRow(bottomRow, 2); grid.Children.Add(bottomRow);
+
+			Content = grid;
+
+			btSave.Click += btSave_Click;
+			btLoad.Click += btLoad_Click;
+			button1.Click += button1_Click;
+			button2.Click += button2_Click;
+			tbName.TextChanged += tbName_TextChanged;
 		}
 
-		#region Windows Form Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
+		public void Dispose() { }
+
+		void AddFunction(ItemCollection nodes, SimPe.PackedFiles.Wrapper.ObjLuaFunction fkt)
 		{
-            this.tv = new System.Windows.Forms.TreeView();
-            this.btSave = new System.Windows.Forms.Button();
-            this.btLoad = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbName = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // tv
-            // 
-            this.tv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tv.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tv.Location = new System.Drawing.Point(8, 40);
-            this.tv.Name = "tv";
-            this.tv.Size = new System.Drawing.Size(552, 320);
-            this.tv.TabIndex = 0;
-            // 
-            // btSave
-            // 
-            this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btSave.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btSave.Location = new System.Drawing.Point(96, 368);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(75, 25);
-            this.btSave.TabIndex = 1;
-            this.btSave.Text = "Export...";
-            this.btSave.Click += new System.EventHandler(this.btSave_Click);
-            // 
-            // btLoad
-            // 
-            this.btLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btLoad.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btLoad.Location = new System.Drawing.Point(8, 368);
-            this.btLoad.Name = "btLoad";
-            this.btLoad.Size = new System.Drawing.Size(75, 25);
-            this.btLoad.TabIndex = 2;
-            this.btLoad.Text = "Import...";
-            this.btLoad.Click += new System.EventHandler(this.btLoad_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 16);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Name:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tbName
-            // 
-            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbName.Location = new System.Drawing.Point(62, 8);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(498, 23);
-            this.tbName.TabIndex = 4;
-            this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(485, 368);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 25);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Commit";
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button2.Location = new System.Drawing.Point(176, 368);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 25);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Export to Source...";
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // ObjLua
-            // 
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.tbName);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btLoad);
-            this.Controls.Add(this.btSave);
-            this.Controls.Add(this.tv);
-            this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "ObjLua";
-            this.Size = new System.Drawing.Size(568, 400);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
-		}
-		#endregion
-
-		void AddFunction(System.Windows.Forms.TreeNodeCollection nodes, SimPe.PackedFiles.Wrapper.ObjLuaFunction fkt)
-		{			
-			TreeNode tn = new TreeNode(fkt.ToString());
-			tn.Tag = fkt;
+			var tn = new TreeViewItem { Header = fkt.ToString(), Tag = fkt };
 			nodes.Add(tn);
 
-			TreeNode ctn = new TreeNode("Constants");			
-			tn.Nodes.Add(ctn);
+			var ctn = new TreeViewItem { Header = "Constants" };
+			tn.Items.Add(ctn);
 			foreach (SimPe.PackedFiles.Wrapper.ObjLuaConstant olc in fkt.Constants)
 			{
-				TreeNode sctn = new TreeNode(olc.ToString());
-				sctn.Tag = olc;
-
-				ctn.Nodes.Add(sctn);
+				ctn.Items.Add(new TreeViewItem { Header = olc.ToString(), Tag = olc });
 			}
 
-			TreeNode cltn = new TreeNode("Locals");			
-			tn.Nodes.Add(cltn);
+			var cltn = new TreeViewItem { Header = "Locals" };
+			tn.Items.Add(cltn);
 			int ct = 0;
 			foreach (SimPe.PackedFiles.Wrapper.ObjLuaLocalVar c in fkt.Locals)
 			{
-				TreeNode scltn = new TreeNode(Helper.HexString(ct++)+": "+c.ToString());
-				scltn.Tag = c;
-
-				cltn.Nodes.Add(scltn);
+				cltn.Items.Add(new TreeViewItem { Header = Helper.HexString(ct++) + ": " + c.ToString(), Tag = c });
 			}
 
-			TreeNode cutn = new TreeNode("UpValues");			
-			tn.Nodes.Add(cutn);
+			var cutn = new TreeViewItem { Header = "UpValues" };
+			tn.Items.Add(cutn);
 			ct = 0;
 			foreach (SimPe.PackedFiles.Wrapper.ObjLuaUpValue c in fkt.UpValues)
 			{
-				TreeNode scutn = new TreeNode(Helper.HexString(ct++)+": "+c.ToString());
-				scutn.Tag = c;
-
-				cutn.Nodes.Add(scutn);
+				cutn.Items.Add(new TreeViewItem { Header = Helper.HexString(ct++) + ": " + c.ToString(), Tag = c });
 			}
 
-			TreeNode cstn = new TreeNode("SourceLines");			
-			tn.Nodes.Add(cstn);
+			var cstn = new TreeViewItem { Header = "SourceLines" };
+			tn.Items.Add(cstn);
 			ct = 0;
 			foreach (SimPe.PackedFiles.Wrapper.ObjLuaSourceLine c in fkt.SourceLine)
 			{
-				TreeNode scstn = new TreeNode(Helper.HexString(ct++)+": "+c.ToString());
-				scstn.Tag = c;
-
-				cstn.Nodes.Add(scstn);
+				cstn.Items.Add(new TreeViewItem { Header = Helper.HexString(ct++) + ": " + c.ToString(), Tag = c });
 			}
 
-			TreeNode ftn = new TreeNode("Functions");			
-			tn.Nodes.Add(ftn);
+			var ftn = new TreeViewItem { Header = "Functions" };
+			tn.Items.Add(ftn);
 			foreach (SimPe.PackedFiles.Wrapper.ObjLuaFunction olf in fkt.Functions)
 			{
-				AddFunction(ftn.Nodes, olf);
+				AddFunction(ftn.Items, olf);
 			}
-			
 
-			TreeNode cdtn = new TreeNode("Instructions");			
-			tn.Nodes.Add(cdtn);
+			var cdtn = new TreeViewItem { Header = "Instructions" };
+			tn.Items.Add(cdtn);
 			ct = 0;
 			foreach (SimPe.PackedFiles.Wrapper.ObjLuaCode c in fkt.Codes)
 			{
-				TreeNode scdtn = new TreeNode(Helper.HexString(ct++)+": "+c.ToString());
-				scdtn.Tag = c;
-
-				cdtn.Nodes.Add(scdtn);
+				cdtn.Items.Add(new TreeViewItem { Header = Helper.HexString(ct++) + ": " + c.ToString(), Tag = c });
 			}
-
-			
 		}
 
 		SimPe.PackedFiles.Wrapper.ObjLua lua;
-		protected SimPe.PackedFiles.Wrapper.ObjLua Wrapper 
+		protected SimPe.PackedFiles.Wrapper.ObjLua Wrapper
 		{
-			get { return lua;}
+			get { return lua; }
 		}
 
 		#region IPackedFileUI Member
@@ -264,86 +138,88 @@ namespace SimPe.PackedFiles.UserInterface
 		public void UpdateGUI(IFileWrapper wrapper)
 		{
 			lua = (SimPe.PackedFiles.Wrapper.ObjLua)wrapper;
-			
-			tv.Nodes.Clear();
-			AddFunction(tv.Nodes, lua.Root);
+
+			tv.Items.Clear();
+			AddFunction(tv.Items, lua.Root);
 
 			tbName.Text = lua.FileName;
-			tv.ExpandAll();
 		}
 
-		public Control GUIHandle
+		public Avalonia.Controls.Control GUIHandle
 		{
-			get
+			get { return this; }
+		}
+
+		#endregion
+
+		private async void btSave_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+		{
+			var topLevel = TopLevel.GetTopLevel(this);
+			if (topLevel == null) return;
+			var file = await topLevel.StorageProvider.SaveFilePickerAsync(new Avalonia.Platform.Storage.FilePickerSaveOptions
 			{
-				return this;
-			}
+				Title = "Export Lua",
+				SuggestedFileName = Wrapper.FileName,
+				FileTypeChoices = new[] { new Avalonia.Platform.Storage.FilePickerFileType("Lua Script") { Patterns = new[] { "*.lua" } },
+				                          new Avalonia.Platform.Storage.FilePickerFileType("All Files") { Patterns = new[] { "*.*" } } }
+			});
+			if (file != null)
+				Wrapper.ExportLua(file.Path.LocalPath);
 		}
 
-		#endregion
-
-		#region IDisposable Member
-
-		void System.IDisposable.Dispose()
+		private async void btLoad_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			this.Dispose(true);
-		}
-
-		#endregion
-
-		private void btSave_Click(object sender, System.EventArgs e)
-		{
-			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.Filter = SimPe.ExtensionProvider.BuildFilterString(new SimPe.ExtensionType[] {SimPe.ExtensionType.LuaScript, SimPe.ExtensionType.AllFiles});
-			sfd.FileName = Wrapper.FileName;
-			if (sfd.ShowDialog()==DialogResult.OK)			
-				Wrapper.ExportLua(sfd.FileName);			
-		}
-
-		private void btLoad_Click(object sender, System.EventArgs e)
-		{
-			OpenFileDialog ofd = new OpenFileDialog();
-			ofd.Filter = SimPe.ExtensionProvider.BuildFilterString(new SimPe.ExtensionType[] {SimPe.ExtensionType.LuaScript, SimPe.ExtensionType.AllFiles});
-			ofd.FileName = Wrapper.FileName;
-			if (ofd.ShowDialog()==DialogResult.OK)			
-				Wrapper.ImportLua(ofd.FileName);
+			var topLevel = TopLevel.GetTopLevel(this);
+			if (topLevel == null) return;
+			var files = await topLevel.StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
+			{
+				Title = "Import Lua",
+				AllowMultiple = false,
+				FileTypeFilter = new[] { new Avalonia.Platform.Storage.FilePickerFileType("Lua Script") { Patterns = new[] { "*.lua" } },
+				                         new Avalonia.Platform.Storage.FilePickerFileType("All Files") { Patterns = new[] { "*.*" } } }
+			});
+			if (files != null && files.Count > 0)
+				Wrapper.ImportLua(files[0].Path.LocalPath);
 
 			Wrapper.SynchronizeUserData(true, false);
 			UpdateGUI(Wrapper);
 		}
 
-		private void tbName_TextChanged(object sender, System.EventArgs e)
+		private void tbName_TextChanged(object sender, Avalonia.Controls.TextChangedEventArgs e)
 		{
 			Wrapper.FileName = tbName.Text;
 		}
 
-		private void button1_Click(object sender, System.EventArgs e)
+		private void button1_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			Wrapper.SynchronizeUserData(true, false);
 		}
 
-		private void button2_Click(object sender, System.EventArgs e)
+		private async void button2_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
-			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.Filter = SimPe.ExtensionProvider.BuildFilterString(new SimPe.ExtensionType[] {SimPe.ExtensionType.LuaScript, SimPe.ExtensionType.AllFiles});
-			sfd.FileName = Wrapper.FileName;
-			if (sfd.ShowDialog()==DialogResult.OK)	
-			{		
+			var topLevel = TopLevel.GetTopLevel(this);
+			if (topLevel == null) return;
+			var file = await topLevel.StorageProvider.SaveFilePickerAsync(new Avalonia.Platform.Storage.FilePickerSaveOptions
+			{
+				Title = "Export to Source",
+				SuggestedFileName = Wrapper.FileName,
+				FileTypeChoices = new[] { new Avalonia.Platform.Storage.FilePickerFileType("Lua Script") { Patterns = new[] { "*.lua" } } }
+			});
+			if (file != null)
+			{
 				string src = Wrapper.ToSource();
-				System.IO.StreamWriter sw = System.IO.File.CreateText(sfd.FileName);
-				try 
+				System.IO.StreamWriter sw = System.IO.File.CreateText(file.Path.LocalPath);
+				try
 				{
 					sw.Write(src);
-				} 					
-				finally 
+				}
+				finally
 				{
 					sw.Close();
 					sw.Dispose();
 					sw = null;
 				}
 			}
-        }
-
-		
+		}
 	}
 }

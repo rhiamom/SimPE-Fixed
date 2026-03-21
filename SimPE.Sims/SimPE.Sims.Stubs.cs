@@ -1,24 +1,27 @@
 // SimPE.Sims.Stubs.cs — Partial class stubs replacing excluded Designer.cs files.
+// All System.Windows.Forms.* and Ambertation.Windows.Forms.* types replaced with Avalonia equivalents.
+
+using Avalonia.Controls;
 
 namespace SimPe.PackedFiles.Wrapper
 {
     partial class PetTraitSelect
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.RadioButton rb1 = new System.Windows.Forms.RadioButton();
-        private System.Windows.Forms.RadioButton rb2 = new System.Windows.Forms.RadioButton();
-        private System.Windows.Forms.RadioButton rb3 = new System.Windows.Forms.RadioButton();
+        private RadioButton rb1 = new RadioButton();
+        private RadioButton rb2 = new RadioButton();
+        private RadioButton rb3 = new RadioButton();
         private void InitializeComponent() { }
     }
 
     partial class SimRelationPoolControl
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.CheckBox cbNoRelation = new System.Windows.Forms.CheckBox();
-        private System.Windows.Forms.CheckBox cbRelation = new System.Windows.Forms.CheckBox();
-        private System.Windows.Forms.Label label1 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Panel panel1 = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel panel2 = new System.Windows.Forms.Panel();
+        private CheckBox cbNoRelation = new CheckBox();
+        private CheckBox cbRelation = new CheckBox();
+        private TextBlock label1 = new TextBlock();
+        private Panel panel1 = new Panel();
+        private Panel panel2 = new Panel();
         private void InitializeComponent() { }
     }
 }
@@ -28,212 +31,229 @@ namespace SimPe.PackedFiles.UserInterface
     partial class ExtSDesc
     {
         private System.ComponentModel.IContainer components = null;
-        private Ambertation.Windows.Forms.LabeledProgressBar pbActive = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbAnimals = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbAspBliz = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbAspCur = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbBody = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbCareerLevel = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbCareerPerformance = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbCharisma = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbClean = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbCooking = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbCreative = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbCrime = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbCulture = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbEffort = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbEntertainment = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbEnvironment = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbFashion = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbFat = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbFood = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbGActive = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbGNeat = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbGNice = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbGOutgoing = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbGPlayful = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbHealth = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbLastGrade = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbLogic = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbMan = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbMech = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbMoney = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbNeat = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbNice = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbOutgoing = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbParanormal = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPlayful = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPolitics = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbRomance = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbSchool = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbSciFi = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbSports = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbToys = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbTravel = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbUniTime = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbWeather = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbWoman = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbWork = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetAnimals = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetEating = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetOutside = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetPets = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetPlaying = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetSleep = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetSpooky = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetToy = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbPetWeather = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.LabeledProgressBar pbhbenth = new Ambertation.Windows.Forms.LabeledProgressBar();
-        private Ambertation.Windows.Forms.EnumComboBox cbEp3Asgn = new Ambertation.Windows.Forms.EnumComboBox();
-        private Ambertation.Windows.Forms.EnumComboBox cbHobbyPre = new Ambertation.Windows.Forms.EnumComboBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbfat = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbfit = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbignoretraversal = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbisghost = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbpassobject = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbpasspeople = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbpasswalls = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbpregfull = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbpreghalf = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.TransparentCheckBox cbpreginv = new Ambertation.Windows.Forms.TransparentCheckBox();
-        private Ambertation.Windows.Forms.XPTaskBoxSimple dstTb = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-        private Ambertation.Windows.Forms.XPTaskBoxSimple srcTb = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-        private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple1 = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-        private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple2 = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-        private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple3 = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-        private Ambertation.Windows.Forms.XPTaskBoxSimple xpTaskBoxSimple4 = new Ambertation.Windows.Forms.XPTaskBoxSimple();
-        private System.Windows.Forms.ComboBox cbHobbyEnth = new System.Windows.Forms.ComboBox();
-        private System.Windows.Forms.ContextMenuStrip mbiLink = new System.Windows.Forms.ContextMenuStrip();
-        private System.Windows.Forms.ContextMenuStrip miRel = new System.Windows.Forms.ContextMenuStrip();
-        private System.Windows.Forms.ImageList ilCollectibles = new System.Windows.Forms.ImageList();
-        private System.Windows.Forms.Label label1 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label2 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label3 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label4 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label5 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label6 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label7 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label8 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label9 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label10 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label11 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label12 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label13 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label14 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label15 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label16 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label17 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label18 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label19 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label20 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label21 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label22 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label23 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label24 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label25 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label26 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label27 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label28 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label29 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label30 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label31 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label32 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label33 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label34 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label35 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label36 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label37 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label38 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label39 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label40 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label41 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label labelcol = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label46 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label47 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label48 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label49 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label50 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label60 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label69 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label70 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label77 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label78 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label86 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label87 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label90 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label94 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label95 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label96 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.ListView lvCollectibles = new System.Windows.Forms.ListView();
-        private System.Windows.Forms.Panel pnHumanChar = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnPetInt = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnSimInt = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnVoyage = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel panel1 = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel panel2 = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel panel3 = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnCareer = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnChar = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnEP1 = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnEP2 = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnEP3 = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnEP7 = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnId = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnInt = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnMisc = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnPetChar = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnRel = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.Panel pnSkill = new System.Windows.Forms.Panel();
-        private System.Windows.Forms.PictureBox pictureBox1 = new System.Windows.Forms.PictureBox();
-        private System.Windows.Forms.CheckedListBox lbTraits = new System.Windows.Forms.CheckedListBox();
-        private System.Windows.Forms.CheckedListBox lbTurnOff = new System.Windows.Forms.CheckedListBox();
-        private System.Windows.Forms.CheckedListBox lbTurnOn = new System.Windows.Forms.CheckedListBox();
-        private System.Windows.Forms.LinkLabel llep3openinfo = new System.Windows.Forms.LinkLabel();
-        private System.Windows.Forms.TextBox tbEp3Flag = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbEp3Lot = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbEp3Salery = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbNTLove = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbNTPerfume = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbBugColl = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbHobbyPre = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbLtAsp = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbUnlockPts = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbUnlocksUsed = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox tbhdaysleft = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.ToolStrip toolBar1 = new System.Windows.Forms.ToolStrip();
-        private System.Windows.Forms.ToolStripButton biCareer = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biChar = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biEP1 = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biEP2 = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biEP3 = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biEP6 = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biEP7 = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biId = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biInt = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biMax = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biMisc = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biMore = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biRel = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripButton biSkill = new System.Windows.Forms.ToolStripButton();
-        private System.Windows.Forms.ToolStripMenuItem mbiMax = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem mbiMaxKnownRel = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem mbiMaxThisRel = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miAddRelation = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miMore = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miOpenBadge = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miOpenChar = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miOpenCloth = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miOpenDNA = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miOpenFamily = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miOpenMem = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miOpenSCOR = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miOpenWf = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miRand = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miRelink = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripMenuItem miRemRelation = new System.Windows.Forms.ToolStripMenuItem();
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+        // LabeledProgressBar -> ProgressBar
+        private ProgressBar pbActive = new ProgressBar();
+        private ProgressBar pbAnimals = new ProgressBar();
+        private ProgressBar pbAspBliz = new ProgressBar();
+        private ProgressBar pbAspCur = new ProgressBar();
+        private ProgressBar pbBody = new ProgressBar();
+        private ProgressBar pbCareerLevel = new ProgressBar();
+        private ProgressBar pbCareerPerformance = new ProgressBar();
+        private ProgressBar pbCharisma = new ProgressBar();
+        private ProgressBar pbClean = new ProgressBar();
+        private ProgressBar pbCooking = new ProgressBar();
+        private ProgressBar pbCreative = new ProgressBar();
+        private ProgressBar pbCrime = new ProgressBar();
+        private ProgressBar pbCulture = new ProgressBar();
+        private ProgressBar pbEffort = new ProgressBar();
+        private ProgressBar pbEntertainment = new ProgressBar();
+        private ProgressBar pbEnvironment = new ProgressBar();
+        private ProgressBar pbFashion = new ProgressBar();
+        private ProgressBar pbFat = new ProgressBar();
+        private ProgressBar pbFood = new ProgressBar();
+        private ProgressBar pbGActive = new ProgressBar();
+        private ProgressBar pbGNeat = new ProgressBar();
+        private ProgressBar pbGNice = new ProgressBar();
+        private ProgressBar pbGOutgoing = new ProgressBar();
+        private ProgressBar pbGPlayful = new ProgressBar();
+        private ProgressBar pbHealth = new ProgressBar();
+        private ProgressBar pbLastGrade = new ProgressBar();
+        private ProgressBar pbLogic = new ProgressBar();
+        private ProgressBar pbMan = new ProgressBar();
+        private ProgressBar pbMech = new ProgressBar();
+        private ProgressBar pbMoney = new ProgressBar();
+        private ProgressBar pbNeat = new ProgressBar();
+        private ProgressBar pbNice = new ProgressBar();
+        private ProgressBar pbOutgoing = new ProgressBar();
+        private ProgressBar pbParanormal = new ProgressBar();
+        private ProgressBar pbPlayful = new ProgressBar();
+        private ProgressBar pbPolitics = new ProgressBar();
+        private ProgressBar pbRomance = new ProgressBar();
+        private ProgressBar pbSchool = new ProgressBar();
+        private ProgressBar pbSciFi = new ProgressBar();
+        private ProgressBar pbSports = new ProgressBar();
+        private ProgressBar pbToys = new ProgressBar();
+        private ProgressBar pbTravel = new ProgressBar();
+        private ProgressBar pbUniTime = new ProgressBar();
+        private ProgressBar pbWeather = new ProgressBar();
+        private ProgressBar pbWoman = new ProgressBar();
+        private ProgressBar pbWork = new ProgressBar();
+        private ProgressBar pbPetAnimals = new ProgressBar();
+        private ProgressBar pbPetEating = new ProgressBar();
+        private ProgressBar pbPetOutside = new ProgressBar();
+        private ProgressBar pbPetPets = new ProgressBar();
+        private ProgressBar pbPetPlaying = new ProgressBar();
+        private ProgressBar pbPetSleep = new ProgressBar();
+        private ProgressBar pbPetSpooky = new ProgressBar();
+        private ProgressBar pbPetToy = new ProgressBar();
+        private ProgressBar pbPetWeather = new ProgressBar();
+        private ProgressBar pbhbenth = new ProgressBar();
+        // EnumComboBox -> ComboBox
+        private ComboBox cbEp3Asgn = new ComboBox();
+        private ComboBox cbHobbyPre = new ComboBox();
+        // TransparentCheckBox -> CheckBox
+        private CheckBox cbfat = new CheckBox();
+        private CheckBox cbfit = new CheckBox();
+        private CheckBox cbignoretraversal = new CheckBox();
+        private CheckBox cbisghost = new CheckBox();
+        private CheckBox cbpassobject = new CheckBox();
+        private CheckBox cbpasspeople = new CheckBox();
+        private CheckBox cbpasswalls = new CheckBox();
+        private CheckBox cbpregfull = new CheckBox();
+        private CheckBox cbpreghalf = new CheckBox();
+        private CheckBox cbpreginv = new CheckBox();
+        // XPTaskBoxSimple -> Border
+        private Border dstTb = new Border();
+        private Border srcTb = new Border();
+        private Border xpTaskBoxSimple1 = new Border();
+        private Border xpTaskBoxSimple2 = new Border();
+        private Border xpTaskBoxSimple3 = new Border();
+        private Border xpTaskBoxSimple4 = new Border();
+        // Standard controls
+        private ComboBox cbHobbyEnth = new ComboBox();
+        // ContextMenuStrip -> ContextMenu (instantiated lazily, can't easily use new here)
+        private ContextMenu mbiLink = new ContextMenu();
+        private ContextMenu miRel = new ContextMenu();
+        // ImageList -> dropped (no Avalonia equivalent needed)
+        // Labels -> TextBlock
+        private TextBlock label1 = new TextBlock();
+        private TextBlock label2 = new TextBlock();
+        private TextBlock label3 = new TextBlock();
+        private TextBlock label4 = new TextBlock();
+        private TextBlock label5 = new TextBlock();
+        private TextBlock label6 = new TextBlock();
+        private TextBlock label7 = new TextBlock();
+        private TextBlock label8 = new TextBlock();
+        private TextBlock label9 = new TextBlock();
+        private TextBlock label10 = new TextBlock();
+        private TextBlock label11 = new TextBlock();
+        private TextBlock label12 = new TextBlock();
+        private TextBlock label13 = new TextBlock();
+        private TextBlock label14 = new TextBlock();
+        private TextBlock label15 = new TextBlock();
+        private TextBlock label16 = new TextBlock();
+        private TextBlock label17 = new TextBlock();
+        private TextBlock label18 = new TextBlock();
+        private TextBlock label19 = new TextBlock();
+        private TextBlock label20 = new TextBlock();
+        private TextBlock label21 = new TextBlock();
+        private TextBlock label22 = new TextBlock();
+        private TextBlock label23 = new TextBlock();
+        private TextBlock label24 = new TextBlock();
+        private TextBlock label25 = new TextBlock();
+        private TextBlock label26 = new TextBlock();
+        private TextBlock label27 = new TextBlock();
+        private TextBlock label28 = new TextBlock();
+        private TextBlock label29 = new TextBlock();
+        private TextBlock label30 = new TextBlock();
+        private TextBlock label31 = new TextBlock();
+        private TextBlock label32 = new TextBlock();
+        private TextBlock label33 = new TextBlock();
+        private TextBlock label34 = new TextBlock();
+        private TextBlock label35 = new TextBlock();
+        private TextBlock label36 = new TextBlock();
+        private TextBlock label37 = new TextBlock();
+        private TextBlock label38 = new TextBlock();
+        private TextBlock label39 = new TextBlock();
+        private TextBlock label40 = new TextBlock();
+        private TextBlock label41 = new TextBlock();
+        private TextBlock labelcol = new TextBlock();
+        private TextBlock label46 = new TextBlock();
+        private TextBlock label47 = new TextBlock();
+        private TextBlock label48 = new TextBlock();
+        private TextBlock label49 = new TextBlock();
+        private TextBlock label50 = new TextBlock();
+        private TextBlock label60 = new TextBlock();
+        private TextBlock label69 = new TextBlock();
+        private TextBlock label70 = new TextBlock();
+        private TextBlock label77 = new TextBlock();
+        private TextBlock label78 = new TextBlock();
+        private TextBlock label86 = new TextBlock();
+        private TextBlock label87 = new TextBlock();
+        private TextBlock label90 = new TextBlock();
+        private TextBlock label94 = new TextBlock();
+        private TextBlock label95 = new TextBlock();
+        private TextBlock label96 = new TextBlock();
+        // ListView -> ListBox (Avalonia has no ListView)
+        private ListBox lvCollectibles = new ListBox();
+        // Panels
+        private Panel pnHumanChar = new Panel();
+        private Panel pnPetInt = new Panel();
+        private Panel pnSimInt = new Panel();
+        private Panel pnVoyage = new Panel();
+        private Panel panel1 = new Panel();
+        private Panel panel2 = new Panel();
+        private Panel panel3 = new Panel();
+        private Panel pnCareer = new Panel();
+        private Panel pnChar = new Panel();
+        private Panel pnEP1 = new Panel();
+        private Panel pnEP2 = new Panel();
+        private Panel pnEP3 = new Panel();
+        private Panel pnEP7 = new Panel();
+        private Panel pnId = new Panel();
+        private Panel pnInt = new Panel();
+        private Panel pnMisc = new Panel();
+        private Panel pnPetChar = new Panel();
+        private Panel pnRel = new Panel();
+        private Panel pnSkill = new Panel();
+        // PictureBox -> Image
+        private Image pictureBox1 = new Image();
+        // CheckedListBox -> ListBox (no checked listbox in Avalonia)
+        private ListBox lbTraits = new ListBox();
+        private ListBox lbTurnOff = new ListBox();
+        private ListBox lbTurnOn = new ListBox();
+        // LinkLabel -> Button
+        private Button llep3openinfo = new Button();
+        // TextBoxes
+        private TextBox tbEp3Flag = new TextBox();
+        private TextBox tbEp3Lot = new TextBox();
+        private TextBox tbEp3Salery = new TextBox();
+        private TextBox tbNTLove = new TextBox();
+        private TextBox tbNTPerfume = new TextBox();
+        private TextBox tbBugColl = new TextBox();
+        private TextBox tbHobbyPre = new TextBox();
+        private TextBox tbLtAsp = new TextBox();
+        private TextBox tbUnlockPts = new TextBox();
+        private TextBox tbUnlocksUsed = new TextBox();
+        private TextBox tbhdaysleft = new TextBox();
+        // ToolStrip -> Panel (stub)
+        private Panel toolBar1 = new Panel();
+        // ToolStripButton -> Button
+        private Button biCareer = new Button();
+        private Button biChar = new Button();
+        private Button biEP1 = new Button();
+        private Button biEP2 = new Button();
+        private Button biEP3 = new Button();
+        private Button biEP6 = new Button();
+        private Button biEP7 = new Button();
+        private Button biId = new Button();
+        private Button biInt = new Button();
+        private Button biMax = new Button();
+        private Button biMisc = new Button();
+        private Button biMore = new Button();
+        private Button biRel = new Button();
+        private Button biSkill = new Button();
+        // ToolStripMenuItem -> MenuItem
+        private MenuItem mbiMax = new MenuItem();
+        private MenuItem mbiMaxKnownRel = new MenuItem();
+        private MenuItem mbiMaxThisRel = new MenuItem();
+        private MenuItem miAddRelation = new MenuItem();
+        private MenuItem miMore = new MenuItem();
+        private MenuItem miOpenBadge = new MenuItem();
+        private MenuItem miOpenChar = new MenuItem();
+        private MenuItem miOpenCloth = new MenuItem();
+        private MenuItem miOpenDNA = new MenuItem();
+        private MenuItem miOpenFamily = new MenuItem();
+        private MenuItem miOpenMem = new MenuItem();
+        private MenuItem miOpenSCOR = new MenuItem();
+        private MenuItem miOpenWf = new MenuItem();
+        private MenuItem miRand = new MenuItem();
+        private MenuItem miRelink = new MenuItem();
+        private MenuItem miRemRelation = new MenuItem();
+        // ToolStripSeparator -> Separator stub (just declare as object)
+        private Separator toolStripMenuItem1 = new Separator();
+        private Separator toolStripMenuItem2 = new Separator();
+        private Separator toolStripMenuItem3 = new Separator();
         // SimPe.PackedFiles.UserInterface types from same project:
         private SimPe.PackedFiles.UserInterface.CommonSrel dstRel;
         private SimPe.PackedFiles.UserInterface.CommonSrel srcRel;
@@ -246,47 +266,47 @@ namespace SimPe.PackedFiles.UserInterface
         private SimPe.PackedFiles.Wrapper.SimBusinessList sblb;
         private SimPe.PackedFiles.Wrapper.SimRelationPoolControl lv = new SimPe.PackedFiles.Wrapper.SimRelationPoolControl();
         // Internal fields accessed from ExtSDescUI.cs
-        internal System.Windows.Forms.TextBox tbsimdescfamname = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbfaminst = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.RadioButton rbmale = new System.Windows.Forms.RadioButton();
-        internal System.Windows.Forms.RadioButton rbfemale = new System.Windows.Forms.RadioButton();
-        internal System.Windows.Forms.ComboBox cblifesection = new System.Windows.Forms.ComboBox();
-        internal System.Windows.Forms.PictureBox pbImage = new System.Windows.Forms.PictureBox();
-        internal System.Windows.Forms.TextBox tbsimdescname = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbsim = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbage = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.ComboBox cbzodiac = new System.Windows.Forms.ComboBox();
-        internal System.Windows.Forms.TextBox tbschooltype = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.ComboBox cbgrade = new System.Windows.Forms.ComboBox();
-        internal System.Windows.Forms.ComboBox cbschooltype = new System.Windows.Forms.ComboBox();
-        internal System.Windows.Forms.ComboBox cbcareer = new System.Windows.Forms.ComboBox();
-        internal System.Windows.Forms.TextBox tbcareervalue = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.ComboBox cbaspiration = new System.Windows.Forms.ComboBox();
-        internal System.Windows.Forms.TextBox tblifelinescore = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbunlinked = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbagedur = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbprevdays = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbvoice = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbnpc = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbautonomy = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbinfluence = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbsemester = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.Label label103 = new System.Windows.Forms.Label();
-        internal System.Windows.Forms.Label label101 = new System.Windows.Forms.Label();
-        internal Ambertation.Windows.Forms.TransparentCheckBox cboncampus = new Ambertation.Windows.Forms.TransparentCheckBox();
-        internal System.Windows.Forms.ComboBox cbmajor = new System.Windows.Forms.ComboBox();
-        internal System.Windows.Forms.Label label98 = new System.Windows.Forms.Label();
-        internal System.Windows.Forms.TextBox tbmajor = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbstatmot = new System.Windows.Forms.TextBox();
-        internal Ambertation.Windows.Forms.EnumComboBox cbSpecies = new Ambertation.Windows.Forms.EnumComboBox();
-        internal System.Windows.Forms.TextBox tb7social = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tb7fun = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tb7hygiene = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tb7energy = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tb7bladder = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tb7comfort = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tb7hunger = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.ComboBox cbaspiration2 = new System.Windows.Forms.ComboBox();
+        internal TextBox tbsimdescfamname = new TextBox();
+        internal TextBox tbfaminst = new TextBox();
+        internal RadioButton rbmale = new RadioButton();
+        internal RadioButton rbfemale = new RadioButton();
+        internal ComboBox cblifesection = new ComboBox();
+        internal Image pbImage = new Image();
+        internal TextBox tbsimdescname = new TextBox();
+        internal TextBox tbsim = new TextBox();
+        internal TextBox tbage = new TextBox();
+        internal ComboBox cbzodiac = new ComboBox();
+        internal TextBox tbschooltype = new TextBox();
+        internal ComboBox cbgrade = new ComboBox();
+        internal ComboBox cbschooltype = new ComboBox();
+        internal ComboBox cbcareer = new ComboBox();
+        internal TextBox tbcareervalue = new TextBox();
+        internal ComboBox cbaspiration = new ComboBox();
+        internal TextBox tblifelinescore = new TextBox();
+        internal TextBox tbunlinked = new TextBox();
+        internal TextBox tbagedur = new TextBox();
+        internal TextBox tbprevdays = new TextBox();
+        internal TextBox tbvoice = new TextBox();
+        internal TextBox tbnpc = new TextBox();
+        internal TextBox tbautonomy = new TextBox();
+        internal TextBox tbinfluence = new TextBox();
+        internal TextBox tbsemester = new TextBox();
+        internal TextBlock label103 = new TextBlock();
+        internal TextBlock label101 = new TextBlock();
+        internal CheckBox cboncampus = new CheckBox();
+        internal ComboBox cbmajor = new ComboBox();
+        internal TextBlock label98 = new TextBlock();
+        internal TextBox tbmajor = new TextBox();
+        internal TextBox tbstatmot = new TextBox();
+        internal ComboBox cbSpecies = new ComboBox();
+        internal TextBox tb7social = new TextBox();
+        internal TextBox tb7fun = new TextBox();
+        internal TextBox tb7hygiene = new TextBox();
+        internal TextBox tb7energy = new TextBox();
+        internal TextBox tb7bladder = new TextBox();
+        internal TextBox tb7comfort = new TextBox();
+        internal TextBox tb7hunger = new TextBox();
+        internal ComboBox cbaspiration2 = new ComboBox();
         private void InitializeComponent() { }
     }
 }
@@ -308,35 +328,37 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
     partial class ScoreItemBusinessRewards
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.LinkLabel llAdd = new System.Windows.Forms.LinkLabel();
-        private System.Windows.Forms.LinkLabel llRemove = new System.Windows.Forms.LinkLabel();
-        private System.Windows.Forms.ListBox lb = new System.Windows.Forms.ListBox();
-        private System.Windows.Forms.Panel panel1 = new System.Windows.Forms.Panel();
+        // LinkLabel -> Button
+        private Button llAdd = new Button();
+        private Button llRemove = new Button();
+        private ListBox lb = new ListBox();
+        private Panel panel1 = new Panel();
         private void InitializeComponent() { }
     }
 
     partial class ScoreItemDefault
     {
-        private System.Windows.Forms.TextBox tb = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox textBox1 = new System.Windows.Forms.TextBox();
+        private TextBox tb = new TextBox();
+        private TextBox textBox1 = new TextBox();
         private void InitializeComponent() { }
     }
 
     partial class ScoreItemLearnedBehaviour
     {
         private LearnedBahaviourComboBox cbGuid = new LearnedBahaviourComboBox();
-        private System.Windows.Forms.ComboBox cb = new System.Windows.Forms.ComboBox();
-        private System.Windows.Forms.Label label1 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label2 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label4 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.LinkLabel llAdd = new System.Windows.Forms.LinkLabel();
-        private System.Windows.Forms.LinkLabel llRemove = new System.Windows.Forms.LinkLabel();
-        private System.Windows.Forms.TextBox textBox1 = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox textBox2 = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox textBox3 = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox textBox4 = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.TextBox textBox5 = new System.Windows.Forms.TextBox();
-        private System.Windows.Forms.ProgressBar pbVal = new System.Windows.Forms.ProgressBar();
+        private ComboBox cb = new ComboBox();
+        private TextBlock label1 = new TextBlock();
+        private TextBlock label2 = new TextBlock();
+        private TextBlock label4 = new TextBlock();
+        // LinkLabel -> Button
+        private Button llAdd = new Button();
+        private Button llRemove = new Button();
+        private TextBox textBox1 = new TextBox();
+        private TextBox textBox2 = new TextBox();
+        private TextBox textBox3 = new TextBox();
+        private TextBox textBox4 = new TextBox();
+        private TextBox textBox5 = new TextBox();
+        private ProgressBar pbVal = new ProgressBar();
         private void InitializeComponent() { }
     }
 }

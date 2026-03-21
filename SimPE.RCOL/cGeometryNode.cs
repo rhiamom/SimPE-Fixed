@@ -23,6 +23,7 @@
 
 using System;
 using SimPe.Interfaces.Scenegraph;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -169,7 +170,7 @@ namespace SimPe.Plugin
 		}
 
 		TabPage.GeometryNode tGeometryNode;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -201,7 +202,7 @@ namespace SimPe.Plugin
 			else tGeometryNode.BuildChildTabControl(null);
 		}
 
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			base.ExtendTabControl (tc);
 			this.ogn.AddToTabControl(tc);
@@ -253,7 +254,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tGeometryNode!=null) this.tGeometryNode.Dispose();
+			/* tGeometryNode.Dispose() — TabItem does not implement IDisposable */
 			tGeometryNode = null;
 		}
 

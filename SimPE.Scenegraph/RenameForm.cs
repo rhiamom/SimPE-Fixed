@@ -61,16 +61,8 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected new void Dispose(bool disposing)
 		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
@@ -80,7 +72,6 @@ namespace SimPe.Plugin
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(RenameForm));
 			this.lv = new System.Windows.Forms.ListView();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -90,114 +81,21 @@ namespace SimPe.Plugin
 			this.llname = new System.Windows.Forms.LinkLabel();
 			this.button1 = new System.Windows.Forms.Button();
 			this.cbv2 = new System.Windows.Forms.CheckBox();
-			this.SuspendLayout();
-			// 
-			// lv
-			// 
-			this.lv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.lv.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																				 this.columnHeader1,
-																				 this.columnHeader2,
-																				 this.columnHeader3});
+			this.lv.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.columnHeader1, this.columnHeader2, this.columnHeader3 });
 			this.lv.FullRowSelect = true;
 			this.lv.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.lv.HideSelection = false;
 			this.lv.LabelEdit = true;
-			this.lv.Location = new System.Drawing.Point(16, 88);
 			this.lv.MultiSelect = false;
-			this.lv.Name = "lv";
-			this.lv.Size = new System.Drawing.Size(682, 208);
-			this.lv.TabIndex = 0;
 			this.lv.View = System.Windows.Forms.View.Details;
-			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "Name";
-			this.columnHeader1.Width = 336;
-			// 
-			// columnHeader2
-			// 
+			this.columnHeader1.Text = "Name"; this.columnHeader1.Width = 336;
 			this.columnHeader2.Text = "Type";
-			// 
-			// columnHeader3
-			// 
-			this.columnHeader3.Text = "original Name";
-			this.columnHeader3.Width = 256;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.label1.Location = new System.Drawing.Point(16, 16);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(83, 17);
-			this.label1.TabIndex = 1;
+			this.columnHeader3.Text = "original Name"; this.columnHeader3.Width = 256;
 			this.label1.Text = "ModelName:";
-			// 
-			// tbname
-			// 
-			this.tbname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbname.Location = new System.Drawing.Point(24, 32);
-			this.tbname.Name = "tbname";
-			this.tbname.Size = new System.Drawing.Size(674, 21);
-			this.tbname.TabIndex = 2;
-			this.tbname.Text = "";
-			// 
-			// llname
-			// 
-			this.llname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.llname.AutoSize = true;
-			this.llname.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.llname.Location = new System.Drawing.Point(647, 56);
-			this.llname.Name = "llname";
-			this.llname.Size = new System.Drawing.Size(49, 17);
-			this.llname.TabIndex = 4;
-			this.llname.TabStop = true;
 			this.llname.Text = "Update";
 			this.llname.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UpdateNames);
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.button1.Location = new System.Drawing.Point(623, 304);
-			this.button1.Name = "button1";
-			this.button1.TabIndex = 5;
 			this.button1.Text = "OK";
 			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// cbv2
-			// 
-			this.cbv2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.cbv2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.cbv2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.cbv2.Location = new System.Drawing.Point(16, 304);
-			this.cbv2.Name = "cbv2";
-			this.cbv2.Size = new System.Drawing.Size(280, 24);
-			this.cbv2.TabIndex = 6;
-			this.cbv2.Text = "University Ready v2 (sug. by Numenor)";
-			// 
-			// RenameForm
-			// 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            
-			this.ClientSize = new System.Drawing.Size(712, 332);
-			this.Controls.Add(this.cbv2);
-			this.Controls.Add(this.button1);
-			this.Controls.Add(this.llname);
-			this.Controls.Add(this.tbname);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.lv);
-			this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "RenameForm";
-			this.Text = "Scenegraph rename Wizard";
-			this.ResumeLayout(false);
-
 		}
 		#endregion
 

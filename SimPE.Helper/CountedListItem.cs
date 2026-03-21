@@ -74,7 +74,7 @@ namespace SimPe
 		/// </summary>
 		/// <param name="cb">The ComboBox</param>
 		/// <param name="obj">The Item you want to add</param>
-		public static void Add(System.Windows.Forms.ComboBox cb, object obj) 
+		public static void Add(Avalonia.Controls.ComboBox cb, object obj) 
 		{
 			cb.Items.Add(new CountedListItem(cb.Items.Count+offset, obj, false));
 		}
@@ -84,7 +84,7 @@ namespace SimPe
 		/// </summary>
 		/// <param name="lb">The ListBox</param>
 		/// <param name="obj">The Item you want to add</param>
-		public static void Add(System.Windows.Forms.ListBox lb, object obj) 
+		public static void Add(Avalonia.Controls.ListBox lb, object obj) 
 		{
 			lb.Items.Add(new CountedListItem(lb.Items.Count+offset, obj, false));
 		}
@@ -94,7 +94,7 @@ namespace SimPe
 		/// </summary>
 		/// <param name="cb">The ComboBox</param>
 		/// <param name="obj">The Item you want to add</param>
-		public static void AddHex(System.Windows.Forms.ComboBox cb, object obj) 
+		public static void AddHex(Avalonia.Controls.ComboBox cb, object obj) 
 		{
 			cb.Items.Add(new CountedListItem(cb.Items.Count+offset, obj, true));
 		}
@@ -104,7 +104,7 @@ namespace SimPe
 		/// </summary>
 		/// <param name="lb">The ListBox</param>
 		/// <param name="obj">The Item you want to add</param>
-		public static void AddHex(System.Windows.Forms.ListBox lb, object obj) 
+		public static void AddHex(Avalonia.Controls.ListBox lb, object obj) 
 		{
 			lb.Items.Add(new CountedListItem(lb.Items.Count+offset, obj, true));
 		}

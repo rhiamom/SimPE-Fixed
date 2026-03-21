@@ -228,12 +228,12 @@ namespace SimPe.Plugin
 		/// Returns null or the Instance of a <see cref="System.Windows.Forms.TabPage"/> that 
 		/// should be displayed as Primary Interface
 		/// </summary>
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
-			{			
+			{
 				if (form==null) form = new fGeometryDataContainer();
-				return form.tMesh;				
+				return form.tMesh;
 			}
 		}
 		#endregion
@@ -319,26 +319,26 @@ namespace SimPe.Plugin
 		/// Add Additional <see cref="System.Windows.Forms.TabPage"/> to show more Informations
 		/// </summary>
 		/// <param name="tc">The TabPage will be added here.</param>
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			form.tGeometryDataContainer.Tag = this;
-			tc.TabPages.Add(form.tGeometryDataContainer);
+			tc.Items.Add(form.tGeometryDataContainer);
 
 			form.tGeometryDataContainer2.Tag = this;
-			tc.TabPages.Add(form.tGeometryDataContainer2);
+			tc.Items.Add(form.tGeometryDataContainer2);
 
 			form.tGeometryDataContainer3.Tag = this;
-			tc.TabPages.Add(form.tGeometryDataContainer3);
+			tc.Items.Add(form.tGeometryDataContainer3);
 
 			form.tModel.Tag = this;
-			tc.TabPages.Add(form.tModel);
+			tc.Items.Add(form.tModel);
 
 			form.tSubset.Tag = this;
-			tc.TabPages.Add(form.tSubset);
+			tc.Items.Add(form.tSubset);
 
 			form.tAdvncd.Tag = this;
-			tc.TabPages.Add(form.tAdvncd);
-			
+			tc.Items.Add(form.tAdvncd);
+
 		}
 
 		#region .x-Files

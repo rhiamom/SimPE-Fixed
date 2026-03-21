@@ -21,559 +21,273 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+// Ported from WinForms UserControl to Avalonia UserControl.
+// GDI+ painting is preserved via offscreen System.Drawing.Bitmap bridge.
+
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Data;
-using System.Windows.Forms;
+using GdiLinearGradientBrush = System.Drawing.Drawing2D.LinearGradientBrush;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 namespace SimPe.Windows.Forms
 {
-	/// <summary>
-	/// Summary description for WrapperBaseControl.
-	/// </summary>
-	[ToolboxBitmapAttribute(typeof(Panel))]
-	public class WrapperBaseControl : System.Windows.Forms.UserControl, SimPe.Interfaces.Plugin.IPackedFileUI
+    /// <summary>
+    /// Base control for SimPE plugin wrapper UIs.
+    /// Provides a gradient background and a branded header bar.
+    /// Ported to Avalonia; GDI+ painting preserved via offscreen bitmap.
+    /// </summary>
+    public class WrapperBaseControl : UserControl, SimPe.Interfaces.Plugin.IPackedFileUI
     {
         /// <summary>
-        /// Determines the Anchor Location of the background image.
+        /// Determines the anchor location of the background image.
         /// </summary>
         public enum ImageLayout
         {
-            TopLeft = 0,
-            TopRight = 1,
-            BottomLeft = 2,
-            BottomRight = 3,
-            Centered = 4,
-            CenterLeft = 5,
-            CenterRight = 6,
-            CenterTop = 7,
-            CenterBottom = 8
+            TopLeft = 0, TopRight = 1, BottomLeft = 2, BottomRight = 3,
+            Centered = 4, CenterLeft = 5, CenterRight = 6, CenterTop = 7, CenterBottom = 8
         }
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
 
-		public WrapperBaseControl()
-		{
-            if (this.HeadFont == null)
-                this.HeadFont = new Font(this.Font, FontStyle.Bold);
+        // ── WinForms layout stub properties (ignored at runtime) ──────────────
+        public System.Drawing.Point  Location  { get; set; }
+        public System.Drawing.Size   Size      { get; set; }
+        public int                   TabIndex  { get; set; }
+        public System.Windows.Forms.Padding Margin { get; set; }
+        public System.Windows.Forms.AnchorStyles Anchor { get; set; }
+        public WFControlCollection   Controls  { get; } = new WFControlCollection();
+        public void SuspendLayout()  { }
+        public void ResumeLayout(bool performLayout = true) { }
+        public void PerformLayout()  { }
+        public class WFControlCollection { public void Add(object c) { } }
 
-            try 
-			{
-				SetStyle(
-					ControlStyles.SupportsTransparentBackColor |
-					ControlStyles.AllPaintingInWmPaint |
-					//ControlStyles.Opaque |
-					ControlStyles.UserPaint |
-					ControlStyles.ResizeRedraw 
-					| ControlStyles.DoubleBuffer
-					,true);
+        // ── Avalonia Commit button ──────────────────────────────────────────
+        private Button btCommit;
 
-				// Required designer variable.
-				InitializeComponent();
+        public WrapperBaseControl()
+        {
+            try
+            {
+                headfont = new System.Drawing.Font("Tahoma", 9.75f, System.Drawing.FontStyle.Bold);
 
-                headcol = Color.FromArgb(120, 0, 0, 0);
-                headend = Color.FromArgb(120, 0, 0, 0);
-				headforecol = Color.White;
-				Font = new Font("tahoma", this.Font.Size, this.Font.Style, this.Font.Unit);
-				headfont = new Font(this.Font.FontFamily, 9.75f, FontStyle.Bold, this.Font.Unit);
+                headcol    = System.Drawing.Color.FromArgb(120, 0, 0, 0);
+                headend    = System.Drawing.Color.FromArgb(120, 0, 0, 0);
+                headforecol = System.Drawing.Color.White;
+                headfont   = new System.Drawing.Font("Tahoma", 9.75f, System.Drawing.FontStyle.Bold);
 
+                mGradient  = LinearGradientMode.ForwardDiagonal;
+                BackgroundColor = System.Drawing.Color.FromArgb(240, 236, 255);
+                midcol     = System.Drawing.Color.FromArgb(192, 192, 255);
+                gradcol    = System.Drawing.Color.FromArgb(252, 248, 255);
+                mCentre    = 0.7f;
+                mPicloc    = new System.Drawing.Point(0, 0);
+                mPicZoom   = 1.0f;
+                mPicOpacity = 1.0f;
+                mPicFit    = false;
+                bklayout   = ImageLayout.TopLeft;
 
-                this.mGradient = LinearGradientMode.ForwardDiagonal;
-                BackColor = Color.FromArgb(240, 236, 255);
-                midcol = Color.FromArgb(192, 192, 255);
-                gradcol = Color.FromArgb(252, 248, 255);
-                mCentre = 0.7F;
-                mPicloc = new System.Drawing.Point(0, 0);
-                mPicZoom = 1.0F;
-                mPicOpacity = 1.0F;
-                mPicFit = false;
-                bklayout = ImageLayout.TopLeft;
+                txt = "";
+                cc  = true;
+
+                // Commit button (docked to bottom-right)
+                btCommit = new Button { Content = "Commit", IsVisible = true };
+                btCommit.Click += (s, e) => { Commited?.Invoke(this, EventArgs.Empty); OnCommit(); };
+
+                Content = btCommit;
 
                 SimPe.ThemeManager.Global.AddControl(this);
-
-				txt = "";
-				CanCommit = true;
-			}
-			catch {}
-		}
+            }
+            catch { }
+        }
 
         ~WrapperBaseControl()
         {
             if (wrp != null) SetWrapper(null);
         }
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (wrp != null)
-                    SetWrapper(null);
-
-                if (components != null)
-                    components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-
-        #region Public Properties
+        // ── Public properties ───────────────────────────────────────────────
         string txt;
-		[Localizable(true)]
-		public string HeaderText
-		{
-			get
-			{
-				return txt;
-			}
-			set
-			{
-				if (txt!=value) 
-				{
-					txt = value;
-					this.Refresh();
-				}
-			}
-		}
-
-		public override string Text
-		{
-			get
-			{
-				return base.Text;
-			}
-			set
-			{
-				base.Text = value;
-				HeaderText = value;
-			}
-		}
-
-        Color headcol, headend, headforecol;
-		Font headfont;
-
-		public Color HeadBackColor
-		{
-			get { return headcol; }
-			set 
-			{
-				if (value!=headcol)
-				{
-					headcol = value;
-					Invalidate();
-				}
-			}
-        }
-
-        public Color HeadEndColor
+        public string HeaderText
         {
-            get { return headend; }
-            set
-            {
-                if (value != headend)
-                {
-                    headend = value;
-                    Invalidate();
-                }
-            }
+            get => txt;
+            set { if (txt != value) { txt = value; InvalidateVisual(); } }
         }
 
-		public Color HeadForeColor
-		{
-			get { return headforecol; }
-			set 
-			{
-				if (value!=headforecol)
-				{
-					headforecol = value;
-					this.Invalidate();
-				}
-			}
-		}
+        System.Drawing.Color headcol, headend, headforecol;
+        System.Drawing.Font headfont;
 
-        public Font HeadFont
+        public System.Drawing.Color HeadBackColor
         {
-            get { return headfont ?? this.Font; }
-            set
-            {
-                if (value != headfont)
-                {
-                    headfont = value;
-                    Invalidate();
-                }
-            }
+            get => headcol;
+            set { if (value != headcol) { headcol = value; InvalidateVisual(); } }
         }
 
-        public int HeaderHeight
-		{
-			get {return 24;}
-		}
+        public System.Drawing.Color HeadEndColor
+        {
+            get => headend;
+            set { if (value != headend) { headend = value; InvalidateVisual(); } }
+        }
 
-		private System.Windows.Forms.Button btCommit;
-		LinearGradientMode mGradient;
-        Color gradcol;
-        Color midcol;
+        public System.Drawing.Color HeadForeColor
+        {
+            get => headforecol;
+            set { if (value != headforecol) { headforecol = value; InvalidateVisual(); } }
+        }
+
+        public System.Drawing.Font HeadFont
+        {
+            get => headfont;
+            set { if (value != headfont) { headfont = value; InvalidateVisual(); } }
+        }
+
+        public int HeaderHeight => 24;
+
+        LinearGradientMode mGradient;
+        System.Drawing.Color gradcol, midcol;
         float mCentre;
         System.Drawing.Point mPicloc;
-        float mPicZoom;
-        float mPicOpacity;
+        float mPicZoom, mPicOpacity;
         bool mPicFit;
         ImageLayout bklayout;
-	
-		public Color GradientColor
-		{
-			get { return gradcol; }
-			set 
-			{
-				if (value!=gradcol)
-				{
-					gradcol = value;
-					this.Invalidate();
-				}
-			}
+
+        // Called by ThemeManager instead of BackColor (Avalonia Background is a brush)
+        public System.Drawing.Color BackgroundColor
+        {
+            get => _backColor;
+            set { _backColor = value; InvalidateVisual(); }
+        }
+        System.Drawing.Color _backColor = System.Drawing.Color.FromArgb(240, 236, 255);
+
+        public System.Drawing.Color GradientColor
+        {
+            get => gradcol;
+            set { if (value != gradcol) { gradcol = value; InvalidateVisual(); } }
         }
 
-        public Color MiddleColor
+        public System.Drawing.Color MiddleColor
         {
-            get { return midcol; }
-            set
-            {
-                if (value != midcol)
-                {
-                    midcol = value;
-                    this.Invalidate();
-                }
-            }
+            get => midcol;
+            set { if (value != midcol) { midcol = value; InvalidateVisual(); } }
         }
 
         public float GradCentre
         {
-            get { return mCentre; }
-            set { mCentre = value;
-                this.Invalidate();
-            }
+            get => mCentre;
+            set { mCentre = value; InvalidateVisual(); }
         }
 
-		public LinearGradientMode Gradient
-		{
-			get
-			{
-				return this.mGradient;
-			}
-			set
-			{
-				this.mGradient = value;
-			}
-		}
-
-		bool cc;
-		public bool CanCommit
-		{
-			get {return cc;}
-			set 
-			{
-				cc = value;
-				this.btCommit.Visible = cc;
-			}
+        public LinearGradientMode Gradient
+        {
+            get => mGradient;
+            set => mGradient = value;
         }
 
-        public bool BackgroundImageZoomToFit { get { return mPicFit; } set { mPicFit = value; this.Invalidate(); } }
-        public float BackgroundImageScale { get { return mPicZoom; } set { if (!mPicFit) { mPicZoom = value; this.Invalidate(); } } }
-        public System.Drawing.Point BackgroundImageLocation { get { return mPicloc; } set { if (bklayout != ImageLayout.Centered) { mPicloc = value; this.Invalidate(); } } }
-        public ImageLayout BackgroundImageAnchor { get { return bklayout; } set { bklayout = value; this.Invalidate(); } }
-        public float BackgroundImageOpacity { get { return mPicOpacity; } set { mPicOpacity = value; this.Invalidate(); } }
+        bool cc;
+        public bool CanCommit
+        {
+            get => cc;
+            set { cc = value; if (btCommit != null) btCommit.IsVisible = cc; }
+        }
 
-        [Localizable(false)]
-        [Browsable(false)]
-        public override System.Windows.Forms.ImageLayout BackgroundImageLayout { get { return System.Windows.Forms.ImageLayout.Zoom; } }
+        public bool BackgroundImageZoomToFit { get => mPicFit; set { mPicFit = value; InvalidateVisual(); } }
+        public float BackgroundImageScale { get => mPicZoom; set { if (!mPicFit) { mPicZoom = value; InvalidateVisual(); } } }
+        public System.Drawing.Point BackgroundImageLocation { get => mPicloc; set { if (bklayout != ImageLayout.Centered) { mPicloc = value; InvalidateVisual(); } } }
+        public ImageLayout BackgroundImageAnchor { get => bklayout; set { bklayout = value; InvalidateVisual(); } }
+        public float BackgroundImageOpacity { get => mPicOpacity; set { mPicOpacity = value; InvalidateVisual(); } }
 
-		#endregion
+        // ── Rendering (GDI+ offscreen bridge) ──────────────────────────────
+        public override void Render(DrawingContext context)
+        {
+            int w = (int)Bounds.Width;
+            int h = (int)Bounds.Height;
+            if (w <= 0 || h <= 0) { base.Render(context); return; }
 
-		#region Properties
-        
-		
+            using var bmp = new System.Drawing.Bitmap(w, h);
+            using var g = System.Drawing.Graphics.FromImage(bmp);
 
-		[Browsable(false)]
-       
-
-        public class WrapperChangedEventArgs : EventArgs{
-            SimPe.Interfaces.Plugin.IFileWrapper owrp, nwrp;
-            public WrapperChangedEventArgs(SimPe.Interfaces.Plugin.IFileWrapper owrp, SimPe.Interfaces.Plugin.IFileWrapper nwrp)
+            if (h - HeaderHeight > 0)
             {
-                this.owrp = owrp;
-                this.nwrp = nwrp;
+                float centre = Math.Max(0.02f, Math.Min(0.98f, GradCentre));
+                var rec = new System.Drawing.Rectangle(0, HeaderHeight, w, h - HeaderHeight);
+                using var b = new GdiLinearGradientBrush(rec, _backColor, midcol, mGradient);
+                var cb = new ColorBlend(3);
+                cb.Colors    = new[] { _backColor, midcol, gradcol };
+                cb.Positions = new[] { 0f, centre, 1f };
+                b.InterpolationColors = cb;
+                g.FillRectangle(b, rec);
             }
 
-            public SimPe.Interfaces.Plugin.IFileWrapper OldWrapper
+            // Gradient header bar
+            var hrec = new System.Drawing.Rectangle(0, 0, w, HeaderHeight);
+            if (HeaderHeight > 0)
             {
-                get { return owrp; }
+                using var bg = new GdiLinearGradientBrush(hrec, headcol, headend, LinearGradientMode.Horizontal);
+                g.FillRectangle(bg, hrec);
+                if (!string.IsNullOrEmpty(txt))
+                {
+                    using var fb = new System.Drawing.SolidBrush(headforecol);
+                    var sz  = g.MeasureString(txt, headfont);
+                    int dist = (int)((HeaderHeight - sz.Height) / 2);
+                    g.DrawString(txt, headfont, fb, dist, dist);
+                }
             }
 
-            public SimPe.Interfaces.Plugin.IFileWrapper NewWrapper
-            {
-                get { return nwrp; }
-            }
+            // Write to Avalonia bitmap
+            using var ms = new System.IO.MemoryStream();
+            bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            ms.Seek(0, System.IO.SeekOrigin.Begin);
+            using var avBmp = new Avalonia.Media.Imaging.Bitmap(ms);
+            context.DrawImage(avBmp, new Avalonia.Rect(0, 0, w, h));
+
+            base.Render(context);
+        }
+
+        // ── Events ──────────────────────────────────────────────────────────
+        public event EventHandler Commited;
+
+        public virtual void OnCommit() { }
+
+        // ── IPackedFileUI ────────────────────────────────────────────────────
+        public Avalonia.Controls.Control GUIHandle => this;
+
+        public class WrapperChangedEventArgs : EventArgs
+        {
+            public WrapperChangedEventArgs(SimPe.Interfaces.Plugin.IFileWrapper o, SimPe.Interfaces.Plugin.IFileWrapper n)
+            { OldWrapper = o; NewWrapper = n; }
+            public SimPe.Interfaces.Plugin.IFileWrapper OldWrapper { get; }
+            public SimPe.Interfaces.Plugin.IFileWrapper NewWrapper { get; }
         }
         public delegate void WrapperChangedHandle(object sender, WrapperChangedEventArgs e);
-        public event WrapperChangedHandle WrapperChanged; 
+        public event WrapperChangedHandle WrapperChanged;
 
-		SimPe.Interfaces.Plugin.IFileWrapper wrp;
-		[Browsable(false)]
-		public SimPe.Interfaces.Plugin.IFileWrapper  Wrapper
-		{
-			get { return wrp; }
-		}
-		#endregion
+        SimPe.Interfaces.Plugin.IFileWrapper wrp;
+        public SimPe.Interfaces.Plugin.IFileWrapper Wrapper => wrp;
 
-		#region Events
-		public event System.EventHandler Commited;
-		#endregion
-
-		#region Windows Form Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(WrapperBaseControl));
-			this.btCommit = new System.Windows.Forms.Button();
-			this.SuspendLayout();
-            this.DockPadding.Top = 24;
-            // 
-            // btCommit
-            // 
-            this.btCommit.AccessibleDescription = resources.GetString("btCommit.AccessibleDescription");
-			this.btCommit.AccessibleName = resources.GetString("btCommit.AccessibleName");
-			this.btCommit.Anchor = ((System.Windows.Forms.AnchorStyles)(resources.GetObject("btCommit.Anchor")));
-			this.btCommit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btCommit.BackgroundImage")));
-			this.btCommit.Dock = ((System.Windows.Forms.DockStyle)(resources.GetObject("btCommit.Dock")));
-			this.btCommit.Enabled = ((bool)(resources.GetObject("btCommit.Enabled")));
-			this.btCommit.FlatStyle = ((System.Windows.Forms.FlatStyle)(resources.GetObject("btCommit.FlatStyle")));
-			this.btCommit.Font = ((System.Drawing.Font)(resources.GetObject("btCommit.Font")));
-			this.btCommit.Image = ((System.Drawing.Image)(resources.GetObject("btCommit.Image")));
-			this.btCommit.ImageAlign = ((System.Drawing.ContentAlignment)(resources.GetObject("btCommit.ImageAlign")));
-			this.btCommit.ImageIndex = ((int)(resources.GetObject("btCommit.ImageIndex")));
-			this.btCommit.ImeMode = ((System.Windows.Forms.ImeMode)(resources.GetObject("btCommit.ImeMode")));
-			this.btCommit.Location = ((System.Drawing.Point)(resources.GetObject("btCommit.Location")));
-			this.btCommit.Name = "btCommit";
-			this.btCommit.RightToLeft = ((System.Windows.Forms.RightToLeft)(resources.GetObject("btCommit.RightToLeft")));
-			this.btCommit.Size = ((System.Drawing.Size)(resources.GetObject("btCommit.Size")));
-			this.btCommit.TabIndex = ((int)(resources.GetObject("btCommit.TabIndex")));
-			this.btCommit.Text = resources.GetString("btCommit.Text");
-			this.btCommit.TextAlign = ((System.Drawing.ContentAlignment)(resources.GetObject("btCommit.TextAlign")));
-			this.btCommit.Visible = ((bool)(resources.GetObject("btCommit.Visible")));
-			this.btCommit.Click += new System.EventHandler(this.btCommit_Click);
-            // 
-            // WrapperBaseControl
-            // 
-            this.AccessibleDescription = resources.GetString("$this.AccessibleDescription");
-			this.AccessibleName = resources.GetString("$this.AccessibleName");
-			this.AutoScroll = ((bool)(resources.GetObject("$this.AutoScroll")));
-			this.AutoScrollMargin = ((System.Drawing.Size)(resources.GetObject("$this.AutoScrollMargin")));
-			this.AutoScrollMinSize = ((System.Drawing.Size)(resources.GetObject("$this.AutoScrollMinSize")));
-			this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-			this.Controls.Add(this.btCommit);
-			this.DockPadding.Top = 24;
-			this.Enabled = ((bool)(resources.GetObject("$this.Enabled")));
-			this.Font = ((System.Drawing.Font)(resources.GetObject("$this.Font")));
-			this.ImeMode = ((System.Windows.Forms.ImeMode)(resources.GetObject("$this.ImeMode")));
-			this.Location = ((System.Drawing.Point)(resources.GetObject("$this.Location")));
-			this.Name = "WrapperBaseControl";
-			this.RightToLeft = ((System.Windows.Forms.RightToLeft)(resources.GetObject("$this.RightToLeft")));
-			this.Size = ((System.Drawing.Size)(resources.GetObject("$this.Size")));
-            this.ResumeLayout(false);
-
-		}
-		#endregion
-
-		protected override void OnPaintBackground(PaintEventArgs pevent)
-		{
-			base.OnPaintBackground (pevent);
-		}
-
-		protected override void OnPaint(PaintEventArgs e)
-		{
-            base.OnPaint (e);
-
-			if ((this.Width > 0) && (this.Height > 0))
-            {
-                if (this.Height - this.HeaderHeight > 0)
-                {
-                    if (this.GradCentre < 0.02F) this.GradCentre = this.mCentre = 0.02F;
-                    if (this.GradCentre > 0.98F) this.GradCentre = this.mCentre = 0.98F;
-                    Rectangle rec = new Rectangle(0, this.HeaderHeight, this.Width, this.Height - this.HeaderHeight);
-                    LinearGradientBrush b = new LinearGradientBrush(rec, this.BackColor, this.MiddleColor, this.Gradient);
-                    ColorBlend cb = new ColorBlend(3);
-                    cb.Colors = new Color[] { this.BackColor, this.MiddleColor, this.GradientColor };
-                    cb.Positions = new float[] { 0F, this.GradCentre, 1F };
-                    b.InterpolationColors = cb;
-                    e.Graphics.FillRectangle(b, rec);
-                    b.Dispose();
-                    if (this.BackgroundImage != null && mPicOpacity > 0)
-                    {
-                        int hyte = this.Height - this.HeaderHeight;
-                        int adjx = this.Width - mPicloc.X;
-                        int adjy = hyte - mPicloc.Y;
-                        if ((adjx > 5) && (adjy > 5))
-                        {
-                            if (mPicFit)
-                            {
-                                if ((adjy / this.BackgroundImage.PhysicalDimension.Height) < (adjx / this.BackgroundImage.PhysicalDimension.Width))
-                                { mPicZoom = adjy / this.BackgroundImage.PhysicalDimension.Height; }
-                                else
-                                { mPicZoom = adjx / this.BackgroundImage.PhysicalDimension.Width; }
-                            }
-                            Int32 Widf = Convert.ToInt32(this.BackgroundImage.Width * mPicZoom);
-                            Int32 Hite = Convert.ToInt32(this.BackgroundImage.Height * mPicZoom);
-                            int pyintX = mPicloc.X;
-                            int pyintY = mPicloc.Y + this.HeaderHeight;
-                            if (bklayout == ImageLayout.TopRight)
-                            {
-                                pyintX = (this.Width - Widf) - mPicloc.X;
-                            }
-                            else if (bklayout == ImageLayout.BottomRight)
-                            {
-                                pyintX = (this.Width - Widf) - mPicloc.X;
-                                pyintY = (this.Height - Hite) - mPicloc.Y;
-                            }
-                            else if (bklayout == ImageLayout.BottomLeft)
-                            {
-                                pyintY = (this.Height - Hite) - mPicloc.Y;
-                            }
-                            else if (bklayout == ImageLayout.Centered)
-                            {
-                                pyintX = (this.Width - Widf) / 2;
-                                pyintY = (this.Height - Hite + this.HeaderHeight) / 2;
-                            }
-                            else if (bklayout == ImageLayout.CenterLeft)
-                            {
-                                pyintY = (this.Height - Hite + this.HeaderHeight) / 2;
-                            }
-                            else if (bklayout == ImageLayout.CenterTop)
-                            {
-                                pyintX = (this.Width - Widf) / 2;
-                            }
-                            else if (bklayout == ImageLayout.CenterRight)
-                            {
-                                pyintY = (this.Height - Hite + this.HeaderHeight) / 2;
-                                pyintX = (this.Width - Widf) - mPicloc.X;
-                            }
-                            else if (bklayout == ImageLayout.CenterBottom)
-                            {
-                                pyintX = (this.Width - Widf) / 2;
-                                pyintY = (this.Height - Hite) - mPicloc.Y;
-                            }
-
-                            // Draw the Background Image
-                            Rectangle picrect = new Rectangle(pyintX, pyintY, Widf, Hite);
-                            if (mPicOpacity >= 1)
-                                e.Graphics.DrawImage(this.BackgroundImage, picrect);
-                            else
-                            {
-                                float[][] ptsArray ={ 
-									new float[] {1, 0, 0, 0, 0},
-									new float[] {0, 1, 0, 0, 0},
-									new float[] {0, 0, 1, 0, 0},
-									new float[] {0, 0, 0, mPicOpacity, 0}, 
-									new float[] {0, 0, 0, 0, 1}};
-                                System.Drawing.Imaging.ColorMatrix clrMatrix = new System.Drawing.Imaging.ColorMatrix(ptsArray);
-                                System.Drawing.Imaging.ImageAttributes imgAttributes = new System.Drawing.Imaging.ImageAttributes();
-                                imgAttributes.SetColorMatrix(clrMatrix,
-                                    System.Drawing.Imaging.ColorMatrixFlag.Default,
-                                    System.Drawing.Imaging.ColorAdjustType.Bitmap);
-                                e.Graphics.DrawImage(this.BackgroundImage, picrect, 0, 0, this.BackgroundImage.Width, this.BackgroundImage.Height, System.Drawing.GraphicsUnit.Pixel, imgAttributes);
-                                imgAttributes.Dispose();
-                            }
-                        }
-                    }
-                }
-
-                //Draw the HeadLine HeadEndColor
-                Rectangle hrec = new Rectangle(0, 0, this.Width, this.HeaderHeight);
-                LinearGradientBrush bg = new LinearGradientBrush(hrec, HeadBackColor, HeadEndColor, System.Drawing.Drawing2D.LinearGradientMode.Horizontal);
-				SolidBrush fb = new SolidBrush(this.HeadForeColor);
-                ColorBlend hcb = new ColorBlend(2);
-                hcb.Colors = new Color[] { HeadBackColor, HeadEndColor };
-                hcb.Positions = new float[] { 0F, 1F };
-                bg.InterpolationColors = hcb;
-                e.Graphics.FillRectangle(bg, hrec);
-				SizeF sz = e.Graphics.MeasureString(HeaderText, this.HeadFont);
-				int dist = (int)((HeaderHeight-sz.Height) / 2);
-				e.Graphics.DrawString(HeaderText, this.HeadFont, fb, dist, dist);
-				bg.Dispose();
-				fb.Dispose();
-			}
-		}
-
-		public virtual void OnCommit()
-		{
-		}
-
-		private void btCommit_Click(object sender, System.EventArgs e)
-		{
-			if (Commited!=null) Commited(this, e);
-			OnCommit();
-		}
-
-		#region IPackedFileUI Member
-		/// <summary>
-		/// Returns the Panel that will be displayed within SimPe
-		/// </summary>
-		public System.Windows.Forms.Control GUIHandle
-		{
-			get { return this; }
-		}
-
-        protected virtual void OnWrapperChanged(WrapperChangedEventArgs e)
+        private void SetWrapper(SimPe.Interfaces.Plugin.IFileWrapper newWrp)
         {
-            
+            var old = wrp;
+            wrp = newWrp;
+            var e = new WrapperChangedEventArgs(old, newWrp);
+            OnWrapperChanged(e);
+            WrapperChanged?.Invoke(this, e);
         }
 
-		/// <summary>
-		/// Is called by SimPe (through the Wrapper) when the Panel is going to be displayed, so
-		/// you should updatet the Data displayed by the Panel with the Attributes stored in the
-		/// passed Wrapper.
-		/// </summary>
-		/// <remarks>attr.Tag is used to let TextChanged event handlers know the change is being
-		/// made internally rather than by the users.</remarks>
-		/// <param name="wrp">The Attributes of this Wrapper have to be displayed</param>
-		public virtual void UpdateGUI(SimPe.Interfaces.Plugin.IFileWrapper wrp)
-		{
-            SetWrapper(wrp);
-			RefreshGUI();
-		}
+        protected virtual void OnWrapperChanged(WrapperChangedEventArgs e) { }
 
-        private void SetWrapper(SimPe.Interfaces.Plugin.IFileWrapper wrp)
+        public virtual void UpdateGUI(SimPe.Interfaces.Plugin.IFileWrapper wrapper)
         {
-            SimPe.Interfaces.Plugin.IFileWrapper old = this.wrp;
-            this.wrp = wrp;
+            SetWrapper(wrapper);
+            RefreshGUI();
+        }
 
-            WrapperChangedEventArgs e = new WrapperChangedEventArgs(old, wrp);
-            OnWrapperChanged(e);
-            if (WrapperChanged != null) WrapperChanged(this, e);
-        }	
-		#endregion
+        public virtual void RefreshGUI() { }
 
-		/// <summary>
-		/// Implement this Method in derrived classes
-		/// </summary>
-		public virtual void RefreshGUI()
-		{
-		}
-
-		protected override void OnResize(EventArgs e)
-		{
-			base.OnResize (e);
-			this.btCommit.Left = this.Width - 4 - btCommit.Width;
-		}
-
-	}
+        // ── IDisposable (required by IPackedFileUI) ──────────────────────
+        public void Dispose()
+        {
+            if (wrp != null) SetWrapper(null);
+        }
+    }
 }

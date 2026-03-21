@@ -25,6 +25,7 @@ using System;
 using System.ComponentModel;
 using SimPe.Geometry;
 using System.Collections;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {	
@@ -97,7 +98,7 @@ namespace SimPe.Plugin
 
 		//fShapeRefNode form = null;
 		TabPage.GenericRcol tGenericRcol;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -117,7 +118,7 @@ namespace SimPe.Plugin
 			tGenericRcol.gen_pg.SelectedObject = this;
 		}
 
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			base.ExtendTabControl (tc);
 			this.gb.AddToTabControl(tc);
@@ -127,7 +128,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tGenericRcol!=null) this.tGenericRcol.Dispose();
+			/* tGenericRcol.Dispose() — TabItem does not implement IDisposable */
 			tGenericRcol = null;
 		}
 

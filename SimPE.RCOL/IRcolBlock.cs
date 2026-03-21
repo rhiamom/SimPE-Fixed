@@ -23,7 +23,7 @@
 
 using System;
 using System.Collections;
-using System.Windows.Forms;
+using Avalonia.Controls;
 using SimPe.Plugin;
 
 namespace SimPe.Interfaces.Scenegraph
@@ -96,7 +96,7 @@ namespace SimPe.Interfaces.Scenegraph
 		/// <summary>
 		/// Returns a tabPage that contains a GUI for this Element
 		/// </summary>
-		TabPage TabPage 
+		TabItem TabPage
 		{
 			get;
 		}
@@ -104,7 +104,7 @@ namespace SimPe.Interfaces.Scenegraph
 		/// <summary>
 		/// Returns a tabPage that contains a GUI for the first Block in a RCOL Resource
 		/// </summary>
-		TabPage ResourceTabPage 
+		TabItem ResourceTabPage
 		{
 			get;
 		}

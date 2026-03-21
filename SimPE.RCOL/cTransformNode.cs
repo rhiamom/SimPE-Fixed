@@ -25,6 +25,7 @@ using System;
 using SimPe.Geometry;
 using System.ComponentModel;
 using System.Collections;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -307,7 +308,7 @@ namespace SimPe.Plugin
 		}
 
 		TabPage.TransformNode tTransformNode;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -349,7 +350,7 @@ namespace SimPe.Plugin
 			tTransformNode.tb_tn_a.Tag = null;
 		}
 
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			base.ExtendTabControl (tc);
 			this.ogn.AddToTabControl(tc);
@@ -410,7 +411,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tTransformNode!=null) this.tTransformNode.Dispose();
+			/* tTransformNode.Dispose() — TabItem does not implement IDisposable */
 			tTransformNode = null;
 			ctn = null;
 			ogn = null;

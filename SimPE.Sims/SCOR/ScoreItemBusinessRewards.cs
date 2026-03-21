@@ -24,10 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Text;
-using System.Windows.Forms;
 
 namespace SimPe.PackedFiles.Wrapper.SCOR
 {
@@ -74,12 +71,12 @@ namespace SimPe.PackedFiles.Wrapper.SCOR
             }
         }
 
-        private void lb_SelectedIndexChanged(object sender, EventArgs e)
+        private void lb_SelectedIndexChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
         {
-            llRemove.Enabled = lb.SelectedItem != null;
+            llRemove.IsEnabled = lb.SelectedItem != null;
         }
 
-        private void llRemove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void llRemove_LinkClicked(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             RemoveElement(lb.SelectedItem as ScoreItemBusinessRewards.Element);
         }

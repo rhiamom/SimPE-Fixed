@@ -27,7 +27,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Text;
-using System.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.PackedFiles.Wrapper
 {
@@ -44,33 +44,31 @@ namespace SimPe.PackedFiles.Wrapper
             }
             InitializeComponent();
             showrel = true;
-            cbRelation.Checked = showrel;
+            cbRelation.IsChecked = showrel;
 
             shownorel = false;
-            cbNoRelation.Checked = shownorel;
+            cbNoRelation.IsChecked = shownorel;
             intern = false;
 
-           
-            this.panel1.SendToBack();
-            cbhousehold.SendToBack();
+            // SendToBack() is WinForms-only; no-op in Avalonia
             this.RightClickSelect = true;            
         }
 
         public void UpdateIcon()
         {
-            Image img = UpdateIcon(this.SelectedSim);
+            System.Drawing.Image img = UpdateIcon(this.SelectedSim);
             if (img != null && gp.SelectedItems.Count > 0)
             {
-                gp.SelectedItems[0].ImageList.Images[gp.SelectedItems[0].ImageIndex] = img;
+                // ImageList not available in Avalonia; image update is a no-op here
                 gp.Refresh();
             }
         }
 
-        protected Image UpdateIcon(SimPe.PackedFiles.Wrapper.ExtSDesc sdsc)
+        protected System.Drawing.Image UpdateIcon(SimPe.PackedFiles.Wrapper.ExtSDesc sdsc)
         {
             if (sim != null && sdsc != null)
             {
-                Image img = SimListView.BuildSimPreviewImage(sdsc, GetBackgroundColor(sdsc));
+                System.Drawing.Image img = SimListView.BuildSimPreviewImage(sdsc, GetBackgroundColor(sdsc));
                 bool hr = sim.HasRelationWith(sdsc);
                 if (hr) MakeRelationIcon(img);
 
@@ -101,7 +99,7 @@ namespace SimPe.PackedFiles.Wrapper
             base.OnAddSimToPool(e);
         }
 
-        private static void MakeRelationIcon(Image img)
+        private static void MakeRelationIcon(System.Drawing.Image img)
         {
             Graphics g = Graphics.FromImage(img);
             g.DrawImageUnscaled(RelatedImage, 0, 0, 16, 16);            
@@ -119,7 +117,7 @@ namespace SimPe.PackedFiles.Wrapper
                     showrel = value;
                     this.UpdateSimList();
                     intern = true;
-                    this.cbRelation.Checked = value;
+                    this.cbRelation.IsChecked = value;
                     intern = false;
                 }
             }
@@ -135,7 +133,7 @@ namespace SimPe.PackedFiles.Wrapper
                     shownorel = value;
                     this.UpdateSimList();
                     intern = true;
-                    this.cbNoRelation.Checked = value;
+                    this.cbNoRelation.IsChecked = value;
                     intern = false;
                 }
             }
@@ -168,13 +166,13 @@ namespace SimPe.PackedFiles.Wrapper
         private void cbNoRelation_CheckedChanged(object sender, EventArgs e)
         {
             if (intern) return;
-            ShowNotRelatedSims = cbNoRelation.Checked;
+            ShowNotRelatedSims = cbNoRelation.IsChecked == true;
         }
 
         private void cbRelation_CheckedChanged(object sender, EventArgs e)
         {
             if (intern) return;
-            ShowRelatedSims = cbRelation.Checked;
+            ShowRelatedSims = cbRelation.IsChecked == true;
         }
     }
 }

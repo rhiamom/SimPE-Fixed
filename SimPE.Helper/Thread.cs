@@ -67,7 +67,7 @@ namespace Ambertation.Threading
 			{
                 ct++;
 				stop.Set();
-				System.Windows.Forms.Application.DoEvents();
+				
                 Thread.Sleep(100);
 			}
             
@@ -142,7 +142,6 @@ namespace Ambertation.Threading
                     while (worker.IsAlive) 
 					{
                         worker.Join(synctime);
-						if (events) System.Windows.Forms.Application.DoEvents();
 					}
 			}
 		}

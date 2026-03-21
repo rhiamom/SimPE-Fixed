@@ -23,80 +23,34 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
 
 namespace SimPe.PackedFiles.Wrapper
-{	
+{
 	/// <summary>
 	/// Summary description for SimListView.
 	/// </summary>
-	public class SimListView : SteepValley.Windows.Forms.XPListView
+	public class SimListView : Avalonia.Controls.ListBox
 	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
         static Size ICON_SIZE = new Size(64, 64);
 
-		SimPe.ColumnsSorter s;
 		public SimListView()
 		{
-			SetStyle(ControlStyles.UserMouse, true);
-			// Required designer variable.
-			InitializeComponent();
-
-			this.HideSelection = false;
-			this.FullRowSelect = true;
-			this.MultiSelect = false;			
-
-			this.LargeImageList = new ImageList();
-
-
-			LargeImageList.ColorDepth = ColorDepth.Depth32Bit;
-            LargeImageList.ImageSize = ICON_SIZE;
-			
-			s = new SimPe.ColumnsSorter(new int[]{1,0});
-			this.ListViewItemSorter = s;
 		}
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				Clear();
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+		public void BeginUpdate() { /* no-op: batch update not needed for Avalonia ListBox */ }
+		public void EndUpdate() { /* no-op */ }
+		public new void Refresh() { base.InvalidateVisual(); }
+		public void EnsureVisible(int index) { /* no-op in Avalonia */ }
 
-		#region Windows Form Designer generated code
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			components = new System.ComponentModel.Container();
-		}
-		#endregion
-		
 		public new void Clear()
 		{
 			Items.Clear();
-			LargeImageList.Images.Clear();	
-			this.ListViewItemSorter = s;
 		}
 
-        public SteepValley.Windows.Forms.XPListViewItem Add(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc)
+        public XPListViewItem Add(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc)
         {
             return Add(sdesc, SimPe.PackedFiles.Wrapper.SimPoolControl.GetImagePanelColor(sdesc));
         }
@@ -106,39 +60,25 @@ namespace SimPe.PackedFiles.Wrapper
             return BuildSimPreviewImage(bgcol, sdesc.Image, sdesc.SimId, sdesc);
         }
 
-		public SteepValley.Windows.Forms.XPListViewItem Add(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc, Color bgcol)
+		public XPListViewItem Add(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc, Color bgcol)
 		{
             Image imgbig = BuildSimPreviewImage(bgcol, sdesc.Image, sdesc.SimId, sdesc);
             return Add(sdesc, imgbig);
         }
 
-        public SteepValley.Windows.Forms.XPListViewItem Add(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc, Image imgbig) 
+        public XPListViewItem Add(SimPe.PackedFiles.Wrapper.ExtSDesc sdesc, Image imgbig)
         {
-			SteepValley.Windows.Forms.XPListViewItem lvi = new SteepValley.Windows.Forms.XPListViewItem();
-			try 
-			{
-				this.LargeImageList.Images.Add(imgbig);
-				lvi.ImageIndex = LargeImageList.Images.Count-1;				
-			} 
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex);
-			}
+			XPListViewItem lvi = new XPListViewItem();
 
-			
 			lvi.Text = " "+sdesc.SimName+" "+sdesc.SimFamilyName;
-			if (this.Columns.Count>1) lvi.SubItems.Add("    "+Columns[1].Text+": "+sdesc.HouseholdName);
-			if (this.Columns.Count>2) lvi.SubItems.Add("    "+Columns[2].Text+": 0x"+Helper.HexString(sdesc.SimId));
-			if (this.Columns.Count>3) lvi.SubItems.Add("    "+Columns[3].Text+": 0x"+Helper.HexString((ushort)sdesc.FileDescriptor.Instance));
-            if (this.Columns.Count > 4)
-            {
-                if (sdesc.University.OnCampus == 0x1)
-                    lvi.SubItems.Add("    " + Columns[4].Text + ": " + Localization.Manager.GetString("YoungAdult"));
-                else
-                    lvi.SubItems.Add("    " + Columns[4].Text + ": " + new Data.LocalizedLifeSections(sdesc.CharacterDescription.LifeSection).ToString());
-            }
-			
-			
+			lvi.SubItems.Add("    " + sdesc.HouseholdName);
+			lvi.SubItems.Add("    0x"+Helper.HexString(sdesc.SimId));
+			lvi.SubItems.Add("    0x"+Helper.HexString((ushort)sdesc.FileDescriptor.Instance));
+            if (sdesc.University.OnCampus == 0x1)
+                lvi.SubItems.Add("    " + Localization.Manager.GetString("YoungAdult"));
+            else
+                lvi.SubItems.Add("    " + new Data.LocalizedLifeSections(sdesc.CharacterDescription.LifeSection).ToString());
+
 			this.Items.Add(lvi);
 			return lvi;
 		}
@@ -183,5 +123,38 @@ namespace SimPe.PackedFiles.Wrapper
             simicons[guid] = imgbig;
             return (Image)imgbig.Clone();
         }
+	}
+
+	/// <summary>
+	/// Lightweight replacement for SteepValley.Windows.Forms.XPListViewItem.
+	/// </summary>
+	public class XPListViewItem
+	{
+		public object Tag { get; set; }
+		public string Text { get; set; }
+		public int ImageIndex { get; set; }
+		public bool Selected { get; set; }
+		public int GroupIndex { get; set; }
+		public int Index { get; set; }
+		public bool IsChecked { get; set; }
+
+		private readonly List<string> _subItems = new List<string>();
+		public SubItemCollection SubItems { get; }
+
+		public XPListViewItem()
+		{
+			SubItems = new SubItemCollection(_subItems);
+		}
+
+		public void EnsureVisible() { /* no-op in Avalonia */ }
+
+		public class SubItemCollection
+		{
+			private List<string> _items;
+			public SubItemCollection(List<string> items) { _items = items; }
+			public void Add(string text) { _items.Add(text); }
+			public int Count => _items.Count;
+			public string this[int i] => _items[i];
+		}
 	}
 }

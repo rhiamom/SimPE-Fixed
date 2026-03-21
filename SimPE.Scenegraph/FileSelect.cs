@@ -163,26 +163,13 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected new void Dispose(bool disposing)
 		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileSelect));
             this.button1 = new System.Windows.Forms.Button();
             this.tc = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -191,124 +178,14 @@ namespace SimPe.Plugin
             this.tvmale = new System.Windows.Forms.TreeView();
             this.pb = new System.Windows.Forms.PictureBox();
             this.lbname = new System.Windows.Forms.Label();
-            this.tc.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(776, 579);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
             this.button1.Text = "Use";
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // tc
-            // 
-            this.tc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tc.Controls.Add(this.tabPage1);
-            this.tc.Controls.Add(this.tabPage2);
-            this.tc.Location = new System.Drawing.Point(8, 8);
-            this.tc.Name = "tc";
-            this.tc.SelectedIndex = 0;
-            this.tc.Size = new System.Drawing.Size(677, 595);
-            this.tc.TabIndex = 2;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.tvfemale);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(669, 569);
-            this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Female";
-            // 
-            // tvfemale
-            // 
-            this.tvfemale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvfemale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(248)))), ((int)(((byte)(254)))));
-            this.tvfemale.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvfemale.HideSelection = false;
-            this.tvfemale.Location = new System.Drawing.Point(8, 8);
-            this.tvfemale.Name = "tvfemale";
-            this.tvfemale.Size = new System.Drawing.Size(653, 555);
-            this.tvfemale.TabIndex = 0;
-            this.tvfemale.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.Select);
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.tvmale);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(669, 569);
-            this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Male";
-            // 
-            // tvmale
-            // 
-            this.tvmale.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvmale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(252)))), ((int)(((byte)(255)))));
-            this.tvmale.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvfemale.HideSelection = false;
+            this.tvfemale.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.Select);
             this.tvmale.HideSelection = false;
-            this.tvmale.Location = new System.Drawing.Point(8, 7);
-            this.tvmale.Name = "tvmale";
-            this.tvmale.Size = new System.Drawing.Size(653, 555);
-            this.tvmale.TabIndex = 1;
             this.tvmale.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.Select);
-            // 
-            // pb
-            // 
-            this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pb.Location = new System.Drawing.Point(690, 8);
-            this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(300, 300);
-            this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pb.TabIndex = 3;
-            this.pb.TabStop = false;
-            // 
-            // lbname
-            // 
-            this.lbname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbname.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbname.Location = new System.Drawing.Point(690, 323);
-            this.lbname.Name = "lbname";
-            this.lbname.Size = new System.Drawing.Size(300, 253);
-            this.lbname.TabIndex = 5;
-            this.lbname.Text = "label1";
-            // 
-            // FileSelect
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(994, 611);
-            this.Controls.Add(this.lbname);
-            this.Controls.Add(this.pb);
-            this.Controls.Add(this.tc);
-            this.Controls.Add(this.button1);
-            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "FileSelect";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Skin Select";
-            this.tc.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
-            this.ResumeLayout(false);
-
 		}
 		#endregion
 

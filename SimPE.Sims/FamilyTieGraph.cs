@@ -29,6 +29,7 @@ using Ambertation.Drawing;
 using System.Collections;
 using System.Drawing;
 using SimPe.PackedFiles.Wrapper.Supporting;
+using Avalonia.Input;
 
 namespace SimPe.PackedFiles.Wrapper
 {
@@ -39,7 +40,7 @@ namespace SimPe.PackedFiles.Wrapper
 	{
 		public FamilyTieGraph()
 		{
-			this.AutoSize = true;
+				// AutoSize is WinForms-only; no-op in Avalonia
 			this.SaveBounds = true;
 			this.LockItems = false;
 
@@ -60,17 +61,21 @@ namespace SimPe.PackedFiles.Wrapper
 		public void UpdateGraph(Wrapper.SDesc sdsc, Wrapper.ExtFamilyTies famt)
 		{
 			this.BeginUpdate();
-			if (Parent!=null) 
+				if (Parent!=null)
 			{
-				this.Width = this.Parent.Width;
-                this.Height = this.Parent.Height - 24;
+				// Width/Height on Avalonia Visual parent accessed via Bounds
+				if (Parent is Avalonia.Visual parentVisual)
+				{
+					this.Width = parentVisual.Bounds.Width;
+					this.Height = parentVisual.Bounds.Height - 24;
+				}
 			}
 			bool run = WaitingScreen.Running;
 			WaitingScreen.Wait();
             try
             {
                 this.SaveBounds = false;
-                this.AutoSize = true;
+                // AutoSize is WinForms-only; no-op in Avalonia
                 this.Clear();
                 baseip = null;
 
@@ -96,8 +101,8 @@ namespace SimPe.PackedFiles.Wrapper
 
                 double r = GraphPanel.GetPinCircleRadius(this.ItemSize, this.ItemSize, maxct);
                 Point center = new Point(
-                    Math.Max(this.Width / 2, (int)r + 16 + ItemSize.Width / 2),
-                    Math.Max(this.Height / 2, (int)r + ItemSize.Height / 2)
+                    Math.Max((int)(this.Width / 2), (int)r + 16 + ItemSize.Width / 2),
+                    Math.Max((int)(this.Height / 2), (int)r + ItemSize.Height / 2)
                     );
                 baseip = CreateItem(sdsc, 0, 0);
                 baseip.Location = GraphPanel.GetCenterLocationOnPinCircle(center, r, ItemSize);
@@ -249,7 +254,7 @@ namespace SimPe.PackedFiles.Wrapper
 
 			eip.GotFocus += new EventHandler(eip_GotFocus);
 			eip.LostFocus += new EventHandler(eip_LostFocus);
-			eip.MouseDown += new System.Windows.Forms.MouseEventHandler(eip_MouseDown);
+			eip.MouseDown += new Ambertation.Windows.Forms.MouseEventHandler(eip_MouseDown);
 			eip.DoubleClick += new EventHandler(eip_DoubleClick);
 			
 			return eip;
@@ -269,9 +274,9 @@ namespace SimPe.PackedFiles.Wrapper
 			}			
 		}
 
-		private void eip_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
-		{			
-			if (ClickOverSim!=null && (sender is ImagePanel)) 
+		private void eip_MouseDown(object sender, Ambertation.Windows.Forms.MouseEventArgs e)
+		{
+			if (ClickOverSim!=null && (sender is ImagePanel))
 			{
 				ClickOverSim(this, ((Ambertation.Windows.Forms.Graph.ImagePanel)sender).Image, (Wrapper.SDesc)((Ambertation.Windows.Forms.Graph.ImagePanel)sender).Tag);
 			}

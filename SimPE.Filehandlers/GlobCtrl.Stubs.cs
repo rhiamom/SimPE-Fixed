@@ -5,15 +5,15 @@ namespace SimPe.Plugin
 {
     public partial class GlobCtrl
     {
-        internal System.Windows.Forms.ComboBox cbseminame = new System.Windows.Forms.ComboBox();
-        internal System.Windows.Forms.TextBox tbgroup = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.TextBox tbfilenm = new System.Windows.Forms.TextBox();
-        internal System.Windows.Forms.Label lbglobfile = new System.Windows.Forms.Label();
-        internal System.Windows.Forms.Label lbBug = new System.Windows.Forms.Label();
-        internal System.Windows.Forms.Label lbBloat = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label lbfilenm = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label42 = new System.Windows.Forms.Label();
-        private System.Windows.Forms.Label label43 = new System.Windows.Forms.Label();
+        internal Avalonia.Controls.TextBox cbseminame = new Avalonia.Controls.TextBox();
+        internal Avalonia.Controls.TextBox tbgroup = new Avalonia.Controls.TextBox();
+        internal Avalonia.Controls.TextBox tbfilenm = new Avalonia.Controls.TextBox();
+        internal Avalonia.Controls.TextBlock lbglobfile = new Avalonia.Controls.TextBlock();
+        internal Avalonia.Controls.TextBlock lbBug = new Avalonia.Controls.TextBlock();
+        internal Avalonia.Controls.TextBlock lbBloat = new Avalonia.Controls.TextBlock();
+        private Avalonia.Controls.TextBlock lbfilenm = new Avalonia.Controls.TextBlock();
+        private Avalonia.Controls.TextBlock label42 = new Avalonia.Controls.TextBlock();
+        private Avalonia.Controls.TextBlock label43 = new Avalonia.Controls.TextBlock();
 
         private void InitializeComponent() { }
     }

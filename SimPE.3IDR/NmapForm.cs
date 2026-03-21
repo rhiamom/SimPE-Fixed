@@ -21,485 +21,353 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+// Ported from WinForms Form to Avalonia UserControl.
+// wrapperPanel removed — NmapForm itself is now the UserControl returned via GUIHandle.
+// LinkLabels → Buttons.  ListBox, TextBox, GroupBox → Avalonia equivalents.
+// SaveFileDialog → StorageProvider.SaveFilePickerAsync (async void handler).
+// WinForms drag-drop → Avalonia DragDrop attached events.
+// tbgroup.Tag re-entrancy guard → bool _updating field.
+
 using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Layout;
 
 namespace SimPe.Plugin
 {
-	/// <summary>
-	/// Summary description for NmapForm.
-	/// </summary>
-	public class NmapForm : System.Windows.Forms.Form
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.Container components = null;
+    public class NmapForm : Avalonia.Controls.UserControl
+    {
+        // ── Fields accessed by NmapUI ──────────────────────────────────────
+        internal ListBox lblist;
+        internal TextBox tbname, tbgroup, tbinstance, tbfindname;
+        internal Button lladd, lldelete, llcommit, linkLabel1;
+        internal Button btref, btnCommit;
+        internal Nmap wrapper;
+
+        // Re-entrancy guard (replaces tbgroup.Tag trick)
+        private bool _updating;
+
+        public void Dispose() { }
 
         public NmapForm()
         {
-            //
-            // Required designer variable.
-            //
-            InitializeComponent();
-                ThemeManager tm = ThemeManager.Global.CreateChild();
-                tm.AddControl(this.wrapperPanel);
-                tm.AddControl(this.lblist);
-                tm.AddControl(this.panel3);
+            lblist    = new ListBox();
+            tbname    = new TextBox();
+            tbgroup   = new TextBox();
+            tbinstance= new TextBox();
+            tbfindname= new TextBox();
 
-            // Use larger font if requested
-            if (Helper.XmlRegistry.UseBigIcons)
+            lladd     = new Button { Content = "Add" };
+            lldelete  = new Button { Content = "Delete" };
+            llcommit  = new Button { Content = "Commit Item" };
+            linkLabel1= new Button { Content = "Create Text File" };
+            btref     = new Button { Content = "Package…" };
+            btnCommit = new Button { Content = "Commit" };
+
+            // Wire events
+            lblist.SelectionChanged        += SelectFile;
+            tbname.TextChanged             += AutoChange;
+            tbgroup.TextChanged            += AutoChange;
+            tbinstance.TextChanged         += AutoChange;
+            tbfindname.TextChanged         += tbFindName_TextChanged;
+            lladd.Click                    += AddFile;
+            lldelete.Click                 += DeleteFile;
+            llcommit.Click                 += ChangeFile;
+            linkLabel1.Click               += CreateTextFile;
+            btref.Click                    += ShowPackageSelector;
+            btnCommit.Click                += CommitAll;
+
+            // Drag-drop onto list
+            DragDrop.SetAllowDrop(lblist, true);
+            lblist.AddHandler(DragDrop.DropEvent,     PackageItemDrop);
+            lblist.AddHandler(DragDrop.DragOverEvent, PackageItemDragOver);
+
+            ThemeManager tm = ThemeManager.Global.CreateChild();
+            tm.AddControl(this);
+            tm.AddControl(lblist);
+
+            Content = BuildLayout();
+        }
+
+        private Control BuildLayout()
+        {
+            // ── Search row ──────────────────────────────────────────────────
+            var searchRow = new StackPanel
             {
-                this.lblist.Font = new System.Drawing.Font(this.lblist.Font.FontFamily, 11F);
+                Orientation = Orientation.Horizontal,
+                Margin      = new Thickness(0, 0, 0, 4)
+            };
+            searchRow.Children.Add(new TextBlock
+            {
+                Text = "Find:",
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 4, 0)
+            });
+            searchRow.Children.Add(tbfindname);
+            searchRow.Children.Add(linkLabel1);
+
+            // ── Edit fields ─────────────────────────────────────────────────
+            var editGrid = new Grid { Margin = new Thickness(0, 4, 0, 4) };
+            editGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+            editGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
+            void AddRow(string label, TextBox tb, int row)
+            {
+                editGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+                var lbl = new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 2, 6, 2) };
+                Grid.SetRow(lbl, row); Grid.SetColumn(lbl, 0);
+                Grid.SetRow(tb, row);  Grid.SetColumn(tb, 1);
+                editGrid.Children.Add(lbl);
+                editGrid.Children.Add(tb);
+            }
+            AddRow("Name:",     tbname,     0);
+            AddRow("Group:",    tbgroup,    1);
+            AddRow("Instance:", tbinstance, 2);
+
+            // ── Action buttons row ──────────────────────────────────────────
+            var actionRow = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Margin      = new Thickness(0, 2, 0, 4)
+            };
+            actionRow.Children.Add(lladd);
+            actionRow.Children.Add(lldelete);
+            actionRow.Children.Add(llcommit);
+            actionRow.Children.Add(btref);
+
+            // ── Edit group border ───────────────────────────────────────────
+            var editBorder = new Border
+            {
+                BorderBrush     = Avalonia.Media.Brushes.Gray,
+                BorderThickness = new Thickness(1),
+                Padding         = new Thickness(4),
+                Margin          = new Thickness(0, 0, 0, 4),
+                Child = new StackPanel
+                {
+                    Children = { editGrid, actionRow }
+                }
+            };
+
+            // ── Bottom commit row ───────────────────────────────────────────
+            var bottomRow = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Margin = new Thickness(0, 4, 0, 0)
+            };
+            bottomRow.Children.Add(btnCommit);
+
+            // ── Main layout: search + list + edit + commit ──────────────────
+            var mainGrid = new Grid();
+            mainGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));   // search
+            mainGrid.RowDefinitions.Add(new RowDefinition(GridLength.Star));   // list
+            mainGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));   // edit
+            mainGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));   // commit
+
+            Grid.SetRow(searchRow,  0);
+            Grid.SetRow(lblist,     1);
+            Grid.SetRow(editBorder, 2);
+            Grid.SetRow(bottomRow,  3);
+
+            mainGrid.Children.Add(searchRow);
+            mainGrid.Children.Add(lblist);
+            mainGrid.Children.Add(editBorder);
+            mainGrid.Children.Add(bottomRow);
+
+            return mainGrid;
+        }
+
+        // ── Event handlers ─────────────────────────────────────────────────
+
+        private void SelectFile(object sender, SelectionChangedEventArgs e)
+        {
+            llcommit.IsEnabled = false;
+            lldelete.IsEnabled = false;
+            if (lblist.SelectedIndex < 0) return;
+            llcommit.IsEnabled = true;
+            lldelete.IsEnabled = true;
+
+            if (_updating) return;
+            try
+            {
+                _updating = true;
+                var pfd = (Interfaces.Files.IPackedFileDescriptor)lblist.Items[lblist.SelectedIndex];
+                tbgroup.Text    = "0x" + Helper.HexString(pfd.Group);
+                tbinstance.Text = "0x" + Helper.HexString(pfd.Instance);
+                tbname.Text     = pfd.Filename;
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage(Localization.Manager.GetString("errconvert"), ex);
+            }
+            finally
+            {
+                _updating = false;
             }
         }
 
-
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
-
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NmapForm));
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.wrapperPanel = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.tbfindname = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btref = new System.Windows.Forms.Button();
-            this.gbtypes = new System.Windows.Forms.GroupBox();
-            this.pntypes = new System.Windows.Forms.Panel();
-            this.tbname = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lladd = new System.Windows.Forms.LinkLabel();
-            this.lldelete = new System.Windows.Forms.LinkLabel();
-            this.tbinstance = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tbgroup = new System.Windows.Forms.TextBox();
-            this.llcommit = new System.Windows.Forms.LinkLabel();
-            this.lblist = new System.Windows.Forms.ListBox();
-            this.sfd = new System.Windows.Forms.SaveFileDialog();
-            this.btnCommit = new System.Windows.Forms.Button();
-            this.panel3.SuspendLayout();
-            this.wrapperPanel.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.gbtypes.SuspendLayout();
-            this.pntypes.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.panel3.Controls.Add(this.btnCommit);
-            resources.ApplyResources(this.panel3, "panel3");
-            this.panel3.ForeColor = System.Drawing.Color.White;
-            this.panel3.Name = "panel3";
-            // 
-            // wrapperPanel
-            // 
-            resources.ApplyResources(this.wrapperPanel, "wrapperPanel");
-            this.wrapperPanel.BackColor = System.Drawing.Color.Transparent;
-            this.wrapperPanel.Controls.Add(this.groupBox1);
-            this.wrapperPanel.Controls.Add(this.btref);
-            this.wrapperPanel.Controls.Add(this.gbtypes);
-            this.wrapperPanel.Controls.Add(this.lblist);
-            this.wrapperPanel.Controls.Add(this.panel3);
-            this.wrapperPanel.Name = "wrapperPanel";
-            // 
-            // groupBox1
-            // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.linkLabel1);
-            this.groupBox1.Controls.Add(this.tbfindname);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // linkLabel1
-            // 
-            resources.ApplyResources(this.linkLabel1, "linkLabel1");
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.UseCompatibleTextRendering = true;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CreateTextFile);
-            // 
-            // tbfindname
-            // 
-            resources.ApplyResources(this.tbfindname, "tbfindname");
-            this.tbfindname.Name = "tbfindname";
-            this.tbfindname.TextChanged += new System.EventHandler(this.tbFindName_TextChanged);
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // btref
-            // 
-            resources.ApplyResources(this.btref, "btref");
-            this.btref.Name = "btref";
-            this.btref.Click += new System.EventHandler(this.ShowPackageSelector);
-            // 
-            // gbtypes
-            // 
-            resources.ApplyResources(this.gbtypes, "gbtypes");
-            this.gbtypes.BackColor = System.Drawing.Color.Transparent;
-            this.gbtypes.Controls.Add(this.pntypes);
-            this.gbtypes.Name = "gbtypes";
-            this.gbtypes.TabStop = false;
-            // 
-            // pntypes
-            // 
-            resources.ApplyResources(this.pntypes, "pntypes");
-            this.pntypes.Controls.Add(this.tbname);
-            this.pntypes.Controls.Add(this.label2);
-            this.pntypes.Controls.Add(this.lladd);
-            this.pntypes.Controls.Add(this.lldelete);
-            this.pntypes.Controls.Add(this.tbinstance);
-            this.pntypes.Controls.Add(this.label11);
-            this.pntypes.Controls.Add(this.label9);
-            this.pntypes.Controls.Add(this.tbgroup);
-            this.pntypes.Controls.Add(this.llcommit);
-            this.pntypes.Name = "pntypes";
-            // 
-            // tbname
-            // 
-            resources.ApplyResources(this.tbname, "tbname");
-            this.tbname.Name = "tbname";
-            this.tbname.TextChanged += new System.EventHandler(this.AutoChange);
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // lladd
-            // 
-            resources.ApplyResources(this.lladd, "lladd");
-            this.lladd.Name = "lladd";
-            this.lladd.TabStop = true;
-            this.lladd.UseCompatibleTextRendering = true;
-            this.lladd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.AddFile);
-            // 
-            // lldelete
-            // 
-            resources.ApplyResources(this.lldelete, "lldelete");
-            this.lldelete.Name = "lldelete";
-            this.lldelete.TabStop = true;
-            this.lldelete.UseCompatibleTextRendering = true;
-            this.lldelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.DeleteFile);
-            // 
-            // tbinstance
-            // 
-            resources.ApplyResources(this.tbinstance, "tbinstance");
-            this.tbinstance.Name = "tbinstance";
-            this.tbinstance.TextChanged += new System.EventHandler(this.AutoChange);
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // tbgroup
-            // 
-            resources.ApplyResources(this.tbgroup, "tbgroup");
-            this.tbgroup.Name = "tbgroup";
-            this.tbgroup.TextChanged += new System.EventHandler(this.AutoChange);
-            // 
-            // llcommit
-            // 
-            resources.ApplyResources(this.llcommit, "llcommit");
-            this.llcommit.Name = "llcommit";
-            this.llcommit.TabStop = true;
-            this.llcommit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ChangeFile);
-            // 
-            // lblist
-            // 
-            this.lblist.AllowDrop = true;
-            resources.ApplyResources(this.lblist, "lblist");
-            this.lblist.Name = "lblist";
-            this.lblist.SelectedIndexChanged += new System.EventHandler(this.SelectFile);
-            this.lblist.DragDrop += new System.Windows.Forms.DragEventHandler(this.PackageItemDrop);
-            this.lblist.DragEnter += new System.Windows.Forms.DragEventHandler(this.PackageItemDragEnter);
-            // 
-            // sfd
-            // 
-            resources.ApplyResources(this.sfd, "sfd");
-            // 
-            // btnCommit
-            // 
-            resources.ApplyResources(this.btnCommit, "btnCommit");
-            this.btnCommit.ForeColor = System.Drawing.Color.Black;
-            this.btnCommit.Name = "btnCommit";
-            this.btnCommit.UseVisualStyleBackColor = true;
-            this.btnCommit.Click += new System.EventHandler(this.Commit_Click);
-            // 
-            // NmapForm
-            // 
-            resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.wrapperPanel);
-            this.Name = "NmapForm";
-            this.panel3.ResumeLayout(false);
-            this.wrapperPanel.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.gbtypes.ResumeLayout(false);
-            this.pntypes.ResumeLayout(false);
-            this.pntypes.PerformLayout();
-            this.ResumeLayout(false);
-
-		}
-		#endregion
-
-        internal System.Windows.Forms.Panel wrapperPanel;
-		internal System.Windows.Forms.ListBox lblist;
-        private System.Windows.Forms.Panel panel3;
-		private System.Windows.Forms.GroupBox gbtypes;
-		internal System.Windows.Forms.LinkLabel lladd;
-		internal System.Windows.Forms.LinkLabel lldelete;
-		internal System.Windows.Forms.TextBox tbinstance;
-		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.Label label9;
-		internal System.Windows.Forms.TextBox tbgroup;
-		internal System.Windows.Forms.LinkLabel llcommit;
-		private System.Windows.Forms.Panel pntypes;
-		private System.Windows.Forms.Label label2;
-		internal System.Windows.Forms.TextBox tbname;
-		private System.Windows.Forms.Button btref;
-		private System.Windows.Forms.GroupBox groupBox1;
-		internal System.Windows.Forms.TextBox tbfindname;
-		private System.Windows.Forms.Label label3;
-		internal System.Windows.Forms.LinkLabel linkLabel1;
-		private System.Windows.Forms.SaveFileDialog sfd;
-        private Button btnCommit;
-        internal SimPe.Plugin.Nmap wrapper;
-
-		private void SelectFile(object sender, System.EventArgs e)
-		{
-			llcommit.Enabled = false;
-			lldelete.Enabled = false;
-			if (lblist.SelectedIndex<0) return;
-			llcommit.Enabled = true;
-			lldelete.Enabled = true;
-
-			if (tbgroup.Tag!=null) return;
-			try 
-			{
-				tbgroup.Tag = true;
-				Interfaces.Files.IPackedFileDescriptor pfd = (Interfaces.Files.IPackedFileDescriptor)lblist.Items[lblist.SelectedIndex];
-				this.tbgroup.Text = "0x"+Helper.HexString(pfd.Group);
-				this.tbinstance.Text = "0x"+Helper.HexString(pfd.Instance);
-				this.tbname.Text = pfd.Filename;
-			} 
-			catch (Exception ex) 
-			{
-				Helper.ExceptionMessage(Localization.Manager.GetString("errconvert"), ex);
-			} 
-			finally 
-			{
-				tbgroup.Tag = null;
-			}
-		}
-
-		private void ChangeFile(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			try 
-			{
-				Packages.PackedFileDescriptor pfd = null;
-				if (lblist.SelectedIndex>=0) pfd = (Packages.PackedFileDescriptor)lblist.Items[lblist.SelectedIndex];
-				else pfd = new NmapItem(wrapper);
-
-				pfd.Group = Convert.ToUInt32(this.tbgroup.Text, 16);
-				pfd.Instance = Convert.ToUInt32(this.tbinstance.Text, 16);
-				pfd.Filename = this.tbname.Text;
-
-				if (lblist.SelectedIndex>=0) lblist.Items[lblist.SelectedIndex] = pfd;
-				else lblist.Items.Add(pfd);
-			} 
-			catch (Exception ex) 
-			{
-				Helper.ExceptionMessage(Localization.Manager.GetString("errconvert"), ex);
-			}
-		}
-
-		private void AddFile(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			lblist.SelectedIndex = -1;
-			ChangeFile(null, null);
-			lblist.SelectedIndex = lblist.Items.Count - 1;
-		}
-
-		private void DeleteFile(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			llcommit.Enabled = false;
-			lldelete.Enabled = false;
-			if (lblist.SelectedIndex<0) return;
-			llcommit.Enabled = true;
-			lldelete.Enabled = true;
-
-			lblist.Items.Remove(lblist.Items[lblist.SelectedIndex]);
-		}
-
-		private void AutoChange(object sender, System.EventArgs e)
-		{
-			if (tbgroup.Tag != null) return;
-
-			tbgroup.Tag = true;
-			if (lblist.SelectedIndex>=0) ChangeFile(null, null);
-			tbgroup.Tag = null;
-		}
-
-		private void CommitAll(object sender, System.EventArgs e)
-		{
-			try 
-			{
-				Interfaces.Files.IPackedFileDescriptor[] pfds = new Interfaces.Files.IPackedFileDescriptor[lblist.Items.Count];
-				for (int i=0; i<pfds.Length; i++) 
-				{
-					pfds[i] = (Interfaces.Files.IPackedFileDescriptor)lblist.Items[i];
-				}
-
-				wrapper.Items = pfds;
-				wrapper.SynchronizeUserData();
-				MessageBox.Show(Localization.Manager.GetString("commited"));
-			} 
-			catch (Exception ex) 
-			{
-				Helper.ExceptionMessage(Localization.Manager.GetString("errwritingfile"), ex);
-			}	
-		}
-
-		#region Package Selector
-		private void ShowPackageSelector(object sender, System.EventArgs e)
-		{
-			SimPe.PackageSelectorForm form = new SimPe.PackageSelectorForm();
-			form.Execute(wrapper.Package);
-		}
-
-		private void PackageItemDragEnter(object sender, DragEventArgs e)
-		{
-			if (e.Data.GetDataPresent(typeof(SimPe.Packages.PackedFileDescriptor))) 
-			{				
-				e.Effect = DragDropEffects.Copy;	
-			}
-			else 
-			{
-				e.Effect = DragDropEffects.None;
-			}					
-		}
-
-		private void PackageItemDrop(object sender, System.Windows.Forms.DragEventArgs e)
-		{
-			try 
-			{
-				Interfaces.Files.IPackedFileDescriptor pfd = null;
-				pfd = (Interfaces.Files.IPackedFileDescriptor)e.Data.GetData(typeof(SimPe.Packages.PackedFileDescriptor));
-				
-				NmapItem nmi = new NmapItem(wrapper);
-				nmi.Group = pfd.Group;
-				nmi.Type = pfd.Type;
-				nmi.SubType = pfd.SubType;
-				nmi.Instance = pfd.Instance;
-				nmi.Filename = Data.MetaData.FindTypeAlias(pfd.Type).Name;
-				lblist.Items.Add(nmi);
-			}
-			catch (Exception ex) 
-			{
-				Helper.ExceptionMessage("", ex);
-			}
-		}
-		#endregion
-
-		private void tbFindName_TextChanged(object sender, System.EventArgs e)
-		{
-			
-			string name = tbfindname.Text.Trim().ToLower();
-			for (int i=0; i<lblist.Items.Count; i++)
-			{
-				Packages.PackedFileDescriptor pfd = (Packages.PackedFileDescriptor)lblist.Items[i];
-				if (pfd.Filename.Trim().ToLower().StartsWith(name)) 
-				{
-					tbfindname.Text = pfd.Filename.Trim();
-					tbfindname.SelectionStart = name.Length;
-					tbfindname.SelectionLength = Math.Max(0, tbfindname.Text.Length - name.Length);
-					lblist.SelectedIndex = i;
-					break;
-				}
-			}
-		}
-
-		private void CreateTextFile(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			sfd.FileName = System.IO.Path.GetFileNameWithoutExtension(wrapper.Package.FileName) + "_NameMap.txt";
-			if (sfd.ShowDialog()==DialogResult.OK)
-			{
-				try 
-				{
-					
-					System.IO.TextWriter tw = System.IO.File.CreateText(sfd.FileName);
-					try 
-					{
-						tw.WriteLine(
-							"Filename; "+
-							"Group; "+
-							"Instance; "
-							);
-						foreach (Packages.PackedFileDescriptor pfd in lblist.Items) 
-						{
-							tw.WriteLine(
-								pfd.Filename + "; "+
-								"0x"+Helper.HexString(pfd.Group) + "; "+
-								"0x"+Helper.HexString(pfd.Instance) + "; "
-								);
-						}
-					} 
-					finally 
-					{
-						tw.Close();
-						tw.Dispose();
-						tw = null;
-					}
-				} 
-				catch (Exception ex) 
-				{
-					Helper.ExceptionMessage("", ex);
-				}
-			}
-		}
-
-        private void Commit_Click(object sender, EventArgs e)
+        private void ChangeFile(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Packages.PackedFileDescriptor pfd = null;
+                if (lblist.SelectedIndex >= 0)
+                    pfd = (Packages.PackedFileDescriptor)lblist.Items[lblist.SelectedIndex];
+                else
+                    pfd = new NmapItem(wrapper);
 
+                pfd.Group    = Convert.ToUInt32(tbgroup.Text, 16);
+                pfd.Instance = Convert.ToUInt32(tbinstance.Text, 16);
+                pfd.Filename = tbname.Text;
+
+                if (lblist.SelectedIndex >= 0)
+                {
+                    var items = (Avalonia.Controls.ItemCollection)lblist.Items;
+                    items[lblist.SelectedIndex] = pfd;
+                }
+                else
+                    lblist.Items.Add(pfd);
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage(Localization.Manager.GetString("errconvert"), ex);
+            }
+        }
+
+        private void AddFile(object sender, RoutedEventArgs e)
+        {
+            lblist.SelectedIndex = -1;
+            ChangeFile(null, null);
+            lblist.SelectedIndex = lblist.ItemCount - 1;
+        }
+
+        private void DeleteFile(object sender, RoutedEventArgs e)
+        {
+            llcommit.IsEnabled = false;
+            lldelete.IsEnabled = false;
+            if (lblist.SelectedIndex < 0) return;
+
+            lblist.Items.Remove(lblist.Items[lblist.SelectedIndex]);
+
+            if (lblist.ItemCount > 0)
+            {
+                llcommit.IsEnabled = true;
+                lldelete.IsEnabled = true;
+            }
+        }
+
+        private void AutoChange(object sender, EventArgs e)
+        {
+            if (_updating) return;
+            _updating = true;
+            if (lblist.SelectedIndex >= 0) ChangeFile(null, null);
+            _updating = false;
+        }
+
+        private void CommitAll(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var pfds = new Interfaces.Files.IPackedFileDescriptor[lblist.ItemCount];
+                for (int i = 0; i < pfds.Length; i++)
+                    pfds[i] = (Interfaces.Files.IPackedFileDescriptor)lblist.Items[i];
+
+                wrapper.Items = pfds;
+                wrapper.SynchronizeUserData();
+                Message.Show(Localization.Manager.GetString("commited"), "Info", MessageBoxButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage(Localization.Manager.GetString("errwritingfile"), ex);
+            }
+        }
+
+        private void ShowPackageSelector(object sender, RoutedEventArgs e)
+        {
+            var form = new PackageSelectorForm();
+            form.Execute(wrapper.Package);
+        }
+
+        private void PackageItemDragOver(object sender, DragEventArgs e)
+        {
+            e.DragEffects = e.Data.Contains(typeof(SimPe.Packages.PackedFileDescriptor).FullName)
+                ? DragDropEffects.Copy
+                : DragDropEffects.None;
+            e.Handled = true;
+        }
+
+        private void PackageItemDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                var pfd = e.Data.Get(typeof(SimPe.Packages.PackedFileDescriptor).FullName)
+                            as Interfaces.Files.IPackedFileDescriptor;
+                if (pfd == null) return;
+
+                NmapItem nmi = new NmapItem(wrapper)
+                {
+                    Group    = pfd.Group,
+                    Type     = pfd.Type,
+                    SubType  = pfd.SubType,
+                    Instance = pfd.Instance,
+                    Filename = Data.MetaData.FindTypeAlias(pfd.Type).Name
+                };
+                lblist.Items.Add(nmi);
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage("", ex);
+            }
+        }
+
+        private void tbFindName_TextChanged(object sender, EventArgs e)
+        {
+            string name = tbfindname.Text.Trim().ToLower();
+            for (int i = 0; i < lblist.ItemCount; i++)
+            {
+                var pfd = (Packages.PackedFileDescriptor)lblist.Items[i];
+                if (pfd.Filename.Trim().ToLower().StartsWith(name))
+                {
+                    _updating = true;
+                    tbfindname.Text           = pfd.Filename.Trim();
+                    tbfindname.SelectionStart = name.Length;
+                    tbfindname.SelectionEnd   = tbfindname.Text.Length;
+                    _updating = false;
+                    lblist.SelectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        private async void CreateTextFile(object sender, RoutedEventArgs e)
+        {
+            var top = TopLevel.GetTopLevel(this);
+            if (top == null) return;
+
+            var file = await top.StorageProvider.SaveFilePickerAsync(new Avalonia.Platform.Storage.FilePickerSaveOptions
+            {
+                SuggestedFileName = System.IO.Path.GetFileNameWithoutExtension(wrapper.Package.FileName) + "_NameMap.txt",
+                DefaultExtension  = "txt"
+            });
+            if (file == null) return;
+
+            try
+            {
+                await using var stream = await file.OpenWriteAsync();
+                await using var tw     = new System.IO.StreamWriter(stream);
+                await tw.WriteLineAsync("Filename; Group; Instance; ");
+                foreach (Packages.PackedFileDescriptor pfd in lblist.Items)
+                    await tw.WriteLineAsync(
+                        pfd.Filename + "; " +
+                        "0x" + Helper.HexString(pfd.Group) + "; " +
+                        "0x" + Helper.HexString(pfd.Instance) + "; ");
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage("", ex);
+            }
         }
     }
 }

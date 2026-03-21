@@ -26,7 +26,6 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Windows.Forms;
 
 namespace Ambertation.Windows.Forms.Graph
 {
@@ -209,19 +208,22 @@ namespace Ambertation.Windows.Forms.Graph
 		{
 			if (GotFocus!=null) GotFocus(this, e);
 		}
-		internal void OnPaint(PaintEventArgs e) 
-		{				
-			
-			Rectangle irect = Rectangle.Intersect(this.BoundingRectangle, e.ClipRectangle);
-			//if (irect==null) return;
+
+		internal void OnPaint(System.Drawing.Graphics g, System.Drawing.Rectangle clipRect)
+		{
+			Rectangle irect = Rectangle.Intersect(this.BoundingRectangle, clipRect);
 			if (irect.Width==0 || irect.Height==0) return;
 
-			SetGraphicsMode(e.Graphics, true);	
-			Rectangle src = new Rectangle(e.ClipRectangle.Left-Left, e.ClipRectangle.Top-Top, e.ClipRectangle.Width, e.ClipRectangle.Height);									
-			Rectangle dst = new Rectangle(e.ClipRectangle.Left, e.ClipRectangle.Top, e.ClipRectangle.Width, e.ClipRectangle.Height);
-			
-			OnPaint(e.Graphics, cachedimage, dst, src);	
+			SetGraphicsMode(g, true);
+			Rectangle src = new Rectangle(clipRect.Left-Left, clipRect.Top-Top, clipRect.Width, clipRect.Height);
+			Rectangle dst = new Rectangle(clipRect.Left, clipRect.Top, clipRect.Width, clipRect.Height);
+
+			OnPaint(g, cachedimage, dst, src);
 		}
+
+
+
+
 
 		protected virtual void OnPaint(System.Drawing.Graphics g, Image canvas, Rectangle dst, Rectangle src)
 		{
@@ -230,8 +232,8 @@ namespace Ambertation.Windows.Forms.Graph
 
 		public void Refresh()
 		{
-			if (parent!=null) 
-				parent.Invalidate(this.BoundingRectangle);
+			if (parent!=null)
+				parent.InvalidateVisual();
 		}
 
 		public void Invalidate()
@@ -257,8 +259,8 @@ namespace Ambertation.Windows.Forms.Graph
 			if (parent!=null && this.SaveBounds)
 			{
 				
-				if (Right>parent.Width) left = parent.Width - width;
-				if (Bottom>parent.Height) top = parent.Height - height;
+				if (Right>(int)parent.Width) left = (int)parent.Width - width;
+				if (Bottom>(int)parent.Height) top = (int)parent.Height - height;
 				if (left<0) left=0;
 				if (top<0) top=0;
 
@@ -278,7 +280,7 @@ namespace Ambertation.Windows.Forms.Graph
 				Move(this, new System.EventArgs());
 			}
 
-			if (parent!=null) parent.Invalidate(r);
+			if (parent!=null) parent.InvalidateVisual();
 			//Refresh();
 		}
 		#endregion

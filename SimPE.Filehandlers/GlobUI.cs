@@ -46,15 +46,7 @@ namespace SimPe.Plugin
 		public GlobUI()
 		{
             form = new GlobCtrl();
-			form.cbseminame.Items.Clear();
-
-            System.Collections.ArrayList names = new System.Collections.ArrayList();
-            foreach (SimPe.Data.SemiGlobalAlias sga in SimPe.Data.MetaData.SemiGlobals)
-                if (!names.Contains(sga.Name.Trim().ToLower()))
-                {
-                    if (sga.Known) form.cbseminame.Items.Add(sga);
-                    names.Add(sga.Name.Trim().ToLower());
-                }
+            // cbseminame is now a TextBox (ComboBox.Text not available in Avalonia)
         }
 		#endregion
 
@@ -63,7 +55,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Returns the Panel that will be displayed within SimPe
 		/// </summary>
-		public System.Windows.Forms.Control GUIHandle
+		public Avalonia.Controls.Control GUIHandle
 		{
 			get
 			{
@@ -85,21 +77,15 @@ namespace SimPe.Plugin
             form.lbglobfile.Text = wrp.FileName;
             form.tbfilenm.Text = wrp.FileName;
             form.cbseminame.Text = wrp.SemiGlobalName;
-            form.tbgroup.ForeColor = System.Drawing.Color.BlueViolet;
             form.tbgroup.Text = "0x" + Helper.HexString(Hashes.GroupHash(wrp.SemiGlobalName));
-            form.lbBug.Visible = wrp.faulty;
-            form.lbBloat.Visible = (wrp.bloaty && !wrp.faulty);
-            for (int i = 0; i < form.cbseminame.Items.Count; i++)
+            form.lbBug.IsVisible = wrp.faulty;
+            form.lbBloat.IsVisible = (wrp.bloaty && !wrp.faulty);
+            // Find matching semi-global alias to update group hash display
+            foreach (SimPe.Data.SemiGlobalAlias a in SimPe.Data.MetaData.SemiGlobals)
             {
-                Data.SemiGlobalAlias a = form.cbseminame.Items[i] as Data.SemiGlobalAlias;
-                if (a.Name.ToLower() == form.cbseminame.Text.ToLower())
+                if (a.Known && a.Name.ToLower() == wrp.SemiGlobalName.ToLower())
                 {
-                    form.cbseminame.SelectedIndex = i;
                     form.tbgroup.Text = "0x" + Helper.HexString(a.Id);
-                    if (a.Id == Hashes.GroupHash(wrp.SemiGlobalName))
-                        form.tbgroup.ForeColor = System.Drawing.SystemColors.WindowText;
-                    else
-                        form.tbgroup.ForeColor = System.Drawing.Color.Red;
                     break;
                 }
             }
@@ -111,7 +97,6 @@ namespace SimPe.Plugin
 		#region IDisposable Member
 		public virtual void Dispose()
 		{
-			this.form.Dispose();
 		}
 		#endregion
 	}

@@ -26,7 +26,6 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Windows.Forms;
 
 namespace Ambertation.Windows.Forms.Graph
 {

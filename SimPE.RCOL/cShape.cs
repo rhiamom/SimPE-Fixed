@@ -26,6 +26,7 @@ using System.Drawing;
 using System.Collections;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces.Scenegraph;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -359,7 +360,7 @@ namespace SimPe.Plugin
 		TabPage.ShpeLod tShpeLod;
 		TabPage.ShpeItems tShpeItems;
 		TabPage.ShpeParts tShpeParts;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -403,22 +404,22 @@ namespace SimPe.Plugin
 		}
 
 		
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			tShpeLod.Tag = this;
-			tc.TabPages.Add(tShpeLod);
+			tc.Items.Add(tShpeLod);
 
 			tShpeItems.Tag = this;
-			tc.TabPages.Add(tShpeItems);
+			tc.Items.Add(tShpeItems);
 
 			tShpeParts.Tag = this;
-			tc.TabPages.Add(tShpeParts);
+			tc.Items.Add(tShpeParts);
 
 			if (tObjectGraphNode==null) tObjectGraphNode= new SimPe.Plugin.TabPage.ObjectGraphNode();
 			tObjectGraphNode.Tag = this.GraphNode;
-			tc.TabPages.Add(tObjectGraphNode);
+			tc.Items.Add(tObjectGraphNode);
 
-            tc.SelectedTab = tShpeParts;
+            tc.SelectedItem = tShpeParts;
 		}
 
 		#region IScenegraphItem Member
@@ -446,19 +447,11 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tObjectGraphNode!=null) this.tObjectGraphNode.Dispose();
+			/* TabItem subclasses do not implement IDisposable — no-op */
 			tObjectGraphNode = null;
-
-			if (this.tGenericRcol!=null) this.tGenericRcol.Dispose();
 			tGenericRcol = null;
-
-			if (tShpeLod!=null) tShpeLod.Dispose();
 			tShpeLod = null;
-
-			if (tShpeItems!=null) tShpeItems.Dispose();
 			tShpeItems = null;
-
-			if (tShpeParts!=null) tShpeParts.Dispose();
 			tShpeParts = null;
 		}
 

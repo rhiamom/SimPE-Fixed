@@ -22,8 +22,7 @@
  ***************************************************************************/
 
 using System;
-using System.Windows.Forms;
-using System.Drawing;
+using Avalonia.Controls;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 
@@ -34,12 +33,11 @@ namespace SimPe.PackedFiles.UserInterface
 	/// </summary>
 	public class Xml : UIBase, IPackedFileUI
 	{
-		
 		#region IPackedFileHandler Member
 
 		public Control GUIHandle
 		{
-			get 
+			get
 			{
 				return form.xmlPanel;
 			}
@@ -47,12 +45,11 @@ namespace SimPe.PackedFiles.UserInterface
 
 		public void UpdateGUI(SimPe.Interfaces.Plugin.IFileWrapper wrapper)
 		{
-			Wrapper.Xml xml = (Wrapper.Xml)wrapper;	
+			Wrapper.Xml xml = (Wrapper.Xml)wrapper;
 			form.wrapper = xml;
 			form.rtb.Text = xml.Text;
 		}
 
-		
-		#endregion		
+		#endregion
 	}
 }

@@ -22,6 +22,7 @@
  ***************************************************************************/
 
 using System;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -79,7 +80,7 @@ namespace SimPe.Plugin
 		}
 
 		TabPage.LightT tLightT;
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -103,7 +104,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (tLightT!=null) tLightT.Dispose();
+			/* tLightT.Dispose() — TabItem does not implement IDisposable */
 			tLightT = null;
 		}
 

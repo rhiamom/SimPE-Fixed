@@ -119,16 +119,8 @@ namespace SimPe.PackedFiles.UserInterface
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		protected override void Dispose( bool disposing )
+		protected new void Dispose( bool disposing )
 		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
 		}
 
 		#region Windows Form Designer generated code
@@ -936,36 +928,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.panel4.Size = new System.Drawing.Size(730, 24);
             this.panel4.TabIndex = 0;
             this.panel4.Commited += new System.EventHandler(this.btcommit_Click);
-            // 
-            // SlotForm
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(920, 406);
-            this.Controls.Add(this.pnslot);
-            this.Name = "SlotForm";
-            this.Text = "SlotForm";
-            this.pnslot.ResumeLayout(false);
-            this.pnslot.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
-            this.tabPageA.ResumeLayout(false);
-            this.tabPageA.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage6.PerformLayout();
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
-            this.ResumeLayout(false);
+            // END
 
 		}
 		#endregion

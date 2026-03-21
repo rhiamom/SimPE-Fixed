@@ -22,119 +22,33 @@
  ***************************************************************************/
 
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces;
 using SimPe.PackedFiles.Wrapper.Supporting;
 using SimPe.Data;
-using Ambertation.Windows.Forms;
+using Avalonia.Controls;
 
 namespace SimPe.PackedFiles.UserInterface
 {
     /// <summary>
-    /// Summary description for ExtSrelUI.
+    /// Avalonia port of ExtSrelUI.
     /// </summary>
     public class ExtSrel : SimPe.Windows.Forms.WrapperBaseControl, IPackedFileUI
     {
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lbsims;
+        private TextBlock label1 = new TextBlock();
+        private TextBlock lbsims = new TextBlock();
         private SimPe.PackedFiles.UserInterface.CommonSrel sc;
-        private System.Windows.Forms.PictureBox pb;
-        
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.Container components = null;
+        private Image pb = new Image();
 
         public ExtSrel()
         {
-            Text = SimPe.Localization.GetString("Sim Relation Editor");
+            HeaderText = SimPe.Localization.GetString("Sim Relation Editor");
 
-            InitializeComponent();
-
-            if (Helper.XmlRegistry.UseBigIcons)
-                this.lbsims.Font = new System.Drawing.Font("Tahoma", 12);
-
-            // NEW: create and add the CommonSrel control
             sc = new CommonSrel();
-            sc.Dock = DockStyle.Fill;
-            // optional: hook change event if you want auto-sync
             // sc.ChangedContent += new EventHandler(this.ExtSrel_Commited);
 
-            this.Controls.Add(sc);
-            this.Controls.SetChildIndex(sc, 0);
-        }
-
-
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
-
-        #region Windows Form Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExtSrel));
-            this.label1 = new System.Windows.Forms.Label();
-            this.lbsims = new System.Windows.Forms.Label();
-            this.pb = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoEllipsis = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // lbsims
-            // 
-            resources.ApplyResources(this.lbsims, "lbsims");
-            this.lbsims.BackColor = System.Drawing.Color.Transparent;
-            this.lbsims.Name = "lbsims";
-            // 
-            // pb
-            // 
-            this.pb.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.pb, "pb");
-            this.pb.Name = "pb";
-            this.pb.TabStop = false;
-            // 
-            // ExtSrel
-            // 
-            this.Controls.Add(this.pb);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lbsims);
-            resources.ApplyResources(this, "$this");
-            this.Name = "ExtSrel";
             this.Commited += new System.EventHandler(this.ExtSrel_Commited);
-            this.Controls.SetChildIndex(this.lbsims, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.pb, 0);
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
-            this.ResumeLayout(false);
-
         }
-        #endregion
 
         public SimPe.PackedFiles.Wrapper.ExtSrel Srel
         {
@@ -145,21 +59,29 @@ namespace SimPe.PackedFiles.UserInterface
         {
             base.RefreshGUI();
 
-            // If there is no relation loaded (e.g. target cleared), blank the UI.
             if (this.Srel == null)
             {
-                sc.Srel = null;
+                if (sc != null) sc.Srel = null;
                 this.lbsims.Text = "";
-                this.pb.Image = null;
+                this.pb.Source = null;
                 return;
             }
 
             sc.Srel = this.Srel;
 
             this.lbsims.Text = sc.SourceSimName + " " + SimPe.Localization.GetString("towards") + " " + sc.TargetSimName;
-            this.pb.Image = Ambertation.Drawing.GraphicRoutines.ScaleImage(sc.Image, pb.Size, true);
-        }
 
+            System.Drawing.Image img = sc.Image;
+            if (img != null)
+            {
+                img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, 64, 64, true);
+                pb.Source = SimPe.Helper.ToAvaloniaBitmap(img);
+            }
+            else
+            {
+                pb.Source = null;
+            }
+        }
 
         private void ExtSrel_Commited(object sender, System.EventArgs e)
         {

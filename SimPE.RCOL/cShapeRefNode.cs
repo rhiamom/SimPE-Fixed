@@ -23,6 +23,7 @@
 
 using System;
 using System.ComponentModel;
+using Avalonia.Controls;
 
 namespace SimPe.Plugin
 {
@@ -331,7 +332,7 @@ namespace SimPe.Plugin
 		}
 
 		TabPage.ShapeRefNode tShapeRefNode;		
-		public override System.Windows.Forms.TabPage TabPage
+		public override Avalonia.Controls.TabItem TabPage
 		{
 			get
 			{
@@ -395,7 +396,7 @@ namespace SimPe.Plugin
 			tShapeRefNode.tb_srn_ver.Text = "0x"+Helper.HexString(this.version);
 		}
 
-		public override void ExtendTabControl(System.Windows.Forms.TabControl tc)
+		public override void ExtendTabControl(Avalonia.Controls.TabControl tc)
 		{
 			base.ExtendTabControl (tc);
 			this.rn.AddToTabControl(tc);
@@ -413,7 +414,7 @@ namespace SimPe.Plugin
 
 		public override void Dispose()
 		{
-			if (this.tShapeRefNode!=null) this.tShapeRefNode.Dispose();
+			/* tShapeRefNode.Dispose() — TabItem does not implement IDisposable */
 			tShapeRefNode = null;
 		}
 
