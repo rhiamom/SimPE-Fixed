@@ -18,7 +18,6 @@ using System.Diagnostics;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
 
 namespace Ambertation.Drawing {
 	using System;
