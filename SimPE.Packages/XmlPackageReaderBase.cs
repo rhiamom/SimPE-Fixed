@@ -25,7 +25,6 @@ using System;
 using System.Xml;
 using System.IO;
 using System.Collections;
-using System.Windows.Forms;
 
 namespace SimPe
 {

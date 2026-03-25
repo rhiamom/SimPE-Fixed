@@ -23,11 +23,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
 
 namespace SimPe.Windows.Forms
 {
@@ -36,32 +31,20 @@ namespace SimPe.Windows.Forms
         const int WAIT_SELECT = 400;
         System.Threading.Timer seltimer;
 
-        private void lv_SelectedIndexChanged(object sender, EventArgs e)
+        private void lv_SelectionChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
         {
-            //PrintStats("SelectedIndexChanged");
-            SignalSelectionChanged();
-        }
-
-        private void lv_VirtualItemsSelectionRangeChanged(object sender, ListViewVirtualItemsSelectionRangeChangedEventArgs e)
-        {
-            //PrintStats("VirtualItemsSelectionRangeChanged");
             SignalSelectionChanged();
         }
 
         protected void SignalSelectionChanged()
         {
-            if (noselectevent>0) DoSignalSelectionChanged(myhandle);
+            if (noselectevent > 0) FireSelectionChangedOnUIThread();
             else seltimer.Change(WAIT_SELECT, System.Threading.Timeout.Infinite);
-        }
-
-        void DoSignalSelectionChanged(IntPtr handle)
-        {
-            SendMessage(handle, WM_USER_FIRE_SELECTION, 0, 0);
         }
 
         void SelectionTimerCallback(object state)
         {
-            DoSignalSelectionChanged((IntPtr)state);
+            Avalonia.Threading.Dispatcher.UIThread.Post(OnResourceSelectionChanged);
         }
 
         public ResourceViewManager.ResourceNameList SelectedItems
@@ -71,9 +54,8 @@ namespace SimPe.Windows.Forms
                 lock (names)
                 {
                     ResourceViewManager.ResourceNameList ret = new ResourceViewManager.ResourceNameList();
-                    foreach (int i in lv.SelectedIndices)
-                        ret.Add(names[i]);
-
+                    foreach (var item in lv.SelectedItems)
+                        if (item is ResourceListItemExt ri) ret.Add(ri.Descriptor);
                     return ret;
                 }
             }
@@ -82,66 +64,44 @@ namespace SimPe.Windows.Forms
         protected virtual void OnResourceSelectionChanged()
         {
             resselchgea = new EventArgs();
-            if (SelectionChanged != null)
-            {
-                if (noselectevent==0) SelectionChanged(this, resselchgea);
-            }
-            if (noselectevent==0) resselchgea = null;
-            //PrintStats("***OnResourceSelectionChanged");
+            if (SelectionChanged != null && noselectevent == 0) SelectionChanged(this, resselchgea);
+            if (noselectevent == 0) resselchgea = null;
         }
 
-        private void lv_Click(object sender, EventArgs e)
-        {
-            if (Helper.XmlRegistry.SimpleResourceSelect) OnSelectResource();
-        }
-
-        private void lv_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Middle /*&& names.Count>0*/)
-            {
-                bool old = ctrldown;
-                ctrldown = true;
-                ListViewItem lvi = lv.GetItemAt(e.X, e.Y);
-                if (lvi != null)
-                {
-
-                    BeginUpdate();
-                    lv.EnsureVisible(lvi.Index);
-                    lv.SelectedIndices.Clear();
-                    lv.SelectedIndices.Add(lvi.Index);
-                    OnSelectResource();
-                    EndUpdate();
-                }
-
-                ctrldown = old;
-            }
-        }
-
-        private void lv_DoubleClick(object sender, EventArgs e)
+        private void lv_DoubleTapped(object sender, Avalonia.Input.TappedEventArgs e)
         {
             if (!Helper.XmlRegistry.SimpleResourceSelect) OnSelectResource();
         }
 
-        bool ctrldown = false;
-        private void lv_KeyDown(object sender, KeyEventArgs e)
+        private void lv_PointerReleased(object sender, Avalonia.Input.PointerReleasedEventArgs e)
         {
-            ctrldown = e.Alt;
+            if (e.InitialPressMouseButton == Avalonia.Input.MouseButton.Middle)
+            {
+                bool old = ctrldown;
+                ctrldown = true;
+                OnSelectResource();
+                ctrldown = old;
+            }
+            else if (Helper.XmlRegistry.SimpleResourceSelect)
+            {
+                OnSelectResource();
+            }
         }
 
-        public event KeyEventHandler ListViewKeyUp;
-        private void lv_KeyUp(object sender, KeyEventArgs e)
+        bool ctrldown = false;
+        private void lv_KeyUp_Handler(object sender, Avalonia.Input.KeyEventArgs e)
         {
-            ctrldown = e.Alt;
+            ctrldown = e.KeyModifiers.HasFlag(Avalonia.Input.KeyModifiers.Alt);
 
-            if (!ctrldown && (e.KeyCode == Keys.Up
-                || e.KeyCode == Keys.Down
-                || e.KeyCode == Keys.PageDown
-                || e.KeyCode == Keys.PageUp
-                || e.KeyCode == Keys.Home
-                || e.KeyCode == Keys.End)) OnSelectResource();
+            if (!ctrldown && (e.Key == Avalonia.Input.Key.Up
+                || e.Key == Avalonia.Input.Key.Down
+                || e.Key == Avalonia.Input.Key.PageDown
+                || e.Key == Avalonia.Input.Key.PageUp
+                || e.Key == Avalonia.Input.Key.Home
+                || e.Key == Avalonia.Input.Key.End)) OnSelectResource();
 
-            if (e.KeyCode == Keys.Enter) OnSelectResource();
-            if (e.KeyCode == Keys.A && e.Control) SelectAll();
+            if (e.Key == Avalonia.Input.Key.Enter) OnSelectResource();
+            if (e.Key == Avalonia.Input.Key.A && e.KeyModifiers.HasFlag(Avalonia.Input.KeyModifiers.Control)) SelectAll();
 
             if (ListViewKeyUp != null) ListViewKeyUp(this, e);
         }
@@ -151,41 +111,31 @@ namespace SimPe.Windows.Forms
             lock (names)
             {
                 BeginUpdate();
-                lv.SelectedIndices.Clear();
-                for (int i = 0; i < names.Count; i++)
-                    lv.SelectedIndices.Add(i);
+                lv.SelectAll();
                 EndUpdate();
             }
         }
+
         protected void OnSelectResource()
-        {      
+        {
             bool rctrl = ctrldown;
             if (!Helper.XmlRegistry.FirefoxTabbing) rctrl = false;
 
             selresea = new SelectResourceEventArgs(rctrl);
-            if (SelectedResource != null) {
-                if (noselectevent==0) SelectedResource(this, selresea);
-            }
-            if (noselectevent==0) selresea = null;
-            //System.Diagnostics.Debug.WriteLine("Selection changed " + rctrl);
+            if (SelectedResource != null && noselectevent == 0)
+                SelectedResource(this, selresea);
+            if (noselectevent == 0) selresea = null;
         }
 
         public class SelectResourceEventArgs : EventArgs
         {
             bool ctrldn;
-            public bool CtrlDown
-            {
-                get { return ctrldn; }
-            }
-
-            internal SelectResourceEventArgs(bool ctrldn)
-                : base()
-            {
-                this.ctrldn = ctrldn;
-            }
+            public bool CtrlDown => ctrldn;
+            internal SelectResourceEventArgs(bool ctrldn) : base() { this.ctrldn = ctrldn; }
         }
         public delegate void SelectResourceHandler(ResourceListViewExt sender, SelectResourceEventArgs e);
         public event SelectResourceHandler SelectedResource;
+        public event EventHandler<Avalonia.Input.KeyEventArgs> ListViewKeyUp;
 
         public SimPe.Plugin.FileIndexItem SelectedItem
         {
@@ -193,8 +143,8 @@ namespace SimPe.Windows.Forms
             {
                 lock (names)
                 {
-                    if (lv.SelectedIndices.Count == 0) return null;
-                    return names[lv.SelectedIndices[0]].Resource;
+                    if (lv.SelectedItem is ResourceListItemExt ri) return ri.Descriptor.Resource;
+                    return null;
                 }
             }
         }
@@ -203,19 +153,16 @@ namespace SimPe.Windows.Forms
         {
             lock (names)
             {
-                int ct = 0;
-                foreach (NamedPackedFileDescriptor pfd in names)
+                foreach (var row in rows)
                 {
-                    if (pfd.Resource.FileDescriptor.Equals(resource.FileDescriptor))
+                    if (row.Descriptor.Resource.FileDescriptor.Equals(resource.FileDescriptor))
                     {
                         BeginUpdate();
-                        lv.SelectedIndices.Clear();
-                        lv.SelectedIndices.Add(ct);
-                        lv.EnsureVisible(ct);
+                        lv.SelectedItem = row;
+                        lv.ScrollIntoView(row, null);
                         EndUpdate();
                         return true;
                     }
-                    ct++;
                 }
             }
             return false;

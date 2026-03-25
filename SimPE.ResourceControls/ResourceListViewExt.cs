@@ -4,83 +4,108 @@
  *                                                                         *
  *   Copyright (C) 2025 by GramzeSweatShop                                 *
  *   rhiamom@mac.com                                                       *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
+using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 
 namespace SimPe.Windows.Forms
 {
-    
-
-    public partial class ResourceListViewExt : UserControl
+    public partial class ResourceListViewExt : Avalonia.Controls.UserControl
     {
-        const uint WM_USER_SORTED_RESOURCES = 0x8000u | 0x0001;
-        const uint WM_USER_FIRE_SELECTION = 0x8000u | 0x0002;
+        // Stub Handle property for compatibility with ResoureNameSorter which reads parent.Handle
+        public IntPtr Handle => IntPtr.Zero;
 
-        
-        
         ResourceViewManager.ResourceNameList names;
         ResourceViewManager manager;
-        IntPtr myhandle;
         SimPe.Windows.Forms.IResourceViewFilter curfilter;
-
-        [DllImport("user32.dll")]
-        static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
         ResourceViewManager.ResourceNameList lastresources;
 
-        
+        // Avalonia DataGrid replacing the WinForms virtual-mode ListView
+        Avalonia.Controls.DataGrid lv;
+        ObservableCollection<ResourceListItemExt> rows;
+
+        // Column references for layout management
+        Avalonia.Controls.DataGridTextColumn clTNameCol, clTypeCol, clGroupCol,
+            clInstHiCol, clInstCol, clOffsetCol, clSizeCol;
+
+        static List<string> colNames = null;
+        private List<Avalonia.Controls.DataGridTextColumn> colCols = null;
+
         public ResourceListViewExt()
         {
             noselectevent = 0;
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            cache = new Dictionary<int, ResourceListItemExt>();
-        
+            rows  = new ObservableCollection<ResourceListItemExt>();
+            names = new ResourceViewManager.ResourceNameList();
             lastresources = null;
-            seltimer = new System.Threading.Timer(new System.Threading.TimerCallback(SelectionTimerCallback), Handle, System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
             sortticket = 0;
             sc = ResourceViewManager.SortColumn.Offset;
             asc = true;
-            InitializeComponent();
-            if (Helper.XmlRegistry.UseBigIcons) lv.Font = new System.Drawing.Font("Tahoma", this.Font.Size + 3F); // was 1F
 
-            names = new ResourceViewManager.ResourceNameList();
-            myhandle = Handle;
+            clTNameCol  = new Avalonia.Controls.DataGridTextColumn { Header = "Name",     Width = new Avalonia.Controls.DataGridLength(106), Binding = new Avalonia.Data.Binding("ColName")   };
+            clTypeCol   = new Avalonia.Controls.DataGridTextColumn { Header = "Type",     Width = new Avalonia.Controls.DataGridLength(80),  Binding = new Avalonia.Data.Binding("ColType")   };
+            clGroupCol  = new Avalonia.Controls.DataGridTextColumn { Header = "Group",    Width = new Avalonia.Controls.DataGridLength(80),  Binding = new Avalonia.Data.Binding("ColGroup")  };
+            clInstHiCol = new Avalonia.Controls.DataGridTextColumn { Header = "Sub Type", Width = new Avalonia.Controls.DataGridLength(67),  Binding = new Avalonia.Data.Binding("ColInstHi") };
+            clInstCol   = new Avalonia.Controls.DataGridTextColumn { Header = "Inst",     Width = new Avalonia.Controls.DataGridLength(67),  Binding = new Avalonia.Data.Binding("ColInst")   };
+            clOffsetCol = new Avalonia.Controls.DataGridTextColumn { Header = "Offset",   Width = new Avalonia.Controls.DataGridLength(67),  Binding = new Avalonia.Data.Binding("ColOffset") };
+            clSizeCol   = new Avalonia.Controls.DataGridTextColumn { Header = "Size",     Width = new Avalonia.Controls.DataGridLength(67),  Binding = new Avalonia.Data.Binding("ColSize")   };
 
-            if (!Helper.XmlRegistry.ResourceListShowExtensions) lv.Columns.Remove(clType);
-            if (!Helper.XmlRegistry.HiddenMode)
+            lv = new Avalonia.Controls.DataGrid
             {
-                lv.Columns.Remove(clSize);
-                lv.Columns.Remove(clOffset);
+                SelectionMode = Avalonia.Controls.DataGridSelectionMode.Extended,
+                CanUserReorderColumns = true,
+                CanUserResizeColumns = true,
+                IsReadOnly = true,
+                AutoGenerateColumns = false,
+                ItemsSource = rows,
+            };
+            lv.Columns.Add(clTNameCol);
+            lv.Columns.Add(clTypeCol);
+            lv.Columns.Add(clGroupCol);
+            lv.Columns.Add(clInstHiCol);
+            lv.Columns.Add(clInstCol);
+            if (Helper.XmlRegistry.HiddenMode)
+            {
+                lv.Columns.Add(clOffsetCol);
+                lv.Columns.Add(clSizeCol);
             }
-            if (Helper.StartedGui == Executable.Classic) clInstHi.Text = "Sub Tyoe";
 
-            colHeads = new List<ColumnHeader>(new ColumnHeader[] { clTName, clType, clGroup, clInstHi, clInst, clOffset, clSize });
+            if (!Helper.XmlRegistry.ResourceListShowExtensions)
+                lv.Columns.Remove(clTypeCol);
+
+            if (Helper.XmlRegistry.UseBigIcons)
+                lv.FontSize = FontSize + 3;
+
+            lv.SelectionChanged += lv_SelectionChanged;
+            lv.DoubleTapped     += lv_DoubleTapped;
+            lv.PointerReleased  += lv_PointerReleased;
+            lv.KeyUp            += lv_KeyUp_Handler;
+
+            Content = lv;
+
+            colCols = new List<Avalonia.Controls.DataGridTextColumn>(
+                new[] { clTNameCol, clTypeCol, clGroupCol, clInstHiCol, clInstCol, clOffsetCol, clSizeCol });
+
+            seltimer = new System.Threading.Timer(
+                new System.Threading.TimerCallback(SelectionTimerCallback), this,
+                System.Threading.Timeout.Infinite, System.Threading.Timeout.Infinite);
         }
+
         static ResourceListViewExt()
         {
             colNames = new List<string>(new string[] { "Name", "Type", "Group", "InstHi", "Inst", "Offset", "Size" });
+        }
+
+        void RebuildRows()
+        {
+            rows.Clear();
+            lock (names)
+            {
+                foreach (var pfd in names)
+                    rows.Add(new ResourceListItemExt(pfd, manager, true));
+            }
         }
 
         public void BeginUpdate()
@@ -88,30 +113,23 @@ namespace SimPe.Windows.Forms
             noselectevent++;
             selresea = null;
             resselchgea = null;
-            lv.BeginUpdate();
         }
 
-        public void EndUpdate()
-        {
-            EndUpdate(true);
-        }
-        
+        public void EndUpdate() { EndUpdate(true); }
 
         public void EndUpdate(bool fireevents)
-        {            
+        {
             noselectevent--;
             noselectevent = Math.Max(0, noselectevent);
             if (noselectevent <= 0)
             {
-
                 if (fireevents)
                 {
                     if (resselchgea != null) SelectionChanged(this, resselchgea);
                     if (selresea != null) SelectedResource(this, selresea);
                 }
-                resselchgea = null; selresea = null;                
+                resselchgea = null; selresea = null;
             }
-            lv.EndUpdate();
         }
 
         public SimPe.Windows.Forms.IResourceViewFilter Filter
@@ -136,10 +154,8 @@ namespace SimPe.Windows.Forms
         {
             ResourceViewManager.ResourceNameList nn = new ResourceViewManager.ResourceNameList();
             foreach (SimPe.Interfaces.Files.IPackedFileDescriptor pfd in resources)
-                nn .Add(new NamedPackedFileDescriptor(pfd, pkg));
-
+                nn.Add(new NamedPackedFileDescriptor(pfd, pkg));
             SetResources(nn);
-
         }
 
         protected void ReplaySetResources()
@@ -147,7 +163,6 @@ namespace SimPe.Windows.Forms
             if (lastresources != null) SetResources(lastresources);
         }
 
-        
         internal void SetResources(ResourceViewManager.ResourceNameList resources)
         {
             ResourceViewManager.ResourceNameList rnl = this.SelectedItems;
@@ -165,304 +180,105 @@ namespace SimPe.Windows.Forms
 
                 names.Clear();
 
-                if (FileTable.WrapperRegistry != null) lv.SmallImageList = FileTable.WrapperRegistry.WrapperImageList;
-                //if (resources != this.resources)
+                foreach (NamedPackedFileDescriptor pfd in resources)
                 {
-                    this.Clear();
+                    bool add = true;
+                    if (curfilter != null && curfilter.Active)
+                        add = !curfilter.IsFiltered(pfd.Descriptor);
 
-                    foreach (NamedPackedFileDescriptor pfd in resources)
+                    if (add)
                     {
-                        bool add = true;
-                        if (curfilter != null)
-                            if (curfilter.Active)
-                                add = !curfilter.IsFiltered(pfd.Descriptor);
-
-                        if (add)
-                        {
-                            names.Add(pfd);
-                            pfd.Descriptor.ChangedData += new SimPe.Events.PackedFileChanged(Descriptor_ChangedData);
-                            pfd.Descriptor.DescriptionChanged += new EventHandler(Descriptor_DescriptionChanged);
-                            pfd.Descriptor.ChangedUserData += new SimPe.Events.PackedFileChanged(Descriptor_ChangedUserData);
-                        }
+                        names.Add(pfd);
+                        pfd.Descriptor.ChangedData        += new SimPe.Events.PackedFileChanged(Descriptor_ChangedData);
+                        pfd.Descriptor.DescriptionChanged += new EventHandler(Descriptor_DescriptionChanged);
+                        pfd.Descriptor.ChangedUserData    += new SimPe.Events.PackedFileChanged(Descriptor_ChangedUserData);
                     }
-
-                    try
-                    {
-                        lv.VirtualListSize = 0;
-                        lv.VirtualListSize = names.Count;
-                    }
-                    catch //this hack is required because whidbey (.NET 2) has a bug
-                    {
-                        //System.Diagnostics.Debug.WriteLine("Suppressed VirtualListSize exception.");
-                    }
-
-                    SortResources();
-                    foreach (NamedPackedFileDescriptor q in rnl)
-                        for (int i = 0; i < names.Count; i++)
-                            if (names[i].Descriptor == q.Descriptor)
-                            {
-                                lv.SelectedIndices.Add(i);
-                                break;
-                            }
                 }
+
+                SortResources();
+                // Re-select previously selected items
+                foreach (NamedPackedFileDescriptor q in rnl)
+                    foreach (var row in rows)
+                        if (row.Descriptor == q.Descriptor) { lv.SelectedItem = row; break; }
+
                 lastresources = resources;
-                DoSignalSelectionChanged(Handle);
+                FireSelectionChangedOnUIThread();
             }
+        }
+
+        void FireSelectionChangedOnUIThread()
+        {
+            Avalonia.Threading.Dispatcher.UIThread.Post(OnResourceSelectionChanged);
         }
 
         public new void Refresh()
         {
-            //Console.WriteLine("refreshing...");
-            //lv.Refresh();
-            lv.Update();
-            base.Refresh();
+            Avalonia.Threading.Dispatcher.UIThread.Post(() => lv.InvalidateArrange());
         }
 
         void Descriptor_ChangedData(SimPe.Interfaces.Files.IPackedFileDescriptor sender)
         {
-            //System.Diagnostics.Debug.WriteLine("ChangedData: " + sender.ToString());
-            UpdateResourceItem(sender);
             this.Refresh();
-            
-        }        
+        }
 
         void Descriptor_ChangedUserData(SimPe.Interfaces.Files.IPackedFileDescriptor sender)
         {
-            //System.Diagnostics.Debug.WriteLine("ChangedUserData: " + sender.ToString());
-            UpdateResourceItem(sender);
             this.Refresh();
         }
 
         void Descriptor_DescriptionChanged(object sender, EventArgs e)
         {
-            //System.Diagnostics.Debug.WriteLine("DescriptionChanged: " + sender.ToString());
-            
-            if (UpdateResourceItem(sender))
-            {
-                if (manager != null && Helper.XmlRegistry.UpdateResourceListWhenTGIChanges)                
-                    manager.UpdateTree();                
-            }
+            if (manager != null && Helper.XmlRegistry.UpdateResourceListWhenTGIChanges)
+                manager.UpdateTree();
             this.Refresh();
         }
 
-        private bool UpdateResourceItem(object sender)
-        {
-            if (manager != null)
-            {
-
-                foreach (NamedPackedFileDescriptor pfd in manager.Everything)
-                {
-                    //if (pfd.Descriptor.Equals(sender))
-                    if (sender == pfd.Descriptor) // must be the exact same object
-                    {                        
-                        pfd.ResetRealName();
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
         public event EventHandler SelectionChanged;
-        protected override void WndProc(ref System.Windows.Forms.Message m)
-        {
-            if (m.HWnd == Handle)
-            {
-                if (m.Msg == WM_USER_SORTED_RESOURCES )
-                {
-                    if ((int)m.WParam == sortticket)
-                    {
-                        sortingthread = null;
-                        DoTheSorting();
-                        Refresh();
-
-                        if (Helper.XmlRegistry.AsynchronSort )
-                            Wait.SubStop();                    
-                    }
-                }
-                else if (m.Msg == WM_USER_FIRE_SELECTION)
-                {
-                    OnResourceSelectionChanged();
-                }
-            }
-
-            base.WndProc(ref m);
-        }
 
         internal void SetManager(ResourceViewManager manager)
         {
-            
             if (this.manager != manager)
-            {
-                this.manager = manager;                
-            }
-        }       
+                this.manager = manager;
+        }
 
         public void Clear()
         {
-            lv.SelectedIndices.Clear();
-            lv.FocusedItem = null;
-            lv.Items.Clear();
-
-            foreach (ResourceListItemExt lvi in cache.Values)            
-                lvi.FreeResources();
-            
-            cache.Clear();
-            try
-            {
-                lv.VirtualListSize = 0;
-            }
-            catch  //this hack is required because whidbey (.NET 2) has a bug
-            {
-                //System.Diagnostics.Debug.WriteLine("Suppressed VirtualListSize exception.");
-            }                    
+            lv.SelectedItem = null;
+            rows.Clear();
+            lock (names) { names.Clear(); }
         }
 
-        void PrintStats(string name)
+        public new System.Windows.Forms.ContextMenuStrip ContextMenuStrip
         {
-            /*
-            System.Diagnostics.Debug.WriteLine(name + "----------------------");
-            System.Diagnostics.Debug.Write("    Selection: ");
-            foreach (int i in lv.SelectedIndices)
-                System.Diagnostics.Debug.Write(i + " ");
-
-            System.Diagnostics.Debug.WriteLine("");
-             */
-        }
-
-        CacheVirtualItemsEventArgs lastcache;
-        Dictionary<int, ResourceListItemExt> cache;
-        private void lv_CacheVirtualItems(object sender, CacheVirtualItemsEventArgs e)
-        {            
-            lastcache = e;
-        }
-
-        private void lv_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
-        {
-            
-            if (e.Item == null)
-            {
-                //System.Diagnostics.Debug.WriteLine("Reading " + e.ItemIndex);
-                lock (names)
-                {
-                    e.Item = CreateItem(e.ItemIndex);
-                }
-            }
-        }
-
-        private ResourceListItemExt CreateItem(int index)
-        {
-            ResourceListItemExt ret = null;
-            if (index >= 0 && index < names.Count)
-            {
-                bool vis = false;
-                if (lastcache != null) vis = index >= lastcache.StartIndex && index <= lastcache.EndIndex;
-
-                if (cache.ContainsKey(index))                
-                    ret = cache[index];
-
-                if (ret == null)
-                {
-                    NamedPackedFileDescriptor pfd = names[index];
-                    ret = new ResourceListItemExt(pfd, manager, vis);
-                    //cache.Add(index, ret);
-                }
-                else ret.Visible = vis;
-            }
-
-            return ret;
-        }
-
-        private void lv_SearchForVirtualItem(object sender, SearchForVirtualItemEventArgs e)
-        {
-            PrintStats("SearchForVirtualItem");
-        }
-
-        public new ContextMenuStrip ContextMenuStrip
-        {
-            get { return lv.ContextMenuStrip; }
-            set { lv.ContextMenuStrip = value; }
-        }
-
-        static List<string> colNames = null;
-        private List<ColumnHeader> colHeads = null;
-
-        private class CHSort : IComparer<ColumnHeader>
-        {
-            #region IComparer<ColumnHeader> Members
-
-            public int Compare(ColumnHeader x, ColumnHeader y)
-            {
-                if (x.ListView == null && y.ListView == null) return 0;
-                if (x.ListView == null) return 1;
-                if (y.ListView == null) return -1;
-                return x.DisplayIndex.CompareTo(y.DisplayIndex);
-            }
-
-            #endregion
-        }
-
-        private List<string> order = null;
-        /// <summary>
-        /// The colNames of the columns in display order, followed by those omitted; comma-separated values
-        /// </summary>
-        public List<string> Columns
-        {
-            get
-            {
-                List<ColumnHeader> columns = new List<ColumnHeader>();
-                foreach (ColumnHeader ch in lv.Columns) columns.Add(ch);
-
-                foreach (ColumnHeader ch in colHeads) if (!columns.Contains(ch)) columns.Add(ch);
-
-                columns.Sort(new CHSort());
-
-                order = new List<string>();
-                foreach (ColumnHeader ch in columns)
-                    order.Add(colNames[colHeads.IndexOf(ch)]);
-
-                return order;
-            }
+            get { return null; }
+            set { /* Avalonia context menu would need separate handling */ }
         }
 
         public void StoreLayout()
         {
-            Helper.XmlRegistry.Layout.NameColumnWidth = clTName.Width;
-            Helper.XmlRegistry.Layout.TypeColumnWidth = clType.Width;
-            Helper.XmlRegistry.Layout.GroupColumnWidth = clGroup.Width;
-            Helper.XmlRegistry.Layout.InstanceHighColumnWidth = clInstHi.Width;
-            Helper.XmlRegistry.Layout.InstanceColumnWidth = clInst.Width;
-            Helper.XmlRegistry.Layout.OffsetColumnWidth = clOffset.Width;
-            Helper.XmlRegistry.Layout.SizeColumnWidth = clSize.Width;
-
-            Helper.XmlRegistry.Layout.ColumnOrder = Columns;
+            Helper.XmlRegistry.Layout.NameColumnWidth          = (int)clTNameCol.ActualWidth;
+            Helper.XmlRegistry.Layout.TypeColumnWidth          = (int)clTypeCol.ActualWidth;
+            Helper.XmlRegistry.Layout.GroupColumnWidth         = (int)clGroupCol.ActualWidth;
+            Helper.XmlRegistry.Layout.InstanceHighColumnWidth  = (int)clInstHiCol.ActualWidth;
+            Helper.XmlRegistry.Layout.InstanceColumnWidth      = (int)clInstCol.ActualWidth;
+            Helper.XmlRegistry.Layout.OffsetColumnWidth        = (int)clOffsetCol.ActualWidth;
+            Helper.XmlRegistry.Layout.SizeColumnWidth          = (int)clSizeCol.ActualWidth;
         }
 
         public void RestoreLayout()
         {
-            clTName.Width = Helper.XmlRegistry.Layout.NameColumnWidth;
-            clType.Width = Helper.XmlRegistry.Layout.TypeColumnWidth;
-            clGroup.Width = Helper.XmlRegistry.Layout.GroupColumnWidth;
-            clInstHi.Width = Helper.XmlRegistry.Layout.InstanceHighColumnWidth;
-            clInst.Width = Helper.XmlRegistry.Layout.InstanceColumnWidth;
-            clOffset.Width = Helper.XmlRegistry.Layout.OffsetColumnWidth;
-            clSize.Width = Helper.XmlRegistry.Layout.SizeColumnWidth;
+            SetColWidth(clTNameCol,  Helper.XmlRegistry.Layout.NameColumnWidth);
+            SetColWidth(clTypeCol,   Helper.XmlRegistry.Layout.TypeColumnWidth);
+            SetColWidth(clGroupCol,  Helper.XmlRegistry.Layout.GroupColumnWidth);
+            SetColWidth(clInstHiCol, Helper.XmlRegistry.Layout.InstanceHighColumnWidth);
+            SetColWidth(clInstCol,   Helper.XmlRegistry.Layout.InstanceColumnWidth);
+            SetColWidth(clOffsetCol, Helper.XmlRegistry.Layout.OffsetColumnWidth);
+            SetColWidth(clSizeCol,   Helper.XmlRegistry.Layout.SizeColumnWidth);
+        }
 
-            order = Helper.XmlRegistry.Layout.ColumnOrder;
-            lv.Columns.Clear();
-            for (int i = 0; i < colHeads.Count; i++)
-                lv.Columns.Add(colHeads[i]);
-            for (int i = 0; i < colHeads.Count; i++)
-                if (colHeads[i].DisplayIndex != order.IndexOf(colNames[i]))
-                    colHeads[i].DisplayIndex = order.IndexOf(colNames[i]);
-
-            if (!Helper.XmlRegistry.ResourceListShowExtensions) lv.Columns.Remove(clType);
-            if (!Helper.XmlRegistry.HiddenMode)
-            {
-                lv.Columns.Remove(clSize);
-                lv.Columns.Remove(clOffset);
-            }
+        static void SetColWidth(Avalonia.Controls.DataGridTextColumn col, int width)
+        {
+            if (width > 0) col.Width = new Avalonia.Controls.DataGridLength(width);
         }
     }
 }

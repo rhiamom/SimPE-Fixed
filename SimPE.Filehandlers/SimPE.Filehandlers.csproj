@@ -72,8 +72,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    
-    
+    <Compile Remove="GlobCtrl.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

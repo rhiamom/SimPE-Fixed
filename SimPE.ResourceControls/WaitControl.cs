@@ -22,66 +22,83 @@
  ***************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
+
 namespace SimPe
 {
-    public partial class WaitControl : UserControl, IWaitingBarControl
+    public partial class WaitControl : Avalonia.Controls.UserControl, IWaitingBarControl
     {
+        Avalonia.Controls.ProgressBar pb;
+        Avalonia.Controls.TextBlock tbPercent;
+        Avalonia.Controls.TextBlock tbInfo;
+
         public WaitControl()
         {
-            msg = "";
-            InitializeComponent();
+            pb = new Avalonia.Controls.ProgressBar
+            {
+                IsVisible = false,
+                MinWidth = 100,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+            };
+            tbPercent = new Avalonia.Controls.TextBlock
+            {
+                Text = "0%",
+                IsVisible = false,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                Margin = new Avalonia.Thickness(4, 0),
+            };
+            tbInfo = new Avalonia.Controls.TextBlock
+            {
+                Text = "---",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                Margin = new Avalonia.Thickness(4, 0),
+            };
 
-            Message = "";
+            var panel = new Avalonia.Controls.StackPanel
+            {
+                Orientation = Avalonia.Layout.Orientation.Horizontal,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+            };
+            panel.Children.Add(pb);
+            panel.Children.Add(tbPercent);
+            panel.Children.Add(tbInfo);
+            Content = panel;
+
+            msg = "";
             MaxProgress = 0;
-            Waiting = false;            
+            Waiting = false;
             ShowProgress = false;
             ShowAnimation = true;
             ShowText = true;
             nowp = -1;
-
-            if (SimPe.Helper.XmlRegistry.ShowWaitBarPermanent)
-            {
-                ThemeManager.Global.AddControl(this.statusStrip1);
-            }
         }
 
         string msg;
         public string Message
         {
-            get {
-                lock (msg)
-                {
-                    return msg;
-                }
-            }
+            get { lock (this) { return msg; } }
             set
             {
-                lock (msg)
-                {
-                    msg = value;
-                }
-                Avalonia.Threading.Dispatcher.UIThread.Post(() => { this.tbInfo.Text = this.msg; });
+                lock (this) { msg = value; }
+                var _m = msg;
+                Avalonia.Threading.Dispatcher.UIThread.Post(() => { tbInfo.Text = _m; });
             }
         }
 
         int max;
         public int MaxProgress
         {
-            get { lock (pb) { return max; } }
+            get { lock (this) { return max; } }
             set
             {
-                lock (pb)
-                {
-                    max = value;
-                }
+                lock (this) { max = value; }
                 var _mp = value;
-                Avalonia.Threading.Dispatcher.UIThread.Post(() => { this.pb.Value = this.pb.Minimum; this.pb.Maximum = Math.Max(Math.Max(1, pb.Minimum), _mp); DoShowProgress(this.pb.Maximum > 1); });
+                Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                {
+                    pb.Value = pb.Minimum;
+                    pb.Maximum = Math.Max(Math.Max(1, pb.Minimum), (double)_mp);
+                    DoShowProgress(pb.Maximum > 1);
+                });
             }
         }
 
@@ -99,26 +116,21 @@ namespace SimPe
 
         private void SetProgress(int value)
         {
-            val = Math.Min(pb.Maximum, value);
-            this.pb.Value = val;
+            val = (int)Math.Min(pb.Maximum, (double)value);
+            pb.Value = val;
 
-            //float perc = (((float)val / (float)pb.Maximum) * 100);
-
-            int perc = (val * 100) / pb.Maximum;
+            int perc = pb.Maximum > 0 ? (int)((val / pb.Maximum) * 100) : 0;
             int diff = Math.Abs(nowp - perc);
             if (diff > 0)
-            {
                 tbPercent.Text = perc.ToString("N0") + "%";
-            }
 
             if (diff >= 10)
-            {    
-                this.statusStrip1.Refresh();
+            {
                 nowp = perc;
-            }            
+            }
         }
 
-        bool wait;        
+        bool wait;
         public bool Waiting
         {
             get { return wait; }
@@ -134,11 +146,11 @@ namespace SimPe
             wait = value;
             if (wait)
             {
-                this.Visible = true;
+                this.IsVisible = true;
             }
             else
             {
-                if (!this.DesignMode && !Helper.XmlRegistry.ShowWaitBarPermanent) this.Visible = false;
+                if (!Helper.XmlRegistry.ShowWaitBarPermanent) this.IsVisible = false;
                 this.Message = "";
                 this.Progress = 0;
                 this.ShowProgress = false;
@@ -159,28 +171,15 @@ namespace SimPe
         void DoShowProgress(bool value)
         {
             spb = value;
-            pb.Visible = spb;
-            tbPercent.Visible = spb;
-            if (spb)
-                tbInfo.BorderSides = ToolStripStatusLabelBorderSides.Left;
-            else
-                tbInfo.BorderSides = ToolStripStatusLabelBorderSides.None;
+            pb.IsVisible = spb;
+            tbPercent.IsVisible = spb;
         }
 
         bool sanim;
         public bool ShowAnimation
         {
             get { return sanim; }
-            set
-            {
-                sanim = value;
-                var _sa = value;
-                Avalonia.Threading.Dispatcher.UIThread.Post(() => DoShowAnimation(_sa));
-            }
-        }
-
-        private void DoShowAnimation(bool value)
-        {
+            set { sanim = value; }
         }
 
         bool stxt;
@@ -197,15 +196,12 @@ namespace SimPe
         private void DoShowText(bool value)
         {
             stxt = value;
-            this.tbInfo.Visible = stxt;
+            tbInfo.IsVisible = stxt;
         }
 
         #region IWaitingBarControl Member
 
-        public bool Running
-        {
-            get { return Waiting; }
-        }
+        public bool Running => Waiting;
 
         public Avalonia.Media.Imaging.Bitmap Image
         {
@@ -219,7 +215,6 @@ namespace SimPe
         public void Wait()
         {
             Message = SimPe.Localization.GetString("Please Wait");
-            Image = null;
             Waiting = true;
         }
 
@@ -227,7 +222,6 @@ namespace SimPe
         {
             ShowProgress = true;
             Message = SimPe.Localization.GetString("Please Wait");
-            Image = null;
             MaxProgress = max;
             Waiting = true;
         }

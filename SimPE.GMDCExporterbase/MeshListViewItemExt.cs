@@ -25,15 +25,14 @@ using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace SimPe.Plugin.Gmdc
 {
 
 	class MeshListViewItemExt : MeshListViewItem
 	{
-		public MeshListViewItemExt(ListViewEx lv, Ambertation.Scenes.Mesh mesh, GenericMeshImport gmi, ActionChangedEvent fkt)
-			: base(lv, mesh, gmi, fkt)
+		public MeshListViewItemExt(Ambertation.Scenes.Mesh mesh, GenericMeshImport gmi, ActionChangedEvent fkt)
+			: base(mesh, gmi, fkt)
 		{
 		}
 

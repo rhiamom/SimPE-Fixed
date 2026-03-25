@@ -23,66 +23,113 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
 
 namespace SimPe.Windows.Forms
 {
-    public partial class ResourceTreeViewExt : UserControl
+    public partial class ResourceTreeViewExt : Avalonia.Controls.UserControl
     {
         ResourceTreeNodesByType typebuilder;
         ResourceTreeNodesByGroup groupbuilder;
         ResourceTreeNodesByInstance instbuilder;
         ResourceViewManager manager;
         IResourceTreeNodeBuilder builder;
+
+        Avalonia.Controls.TreeView tv;
+        Avalonia.Controls.Primitives.ToggleButton tbInst;
+        Avalonia.Controls.Primitives.ToggleButton tbGroup;
+        Avalonia.Controls.Primitives.ToggleButton tbType;
+
+        // ITreeDataTemplate implementation for hierarchical TreeNode display
+        sealed class TreeNodeTemplate : Avalonia.Controls.Templates.ITreeDataTemplate
+        {
+            public bool Match(object? data) => data is System.Windows.Forms.TreeNode;
+
+            public Avalonia.Controls.Control? Build(object? param)
+            {
+                if (param is System.Windows.Forms.TreeNode node)
+                    return new Avalonia.Controls.TextBlock { Text = node.Text ?? "" };
+                return null;
+            }
+
+            public Avalonia.Data.InstancedBinding? ItemsSelector(object item)
+            {
+                if (item is System.Windows.Forms.TreeNode node && node.Nodes.Count > 0)
+                    return Avalonia.Data.InstancedBinding.OneTime(node.Nodes);
+                return null;
+            }
+        }
+
         public ResourceTreeViewExt()
         {
             allowselectevent = true;
-            InitializeComponent();
 
-            if (Helper.XmlRegistry.UseBigIcons) tv.Font = new System.Drawing.Font("Tahoma", this.Font.Size + 5F); // was 3F
+            tv = new Avalonia.Controls.TreeView
+            {
+                ItemTemplate = new TreeNodeTemplate(),
+            };
+            tv.SelectionChanged += tv_AfterSelect;
 
-            typebuilder = new ResourceTreeNodesByType();
+            if (Helper.XmlRegistry.UseBigIcons)
+                tv.FontSize = FontSize + 5;
+
+            tbType  = new Avalonia.Controls.Primitives.ToggleButton { Content = "T" };
+            tbGroup = new Avalonia.Controls.Primitives.ToggleButton { Content = "G" };
+            tbInst  = new Avalonia.Controls.Primitives.ToggleButton { Content = "I" };
+
+            Avalonia.Controls.ToolTip.SetTip(tbType,  "By Type");
+            Avalonia.Controls.ToolTip.SetTip(tbGroup, "By Group");
+            Avalonia.Controls.ToolTip.SetTip(tbInst,  "By Instance");
+
+            tbType.Click  += SelectTreeBuilder;
+            tbGroup.Click += SelectTreeBuilder;
+            tbInst.Click  += SelectTreeBuilder;
+
+            var buttons = new Avalonia.Controls.StackPanel
+            {
+                Orientation = Avalonia.Layout.Orientation.Horizontal,
+                Spacing = 2,
+                Margin = new Avalonia.Thickness(2),
+            };
+            buttons.Children.Add(tbType);
+            buttons.Children.Add(tbGroup);
+            buttons.Children.Add(tbInst);
+
+            var dock = new Avalonia.Controls.DockPanel();
+            Avalonia.Controls.DockPanel.SetDock(buttons, Avalonia.Controls.Dock.Top);
+            dock.Children.Add(buttons);
+            dock.Children.Add(tv);
+            Content = dock;
+
+            typebuilder  = new ResourceTreeNodesByType();
             groupbuilder = new ResourceTreeNodesByGroup();
-            instbuilder = new ResourceTreeNodesByInstance();
+            instbuilder  = new ResourceTreeNodesByInstance();
 
-            ThemeManager.Global.AddControl(this.toolStrip1);
             builder = typebuilder;
-            tbType.Checked = true;
+            tbType.IsChecked = true;
             last = null;
-        }
-
-        ~ResourceTreeViewExt()
-        {
-            ThemeManager.Global.RemoveControl(this.toolStrip1);
         }
 
         internal void SetManager(ResourceViewManager manager)
         {
             last = null;
             if (this.manager != manager)
-            {
                 this.manager = manager;
-            }
-        }  
+        }
 
         public void Clear()
         {
-            tv.Nodes.Clear();
+            tv.ItemsSource = null;
         }
 
         ResourceMaps last;
         void SetResourceMaps(bool nosave)
         {
-            tv.Nodes.Clear();
+            tv.ItemsSource = null;
             if (last != null) SetResourceMaps(last, true, nosave);
         }
 
         bool allowselectevent;
-        TreeNode firstnode;
+        System.Windows.Forms.TreeNode firstnode;
         public bool SetResourceMaps(ResourceMaps maps, bool selectevent, bool dontselect)
         {
             return SetResourceMaps(maps, selectevent, dontselect, false);
@@ -90,12 +137,11 @@ namespace SimPe.Windows.Forms
         protected bool SetResourceMaps(ResourceMaps maps, bool selectevent, bool dontselect, bool nosave)
         {
             last = maps;
-            // tv.ImageList / StateImageList are WinForms-only; not applicable in Avalonia.
             if (!nosave) SaveLastSelection();
 
             this.Clear();
             firstnode = builder.BuildNodes(maps);
-            tv.Nodes.Add(firstnode);
+            tv.ItemsSource = new[] { firstnode };
             firstnode.Expand();
 
             allowselectevent = selectevent;
@@ -112,7 +158,7 @@ namespace SimPe.Windows.Forms
             {
                 foreach (ResourceTreeNodeExt node in firstnode.Nodes)
                 {
-                    if (node.ID == 0x46414D49) { tv.SelectedNode = node; break; }
+                    if (node.ID == 0x46414D49) { tv.SelectedItem = node; break; }
                 }
             }
 
@@ -122,25 +168,24 @@ namespace SimPe.Windows.Forms
 
         private void SaveLastSelection()
         {
-            ResourceTreeNodeExt node = tv.SelectedNode as ResourceTreeNodeExt;
+            ResourceTreeNodeExt node = tv.SelectedItem as ResourceTreeNodeExt;
             if (node != null) builder.LastSelectedId = node.ID;
             else builder.LastSelectedId = 0;
         }
 
-        protected bool SelectID(TreeNode node, ulong id)
+        protected bool SelectID(System.Windows.Forms.TreeNode node, ulong id)
         {
             ResourceTreeNodeExt rn = node as ResourceTreeNodeExt;
             if (rn != null)
             {
                 if (rn.ID == id)
                 {
-                    tv.SelectedNode = rn;
-                    rn.EnsureVisible();
+                    tv.SelectedItem = rn;
                     return true;
                 }
             }
 
-            foreach (TreeNode sub in node.Nodes)
+            foreach (System.Windows.Forms.TreeNode sub in node.Nodes)
                 if (SelectID(sub, id)) return true;
 
             return false;
@@ -148,39 +193,31 @@ namespace SimPe.Windows.Forms
 
         public void SelectAll()
         {
-            if (firstnode!=null)
-                tv.SelectedNode = firstnode;
+            if (firstnode != null)
+                tv.SelectedItem = firstnode;
         }
 
-        private void tv_AfterSelect(object sender, TreeViewEventArgs e)
+        private void tv_AfterSelect(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
         {
             if (!allowselectevent) return;
-            if (e.Node == null) return;
-            ResourceTreeNodeExt node = e.Node as ResourceTreeNodeExt;
-            if (node != null)
-            {
-                if (this.manager != null)
-                {
-                    if (manager.ListView != null)
-                    {
-                        manager.ListView.SetResources(node.Resources);
-                    }
-                }
-            }
+            ResourceTreeNodeExt node = e.AddedItems.Count > 0 ? e.AddedItems[0] as ResourceTreeNodeExt : null;
+            if (node == null) return;
+            if (this.manager != null && manager.ListView != null)
+                manager.ListView.SetResources(node.Resources);
         }
 
-        private void SelectTreeBuilder(object sender, EventArgs e)
+        private void SelectTreeBuilder(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            tbType.Checked = sender == tbType;
-            tbGroup.Checked = sender == tbGroup;
-            tbInst.Checked = sender == tbInst;
+            tbType.IsChecked  = sender == tbType;
+            tbGroup.IsChecked = sender == tbGroup;
+            tbInst.IsChecked  = sender == tbInst;
 
             SaveLastSelection();
 
             IResourceTreeNodeBuilder old = builder;
-            if (sender == tbInst) builder = instbuilder;
+            if (sender == tbInst)       builder = instbuilder;
             else if (sender == tbGroup) builder = groupbuilder;
-            else builder = typebuilder;
+            else                        builder = typebuilder;
 
             if (old != builder) SetResourceMaps(true);
         }

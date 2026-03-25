@@ -25,15 +25,14 @@ using System;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace SimPe.Plugin.Gmdc
 {
 
 	class BoneListViewItemExt : BoneListViewItem
-	{		
-		public BoneListViewItemExt(ListViewEx lv, Ambertation.Scenes.Joint joint, GenericMeshImport gmi, ActionChangedEvent fkt)
-			:base(lv, joint, gmi, fkt)		
+	{
+		public BoneListViewItemExt(Ambertation.Scenes.Joint joint, GenericMeshImport gmi, ActionChangedEvent fkt)
+			:base(joint, gmi, fkt)
 		{
 		}				
 

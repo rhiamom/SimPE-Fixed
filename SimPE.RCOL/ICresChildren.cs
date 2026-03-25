@@ -23,7 +23,6 @@
 
 using System;
 using System.Collections;
-using System.Windows.Forms;
 using SimPe.Plugin;
 
 namespace SimPe.Interfaces.Scenegraph

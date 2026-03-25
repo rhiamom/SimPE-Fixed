@@ -22,13 +22,11 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace SimPe
 {
 	/// <summary>
-	/// This calass can be used to interface the StatusBar of the Main GUI, which will display 
+	/// This class can be used to interface the StatusBar of the Main GUI, which will display
 	/// something like the WaitingScreen
 	/// </summary>
 	public class WaitBarControl : IWaitingBarControl
@@ -40,70 +38,59 @@ namespace SimPe
 			ShowProgress(false);
 		}
 
-		delegate void SetStuff(object o);
-		delegate void ShowStuff(bool visible);
-
 		#region Visible Control
 		protected void ShowMain(bool visible)
 		{
             wc.Waiting = visible;
-            Application.DoEvents();
 		}
 
 		protected void ShowAnimation(bool visible)
 		{
             wc.ShowAnimation = visible;
-            Application.DoEvents();
 		}
 
 		protected void ShowProgress(bool visible)
 		{
             wc.ShowProgress = visible;
-            Application.DoEvents();
 		}
 
 		protected void ShowImage(bool visible)
-		{			
-			
+		{
+
 		}
 
 		protected void ShowDescription(bool visible)
 		{
             wc.ShowText = visible;
-            Application.DoEvents();
 		}
 		#endregion
 
 		#region Setters
-		protected void SetMessage(object text)
+		protected void SetMessage(string text)
 		{
             string t = "";
-            if (text != null) t = text.ToString();
-            wc.Message = t;		
+            if (text != null) t = text;
+            wc.Message = t;
 		}
 
 		protected void SetImage(object img)
 		{
-			
+
 		}
 
-		protected void SetProgress(object val)
+		protected void SetProgress(int val)
 		{
-			int i = (int)val;
-            wc.Progress = i;
+            wc.Progress = val;
 		}
 
-
-
-		protected void SetMaxProgress(object val)
+		protected void SetMaxProgress(int val)
 		{
-			int i = (int)val;
-            wc.MaxProgress = i;
+            wc.MaxProgress = val;
 		}
 
 		protected void StartAnimation(bool b)
 		{
-			
+
 		}
 		#endregion
 
@@ -115,9 +102,9 @@ namespace SimPe
 		public string Message
 		{
 			get { return wc.Message; }
-			set 
+			set
 			{
-				wc.BeginInvoke(new SetStuff(SetMessage), new object[] { " "+value });									
+				Avalonia.Threading.Dispatcher.UIThread.Post(() => SetMessage(" " + value));
 			}
 		}
 
@@ -130,19 +117,21 @@ namespace SimPe
 		public int Progress
 		{
 			get { return wc.Value; }
-			set 
+			set
 			{
-				wc.BeginInvoke(new SetStuff(SetProgress), new object[] { value });				
+				var _v = value;
+				Avalonia.Threading.Dispatcher.UIThread.Post(() => SetProgress(_v));
 			}
 		}
 
 		public int MaxProgress
 		{
 			get { return wc.Maximum; }
-			set 
+			set
 			{
-				wc.Invoke(new ShowStuff(ShowProgress), new object[] {true});
-				wc.Invoke(new SetStuff(SetMaxProgress), new object[] { value });									
+				var _v = value;
+				Avalonia.Threading.Dispatcher.UIThread.Post(() => ShowProgress(true));
+				Avalonia.Threading.Dispatcher.UIThread.Post(() => SetMaxProgress(_v));
 			}
 		}
 
@@ -150,38 +139,33 @@ namespace SimPe
 
         protected void StartWait()
 		{
-			//wc.Invoke(new ShowStuff(ShowImage), new object[] {false});
-			wc.Invoke(new ShowStuff(ShowDescription), new object[] {true});
-			wc.Invoke(new ShowStuff(ShowAnimation), new object[] {true});
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => ShowDescription(true));
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => ShowAnimation(true));
 
 			Message = SimPe.Localization.GetString("Please Wait");
 			Image = null;
-			wc.Invoke(new ShowStuff(ShowMain), new object[] {true});			
-			//wc.Invoke(new ShowStuff(StartAnimation), new object[] {true});
-			Application.DoEvents();
+			Avalonia.Threading.Dispatcher.UIThread.Post(() => ShowMain(true));
 		}
 
 		public void Wait()
-		{			
-			StartWait();			
+		{
+			StartWait();
 		}
 
 		public void Wait(int max)
-		{			
+		{
 			Progress=0;
 			StartWait();
 			MaxProgress = max;
 		}
 
 		public void Stop()
-		{	
-			try  
-			{ 		
-				wc.Invoke(new ShowStuff(ShowMain), new object[] {false});			
-				//wc.Invoke(new ShowStuff(StartAnimation), new object[] {false});
-				wc.Invoke(new ShowStuff(ShowProgress), new object[] {false});
-				//Application.DoEvents();
-			} 
+		{
+			try
+			{
+				Avalonia.Threading.Dispatcher.UIThread.Post(() => ShowMain(false));
+				Avalonia.Threading.Dispatcher.UIThread.Post(() => ShowProgress(false));
+			}
 			catch {}
 		}
 	}

@@ -24,11 +24,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
 
 namespace SimPe.Windows.Forms
 {
-    public class ResourceTreeNodeExt : TreeNode, IComparable<ResourceTreeNodeExt>
+    public class ResourceTreeNodeExt : System.Windows.Forms.TreeNode, IComparable<ResourceTreeNodeExt>
     {
         ResourceViewManager.ResourceNameList list;
         ulong id;

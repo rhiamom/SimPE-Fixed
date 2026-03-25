@@ -24,7 +24,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
 
 namespace SimPe.Windows.Forms
 {
@@ -94,6 +93,27 @@ namespace SimPe.Windows.Forms
             pfd.Descriptor.DescriptionChanged += new EventHandler(Descriptor_DescriptionChanged);*/
 
             ChangeDescription(true);
+        }
+
+        // Public accessor for the underlying NamedPackedFileDescriptor
+        public NamedPackedFileDescriptor Descriptor { get { return pfd; } }
+
+        // Computed properties for DataGrid column binding
+        public string ColName   { get { return vis ? pfd.GetRealName() : pfd.Descriptor.ToResListString(); } }
+        public string ColType   { get { return GetExtText(); } }
+        public string ColGroup  { get { return "0x" + Helper.HexString(pfd.Descriptor.Group); } }
+        public string ColInstHi { get { return "0x" + Helper.HexString(pfd.Descriptor.SubType); } }
+        public string ColInst   { get { return GetInstText(); } }
+        public string ColOffset { get { return "0x" + Helper.HexString(pfd.Descriptor.Offset); } }
+        public string ColSize   { get { return "0x" + Helper.HexString(pfd.Descriptor.Size); } }
+
+        string GetInstText()
+        {
+            if (Helper.XmlRegistry.ResourceListInstanceFormatHexOnly)
+                return "0x" + Helper.HexString(pfd.Descriptor.Instance);
+            if (Helper.XmlRegistry.ResourceListInstanceFormatDecOnly)
+                return ((int)pfd.Descriptor.Instance).ToString();
+            return "0x" + Helper.HexString(pfd.Descriptor.Instance) + " (" + ((int)pfd.Descriptor.Instance).ToString() + ")";
         }
 
         string GetExtText()
