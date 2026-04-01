@@ -27,7 +27,7 @@ using System.Text;
 using SimPe.Wizards;
 using SimPe.Plugin.UI;
 using SimPe.Interfaces.Files;
-using System.Windows.Forms;
+using SimPe.Scenegraph.Compat;
 
 namespace SimPe.Plugin
 {
@@ -90,11 +90,11 @@ namespace SimPe.Plugin
             {
                 this.Controller.DeleteClothingEntries();
                 this.Controller.CommitChanges();
-                MessageBox.Show("The changes have been saved.");
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync("The changes have been saved.").GetAwaiter().GetResult();
             }
             catch (Exception x)
             {
-                MessageBox.Show(x.ToString());
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(x.ToString()).GetAwaiter().GetResult();
             }
             WaitingScreen.Stop();
 

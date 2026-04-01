@@ -11,7 +11,7 @@ namespace SimPe.Plugin
 
         public IToolResult ShowDialog(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package)
         {
-            new WizardHostForm(new Step1()).ShowDialog();
+            new WizardHostForm(new Step1()).ShowDialog(null).GetAwaiter().GetResult();
             return new ToolResult(false, false);
         }
 
@@ -20,6 +20,8 @@ namespace SimPe.Plugin
 
     public class WardrobeToolFactory : AbstractWrapperFactory, IToolFactory
     {
+        public override IWrapper[] KnownWrappers => new IWrapper[0];
+
         public IToolPlugin[] KnownTools => new IToolPlugin[] { new WardrobeWranglerTool() };
     }
 }

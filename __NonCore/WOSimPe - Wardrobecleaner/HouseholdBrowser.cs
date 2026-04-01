@@ -23,176 +23,184 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
 using SimPe.Interfaces.Files;
 using SimPe.Interfaces;
 using SimPe.PackedFiles.Wrapper;
 using SimPe.PackedFiles;
+using SimPe.Scenegraph.Compat;
 
 namespace SimPe.Plugin.UI
 {
+    public class HouseholdBrowser : Avalonia.Controls.UserControl
+    {
+        IPackageFile package;
+        internal bool suppressEvents;
 
-    public partial class HouseholdBrowser : Panel // UserControl
-	{
-		IPackageFile package;
-		internal bool suppressEvents;
+        private SimPe.Scenegraph.Compat.ListView lvFam   = new SimPe.Scenegraph.Compat.ListView();
+        private SimPe.Scenegraph.Compat.ListView lvItems  = new SimPe.Scenegraph.Compat.ListView();
+        private Label label1   = new Label { Content = "Households" };
+        private Label label2   = new Label { Content = "Items" };
+        private CheckBox cbCheckAll = new CheckBox { Content = "Check All" };
+        private SimPe.Scenegraph.Compat.ColumnHeader columnHeader1 = new SimPe.Scenegraph.Compat.ColumnHeader { Text = "Family Name", Width = 190 };
+        private SimPe.Scenegraph.Compat.ColumnHeader columnHeader2 = new SimPe.Scenegraph.Compat.ColumnHeader { Text = "Instance" };
 
-		public IPackageFile NeighborhoodPackage
-		{
-			get { return package; }
-			set
-			{
-				package = value;
-				PopulateHouseholdList();
-			}
-		}
-
-		public event EventHandler HouseholdSelectionChanged;
-
-		public HouseholdBrowser()
-		{
-			InitializeComponent();
-            if (Helper.XmlRegistry.UseBigIcons)
+        public IPackageFile NeighborhoodPackage
+        {
+            get { return package; }
+            set
             {
-                this.label1.Size = new System.Drawing.Size(256, 18);
-                this.label2.Size = new System.Drawing.Size(283, 18);
-                this.cbCheckAll.Location = new System.Drawing.Point(5, 344);
-                this.splitContainer1.SplitterDistance = 286;
-                this.columnHeader2.Width = 100;
+                package = value;
+                PopulateHouseholdList();
             }
-		}
+        }
 
-		protected virtual void OnHouseholdSelectionChanged(EventArgs e)
-		{
-			if (this.HouseholdSelectionChanged != null)
-				this.HouseholdSelectionChanged(this, e);
-		}
+        public event EventHandler HouseholdSelectionChanged;
 
+        public HouseholdBrowser()
+        {
+            lvFam.CheckBoxes = true;
+            lvFam.Columns.Add(columnHeader1);
+            lvFam.Columns.Add(columnHeader2);
+            lvFam.FullRowSelect = true;
+            lvFam.MultiSelect = false;
 
-		void PopulateHouseholdList()
-		{
-			this.lvFam.Items.Clear();
+            lvFam.SelectionChanged += lvFam_SelectedIndexChanged;
 
-			if (this.package != null)
-			{
-				IPackedFileDescriptor[] pfds = this.package.FindFiles(0x46414D49u); // FAMI
-				foreach (IPackedFileDescriptor pfd in pfds)
-				{
-					Fami fam = new Fami(WizardController.Instance.ProviderRegistry.SimNameProvider);
-					fam.ProcessData(pfd, package, false);
+            cbCheckAll.IsCheckedChanged += cbCheckAll_CheckedChanged;
 
-					ListViewItem li = new ListViewItem();
-					li.ImageIndex = 0;
-					li.Text = fam.Name;
-					li.SubItems.Add(String.Format("0x{0:X4}", fam.FileDescriptor.Instance));
+            BuildLayout();
+        }
 
-					li.Tag = fam;
+        void BuildLayout()
+        {
+            // Left pane: label + lvFam
+            var leftPanel = new DockPanel();
+            DockPanel.SetDock(label1, Dock.Top);
+            leftPanel.Children.Add(label1);
+            leftPanel.Children.Add(lvFam);
 
-					this.lvFam.Items.Add(li);
-				}
+            // Right pane: label + lvItems
+            var rightPanel = new DockPanel();
+            DockPanel.SetDock(label2, Dock.Top);
+            rightPanel.Children.Add(label2);
+            rightPanel.Children.Add(lvItems);
 
-			}
-		}
+            // Split: left 38%, right 62%
+            var grid = new Grid();
+            grid.ColumnDefinitions.Add(new ColumnDefinition(0.38, GridUnitType.Star));
+            grid.ColumnDefinitions.Add(new ColumnDefinition(4,    GridUnitType.Pixel));
+            grid.ColumnDefinitions.Add(new ColumnDefinition(0.62, GridUnitType.Star));
+            grid.RowDefinitions.Add(new RowDefinition(1, GridUnitType.Star));
+            grid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
 
+            Grid.SetColumn(leftPanel,  0); Grid.SetRow(leftPanel,  0);
+            Grid.SetColumn(rightPanel, 2); Grid.SetRow(rightPanel, 0);
+            Grid.SetColumn(cbCheckAll, 0); Grid.SetRow(cbCheckAll, 1);
+            Grid.SetColumnSpan(cbCheckAll, 3);
 
-		void PopulateItemList()
-		{
-			this.SuspendLayout();
-			this.lvItems.BeginUpdate();
+            grid.Children.Add(leftPanel);
+            grid.Children.Add(rightPanel);
+            grid.Children.Add(cbCheckAll);
 
-			this.lvItems.Items.Clear();
+            Content = grid;
+        }
 
-			this.Cursor = Cursors.WaitCursor;
+        protected virtual void OnHouseholdSelectionChanged(EventArgs e)
+        {
+            if (this.HouseholdSelectionChanged != null)
+                this.HouseholdSelectionChanged(this, e);
+        }
 
-			if (this.lvFam.SelectedItems.Count > 0)
-			{
-				/*
-				 * Build selected family instances list
-				 */
-				List<uint> famInstances = this.GetSelectedFamilyInstances();
+        void PopulateHouseholdList()
+        {
+            this.lvFam.Items.Clear();
 
-				List<RefFile> refList = WizardController.Instance.BuildWardrobes(famInstances);
-				foreach (RefFile idr in refList)
-				{
-					ListViewItem li = new ListViewItem();
-					li.ImageIndex = 0;
-					li.Text = String.Format("{0:X8}-{1:X8}", idr.FileDescriptor.SubType, idr.FileDescriptor.Instance);
+            if (this.package != null)
+            {
+                IPackedFileDescriptor[] pfds = this.package.FindFiles(0x46414D49u); // FAMI
+                foreach (IPackedFileDescriptor pfd in pfds)
+                {
+                    Fami fam = new Fami(WizardController.Instance.ProviderRegistry.SimNameProvider);
+                    fam.ProcessData(pfd, package, false);
 
-					if (idr.FileDescriptor.MarkForDelete)
-						li.Font = new Font(li.Font, FontStyle.Strikeout);
+                    SimPe.Scenegraph.Compat.ListViewItem li = new SimPe.Scenegraph.Compat.ListViewItem();
+                    li.ImageIndex = 0;
+                    li.Text = fam.Name;
+                    li.SubItems.Add(String.Format("0x{0:X4}", fam.FileDescriptor.Instance));
+                    li.Tag = fam;
 
-					this.lvItems.Items.Add(li);
-				}
+                    this.lvFam.Items.Add(li);
+                }
+            }
+        }
 
-			}
+        void PopulateItemList()
+        {
+            this.lvItems.BeginUpdate();
+            this.lvItems.Items.Clear();
 
-			this.Cursor = Cursors.Default;
+            if (this.lvFam.SelectedItems.Count > 0)
+            {
+                List<uint> famInstances = this.GetSelectedFamilyInstances();
+                List<RefFile> refList = WizardController.Instance.BuildWardrobes(famInstances);
+                foreach (RefFile idr in refList)
+                {
+                    SimPe.Scenegraph.Compat.ListViewItem li = new SimPe.Scenegraph.Compat.ListViewItem();
+                    li.ImageIndex = 0;
+                    li.Text = String.Format("{0:X8}-{1:X8}", idr.FileDescriptor.SubType, idr.FileDescriptor.Instance);
+                    // Strikeout for MarkForDelete not supported in compat ListView
+                    this.lvItems.Items.Add(li);
+                }
+            }
 
-			this.lvItems.EndUpdate();
-			this.ResumeLayout();
-		}
+            this.lvItems.EndUpdate();
+        }
 
-		List<uint> GetSelectedFamilyInstances()
-		{
-			/*
-			 * Build selected family instances list
-			 */
-			List<uint> famInstances = new List<uint>();
-			foreach (ListViewItem li in lvFam.SelectedItems)
-			{
-				Fami fam = li.Tag as Fami;
-				if (fam != null) // If all goes well...
-					famInstances.Add(fam.FileDescriptor.Instance);
-			}
-			return famInstances;
-		}
+        List<uint> GetSelectedFamilyInstances()
+        {
+            List<uint> famInstances = new List<uint>();
+            foreach (SimPe.Scenegraph.Compat.ListViewItem li in lvFam.SelectedItems)
+            {
+                Fami fam = li.Tag as Fami;
+                if (fam != null)
+                    famInstances.Add(fam.FileDescriptor.Instance);
+            }
+            return famInstances;
+        }
 
+        public List<uint> GetCheckedFamilyInstances()
+        {
+            List<uint> famInstances = new List<uint>();
+            foreach (SimPe.Scenegraph.Compat.ListViewItem li in lvFam.CheckedItems)
+            {
+                Fami fam = li.Tag as Fami;
+                famInstances.Add(fam.FileDescriptor.Instance);
+            }
+            return famInstances;
+        }
 
-		public List<uint> GetCheckedFamilyInstances()
-		{
-			/*
-			 * Build selected family instances list
-			 */
-			List<uint> famInstances = new List<uint>();
-			foreach (ListViewItem li in lvFam.CheckedItems)
-			{
-				Fami fam = li.Tag as Fami;
-				famInstances.Add(fam.FileDescriptor.Instance);
-			}
-			return famInstances;
-		}
+        private void lvFam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!suppressEvents)
+            {
+                this.OnHouseholdSelectionChanged(e);
+                this.PopulateItemList();
+            }
+        }
 
-		private void lvFam_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (!suppressEvents)
-			{
-				this.OnHouseholdSelectionChanged(e);
-				this.PopulateItemList();
-			}
-		}
+        private void cbCheckAll_CheckedChanged(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            bool check = this.cbCheckAll.IsChecked == true;
 
-		private void cbCheckAll_CheckedChanged(object sender, EventArgs e)
-		{
-			bool check = this.cbCheckAll.Checked;
+            this.suppressEvents = true;
+            foreach (SimPe.Scenegraph.Compat.ListViewItem li in this.lvFam.Items)
+                li.Checked = check;
+            this.suppressEvents = false;
 
-			this.suppressEvents = true;
-			foreach (ListViewItem li in this.lvFam.Items)
-				li.Checked = check;
-			this.suppressEvents = false;
-
-			this.OnHouseholdSelectionChanged(e);
-		}
-
-		private void lvFam_ItemChecked(object sender, ItemCheckedEventArgs e)
-		{
-			if (!suppressEvents)
-				this.OnHouseholdSelectionChanged(e);
-		}
-
-	
-	}
+            this.OnHouseholdSelectionChanged(EventArgs.Empty);
+        }
+    }
 }

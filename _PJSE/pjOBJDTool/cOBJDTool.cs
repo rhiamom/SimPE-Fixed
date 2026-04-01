@@ -23,24 +23,218 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using SimPe.Interfaces;
 using SimPe.Interfaces.Plugin;
+using SimPe.Scenegraph.Compat;
 using pjse.BhavOperandWizards;
+using MessageBoxButtons = SimPe.Scenegraph.Compat.MessageBoxButtons;
+using MessageBoxIcon = SimPe.Scenegraph.Compat.MessageBoxIcon;
 
 namespace pjOBJDTool
 {
-    public partial class cOBJDTool : Form //, ITool
+    public class cOBJDTool : Avalonia.Controls.Window
     {
+        #region Fields (formerly in Designer / Stubs)
+
+        private Avalonia.Controls.Label label1 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.TextBox tbOBJDName = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Label label2 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.TextBox tbOBJDGroup = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Label label3 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.TextBox tbOBJDInstance = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Label label4 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label5 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label6 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label21 = new Avalonia.Controls.Label();
+        private TextBoxCompat tbCTSSInstance = new TextBoxCompat();
+        private Avalonia.Controls.TabControl tabControl1 = new Avalonia.Controls.TabControl();
+        private Avalonia.Controls.TabItem tabPage1 = new Avalonia.Controls.TabItem();
+        private Avalonia.Controls.WrapPanel flpTabPage1 = new Avalonia.Controls.WrapPanel();
+        private GroupBox gbValue = new GroupBox();
+        private Avalonia.Controls.Grid tlpValue = new Avalonia.Controls.Grid();
+        private Avalonia.Controls.Label label7 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label8 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label9 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label10 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label11 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label12 = new Avalonia.Controls.Label();
+        private TextBoxCompat tbPrice = new TextBoxCompat();
+        private TextBoxCompat tbSalePrice = new TextBoxCompat();
+        private TextBoxCompat tbInitialDep = new TextBoxCompat();
+        private TextBoxCompat tbDailyDep = new TextBoxCompat();
+        private TextBoxCompat tbDepLimit = new TextBoxCompat();
+        private Avalonia.Controls.CheckBox ckbSelfDep = new Avalonia.Controls.CheckBox();
+        private GroupBox gbMotiveRs = new GroupBox();
+        private Avalonia.Controls.Grid tlpMotiveRs = new Avalonia.Controls.Grid();
+        private Avalonia.Controls.Label label15 = new Avalonia.Controls.Label();
+        private TextBoxCompat tbMotive1 = new TextBoxCompat();
+        private TextBoxCompat tbMotive2 = new TextBoxCompat();
+        private TextBoxCompat tbMotive3 = new TextBoxCompat();
+        private TextBoxCompat tbMotive4 = new TextBoxCompat();
+        private TextBoxCompat tbMotive5 = new TextBoxCompat();
+        private TextBoxCompat tbMotive6 = new TextBoxCompat();
+        private Avalonia.Controls.Label label16 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label17 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label18 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label19 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label20 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label13 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label14 = new Avalonia.Controls.Label();
+        private TextBoxCompat tbMotive7 = new TextBoxCompat();
+        private TextBoxCompat tbMotive8 = new TextBoxCompat();
+        private Avalonia.Controls.Label label22 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label23 = new Avalonia.Controls.Label();
+        private TextBoxCompat tbMotive9 = new TextBoxCompat();
+        private TextBoxCompat tbMotiveA = new TextBoxCompat();
+        private GroupBox gbValidEPs1 = new GroupBox();
+        private LabelledBoolsetControl lbcValidEPs1 = new LabelledBoolsetControl();
+        private GroupBox gbValidEPs2 = new GroupBox();
+        private LabelledBoolsetControl lbcValidEPs2 = new LabelledBoolsetControl();
+        private Avalonia.Controls.TabItem tabPage2 = new Avalonia.Controls.TabItem();
+        private Avalonia.Controls.WrapPanel flpTabPage2 = new Avalonia.Controls.WrapPanel();
+        private GroupBox gbRoomSort = new GroupBox();
+        private LabelledBoolsetControl lbcRoom = new LabelledBoolsetControl();
+        private GroupBox gbFuncSort = new GroupBox();
+        private LabelledBoolsetControl lbcFunction = new LabelledBoolsetControl();
+        private Avalonia.Controls.ComboBox cbFunction = new Avalonia.Controls.ComboBox();
+        private GroupBox gbBuildSort = new GroupBox();
+        private LabelledBoolsetControl lbcBuild = new LabelledBoolsetControl();
+        private Avalonia.Controls.ComboBox cbBuild = new Avalonia.Controls.ComboBox();
+        private GroupBox gbCommSort = new GroupBox();
+        private LabelledBoolsetControl lbcCommunity = new LabelledBoolsetControl();
+        private Avalonia.Controls.Grid tlpOBJDCTSS = new Avalonia.Controls.Grid();
+        private Avalonia.Controls.TextBox tbCTSSName = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.TextBox tbCTSSDesc = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Button btnCommit = new Avalonia.Controls.Button();
+        private Avalonia.Controls.Button btnSelectOBJD = new Avalonia.Controls.Button();
+        private Avalonia.Controls.ComboBox cbOBJDvsn = new Avalonia.Controls.ComboBox();
+
+        #endregion
+
         bool initialised = false;
+
         public cOBJDTool()
         {
-            InitializeComponent();
+            this.Title = "PJSE OBJD Tool";
+            this.Width = 700;
+            this.Height = 500;
+
+            // Wire up buttons
+            btnCommit.Content = "Commit";
+            btnCommit.Click += (s, e) => btnCommit_Click(s, e);
+            btnSelectOBJD.Content = "Select OBJD";
+            btnSelectOBJD.Click += (s, e) => btnSelectOBJD_Click(s, e);
+
+            // cbOBJDvsn items from original resx
+            cbOBJDvsn.Items.Add("0x008b");
+            cbOBJDvsn.Items.Add("0x008c");
+            cbOBJDvsn.Items.Add("0x008d");
+            cbOBJDvsn.SelectionChanged += (s, e) => cbOBJDvsn_SelectedIndexChanged(s, EventArgs.Empty);
+
+            // Build layout
+            BuildLayout();
+
+            this.Closing += (s, e) =>
+            {
+                CurrentOBJD = null;
+                e.Cancel = CurrentOBJD != null;
+            };
+
             initialised = false;
+        }
+
+        private void BuildLayout()
+        {
+            // Header row: OBJD name/group/instance + CTSS
+            label1.Content = "OBJD Name:";
+            label2.Content = "Group:";
+            label3.Content = "Instance:";
+            label21.Content = "CTSS Instance:";
+            tbOBJDName.IsReadOnly = true;
+            tbOBJDGroup.IsReadOnly = true;
+            tbOBJDInstance.IsReadOnly = true;
+
+            var headerRow = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Margin = new Avalonia.Thickness(4, 4, 4, 2) };
+            headerRow.Children.Add(label1); headerRow.Children.Add(tbOBJDName);
+            headerRow.Children.Add(label2); headerRow.Children.Add(tbOBJDGroup);
+            headerRow.Children.Add(label3); headerRow.Children.Add(tbOBJDInstance);
+            headerRow.Children.Add(label21); headerRow.Children.Add(tbCTSSInstance);
+            headerRow.Children.Add(label4); // Version label
+            headerRow.Children.Add(cbOBJDvsn);
+            headerRow.Children.Add(btnSelectOBJD);
+            headerRow.Children.Add(btnCommit);
+
+            // Tab 1: Value + Motives + EP flags
+            label7.Content = "Price:"; label8.Content = "Sale price:"; label9.Content = "Initial dep:";
+            label10.Content = "Daily dep:"; label11.Content = "Dep limit:"; label12.Content = "Self dep:";
+            ckbSelfDep.Content = "Self Depreciation";
+
+            gbValue.Text = "Value";
+            var valuePanel = new Avalonia.Controls.StackPanel();
+            void addValueRow(Avalonia.Controls.Label lbl, Avalonia.Controls.Control ctrl) {
+                var row = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal };
+                row.Children.Add(lbl); row.Children.Add(ctrl);
+                valuePanel.Children.Add(row);
+            }
+            addValueRow(label7, tbPrice); addValueRow(label8, tbSalePrice);
+            addValueRow(label9, tbInitialDep); addValueRow(label10, tbDailyDep);
+            addValueRow(label11, tbDepLimit);
+            valuePanel.Children.Add(ckbSelfDep);
+            gbValue.Content = valuePanel;
+
+            label15.Content = "Motive ratings:";
+            gbMotiveRs.Text = "Motive Ratings";
+            var motivePanel = new Avalonia.Controls.WrapPanel();
+            foreach (var tb in new TextBoxCompat[] { tbMotive1, tbMotive2, tbMotive3, tbMotive4, tbMotive5, tbMotive6, tbMotive7, tbMotive8, tbMotive9, tbMotiveA })
+                motivePanel.Children.Add(tb);
+            gbMotiveRs.Content = motivePanel;
+
+            gbValidEPs1.Text = "Valid EPs 1";
+            gbValidEPs1.Content = lbcValidEPs1;
+            gbValidEPs2.Text = "Valid EPs 2";
+            gbValidEPs2.Content = lbcValidEPs2;
+
+            flpTabPage1.Children.Add(gbValue);
+            flpTabPage1.Children.Add(gbMotiveRs);
+            flpTabPage1.Children.Add(gbValidEPs1);
+            flpTabPage1.Children.Add(gbValidEPs2);
+            tabPage1.Header = "Object Info";
+            tabPage1.Content = flpTabPage1;
+
+            // Tab 2: Sorting
+            gbRoomSort.Text = "Room Sort"; gbRoomSort.Content = lbcRoom;
+            gbCommSort.Text = "Community Sort"; gbCommSort.Content = lbcCommunity;
+            gbFuncSort.Text = "Function Sort";
+            var funcPanel = new Avalonia.Controls.StackPanel();
+            funcPanel.Children.Add(cbFunction); funcPanel.Children.Add(lbcFunction);
+            gbFuncSort.Content = funcPanel;
+            gbBuildSort.Text = "Build Sort";
+            var buildPanel = new Avalonia.Controls.StackPanel();
+            buildPanel.Children.Add(cbBuild); buildPanel.Children.Add(lbcBuild);
+            gbBuildSort.Content = buildPanel;
+
+            flpTabPage2.Children.Add(gbRoomSort);
+            flpTabPage2.Children.Add(gbFuncSort);
+            flpTabPage2.Children.Add(gbBuildSort);
+            flpTabPage2.Children.Add(gbCommSort);
+            tabPage2.Header = "Sorting";
+            tabPage2.Content = flpTabPage2;
+
+            tabControl1.Items.Add(tabPage1);
+            tabControl1.Items.Add(tabPage2);
+
+            // CTSS name/desc
+            label5.Content = "CTSS Name:"; label6.Content = "CTSS Desc:";
+            var ctssRow = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Margin = new Avalonia.Thickness(4, 2, 4, 2) };
+            ctssRow.Children.Add(label5); ctssRow.Children.Add(tbCTSSName);
+            ctssRow.Children.Add(label6); ctssRow.Children.Add(tbCTSSDesc);
+
+            var mainPanel = new Avalonia.Controls.StackPanel();
+            mainPanel.Children.Add(headerRow);
+            mainPanel.Children.Add(ctssRow);
+            mainPanel.Children.Add(tabControl1);
+
+            this.Content = mainPanel;
         }
 
         private void InitializeForm()
@@ -65,7 +259,7 @@ namespace pjOBJDTool
             SimPe.Wait.Progress++;
             InitializeFuncBuild();
             SimPe.Wait.Progress++;
-            
+
             SimPe.Wait.Stop();
         }
 
@@ -90,8 +284,6 @@ namespace pjOBJDTool
         }
 
         #region ValueMotive shorts
-        // price, sale price, initial dep, daily dep, dep limit
-        // and Motive Ratings
         List<DataOwnerControl> adocValueMotive = null;
         short[] asValueMotive = new short[] {
             0x12, 0x22, 0x23, 0x24, 0x26,
@@ -100,13 +292,13 @@ namespace pjOBJDTool
         };
         void InitializeValueMotive()
         {
-            atbValueMotive = new TextBox[] {
+            atbValueMotive = new TextBoxCompat[] {
                 tbPrice, tbSalePrice, tbInitialDep, tbDailyDep, tbDepLimit,
                 tbMotive1, tbMotive2, tbMotive3, tbMotive4, tbMotive5, tbMotive6, tbMotive7, tbMotive8,
                 tbMotive9, tbMotiveA,
             };
             adocValueMotive = new List<DataOwnerControl>();
-            foreach (TextBox tb in atbValueMotive)
+            foreach (TextBoxCompat tb in atbValueMotive)
                 adocValueMotive.Add(new DataOwnerControl(null, null, null, tb, null, null, null, 7, (ushort)0));
             foreach (DataOwnerControl doc in adocValueMotive)
             {
@@ -114,7 +306,7 @@ namespace pjOBJDTool
                 doc.DataOwnerControlChanged += new EventHandler(adocValueMotive_DataOwnerControlChanged);
             }
         }
-        TextBox[] atbValueMotive = null;
+        TextBoxCompat[] atbValueMotive = null;
         void adocValueMotive_DataOwnerControlChanged(object sender, EventArgs e)
         {
             if (wrapper == null) return;
@@ -126,35 +318,31 @@ namespace pjOBJDTool
         #endregion
 
         #region Value bool
-        // self-dep
-        List<CheckBox> ackbValue = null;
+        List<Avalonia.Controls.CheckBox> ackbValue = null;
         short[] abValue = new short[] { 0x25, };
         void InitializeValue()
         {
-            ackbValue = new List<CheckBox>(new CheckBox[] { ckbSelfDep, });
-            foreach (CheckBox ckb in ackbValue)
-                ckb.CheckedChanged += new EventHandler(ackbValue_CheckedChanged);
+            ackbValue = new List<Avalonia.Controls.CheckBox>(new Avalonia.Controls.CheckBox[] { ckbSelfDep, });
+            foreach (Avalonia.Controls.CheckBox ckb in ackbValue)
+                ckb.IsCheckedChanged += (s, e) => ackbValue_CheckedChanged(s, e);
         }
         void ackbValue_CheckedChanged(object sender, EventArgs e)
         {
             if (wrapper == null) return;
 
-            int i = ackbValue.IndexOf((CheckBox)sender);
+            int i = ackbValue.IndexOf((Avalonia.Controls.CheckBox)sender);
             if (i < 0) return;
-            wrapper[abValue[i]] = (ushort)(ackbValue[i].Checked ? 1 : 0);
+            wrapper[abValue[i]] = (ushort)(ackbValue[i].IsChecked == true ? 1 : 0);
         }
         #endregion
 
-
         #region EPs flags
-
         List<LabelledBoolsetControl> albcValidEPs = null;
         pjse.GS.BhavStr[] abhsEPs = new pjse.GS.BhavStr[]
         {
             pjse.GS.BhavStr.ValidEPFlags1,
             pjse.GS.BhavStr.ValidEPFlags2,
         };
-
         short[] absEPs = new short[] { 0x40, 0x41, };
 
         void InitializeEPs()
@@ -174,7 +362,7 @@ namespace pjOBJDTool
                 albcValidEPs[i].Labels = l;
             }
         }
-        
+
         void rb_CheckedChanged(object sender, EventArgs e)
         {
             if (wrapper == null) return;
@@ -183,7 +371,6 @@ namespace pjOBJDTool
             if (i < 0) return;
             wrapper[absEPs[i]] = albcValidEPs[i].Value;
         }
-
         #endregion
 
         #region RoomComm boolsets
@@ -207,7 +394,6 @@ namespace pjOBJDTool
             {
                 l = pjse.BhavWiz.readStr(abhsRoomComm[i]);
                 while (l.Count < 16)
-                    //l.Add((l.Count + 1).ToString());
                     l.Add("-");
                 albcRoomCommm[i].Labels = l;
             }
@@ -223,26 +409,24 @@ namespace pjOBJDTool
         #endregion
 
         #region FuncBuild Flags
-        // Function, Build Mode
-        // Function Sub-sort, Build Mode Sub-sort
-        List<ComboBox> acbFuncBuild = null;
+        List<Avalonia.Controls.ComboBox> acbFuncBuild = null;
         pjse.GS.BhavStr[] abhsFuncBuild = new pjse.GS.BhavStr[] { pjse.GS.BhavStr.FunctionSortFlags, pjse.GS.BhavStr.BuildModeType, };
-        short[] afFuncBuild = new short[] { 0x28, 0x45, }; // Function, Build mode type
+        short[] afFuncBuild = new short[] { 0x28, 0x45, };
 
         List<LabelledBoolsetControl> albcFuncBuild = null;
-        short[] absFuncBuild = new short[] { 0x5e, 0x4a, }; // Function sub-sort, Build sub-sort
+        short[] absFuncBuild = new short[] { 0x5e, 0x4a, };
 
         void InitializeFuncBuild()
         {
-            acbFuncBuild = new List<ComboBox>(new ComboBox[] { cbFunction, cbBuild, });
+            acbFuncBuild = new List<Avalonia.Controls.ComboBox>(new Avalonia.Controls.ComboBox[] { cbFunction, cbBuild, });
             for (int i = 0; i < acbFuncBuild.Count; i++)
             {
                 acbFuncBuild[i].Items.Add("None");
-                foreach(string label in pjse.BhavWiz.readStr(abhsFuncBuild[i]))
+                foreach (string label in pjse.BhavWiz.readStr(abhsFuncBuild[i]))
                     acbFuncBuild[i].Items.Add(acbFuncBuild[i].Items.Count.ToString() + ". " + label);
-                while(acbFuncBuild[i].Items.Count < 16)
+                while (acbFuncBuild[i].Items.Count < 16)
                     acbFuncBuild[i].Items.Add(acbFuncBuild[i].Items.Count.ToString() + ".");
-                acbFuncBuild[i].SelectedIndexChanged += new EventHandler(acbFuncBuild_SelectedIndexChanged);
+                acbFuncBuild[i].SelectionChanged += (s, e) => acbFuncBuild_SelectedIndexChanged(s, EventArgs.Empty);
             }
 
             albcFuncBuild = new List<LabelledBoolsetControl>(new LabelledBoolsetControl[] { lbcFunction, lbcBuild, });
@@ -253,7 +437,7 @@ namespace pjOBJDTool
         {
             if (wrapper == null) return;
 
-            int i = acbFuncBuild.IndexOf((ComboBox)sender);
+            int i = acbFuncBuild.IndexOf((Avalonia.Controls.ComboBox)sender);
             if (i < 0 || acbFuncBuild[i].SelectedIndex < 0) return;
 
             List<string> l = new List<string>();
@@ -261,7 +445,6 @@ namespace pjOBJDTool
             {
                 wrapper[afFuncBuild[i]] = 0;
                 while (l.Count < 16)
-                    //l.Add((l.Count + 1).ToString());
                     l.Add("-");
                 albcFuncBuild[i].Labels = l;
                 return;
@@ -271,7 +454,6 @@ namespace pjOBJDTool
             wrapper[afFuncBuild[i]] = (ushort)(1 << j);
             l = pjse.BhavWiz.readStr((pjse.GS.BhavStr)(0x110 + 16 * i + j));
             while (l.Count < 16)
-                //l.Add((l.Count + 1).ToString());
                 l.Add("-");
             albcFuncBuild[i].Labels = l;
         }
@@ -286,9 +468,9 @@ namespace pjOBJDTool
         #endregion
 
 
-        private bool changed = false; // indicates whether the tool updated the packed file
-        SimPe.Interfaces.Files.IPackedFileDescriptor pfd; // the PFD that was current at the start
-        private pfOBJD wrapper = null; // what we're editing
+        private bool changed = false;
+        SimPe.Interfaces.Files.IPackedFileDescriptor pfd;
+        private pfOBJD wrapper = null;
 
         pfOBJD CurrentOBJD
         {
@@ -306,21 +488,16 @@ namespace pjOBJDTool
             }
         }
 
-        /// <summary>
-        /// If there are uncommitted changes to the current PFD, prompts the user to Save or Abandon.
-        /// If they choose Save, calls SaveOBJD().
-        /// Cancel means return to editing.
-        /// </summary>
-        /// <returns>True for Save or Abandon (or when nothing needed saving); False for Cancel</returns>
         private bool SaveAbandonCancel()
         {
-            if (wrapper == null || !wrapper.Changed) return true; // nothing to worry about
-            DialogResult dr = MessageBox.Show("You have uncommitted changes to the Object Definition you are editing. Do you want to save these changes?", "PJ OBJD Tool",
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+            if (wrapper == null || !wrapper.Changed) return true;
+            SimPe.Scenegraph.Compat.DialogResult dr = SimPe.Scenegraph.Compat.MessageBox.ShowAsync(
+                "You have uncommitted changes to the Object Definition you are editing. Do you want to save these changes?",
+                "PJ OBJD Tool", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question).GetAwaiter().GetResult();
             switch (dr)
             {
-                case DialogResult.Yes: SaveOBJD(); return true;
-                case DialogResult.No: wrapper.Changed = false; return true;
+                case SimPe.Scenegraph.Compat.DialogResult.Yes: SaveOBJD(); return true;
+                case SimPe.Scenegraph.Compat.DialogResult.No: wrapper.Changed = false; return true;
                 default: return false;
             }
         }
@@ -333,23 +510,23 @@ namespace pjOBJDTool
                     tbCTSSInstance.Text = tbCTSSName.Text = tbCTSSDesc.Text = "";
                 cbOBJDvsn.SelectedIndex = -1;
                 for (int i = 0; i < adocValueMotive.Count; i++) atbValueMotive[i].Text = "";
-                for (int i = 0; i < ackbValue.Count; i++) ackbValue[i].CheckState = CheckState.Indeterminate;
+                for (int i = 0; i < ackbValue.Count; i++) ackbValue[i].IsChecked = null;
                 for (int i = 0; i < albcRoomCommm.Count; i++) albcRoomCommm[i].Value = 0;
                 for (int i = 0; i < acbFuncBuild.Count; i++) acbFuncBuild[i].SelectedIndex = -1;
                 for (int i = 0; i < albcFuncBuild.Count; i++) albcFuncBuild[i].Value = 0;
-                cbOBJDvsn.Enabled = tbCTSSInstance.Enabled =
-                    gbValue.Enabled = gbMotiveRs.Enabled =
-                    gbValidEPs1.Enabled = gbValidEPs2.Enabled =
-                    gbRoomSort.Enabled = gbCommSort.Enabled = gbFuncSort.Enabled = gbBuildSort.Enabled =
+                cbOBJDvsn.IsEnabled = tbCTSSInstance.IsEnabled =
+                    gbValue.IsEnabled = gbMotiveRs.IsEnabled =
+                    gbValidEPs1.IsEnabled = gbValidEPs2.IsEnabled =
+                    gbRoomSort.IsEnabled = gbCommSort.IsEnabled = gbFuncSort.IsEnabled = gbBuildSort.IsEnabled =
                         false;
             }
             else
             {
                 wrapper.WrapperChanged += new System.EventHandler(this.WrapperChanged);
-                cbOBJDvsn.Enabled = tbCTSSInstance.Enabled =
-                    gbValue.Enabled = gbMotiveRs.Enabled =
-                    gbValidEPs1.Enabled = gbValidEPs2.Enabled =
-                    gbRoomSort.Enabled = gbCommSort.Enabled = gbFuncSort.Enabled = gbBuildSort.Enabled =
+                cbOBJDvsn.IsEnabled = tbCTSSInstance.IsEnabled =
+                    gbValue.IsEnabled = gbMotiveRs.IsEnabled =
+                    gbValidEPs1.IsEnabled = gbValidEPs2.IsEnabled =
+                    gbRoomSort.IsEnabled = gbCommSort.IsEnabled = gbFuncSort.IsEnabled = gbBuildSort.IsEnabled =
                         true;
 
                 tbOBJDName.Text = wrapper.Filename;
@@ -359,7 +536,6 @@ namespace pjOBJDTool
                 cbOBJDvsn.SelectedIndex = wrapper[0x00] <= 0x8b ? 0 : wrapper[0x00] >= 0x8d ? 2 : 1;
                 cbOBJDvsn_SelectedIndexChanged(null, null);
 
-                //tbCTSSGroup.Text = "0x" + SimPe.Helper.HexString(wrapper.FileDescriptor.Group);
                 tbCTSSInstance.Text = "0x" + SimPe.Helper.HexString(wrapper[0x29]);
                 docCTSSInstance_DataOwnerControlChanged(null, null);
 
@@ -367,7 +543,7 @@ namespace pjOBJDTool
                     atbValueMotive[i].Text = wrapper[asValueMotive[i]].ToString();
 
                 for (int i = 0; i < ackbValue.Count; i++)
-                    ackbValue[i].Checked = wrapper[abValue[i]] != 0;
+                    ackbValue[i].IsChecked = wrapper[abValue[i]] != 0;
 
                 for (int i = 0; i < albcRoomCommm.Count; i++)
                     albcRoomCommm[i].Value = (ushort)wrapper[absRoomComm[i]];
@@ -388,16 +564,16 @@ namespace pjOBJDTool
 
         private void SaveOBJD()
         {
-            if (wrapper == null) return; // will never happen
-            changed |= pfd != null && wrapper.FileDescriptor != null && pfd == wrapper.FileDescriptor && wrapper.Changed; // can only become true, never false.
+            if (wrapper == null) return;
+            changed |= pfd != null && wrapper.FileDescriptor != null && pfd == wrapper.FileDescriptor && wrapper.Changed;
 
             wrapper.SynchronizeUserData();
-            btnCommit.Enabled = wrapper.Changed;
+            btnCommit.IsEnabled = wrapper.Changed;
         }
 
         private void WrapperChanged(object sender, System.EventArgs e)
         {
-            this.btnCommit.Enabled = wrapper.Changed;
+            this.btnCommit.IsEnabled = wrapper.Changed;
         }
 
         private List<pfOBJD> availableOBJDs = null;
@@ -410,7 +586,7 @@ namespace pjOBJDTool
                 List<pfOBJD> lpfo = new List<pfOBJD>();
                 pjse.FileTable.Entry[] items = pjse.FileTable.GFT[SimPe.Data.MetaData.OBJD_FILE, pjse.FileTable.Source.Local];
                 SimPe.Wait.Start(items.Length);
-                foreach(pjse.FileTable.Entry item in items)
+                foreach (pjse.FileTable.Entry item in items)
                 {
                     pfOBJD pfo = new pfOBJD();
                     pfo.ProcessData(item.PFD, item.Package);
@@ -424,14 +600,11 @@ namespace pjOBJDTool
             }
         }
 
-
         #region ITool Members
-        
-        // IToolResult ITool.ShowDialog(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package)
-        
+
         internal IToolResult Execute(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package, IProviderRegistry prov)
         {
-            Application.OpenForms[0].Cursor = System.Windows.Forms.Cursors.AppStarting;
+            SimPe.RemoteControl.ApplicationForm.Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 
             if (!initialised) InitializeForm();
             availableOBJDs = null;
@@ -440,31 +613,30 @@ namespace pjOBJDTool
             changed = false;
 
             List<pfOBJD> apfs = AvailableOBJDs;
-            btnSelectOBJD.Enabled = apfs.Count > 1;
+            btnSelectOBJD.IsEnabled = apfs.Count > 1;
 
-            Application.OpenForms[0].Cursor = System.Windows.Forms.Cursors.Default;
+            SimPe.RemoteControl.ApplicationForm.Cursor = null;
 
             if (apfs.Count > 1 || apfs.Count == 0) btnSelectOBJD_Click(null, null);
             else CurrentOBJD = apfs[0];
 
             if (wrapper != null)
             {
-                btnCommit.Enabled = wrapper.Changed;
-                this.ShowDialog();
+                btnCommit.IsEnabled = wrapper.Changed;
+                this.ShowDialog(null).GetAwaiter().GetResult();
             }
 
             return new SimPe.Plugin.ToolResult(changed, false);
         }
-        
+
         #endregion
 
         private void btnSelectOBJD_Click(object sender, EventArgs e)
         {
             cOBJDChooser coc = new cOBJDChooser();
-            DialogResult dr = coc.Execute(AvailableOBJDs);
-            if (dr == DialogResult.OK && coc.Value != null)
+            coc.Execute(AvailableOBJDs);
+            if (coc.DialogAccepted && coc.Value != null)
                 CurrentOBJD = coc.Value;
-            coc.Dispose();
         }
 
         private void btnCommit_Click(object sender, EventArgs e)
@@ -480,16 +652,9 @@ namespace pjOBJDTool
             wrapper[0x00] = value;
 
             value = wrapper[absEPs[1]];
-            if (wrapper[0x00] < 0x8c) { wrapper[absEPs[1]] = 0; gbValidEPs2.Enabled = false; if (value != 0) wrapper[absEPs[0]] = 0x01; }
+            if (wrapper[0x00] < 0x8c) { wrapper[absEPs[1]] = 0; gbValidEPs2.IsEnabled = false; if (value != 0) wrapper[absEPs[0]] = 0x01; }
             else
-                gbValidEPs2.Enabled = true;
-            // if (wrapper[0x00] < 0x8c) wrapper[absEPs[0]] = 0;
-        }
-
-        private void cOBJDTool_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            CurrentOBJD = null;
-            e.Cancel = CurrentOBJD != null;
+                gbValidEPs2.IsEnabled = true;
         }
     }
 }

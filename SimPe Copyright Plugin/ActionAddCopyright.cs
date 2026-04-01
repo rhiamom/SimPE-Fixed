@@ -49,7 +49,7 @@ namespace SimPe.Plugin.Tool.Action
 		{
 			if (!ChangeEnabledStateEventHandler(null, e)) return;
 			
-			form.ShowDialog();
+			form.ShowDialog(null).GetAwaiter().GetResult();
 			foreach (SimPe.Events.ResourceContainer rc in e)
 			{
 				if (rc.Resource.FileDescriptor.Type==Data.MetaData.MMAT) AddToMMAT(rc);

@@ -40,9 +40,9 @@ namespace SimPe.Wizards
 		{
 			get
             {
-                Step1.Form.lbDone.Visible = false;
-                Step1.Form.linkLabel1.Visible = true;
-                Step1.Form.lvpackages.Enabled = Step1.Form.cbShapes.Enabled = true;
+                Step1.Form.lbDone.IsVisible = false;
+                Step1.Form.linkLabel1.IsVisible = true;
+                Step1.Form.lvpackages.IsEnabled = Step1.Form.cbShapes.IsEnabled = true;
                 return null; // TODO: return Avalonia Panel
 			}
         }

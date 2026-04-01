@@ -23,29 +23,70 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 
 namespace pjOBJDTool
 {
-    public partial class cOBJDChooser : Form
+    public class cOBJDChooser : Avalonia.Controls.Window
     {
-        private pfOBJD value = null;
-        public pfOBJD Value { get { return value; } }
-        List<pfOBJD> items = null;
+        private bool _dialogAccepted = false;
+        public bool DialogAccepted => _dialogAccepted;
+
+        private pfOBJD _value = null;
+        public pfOBJD Value => _value;
+
+        private List<pfOBJD> _items = null;
+
+        private Avalonia.Controls.Label label1 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label2 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Button btnOK = new Avalonia.Controls.Button();
+        private Avalonia.Controls.Button btnCancel = new Avalonia.Controls.Button();
+        private Avalonia.Controls.ListBox lbItems = new Avalonia.Controls.ListBox();
 
         public cOBJDChooser()
         {
-            InitializeComponent();
+            Title = "Choose OBJD";
+            Width = 400;
+            Height = 300;
+            CanResize = false;
+
+            label1.Content = "Select an OBJD:";
+            label2.Content = "* = lead OBJD";
+            btnOK.Content = "OK";
+            btnCancel.Content = "Cancel";
+
+            btnOK.Click += (s, e) => { _dialogAccepted = true; Close(); };
+            btnCancel.Click += (s, e) => Close();
+
+            lbItems.DoubleTapped += (s, e) => { _dialogAccepted = true; Close(); };
+            lbItems.SelectionChanged += lbItems_SelectionChanged;
+
+            var buttonRow = new Avalonia.Controls.StackPanel
+            {
+                Orientation = Avalonia.Layout.Orientation.Horizontal,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                Spacing = 6,
+                Margin = new Avalonia.Thickness(0, 6, 0, 0)
+            };
+            buttonRow.Children.Add(btnOK);
+            buttonRow.Children.Add(btnCancel);
+
+            var layout = new Avalonia.Controls.DockPanel { Margin = new Avalonia.Thickness(8) };
+            Avalonia.Controls.DockPanel.SetDock(label1, Avalonia.Controls.Dock.Top);
+            Avalonia.Controls.DockPanel.SetDock(label2, Avalonia.Controls.Dock.Top);
+            Avalonia.Controls.DockPanel.SetDock(buttonRow, Avalonia.Controls.Dock.Bottom);
+            layout.Children.Add(label1);
+            layout.Children.Add(label2);
+            layout.Children.Add(buttonRow);
+            layout.Children.Add(lbItems);
+
+            Content = layout;
         }
 
-        public DialogResult Execute(List<pfOBJD> items)
+        public void Execute(List<pfOBJD> items)
         {
-            this.items = items;
-            value = null;
+            _items = items;
+            _value = null;
+            _dialogAccepted = false;
 
             lbItems.Items.Clear();
             foreach (pfOBJD item in items)
@@ -54,7 +95,7 @@ namespace pjOBJDTool
                 if (IsLead(item)) lbItems.SelectedIndex = lbItems.Items.Count - 1;
             }
 
-            return ShowDialog();
+            ShowDialog(null).GetAwaiter().GetResult();
         }
 
         bool IsLead(pfOBJD item)
@@ -62,16 +103,10 @@ namespace pjOBJDTool
             return (item[0x0a] == 0 || (item[0x0a] > 0 && (short)item[0x0b] < 0));
         }
 
-        private void lbItems_SelectedIndexChanged(object sender, EventArgs e)
+        private void lbItems_SelectionChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
         {
-            if (lbItems.SelectedIndex >= 0)
-                value = items[lbItems.SelectedIndex];
-        }
-
-        private void lbItems_DoubleClick(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (lbItems.SelectedIndex >= 0 && _items != null)
+                _value = _items[lbItems.SelectedIndex];
         }
     }
 }

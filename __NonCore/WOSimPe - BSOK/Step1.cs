@@ -81,7 +81,7 @@ namespace SimPe.Wizards
 		{
 			get
 			{
-                Form.rtbAbout.Visible = false;
+                Form.rtbAbout.IsVisible = false;
 				return null; // TODO: return Avalonia Panel
 			}
 		}

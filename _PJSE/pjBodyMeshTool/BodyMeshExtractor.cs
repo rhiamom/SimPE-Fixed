@@ -25,11 +25,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
-using System.Windows.Forms;
 using SimPe.Interfaces;
 using SimPe.Interfaces.Scenegraph;
 using SimPe.Interfaces.Files;
 using SimPe;
+using SimPe.Scenegraph.Compat;
+using MessageBoxButtons = SimPe.Scenegraph.Compat.MessageBoxButtons;
+using MessageBoxIcon = SimPe.Scenegraph.Compat.MessageBoxIcon;
 
 namespace pj
 {
@@ -69,7 +71,7 @@ namespace pj
         private IPackageFile currentPackage;
         private String getFilename()
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            OpenFileDialogCompat ofd = new OpenFileDialogCompat();
             ofd.AddExtension = true;
             ofd.CheckFileExists = true;
             ofd.CheckPathExists = true;
@@ -84,8 +86,8 @@ namespace pj
             ofd.ShowHelp = ofd.ShowReadOnly = false;
             ofd.Title = L.Get("selectPkgTexture");
             ofd.ValidateNames = true;
-            DialogResult dr = ofd.ShowDialog();
-            if (DialogResult.OK.Equals(dr))
+            SimPe.Scenegraph.Compat.DialogResult dr = ofd.ShowDialog();
+            if (SimPe.Scenegraph.Compat.DialogResult.OK.Equals(dr))
                 return ofd.FileName;
             return null;
         }
@@ -191,10 +193,10 @@ namespace pj
                     break; // pfa is now the Shape
                 }
             }
-            if (!found) return false;    
+            if (!found) return false;
             // find 'im GMND
             SimPe.Plugin.GenericRcol grn = new SimPe.Plugin.GenericRcol(null, false);
-            grn.ProcessData(pfa, p);            
+            grn.ProcessData(pfa, p);
             SimPe.Plugin.Shape shp = (SimPe.Plugin.Shape)grn.Blocks[0];
             string gmndee = null;
 
@@ -255,18 +257,18 @@ namespace pj
 
             #region Prompt for mesh name or browse for package and extract names
             GetMeshName gmn = new GetMeshName();
-            DialogResult dr = gmn.ShowDialog();
-            if (dr.Equals(DialogResult.OK))
+            gmn.ShowDialog(null).GetAwaiter().GetResult();
+            if (gmn.DialogAccepted)
             {
                 if (gmn.MeshName.Length > 0)
                     al.Add(gmn.MeshName);
                 else
                 {
-                    MessageBox.Show(L.Get("noMeshName"), L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("noMeshName"), L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Error).GetAwaiter().GetResult();
                     return;
                 }
             }
-            else if (dr.Equals(DialogResult.Retry)) // nasty... Result of Browse button which is required
+            else if (gmn.BrowsedForPackage) // nasty... Result of Browse button which is required
             {
                 #region Get body mesh package file name and open the package
                 String bodyMeshPackage = getFilename();
@@ -303,8 +305,8 @@ namespace pj
                     IPackedFileDescriptor[] pfb = p.FindFiles(0x0C1FE246); // XMOL?
                     if ((pfa == null || pfa.Length == 0) && (pfb == null || pfb.Length == 0))
                     {
-                        MessageBox.Show(L.Get("noGZPSXMOL"),
-                            L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("noGZPSXMOL"),
+                            L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Error).GetAwaiter().GetResult();
                         return;
                     }
                 #endregion
@@ -325,9 +327,9 @@ namespace pj
                                 al.Add(cpf.Items[j].StringValue);
                             if (al.Count > 1 && !prompted)
                             {
-                                if (MessageBox.Show(L.Get("multipleMeshes"),
-                                    L.Get("pjSME"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                                    != DialogResult.Yes)
+                                if (SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("multipleMeshes"),
+                                    L.Get("pjSME"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning).GetAwaiter().GetResult()
+                                    != SimPe.Scenegraph.Compat.DialogResult.Yes)
                                     return;
                                 prompted = true;
                             }
@@ -335,8 +337,8 @@ namespace pj
                     }
                     if (al.Count == 0)
                     {
-                        MessageBox.Show(L.Get("noMeshPkg"),
-                            L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("noMeshPkg"),
+                            L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Error).GetAwaiter().GetResult();
                         return;
                     }
                     #endregion
@@ -364,8 +366,8 @@ namespace pj
                 success = success && findAndAdd(mesh, SimPe.Data.MetaData.CRES, "Sims06.package");
                 SimPe.RemoteControl.ApplicationForm.Cursor = null;
                 if (!success)
-                    MessageBox.Show(L.Get("notAllPartsFound") + m,
-                        L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("notAllPartsFound") + m,
+                        L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Warning).GetAwaiter().GetResult();
             }
             #endregion
         }
@@ -410,13 +412,6 @@ namespace pj
                 return LoadIcon.load("actionexport");
             }
         }
-        /*public override System.Drawing.Image Icon
-        {
-            get
-            {
-                return SimPe.GetIcon.BMExtract;
-            }
-        }*/
         #endregion
     }
 }

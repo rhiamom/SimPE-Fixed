@@ -23,11 +23,13 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Windows.Forms;
 using SimPe.Interfaces;
 using SimPe.Interfaces.Scenegraph;
 using SimPe.Interfaces.Files;
 using SimPe;
+using SimPe.Scenegraph.Compat;
+using MessageBoxButtons = SimPe.Scenegraph.Compat.MessageBoxButtons;
+using MessageBoxIcon = SimPe.Scenegraph.Compat.MessageBoxIcon;
 
 namespace pj
 {
@@ -38,7 +40,7 @@ namespace pj
 
         private String getFilename()
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            OpenFileDialogCompat ofd = new OpenFileDialogCompat();
             ofd.AddExtension = true;
             ofd.CheckFileExists = true;
             ofd.CheckPathExists = true;
@@ -53,16 +55,17 @@ namespace pj
             ofd.ShowHelp = ofd.ShowReadOnly = false;
             ofd.Title = L.Get("selectPkgMesh");
             ofd.ValidateNames = true;
-            DialogResult dr = ofd.ShowDialog();
-            if (DialogResult.OK.Equals(dr))
+            SimPe.Scenegraph.Compat.DialogResult dr = ofd.ShowDialog();
+            if (SimPe.Scenegraph.Compat.DialogResult.OK.Equals(dr))
                 return ofd.FileName;
             return null;
         }
 
         private void Main()
         {
-            if (!MessageBox.Show(L.Get("pjSMLbegin"),
-                L.Get("pjSML"), MessageBoxButtons.OKCancel, MessageBoxIcon.Information).Equals(DialogResult.OK))
+            if (!SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("pjSMLbegin"),
+                L.Get("pjSML"), MessageBoxButtons.OKCancel, MessageBoxIcon.Information).GetAwaiter().GetResult()
+                .Equals(SimPe.Scenegraph.Compat.DialogResult.OK))
                 return;
 
             SimPe.Plugin.RefFile refFile = new SimPe.Plugin.RefFile();
@@ -71,8 +74,8 @@ namespace pj
             if (LinkBodyMesh(refFile))
             {
                 refFile.SynchronizeUserData();
-                MessageBox.Show(L.Get("pjSMLdone"),
-                    L.Get("pjSML"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("pjSMLdone"),
+                    L.Get("pjSML"), MessageBoxButtons.OK, MessageBoxIcon.Information).GetAwaiter().GetResult();
             }
         }
 
@@ -81,8 +84,8 @@ namespace pj
             if (refFile.Items[0].Type != SimPe.Data.MetaData.CRES
                 || refFile.Items[1].Type != SimPe.Data.MetaData.SHPE)
             {
-                MessageBox.Show(L.Get("noCRESSHPE"),
-                    L.Get("pjSML"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("noCRESSHPE"),
+                    L.Get("pjSML"), MessageBoxButtons.OK, MessageBoxIcon.Error).GetAwaiter().GetResult();
                 return false;
             }
 
@@ -95,8 +98,8 @@ namespace pj
             catch { p = null; }
             if (p == null)
             {
-                MessageBox.Show(L.Get("didNotOpen") + "\r\n" + meshPackage,
-                    L.Get("pjSML"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("didNotOpen") + "\r\n" + meshPackage,
+                    L.Get("pjSML"), MessageBoxButtons.OK, MessageBoxIcon.Error).GetAwaiter().GetResult();
                 return false;
             }
 
@@ -104,8 +107,8 @@ namespace pj
             IPackedFileDescriptor[] pfb = p.FindFiles(SimPe.Data.MetaData.SHPE);
             if (pfa == null || pfa.Length != 1 || pfb == null || pfb.Length != 1)
             {
-                MessageBox.Show(L.Get("badMeshPackage") + "\r\n" + meshPackage,
-                    L.Get("pjSML"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("badMeshPackage") + "\r\n" + meshPackage,
+                    L.Get("pjSML"), MessageBoxButtons.OK, MessageBoxIcon.Error).GetAwaiter().GetResult();
                 return false;
             }
 
@@ -140,8 +143,8 @@ namespace pj
         {
             if (!IsReallyEnabled(pfd, package))
             {
-                System.Windows.Forms.MessageBox.Show(SimPe.Localization.GetString("This is not an appropriate context in which to use this tool"),
-                    L.Get("pjSML"));
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(SimPe.Localization.GetString("This is not an appropriate context in which to use this tool"),
+                    L.Get("pjSML")).GetAwaiter().GetResult();
                 return new SimPe.Plugin.ToolResult(false, false);
             }
             Main();

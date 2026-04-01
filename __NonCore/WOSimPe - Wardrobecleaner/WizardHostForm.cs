@@ -1,17 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Layout;
 using SimPe.Wizards;
 
 namespace SimPe.Plugin
 {
-    public class WizardHostForm : Form
+    public class WizardHostForm : Avalonia.Controls.Window
     {
-        Panel contentPanel;
-        Label lblMessage;
-        Button btnNext, btnBack, btnClose;
-        Stack<IWizardForm> history = new Stack<IWizardForm>();
-        IWizardForm currentStep;
+        private Panel contentPanel;
+        private Label lblMessage;
+        private Button btnNext, btnBack, btnClose;
+        private Stack<IWizardForm> history = new Stack<IWizardForm>();
+        private IWizardForm currentStep;
 
         public WizardHostForm(IWizardForm firstStep)
         {
@@ -21,51 +23,52 @@ namespace SimPe.Plugin
 
         void BuildUI()
         {
-            this.Text = "Wardrobe Wrangler";
-            this.Size = new System.Drawing.Size(600, 480);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.MinimizeBox = false;
+            Title = "Wardrobe Wrangler";
+            Width = 600;
+            Height = 480;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
-            lblMessage = new Label { Dock = DockStyle.Top, Height = 24, Padding = new Padding(4, 4, 4, 0) };
+            lblMessage = new Label { Content = "", Margin = new Thickness(4, 4, 4, 0) };
+            contentPanel = new Panel();
 
-            contentPanel = new Panel { Dock = DockStyle.Fill };
-
-            var buttonBar = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 36,
-                FlowDirection = FlowDirection.RightToLeft,
-                Padding = new Padding(4)
-            };
-
-            btnClose = new Button { Text = "Close", Width = 80 };
-            btnNext  = new Button { Text = "Next >", Width = 80 };
-            btnBack  = new Button { Text = "< Back", Width = 80 };
+            btnBack  = new Button { Content = "< Back", Width = 80, Margin = new Thickness(2) };
+            btnNext  = new Button { Content = "Next >", Width = 80, Margin = new Thickness(2) };
+            btnClose = new Button { Content = "Close",  Width = 80, Margin = new Thickness(2) };
 
             btnClose.Click += (s, e) => Close();
             btnNext.Click  += (s, e) => GoNext();
             btnBack.Click  += (s, e) => GoBack();
 
-            buttonBar.Controls.AddRange(new Control[] { btnClose, btnNext, btnBack });
+            var buttonBar = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Margin = new Thickness(4)
+            };
+            buttonBar.Children.Add(btnBack);
+            buttonBar.Children.Add(btnNext);
+            buttonBar.Children.Add(btnClose);
 
-            this.Controls.Add(contentPanel);
-            this.Controls.Add(lblMessage);
-            this.Controls.Add(buttonBar);
+            var root = new DockPanel();
+            DockPanel.SetDock(lblMessage, Dock.Top);
+            DockPanel.SetDock(buttonBar, Dock.Bottom);
+            root.Children.Add(lblMessage);
+            root.Children.Add(buttonBar);
+            root.Children.Add(contentPanel);
+
+            Content = root;
         }
 
         void ShowStep(IWizardForm step)
         {
-            // Access WizardWindow first so the step can create its lazy UI controls,
-            // then Init() so it can call UpdateList() etc. on the now-existing controls.
             var avPanel = step.WizardWindow;
             step.Init(OnStepChanged);
             currentStep = step;
 
-            contentPanel.Controls.Clear();
-            // avPanel is Avalonia.Controls.Panel (stub returns null); WinForms panel embedding deferred to Avalonia migration
-            _ = avPanel;
+            contentPanel.Children.Clear();
+            _ = avPanel; // Avalonia panel embedding deferred — steps return null for now
 
-            lblMessage.Text = step.WizardMessage;
+            lblMessage.Content = step.WizardMessage;
             UpdateButtons();
         }
 
@@ -78,10 +81,10 @@ namespace SimPe.Plugin
 
         void UpdateButtons()
         {
-            btnBack.Enabled = history.Count > 0;
+            btnBack.IsEnabled = history.Count > 0;
             bool isFinal = currentStep.Next == null;
-            btnNext.Enabled = currentStep.CanContinue && !isFinal;
-            btnNext.Text = isFinal ? "Finish" : "Next >";
+            btnNext.IsEnabled = currentStep.CanContinue && !isFinal;
+            btnNext.Content = isFinal ? "Finish" : "Next >";
         }
 
         void GoNext()

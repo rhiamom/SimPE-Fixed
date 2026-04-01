@@ -192,6 +192,7 @@ namespace System.Windows.Forms
     {
         public string SelectedPath { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public System.Environment.SpecialFolder RootFolder { get; set; }
         public SimPe.DialogResult ShowDialog() => SimPe.DialogResult.Cancel;
         public void Dispose() { }
     }

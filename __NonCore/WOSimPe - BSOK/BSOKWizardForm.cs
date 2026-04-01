@@ -21,41 +21,36 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  **************************************************************************/
 using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 using System.Collections.Generic;
 using System.IO;
-using System.Data;
+using SimPe.Scenegraph.Compat;
 
 namespace SimPe.Wizards
 {
-	/// <summary>
+    /// <summary>
     /// Summary description for BsokWizardForm.
-	/// </summary>
-	public class BsokWizardForm : System.Windows.Forms.Form
-	{
-		private TabControl tabControl1;
-		private TabPage tabPage1;
-		private TabPage tabPage2;
-		internal Panel pnwizard1;
-		internal Panel pnwizard2;
-		private Label label1;
-        private Label label2;
-        private Label lboops;
-        private Label lbPath;
-        internal Label lbDone;
-        internal LinkLabel linkLabel1;
-        private LinkLabel linkyicon1;
-        private Button button1;
-        private PictureBox pbicon;
-        private RichTextBox rtb;
-        internal RichTextBox rtbAbout;
-        internal ComboBox cbShapes;
-        internal ListView lvpackages;
-        internal FolderBrowserDialog fbd1;
-		private System.ComponentModel.Container components = null;
+    /// </summary>
+    public class BsokWizardForm : Avalonia.Controls.Window
+    {
+        private Avalonia.Controls.TabControl tabControl1 = new Avalonia.Controls.TabControl();
+        private Avalonia.Controls.TabItem tabPage1 = new Avalonia.Controls.TabItem();
+        private Avalonia.Controls.TabItem tabPage2 = new Avalonia.Controls.TabItem();
+        internal Avalonia.Controls.Panel pnwizard1 = new Avalonia.Controls.Panel();
+        internal Avalonia.Controls.Panel pnwizard2 = new Avalonia.Controls.Panel();
+        private Avalonia.Controls.Label label1 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label label2 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label lboops = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Label lbPath = new Avalonia.Controls.Label();
+        internal Avalonia.Controls.Label lbDone = new Avalonia.Controls.Label();
+        internal Avalonia.Controls.Button linkLabel1 = new Avalonia.Controls.Button();
+        private Avalonia.Controls.Button linkyicon1 = new Avalonia.Controls.Button();
+        private Avalonia.Controls.Button button1 = new Avalonia.Controls.Button();
+        private SimPe.Scenegraph.Compat.PictureBox pbicon = new SimPe.Scenegraph.Compat.PictureBox();
+        private Avalonia.Controls.TextBox rtb = new Avalonia.Controls.TextBox();
+        internal Avalonia.Controls.TextBox rtbAbout = new Avalonia.Controls.TextBox();
+        internal Avalonia.Controls.ComboBox cbShapes = new Avalonia.Controls.ComboBox();
+        internal SimPe.Scenegraph.Compat.ListView lvpackages = new SimPe.Scenegraph.Compat.ListView();
+        internal System.Windows.Forms.FolderBrowserDialog fbd1 = new System.Windows.Forms.FolderBrowserDialog();
         internal string floder = null;
         internal Step1 step1;
         internal Step2 step2;
@@ -66,28 +61,27 @@ namespace SimPe.Wizards
 
         public BsokWizardForm()
         {
-            InitializeComponent();
+            Title = "BsokWizardForm";
+            Width = 660;
+            Height = 260;
+
+            BuildLayout();
+
             if (SimPe.Helper.SimPeVersionLong < 330717003777) // the first 77 version
             {
-                this.button1.Enabled = false;
-                this.lboops.Visible = true;
-                this.linkyicon1.Visible = this.label1.Visible = false;
-                this.lboops.Text = "This Version of SimPe is too old";
+                button1.IsEnabled = false;
+                lboops.IsVisible = true;
+                linkyicon1.IsVisible = label1.IsVisible = false;
+                lboops.Content = "This Version of SimPe is too old";
             }
             else
             {
                 InitializeBodyShapes();
                 LoadHelpFile();
-                if (SimPe.Helper.SimPeVersionLong < 330717003783) // the first version with larger form
-                {
-                    this.lbDone.Font = new System.Drawing.Font("Verdana", 9.75F);
-                    this.rtbAbout.ZoomFactor = 0.7F; // comprimize 0.6 fits but is too small to read
-                }
 
                 foreach (KeyValuePair<uint, string> kvp in BodyShapeIds)
-                    this.cbShapes.Items.Add(kvp.Value);
+                    cbShapes.Items.Add(kvp.Value);
 
-                // this.pbicon.BackgroundImage = global::SimPe.Wizards.Properties.Resources.WizardIcon; // TODO: restore after Avalonia port
                 pak = SimPe.Packages.File.LoadFromFile(System.IO.Path.Combine(PathProvider.Global.Latest.InstallFolder, "TSData\\Res\\UI\\ui.package"));
                 if (System.IO.Directory.Exists(System.IO.Path.Combine(PathProvider.SimSavegameFolder, "Downloads")))
                 {
@@ -97,306 +91,63 @@ namespace SimPe.Wizards
             }
         }
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-                if (pak != null) pak.Close();
-			}
-			base.Dispose( disposing );
+        private void BuildLayout()
+        {
+            // Tab 1: Step 1 — Browse for folder
+            label1.Content = "Select the Browse button to choose a folder of outfits to configure";
+            lboops.Content = "There is no outfits there";
+            lboops.IsVisible = false;
+            button1.Content = "Browse..";
+            button1.Click += button1_Click;
+            linkyicon1.Content = "About...";
+            linkyicon1.Click += linkyicon1_Click;
+            rtbAbout.IsVisible = false;
+            rtbAbout.AcceptsReturn = true;
+            rtbAbout.IsReadOnly = true;
+            rtb.IsVisible = false;
+            rtb.AcceptsReturn = true;
+
+            var step1Stack = new Avalonia.Controls.StackPanel { Margin = new Avalonia.Thickness(4) };
+            var step1TopRow = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right };
+            step1TopRow.Children.Add(linkyicon1);
+            step1Stack.Children.Add(step1TopRow);
+            step1Stack.Children.Add(label1);
+            step1Stack.Children.Add(button1);
+            step1Stack.Children.Add(lboops);
+            step1Stack.Children.Add(lbPath);
+            step1Stack.Children.Add(rtbAbout);
+            pnwizard1.Children.Add(step1Stack);
+            tabPage1.Header = "Step 1";
+            tabPage1.Content = pnwizard1;
+
+            // Tab 2: Step 2 — Select body shape
+            label2.Content = "Select a Body Shape for the selected outfits";
+            lbDone.Content = "The selected files have been BSOK'd, unselected files were not altered";
+            lbDone.IsVisible = false;
+            linkLabel1.Content = "Sort by Creator";
+            linkLabel1.Click += linkLabel1_Click;
+            cbShapes.SelectionChanged += cbShapes_SelectedIndexChanged;
+
+            var step2Stack = new Avalonia.Controls.StackPanel { Margin = new Avalonia.Thickness(4) };
+            step2Stack.Children.Add(label2);
+            var step2Row = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 8 };
+            step2Row.Children.Add(cbShapes);
+            step2Row.Children.Add(linkLabel1);
+            step2Stack.Children.Add(step2Row);
+            step2Stack.Children.Add(lbDone);
+            pnwizard2.Children.Add(step2Stack);
+            tabPage2.Header = "Step 2";
+            tabPage2.Content = pnwizard2;
+
+            tabControl1.Items.Add(tabPage1);
+            tabControl1.Items.Add(tabPage2);
+
+            Content = tabControl1;
         }
-
-        #region Windows Form Designer generated code
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pnwizard1 = new System.Windows.Forms.Panel();
-            this.rtb = new System.Windows.Forms.RichTextBox();
-            this.rtbAbout = new System.Windows.Forms.RichTextBox();
-            this.linkyicon1 = new System.Windows.Forms.LinkLabel();
-            this.lbPath = new System.Windows.Forms.Label();
-            this.lboops = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.pnwizard2 = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.pbicon = new System.Windows.Forms.PictureBox();
-            this.lbDone = new System.Windows.Forms.Label();
-            this.lvpackages = new System.Windows.Forms.ListView();
-            this.cbShapes = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.fbd1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.pnwizard1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.pnwizard2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbicon)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(8, 8);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(632, 214);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.pnwizard1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 23);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(624, 187);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Step 1";
-            // 
-            // pnwizard1
-            // 
-            this.pnwizard1.BackColor = System.Drawing.Color.White;
-            this.pnwizard1.Controls.Add(this.rtbAbout);
-            this.pnwizard1.Controls.Add(this.linkyicon1);
-            this.pnwizard1.Controls.Add(this.lbPath);
-            this.pnwizard1.Controls.Add(this.lboops);
-            this.pnwizard1.Controls.Add(this.button1);
-            this.pnwizard1.Controls.Add(this.label1);
-            this.pnwizard1.Location = new System.Drawing.Point(0, 0);
-            this.pnwizard1.Name = "pnwizard1";
-            this.pnwizard1.Size = new System.Drawing.Size(624, 184);
-            this.pnwizard1.TabIndex = 10;
-            // 
-            // rtb
-            // 
-            this.rtb.Name = "rtb";
-            this.rtb.Size = new System.Drawing.Size(824, 156);
-            this.rtb.TabIndex = 8;
-            this.rtb.Text = "";
-            this.rtb.Visible = false;
-            // 
-            // rtbAbout
-            // 
-            this.rtbAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbAbout.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbAbout.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbAbout.Location = new System.Drawing.Point(0, 28);
-            this.rtbAbout.Name = "rtbAbout";
-            this.rtbAbout.Size = new System.Drawing.Size(624, 156);
-            this.rtbAbout.TabIndex = 5;
-            this.rtbAbout.Text = "";
-            this.rtbAbout.Visible = false;
-            this.rtbAbout.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtbAbout_LinkClicked);
-            // 
-            // linkyicon1
-            // 
-            this.linkyicon1.ActiveLinkColor = System.Drawing.Color.Red;
-            this.linkyicon1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkyicon1.BackColor = System.Drawing.Color.Transparent;
-            this.linkyicon1.DisabledLinkColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.linkyicon1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkyicon1.ForeColor = System.Drawing.Color.Black;
-            this.linkyicon1.Text = "About...";
-            this.linkyicon1.LinkColor = System.Drawing.Color.Red;
-            this.linkyicon1.Location = new System.Drawing.Point(517, 4);
-            this.linkyicon1.Margin = new System.Windows.Forms.Padding(0);
-            this.linkyicon1.Name = "linkyicon1";
-            this.linkyicon1.Size = new System.Drawing.Size(92, 18);
-            this.linkyicon1.TabIndex = 4;
-            this.linkyicon1.VisitedLinkColor = System.Drawing.Color.Maroon;
-            this.linkyicon1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkyicon1_LinkClicked);
-            // 
-            // lbPath
-            // 
-            this.lbPath.AutoSize = true;
-            this.lbPath.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPath.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lbPath.Location = new System.Drawing.Point(4, 148);
-            this.lbPath.Name = "lbPath";
-            this.lbPath.Size = new System.Drawing.Size(0, 18);
-            this.lbPath.TabIndex = 3;
-            // 
-            // lboops
-            // 
-            this.lboops.AutoSize = true;
-            this.lboops.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lboops.ForeColor = System.Drawing.Color.Maroon;
-            this.lboops.Location = new System.Drawing.Point(111, 116);
-            this.lboops.Name = "lboops";
-            this.lboops.Size = new System.Drawing.Size(274, 23);
-            this.lboops.TabIndex = 2;
-            this.lboops.Text = "There is no outfits there";
-            this.lboops.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(200, 72);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 33);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Browse.. ";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(8, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(557, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Select the Browse button to choose a folder of outfits to configure";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.pnwizard2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(624, 188);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Step 2";
-            // 
-            // pnwizard2
-            // 
-            this.pnwizard2.BackColor = System.Drawing.Color.White;
-            this.pnwizard2.Controls.Add(this.linkLabel1);
-            this.pnwizard2.Controls.Add(this.pbicon);
-            this.pnwizard2.Controls.Add(this.lbDone);
-            this.pnwizard2.Controls.Add(this.lvpackages);
-            this.pnwizard2.Controls.Add(this.cbShapes);
-            this.pnwizard2.Controls.Add(this.label2);
-            this.pnwizard2.Location = new System.Drawing.Point(0, 2);
-            this.pnwizard2.Name = "pnwizard2";
-            this.pnwizard2.Size = new System.Drawing.Size(624, 184);
-            this.pnwizard2.TabIndex = 10;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.LinkColor = System.Drawing.Color.Red;
-            this.linkLabel1.Location = new System.Drawing.Point(444, 29);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(132, 18);
-            this.linkLabel1.TabIndex = 5;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Sort by Creator";
-            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Maroon;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // pbicon
-            // 
-            this.pbicon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbicon.Location = new System.Drawing.Point(378, 0);
-            this.pbicon.Name = "pbicon";
-            this.pbicon.Size = new System.Drawing.Size(66, 66);
-            this.pbicon.TabIndex = 2;
-            this.pbicon.TabStop = false;
-            // 
-            // lbDone
-            // 
-            this.lbDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbDone.AutoSize = true;
-            this.lbDone.Font = new System.Drawing.Font("Verdana", 12F);
-            this.lbDone.Location = new System.Drawing.Point(4, 164);
-            this.lbDone.Name = "lbDone";
-            this.lbDone.Size = new System.Drawing.Size(594, 18);
-            this.lbDone.TabIndex = 4;
-            this.lbDone.Text = "The selected files have been BSOK\'d, unselected files were not altered";
-            this.lbDone.Visible = false;
-            // 
-            // lvpackages
-            // 
-            this.lvpackages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvpackages.CheckBoxes = true;
-            this.lvpackages.FullRowSelect = true;
-            this.lvpackages.Location = new System.Drawing.Point(4, 66);
-            this.lvpackages.Name = "lvpackages";
-            this.lvpackages.Size = new System.Drawing.Size(614, 94);
-            this.lvpackages.TabIndex = 3;
-            this.lvpackages.UseCompatibleStateImageBehavior = false;
-            this.lvpackages.View = System.Windows.Forms.View.List;
-            // 
-            // cbShapes
-            // 
-            this.cbShapes.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbShapes.FormattingEnabled = true;
-            this.cbShapes.Location = new System.Drawing.Point(4, 25);
-            this.cbShapes.Name = "cbShapes";
-            this.cbShapes.Size = new System.Drawing.Size(372, 26);
-            this.cbShapes.TabIndex = 1;
-            this.cbShapes.SelectedIndexChanged += new System.EventHandler(this.cbShapes_SelectedIndexChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(4, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(372, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Select a Body Shape for the selected outfits";
-            // 
-            // fbd1
-            // 
-            this.fbd1.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            // 
-            // BsokWizardForm
-            // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(7, 15);
-            this.ClientSize = new System.Drawing.Size(648, 230);
-            this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "BsokWizardForm";
-            this.Padding = new System.Windows.Forms.Padding(8);
-            this.Text = "BsokWizardForm";
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.pnwizard1.ResumeLayout(false);
-            this.pnwizard1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.pnwizard2.ResumeLayout(false);
-            this.pnwizard2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbicon)).EndInit();
-            this.ResumeLayout(false);
-
-		}
-		#endregion
-
-        /// <summary>
-        /// The main entry point for the program.
-        /// </summary>
-		[STAThread]
-		static void Main() 
-		{
-			Application.Run(new BsokWizardForm());
-		}
 
         #region 1 Find a Folder
         void LoadHelpFile()
         {
-            // linkyicon1.Icon not available on LinkLabel
             Stream s;
 
             if (SimPe.Helper.SimPeVersionLong >= 330717003790 && File.Exists(Path.Combine(Helper.SimPeDataPath, "additional_skins.xml")))
@@ -406,7 +157,7 @@ namespace SimPe.Wizards
             if (s != null)
             {
                 StreamReader sr = new StreamReader(s);
-                rtbAbout.Rtf = sr.ReadToEnd();
+                rtbAbout.Text = sr.ReadToEnd();
                 sr.Close();
                 sr.Dispose();
                 s.Close();
@@ -421,62 +172,55 @@ namespace SimPe.Wizards
                 StreamReader sr = File.OpenText(Path.Combine(Helper.SimPeDataPath, "additional_skins.xml"));
                 try
                 {
-                    this.rtb.Text = sr.ReadToEnd();
+                    rtb.Text = sr.ReadToEnd();
                 }
                 finally
                 {
                     sr.Close();
                     sr.Dispose();
-                    sr = null;
                 }
             }
             else
-                this.rtb.Text = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<alias>\r\n</alias>";
+                rtb.Text = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<alias>\r\n</alias>";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            if (fbd1.ShowDialog() == DialogResult.OK)
+            if (fbd1.ShowDialog() == SimPe.DialogResult.OK)
             {
                 string[] stuff = Directory.GetFiles(fbd1.SelectedPath, "*.package");
                 if (stuff.Length > 0)
                 {
                     floder = fbd1.SelectedPath;
-                    this.lboops.Visible = false;
+                    lboops.IsVisible = false;
                     PopulatFileList();
                 }
                 else
                 {
                     floder = null;
-                    this.lboops.Visible = true;
+                    lboops.IsVisible = true;
                 }
-                lbPath.Text = fbd1.SelectedPath;
+                lbPath.Content = fbd1.SelectedPath;
             }
             else
             {
                 floder = null;
-                this.lboops.Visible = false;
-                lbPath.Text = "";
+                lboops.IsVisible = false;
+                lbPath.Content = "";
             }
             if (step1 != null) step1.Update();
         }
 
-        private void linkyicon1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        private void linkyicon1_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            this.linkyicon1.LinkVisited = true;
-            this.rtbAbout.Visible = !this.rtbAbout.Visible;
-        }
-
-        private void rtbAbout_LinkClicked(object sender, System.Windows.Forms.LinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(e.LinkText) { UseShellExecute = true });
+            rtbAbout.IsVisible = !rtbAbout.IsVisible;
         }
         #endregion
 
         #region 2 Select a BodyShape
         void PopulatFileList()
         {
-            this.lvpackages.Items.Clear();
+            lvpackages.Items.Clear();
             if (floder == null) return;
             string[] stuff = Directory.GetFiles(floder, "*.package");
 
@@ -486,32 +230,29 @@ namespace SimPe.Wizards
                 {
                     foreach (string file in stuff)
                     {
-                        ListViewItem li = new ListViewItem();
+                        SimPe.Scenegraph.Compat.ListViewItem li = new SimPe.Scenegraph.Compat.ListViewItem();
                         li.Text = Path.GetFileNameWithoutExtension(file);
                         li.Tag = file;
                         li.Checked = true;
-                        this.lvpackages.Items.Add(li);
+                        lvpackages.Items.Add(li);
                     }
                 }
                 catch { }
             }
         }
 
-        private void cbShapes_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbShapes_SelectedIndexChanged(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
         {
             if (GetBodyShapeId(cbShapes.SelectedItem) > 0)
-                this.pbicon.Image = GetBodyIcon(Convert.ToByte(GetBodyShapeId(cbShapes.SelectedItem) - 1));
-            else this.pbicon.Image = null;
+                pbicon.Image = GetBodyIcon(Convert.ToByte(GetBodyShapeId(cbShapes.SelectedItem) - 1));
+            else pbicon.Image = null;
             if (step2 != null) step2.Update();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLabel1_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            this.linkLabel1.LinkVisited = true;
-            this.linkLabel1.Links[0].Enabled = false;
-            this.cbShapes.Sorted = true;
-            this.cbShapes.SelectedItem = -1;
-            this.pbicon.Image = null;
+            cbShapes.SelectedIndex = -1;
+            pbicon.Image = null;
             if (step2 != null) step2.Update();
         }
         #endregion
@@ -519,13 +260,13 @@ namespace SimPe.Wizards
         internal void DoTheWork()
         {
             Interfaces.Files.IPackedFileDescriptor[] pfds;
-            foreach (ListViewItem li in this.lvpackages.CheckedItems)
+            foreach (SimPe.Scenegraph.Compat.ListViewItem li in lvpackages.CheckedItems)
             {
                 SimPe.Packages.GeneratableFile file = SimPe.Packages.GeneratableFile.LoadFromFile((string)li.Tag);
-                pfds = file.FindFiles(0x4C158081); // is a Skin File
-                if (pfds.Length > 0) { AddImIn(pfds, file); li.Checked = false; continue; } // is a skin, Sub Add Im In, don't BSOK
+                pfds = file.FindFiles(0x4C158081);
+                if (pfds.Length > 0) { AddImIn(pfds, file); li.Checked = false; continue; }
                 string creat;
-                if (GetBodyShapeId(cbShapes.SelectedItem) == 0) // User has opted to re-customize outfit(s)
+                if (GetBodyShapeId(cbShapes.SelectedItem) == 0)
                     creat = "243b4ac8-43ec-ccf8-c358-7f86f0bdfaff";
                 else
                     creat = "00000000-0000-0000-0000-000000000000";
@@ -560,16 +301,16 @@ namespace SimPe.Wizards
                 }
                 else li.Checked = false;
             }
-            this.lbDone.Visible = true;
-            this.linkLabel1.Visible = false;
-            this.lvpackages.Enabled = this.cbShapes.Enabled = false;
+            lbDone.IsVisible = true;
+            linkLabel1.IsVisible = false;
+            lvpackages.Enabled = cbShapes.IsEnabled = false;
             if (foun && SimPe.Helper.SimPeVersionLong >= 330717003790)
             {
                 StreamWriter sw = File.CreateText(Path.Combine(Helper.SimPeDataPath, "additional_skins.xml"));
                 try
                 {
                     string titty = "";
-                    foreach (string boob in rtb.Lines) titty += boob + "\r\n";
+                    foreach (string boob in rtb.Text.Split('\n')) titty += boob + "\r\n";
                     sw.Write(titty);
                 }
                 finally
@@ -577,7 +318,6 @@ namespace SimPe.Wizards
                     sw.Flush();
                     sw.Close();
                     sw.Dispose();
-                    sw = null;
                 }
             }
         }
@@ -593,17 +333,17 @@ namespace SimPe.Wizards
                 cpf.ProcessData(pfd, file);
                 SimPe.PackedFiles.Wrapper.CpfItem fr = cpf.GetSaveItem("family");
 
-                foreach (string boob in this.rtb.Lines)
+                foreach (string boob in rtb.Text.Split('\n'))
                 {
                     if (!boob.Contains("</alias>") && !boob.Contains(fr.StringValue) && boob != "")
                         titty += (boob + "\r\n");
                 }
                 titty += "<item value=\"" + "0x" + Helper.HexString(GetBodyShapeId(cbShapes.SelectedItem)) + "\">" + fr.StringValue + "</item>\r\n</alias>";
-                this.rtb.Text = titty;
+                rtb.Text = titty;
             }
         }
 
-        Image GetBodyIcon(byte bs)
+        System.Drawing.Image GetBodyIcon(byte bs)
         {
             if (SimPe.Helper.SimPeVersionLong >= 330717003790)
                 return SimPe.GetImage.GetExpansionIcon(bs);
@@ -635,36 +375,21 @@ namespace SimPe.Wizards
         {
             BodyShapeIds.Clear();
             BodyShapeIds.Add(0x00, " Default : Remove Icon");
-            if (false)
-            {
-                BodyShapeIds.Add(0x13, "Chris H : Tiny Sim");
-                BodyShapeIds.Add(0x14, "Chris H : Fashion Model Natural");
-                BodyShapeIds.Add(0x15, "Maxis : Elder");
-            }
             BodyShapeIds.Add(0x16, "Not a Bodyshape : Gold Star");
             BodyShapeIds.Add(0x17, "Not a Bodyshape : Silver Star");
             BodyShapeIds.Add(0x1e, "Maxis : Maxis");
-            // BodyShapeIds.Add(0x1f, "Holiday");
             BodyShapeIds.Add(0x20, "SITES : Goth");
-            // BodyShapeIds.Add(0x21, "SteamPunk");
             BodyShapeIds.Add(0x22, "SITES : Medieval");
-            // BodyShapeIds.Add(0x23, "StoneAge");
             BodyShapeIds.Add(0x24, "SITES : Pirates");
             BodyShapeIds.Add(0x26, "SITES : Grungy");
-            if (false)
-                BodyShapeIds.Add(0x27, "Maxis : Castaway");
             BodyShapeIds.Add(0x29, "SITES : Super Heros");
-            //BodyShapeIds.Add(0x2a, "Futuristic");
             BodyShapeIds.Add(0x2c, "Various : Various");
             BodyShapeIds.Add(0x2d, "Synaptic Sim : Werewolves");
             BodyShapeIds.Add(0x2f, "Creatures : Satyrs");
             BodyShapeIds.Add(0x30, "Creatures : Centaurs");
             BodyShapeIds.Add(0x31, "Creatures : Mermaid");
             BodyShapeIds.Add(0x33, "Synaptic Sim : Huge Body Builder Beast");
-            if (false)
-                BodyShapeIds.Add(0x35, "Chris H : Fannystein");
-            else
-                BodyShapeIds.Add(0x35, "Synaptic Sim : Nightcrawler - Nocturne");
+            BodyShapeIds.Add(0x35, "Synaptic Sim : Nightcrawler - Nocturne");
             BodyShapeIds.Add(0x36, "Cynnix : Quarians");
             BodyShapeIds.Add(0x37, "MartaXL : Martaxlm");
             BodyShapeIds.Add(0x38, "DarkPsyFox : Fat Dark PsyFox");
@@ -685,8 +410,6 @@ namespace SimPe.Wizards
             BodyShapeIds.Add(0x4d, "Corrine : PunkJunkie");
             BodyShapeIds.Add(0x4e, "July77 : Slim Male");
             BodyShapeIds.Add(0x4f, "Melodie9 : Slim Family Male");
-            if (false)
-                BodyShapeIds.Add(0x52, "Chris H : Transgender");
             BodyShapeIds.Add(0x5c, "Bloom : Monster Jugs");
             BodyShapeIds.Add(0x5d, "Bloom : Hyper Busty");
             BodyShapeIds.Add(0x5f, "MartaXL : Martaxl");
@@ -756,61 +479,6 @@ namespace SimPe.Wizards
             BodyShapeIds.Add(0xbc, "Gothplague : Androgyny");
             BodyShapeIds.Add(0xbe, "Warlokk : Faerie Gal");
             BodyShapeIds.Add(0xc0, "Gothplague : Miana");
-            BodyShapeIds.Add(0xc1, "Melodie9 : SlimFamily Female");
-            BodyShapeIds.Add(0xc3, "Warlokk : (teen) D X-Large");
-            BodyShapeIds.Add(0xc4, "Warlokk : (teen) D Large");
-            BodyShapeIds.Add(0xc5, "Warlokk : (teen) D Medium");
-            BodyShapeIds.Add(0xc6, "Warlokk : (teen) C X-Large");
-            BodyShapeIds.Add(0xc7, "Warlokk : (teen) C Large");
-            BodyShapeIds.Add(0xc8, "Warlokk : (teen) C Medium");
-            BodyShapeIds.Add(0xc9, "Warlokk : (teen) C Small");
-            BodyShapeIds.Add(0xca, "Warlokk : (teen) B X-Large");
-            BodyShapeIds.Add(0xcb, "Warlokk : (teen) B Large");
-            BodyShapeIds.Add(0xcc, "Warlokk : (teen) B Small");
-            BodyShapeIds.Add(0xcd, "Warlokk : (teen) A X-Large");
-            BodyShapeIds.Add(0xce, "Warlokk : (teen) A Large");
-            BodyShapeIds.Add(0xcf, "Warlokk : (teen) A Medium");
-            BodyShapeIds.Add(0xd0, "Warlokk : (teen) A Small");
-            BodyShapeIds.Add(0xd2, "Warlokk : DDD-40");
-            BodyShapeIds.Add(0xd3, "Warlokk : DDD-38");
-            BodyShapeIds.Add(0xd4, "Warlokk : DDD-36");
-            BodyShapeIds.Add(0xd5, "Warlokk : DDD-34");
-            BodyShapeIds.Add(0xd6, "Warlokk : DD-40");
-            BodyShapeIds.Add(0xd7, "Warlokk : DD-38");
-            BodyShapeIds.Add(0xd8, "Warlokk : DD-36");
-            BodyShapeIds.Add(0xd9, "Warlokk : DD-34");
-            BodyShapeIds.Add(0xda, "Warlokk : D-40");
-            BodyShapeIds.Add(0xdb, "Warlokk : D-38");
-            BodyShapeIds.Add(0xdc, "Warlokk : D-36");
-            BodyShapeIds.Add(0xdd, "Warlokk : D-34");
-            BodyShapeIds.Add(0xde, "Warlokk : D-32");
-            BodyShapeIds.Add(0xdf, "Warlokk : C-40");
-            BodyShapeIds.Add(0xe0, "Warlokk : C-38");
-            BodyShapeIds.Add(0xe1, "Warlokk : C-36");
-            BodyShapeIds.Add(0xe2, "Warlokk : C-34");
-            BodyShapeIds.Add(0xe3, "Warlokk : C-32");
-            BodyShapeIds.Add(0xe4, "Warlokk : B-40");
-            BodyShapeIds.Add(0xe5, "Warlokk : B-38");
-            BodyShapeIds.Add(0xe6, "Warlokk : B-36");
-            BodyShapeIds.Add(0xe7, "Warlokk : B-32");
-            BodyShapeIds.Add(0xe8, "Warlokk : A-40");
-            BodyShapeIds.Add(0xe9, "Warlokk : A-38");
-            BodyShapeIds.Add(0xea, "Warlokk : A-36");
-            BodyShapeIds.Add(0xeb, "Warlokk : A-34");
-            BodyShapeIds.Add(0xec, "Warlokk : A-32");
-            BodyShapeIds.Add(0xee, "Warlokk : (tf Bottom) X-Large");
-            BodyShapeIds.Add(0xef, "Warlokk : (tf Bottom) Large");
-            BodyShapeIds.Add(0xf0, "Warlokk : (tf Bottom) Small");
-            BodyShapeIds.Add(0xf2, "Warlokk : (AF Bottom) 40");
-            BodyShapeIds.Add(0xf3, "Warlokk : (AF Bottom) 38");
-            BodyShapeIds.Add(0xf4, "Warlokk : (AF Bottom) 36");
-            BodyShapeIds.Add(0xf5, "Warlokk : (AF Bottom) 32");
-            BodyShapeIds.Add(0xf7, "Warlokk : (Top) DDD");
-            BodyShapeIds.Add(0xf8, "Warlokk : (Top) DD");
-            BodyShapeIds.Add(0xf9, "Warlokk : (Top) D");
-            BodyShapeIds.Add(0xfa, "Warlokk : (Top) C");
-            BodyShapeIds.Add(0xfb, "Warlokk : (Top) MJ");
-            BodyShapeIds.Add(0xfc, "Warlokk : (Top) A");
         }
-	}
+    }
 }

@@ -24,6 +24,7 @@
 using System;
 using SimPe.Interfaces;
 using System.Drawing;
+using SimPe.Scenegraph.Compat;
 
 namespace SimPe.Plugin
 {
@@ -81,8 +82,8 @@ namespace SimPe.Plugin
 		{
             if (!IsReallyEnabled(pfd, package))
             {
-                System.Windows.Forms.MessageBox.Show(Localization.GetString("This is not an appropriate context in which to use this tool"),
-                    this.ToString());
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(Localization.GetString("This is not an appropriate context in which to use this tool"),
+                    this.ToString()).GetAwaiter().GetResult();
                 return new ToolResult(false, false);
             }
 			if (flname.ToLower().Trim()!=package.FileName.ToLower().Trim()) sc.Reset();

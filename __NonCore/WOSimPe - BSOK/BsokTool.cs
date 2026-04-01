@@ -35,8 +35,8 @@ namespace SimPe.Wizards
 
         public Interfaces.Plugin.IToolResult ShowDialog(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package)
         {
-            using (var form = new BsokWizardForm())
-                form.ShowDialog();
+            var form = new BsokWizardForm();
+            form.ShowDialog(null).GetAwaiter().GetResult();
             return new ToolResult(false, false);
         }
 

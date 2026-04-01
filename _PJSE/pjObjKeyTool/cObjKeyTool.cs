@@ -25,8 +25,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 using SimPe.Interfaces;
+using SimPe.Scenegraph.Compat;
+using MessageBoxButtons = SimPe.Scenegraph.Compat.MessageBoxButtons;
+using MessageBoxIcon = SimPe.Scenegraph.Compat.MessageBoxIcon;
 using SimPe.Interfaces.Plugin;
 using SimPe.Interfaces.Scenegraph;
 using SimPe.Interfaces.Files;
@@ -523,14 +525,14 @@ namespace pj
             makeCpf3idrPair();
             if (objKey3IDR == null)
             {
-                System.Windows.Forms.MessageBox.Show(L.Get("missing3IDR"), L.Get("pjObjKeyHelp"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("missing3IDR"), L.Get("pjObjKeyHelp"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation).GetAwaiter().GetResult();
                 return;
             }
             if (objKeyCPF == null)
             {
-                System.Windows.Forms.MessageBox.Show(L.Get("missingCPF"), L.Get("pjObjKeyHelp"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(L.Get("missingCPF"), L.Get("pjObjKeyHelp"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation).GetAwaiter().GetResult();
                 return;
             }
 
@@ -603,8 +605,8 @@ namespace pj
         {
             if (!IsReallyEnabled(pfd, package))
             {
-                System.Windows.Forms.MessageBox.Show(SimPe.Localization.GetString("This is not an appropriate context in which to use this tool"),
-                    L.Get("pjObjKeyHelp"));
+                SimPe.Scenegraph.Compat.MessageBox.ShowAsync(SimPe.Localization.GetString("This is not an appropriate context in which to use this tool"),
+                    L.Get("pjObjKeyHelp")).GetAwaiter().GetResult();
                 return new SimPe.Plugin.ToolResult(false, false);
             }
             Main(pfd, package);

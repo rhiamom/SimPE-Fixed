@@ -60,6 +60,7 @@ namespace SimPe.Scenegraph.Compat
             for (int i = 1; i < items.Length; i++) SubItems.Add(items[i]);
         }
 
+        public bool Checked { get; set; }
         public void EnsureVisible() { }
         public ListViewItem Clone() { return (ListViewItem)MemberwiseClone(); }
         /// <summary>Back-reference to the owning ListView (set by ListViewItemCollection.Add).</summary>
@@ -86,7 +87,7 @@ namespace SimPe.Scenegraph.Compat
             public IEnumerator GetEnumerator() => _items.GetEnumerator();
         }
 
-        public class SelectedListViewItemCollection
+        public class SelectedListViewItemCollection : System.Collections.IEnumerable
         {
             private readonly ListViewItemCollection _all;
             public SelectedListViewItemCollection(ListViewItemCollection all) { _all = all; }
@@ -97,6 +98,12 @@ namespace SimPe.Scenegraph.Compat
             public ListViewItem this[int index]
             {
                 get { int c = 0; foreach (object o in _all) { var i = (ListViewItem)o; if (i.Selected) { if (c == index) return i; c++; } } throw new IndexOutOfRangeException(); }
+            }
+            public System.Collections.IEnumerator GetEnumerator()
+            {
+                var list = new List<ListViewItem>();
+                foreach (ListViewItem i in _all) if (i.Selected) list.Add(i);
+                return list.GetEnumerator();
             }
         }
 
@@ -126,9 +133,23 @@ namespace SimPe.Scenegraph.Compat
             public void Clear() => _columns.Clear();
         }
 
+        public class CheckedListViewItemCollection : System.Collections.IEnumerable
+        {
+            private readonly ListViewItemCollection _all;
+            internal CheckedListViewItemCollection(ListViewItemCollection all) { _all = all; }
+            public int Count { get { int c = 0; foreach (ListViewItem i in _all) if (i.Checked) c++; return c; } }
+            public System.Collections.IEnumerator GetEnumerator()
+            {
+                var list = new List<ListViewItem>();
+                foreach (ListViewItem i in _all) if (i.Checked) list.Add(i);
+                return list.GetEnumerator();
+            }
+        }
+
         public ListViewItemCollection Items { get; }
         public SelectedListViewItemCollection SelectedItems { get; }
         public SelectedIndexCollection SelectedIndices { get; }
+        public CheckedListViewItemCollection CheckedItems { get; }
         public ColumnHeaderCollection Columns { get; } = new ColumnHeaderCollection();
         public object HeaderStyle { get; set; }
         public object Tag { get; set; }
@@ -159,6 +180,7 @@ namespace SimPe.Scenegraph.Compat
 
         public event EventHandler SelectedIndexChanged;
         public event EventHandler SelectionChanged;
+        public event EventHandler Click;
         public event EventHandler DoubleClick;
         public event EventHandler ColumnClick;
         public event EventHandler ItemActivate;
@@ -180,6 +202,7 @@ namespace SimPe.Scenegraph.Compat
             Items = new ListViewItemCollection(this);
             SelectedItems = new SelectedListViewItemCollection(Items);
             SelectedIndices = new SelectedIndexCollection(Items);
+            CheckedItems = new CheckedListViewItemCollection(Items);
         }
     }
 
@@ -302,6 +325,77 @@ namespace SimPe.Scenegraph.Compat
         public Avalonia.Layout.HorizontalAlignment Anchor { get; set; }
         public ControlCollection Controls { get; } = new ControlCollection();
         public ControlCollection Children => Controls;
+    }
+
+    // ── CheckedListBox ───────────────────────────────────────────────────────
+
+    /// <summary>Avalonia substitute for System.Windows.Forms.CheckedListBox.</summary>
+    public class CheckedListBox : Avalonia.Controls.UserControl
+    {
+        private readonly List<(object Item, bool Checked)> _items = new List<(object, bool)>();
+        private readonly Avalonia.Controls.StackPanel _panel = new Avalonia.Controls.StackPanel();
+
+        public bool CheckOnClick { get; set; } = true;
+        public bool HorizontalScrollbar { get; set; }
+        public bool IntegralHeight { get; set; }
+        public bool Sorted { get; set; }
+
+        public CheckedListBoxItemCollection Items { get; }
+
+        public CheckedListBox()
+        {
+            Items = new CheckedListBoxItemCollection(_items, _panel);
+            Content = new Avalonia.Controls.ScrollViewer { Content = _panel };
+        }
+
+        public bool GetItemChecked(int index) => _items[index].Checked;
+
+        public void SetItemChecked(int index, bool value)
+        {
+            var (item, _) = _items[index];
+            _items[index] = (item, value);
+            if (_panel.Children[index] is Avalonia.Controls.CheckBox cb)
+                cb.IsChecked = value;
+        }
+
+        public class CheckedListBoxItemCollection
+        {
+            private readonly List<(object Item, bool Checked)> _items;
+            private readonly Avalonia.Controls.StackPanel _panel;
+
+            internal CheckedListBoxItemCollection(List<(object, bool)> items, Avalonia.Controls.StackPanel panel)
+            {
+                _items = items;
+                _panel = panel;
+            }
+
+            public int Count => _items.Count;
+            public object this[int i] => _items[i].Item;
+
+            public void Clear()
+            {
+                _items.Clear();
+                _panel.Children.Clear();
+            }
+
+            public void Add(object item, bool isChecked = false)
+            {
+                _items.Add((item, isChecked));
+                var cb = new Avalonia.Controls.CheckBox
+                {
+                    Content = item?.ToString() ?? "",
+                    IsChecked = isChecked,
+                    Margin = new Avalonia.Thickness(2)
+                };
+                cb.IsCheckedChanged += (s, e) =>
+                {
+                    int idx = _panel.Children.IndexOf(cb);
+                    if (idx >= 0 && idx < _items.Count)
+                        _items[idx] = (_items[idx].Item, cb.IsChecked == true);
+                };
+                _panel.Children.Add(cb);
+            }
+        }
     }
 
     // ── PictureBox ────────────────────────────────────────────────────────────
@@ -848,7 +942,10 @@ namespace SimPe.Scenegraph.Compat
         public string Filter { get; set; } = "";
         public int FilterIndex { get; set; } = 1;
         public bool RestoreDirectory { get; set; }
+        public string InitialDirectory { get; set; } = "";
+        public bool ReadOnlyChecked { get; set; }
         public bool ShowHelp { get; set; }
+        public bool ShowReadOnly { get; set; }
         public string Title { get; set; } = "";
         public bool ValidateNames { get; set; } = true;
         // Synchronous stub — always returns Cancel; real async show done separately

@@ -22,674 +22,272 @@
  ***************************************************************************/
 
 using System;
-using System.Drawing;
 using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 using SimPe.PackedFiles.Wrapper;
 
 namespace SimPe.Plugin
 {
-	/// <summary>
-	/// Summary description for Search.
-	/// </summary>
-	public class Search : Avalonia.Controls.Window
-	{
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.ListBox lblist;
-		private System.Windows.Forms.Button btopen;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox tbOpcode;
-		private System.Windows.Forms.LinkLabel llsearch;
-        private System.Windows.Forms.ProgressBar pb;
-        private System.Windows.Forms.TabPage tabPage2;
-		private System.Windows.Forms.LinkLabel linkLabel1;
-		private System.Windows.Forms.TextBox tbflname;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TabPage tabPage3;
-		private System.Windows.Forms.LinkLabel linkLabel2;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.TextBox tbsimname;
-		private System.Windows.Forms.TabPage tabPage4;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.LinkLabel linkLabel3;
-		private System.Windows.Forms.TextBox tbpropname;
-		private System.Windows.Forms.TextBox tbbhavgroup;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.ToolTip toolTip1;
-		private System.Windows.Forms.RadioButton rbfull;
-		private System.Windows.Forms.RadioButton rbstart;
-		private System.Windows.Forms.RadioButton rbend;
-		private System.Windows.Forms.RadioButton rbcont;
-		private System.Windows.Forms.CheckBox cbusefileindex;
-		private System.Windows.Forms.TabPage tabPage5;
-		private System.Windows.Forms.LinkLabel linkLabel4;
-		private System.Windows.Forms.TextBox tbguid;
-		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.TextBox tbpropval;
-		private System.Windows.Forms.Label label7;
-        private CheckBox cblastname;
-        private System.Windows.Forms.Panel panel1;
-		private System.ComponentModel.IContainer components;
+    /// <summary>
+    /// Summary description for Search.
+    /// </summary>
+    public class Search : Avalonia.Controls.Window
+    {
+        private Avalonia.Controls.TabControl tabControl1 = new Avalonia.Controls.TabControl();
+        private Avalonia.Controls.TabItem tabPage1 = new Avalonia.Controls.TabItem();
+        private Avalonia.Controls.ListBox lblist = new Avalonia.Controls.ListBox();
+        private Avalonia.Controls.Button btopen = new Avalonia.Controls.Button();
+        private Avalonia.Controls.Label label1 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.TextBox tbOpcode = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Button llsearch = new Avalonia.Controls.Button();
+        private Avalonia.Controls.ProgressBar pb = new Avalonia.Controls.ProgressBar();
+        private Avalonia.Controls.TabItem tabPage2 = new Avalonia.Controls.TabItem();
+        private Avalonia.Controls.Button linkLabel1 = new Avalonia.Controls.Button();
+        private Avalonia.Controls.TextBox tbflname = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Label label2 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.TabItem tabPage3 = new Avalonia.Controls.TabItem();
+        private Avalonia.Controls.Button linkLabel2 = new Avalonia.Controls.Button();
+        private Avalonia.Controls.Label label3 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.TextBox tbsimname = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.TabItem tabPage4 = new Avalonia.Controls.TabItem();
+        private Avalonia.Controls.Label label4 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.Button linkLabel3 = new Avalonia.Controls.Button();
+        private Avalonia.Controls.TextBox tbpropname = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.TextBox tbbhavgroup = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Label label5 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.RadioButton rbfull = new Avalonia.Controls.RadioButton();
+        private Avalonia.Controls.RadioButton rbstart = new Avalonia.Controls.RadioButton();
+        private Avalonia.Controls.RadioButton rbend = new Avalonia.Controls.RadioButton();
+        private Avalonia.Controls.RadioButton rbcont = new Avalonia.Controls.RadioButton();
+        private Avalonia.Controls.CheckBox cbusefileindex = new Avalonia.Controls.CheckBox();
+        private Avalonia.Controls.TabItem tabPage5 = new Avalonia.Controls.TabItem();
+        private Avalonia.Controls.Button linkLabel4 = new Avalonia.Controls.Button();
+        private Avalonia.Controls.TextBox tbguid = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Label label6 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.TextBox tbpropval = new Avalonia.Controls.TextBox();
+        private Avalonia.Controls.Label label7 = new Avalonia.Controls.Label();
+        private Avalonia.Controls.CheckBox cblastname = new Avalonia.Controls.CheckBox();
+        private Avalonia.Controls.Panel panel1 = new Avalonia.Controls.Panel();
 
-		public Search()
-		{
-			//
-			// Required designer variable.
-			//
-			InitializeComponent();
+        public Search()
+        {
+            Title = "Search";
+            Width = 800;
+            Height = 540;
 
             prov = null;
+            BuildLayout();
+
             ThemeManager tm = ThemeManager.Global.CreateChild();
-            tm.AddControl(this.panel1);
-            
-            if (SimPe.Helper.XmlRegistry.UseBigIcons) this.lblist.Font = new System.Drawing.Font("Verdana", 11F);
-		}
+            tm.AddControl(panel1);
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected virtual void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-		}
+            if (SimPe.Helper.XmlRegistry.UseBigIcons) lblist.FontSize = 14;
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            this.components = new System.ComponentModel.Container();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tbbhavgroup = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.llsearch = new System.Windows.Forms.LinkLabel();
-            this.tbOpcode = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.cbusefileindex = new System.Windows.Forms.CheckBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.tbflname = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.cblastname = new System.Windows.Forms.CheckBox();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.tbsimname = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tbpropval = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.rbcont = new System.Windows.Forms.RadioButton();
-            this.rbend = new System.Windows.Forms.RadioButton();
-            this.rbstart = new System.Windows.Forms.RadioButton();
-            this.rbfull = new System.Windows.Forms.RadioButton();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.tbpropname = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.linkLabel4 = new System.Windows.Forms.LinkLabel();
-            this.tbguid = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblist = new System.Windows.Forms.ListBox();
-            this.btopen = new System.Windows.Forms.Button();
-            this.pb = new System.Windows.Forms.ProgressBar();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.panel1.SuspendLayout();
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(8, 10);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(768, 108);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.tbbhavgroup);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.llsearch);
-            this.tabPage1.Controls.Add(this.tbOpcode);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(760, 79);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "BHAV";
-            // 
-            // tbbhavgroup
-            // 
-            this.tbbhavgroup.Location = new System.Drawing.Point(140, 37);
-            this.tbbhavgroup.Name = "tbbhavgroup";
-            this.tbbhavgroup.Size = new System.Drawing.Size(100, 23);
-            this.tbbhavgroup.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.tbbhavgroup, "leave empty to search in all Groups");
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(84, 42);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(50, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Group:";
-            // 
-            // llsearch
-            // 
-            this.llsearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.llsearch.AutoSize = true;
-            this.llsearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.llsearch.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.llsearch.Location = new System.Drawing.Point(515, 57);
-            this.llsearch.Name = "llsearch";
-            this.llsearch.Size = new System.Drawing.Size(57, 16);
-            this.llsearch.TabIndex = 2;
-            this.llsearch.TabStop = true;
-            this.llsearch.Text = "search";
-            this.llsearch.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BhavSearch);
-            // 
-            // tbOpcode
-            // 
-            this.tbOpcode.Location = new System.Drawing.Point(140, 8);
-            this.tbOpcode.Name = "tbOpcode";
-            this.tbOpcode.Size = new System.Drawing.Size(100, 23);
-            this.tbOpcode.TabIndex = 1;
-            this.tbOpcode.Text = "0x0000";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Contains Opcode:";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.cbusefileindex);
-            this.tabPage2.Controls.Add(this.linkLabel1);
-            this.tabPage2.Controls.Add(this.tbflname);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(760, 79);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "RCOL";
-            // 
-            // cbusefileindex
-            // 
-            this.cbusefileindex.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cbusefileindex.Location = new System.Drawing.Point(80, 35);
-            this.cbusefileindex.Name = "cbusefileindex";
-            this.cbusefileindex.Size = new System.Drawing.Size(120, 24);
-            this.cbusefileindex.TabIndex = 6;
-            this.cbusefileindex.Text = "scan in all Files";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.linkLabel1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.Location = new System.Drawing.Point(515, 57);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(57, 16);
-            this.linkLabel1.TabIndex = 5;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "search";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RcolSearch);
-            // 
-            // tbflname
-            // 
-            this.tbflname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbflname.Location = new System.Drawing.Point(90, 8);
-            this.tbflname.Name = "tbflname";
-            this.tbflname.Size = new System.Drawing.Size(653, 23);
-            this.tbflname.TabIndex = 4;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Filename:";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.cblastname);
-            this.tabPage3.Controls.Add(this.linkLabel2);
-            this.tabPage3.Controls.Add(this.tbsimname);
-            this.tabPage3.Controls.Add(this.label3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(760, 79);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Sims";
-            // 
-            // cblastname
-            // 
-            this.cblastname.AutoSize = true;
-            this.cblastname.Location = new System.Drawing.Point(88, 37);
-            this.cblastname.Name = "cblastname";
-            this.cblastname.Size = new System.Drawing.Size(219, 20);
-            this.cblastname.TabIndex = 9;
-            this.cblastname.Text = "Use Last or Family name only";
-            this.cblastname.UseVisualStyleBackColor = true;
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.linkLabel2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel2.Location = new System.Drawing.Point(515, 57);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(57, 16);
-            this.linkLabel2.TabIndex = 8;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "search";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.FindSim);
-            // 
-            // tbsimname
-            // 
-            this.tbsimname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbsimname.Location = new System.Drawing.Point(95, 8);
-            this.tbsimname.Name = "tbsimname";
-            this.tbsimname.Size = new System.Drawing.Size(648, 23);
-            this.tbsimname.TabIndex = 8;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(13, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Sim Name:";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.tbpropval);
-            this.tabPage4.Controls.Add(this.label7);
-            this.tabPage4.Controls.Add(this.rbcont);
-            this.tabPage4.Controls.Add(this.rbend);
-            this.tabPage4.Controls.Add(this.rbstart);
-            this.tabPage4.Controls.Add(this.rbfull);
-            this.tabPage4.Controls.Add(this.linkLabel3);
-            this.tabPage4.Controls.Add(this.tbpropname);
-            this.tabPage4.Controls.Add(this.label4);
-            this.tabPage4.Location = new System.Drawing.Point(4, 25);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(760, 79);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Property Set";
-            // 
-            // tbpropval
-            // 
-            this.tbpropval.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbpropval.Location = new System.Drawing.Point(454, 8);
-            this.tbpropval.Name = "tbpropval";
-            this.tbpropval.Size = new System.Drawing.Size(287, 23);
-            this.tbpropval.TabIndex = 16;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(401, 13);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 13);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Value:";
-            // 
-            // rbcont
-            // 
-            this.rbcont.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbcont.Location = new System.Drawing.Point(317, 37);
-            this.rbcont.Name = "rbcont";
-            this.rbcont.Size = new System.Drawing.Size(88, 24);
-            this.rbcont.TabIndex = 14;
-            this.rbcont.Text = "contains";
-            // 
-            // rbend
-            // 
-            this.rbend.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbend.Location = new System.Drawing.Point(253, 37);
-            this.rbend.Name = "rbend";
-            this.rbend.Size = new System.Drawing.Size(48, 24);
-            this.rbend.TabIndex = 13;
-            this.rbend.Text = "end";
-            // 
-            // rbstart
-            // 
-            this.rbstart.Checked = true;
-            this.rbstart.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbstart.Location = new System.Drawing.Point(181, 37);
-            this.rbstart.Name = "rbstart";
-            this.rbstart.Size = new System.Drawing.Size(56, 24);
-            this.rbstart.TabIndex = 12;
-            this.rbstart.TabStop = true;
-            this.rbstart.Text = "start";
-            // 
-            // rbfull
-            // 
-            this.rbfull.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.rbfull.Location = new System.Drawing.Point(88, 37);
-            this.rbfull.Name = "rbfull";
-            this.rbfull.Size = new System.Drawing.Size(77, 24);
-            this.rbfull.TabIndex = 11;
-            this.rbfull.Text = "match";
-            // 
-            // linkLabel3
-            // 
-            this.linkLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.linkLabel3.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel3.Location = new System.Drawing.Point(515, 57);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(57, 16);
-            this.linkLabel3.TabIndex = 10;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "search";
-            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.GzpsSearch);
-            // 
-            // tbpropname
-            // 
-            this.tbpropname.Location = new System.Drawing.Point(67, 8);
-            this.tbpropname.Name = "tbpropname";
-            this.tbpropname.Size = new System.Drawing.Size(287, 23);
-            this.tbpropname.TabIndex = 9;
-            this.tbpropname.Text = "name";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 13);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Name:";
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.linkLabel4);
-            this.tabPage5.Controls.Add(this.tbguid);
-            this.tabPage5.Controls.Add(this.label6);
-            this.tabPage5.Location = new System.Drawing.Point(4, 25);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(760, 79);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "GUID";
-            // 
-            // linkLabel4
-            // 
-            this.linkLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel4.AutoSize = true;
-            this.linkLabel4.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.linkLabel4.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel4.Location = new System.Drawing.Point(515, 57);
-            this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(57, 16);
-            this.linkLabel4.TabIndex = 11;
-            this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "search";
-            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.GuidSearch);
-            // 
-            // tbguid
-            // 
-            this.tbguid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbguid.Location = new System.Drawing.Point(87, 7);
-            this.tbguid.Name = "tbguid";
-            this.tbguid.Size = new System.Drawing.Size(147, 23);
-            this.tbguid.TabIndex = 10;
-            this.tbguid.Text = "0x00000000";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(40, 11);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(44, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "GUID:";
-            // 
-            // lblist
-            // 
-            this.lblist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblist.HorizontalScrollbar = true;
-            this.lblist.IntegralHeight = false;
-            this.lblist.Location = new System.Drawing.Point(8, 124);
-            this.lblist.Name = "lblist";
-            this.lblist.Size = new System.Drawing.Size(768, 344);
-            this.lblist.TabIndex = 1;
-            this.lblist.SelectedIndexChanged += new System.EventHandler(this.SelectFile);
-            // 
-            // btopen
-            // 
-            this.btopen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btopen.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btopen.Location = new System.Drawing.Point(701, 474);
-            this.btopen.Name = "btopen";
-            this.btopen.Size = new System.Drawing.Size(75, 23);
-            this.btopen.TabIndex = 2;
-            this.btopen.Text = "Open";
-            this.btopen.Click += new System.EventHandler(this.Open);
-            // 
-            // pb
-            // 
-            this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.pb.Location = new System.Drawing.Point(8, 481);
-            this.pb.Maximum = 1000;
-            this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(687, 16);
-            this.pb.TabIndex = 3;
-            //this.pb.BackColor = System.Drawing.Color.Transparent;
-            
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.pb);
-            this.panel1.Controls.Add(this.btopen);
-            this.panel1.Controls.Add(this.lblist);
-            this.panel1.Controls.Add(this.tabControl1);
-            this.panel1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(786, 503);
-            this.panel1.TabIndex = 4;
-            // 
-            // Search
-            // 
-            this.Width = 784; this.Height = 501;
-            this.Name = "Search";
-            this.Title = "Search";
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
-            this.panel1.ResumeLayout(false);
+        private void BuildLayout()
+        {
+            // Tab 1: BHAV
+            label1.Content = "Contains Opcode:";
+            label5.Content = "Group:";
+            tbOpcode.Text = "0x0000";
+            llsearch.Content = "search";
+            llsearch.Click += BhavSearch;
+            var tab1Panel = new Avalonia.Controls.StackPanel { Margin = new Avalonia.Thickness(4) };
+            var bhavRow1 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 4 };
+            bhavRow1.Children.Add(label1); bhavRow1.Children.Add(tbOpcode);
+            bhavRow1.Children.Add(label5); bhavRow1.Children.Add(tbbhavgroup);
+            var bhavRow2 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right };
+            bhavRow2.Children.Add(llsearch);
+            tab1Panel.Children.Add(bhavRow1); tab1Panel.Children.Add(bhavRow2);
+            tabPage1.Header = "BHAV"; tabPage1.Content = tab1Panel;
 
-		}
-		#endregion
+            // Tab 2: RCOL
+            label2.Content = "Filename:";
+            linkLabel1.Content = "search";
+            linkLabel1.Click += RcolSearch;
+            cbusefileindex.Content = "scan in all Files";
+            var tab2Panel = new Avalonia.Controls.StackPanel { Margin = new Avalonia.Thickness(4) };
+            var rcolRow1 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 4 };
+            rcolRow1.Children.Add(label2); rcolRow1.Children.Add(tbflname);
+            var rcolRow2 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 8, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right };
+            rcolRow2.Children.Add(cbusefileindex); rcolRow2.Children.Add(linkLabel1);
+            tab2Panel.Children.Add(rcolRow1); tab2Panel.Children.Add(rcolRow2);
+            tabPage2.Header = "RCOL"; tabPage2.Content = tab2Panel;
 
-		#region Seeker Infrastructure
-		/// <summary>
-		/// Delegate for Search Functions
-		/// </summary>
-		public delegate SearchItem SeekerFunction(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov);
+            // Tab 3: Sims
+            label3.Content = "Sim Name:";
+            linkLabel2.Content = "search";
+            linkLabel2.Click += FindSim;
+            cblastname.Content = "Use Last or Family name only";
+            var tab3Panel = new Avalonia.Controls.StackPanel { Margin = new Avalonia.Thickness(4) };
+            var simsRow1 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 4 };
+            simsRow1.Children.Add(label3); simsRow1.Children.Add(tbsimname);
+            var simsRow2 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 8, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right };
+            simsRow2.Children.Add(cblastname); simsRow2.Children.Add(linkLabel2);
+            tab3Panel.Children.Add(simsRow1); tab3Panel.Children.Add(simsRow2);
+            tabPage3.Header = "Sims"; tabPage3.Content = tab3Panel;
 
-		protected void StartSearch(SeekerFunction fkt, Interfaces.Files.IPackedFileDescriptor[] pfds)
-		{
-			try 
-			{
-				pb.Value = 0;
-				btopen.Tag = null;
-				lblist.Items.Clear();
-				//lblist.BeginUpdate();
-				this.btopen.Enabled = false;
-				Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
+            // Tab 4: Property Set
+            label4.Content = "Name:"; label7.Content = "Value:";
+            tbpropname.Text = "name";
+            rbfull.Content = "match"; rbstart.Content = "start"; rbend.Content = "end"; rbcont.Content = "contains";
+            rbstart.IsChecked = true;
+            linkLabel3.Content = "search";
+            linkLabel3.Click += GzpsSearch;
+            var tab4Panel = new Avalonia.Controls.StackPanel { Margin = new Avalonia.Thickness(4) };
+            var propRow1 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 4 };
+            propRow1.Children.Add(label4); propRow1.Children.Add(tbpropname);
+            propRow1.Children.Add(label7); propRow1.Children.Add(tbpropval);
+            var propRow2 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 4 };
+            propRow2.Children.Add(rbfull); propRow2.Children.Add(rbstart);
+            propRow2.Children.Add(rbend); propRow2.Children.Add(rbcont);
+            var propRow3 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right };
+            propRow3.Children.Add(linkLabel3);
+            tab4Panel.Children.Add(propRow1); tab4Panel.Children.Add(propRow2); tab4Panel.Children.Add(propRow3);
+            tabPage4.Header = "Property Set"; tabPage4.Content = tab4Panel;
 
-				int count = 0;
-				foreach (Interfaces.Files.IPackedFileDescriptor pfd in pfds) 
-				{
-					pb.Value = (count++ * pb.Maximum) / pfds.Length;
-					SearchItem si = fkt(pfd, package, prov);
-					if (si!=null) lblist.Items.Add(si);
-				}
+            // Tab 5: GUID
+            label6.Content = "GUID:";
+            tbguid.Text = "0x00000000";
+            linkLabel4.Content = "search";
+            linkLabel4.Click += GuidSearch;
+            var tab5Panel = new Avalonia.Controls.StackPanel { Margin = new Avalonia.Thickness(4) };
+            var guidRow = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 4 };
+            guidRow.Children.Add(label6); guidRow.Children.Add(tbguid);
+            var guidRow2 = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right };
+            guidRow2.Children.Add(linkLabel4);
+            tab5Panel.Children.Add(guidRow); tab5Panel.Children.Add(guidRow2);
+            tabPage5.Header = "GUID"; tabPage5.Content = tab5Panel;
 
-				lblist.Sorted = true;
-				if (lblist.Items.Count==0) MessageBox.Show("No Files were found");
-				else lblist.SelectedIndex = 0;
-			} 
-			catch (Exception ex) 
-			{
-				Helper.ExceptionMessage("", ex);
-			}
-			finally 
-			{
-				Cursor = null;
-				pb.Value = 0;
-				//lblist.EndUpdate();
-			}
-		}
-		#endregion
-		
-		#region Seekers
-		/// <summary>
-		/// Searches BHAV Files
-		/// </summary>
-		/// <param name="pfd"></param>
-		/// <param name="package"></param>
-		/// <param name="prov"></param>
-		/// <returns>Null if no match or a valid SearchItem Object</returns>
-		public SearchItem BhavSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
-		{ 
-			ushort opcode = Convert.ToUInt16(this.tbOpcode.Text, 16);
-			
-			//group Filter
-			if (tbbhavgroup.Text.Trim()!="") 
-			{
-				uint group = Convert.ToUInt32(this.tbbhavgroup.Text, 16);
-				if (pfd.Group!=group) return null;
-			}
+            tabControl1.Items.Add(tabPage1);
+            tabControl1.Items.Add(tabPage2);
+            tabControl1.Items.Add(tabPage3);
+            tabControl1.Items.Add(tabPage4);
+            tabControl1.Items.Add(tabPage5);
 
-			Bhav bhav = new Bhav(prov.OpcodeProvider);
-			bhav.ProcessData(pfd, package);
+            btopen.Content = "Open";
+            btopen.IsEnabled = false;
+            btopen.Click += Open;
+            lblist.SelectionChanged += SelectFile;
 
-			foreach (Instruction i in bhav)
-			{
-				if (i.OpCode == opcode) 
-				{
-					return new SearchItem(bhav.FileName, pfd);
-				}
-			}
+            pb.Maximum = 1000;
+            pb.Value = 0;
 
-			return null;
-		}
+            var bottomRow = new Avalonia.Controls.StackPanel
+            {
+                Orientation = Avalonia.Layout.Orientation.Horizontal,
+                Margin = new Avalonia.Thickness(0, 4)
+            };
+            bottomRow.Children.Add(pb);
+            bottomRow.Children.Add(btopen);
 
-		/// <summary>
-		/// Searches RCOL Files
-		/// </summary>
-		/// <param name="pfd"></param>
-		/// <param name="package"></param>
-		/// <param name="prov"></param>
-		/// <returns>Null if no match or a valid SearchItem Object</returns>
-		public SearchItem RcolSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
-		{ 
-			string flname = Hashes.StripHashFromName(tbflname.Text);
-			uint inst = Hashes.InstanceHash(flname);
-			uint st = Hashes.SubTypeHash(flname);
+            var dock = new Avalonia.Controls.DockPanel { Margin = new Avalonia.Thickness(8) };
+            Avalonia.Controls.DockPanel.SetDock(tabControl1, Avalonia.Controls.Dock.Top);
+            Avalonia.Controls.DockPanel.SetDock(bottomRow, Avalonia.Controls.Dock.Bottom);
+            dock.Children.Add(tabControl1);
+            dock.Children.Add(bottomRow);
+            dock.Children.Add(lblist);
 
-			if ( (pfd.Instance == inst) && ((pfd.SubType == st) || pfd.SubType==0))
-			{
-				SimPe.Plugin.Rcol rcol = new GenericRcol(prov, false);
-				rcol.ProcessData(pfd, package);
-				return new SearchItem(rcol.FileName, pfd);
-			}
-			
+            panel1.Children.Add(dock);
+            Content = panel1;
+        }
 
-			return null;
-		}		
+        #region Seeker Infrastructure
+        /// <summary>
+        /// Delegate for Search Functions
+        /// </summary>
+        public delegate SearchItem SeekerFunction(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov);
 
-		/// <summary>
-		/// Searches Sims
-		/// </summary>
-		/// <param name="pfd"></param>
-		/// <param name="package"></param>
-		/// <param name="prov"></param>
-		/// <returns>Null if no match or a valid SearchItem Object</returns>
-		public SearchItem SdscSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
-		{ 
-			string name = tbsimname.Text.Trim().ToLower();
-			
-			SimPe.PackedFiles.Wrapper.SDesc sdesc = new SimPe.PackedFiles.Wrapper.SDesc(prov.SimNameProvider, prov.SimFamilynameProvider, prov.SimDescriptionProvider);
-			sdesc.ProcessData(pfd, package);
+        protected void StartSearch(SeekerFunction fkt, Interfaces.Files.IPackedFileDescriptor[] pfds)
+        {
+            try
+            {
+                pb.Value = 0;
+                btopen.Tag = null;
+                lblist.Items.Clear();
+                btopen.IsEnabled = false;
+                Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Wait);
 
-			string ext = "";
-			if (sdesc.Unlinked!=0x00) ext += "unlinked";
-			if (!sdesc.AvailableCharacterData) 
-			{
-				if (ext.Trim()!="") ext += ", no Character Data"; 
-			}
+                int count = 0;
+                foreach (Interfaces.Files.IPackedFileDescriptor pfd in pfds)
+                {
+                    pb.Value = (count++ * pb.Maximum) / pfds.Length;
+                    SearchItem si = fkt(pfd, package, prov);
+                    if (si != null) lblist.Items.Add(si);
+                }
 
-			if (ext.Trim()!="") ext = " ("+ext+")";
+                if (lblist.Items.Count == 0) SimPe.Scenegraph.Compat.MessageBox.ShowAsync("No Files were found").GetAwaiter().GetResult();
+                else lblist.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage("", ex);
+            }
+            finally
+            {
+                Cursor = null;
+                pb.Value = 0;
+            }
+        }
+        #endregion
+
+        #region Seekers
+        public SearchItem BhavSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
+        {
+            ushort opcode = Convert.ToUInt16(this.tbOpcode.Text, 16);
+
+            if (tbbhavgroup.Text.Trim() != "")
+            {
+                uint group = Convert.ToUInt32(this.tbbhavgroup.Text, 16);
+                if (pfd.Group != group) return null;
+            }
+
+            Bhav bhav = new Bhav(prov.OpcodeProvider);
+            bhav.ProcessData(pfd, package);
+
+            foreach (Instruction i in bhav)
+            {
+                if (i.OpCode == opcode)
+                    return new SearchItem(bhav.FileName, pfd);
+            }
+
+            return null;
+        }
+
+        public SearchItem RcolSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
+        {
+            string flname = Hashes.StripHashFromName(tbflname.Text);
+            uint inst = Hashes.InstanceHash(flname);
+            uint st = Hashes.SubTypeHash(flname);
+
+            if ((pfd.Instance == inst) && ((pfd.SubType == st) || pfd.SubType == 0))
+            {
+                SimPe.Plugin.Rcol rcol = new GenericRcol(prov, false);
+                rcol.ProcessData(pfd, package);
+                return new SearchItem(rcol.FileName, pfd);
+            }
+
+            return null;
+        }
+
+        public SearchItem SdscSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
+        {
+            string name = tbsimname.Text.Trim().ToLower();
+
+            SimPe.PackedFiles.Wrapper.SDesc sdesc = new SimPe.PackedFiles.Wrapper.SDesc(prov.SimNameProvider, prov.SimFamilynameProvider, prov.SimDescriptionProvider);
+            sdesc.ProcessData(pfd, package);
+
+            string ext = "";
+            if (sdesc.Unlinked != 0x00) ext += "unlinked";
+            if (!sdesc.AvailableCharacterData)
+            {
+                if (ext.Trim() != "") ext += ", no Character Data";
+            }
+
+            if (ext.Trim() != "") ext = " (" + ext + ")";
 
             string simname = "";
 
-            if (this.cblastname.Checked)
+            if (cblastname.IsChecked == true)
             {
                 simname = sdesc.SimFamilyName;
                 simname = simname.Trim().ToLower();
@@ -714,158 +312,132 @@ namespace SimPe.Plugin
                 if (simname == name) return new SearchItem(sdesc.SimName + " " + sdesc.SimFamilyName + ext, pfd);
             }
 
-			return null;
-		}
+            return null;
+        }
 
-		/// <summary>
-		/// Searches BHAV Files
-		/// </summary>
-		/// <param name="pfd"></param>
-		/// <param name="package"></param>
-		/// <param name="prov"></param>
-		/// <returns>Null if no match or a valid SearchItem Object</returns>
-		public SearchItem GzpsSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
-		{ 
-			ushort opcode = Convert.ToUInt16(this.tbOpcode.Text, 16);
-			SimPe.PackedFiles.Wrapper.Cpf cpf = new SimPe.PackedFiles.Wrapper.Cpf();
-			cpf.ProcessData(pfd, package);
+        public SearchItem GzpsSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
+        {
+            SimPe.PackedFiles.Wrapper.Cpf cpf = new SimPe.PackedFiles.Wrapper.Cpf();
+            cpf.ProcessData(pfd, package);
 
+            bool check = false;
+            string s1 = cpf.GetSaveItem(tbpropname.Text).StringValue.Trim().ToLower();
+            string s2 = tbpropval.Text.Trim().ToLower();
+            if (rbfull.IsChecked == true) check = (s1 == s2);
+            if (rbstart.IsChecked == true) check = (s1.StartsWith(s2));
+            if (rbend.IsChecked == true) check = (s1.EndsWith(s2));
+            if (rbcont.IsChecked == true) check = (s1.IndexOf(s2) != -1);
+            if (check)
+                return new SearchItem(cpf.FileDescriptor.ToString(), pfd);
 
-			//foreach (SimPe.PackedFiles.Wrapper.CpfItem i in cpf.Items)
-			{
-				bool check = false;
-				string s1 = cpf.GetSaveItem(tbpropname.Text).StringValue.Trim().ToLower();//i.StringValue.Trim().ToLower();
-				string s2 = tbpropval.Text.Trim().ToLower();
-				if (rbfull.Checked) check = (s1==s2);
-				if (rbstart.Checked) check = (s1.StartsWith(s2));
-				if (rbend.Checked) check = (s1.EndsWith(s2));
-				if (rbcont.Checked) check = (s1.IndexOf(s2)!=-1);
-				if (check) 
-				{
-					return new SearchItem(cpf.FileDescriptor.ToString(), pfd);
-				}
-			}
+            return null;
+        }
 
-			return null;
-		}
+        public SearchItem GuidSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
+        {
+            uint guid = Convert.ToUInt32(tbguid.Text, 16);
 
-		/// <summary>
-		/// Searches Sims
-		/// </summary>
-		/// <param name="pfd"></param>
-		/// <param name="package"></param>
-		/// <param name="prov"></param>
-		/// <returns>Null if no match or a valid SearchItem Object</returns>
-		public SearchItem GuidSearch(Interfaces.Files.IPackedFileDescriptor pfd, Interfaces.Files.IPackageFile package, Interfaces.IProviderRegistry prov)
-		{ 
-			uint guid = Convert.ToUInt32(tbguid.Text, 16);
-			
-			SimPe.PackedFiles.Wrapper.ExtObjd objd = new SimPe.PackedFiles.Wrapper.ExtObjd();
-			objd.ProcessData(pfd, package);
+            SimPe.PackedFiles.Wrapper.ExtObjd objd = new SimPe.PackedFiles.Wrapper.ExtObjd();
+            objd.ProcessData(pfd, package);
 
-			if (objd.Guid == guid) return new SearchItem(objd.FileName, pfd);
-			return null;
-		}
-		#endregion
+            if (objd.Guid == guid) return new SearchItem(objd.FileName, pfd);
+            return null;
+        }
+        #endregion
 
-		private void FindSim(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			this.StartSearch(new SeekerFunction(this.SdscSearch), package.FindFiles(Data.MetaData.SIM_DESCRIPTION_FILE));
-			
-		}
+        private void FindSim(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            StartSearch(new SeekerFunction(SdscSearch), package.FindFiles(Data.MetaData.SIM_DESCRIPTION_FILE));
+        }
 
-		Interfaces.Files.IPackageFile package;
-		Interfaces.Files.IPackedFileDescriptor pfd;
-		internal Interfaces.IProviderRegistry prov;
+        Interfaces.Files.IPackageFile package;
+        Interfaces.Files.IPackedFileDescriptor pfd;
+        internal Interfaces.IProviderRegistry prov;
 
-		internal Interfaces.Files.IPackedFileDescriptor Execute(Interfaces.Files.IPackageFile package) 
-		{
-			this.package = package;
-			this.pfd = null;
-			RemoteControl.ShowSubForm(this);
+        internal Interfaces.Files.IPackedFileDescriptor Execute(Interfaces.Files.IPackageFile package)
+        {
+            this.package = package;
+            this.pfd = null;
+            RemoteControl.ShowSubForm(this);
 
-			return pfd;
-		}
+            return pfd;
+        }
 
-		internal void Reset()
-		{
-			lblist.Items.Clear();
-			this.btopen.Enabled = false;
-		}
+        internal void Reset()
+        {
+            lblist.Items.Clear();
+            btopen.IsEnabled = false;
+        }
 
-		private void BhavSearch(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			this.StartSearch(new SeekerFunction(this.BhavSearch), package.FindFiles(Data.MetaData.BHAV_FILE));
-		}
+        private void BhavSearch(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            StartSearch(new SeekerFunction(BhavSearch), package.FindFiles(Data.MetaData.BHAV_FILE));
+        }
 
-		private void Open(object sender, System.EventArgs e)
-		{
-			if (lblist.SelectedIndex<0) return;
-			try 
-			{
-				SearchItem si = (SearchItem)lblist.Items[lblist.SelectedIndex];
-				pfd = si.Descriptor;
-				Close();
-			} 
-			catch (Exception ex)
-			{
-				Helper.ExceptionMessage("", ex);
-			}
-		}
+        private void Open(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            if (lblist.SelectedIndex < 0) return;
+            try
+            {
+                SearchItem si = (SearchItem)lblist.Items[lblist.SelectedIndex];
+                pfd = si.Descriptor;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage("", ex);
+            }
+        }
 
-		private void SelectFile(object sender, System.EventArgs e)
-		{
-			this.btopen.Enabled = false;
-			if (lblist.SelectedIndex<0) return;
-			this.btopen.Enabled = (btopen.Tag==null);
-		}
+        private void SelectFile(object sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        {
+            btopen.IsEnabled = false;
+            if (lblist.SelectedIndex < 0) return;
+            btopen.IsEnabled = (btopen.Tag == null);
+        }
 
-		private void GzpsSearch(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			Interfaces.Files.IPackedFileDescriptor[] pfds = (Interfaces.Files.IPackedFileDescriptor[])Helper.Merge(package.FindFiles(0xEBCF3E27), package.FindFiles(0x4C697E5A), typeof(Interfaces.Files.IPackedFileDescriptor)); 
-			this.StartSearch(new SeekerFunction(this.GzpsSearch), pfds);
-		}
+        private void GzpsSearch(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            Interfaces.Files.IPackedFileDescriptor[] pfds = (Interfaces.Files.IPackedFileDescriptor[])Helper.Merge(package.FindFiles(0xEBCF3E27), package.FindFiles(0x4C697E5A), typeof(Interfaces.Files.IPackedFileDescriptor));
+            StartSearch(new SeekerFunction(GzpsSearch), pfds);
+        }
 
-		private void GuidSearch(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFiles(Data.MetaData.OBJD_FILE);
-			this.StartSearch(new SeekerFunction(this.GuidSearch), pfds);
-		}
+        private void GuidSearch(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            Interfaces.Files.IPackedFileDescriptor[] pfds = package.FindFiles(Data.MetaData.OBJD_FILE);
+            StartSearch(new SeekerFunction(GuidSearch), pfds);
+        }
 
-		private void RcolSearch(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			if (cbusefileindex.Checked) 
-			{
-				WaitingScreen.Wait();
+        private void RcolSearch(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            if (cbusefileindex.IsChecked == true)
+            {
+                WaitingScreen.Wait();
                 try { SimPe.FileTable.FileIndex.Load(); }
                 finally { WaitingScreen.Stop(this); }
 
-				lblist.Items.Clear();
-				SimPe.Packages.PackedFileDescriptor pfd = new SimPe.Packages.PackedFileDescriptor();
-				pfd.SubType = Hashes.SubTypeHash(Hashes.StripHashFromName(tbflname.Text));
-				pfd.Instance = Hashes.InstanceHash(Hashes.StripHashFromName(tbflname.Text));
+                lblist.Items.Clear();
+                SimPe.Packages.PackedFileDescriptor pfd = new SimPe.Packages.PackedFileDescriptor();
+                pfd.SubType = Hashes.SubTypeHash(Hashes.StripHashFromName(tbflname.Text));
+                pfd.Instance = Hashes.InstanceHash(Hashes.StripHashFromName(tbflname.Text));
 
-				SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFileByInstance(pfd.LongInstance);
+                SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = FileTable.FileIndex.FindFileByInstance(pfd.LongInstance);
 
-				//short Index
-				if (items.Length==0) 
-				{
-					pfd.SubType = 0;
-					items = FileTable.FileIndex.FindFileByInstance(pfd.LongInstance);
-				}
+                if (items.Length == 0)
+                {
+                    pfd.SubType = 0;
+                    items = FileTable.FileIndex.FindFileByInstance(pfd.LongInstance);
+                }
 
-				foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem item in items)
-				{
-					lblist.Items.Add(item.Package.FileName);
-				}
+                foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem item in items)
+                    lblist.Items.Add(item.Package.FileName);
 
-				btopen.Tag = true;
-			} 
-			else 
-			{
-				
-				this.StartSearch(new SeekerFunction(this.RcolSearch), package.FindFile(Hashes.StripHashFromName(tbflname.Text)));
-			}
+                btopen.Tag = true;
+            }
+            else
+            {
+                StartSearch(new SeekerFunction(RcolSearch), package.FindFile(Hashes.StripHashFromName(tbflname.Text)));
+            }
         }
-	}
+    }
 }
