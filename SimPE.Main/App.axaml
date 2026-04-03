@@ -92,6 +92,23 @@
                 </ControlTemplate>
             </Setter>
         </Style>
+        <!-- Compact input controls — Fluent default MinHeight is too tall -->
+        <Style Selector="TextBox">
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Padding"   Value="6,2" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Padding"   Value="6,2" />
+        </Style>
+        <Style Selector="NumericUpDown">
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Padding"   Value="6,2" />
+        </Style>
+        <Style Selector="NumericUpDown /template/ TextBox">
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="Padding"   Value="4,2" />
+        </Style>
         <!-- TreeView selection — match DataGrid row selection colour -->
         <Style Selector="TreeViewItem:selected /template/ Border#PART_LayoutRoot">
             <Setter Property="Background" Value="#5580C4" />

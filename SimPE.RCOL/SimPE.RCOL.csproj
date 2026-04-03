@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BCnEncoder.Net" Version="2.3.0" />
+    <PackageReference Include="bodong.Avalonia.PropertyGrid" Version="11.2.4" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Pfim" Version="0.11.4" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />

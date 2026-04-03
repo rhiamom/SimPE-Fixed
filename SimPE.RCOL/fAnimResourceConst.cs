@@ -39,7 +39,7 @@ namespace SimPe.Plugin
 		internal Avalonia.Controls.TreeView tv;
 
 		// Internal UI fields
-		private SimPe.Plugin.TabPage.PropertyGridStub pg;
+		private SimPe.Plugin.TabPage.PropertyGridControl pg;
 		private Avalonia.Controls.Button llAdd;
 		private Avalonia.Controls.Button llExport;
 
@@ -53,7 +53,7 @@ namespace SimPe.Plugin
 		private void BuildLayout()
 		{
 			// --- PropertyGrid stub ---
-			pg = new SimPe.Plugin.TabPage.PropertyGridStub();
+			pg = new SimPe.Plugin.TabPage.PropertyGridControl();
 
 			// --- TreeView ---
 			tv = new Avalonia.Controls.TreeView();

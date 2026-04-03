@@ -36,7 +36,7 @@ namespace SimPe.Plugin.TabPage
 		private Avalonia.Controls.Border groupBox10;
 		internal Avalonia.Controls.TextBox tb_ver;
 		private Avalonia.Controls.TextBlock label28;
-		internal SimPe.Plugin.TabPage.PropertyGridStub gen_pg;
+		internal SimPe.Plugin.TabPage.PropertyGridControl gen_pg;
 
 		public GenericRcol()
 		{
@@ -46,7 +46,7 @@ namespace SimPe.Plugin.TabPage
 			tb_ver = new Avalonia.Controls.TextBox { Background = Avalonia.Media.Brushes.White, Text = "0x00000000" };
 			tb_ver.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(this.GNSettingsChange);
 			label28 = new Avalonia.Controls.TextBlock { Text = "Version:" };
-			gen_pg = new SimPe.Plugin.TabPage.PropertyGridStub();
+			gen_pg = new SimPe.Plugin.TabPage.PropertyGridControl();
 			groupBox10 = new Avalonia.Controls.Border();
 
 			Content = new Avalonia.Controls.StackPanel { Children = { label28, tb_ver } };

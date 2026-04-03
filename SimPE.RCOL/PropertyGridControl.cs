@@ -1,8 +1,5 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Ambertation                                     *
- *   quaxi@ambertation.de                                                  *
- *                                                                         *
- *   Copyright (C) 2025 by GramzeSweatShop                                 *
+/***************************************************************************                                                            *
+ *   Copyright (C) 2026 by GramzeSweatShop                                 *
  *   rhiamom@mac.com                                                       *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -23,9 +20,16 @@
 
 namespace SimPe.Plugin.TabPage
 {
-    /// <summary>Minimal stub for WinForms PropertyGrid - no Avalonia built-in equivalent.</summary>
-    public class PropertyGridStub
+    /// <summary>
+    /// Thin wrapper around bodong Avalonia.PropertyGrid that exposes a
+    /// WinForms-compatible SelectedObject property (delegates to DataContext).
+    /// </summary>
+    public class PropertyGridControl : Avalonia.PropertyGrid.Controls.PropertyGrid
     {
-        public object SelectedObject { get; set; }
+        public object SelectedObject
+        {
+            get => DataContext;
+            set => DataContext = value;
+        }
     }
 }

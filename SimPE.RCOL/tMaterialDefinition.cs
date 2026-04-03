@@ -46,17 +46,67 @@ namespace SimPe.Plugin.TabPage
 			this.Header = "cMeterialDefinition";
 			this.FontSize = 11;
 
-			label5 = new Avalonia.Controls.TextBlock { Text = "Type:" };
-			label4 = new Avalonia.Controls.TextBlock { Text = "Description:" };
-			tbtype = new Avalonia.Controls.TextBox { Background = Avalonia.Media.Brushes.White, Text = "" };
-			tbtype.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(this.FileNameChanged);
-			tbdsc = new Avalonia.Controls.TextBox { Background = Avalonia.Media.Brushes.White, Text = "" };
-			tbdsc.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(this.FileNameChanged);
-			label28 = new Avalonia.Controls.TextBlock { Text = "Version:" };
-			tb_ver = new Avalonia.Controls.TextBox { Background = Avalonia.Media.Brushes.White, Text = "0x00000000" };
-			tb_ver.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(this.FileNameChanged);
+			label5  = new Avalonia.Controls.TextBlock { Text = "Type:",        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center, Margin = new Avalonia.Thickness(0, 0, 6, 0) };
+			label4  = new Avalonia.Controls.TextBlock { Text = "Description:", VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center, Margin = new Avalonia.Thickness(0, 0, 6, 0) };
+			label28 = new Avalonia.Controls.TextBlock { Text = "Version:",     VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center, Margin = new Avalonia.Thickness(0, 0, 6, 0) };
 
-			Content = new Avalonia.Controls.StackPanel { Children = { label28, tb_ver, label4, tbdsc, label5, tbtype } };
+			tb_ver = new Avalonia.Controls.TextBox { Background = Avalonia.Media.Brushes.White, Text = "0x00000000", MinHeight = 0, Padding = new Avalonia.Thickness(4, 2), Width = 120 };
+			tb_ver.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(this.FileNameChanged);
+			tbdsc = new Avalonia.Controls.TextBox { Background = Avalonia.Media.Brushes.White, Text = "", MinHeight = 0, Padding = new Avalonia.Thickness(4, 2) };
+			tbdsc.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(this.FileNameChanged);
+			tbtype = new Avalonia.Controls.TextBox { Background = Avalonia.Media.Brushes.White, Text = "", MinHeight = 0, Padding = new Avalonia.Thickness(4, 2) };
+			tbtype.TextChanged += new EventHandler<Avalonia.Controls.TextChangedEventArgs>(this.FileNameChanged);
+
+			// Grid: label col (Auto) | textbox col (Star)
+			// Row 0: Version   | tb_ver (narrow — Width=120, HAlign=Left)
+			// Row 1: Description | tbdsc (full width)
+			// Row 2: Type      | tbtype (full width)
+			var fieldsGrid = new Avalonia.Controls.Grid { Margin = new Avalonia.Thickness(6) };
+			fieldsGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
+			fieldsGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
+			fieldsGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
+			fieldsGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(Avalonia.Controls.GridLength.Auto));
+			fieldsGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
+
+			tb_ver.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left;
+			label28.Margin = new Avalonia.Thickness(0, 0, 6, 4);
+			label4.Margin  = new Avalonia.Thickness(0, 4, 6, 4);
+			label5.Margin  = new Avalonia.Thickness(0, 4, 6, 0);
+
+			Avalonia.Controls.Grid.SetRow(label28, 0); Avalonia.Controls.Grid.SetColumn(label28, 0);
+			Avalonia.Controls.Grid.SetRow(tb_ver,  0); Avalonia.Controls.Grid.SetColumn(tb_ver,  1);
+			Avalonia.Controls.Grid.SetRow(label4,  1); Avalonia.Controls.Grid.SetColumn(label4,  0);
+			Avalonia.Controls.Grid.SetRow(tbdsc,   1); Avalonia.Controls.Grid.SetColumn(tbdsc,   1);
+			Avalonia.Controls.Grid.SetRow(label5,  2); Avalonia.Controls.Grid.SetColumn(label5,  0);
+			Avalonia.Controls.Grid.SetRow(tbtype,  2); Avalonia.Controls.Grid.SetColumn(tbtype,  1);
+			fieldsGrid.Children.Add(label28);
+			fieldsGrid.Children.Add(tb_ver);
+			fieldsGrid.Children.Add(label4);
+			fieldsGrid.Children.Add(tbdsc);
+			fieldsGrid.Children.Add(label5);
+			fieldsGrid.Children.Add(tbtype);
+
+			// "Settings" groupbox — blue-gray style matching Reference tab
+			var settingsHeader = new Avalonia.Controls.Border {
+				Background = new Avalonia.Media.LinearGradientBrush {
+					StartPoint = new Avalonia.RelativePoint(0, 0.5, Avalonia.RelativeUnit.Relative),
+					EndPoint   = new Avalonia.RelativePoint(1, 0.5, Avalonia.RelativeUnit.Relative),
+					GradientStops = { new Avalonia.Media.GradientStop(Avalonia.Media.Color.FromArgb(220, 60, 60, 80), 0.0), new Avalonia.Media.GradientStop(Avalonia.Media.Color.FromArgb(200, 80, 80, 110), 1.0) }
+				},
+				Child = new Avalonia.Controls.TextBlock { Text = "Settings", Foreground = Avalonia.Media.Brushes.White, FontSize = 11, FontWeight = Avalonia.Media.FontWeight.SemiBold, Margin = new Avalonia.Thickness(6, 3) }
+			};
+			var settingsBox = new Avalonia.Controls.Border {
+				VerticalAlignment   = Avalonia.Layout.VerticalAlignment.Top,
+				Background          = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(220, 228, 238)),
+				BorderBrush         = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(170, 185, 205)),
+				BorderThickness     = new Avalonia.Thickness(1),
+				CornerRadius        = new Avalonia.CornerRadius(3),
+				Margin              = new Avalonia.Thickness(4),
+				ClipToBounds        = true,
+				Child = new Avalonia.Controls.StackPanel { Children = { settingsHeader, fieldsGrid } }
+			};
+
+			Content = settingsBox;
 		}
 
 		private void FileNameChanged(object sender, System.EventArgs e)
