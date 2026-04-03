@@ -46,7 +46,9 @@ namespace SimPe.Plugin
         {
             try
             {
-                System.Drawing.Image src = Image.FromFile(flname);
+                using var stream = System.IO.File.OpenRead(flname);
+                SKBitmap src = SKBitmap.Decode(stream);
+                if (src == null) return;
                 LoadTXTR(id, src, sz, levels, format);
             }
             catch (Exception ex)
@@ -56,10 +58,9 @@ namespace SimPe.Plugin
         }
 
         /// <summary>
-        /// Assemble a Picture File
+        /// Assemble a Picture File from an SKBitmap source, building the mipmap pyramid.
         /// </summary>
-        /// <param name="data"></param>
-        public static void LoadTXTR(ImageData id, System.Drawing.Image src, System.Drawing.Size sz, int levels, SimPe.Plugin.ImageLoader.TxtrFormats format)
+        public static void LoadTXTR(ImageData id, SKBitmap src, System.Drawing.Size sz, int levels, SimPe.Plugin.ImageLoader.TxtrFormats format)
         {
             try
             {
@@ -67,67 +68,46 @@ namespace SimPe.Plugin
                 id.Format = format;
                 id.MipMapLevels = (uint)levels;
 
-                // Scale source image to sz using SkiaSharp (src is System.Drawing.Image but we can't use GDI+)
-                // Just create an empty SKBitmap of the right size as the scaled version
-                SKBitmap img = new SKBitmap(sz.Width, sz.Height);
+                // Scale source to the target size
+                SKBitmap scaled = new SKBitmap(sz.Width, sz.Height);
+                using (var canvas = new SKCanvas(scaled))
+                using (var paint = new SKPaint { FilterQuality = SKFilterQuality.High })
+                    canvas.DrawBitmap(src, new SKRect(0, 0, sz.Width, sz.Height), paint);
 
                 MipMap[] maps = new MipMap[levels];
                 int wd = 1;
                 int hg = 1;
 
-                //build default Sizes
+                // Build mipmap sizes (smallest first)
                 for (int i = 0; i < levels; i++)
                 {
                     MipMap mm = new MipMap(id);
-                    mm.Texture = new SKBitmap(wd, hg);
+
+                    SKBitmap bm = new SKBitmap(wd, hg);
+                    using (var canvas = new SKCanvas(bm))
+                    using (var paint = new SKPaint { FilterQuality = SKFilterQuality.High })
+                        canvas.DrawBitmap(scaled, new SKRect(0, 0, wd, hg), paint);
+                    mm.Texture = bm;
 
                     if ((wd == hg) && (wd == 1))
                     {
-                        if (id.TextureSize.Width > id.TextureSize.Height)
-                        {
-                            wd = id.TextureSize.Width / id.TextureSize.Height;
-                            hg = 1;
-                        }
-                        else
-                        {
-                            hg = id.TextureSize.Height / id.TextureSize.Width;
-                            wd = 1;
-                        }
-
-
-                        if ((wd == hg) && (wd == 1))
-                        {
-                            wd *= 2; hg *= 2;
-                        }
+                        if (sz.Width > sz.Height)       { wd = sz.Width / sz.Height; hg = 1; }
+                        else                            { hg = sz.Height / sz.Width; wd = 1; }
+                        if ((wd == hg) && (wd == 1))    { wd *= 2; hg *= 2; }
                     }
-                    else
-                    {
-                        wd *= 2; hg *= 2;
-                    }
+                    else { wd *= 2; hg *= 2; }
 
                     maps[i] = mm;
                 }
 
-                //create a Scaled Version for each testure
-                for (int i = 0; i < maps.Length; i++)
-                {
-                    MipMap mm = maps[i];
-                    SKBitmap bm = mm.Texture;
-                    using var canvas = new SKCanvas(bm);
-                    using var paint = new SKPaint { FilterQuality = SKFilterQuality.High };
-                    canvas.DrawBitmap(img, new SKRect(0, 0, bm.Width, bm.Height), paint);
-                    id.TextureSize = new Size(bm.Width, bm.Height);
-                } // for i
-
                 MipMapBlock[] mmps = new MipMapBlock[1];
                 mmps[0] = new MipMapBlock(id);
                 mmps[0].MipMaps = maps;
-
                 id.MipMapBlocks = mmps;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.Message);
+                Helper.ExceptionMessage("", ex);
             }
         }
 

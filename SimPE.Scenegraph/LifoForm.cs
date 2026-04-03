@@ -458,12 +458,12 @@ namespace SimPe.Plugin
 			wrapper.FileDescriptor.SubType = Hashes.SubTypeHash(fl);
 		}
 
-		private void BuildDXT(object sender, System.EventArgs e)
+		private async void BuildDXT(object sender, System.EventArgs e)
 		{
-			DDSTool dds = new DDSTool();
-
 			LevelInfo id = SelectedImageData();
-			LoadDDS(dds.Execute(1, id.TextureSize, id.Format));
+			DDSData[] dds = await DDSTool.Execute(1, id.TextureSize, id.Format);
+			if (dds != null && dds.Length > 0)
+				LoadDDS(dds);
 		}
 
 

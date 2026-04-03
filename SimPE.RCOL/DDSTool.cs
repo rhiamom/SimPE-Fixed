@@ -24,31 +24,39 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Pfim;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Layout;
 using BCnEncoder.Encoder;
 using BCnEncoder.Shared;
+using SkiaSharp;
 
 namespace SimPe.Plugin
 {
 	/// <summary>
 	/// Summary description for DDSTool.
-	/// Avalonia UserControl replacement (was WinForms Form).
+	/// Modal dialog: user opens a PNG, configures DXT settings, clicks Build.
 	/// </summary>
-	public class DDSTool : Avalonia.Controls.UserControl
+	public class DDSTool : Avalonia.Controls.Window
 	{
 		private Avalonia.Controls.Button linkLabel1;
 		private Avalonia.Controls.Image pb;
-		private Avalonia.Controls.ListBox cbfilter;
 		private Avalonia.Controls.TextBox tblevel;
-		private Avalonia.Controls.TextBox tbwidth;
-		private Avalonia.Controls.TextBox tbheight;
+		private Avalonia.Controls.TextBlock tbwidth;
+		private Avalonia.Controls.TextBlock tbheight;
 		private Avalonia.Controls.ComboBox cbformat;
 		private Avalonia.Controls.ComboBox cbsharpen;
 		private Avalonia.Controls.Button button1;
 
 		public DDSTool()
 		{
+			Title = "Build DXT Texture";
+			Width = 500;
+			Height = 370;
+			CanResize = false;
+			WindowStartupLocation = Avalonia.Controls.WindowStartupLocation.CenterOwner;
 			BuildLayout();
 
 			cbformat.Items.Clear();
@@ -59,159 +67,175 @@ namespace SimPe.Plugin
 
 		private void BuildLayout()
 		{
-			// Image preview (was PictureBox / Ambertation ImagePanel)
-			pb = new Avalonia.Controls.Image { Width = 128, Height = 128, Stretch = Avalonia.Media.Stretch.Uniform };
+			// ── image preview in a bordered box ──────────────────────────────
+			pb = new Avalonia.Controls.Image
+			{
+				Width = 128, Height = 128,
+				Stretch = Avalonia.Media.Stretch.Uniform,
+			};
+			var imageBorder = new Avalonia.Controls.Border
+			{
+				BorderBrush     = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(140, 140, 140)),
+				BorderThickness = new Avalonia.Thickness(1),
+				Background      = Avalonia.Media.Brushes.White,
+				Width = 132, Height = 132,
+				HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
+				Child = pb,
+			};
 
-			// "open Image..." button (was LinkLabel)
-			linkLabel1 = new Avalonia.Controls.Button { Content = "open Image..." };
+			linkLabel1 = new Avalonia.Controls.Button
+			{
+				Content = "open Image...",
+				HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+				Margin = new Avalonia.Thickness(0, 6, 0, 0),
+			};
 			linkLabel1.Click += linkLabel1_Click;
 
-			// Settings group controls
-			var label1 = new Avalonia.Controls.TextBlock { Text = "Levels:" };
-			tblevel = new Avalonia.Controls.TextBox { Text = "0" };
+			var leftPanel = new Avalonia.Controls.StackPanel
+			{
+				Width = 136,
+				VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+				Margin = new Avalonia.Thickness(0, 0, 8, 0),
+			};
+			leftPanel.Children.Add(imageBorder);
+			leftPanel.Children.Add(linkLabel1);
 
-			var label2 = new Avalonia.Controls.TextBlock { Text = "Size:" };
-			tbwidth  = new Avalonia.Controls.TextBox { Text = "0", IsReadOnly = true };
-			var labelX = new Avalonia.Controls.TextBlock { Text = "x" };
-			tbheight = new Avalonia.Controls.TextBox { Text = "0", IsReadOnly = true };
+			// ── settings ──────────────────────────────────────────────────────
+			const double dropW = 240;
+			const double rowH  = 28;
 
-			var label3 = new Avalonia.Controls.TextBlock { Text = "Format:" };
-			cbformat = new Avalonia.Controls.ComboBox();
+			var label1 = new Avalonia.Controls.TextBlock { Text = "Levels:",  VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			tblevel    = new Avalonia.Controls.TextBox   { Width = dropW,     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
 
-			var label4 = new Avalonia.Controls.TextBlock { Text = "Sharpen:" };
-			cbsharpen = new Avalonia.Controls.ComboBox();
-			cbsharpen.Items.Add("None");
-			cbsharpen.Items.Add("Negative");
-			cbsharpen.Items.Add("Lighter");
-			cbsharpen.Items.Add("Darker");
-			cbsharpen.Items.Add("ContrastMore");
-			cbsharpen.Items.Add("ContrastLess");
-			cbsharpen.Items.Add("Smoothen");
-			cbsharpen.Items.Add("SharpenSoft");
-			cbsharpen.Items.Add("SharpenMedium");
-			cbsharpen.Items.Add("SharpenStrong");
-			cbsharpen.Items.Add("FindEdges");
-			cbsharpen.Items.Add("Contour");
-			cbsharpen.Items.Add("EdgeDetect");
-			cbsharpen.Items.Add("EdgeDetectSoft");
-			cbsharpen.Items.Add("Emboss");
-			cbsharpen.Items.Add("MeanRemoval");
-
-			var label5 = new Avalonia.Controls.TextBlock { Text = "Filter:" };
-			cbfilter = new Avalonia.Controls.ListBox();
-			cbfilter.Items.Add("dither");
-			cbfilter.Items.Add("Point");
-			cbfilter.Items.Add("Box");
-			cbfilter.Items.Add("Triangle");
-			cbfilter.Items.Add("Quadratic");
-			cbfilter.Items.Add("Cubic");
-			cbfilter.Items.Add("Catrom");
-			cbfilter.Items.Add("Mitchell");
-			cbfilter.Items.Add("Gaussian");
-			cbfilter.Items.Add("Sinc");
-			cbfilter.Items.Add("Bessel");
-			cbfilter.Items.Add("Hanning");
-			cbfilter.Items.Add("Hamming");
-			cbfilter.Items.Add("Blackman");
-			cbfilter.Items.Add("Kaiser");
-			cbfilter.SelectionMode = Avalonia.Controls.SelectionMode.Multiple;
-
-			// Settings grid
-			var settingsGrid = new Avalonia.Controls.Grid();
-			settingsGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(Avalonia.Controls.GridLength.Auto));
-			settingsGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
-			for (int r = 0; r < 5; r++)
-				settingsGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
-
-			// Row 0: Levels
-			Avalonia.Controls.Grid.SetRow(label1, 0); Avalonia.Controls.Grid.SetColumn(label1, 0);
-			Avalonia.Controls.Grid.SetRow(tblevel, 0); Avalonia.Controls.Grid.SetColumn(tblevel, 1);
-			// Row 1: Size
-			Avalonia.Controls.Grid.SetRow(label2, 1); Avalonia.Controls.Grid.SetColumn(label2, 0);
-			var sizeRow = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal, Spacing = 4 };
+			var label2 = new Avalonia.Controls.TextBlock { Text = "Size:",    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			tbwidth    = new Avalonia.Controls.TextBlock { Text = "0",        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			tbheight   = new Avalonia.Controls.TextBlock { Text = "0",        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			var labelX = new Avalonia.Controls.TextBlock { Text = " x ",      VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			var sizeRow = new Avalonia.Controls.StackPanel { Orientation = Avalonia.Layout.Orientation.Horizontal };
 			sizeRow.Children.Add(tbwidth);
 			sizeRow.Children.Add(labelX);
 			sizeRow.Children.Add(tbheight);
-			Avalonia.Controls.Grid.SetRow(sizeRow, 1); Avalonia.Controls.Grid.SetColumn(sizeRow, 1);
-			// Row 2: Format
-			Avalonia.Controls.Grid.SetRow(label3, 2); Avalonia.Controls.Grid.SetColumn(label3, 0);
-			Avalonia.Controls.Grid.SetRow(cbformat, 2); Avalonia.Controls.Grid.SetColumn(cbformat, 1);
-			// Row 3: Sharpen
-			Avalonia.Controls.Grid.SetRow(label4, 3); Avalonia.Controls.Grid.SetColumn(label4, 0);
-			Avalonia.Controls.Grid.SetRow(cbsharpen, 3); Avalonia.Controls.Grid.SetColumn(cbsharpen, 1);
-			// Row 4: Filter
-			Avalonia.Controls.Grid.SetRow(label5, 4); Avalonia.Controls.Grid.SetColumn(label5, 0);
-			Avalonia.Controls.Grid.SetRow(cbfilter, 4); Avalonia.Controls.Grid.SetColumn(cbfilter, 1);
 
-			settingsGrid.Children.Add(label1);
-			settingsGrid.Children.Add(tblevel);
-			settingsGrid.Children.Add(label2);
-			settingsGrid.Children.Add(sizeRow);
-			settingsGrid.Children.Add(label3);
-			settingsGrid.Children.Add(cbformat);
-			settingsGrid.Children.Add(label4);
-			settingsGrid.Children.Add(cbsharpen);
-			settingsGrid.Children.Add(label5);
-			settingsGrid.Children.Add(cbfilter);
+			var label3 = new Avalonia.Controls.TextBlock { Text = "Format:",  VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			cbformat   = new Avalonia.Controls.ComboBox  { Width = dropW,     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
 
-			var settingsBorder = new Avalonia.Controls.Border
+			var label4 = new Avalonia.Controls.TextBlock { Text = "Sharpen:", VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			cbsharpen  = new Avalonia.Controls.ComboBox  { Width = dropW,     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
+			cbsharpen.Items.Add("None");        cbsharpen.Items.Add("Negative");
+			cbsharpen.Items.Add("Lighter");     cbsharpen.Items.Add("Darker");
+			cbsharpen.Items.Add("ContrastMore");cbsharpen.Items.Add("ContrastLess");
+			cbsharpen.Items.Add("Smoothen");    cbsharpen.Items.Add("SharpenSoft");
+			cbsharpen.Items.Add("SharpenMedium");cbsharpen.Items.Add("SharpenStrong");
+			cbsharpen.Items.Add("FindEdges");   cbsharpen.Items.Add("Contour");
+			cbsharpen.Items.Add("EdgeDetect");  cbsharpen.Items.Add("EdgeDetectSoft");
+			cbsharpen.Items.Add("Emboss");      cbsharpen.Items.Add("MeanRemoval");
+
+			var label5 = new Avalonia.Controls.TextBlock
 			{
+				Text = "Filter:",
+				VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+				Margin = new Avalonia.Thickness(0, 4, 0, 0),
+			};
+			var filterStack = new Avalonia.Controls.StackPanel { Spacing = 0 };
+			foreach (var fname in new[] { "dither","Point","Box","Triangle","Quadratic","Cubic","Catrom","Mitchell","Gaussian","Sinc","Bessel","Hanning","Hamming","Blackman","Kaiser" })
+				filterStack.Children.Add(new Avalonia.Controls.CheckBox { Content = fname, Padding = new Avalonia.Thickness(4, 1), MinHeight = 0 });
+			var filterScroll = new Avalonia.Controls.ScrollViewer
+			{
+				Height  = 122,
+				VerticalScrollBarVisibility   = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+				HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+				Content = filterStack,
+			};
+			var filterBorder = new Avalonia.Controls.Border
+			{
+				BorderBrush     = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(160, 160, 160)),
 				BorderThickness = new Avalonia.Thickness(1),
-				Padding = new Avalonia.Thickness(4),
-				Child = settingsGrid
+				Width           = dropW,
+				HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
+				Child = filterScroll,
 			};
 
-			// Build button
-			button1 = new Avalonia.Controls.Button { Content = "Build", IsEnabled = false };
+			// settings grid: label col (Auto) | control col (Star)
+			var sg = new Avalonia.Controls.Grid();
+			sg.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(Avalonia.Controls.GridLength.Auto));
+			sg.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
+			for (int r = 0; r < 5; r++)
+				sg.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto) { MinHeight = rowH });
+
+			void Place(Avalonia.Controls.Control c, int row, int col, Avalonia.Layout.VerticalAlignment va = Avalonia.Layout.VerticalAlignment.Center)
+			{
+				c.VerticalAlignment = va;
+				Avalonia.Controls.Grid.SetRow(c, row);
+				Avalonia.Controls.Grid.SetColumn(c, col);
+				sg.Children.Add(c);
+			}
+
+			Place(label1,       0, 0);  Place(tblevel,      0, 1);
+			Place(label2,       1, 0);  Place(sizeRow,      1, 1);
+			Place(label3,       2, 0);  Place(cbformat,     2, 1);
+			Place(label4,       3, 0);  Place(cbsharpen,    3, 1);
+			Place(label5,       4, 0, Avalonia.Layout.VerticalAlignment.Top);
+			Place(filterBorder, 4, 1, Avalonia.Layout.VerticalAlignment.Top);
+
+			// ── build button ──────────────────────────────────────────────────
+			button1 = new Avalonia.Controls.Button
+			{
+				Content = "Build",
+				IsEnabled = false,
+				HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+				Margin = new Avalonia.Thickness(0, 8, 0, 0),
+			};
 			button1.Click += Build;
 
-			// Left column: image preview + open button
-			var leftPanel = new Avalonia.Controls.StackPanel { Spacing = 8 };
-			leftPanel.Children.Add(pb);
-			leftPanel.Children.Add(linkLabel1);
+			// ── outer layout ──────────────────────────────────────────────────
+			var settingsBox = MakeGroupBox("Settings", sg);
 
-			// Outer layout
-			var outerGrid = new Avalonia.Controls.Grid();
+			var outerGrid = new Avalonia.Controls.Grid { Margin = new Avalonia.Thickness(8) };
 			outerGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(Avalonia.Controls.GridLength.Auto));
 			outerGrid.ColumnDefinitions.Add(new Avalonia.Controls.ColumnDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
 			outerGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
 			outerGrid.RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
 
-			Avalonia.Controls.Grid.SetRow(leftPanel, 0); Avalonia.Controls.Grid.SetColumn(leftPanel, 0);
-			Avalonia.Controls.Grid.SetRow(settingsBorder, 0); Avalonia.Controls.Grid.SetColumn(settingsBorder, 1);
-			Avalonia.Controls.Grid.SetRow(button1, 1); Avalonia.Controls.Grid.SetColumn(button1, 1);
-			Avalonia.Controls.Grid.SetColumnSpan(button1, 1);
+			Avalonia.Controls.Grid.SetRow(leftPanel,   0); Avalonia.Controls.Grid.SetColumn(leftPanel,   0);
+			Avalonia.Controls.Grid.SetRow(settingsBox, 0); Avalonia.Controls.Grid.SetColumn(settingsBox, 1);
+			Avalonia.Controls.Grid.SetRow(button1,     1); Avalonia.Controls.Grid.SetColumn(button1,     1);
 
 			outerGrid.Children.Add(leftPanel);
-			outerGrid.Children.Add(settingsBorder);
+			outerGrid.Children.Add(settingsBox);
 			outerGrid.Children.Add(button1);
 
 			Content = outerGrid;
 		}
 
-		// ── Helper: convert System.Drawing.Image to Avalonia Bitmap ──────────
-		private static Avalonia.Media.Imaging.Bitmap ToAvaloniaBitmap(System.Drawing.Image image)
+		static Avalonia.Controls.Border MakeGroupBox(string header, Avalonia.Controls.Control content)
 		{
-			if (image == null) return null;
-			try
+			var title = new Avalonia.Controls.TextBlock
 			{
-				using (var ms = new System.IO.MemoryStream())
-				{
-					image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-					ms.Position = 0;
-					return new Avalonia.Media.Imaging.Bitmap(ms);
-				}
-			}
-			catch { return null; }
+				Text = header,
+				FontWeight = Avalonia.Media.FontWeight.SemiBold,
+				Margin = new Avalonia.Thickness(0, 0, 0, 6),
+			};
+			var inner = new Avalonia.Controls.DockPanel();
+			Avalonia.Controls.DockPanel.SetDock(title, Avalonia.Controls.Dock.Top);
+			inner.Children.Add(title);
+			inner.Children.Add(content);
+			return new Avalonia.Controls.Border
+			{
+				BorderBrush     = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(160, 160, 160)),
+				BorderThickness = new Avalonia.Thickness(1),
+				CornerRadius    = new Avalonia.CornerRadius(3),
+				Padding         = new Avalonia.Thickness(8),
+				Child = inner,
+			};
 		}
 
-		private static Avalonia.Media.Imaging.Bitmap ToAvaloniaBitmap(SkiaSharp.SKBitmap bm)
+		static Avalonia.Media.Imaging.Bitmap ToAvaloniaBitmap(SKBitmap bm)
 		{
 			if (bm == null) return null;
 			try
 			{
-				using var skImg = SkiaSharp.SKImage.FromBitmap(bm);
-				using var encoded = skImg.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100);
+				using var skImg = SKImage.FromBitmap(bm);
+				using var encoded = skImg.Encode(SKEncodedImageFormat.Png, 100);
 				using var ms = new System.IO.MemoryStream();
 				encoded.SaveTo(ms);
 				ms.Position = 0;
@@ -220,69 +244,63 @@ namespace SimPe.Plugin
 			catch { return null; }
 		}
 
-		System.Drawing.Image img;
+		SKBitmap _img;
 		string imgname;
-		DDSData[] dds;
+		DDSData[] _dds;
 
-		public DDSData[] Execute(int level, System.Drawing.Size size, ImageLoader.TxtrFormats format)
+		/// <summary>
+		/// Show as modal dialog. Returns the built DDSData[] or null if cancelled.
+		/// </summary>
+		public static async Task<DDSData[]> Execute(int level, System.Drawing.Size size, ImageLoader.TxtrFormats format)
 		{
-			pb.Source = null;
-			img  = null;
-			dds  = null;
+			var dlg = new DDSTool();
+			dlg.cbsharpen.SelectedIndex = 0;
+			dlg.tblevel.Text   = level.ToString();
+			dlg.tbwidth.Text   = size.Width.ToString();
+			dlg.tbheight.Text  = size.Height.ToString();
 
-			this.cbsharpen.SelectedIndex = 0;
-			this.tblevel.Text   = level.ToString();
-			this.tbwidth.Text   = size.Width.ToString();
-			this.tbheight.Text  = size.Height.ToString();
-
-			cbformat.SelectedIndex = 2;
-			for (int i = 0; i < cbformat.Items.Count; i++)
+			dlg.cbformat.SelectedIndex = 2;
+			for (int i = 0; i < dlg.cbformat.Items.Count; i++)
 			{
-				ImageLoader.TxtrFormats fr = (ImageLoader.TxtrFormats)cbformat.Items[i];
-				if (fr == format)
+				if ((ImageLoader.TxtrFormats)dlg.cbformat.Items[i] == format)
 				{
-					cbformat.SelectedIndex = i;
+					dlg.cbformat.SelectedIndex = i;
 					break;
 				}
 			}
+			dlg.button1.IsEnabled = false;
 
-			this.button1.IsEnabled = false;
-			// ShowDialog() is not available for UserControl — caller is responsible for display
-			return dds;
+			await dlg.ShowDialog(SimPe.RemoteControl.ApplicationForm);
+			return dlg._dds;
 		}
 
-		private async void linkLabel1_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+		private async void linkLabel1_Click(object sender, RoutedEventArgs e)
 		{
-			var topLevel = Avalonia.Controls.TopLevel.GetTopLevel(this);
-			if (topLevel == null) return;
-
-			var files = await topLevel.StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
+			var files = await StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
 			{
 				Title = "Open Image",
 				AllowMultiple = false,
 				FileTypeFilter = new[]
 				{
-					new Avalonia.Platform.Storage.FilePickerFileType("All Image Files")
+					new Avalonia.Platform.Storage.FilePickerFileType("Image Files")
 					{
-						Patterns = new[] { "*.jpg", "*.bmp", "*.gif", "*.png" }
+						Patterns = new[] { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif" }
 					},
-					new Avalonia.Platform.Storage.FilePickerFileType("All Files")
-					{
-						Patterns = new[] { "*.*" }
-					}
 				}
 			});
 
 			if (files != null && files.Count > 0)
 			{
 				imgname = files[0].Path.LocalPath;
-				img = System.Drawing.Image.FromFile(imgname);
+				using var stream = System.IO.File.OpenRead(imgname);
+				_img = SKBitmap.Decode(stream);
+				if (_img == null) return;
 
-				pb.Source = ToAvaloniaBitmap(ImageLoader.Preview(img, new System.Drawing.Size(128, 128)));
+				pb.Source = ToAvaloniaBitmap(ImageLoader.Preview(_img, new System.Drawing.Size(128, 128)));
 
-				tbwidth.Text  = img.Width.ToString();
-				tbheight.Text = img.Height.ToString();
-				button1.IsEnabled = (img != null);
+				tbwidth.Text  = _img.Width.ToString();
+				tbheight.Text = _img.Height.ToString();
+				button1.IsEnabled = true;
 			}
 		}
 
@@ -385,17 +403,20 @@ namespace SimPe.Plugin
             }
         }
 
-        public static DDSData[] BuildDDS(System.Drawing.Image img, int levels, ImageLoader.TxtrFormats format, string parameters)
+        public static DDSData[] BuildDDS(SKBitmap bm, int levels, ImageLoader.TxtrFormats format, string parameters)
         {
-            string imgname = System.IO.Path.GetTempFileName() + ".png";
-            img.Save(imgname, System.Drawing.Imaging.ImageFormat.Png);
+            string tmpfile = System.IO.Path.GetTempFileName() + ".png";
             try
             {
-                return BuildDDS(imgname, levels, format, parameters);
+                using var image = SKImage.FromBitmap(bm);
+                using var encoded = image.Encode(SKEncodedImageFormat.Png, 100);
+                using (var fs = System.IO.File.Create(tmpfile))
+                    encoded.SaveTo(fs);
+                return BuildDDS(tmpfile, levels, format, parameters);
             }
             finally
             {
-                if (System.IO.File.Exists(imgname)) System.IO.File.Delete(imgname);
+                if (System.IO.File.Exists(tmpfile)) System.IO.File.Delete(tmpfile);
             }
         }
 
@@ -408,22 +429,19 @@ namespace SimPe.Plugin
 			id.MipMapBlocks[0].AddDDSData(data);
 		}
 
-		private void Build(object sender, Avalonia.Interactivity.RoutedEventArgs e)
+		private void Build(object sender, RoutedEventArgs e)
 		{
-			string arg = "-sharpenMethod " + (cbsharpen.SelectedItem?.ToString() ?? "") + " ";
-			foreach (var item in cbfilter.SelectedItems)
-			{
-				arg += "-" + item.ToString() + " ";
-			}
-
+			if (imgname == null || _img == null) return;
 			try
 			{
-				dds = BuildDDS(img, Convert.ToInt32(tblevel.Text), (ImageLoader.TxtrFormats)cbformat.Items[cbformat.SelectedIndex], arg);
+				_dds = BuildDDS(imgname, Convert.ToInt32(tblevel.Text),
+					(ImageLoader.TxtrFormats)cbformat.Items[cbformat.SelectedIndex], "");
 			}
 			catch (Exception ex)
 			{
 				Helper.ExceptionMessage(ex);
 			}
+			Close();
 		}
 	}
 }

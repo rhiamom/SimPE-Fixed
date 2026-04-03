@@ -106,7 +106,7 @@ namespace SimPe.Plugin
 			cbmipmaps  = new ComboBox { HorizontalAlignment = HorizontalAlignment.Stretch, FontSize = 11 };
 			lbimg      = new ListBox  { FontSize = 11 };
 			tblifo     = new TextBox  { Background = Avalonia.Media.Brushes.White, FontSize = 11 };
-			pb         = new PictureBoxCompat();
+			pb         = new PictureBoxCompat { Stretch = Avalonia.Media.Stretch.None };
 			panel1     = new Panel();
 			panel2     = new WrapperBaseControl();
 
@@ -295,11 +295,17 @@ namespace SimPe.Plugin
 			Grid.SetColumn(label6, 0); lifoRow.Children.Add(label6);
 			Grid.SetColumn(tblifo, 1); lifoRow.Children.Add(tblifo);
 
-			// Image fills remaining space; LIFO docked to bottom
+			// Image fills remaining space at actual size (scrollable); LIFO docked to bottom
+			var pbScroll = new ScrollViewer
+			{
+				HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+				VerticalScrollBarVisibility   = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+				Content = pb,
+			};
 			var rightDock = new DockPanel { LastChildFill = true, Margin = new Thickness(0, 4) };
 			DockPanel.SetDock(lifoRow, Dock.Bottom);
 			rightDock.Children.Add(lifoRow);
-			rightDock.Children.Add(pb);
+			rightDock.Children.Add(pbScroll);
 
 			// ── Main 2-column grid ─────────────────────────────────────────
 			var mainGrid = new Grid { Margin = new Thickness(4) };
@@ -427,7 +433,7 @@ namespace SimPe.Plugin
 
 		private async void btim_Click(object sender, System.EventArgs e)
 		{
-			if (lbimg.SelectedIndex<0) return;
+			if (lbimg.SelectedIndex < 0) return;
 
 			var topLevel = TopLevel.GetTopLevel(txtrPanel);
 			if (topLevel == null) return;
@@ -442,14 +448,10 @@ namespace SimPe.Plugin
 				try
 				{
 					ImageData id = (ImageData)cbitem.Items[cbitem.SelectedIndex];
-					System.IO.Stream s = System.IO.File.OpenRead(files[0].Path.LocalPath);
+					using var s = System.IO.File.OpenRead(files[0].Path.LocalPath);
 					SKBitmap img = Helper.LoadSKBitmap(s);
-					s.Close();
-					s.Dispose();
-					s = null;
-
 					img = this.CropImage(id, img);
-					if (img==null) return;
+					if (img == null) return;
 
 					lbimg.Tag = true;
 					MipMap mm = (MipMap)lbimg.Items[lbimg.SelectedIndex];
@@ -946,7 +948,7 @@ namespace SimPe.Plugin
 		private void ContextPopUp(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			milifo.IsEnabled = false;
-            this.mibuild.IsEnabled = System.IO.File.Exists(PathProvider.Global.NvidiaDDSTool);
+			mibuild.IsEnabled = true;
 			if (lbimg.SelectedIndex<0) return;
 			try
 			{
@@ -960,7 +962,7 @@ namespace SimPe.Plugin
 				{
 					milifo.IsEnabled = false;
 				}
-                mibuild.IsEnabled = (System.IO.File.Exists(PathProvider.Global.NvidiaDDSTool));
+				mibuild.IsEnabled = true;
 			}
 			catch (Exception ex)
 			{
@@ -1152,12 +1154,13 @@ namespace SimPe.Plugin
 			}
 		}
 
-		private void BuildDXT(object sender, System.EventArgs e)
+		private async void BuildDXT(object sender, System.EventArgs e)
 		{
-			DDSTool dds = new DDSTool();
-
 			ImageData id = SelectedImageData();
-			LoadDDS(dds.Execute(Convert.ToInt32(this.tblevel.Text), id.TextureSize, id.Format));
+			DDSData[] dds = await DDSTool.Execute(
+				Convert.ToInt32(this.tblevel.Text), id.TextureSize, id.Format);
+			if (dds != null && dds.Length > 0)
+				LoadDDS(dds);
 			id.Refresh();
 		}
 	}

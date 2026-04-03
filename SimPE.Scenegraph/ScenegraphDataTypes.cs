@@ -312,6 +312,21 @@ namespace SimPe.Scenegraph.Compat
             VerticalAlignment   = Avalonia.Layout.VerticalAlignment.Stretch,
         };
 
+        public Avalonia.Media.Stretch Stretch
+        {
+            get => _imgCtrl.Stretch;
+            set
+            {
+                _imgCtrl.Stretch = value;
+                _imgCtrl.HorizontalAlignment = value == Avalonia.Media.Stretch.None
+                    ? Avalonia.Layout.HorizontalAlignment.Left
+                    : Avalonia.Layout.HorizontalAlignment.Stretch;
+                _imgCtrl.VerticalAlignment = value == Avalonia.Media.Stretch.None
+                    ? Avalonia.Layout.VerticalAlignment.Top
+                    : Avalonia.Layout.VerticalAlignment.Stretch;
+            }
+        }
+
         private SkiaSharp.SKBitmap _image;
         public SkiaSharp.SKBitmap Image
         {
