@@ -92,31 +92,82 @@ namespace SimPe.Plugin
 		private void BuildLayout()
 		{
 			// ── Reference Tab (tpref) ──────────────────────────────────────
-			label3    = new Avalonia.Controls.TextBlock { Text = "Group:" };
-			label4    = new Avalonia.Controls.TextBlock { Text = "Instance:" };
-			label5    = new Avalonia.Controls.TextBlock { Text = "File:" };
-			tbrefgroup = new Avalonia.Controls.TextBox { Text = "0x00000000", IsReadOnly = true, Background = Avalonia.Media.Brushes.White };
-			tbrefinst  = new Avalonia.Controls.TextBox { Text = "0x00000000", IsReadOnly = true, Background = Avalonia.Media.Brushes.White };
-			tbfile     = new Avalonia.Controls.TextBox { IsReadOnly = true, Background = Avalonia.Media.Brushes.White };
-			linkLabel1 = new Avalonia.Controls.Button { Content = "reload" };
+			label3    = new Avalonia.Controls.TextBlock { Text = "Group:",    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			label4    = new Avalonia.Controls.TextBlock { Text = "Instance:", VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			label5    = new Avalonia.Controls.TextBlock { Text = "File:",     VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+			tbrefgroup = new Avalonia.Controls.TextBox { Text = "0x00000000", IsReadOnly = true, Background = Avalonia.Media.Brushes.White, MinHeight = 0, Padding = new Avalonia.Thickness(4, 2) };
+			tbrefinst  = new Avalonia.Controls.TextBox { Text = "0x00000000", IsReadOnly = true, Background = Avalonia.Media.Brushes.White, MinHeight = 0, Padding = new Avalonia.Thickness(4, 2) };
+			tbfile     = new Avalonia.Controls.TextBox { IsReadOnly = true, Background = Avalonia.Media.Brushes.White, MinHeight = 0, Padding = new Avalonia.Thickness(4, 2) };
+			linkLabel1 = new Avalonia.Controls.Button { Content = "reload", Padding = new Avalonia.Thickness(0), Background = Avalonia.Media.Brushes.Transparent, BorderThickness = new Avalonia.Thickness(0), Foreground = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(0, 80, 180)), Cursor = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Hand) };
 			linkLabel1.Click += linkLabel1_LinkClicked;
 
 			tv = new Avalonia.Controls.TreeView();
 			tv.SelectionChanged += SelectRefItem;
 			DragDrop.SetAllowDrop(tv, false);
 
-			var refDetails = new StackPanel { Orientation = Orientation.Vertical, Spacing = 4 };
-			refDetails.Children.Add(label3);
-			refDetails.Children.Add(tbrefgroup);
-			refDetails.Children.Add(label4);
-			refDetails.Children.Add(tbrefinst);
-			refDetails.Children.Add(label5);
-			refDetails.Children.Add(linkLabel1);
-			refDetails.Children.Add(tbfile);
+			// "Values" groupbox: 4-row grid inside a titled border
+			//   row 0: Group:    | textbox
+			//   row 1: Instance: | textbox
+			//   row 2: File:     | reload link
+			//   row 3: tbfile (spans both columns)
+			var valuesGrid = new Grid { Margin = new Avalonia.Thickness(4) };
+			valuesGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+			valuesGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+			valuesGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+			valuesGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+			valuesGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+			valuesGrid.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+
+			label3.Margin = new Avalonia.Thickness(0, 0, 6, 3);
+			label4.Margin = new Avalonia.Thickness(0, 3, 6, 3);
+			label5.Margin = new Avalonia.Thickness(0, 3, 6, 0);
+
+			Grid.SetRow(label3,    0); Grid.SetColumn(label3,    0);
+			Grid.SetRow(tbrefgroup,0); Grid.SetColumn(tbrefgroup,1);
+			Grid.SetRow(label4,    1); Grid.SetColumn(label4,    0);
+			Grid.SetRow(tbrefinst, 1); Grid.SetColumn(tbrefinst, 1);
+			Grid.SetRow(label5,    2); Grid.SetColumn(label5,    0);
+			Grid.SetRow(linkLabel1,2); Grid.SetColumn(linkLabel1,1);
+			Grid.SetRow(tbfile,    3); Grid.SetColumn(tbfile,    0); Grid.SetColumnSpan(tbfile, 2);
+			tbfile.Margin = new Avalonia.Thickness(0, 3, 0, 0);
+
+			valuesGrid.Children.Add(label3);
+			valuesGrid.Children.Add(tbrefgroup);
+			valuesGrid.Children.Add(label4);
+			valuesGrid.Children.Add(tbrefinst);
+			valuesGrid.Children.Add(label5);
+			valuesGrid.Children.Add(linkLabel1);
+			valuesGrid.Children.Add(tbfile);
+
+			// "Values" groupbox — same style as Reference tab "Settings" box
+			var valuesHeaderBorder = new Avalonia.Controls.Border {
+				Background = new Avalonia.Media.LinearGradientBrush {
+					StartPoint = new Avalonia.RelativePoint(0, 0.5, Avalonia.RelativeUnit.Relative),
+					EndPoint   = new Avalonia.RelativePoint(1, 0.5, Avalonia.RelativeUnit.Relative),
+					GradientStops = { new Avalonia.Media.GradientStop(Avalonia.Media.Color.FromArgb(220, 60, 60, 80), 0.0), new Avalonia.Media.GradientStop(Avalonia.Media.Color.FromArgb(200, 80, 80, 110), 1.0) }
+				},
+				Child = new Avalonia.Controls.TextBlock { Text = "Values", Foreground = Avalonia.Media.Brushes.White, FontSize = 11, FontWeight = Avalonia.Media.FontWeight.SemiBold, Margin = new Avalonia.Thickness(6, 3) }
+			};
+			var valuesBox = new Avalonia.Controls.Border {
+				VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+				Background      = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(220, 228, 238)),
+				BorderBrush     = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(170, 185, 205)),
+				BorderThickness = new Avalonia.Thickness(1),
+				CornerRadius    = new Avalonia.CornerRadius(3),
+				Margin          = new Avalonia.Thickness(4),
+				ClipToBounds    = true,
+				Child = new Avalonia.Controls.StackPanel { Children = { valuesHeaderBorder, valuesGrid } }
+			};
+
+			var refDetails = new Avalonia.Controls.StackPanel {
+				VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+				MinWidth = 240,
+				Children = { valuesBox }
+			};
 
 			var refPanel = new Grid();
 			refPanel.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
-			refPanel.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
+			refPanel.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
 			Grid.SetColumn(tv,         0);
 			Grid.SetColumn(refDetails, 1);
 			refPanel.Children.Add(tv);
@@ -317,17 +368,23 @@ namespace SimPe.Plugin
 			btadd.Click   += btadd_Click;
 
 			cbblocks = new Avalonia.Controls.ComboBox();
+			cbblocks.MinHeight = 0;
+			cbblocks.Padding   = new Avalonia.Thickness(4, 2);
+			cbblocks.Height    = 24;
+			cbblocks.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch;
 
+			// Button order: Up, Down, [cbblocks], Add, Delete
 			var blockButtons = new StackPanel { Orientation = Orientation.Vertical, Spacing = 4 };
 			blockButtons.Children.Add(btup);
 			blockButtons.Children.Add(btdown);
-			blockButtons.Children.Add(btdel);
-			blockButtons.Children.Add(btadd);
 			blockButtons.Children.Add(cbblocks);
+			blockButtons.Children.Add(btadd);
+			blockButtons.Children.Add(btdel);
 
-			var blocksPanel = new Grid();
-			blocksPanel.ColumnDefinitions.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
-			blocksPanel.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Auto));
+			// List ~1/3 screen width (fixed 420px), buttons auto-sized beside it
+			var blocksPanel = new Grid { HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left };
+			blocksPanel.ColumnDefinitions.Add(new ColumnDefinition(new Avalonia.Controls.GridLength(420)));
+			blocksPanel.ColumnDefinitions.Add(new ColumnDefinition(Avalonia.Controls.GridLength.Auto));
 			Grid.SetColumn(lbblocks,     0);
 			Grid.SetColumn(blockButtons, 1);
 			blocksPanel.Children.Add(lbblocks);
