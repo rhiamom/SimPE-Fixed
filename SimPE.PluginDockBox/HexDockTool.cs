@@ -49,26 +49,27 @@ namespace SimPe.Plugin.Tool.Dockable
 		{
 			rd.button1.IsEnabled = false;
 			if (!rd.dcHex.IsFloating && !rd.dcHex.IsDocked) return;
-			if (es.HasFileDescriptor) 
+			if (es.HasFileDescriptor)
 			{
-				foreach (SimPe.Events.ResourceContainer e in es) 
+				foreach (SimPe.Events.ResourceContainer e in es)
 				{
 					if (e.HasFileDescriptor && e.HasPackage)
 					{
-						try 
-						{							
+						try
+						{
 							rd.hexpfd = e.Resource.FileDescriptor;
 							SimPe.Interfaces.Files.IPackedFile pf = e.Resource.Package.Read(e.Resource.FileDescriptor);
 							rd.hvc.Data = pf.UncompressedData;
 							rd.button1.IsEnabled = true;
 							return;
-						} 
-						catch {}
-						
+						}
+						catch (Exception)
+						{
+						}
 					}
 				}
 			}
-			
+
 			rd.hvc.Data = null;
 		}
 

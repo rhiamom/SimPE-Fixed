@@ -517,7 +517,47 @@ namespace SimPe.Plugin.Tool.Dockable
             button1.Margin              = new Avalonia.Thickness(0, 2, 0, 2);
 
             var lbOff  = MakeLbl("Offset:");
-            var lbHigh = MakeLbl("Highlight:");
+
+            // "Highlight:" is a blue hyperlink that searches for the typed hex bytes
+            // and selects the first occurrence in the hex view.
+            var lbHigh = new Avalonia.Controls.Button
+            {
+                Content             = "Highlight:",
+                FontSize            = 11,
+                Foreground          = Avalonia.Media.Brushes.Blue,
+                Background          = Avalonia.Media.Brushes.Transparent,
+                BorderThickness     = new Avalonia.Thickness(0),
+                Padding             = new Avalonia.Thickness(0, 0, 4, 0),
+                VerticalAlignment   = Avalonia.Layout.VerticalAlignment.Center,
+                Cursor              = new Avalonia.Input.Cursor(Avalonia.Input.StandardCursorType.Hand),
+            };
+            lbHigh.Click += (s, e) =>
+            {
+                string raw = tbHigh.Text?.Trim() ?? "";
+                // Parse hex bytes in any spacing/dash format
+                raw = raw.Replace("-", " ");
+                while (raw.Contains("  ")) raw = raw.Replace("  ", " ");
+                if (raw.Length > 0 && !raw.Contains(" "))
+                {
+                    // No spaces — insert them every 2 chars
+                    var sb = new System.Text.StringBuilder();
+                    for (int i = 0; i < raw.Length; i += 2)
+                    {
+                        if (sb.Length > 0) sb.Append(' ');
+                        sb.Append(raw.Length - i >= 2 ? raw.Substring(i, 2) : raw.Substring(i));
+                    }
+                    raw = sb.ToString();
+                }
+                string[] parts = raw.Trim().Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length == 0) { hvc.Highlight(System.Array.Empty<byte>()); return; }
+                var data = new byte[parts.Length];
+                for (int i = 0; i < parts.Length; i++)
+                    try { data[i] = System.Convert.ToByte(parts[i], 16); } catch { data[i] = 0; }
+                // Normalize back to "FF 00 AB" format in the textbox
+                tbHigh.Text = System.BitConverter.ToString(data).Replace("-", " ");
+                hvc.Highlight(data);
+            };
+
             Avalonia.Controls.DockPanel.SetDock(lbOff,    Avalonia.Controls.Dock.Left);
             Avalonia.Controls.DockPanel.SetDock(tbOffset, Avalonia.Controls.Dock.Left);
             Avalonia.Controls.DockPanel.SetDock(lbHigh,   Avalonia.Controls.Dock.Left);

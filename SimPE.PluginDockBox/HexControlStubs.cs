@@ -15,31 +15,71 @@ namespace Ambertation.Windows.Forms
     // dependency. Its styles are loaded in App.axaml:
     //   <StyleInclude Source="avares://AvaloniaHex/Themes/Simple/AvaloniaHex.axaml"/>
     //
-    // Three columns are shown: offset address | hex bytes (16-wide) | ASCII.
-    public class HexViewControl : Avalonia.Controls.Border
+    // Layout: orange column-number header row on top (matching the original SimPE
+    // hex editor), then the HexEditor below. Three columns: offset | hex bytes | ASCII.
+    // The header's left margin is updated after layout to align with the hex column.
+    public class HexViewControl : Avalonia.Controls.Grid
     {
         public enum ViewState { Hex, SignedDec, UnsignedDec }
 
+        private static readonly Avalonia.Media.FontFamily MonoFont =
+            new Avalonia.Media.FontFamily("Courier New, Courier, monospace");
+        private const double HexFontSize   = 12.5;
+        private const Avalonia.Media.FontWeight HexFontWeight = Avalonia.Media.FontWeight.SemiBold;
+        private static readonly Avalonia.Media.IBrush OrangeBrush =
+            new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(230, 120, 0));
+
         private readonly AvaloniaHex.HexEditor _editor;
+        private readonly AvaloniaHex.Rendering.OffsetColumn _offsetCol;
+        private readonly AvaloniaHex.Rendering.HexColumn    _hexCol;
+        // The TextBlock showing "00 01 02 ... 0f" in the orange header row.
+        private readonly Avalonia.Controls.TextBlock _colHeader;
         private byte[] _data;
 
         public HexViewControl()
         {
-            _editor = new AvaloniaHex.HexEditor
+            // Two rows: auto-height orange header, then the editor fills the rest.
+            RowDefinitions.Add(new Avalonia.Controls.RowDefinition(Avalonia.Controls.GridLength.Auto));
+            RowDefinitions.Add(new Avalonia.Controls.RowDefinition(new Avalonia.Controls.GridLength(1, Avalonia.Controls.GridUnitType.Star)));
+
+            // ── Orange column-number header ───────────────────────────────────
+            // Double space between bytes 07 and 08 matches AvaloniaHex's default
+            // group separator (BytesPerGroup = 8).
+            _colHeader = new Avalonia.Controls.TextBlock
             {
-                FontFamily = new Avalonia.Media.FontFamily("Courier New, Courier, monospace"),
-                FontSize   = 11,
+                Text       = "00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f",
+                Foreground = Avalonia.Media.Brushes.White,
+                FontFamily = MonoFont,
+                FontSize   = HexFontSize,
+                FontWeight = HexFontWeight,
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
             };
 
-            // Three standard columns.
-            // Offset column gets an orange background to match original SimPE styling.
-            var offsetCol = new AvaloniaHex.Rendering.OffsetColumn
+            var headerBorder = new Avalonia.Controls.Border
             {
-                Background = new Avalonia.Media.SolidColorBrush(Avalonia.Media.Color.FromRgb(230, 120, 0)),
+                Background = OrangeBrush,
+                Padding    = new Avalonia.Thickness(0, 3, 0, 3),
+                Child      = _colHeader,
+            };
+            Avalonia.Controls.Grid.SetRow(headerBorder, 0);
+            Children.Add(headerBorder);
+
+            // ── Hex editor ───────────────────────────────────────────────────
+            _offsetCol = new AvaloniaHex.Rendering.OffsetColumn
+            {
+                Background = OrangeBrush,
                 Foreground = Avalonia.Media.Brushes.White,
             };
-            _editor.Columns.Add(offsetCol);
-            _editor.Columns.Add(new AvaloniaHex.Rendering.HexColumn());
+            _hexCol = new AvaloniaHex.Rendering.HexColumn();
+
+            _editor = new AvaloniaHex.HexEditor
+            {
+                FontFamily = MonoFont,
+                FontSize   = HexFontSize,
+                FontWeight = HexFontWeight,
+            };
+            _editor.Columns.Add(_offsetCol);
+            _editor.Columns.Add(_hexCol);
             _editor.Columns.Add(new AvaloniaHex.Rendering.AsciiColumn());
 
             // Set a non-null empty document so the column headers always render
@@ -49,7 +89,21 @@ namespace Ambertation.Windows.Forms
             // Fix bytes-per-line at 16 to match the original SimPE layout.
             _editor.HexView.BytesPerLine = 16;
 
-            Child = _editor;
+            Avalonia.Controls.Grid.SetRow(_editor, 1);
+            Children.Add(_editor);
+
+            // Update header margin once layout is complete so the column numbers
+            // align with the hex bytes below.
+            _editor.LayoutUpdated += OnEditorLayoutUpdated;
+        }
+
+        private void OnEditorLayoutUpdated(object sender, System.EventArgs e)
+        {
+            double offsetWidth = _offsetCol.Width;
+            if (offsetWidth <= 0) return;
+
+            double colPadding = _editor.HexView.ColumnPadding;
+            _colHeader.Margin = new Avalonia.Thickness(offsetWidth + colPadding, 0, 0, 0);
         }
 
         // ── Data property ─────────────────────────────────────────────────────
@@ -102,7 +156,33 @@ namespace Ambertation.Windows.Forms
         public event System.EventHandler DataChanged;
         public event System.EventHandler SelectionChanged;
 
-        public void Highlight(byte[] data) { }
+        public void Highlight(byte[] data)
+        {
+            if (_data == null || _data.Length == 0 || data == null || data.Length == 0)
+            {
+                _editor.Selection.Range = AvaloniaHex.Document.BitRange.Empty;
+                return;
+            }
+            // Search for the first occurrence of the byte sequence in _data.
+            int limit = _data.Length - data.Length;
+            for (int i = 0; i <= limit; i++)
+            {
+                bool match = true;
+                for (int j = 0; j < data.Length; j++)
+                    if (_data[i + j] != data[j]) { match = false; break; }
+                if (!match) continue;
+
+                var start = new AvaloniaHex.Document.BitLocation((ulong)i);
+                var end   = new AvaloniaHex.Document.BitLocation((ulong)(i + data.Length));
+                _editor.Selection.Range = new AvaloniaHex.Document.BitRange(start, end);
+                _editor.Caret.Location  = start;
+                _editor.HexView.BringIntoView(start);
+                _editor.Focus();
+                return;
+            }
+            // Not found — clear selection.
+            _editor.Selection.Range = AvaloniaHex.Document.BitRange.Empty;
+        }
         public void Refresh(bool force = false) { }
 
         public static string SetLength(string s, int len, char pad)
