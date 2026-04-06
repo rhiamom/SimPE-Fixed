@@ -223,30 +223,19 @@ namespace SimPe
             f.LoadResource("welcome");
             SimPe.Splash.Screen.Stop();
 
-            // Detach rtb from bottom so we can shrink it and add a checkbox row below it
-            f.rtb.Anchor = System.Windows.Forms.AnchorStyles.Top
-                         | System.Windows.Forms.AnchorStyles.Left
-                         | System.Windows.Forms.AnchorStyles.Right;
-            f.rtb.Height = f.ClientSize.Height - f.rtb.Top - 30;
-
-            // Add "Don't show this again" checkbox at bottom-right, outside the text box
-            CheckBox cbDontShow = new CheckBox();
-            cbDontShow.Text = "Don't show this again on startup";
-            cbDontShow.AutoSize = true;
-            cbDontShow.Checked = !Helper.WindowsRegistry.ShowWelcomeOnStartup;
-            cbDontShow.BackColor = System.Drawing.SystemColors.Control;
-            cbDontShow.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-                              | System.Windows.Forms.AnchorStyles.Right;
-            f.Controls.Add(cbDontShow);
-            cbDontShow.BringToFront();
-            // Position after adding so AutoSize has calculated Width
-            cbDontShow.Location = new System.Drawing.Point(
-                f.ClientSize.Width - cbDontShow.Width - 16,
-                f.ClientSize.Height - cbDontShow.Height - 6);
-
 			f.ShowDialog();
 
-            Helper.WindowsRegistry.ShowWelcomeOnStartup = !cbDontShow.Checked;
+            // After the About form closes, ask if user wants to hide it on startup
+            if (Helper.WindowsRegistry.ShowWelcomeOnStartup)
+            {
+                DialogResult dr = MessageBox.Show(
+                    "Show this Welcome screen next time SimPE starts?",
+                    "Welcome",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                Helper.WindowsRegistry.ShowWelcomeOnStartup = (dr == DialogResult.Yes);
+                Helper.WindowsRegistry.Flush();
+            }
 		}
 
         //static System.Threading.Thread uthread;
