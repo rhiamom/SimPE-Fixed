@@ -57,7 +57,7 @@ namespace SimPe
 		/// <summary>
 		/// Characters allowd in a Filepath
 		/// </summary>
-        public const string PATH_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzß0123456789.-_ ™";
+        public const string PATH_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzï¿½0123456789.-_ ï¿½";
 
 		/// <summary>
 		/// Character used to Seperate Folders in a Path
@@ -580,6 +580,41 @@ namespace SimPe
 				return path;
 			}
 		}
+
+        /// <summary>
+        /// Extracts default XML data files from embedded resources to SimPeDataPath if they don't exist.
+        /// Call once on startup.
+        /// </summary>
+        public static void ExtractDefaultDataFiles()
+        {
+            string[] xmlFiles = new[]
+            {
+                "additional_careers.xml",
+                "additional_majors.xml",
+                "additional_schools.xml",
+                "hoods.xml",
+                "objddefinition.xml",
+                "semiglobals.xml",
+                "tgi.xml",
+                "txmtdefinition.xml",
+            };
+            string dataPath = SimPeDataPath;
+            var asm = System.Reflection.Assembly.GetExecutingAssembly();
+            foreach (string file in xmlFiles)
+            {
+                string dest = Path.Combine(dataPath, file);
+                if (File.Exists(dest)) continue;
+                string resourceName = "SimPe.IconXmlResources." + file;
+                using System.IO.Stream s = asm.GetManifestResourceStream(resourceName);
+                if (s == null) continue;
+                try
+                {
+                    using var fs = File.Create(dest);
+                    s.CopyTo(fs);
+                }
+                catch { }
+            }
+        }
 
         public class DataFolder
         {

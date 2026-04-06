@@ -75,6 +75,11 @@ namespace SimPe
             Commandline.CheckFiles();
             //if (!Commandline.ImportOldData()) return;
 
+            // Fresh install: seed default layout and XML data files if they don't exist yet
+            if (!System.IO.File.Exists(Helper.DataFolder.SimPeLayout))
+                Commandline.ForceModernLayout();
+            Helper.ExtractDefaultDataFiles();
+
             try
             {
                 SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Starting SimPE..."));

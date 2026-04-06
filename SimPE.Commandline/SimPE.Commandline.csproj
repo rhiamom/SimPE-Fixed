@@ -25,6 +25,12 @@
     <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="modern.layout" />
+    <EmbeddedResource Include="modern_layout.xreg" />
+    <EmbeddedResource Include="classic.layout" />
+    <EmbeddedResource Include="classic_layout.xreg" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
