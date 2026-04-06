@@ -53,13 +53,24 @@ namespace SimPe
 
         private void ClosingForm(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			e.Cancel = !this.ClosePackage();
-			if (!e.Cancel) 
+			try
 			{
-                resourceViewManager1.CancelThreads();
-				Wait.Stop(); Wait.Bar = null;
+				e.Cancel = !this.ClosePackage();
+			}
+			catch
+			{
+				e.Cancel = false;
+			}
 
-                StoreLayout();
+			if (!e.Cancel)
+			{
+				try
+				{
+					resourceViewManager1.CancelThreads();
+					Wait.Stop(); Wait.Bar = null;
+					StoreLayout();
+				}
+				catch { }
 			}
 		}
 
@@ -760,7 +771,8 @@ namespace SimPe
             Helper.WindowsRegistry.Flush(); // Writes SimPeXREGW
             StoreLayout(); // Writes SimPeLayoutW
             Helper.WindowsRegistry.Layout.Flush(); // Writes Layout2XREGW
-            File.SetLastWriteTime(Helper.DataFolder.FoldersXREGW, DateTime.Now); // It was written by the Options form
+            try { File.SetLastWriteTime(Helper.DataFolder.FoldersXREGW, DateTime.Now); }
+            catch { } // File may not exist on fresh install
         }
         private void tsmiSaveProfile_Click(object sender, EventArgs e)
         {
