@@ -60,17 +60,9 @@ namespace SimPe.Plugin
 
 		public Interfaces.Plugin.IToolResult ShowDialog(ref SimPe.Interfaces.Files.IPackedFileDescriptor pfd, ref SimPe.Interfaces.Files.IPackageFile package)
 		{
-            if (PathProvider.Global.GetSaveGamePathForGroup(PathProvider.Global.CurrentGroup).Count > 0)
+            if (!System.IO.Directory.Exists(PathProvider.Global.NeighborhoodFolder))
             {
-                if (!System.IO.Directory.Exists(PathProvider.Global.GetSaveGamePathForGroup(PathProvider.Global.CurrentGroup)[0]))
-                {
-                    System.Windows.Forms.MessageBox.Show("The Folder " + PathProvider.Global.GetSaveGamePathForGroup(PathProvider.Global.CurrentGroup)[0] + " was not found.\nPlease specify the correct SaveGame Folder in the Options Dialog.");
-                    return new ToolResult(false, false);
-                }
-            }
-            else
-            {
-                System.Windows.Forms.MessageBox.Show("Neighbourhood Folder was not found.\nPlease specify the correct SaveGame Folder in the Options Dialog.");
+                System.Windows.Forms.MessageBox.Show("Neighbourhood Folder was not found at:\n" + PathProvider.Global.NeighborhoodFolder + "\n\nPlease check your game root settings.");
                 return new ToolResult(false, false);
             }
 

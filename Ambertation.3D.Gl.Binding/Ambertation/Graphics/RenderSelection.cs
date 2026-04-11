@@ -99,18 +99,13 @@ public class RenderSelection : UserControl
 
 	private void dx_ResetDevice(object sender, EventArgs e)
 	{
-		if (!(sender is DirectXPanel directXPanel))
-		{
-			return;
-		}
+		if (!(sender is DirectXPanel directXPanel)) return;
+		if (stm == null) return; // No scene loaded yet — don't clear existing meshes
+
 		try
 		{
 			directXPanel.Meshes.Clear(dispose: true);
-			if (lb.SelectedItem == null)
-			{
-				directXPanel.Meshes.AddRange(stm.ConvertToDx());
-			}
-			else if (!(lb.SelectedItem is Joint))
+			if (lb.SelectedItem == null || !(lb.SelectedItem is Joint))
 			{
 				directXPanel.Meshes.AddRange(stm.ConvertToDx());
 			}
@@ -124,20 +119,18 @@ public class RenderSelection : UserControl
 				foreach (object selectedItem in lb.SelectedItems)
 				{
 					if (selectedItem is Joint)
-					{
 						jointCollection.Add(selectedItem as Joint);
-					}
 				}
 				directXPanel.Meshes.AddRange(stm.ConvertToDx(jointCollection));
 			}
-			if (stm != null)
-			{
-			}
 		}
-		catch
+		catch (Exception ex)
 		{
+			System.Diagnostics.Debug.WriteLine("dx_ResetDevice error: " + ex);
 		}
 	}
+
+	private bool suppressLbEvents;
 
 	private void SetContent()
 	{
@@ -147,19 +140,33 @@ public class RenderSelection : UserControl
 		{
 			return;
 		}
-		stm = new SceneToMesh(scn, dx);
-		dx.Reset();
-		dx.ResetDefaultViewport();
-		lb.Items.Add("--- [Display Mesh] ---");
-		foreach (Joint item in scn.JointCollection)
+
+		// Suppress listbox events during setup to prevent Reset() chain
+		suppressLbEvents = true;
+		try
 		{
-			lb.Items.Add(item);
+			stm = new SceneToMesh(scn, dx);
+
+			// Populate joint list BEFORE triggering Reset — so meshes are built with correct state
+			lb.Items.Add("--- [Display Mesh] ---");
+			foreach (Joint item in scn.JointCollection)
+			{
+				lb.Items.Add(item);
+			}
+
+			// Now build meshes and position camera
+			dx.Reset();
+			dx.ResetDefaultViewport();
+		}
+		finally
+		{
+			suppressLbEvents = false;
 		}
 	}
 
 	private void lb_SelectedIndexChanged(object sender, EventArgs e)
 	{
-		if (dx != null)
+		if (dx != null && !suppressLbEvents)
 		{
 			dx.Reset();
 		}

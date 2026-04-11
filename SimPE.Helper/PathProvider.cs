@@ -716,13 +716,23 @@ namespace SimPe
             {
                 try
                 {
-                    string path;
+                    // Derive save game path from DownloadsPath in GameRoot.cfg
+                    // (strip trailing \Downloads to get the base save folder)
+                    if (!string.IsNullOrEmpty(Helper.DownloadsPath))
+                    {
+                        string path = System.IO.Path.GetDirectoryName(Helper.DownloadsPath);
+                        if (System.IO.Directory.Exists(path))
+                            return Helper.ToLongPathName(path);
+                    }
+
+                    // Fallback: construct from PersonalFolder + edition folder name
+                    string fallback;
                     if (Helper.WindowsRegistry.LoadOnlySimsStory == 0)
-                        path = System.IO.Path.Combine(PersonalFolder, "EA Games");
+                        fallback = System.IO.Path.Combine(PersonalFolder, "EA Games");
                     else
-                        path = System.IO.Path.Combine(PersonalFolder, "Electronic Arts"); // For Sim Stories
-                    path = System.IO.Path.Combine(path, DisplayedName);
-                    return Helper.ToLongPathName(path);
+                        fallback = System.IO.Path.Combine(PersonalFolder, "Electronic Arts");
+                    fallback = System.IO.Path.Combine(fallback, DisplayedName);
+                    return Helper.ToLongPathName(fallback);
                 }
                 catch (Exception)
                 {

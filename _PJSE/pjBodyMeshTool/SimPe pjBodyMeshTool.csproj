@@ -45,6 +45,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Localization.resx"><LogicalName>pj.L.resources</LogicalName></EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\SimPE.3IDR\SimPE.3IDR.csproj" />
     <ProjectReference Include="..\..\SimPE.Filehandlers\SimPE.Filehandlers.csproj" />
     <ProjectReference Include="..\..\SimPE.Helper\SimPE.Helper.csproj" />

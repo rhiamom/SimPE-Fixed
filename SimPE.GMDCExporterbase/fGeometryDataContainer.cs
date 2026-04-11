@@ -152,7 +152,7 @@ namespace SimPe.Plugin
 		private System.Windows.Forms.ComboBox cbaxis;
 		private System.Windows.Forms.LinkLabel linkLabel6;
 		private System.Windows.Forms.LinkLabel linkLabel7;
-		//private Ambertation.Graphics.DirectXPanel dxprev;
+		private Ambertation.Graphics.DirectXPanel dxprev;
 		private System.Windows.Forms.Label label21;
 		internal System.Windows.Forms.ComboBox cbGroupJoint;
 		private System.Windows.Forms.LinkLabel llAssign;
@@ -169,16 +169,16 @@ namespace SimPe.Plugin
 			//
 			// Required designer variable.
 			//
-			try 
+			try
 			{
-				InitializeComponent();	
-				//dxprev.Settings.AddAxis = false;
-				//dxprev.LoadSettings(Helper.SimPeViewportFile);
+				InitializeComponent();
+				dxprev.Settings.AddAxis = false;
+				dxprev.Settings.RenderJoints = false;
 			}
 			catch (System.IO.FileNotFoundException)
 			{
 				WaitingScreen.Stop();
-                MessageBox.Show("The Microsoft Managed DirectX Extensions were not found on your System. Without them, the Preview is not available.\n\nYou can install them manually, by extracting the content of the DirectX\\ManagedDX.CAB on your Sims 2 Installation CD #1. If you double click on the extracted msi File, all needed Files will be installed.", "Warning", MessageBoxButtons.OK);
+                MessageBox.Show("The 3D preview could not be initialized. The preview feature requires OpenGL support.", "Warning", MessageBoxButtons.OK);
 				InitializeComponent();
 			}
 
@@ -299,7 +299,7 @@ namespace SimPe.Plugin
             this.lb_itemsc3 = new System.Windows.Forms.ListBox();
             this.tMesh = new System.Windows.Forms.TabPage();
             this.cbCorrect = new System.Windows.Forms.CheckBox();
-            //this.dxprev = new Ambertation.Graphics.DirectXPanel();
+            this.dxprev = new Ambertation.Graphics.DirectXPanel();
             this.cbaxis = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -1132,7 +1132,7 @@ namespace SimPe.Plugin
             // 
             this.tMesh.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tMesh.Controls.Add(this.cbCorrect);
-            //this.tMesh.Controls.Add(this.dxprev);
+            this.tMesh.Controls.Add(this.dxprev);
             this.tMesh.Controls.Add(this.cbaxis);
             this.tMesh.Controls.Add(this.label12);
             this.tMesh.Controls.Add(this.button1);
@@ -1153,29 +1153,32 @@ namespace SimPe.Plugin
             // cbCorrect
             // 
             this.cbCorrect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cbCorrect.Location = new System.Drawing.Point(272, 264);
+            this.cbCorrect.Location = new System.Drawing.Point(272, 232);
             this.cbCorrect.Name = "cbCorrect";
-            this.cbCorrect.Size = new System.Drawing.Size(96, 32);
+            this.cbCorrect.Size = new System.Drawing.Size(160, 40);
             this.cbCorrect.TabIndex = 32;
             this.cbCorrect.Text = "Correct Joint definition";
             this.cbCorrect.CheckedChanged += new System.EventHandler(this.cbCorrect_CheckedChanged);
             //
-            // dxprev
-            /*
-            this.dxprev.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            // dxprev — OpenGL preview panel, fills space between model list and joint list
+            //
+            this.dxprev.Anchor = System.Windows.Forms.AnchorStyles.Top
+                               | System.Windows.Forms.AnchorStyles.Bottom
+                               | System.Windows.Forms.AnchorStyles.Left
+                               | System.Windows.Forms.AnchorStyles.Right;
+            this.dxprev.BackColor = System.Drawing.Color.FromArgb(128, 128, 255);
             this.dxprev.Effect = null;
-            this.dxprev.Location = new System.Drawing.Point(376, 8);
+            this.dxprev.Location = new System.Drawing.Point(464, 8);
             this.dxprev.Name = "dxprev";
             this.dxprev.Size = new System.Drawing.Size(304, 288);
             this.dxprev.TabIndex = 31;
-            this.dxprev.WorldMatrix = ((Microsoft.DirectX.Matrix)(resources.GetObject("dxprev.WorldMatrix")));
+            this.dxprev.WorldMatrix = OpenTK.Mathematics.Matrix4.Identity;
             this.dxprev.ResetDevice += new System.EventHandler(this.dxprev_ResetDevice);
-            //*/
             // cbaxis
             // 
             this.cbaxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbaxis.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbaxis.Location = new System.Drawing.Point(272, 240);
+            this.cbaxis.Location = new System.Drawing.Point(272, 200);
             this.cbaxis.Name = "cbaxis";
             this.cbaxis.Size = new System.Drawing.Size(96, 21);
             this.cbaxis.TabIndex = 30;
@@ -1185,9 +1188,9 @@ namespace SimPe.Plugin
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(216, 240);
+            this.label12.Location = new System.Drawing.Point(216, 200);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(48, 20);
+            this.label12.Size = new System.Drawing.Size(56, 20);
             this.label12.TabIndex = 29;
             this.label12.Text = "Order:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1196,7 +1199,7 @@ namespace SimPe.Plugin
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button1.Location = new System.Drawing.Point(110, 240);
+            this.button1.Location = new System.Drawing.Point(110, 200);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(78, 23);
             this.button1.TabIndex = 28;
@@ -1207,7 +1210,7 @@ namespace SimPe.Plugin
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button5.Location = new System.Drawing.Point(16, 240);
+            this.button5.Location = new System.Drawing.Point(16, 200);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(78, 23);
             this.button5.TabIndex = 27;
@@ -1218,13 +1221,13 @@ namespace SimPe.Plugin
             // 
             this.scenesel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            //this.scenesel.DirectXPanel = this.dxprev;
-            this.scenesel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scenesel.DirectXPanel = this.dxprev;
+            this.scenesel.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scenesel.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.scenesel.Location = new System.Drawing.Point(688, 8);
             this.scenesel.Name = "scenesel";
             this.scenesel.Scene = null;
-            this.scenesel.Size = new System.Drawing.Size(184, 288);
+            this.scenesel.Size = new System.Drawing.Size(230, 288);
             this.scenesel.TabIndex = 25;
             // 
             // lbmodel
@@ -1235,7 +1238,7 @@ namespace SimPe.Plugin
             this.lbmodel.HorizontalScrollbar = true;
             this.lbmodel.Location = new System.Drawing.Point(16, 24);
             this.lbmodel.Name = "lbmodel";
-            this.lbmodel.Size = new System.Drawing.Size(352, 214);
+            this.lbmodel.Size = new System.Drawing.Size(440, 171);
             this.lbmodel.TabIndex = 24;
             // 
             // lb_models
@@ -1252,7 +1255,7 @@ namespace SimPe.Plugin
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button3.Location = new System.Drawing.Point(16, 272);
+            this.button3.Location = new System.Drawing.Point(16, 240);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(172, 23);
             this.button3.TabIndex = 4;
@@ -1263,7 +1266,7 @@ namespace SimPe.Plugin
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button4.Location = new System.Drawing.Point(219, 272);
+            this.button4.Location = new System.Drawing.Point(219, 240);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(32, 23);
             this.button4.TabIndex = 26;
@@ -2229,16 +2232,12 @@ namespace SimPe.Plugin
 
 		internal void ResetPreviewCamera(bool weak)
 		{
-			if (!weak) 
+			if (!weak)
 			{
-				//dxprev.Settings.Aspect = (float)dxprev.Height/(float)dxprev.Width;	
-				//dxprev.ResetDefaultViewport();
-				//dxprev.Settings.Aspect = (float)dxprev.Width/(float)dxprev.Height;	
+				dxprev.Settings.Aspect = (float)dxprev.Height / (float)dxprev.Width;
+				dxprev.ResetDefaultViewport();
+				dxprev.Settings.Aspect = (float)dxprev.Width / (float)dxprev.Height;
 			}
-			/*dxprev.Viewport.NearPlane = Helper.WindowsRegistry.ImportExportScaleFactor / 10;
-			dxprev.Viewport.FarPlane = dxprev.Viewport.NearPlane * 10000;
-			dxprev.Viewport.BoundingSphereRadius = Math.Min(dxprev.Viewport.BoundingSphereRadius, Helper.WindowsRegistry.ImportExportScaleFactor);*/
-			//dxprev.Viewport.Aspect = (float)dxprev.Width/(float)dxprev.Height;
 		}
 
 		internal void ResetPreview()
@@ -2258,7 +2257,8 @@ namespace SimPe.Plugin
 				if (this.scenesel.Scene!=null) this.scenesel.Scene.Dispose();
 				this.scenesel.Scene = gmdcext.GetScene(GetModelsExt(), new ElementOrder(Gmdc.ElementSorting.Preview));
 				
-				ResetPreviewCamera(false);
+				//ResetPreviewCamera(false);
+				dxprev.Invalidate();
 				/*if (this.scenesel.Scene!=null) 
 				{
 					Ambertation.Scenes.Mesh m = this.scenesel.Scene.MeshCollection["body"];
@@ -2273,12 +2273,13 @@ namespace SimPe.Plugin
 			catch (System.IO.FileNotFoundException)
 			{
 				WaitingScreen.Stop();
-                MessageBox.Show("The Microsoft Managed DirectX Extensions were not found on your System. Without them, the Preview is not available.\n\nYou can install them manually, by extracting the content of the DirectX\\ManagedDX.CAB on your Sims 2 Installation CD #1. If you double click on the extracted msi File, all needed Files will be installed.", "Warning", MessageBoxButtons.OK);
+                MessageBox.Show("The 3D preview could not be initialized. The preview feature requires OpenGL support.", "Warning", MessageBoxButtons.OK);
 				return;
 			}
-			catch (Exception ex) 
+			catch (Exception ex)
 			{
-				Console.WriteLine(ex+"\n"+ex.StackTrace);
+				System.Diagnostics.Debug.WriteLine("Preview error: " + ex);
+				MessageBox.Show("Preview error: " + ex.Message, "Preview", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		
 			Wait.SubStop();			
@@ -2333,11 +2334,10 @@ namespace SimPe.Plugin
 			}
 		}
 
-		/*private void dxprev_ResetDevice(object sender, System.EventArgs e)
+		private void dxprev_ResetDevice(object sender, System.EventArgs e)
 		{
-			Ambertation.Graphics.DirectXPanel dx = sender as Ambertation.Graphics.DirectXPanel;			
-			
-		}*/
+			Ambertation.Graphics.DirectXPanel dx = sender as Ambertation.Graphics.DirectXPanel;
+		}
 
 		private void llAddBB_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{
@@ -2440,11 +2440,11 @@ namespace SimPe.Plugin
 			int width = scenesel.Left - lbmodel.Right - 16;
 			int height = scenesel.Height;
 
-			//dxprev.Left = lbmodel.Right + 8;
-			//dxprev.Top = scenesel.Top;
-			//dxprev.Width = Math.Max(1, width);
-			//dxprev.Height = Math.Max(1, height);
-			//dxprev.Settings.Aspect = (float)dxprev.Width/(float)dxprev.Height;			
+			dxprev.Left = lbmodel.Right + 8;
+			dxprev.Top = scenesel.Top;
+			dxprev.Width = Math.Max(1, width);
+			dxprev.Height = Math.Max(1, height);
+			dxprev.Settings.Aspect = (float)dxprev.Width / (float)dxprev.Height;
 		}
 
 		public static int DefaultSelectedAxisIndex

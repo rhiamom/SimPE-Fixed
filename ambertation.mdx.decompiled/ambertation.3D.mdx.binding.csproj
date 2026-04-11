@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>ambertation.3D.mdx.binding</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <UseWindowsForms>True</UseWindowsForms>
+    <TargetFramework>net20</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="ambertation.utilities" />
+    <Reference Include="Microsoft.DirectX" />
+    <Reference Include="ambertation.3D" />
+    <Reference Include="Microsoft.DirectX.Direct3D" />
+    <Reference Include="Microsoft.DirectX.Direct3DX" />
+  </ItemGroup>
+</Project>

@@ -156,6 +156,27 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="BhavOperandWizDefault.resx"><LogicalName>pjse.BhavOperandWizards.WizDefault.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="BhavOperandWizRaw.resx"><LogicalName>pjse.BhavOperandWizards.WizRaw.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0001.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0001.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0002.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0002.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0008.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0008.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x001b.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x001b.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x001c.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x001c.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x001f.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x001f.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0020.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0020.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0024.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0024.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x002d.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x002d.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0032.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0032.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0033.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0033.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x006d.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x006d.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0076.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0076.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0079.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0079.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x007c.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x007c.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWizAnimate.resx"><LogicalName>pjse.BhavOperandWizards.WizAnimate.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Wizzy\BhavOperandWizBhav.resx"><LogicalName>pjse.BhavOperandWizards.WizBhav.UI.resources</LogicalName></EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\SimPE.Filehandlers\SimPE.Filehandlers.csproj" />
     <ProjectReference Include="..\..\SimPE.GraphControl\SimPE.GraphControl.csproj" />
     <ProjectReference Include="..\..\SimPE.Helper\SimPE.Helper.csproj" />

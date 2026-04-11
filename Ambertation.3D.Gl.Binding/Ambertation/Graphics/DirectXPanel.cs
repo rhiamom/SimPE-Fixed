@@ -317,7 +317,7 @@ void main() {
             mstack.MultiplyMatrixLocal(box.Transform);
             if (box.Billboard) mstack.MultiplyMatrixLocal(BillboardMatrix);
             var top = mstack.Top;
-            GL.UniformMatrix4(_uModel, true, ref top);
+            GL.UniformMatrix4(_uModel, false, ref top);
             if (box.Sort)
             {
                 box.SetupSortWorld(top, lastcampos);
@@ -327,7 +327,7 @@ void main() {
         else
         {
             var w = box.World;
-            GL.UniformMatrix4(_uModel, true, ref w);
+            GL.UniformMatrix4(_uModel, false, ref w);
         }
 
         if ((!box.JointMesh || Settings.RenderJoints) && (sorted || !box.Sort))
@@ -458,10 +458,10 @@ void main() {
     {
         var view = ViewMatrix;
         var proj = ProjectionMatrix;
-        GL.UniformMatrix4(_uView, true, ref view);
-        GL.UniformMatrix4(_uProj, true, ref proj);
+        GL.UniformMatrix4(_uView, false, ref view);
+        GL.UniformMatrix4(_uProj, false, ref proj);
         var w = world;
-        GL.UniformMatrix4(_uModel, true, ref w);
+        GL.UniformMatrix4(_uModel, false, ref w);
         if (mstack == null) mstack = new MatrixStack();
         mstack.LoadMatrix(world);
     }
@@ -562,8 +562,9 @@ void main() {
 
     public void ResetDefaultViewport()
     {
+        ignorechangeevent = true;
         ResetView();
-        OnResetDevice(this, null);
+        ignorechangeevent = false;
         Render();
     }
 

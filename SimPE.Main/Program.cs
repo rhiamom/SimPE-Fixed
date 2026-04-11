@@ -57,6 +57,10 @@ namespace SimPe
         [STAThread]
         static void Main(string[] args)
         {
+            // Lock DPI mode before any control is created — prevents OpenTK GLControl
+            // from changing the process DPI awareness and breaking the app layout.
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
                 LogCrash(e.ExceptionObject as Exception ?? new Exception(e.ExceptionObject?.ToString()), e.IsTerminating);
             System.Windows.Forms.Application.ThreadException += (s, e) =>

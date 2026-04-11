@@ -359,53 +359,43 @@ namespace SimPe.Plugin
                 lv.Items.Clear();
                 ilist.Images.Clear();
 
-                ExpansionItem.NeighborhoodPaths paths = PathProvider.Global.GetNeighborhoodsForGroup(PathProvider.Global.CurrentGroup);
-                foreach (ExpansionItem.NeighborhoodPath path in paths)
+                // Scan Neighborhoods folder directly — no expansion group filtering
+                string nhoodFolder = PathProvider.Global.NeighborhoodFolder;
+                if (System.IO.Directory.Exists(nhoodFolder))
                 {
-                    string sourcepath = path.Path;
-                    // string[] dirs = System.IO.Directory.GetDirectories(sourcepath, "????");
-                    string[] dirs = System.IO.Directory.GetDirectories(sourcepath, "*"); // CJH - removes the 4 char limit
+                    string[] dirs = System.IO.Directory.GetDirectories(nhoodFolder, "*");
                     foreach (string dir in dirs)
-                        if (!dir.Contains("Tutorial")) 
-                            AddNeighborhood(path, dir);
-                }
-                if (Helper.WindowsRegistry.LoadAllNeighbourhoods && loadNgbh)
-                {
-                    if (PathProvider.Global.GetExpansion(SimPe.Expansions.IslandStories).Exists)
                     {
-                        paths = PathProvider.Global.GetNeighborhoodsForGroup(8);
-                        foreach (ExpansionItem.NeighborhoodPath path in paths)
+                        if (dir.Contains("Tutorial")) continue;
+                        string nhoodPkg = System.IO.Path.Combine(dir,
+                            System.IO.Path.GetFileName(dir) + "_Neighborhood.package");
+                        if (!System.IO.File.Exists(nhoodPkg)) continue;
+
+                        AddImage(nhoodPkg);
+                        string name = dir;
+                        string actime = "";
+                        if (System.IO.File.Exists(nhoodPkg))
                         {
-                            string sourcepath = path.Path;
-                            string[] dirs = System.IO.Directory.GetDirectories(sourcepath, "*");
-                            foreach (string dir in dirs)
-                                if (!dir.Contains("Tutorial"))
-                                    AddNeighborhood(path, dir);
+                            actime = " (" + System.IO.File.GetLastWriteTime(nhoodPkg).ToString() + ") ";
+                            actime += NeighborhoodIdentifier(nhoodPkg);
+                            try
+                            {
+                                SimPe.Packages.File pk = SimPe.Packages.File.LoadFromFile(nhoodPkg);
+                                NeighbourhoodTipe t;
+                                name = LoadLabel(pk, out t);
+                            }
+                            catch { }
                         }
-                    }
-                    if (PathProvider.Global.GetExpansion(SimPe.Expansions.PetStories).Exists)
-                    {
-                        paths = PathProvider.Global.GetNeighborhoodsForGroup(4);
-                        foreach (ExpansionItem.NeighborhoodPath path in paths)
-                        {
-                            string sourcepath = path.Path;
-                            string[] dirs = System.IO.Directory.GetDirectories(sourcepath, "*");
-                            foreach (string dir in dirs)
-                                if (!dir.Contains("Tutorial"))
-                                    AddNeighborhood(path, dir);
-                        }
-                    }
-                    if (PathProvider.Global.GetExpansion(SimPe.Expansions.LifeStories).Exists)
-                    {
-                        paths = PathProvider.Global.GetNeighborhoodsForGroup(2);
-                        foreach (ExpansionItem.NeighborhoodPath path in paths)
-                        {
-                            string sourcepath = path.Path;
-                            string[] dirs = System.IO.Directory.GetDirectories(sourcepath, "*");
-                            foreach (string dir in dirs)
-                                if (!dir.Contains("Tutorial"))
-                                    AddNeighborhood(path, dir);
-                        }
+
+                        ListViewItem lvi = new ListViewItem();
+                        lvi.Text = name + actime;
+                        lvi.ImageIndex = ilist.Images.Count - 1;
+                        lvi.SubItems.Add(nhoodPkg);
+                        lvi.SubItems.Add(name);
+                        lvi.SubItems.Add("");
+                        if (UserVerification.HaveUserId)
+                            lvi.ToolTipText = nhoodPkg;
+                        lv.Items.Add(lvi);
                     }
                 }
             }
