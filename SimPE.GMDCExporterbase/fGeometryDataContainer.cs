@@ -169,17 +169,34 @@ namespace SimPe.Plugin
 			//
 			// Required designer variable.
 			//
+			InitializeComponent();
+
+			// Create the OpenGL preview panel separately — if OpenGL isn't available,
+			// the rest of the form still works (buttons, model list, etc.)
 			try
 			{
-				InitializeComponent();
+				dxprev = new Ambertation.Graphics.DirectXPanel();
+				dxprev.Anchor = System.Windows.Forms.AnchorStyles.Top
+				              | System.Windows.Forms.AnchorStyles.Bottom
+				              | System.Windows.Forms.AnchorStyles.Left
+				              | System.Windows.Forms.AnchorStyles.Right;
+				dxprev.BackColor = System.Drawing.Color.FromArgb(128, 128, 255);
+				dxprev.Effect = null;
+				dxprev.Location = new System.Drawing.Point(464, 8);
+				dxprev.Name = "dxprev";
+				dxprev.Size = new System.Drawing.Size(304, 288);
+				dxprev.TabIndex = 31;
+				dxprev.WorldMatrix = OpenTK.Mathematics.Matrix4.Identity;
+				dxprev.ResetDevice += new System.EventHandler(this.dxprev_ResetDevice);
 				dxprev.Settings.AddAxis = false;
 				dxprev.Settings.RenderJoints = false;
+				this.scenesel.DirectXPanel = dxprev;
+				this.tMesh.Controls.Add(dxprev);
 			}
-			catch (System.IO.FileNotFoundException)
+			catch (Exception ex)
 			{
-				WaitingScreen.Stop();
-                MessageBox.Show("The 3D preview could not be initialized. The preview feature requires OpenGL support.", "Warning", MessageBoxButtons.OK);
-				InitializeComponent();
+				MessageBox.Show("OpenGL preview init failed:\n" + ex.GetType().Name + ": " + ex.Message + "\n\n" + ex.StackTrace, "3D Preview Error");
+				dxprev = null;
 			}
 
 			Gmdc.BlockFormat[] bls = (Gmdc.BlockFormat[])System.Enum.GetValues(typeof(Gmdc.BlockFormat));
@@ -299,7 +316,6 @@ namespace SimPe.Plugin
             this.lb_itemsc3 = new System.Windows.Forms.ListBox();
             this.tMesh = new System.Windows.Forms.TabPage();
             this.cbCorrect = new System.Windows.Forms.CheckBox();
-            this.dxprev = new Ambertation.Graphics.DirectXPanel();
             this.cbaxis = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -1132,7 +1148,6 @@ namespace SimPe.Plugin
             // 
             this.tMesh.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.tMesh.Controls.Add(this.cbCorrect);
-            this.tMesh.Controls.Add(this.dxprev);
             this.tMesh.Controls.Add(this.cbaxis);
             this.tMesh.Controls.Add(this.label12);
             this.tMesh.Controls.Add(this.button1);
@@ -1160,20 +1175,8 @@ namespace SimPe.Plugin
             this.cbCorrect.Text = "Correct Joint definition";
             this.cbCorrect.CheckedChanged += new System.EventHandler(this.cbCorrect_CheckedChanged);
             //
-            // dxprev — OpenGL preview panel, fills space between model list and joint list
+            // dxprev — created separately in constructor to avoid crashing InitializeComponent
             //
-            this.dxprev.Anchor = System.Windows.Forms.AnchorStyles.Top
-                               | System.Windows.Forms.AnchorStyles.Bottom
-                               | System.Windows.Forms.AnchorStyles.Left
-                               | System.Windows.Forms.AnchorStyles.Right;
-            this.dxprev.BackColor = System.Drawing.Color.FromArgb(128, 128, 255);
-            this.dxprev.Effect = null;
-            this.dxprev.Location = new System.Drawing.Point(464, 8);
-            this.dxprev.Name = "dxprev";
-            this.dxprev.Size = new System.Drawing.Size(304, 288);
-            this.dxprev.TabIndex = 31;
-            this.dxprev.WorldMatrix = OpenTK.Mathematics.Matrix4.Identity;
-            this.dxprev.ResetDevice += new System.EventHandler(this.dxprev_ResetDevice);
             // cbaxis
             // 
             this.cbaxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1221,7 +1224,7 @@ namespace SimPe.Plugin
             // 
             this.scenesel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.scenesel.DirectXPanel = this.dxprev;
+            //this.scenesel.DirectXPanel = this.dxprev; // set in constructor after GL init
             this.scenesel.Font = new System.Drawing.Font("Tahoma", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scenesel.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.scenesel.Location = new System.Drawing.Point(688, 8);
@@ -1232,8 +1235,8 @@ namespace SimPe.Plugin
             // 
             // lbmodel
             // 
-            this.lbmodel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbmodel.Anchor = System.Windows.Forms.AnchorStyles.Top
+                        | System.Windows.Forms.AnchorStyles.Left;
             this.lbmodel.CheckOnClick = true;
             this.lbmodel.HorizontalScrollbar = true;
             this.lbmodel.Location = new System.Drawing.Point(16, 24);
@@ -2232,7 +2235,7 @@ namespace SimPe.Plugin
 
 		internal void ResetPreviewCamera(bool weak)
 		{
-			if (!weak)
+			if (!weak && dxprev != null)
 			{
 				dxprev.Settings.Aspect = (float)dxprev.Height / (float)dxprev.Width;
 				dxprev.ResetDefaultViewport();
@@ -2258,7 +2261,7 @@ namespace SimPe.Plugin
 				this.scenesel.Scene = gmdcext.GetScene(GetModelsExt(), new ElementOrder(Gmdc.ElementSorting.Preview));
 				
 				//ResetPreviewCamera(false);
-				dxprev.Invalidate();
+				dxprev?.Invalidate();
 				/*if (this.scenesel.Scene!=null) 
 				{
 					Ambertation.Scenes.Mesh m = this.scenesel.Scene.MeshCollection["body"];
@@ -2440,11 +2443,14 @@ namespace SimPe.Plugin
 			int width = scenesel.Left - lbmodel.Right - 16;
 			int height = scenesel.Height;
 
-			dxprev.Left = lbmodel.Right + 8;
-			dxprev.Top = scenesel.Top;
-			dxprev.Width = Math.Max(1, width);
-			dxprev.Height = Math.Max(1, height);
-			dxprev.Settings.Aspect = (float)dxprev.Width / (float)dxprev.Height;
+			if (dxprev != null)
+			{
+				dxprev.Left = lbmodel.Right + 8;
+				dxprev.Top = scenesel.Top;
+				dxprev.Width = Math.Max(1, width);
+				dxprev.Height = Math.Max(1, height);
+				dxprev.Settings.Aspect = (float)dxprev.Width / (float)dxprev.Height;
+			}
 		}
 
 		public static int DefaultSelectedAxisIndex
