@@ -491,9 +491,10 @@ namespace SimPe.Plugin.Tool.Dockable
 			erz.Finished += new EventHandler(erz_Finished);
 			Thread te = new Thread(new ThreadStart(erz.start));
 			Thread tv1 = new Thread(new ThreadStart(ver1.start));
-			//Thread tv2 = new Thread(new ThreadStart(ver2.start));
 			te.Name = "Object Loader: Producer";
 			tv1.Name = "Object Loader: Consumer";
+			te.IsBackground = true;
+			tv1.IsBackground = true;
 			te.Start();
 			tv1.Start();	
 		}
@@ -551,7 +552,7 @@ namespace SimPe.Plugin.Tool.Dockable
                 twine = a.ToString();
                 if (Helper.WindowsRegistry.OWtrimnames)
                 {
-                    while (twine.StartsWith("\"") || twine.StartsWith("“") || twine.StartsWith("‘") || twine.StartsWith(" ") || twine.StartsWith("_") || twine.StartsWith("."))
+                    while (twine.StartsWith("\"") || twine.StartsWith("ï¿½") || twine.StartsWith("ï¿½") || twine.StartsWith(" ") || twine.StartsWith("_") || twine.StartsWith("."))
                     {
                         twine = twine.Substring(1, twine.Length - 1);
                     }

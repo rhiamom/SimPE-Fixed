@@ -135,7 +135,7 @@ namespace Ambertation.Threading
                 worker = new Thread(new ThreadStart(ThreadEntry));
                 worker.Priority = tp;
                 worker.Name = name;
-                //worker.SetApartmentState(ApartmentState.STA);
+                worker.IsBackground = true;
                 worker.Start();
 
 				if (sync)

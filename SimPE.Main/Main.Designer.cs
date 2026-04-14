@@ -52,7 +52,7 @@ namespace SimPe
         private System.Windows.Forms.Panel xpGradientPanel3;
         private System.Windows.Forms.ImageList iAnim;
         private ToolStripMenuItem miTools;
-        
+        private ToolStripMenuItem miWizards;
         private ToolStripMenuItem miNewDc;
         private ToolStripMenuItem miMetaInfo;
         private ToolStripMenuItem miFileNames;
@@ -818,7 +818,12 @@ namespace SimPe
             this.miExit.Click += new System.EventHandler(this.Activate_miExit);
             // 
             // miTools
-            // 
+            //
+            this.miWizards = new System.Windows.Forms.ToolStripMenuItem();
+            this.miWizards.Name = "miWizards";
+            this.miWizards.Text = "Wizards of SimPe...";
+            this.miWizards.Click += new System.EventHandler(this.LaunchWizards);
+            this.miTools.DropDownItems.Add(this.miWizards);
             this.miTools.Name = "miTools";
             resources.ApplyResources(this.miTools, "miTools");
             // 

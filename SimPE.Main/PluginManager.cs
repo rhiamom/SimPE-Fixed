@@ -195,6 +195,7 @@ namespace SimPe
             foreach (IToolExt tool in toolsp)
             {
                 string name = tool.ToString();
+                if (name.StartsWith("Wizards\\")) continue; // launched via WoS exe
                 string[] parts = name.Split("\\".ToCharArray());
                 name = Localization.GetString(parts[parts.Length - 1]);
                 Splash.Screen.SetMessage("Loading " + name);
@@ -208,6 +209,7 @@ namespace SimPe
             {
                 string name = tool.ToString().Trim();
                 if (name == "") continue;
+                if (name.StartsWith("Wizards\\")) continue; // launched via WoS exe
 
                 string[] parts = name.Split("\\".ToCharArray());
                 name = Localization.GetString(parts[parts.Length - 1]);

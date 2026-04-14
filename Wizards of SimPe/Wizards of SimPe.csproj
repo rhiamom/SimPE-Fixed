@@ -141,6 +141,7 @@
     <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj" />
     <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj" />
     <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj" />
+    <ProjectReference Include="..\SimPE.NameProvider\SimPE.NameProvider.csproj" />
     <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj" />
     <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj" />
     <ProjectReference Include="..\WOSimPE - Interfaces\WOSimPE - Interfaces.csproj" />

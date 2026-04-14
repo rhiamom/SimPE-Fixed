@@ -511,6 +511,19 @@ namespace SimPe
             saveProfile();
         }
 
+		private void LaunchWizards(object sender, System.EventArgs e)
+		{
+			string wosExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Wizards of SimPe.exe");
+			if (File.Exists(wosExe))
+			{
+				System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(wosExe) { UseShellExecute = true });
+			}
+			else
+			{
+				MessageBox.Show("Could not find 'Wizards of SimPe.exe' in the application folder.", "Wizards of SimPe", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
         private void Activate_miRunSims(object sender, System.EventArgs e)
 		{
 			

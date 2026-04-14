@@ -25,8 +25,27 @@
 		<Copy
 		  SourceFiles="$(TargetPath)"
 		  DestinationFolder="$(SimPeUnifiedOutDir)"
-		  SkipUnchangedFiles="true"
+		  SkipUnchangedFiles="false"
 		  Condition="Exists('$(TargetPath)')" />
+
+		<!-- Copy the native EXE host for WinExe/Exe projects -->
+		<Copy
+		  SourceFiles="$(TargetDir)$(TargetName).exe"
+		  DestinationFolder="$(SimPeUnifiedOutDir)"
+		  SkipUnchangedFiles="false"
+		  Condition=" '$(OutputType)' != 'Library' And Exists('$(TargetDir)$(TargetName).exe') " />
+
+		<!-- Copy deps.json and runtimeconfig.json for exe projects -->
+		<Copy
+		  SourceFiles="$(TargetDir)$(TargetName).deps.json"
+		  DestinationFolder="$(SimPeUnifiedOutDir)"
+		  SkipUnchangedFiles="true"
+		  Condition="Exists('$(TargetDir)$(TargetName).deps.json')" />
+		<Copy
+		  SourceFiles="$(TargetDir)$(TargetName).runtimeconfig.json"
+		  DestinationFolder="$(SimPeUnifiedOutDir)"
+		  SkipUnchangedFiles="true"
+		  Condition="Exists('$(TargetDir)$(TargetName).runtimeconfig.json')" />
 
 		<!-- Copy PDB if it exists -->
 		<Copy

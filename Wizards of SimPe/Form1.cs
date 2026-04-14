@@ -285,12 +285,12 @@ namespace SimPe.Wizards
             this.lbmsg.BackColor = System.Drawing.Color.Transparent;
             this.lbmsg.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbmsg.ForeColor = System.Drawing.Color.DimGray;
-            this.lbmsg.Location = new System.Drawing.Point(248, 14);
+            this.lbmsg.Location = new System.Drawing.Point(0, 14);
             this.lbmsg.Name = "lbmsg";
-            this.lbmsg.Size = new System.Drawing.Size(598, 72);
+            this.lbmsg.Size = new System.Drawing.Size(1032, 72);
             this.lbmsg.TabIndex = 6;
             this.lbmsg.Text = "Description";
-            this.lbmsg.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.lbmsg.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // Form1
             // 
@@ -459,12 +459,17 @@ namespace SimPe.Wizards
 
 		private void Close(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			if ((prevsteps.Count>1)) 
+			if ((prevsteps.Count>1))
 			{
 				e.Cancel = (MessageBox.Show("This Wizard is not finished yet.\n\nDo you want to quit anyway?", "Information", MessageBoxButtons.YesNo)!=DialogResult.Yes);
 			}
 
-			if (!e.Cancel) Helper.WindowsRegistry.Flush();
+			if (!e.Cancel)
+			{
+				Helper.WindowsRegistry.Flush();
+				// Force exit to ensure background threads and loaded packages are released
+				Environment.Exit(0);
+			}
 		}
 
 		/// <summary>
@@ -475,6 +480,11 @@ namespace SimPe.Wizards
 		{
 			Panel pn = step.WizardWindow;
 			//this.Height = pn.Height + 320;
+
+			// Hide all existing wizard panels before showing the new one
+			foreach (Control c in this.pndrop.Controls)
+				if (c is Panel && c != pn)
+					c.Visible = false;
 
 			pn.Visible = false;
 			pn.Parent = this.pndrop;
@@ -488,8 +498,6 @@ namespace SimPe.Wizards
 
 			lbmsg.Text = step.WizardMessage;
 			lbstep.Text = step.WizardStep.ToString();
-			//lbmsg.Left = lbstep.Left - lbmsg.Width;
-			lbmsg.Width = lbstep.Left - lbmsg.Left + 2;			
 			
 			llback.Enabled = (prevsteps.Count>1);
 			if (step.GetType().GetInterface("IWizardFinish", false) == typeof(IWizardFinish)) 
