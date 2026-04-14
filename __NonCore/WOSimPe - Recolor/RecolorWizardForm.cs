@@ -31,7 +31,7 @@ using System.Data;
 namespace SimPe.Wizards
 {
 	/// <summary>
-	/// Zusammenfassung für RecolourWizardForm.
+	/// Zusammenfassung fï¿½r RecolourWizardForm.
 	/// </summary>
 	public class RecolourWizardForm : System.Windows.Forms.Form
 	{
@@ -77,7 +77,7 @@ namespace SimPe.Wizards
 		public RecolourWizardForm()
 		{
 			//
-			// Erforderlich für die Windows Form-Designerunterstützung
+			// Erforderlich fï¿½r die Windows Form-Designerunterstï¿½tzung
 			//
 			InitializeComponent();
 
@@ -114,8 +114,8 @@ namespace SimPe.Wizards
 
 		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -1004,9 +1004,15 @@ namespace SimPe.Wizards
 				txtr.SynchronizeUserData();
 
 				//Update the Image
-				if ((lv.SelectedItems[0].ImageIndex>=0) && (lv.SelectedItems[0].ImageIndex<iTxtrs.Images.Count))
+				Image newImg = this.GetImageFile(txtr);
+				if (newImg == null)
 				{
-					this.iTxtrs.Images[lv.SelectedItems[0].ImageIndex] = SimPe.Plugin.ImageLoader.Preview(this.GetImageFile(txtr), iTxtrs.ImageSize);
+					MessageBox.Show("Import failed: no texture data was generated.", "Import Error");
+				}
+				else if ((lv.SelectedItems[0].ImageIndex>=0) && (lv.SelectedItems[0].ImageIndex<iTxtrs.Images.Count))
+				{
+					this.iTxtrs.Images[lv.SelectedItems[0].ImageIndex] = SimPe.Plugin.ImageLoader.Preview(newImg, iTxtrs.ImageSize);
+					lv.Invalidate();
 				}
 			}
 		}

@@ -326,6 +326,30 @@ namespace SimPe
 			About.ShowWelcome();
 		}
 
+		private void ClearObjectCache(object sender, System.EventArgs e)
+		{
+			string msg = "This will delete the object cache files. The next time SimPE loads the Object Workshop or Catalog, it will take several minutes to rebuild the cache.\n\nDo you want to continue?";
+			if (MessageBox.Show(msg, "Clear Object Cache", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+			{
+				try
+				{
+					string dataPath = Helper.SimPeDataPath;
+					string[] cacheFiles = System.IO.Directory.GetFiles(dataPath, "objcache*.simpepkg");
+					int count = 0;
+					foreach (string file in cacheFiles)
+					{
+						System.IO.File.Delete(file);
+						count++;
+					}
+					MessageBox.Show(count + " cache file(s) deleted.", "Clear Object Cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("Failed to delete cache files:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+		}
+
 		private void dc_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
 			if (e.Button==MouseButtons.Middle && Helper.WindowsRegistry.FirefoxTabbing && dc.ActiveDocument is WeifenLuo.WinFormsUI.Docking.DockContent activeDoc)

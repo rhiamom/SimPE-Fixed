@@ -67,7 +67,7 @@ namespace SimPe
                     // Use the game root chosen via GameRootDialog
                     string root = Helper.GameRootPath;
                     if (string.IsNullOrEmpty(root) || !System.IO.Directory.Exists(root))
-                        return folders;   // empty ? SimPE loads, but no game data
+                        return folders;   // empty â†’ SimPE loads, but no game data
 
                     // Scan the actual installation (this replaces the old .xreg/registry logic)
                     var scan = GameRootAutoScanner.ScanRoot(root);
@@ -90,7 +90,7 @@ namespace SimPe
 
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\UI"), false, false));
 
-                        // Catalog contains buy/build entries – recurse here
+                        // Catalog contains buy/build entries ï¿½ recurse here
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Catalog"), true, false));
 
                         //Needed for the Extended Sdesc form popup window labels

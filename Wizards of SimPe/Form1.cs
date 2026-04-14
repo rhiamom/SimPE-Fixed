@@ -254,7 +254,7 @@ namespace SimPe.Wizards
             // 
             // pbP
             // 
-            this.pbP.BackColor = System.Drawing.Color.Transparent;
+            this.pbP.BackColor = System.Drawing.Color.White;
             
             this.pbP.Location = new System.Drawing.Point(0, 4);
             this.pbP.Maximum = 100;
@@ -329,7 +329,7 @@ namespace SimPe.Wizards
 		internal static Form1 form1;
 
 		/// <summary>
-		/// Der Haupteinstiegspunkt für die Anwendung.
+		/// Der Haupteinstiegspunkt fï¿½r die Anwendung.
 		/// </summary>
 		[STAThread]			
 		static void Main() 
@@ -342,6 +342,7 @@ namespace SimPe.Wizards
 
 				SimPe.Helper.WindowsRegistry.HiddenMode = false;
 				SimPe.Helper.WindowsRegistry.AsynchronLoad = false;
+				SimPe.Helper.LoadGameRootFromFile();
 				SimPe.Plugin.ScenegraphWrapperFactory.InitRcolBlocks();
                 form1 = new Form1();
                 Application.EnableVisualStyles();
@@ -437,9 +438,15 @@ namespace SimPe.Wizards
 			op.Size = pndrop.Size;
 			this.Controls.Add(op.pnopt);
 			op.pnopt.Parent = this;
-            op.tbsims.Text = PathProvider.Global[Expansions.BaseGame].InstallFolder;
-            op.tbsave.Text = PathProvider.SimSavegameFolder;
-            op.tbdds.Text = PathProvider.Global.NvidiaDDSPath;
+            string simsPath = PathProvider.Global[Expansions.BaseGame].InstallFolder;
+            if (string.IsNullOrEmpty(simsPath)) simsPath = Helper.BaseGamePath;
+            op.tbsims.Text = simsPath;
+
+            string savePath = PathProvider.SimSavegameFolder;
+            if (string.IsNullOrEmpty(savePath) && !string.IsNullOrEmpty(Helper.DownloadsPath))
+                savePath = System.IO.Path.GetDirectoryName(Helper.DownloadsPath);
+            op.tbsave.Text = savePath;
+
 			op.pnopt.Visible = true;
 			pndrop.Visible = false;
 		}

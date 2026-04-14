@@ -80,6 +80,7 @@ namespace SimPe
         private ToolStripMenuItem miAbout;
         private ToolStripMenuItem miWelcome;
         private ToolStripMenuItem miResetLayout;
+        private ToolStripMenuItem miClearCache;
         private ToolStripMenuItem miUpdate;
         private ToolStripMenuItem miKBase;
         private ToolStripButton biUpdate;
@@ -211,6 +212,7 @@ namespace SimPe
             this.miAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.miWelcome = new System.Windows.Forms.ToolStripMenuItem();
             this.miResetLayout = new System.Windows.Forms.ToolStripMenuItem();
+            this.miClearCache = new System.Windows.Forms.ToolStripMenuItem();
             this.iAnim = new System.Windows.Forms.ImageList(this.components);
             this.xpGradientPanel3 = new System.Windows.Forms.Panel();
             this.xpGradientPanel5 = new System.Windows.Forms.Panel();
@@ -901,6 +903,7 @@ namespace SimPe
             this.mbiTopics,
             this.toolStripMenuItem3,
             this.miResetLayout,
+            this.miClearCache,
             this.miWelcome,
             this.miAbout,
             this.tsmiStopWaiting});
@@ -935,6 +938,12 @@ namespace SimPe
             this.miResetLayout.Name = "miResetLayout";
             this.miResetLayout.Text = "Reset Layout";
             this.miResetLayout.Click += new System.EventHandler(this.ResetLayout);
+            //
+            // miClearCache
+            //
+            this.miClearCache.Name = "miClearCache";
+            this.miClearCache.Text = "Clear Object Cache";
+            this.miClearCache.Click += new System.EventHandler(this.ClearObjectCache);
             //
             // miAbout
             //

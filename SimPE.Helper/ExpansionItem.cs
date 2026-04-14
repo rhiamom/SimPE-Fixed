@@ -608,7 +608,7 @@ namespace SimPe
 
                 try
                 {
-                    // 1) Original SimPE behavior – App Paths
+                    // 1) Original SimPE behavior ï¿½ App Paths
                     object o = null;
                     if (tk != null)
                         o = tk.GetValue("Path");
@@ -654,26 +654,31 @@ namespace SimPe
         {
             get
             {
+                string result = "";
                 try
                 {
                     XmlRegistryKey rkf = Helper.WindowsRegistry.RegistryKey.CreateSubKey("Settings");
                     object o = rkf.GetValue(IdKey+"Path");
                     if (o == null)
                     {
-                        return this.RealInstallFolder;
+                        result = this.RealInstallFolder;
                     }
                     else
                     {
                         string fl = o.ToString();
-
-                        if (!System.IO.Directory.Exists(fl)) return this.RealInstallFolder;
-                        return fl;
+                        result = !System.IO.Directory.Exists(fl) ? this.RealInstallFolder : fl;
                     }
                 }
                 catch (Exception)
                 {
-                    return this.RealInstallFolder;
+                    result = this.RealInstallFolder;
                 }
+
+                // Fall back to GameRoot.cfg base game path
+                if (string.IsNullOrEmpty(result) && !string.IsNullOrEmpty(Helper.BaseGamePath))
+                    result = Helper.BaseGamePath;
+
+                return result;
             }
             set
             {

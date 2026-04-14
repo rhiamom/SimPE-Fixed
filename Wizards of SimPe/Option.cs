@@ -139,9 +139,10 @@ namespace SimPe.Wizards
             this.pbbottom.Size = new System.Drawing.Size(1022, 24);
             this.pbbottom.TabIndex = 2;
             this.pbbottom.TabStop = false;
-            // 
+            //
             // pnopt
-            // 
+            //
+            this.pnopt.BackColor = System.Drawing.Color.White;
             this.pnopt.Controls.Add(this.taskBox1);
             this.pnopt.Controls.Add(this.linkLabel5);
             this.pnopt.Controls.Add(this.linkLabel1);
@@ -154,40 +155,21 @@ namespace SimPe.Wizards
             // taskBox1
             // 
             this.taskBox1.BackColor = System.Drawing.Color.White;
-            this.taskBox1.Controls.Add(this.linkLabel4);
             this.taskBox1.Controls.Add(this.tbsims);
             this.taskBox1.Controls.Add(this.llsave);
-            this.taskBox1.Controls.Add(this.lldds2);
-            this.taskBox1.Controls.Add(this.label2);
             this.taskBox1.Controls.Add(this.label1);
             this.taskBox1.Controls.Add(this.linkLabel2);
             this.taskBox1.Controls.Add(this.lbmsg);
-            this.taskBox1.Controls.Add(this.lldds);
             this.taskBox1.Controls.Add(this.tbsave);
             this.taskBox1.Controls.Add(this.llsims);
             this.taskBox1.Controls.Add(this.linkLabel3);
-            this.taskBox1.Controls.Add(this.tbdds);
             
             this.taskBox1.Location = new System.Drawing.Point(96, 42);
             this.taskBox1.Name = "taskBox1";
             this.taskBox1.Padding = new System.Windows.Forms.Padding(4, 44, 4, 4);
-            this.taskBox1.Size = new System.Drawing.Size(748, 292);
+            this.taskBox1.Size = new System.Drawing.Size(748, 180);
             this.taskBox1.TabIndex = 32;
-            // 
-            // linkLabel4
-            // 
-            this.linkLabel4.AutoSize = true;
-            this.linkLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.linkLabel4.LinkColor = System.Drawing.Color.Red;
-            this.linkLabel4.Location = new System.Drawing.Point(638, 198);
-            this.linkLabel4.Name = "linkLabel4";
-            this.linkLabel4.Size = new System.Drawing.Size(42, 13);
-            this.linkLabel4.TabIndex = 26;
-            this.linkLabel4.TabStop = true;
-            this.linkLabel4.Text = "Browse";
-            this.linkLabel4.VisitedLinkColor = System.Drawing.Color.Maroon;
-            this.linkLabel4.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.FldDds);
-            // 
+            //
             // tbsims
             // 
             this.tbsims.Location = new System.Drawing.Point(18, 70);
@@ -209,34 +191,7 @@ namespace SimPe.Wizards
             this.llsave.Text = "suggest";
             this.llsave.VisitedLinkColor = System.Drawing.Color.Maroon;
             this.llsave.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.SugSave);
-            // 
-            // lldds2
-            // 
-            this.lldds2.BackColor = System.Drawing.Color.Transparent;
-            this.lldds2.ForeColor = System.Drawing.Color.Gray;
-            this.lldds2.LinkArea = new System.Windows.Forms.LinkArea(22, 4);
-            this.lldds2.LinkColor = System.Drawing.Color.Red;
-            this.lldds2.Location = new System.Drawing.Point(32, 249);
-            this.lldds2.Name = "lldds2";
-            this.lldds2.Size = new System.Drawing.Size(152, 23);
-            this.lldds2.TabIndex = 30;
-            this.lldds2.TabStop = true;
-            this.lldds2.Text = "You can download them here";
-            this.lldds2.UseCompatibleTextRendering = true;
-            this.lldds2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkDDS);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(18, 180);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 13);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "Nvidia DDS Utilities:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
+            //
             // label1
             // 
             this.label1.AutoSize = true;
@@ -274,18 +229,7 @@ namespace SimPe.Wizards
             this.lbmsg.TabIndex = 18;
             this.lbmsg.Text = "Sims 2 Installation Folder:";
             this.lbmsg.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
-            // lldds
-            // 
-            this.lldds.BackColor = System.Drawing.Color.Transparent;
-            this.lldds.ForeColor = System.Drawing.Color.Gray;
-            this.lldds.Location = new System.Drawing.Point(29, 221);
-            this.lldds.Name = "lldds";
-            this.lldds.Size = new System.Drawing.Size(549, 18);
-            this.lldds.TabIndex = 29;
-            this.lldds.Text = "The Nvidia DDS Utilities were not found. You should install them in order to get " +
-                "a higher quality for your recolours.";
-            // 
+            //
             // tbsave
             // 
             this.tbsave.Location = new System.Drawing.Point(18, 134);
@@ -322,15 +266,7 @@ namespace SimPe.Wizards
             this.linkLabel3.Text = "Browse";
             this.linkLabel3.VisitedLinkColor = System.Drawing.Color.Maroon;
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.FldSave);
-            // 
-            // tbdds
-            // 
-            this.tbdds.Location = new System.Drawing.Point(18, 198);
-            this.tbdds.Name = "tbdds";
-            this.tbdds.Size = new System.Drawing.Size(599, 20);
-            this.tbdds.TabIndex = 25;
-            this.tbdds.TextChanged += new System.EventHandler(this.Change);
-            // 
+            //
             // linkLabel5
             // 
             this.linkLabel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -372,11 +308,7 @@ namespace SimPe.Wizards
             this.pbstretch.Size = new System.Drawing.Size(1036, 452);
             this.pbstretch.TabIndex = 8;
             this.pbstretch.TabStop = false;
-            // 
-            // ofd
-            // 
-            this.ofd.Filter = "DDS Utilities (nvdxt.exe)|nvdxt.exe";
-            this.ofd.Title = "Locate Nvidia DDS Tools";
+            //
             // 
             // Option
             // 
@@ -404,31 +336,36 @@ namespace SimPe.Wizards
 		{
             if (PathProvider.RealSavegamePath != tbsave.Text) PathProvider.SimSavegameFolder = tbsave.Text;
             if (PathProvider.Global[Expansions.BaseGame].RealInstallFolder != tbsims.Text) PathProvider.Global[Expansions.BaseGame].InstallFolder = tbsims.Text;
-            if (PathProvider.Global.NvidiaDDSPath != tbdds.Text) PathProvider.Global.NvidiaDDSPath = tbdds.Text;
 			form1.HideOptions(sender, e);
 		}
 
 		public static bool HaveObjects
 		{
-            get { return System.IO.File.Exists(System.IO.Path.Combine(PathProvider.Global[Expansions.BaseGame].InstallFolder, "TSData" + Helper.PATH_SEP + "Res" + Helper.PATH_SEP + "Objects" + Helper.PATH_SEP + "objects.package")); }
+            get
+            {
+                // Try Helper.BaseGamePath first (from GameRoot.cfg), fall back to PathProvider
+                string baseGame = Helper.BaseGamePath;
+                if (string.IsNullOrEmpty(baseGame))
+                    baseGame = PathProvider.Global[Expansions.BaseGame].InstallFolder;
+                return System.IO.File.Exists(System.IO.Path.Combine(baseGame, "TSData" + Helper.PATH_SEP + "Res" + Helper.PATH_SEP + "Objects" + Helper.PATH_SEP + "objects.package"));
+            }
 		}
 
 		public static bool HaveSavefolder
 		{
-            get { return System.IO.Directory.Exists(System.IO.Path.Combine(PathProvider.SimSavegameFolder, "Downloads")); }
-		}
-
-		public static bool HaveDDS
-		{
-            get { return System.IO.File.Exists(PathProvider.Global.NvidiaDDSTool); }
+            get
+            {
+                // Try Helper.DownloadsPath first (from GameRoot.cfg), fall back to PathProvider
+                if (!string.IsNullOrEmpty(Helper.DownloadsPath))
+                    return System.IO.Directory.Exists(Helper.DownloadsPath);
+                return System.IO.Directory.Exists(System.IO.Path.Combine(PathProvider.SimSavegameFolder, "Downloads"));
+            }
 		}
 
 		private void Change(object sender, System.EventArgs e)
 		{
-			llsims.Visible = !System.IO.File.Exists(System.IO.Path.Combine(tbsims.Text, "TSData"+Helper.PATH_SEP+"Res"+Helper.PATH_SEP+"Objects"+Helper.PATH_SEP+"objects.package"));;
-			llsave.Visible = !System.IO.Directory.Exists(System.IO.Path.Combine(tbsave.Text, "Downloads"));	
-			lldds.Visible = !System.IO.File.Exists(System.IO.Path.Combine(tbdds.Text, "nvdxt.exe"));
-			lldds2.Visible = lldds.Visible;
+			llsims.Visible = !System.IO.File.Exists(System.IO.Path.Combine(tbsims.Text, "TSData"+Helper.PATH_SEP+"Res"+Helper.PATH_SEP+"Objects"+Helper.PATH_SEP+"objects.package"));
+			llsave.Visible = !System.IO.Directory.Exists(System.IO.Path.Combine(tbsave.Text, "Downloads"));
 		}
 
 		private void SugSims(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
@@ -451,17 +388,6 @@ namespace SimPe.Wizards
 		{
             if (System.IO.Directory.Exists(PathProvider.RealSavegamePath)) fbd.SelectedPath = PathProvider.RealSavegamePath;
 			if (fbd.ShowDialog()==DialogResult.OK) tbsave.Text = fbd.SelectedPath;
-		}
-
-		private void LinkDDS(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-            Help.ShowHelp(this, "https://developer.nvidia.com/legacy-texture-tools");
-		}
-
-		private void FldDds(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
-		{
-			if (System.IO.File.Exists(@"C:\Program Files\NVIDIA Corporation\DDS Utilities\nvdxt.exe")) ofd.FileName = @"C:\Program Files\NVIDIA Corporation\DDS Utilities\nvdxt.exe";
-			if (ofd.ShowDialog()==DialogResult.OK) tbdds.Text = System.IO.Path.GetDirectoryName(ofd.FileName);
 		}
 
 		private void linkLabel5_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
