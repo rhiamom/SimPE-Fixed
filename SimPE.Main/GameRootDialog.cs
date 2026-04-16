@@ -496,7 +496,7 @@ namespace SimPe
             if (!string.IsNullOrEmpty(downloadsPath))
             {
                 string gmndPath = Path.Combine(downloadsPath, "_EnableColorOptionsGMND.package");
-                string zcepFolderPath = Path.Combine(downloadsPath, "zCEP-EXTRA");
+                string zcepFolderPath = Path.Combine(Path.GetDirectoryName(downloadsPath), "zCEP-EXTRA");
 
                 cepHasGmnd = File.Exists(gmndPath);
                 cepHasZcepFolder = Directory.Exists(zcepFolderPath);
