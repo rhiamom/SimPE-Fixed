@@ -34,13 +34,15 @@ public class GlMesh : IDisposable
     public int NumberFaces => _faceCount;
     public int NumberAttributes => 1; // always 1 subset
     public bool Disposed => _disposed;
+    public bool HasVertexColors { get; private set; }
 
-    private GlMesh(float[] vertices, int[] indices, int vertexCount, int faceCount)
+    private GlMesh(float[] vertices, int[] indices, int vertexCount, int faceCount, bool hasColors = false)
     {
         _vertices = vertices;
         _indices = indices;
         _vertexCount = vertexCount;
         _faceCount = faceCount;
+        HasVertexColors = hasColors;
     }
 
     // -----------------------------------------------------------------------
@@ -82,7 +84,7 @@ public class GlMesh : IDisposable
             verts[b + 6] = 0f;             verts[b + 7] = 0f; // no uv
             ArgbToFloats(argbColors[i], out verts[b + 8], out verts[b + 9], out verts[b + 10], out verts[b + 11]);
         }
-        return new GlMesh(verts, indices, n, indices.Length / 3);
+        return new GlMesh(verts, indices, n, indices.Length / 3, hasColors: true);
     }
 
     /// <summary>
@@ -120,7 +122,7 @@ public class GlMesh : IDisposable
             verts[b + 6] = 0f; verts[b + 7] = 0f;
             ArgbToFloats(argbColors[i], out verts[b + 8], out verts[b + 9], out verts[b + 10], out verts[b + 11]);
         }
-        return new GlMesh(verts, indices, n, indices.Length / 3);
+        return new GlMesh(verts, indices, n, indices.Length / 3, hasColors: true);
     }
 
     private static void ArgbToFloats(int argb, out float r, out float g, out float b, out float a)

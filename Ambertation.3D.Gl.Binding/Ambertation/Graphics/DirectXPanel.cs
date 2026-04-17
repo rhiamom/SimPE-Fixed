@@ -18,7 +18,7 @@ internal class MatrixStack : IDisposable
     public Matrix4 Top => stack.Peek();
     public void Push() { stack.Push(stack.Peek()); }
     public void Pop() { if (stack.Count > 1) stack.Pop(); }
-    public void MultiplyMatrixLocal(Matrix4 m) { var top = stack.Pop(); stack.Push(Matrix4.Mult(top, m)); }
+    public void MultiplyMatrixLocal(Matrix4 m) { var top = stack.Pop(); stack.Push(Matrix4.Mult(m, top)); }
     public void LoadMatrix(Matrix4 m) { stack.Pop(); stack.Push(m); }
     public void Dispose() { stack.Clear(); }
 }
@@ -133,8 +133,7 @@ void main() {
         get
         {
             float fov = vp.FoV, near = vp.NearPlane, far = vp.FarPlane;
-            // Use actual GL viewport dimensions to avoid DPI/WinForms scaling issues
-            float aspect = base.Height > 0 ? (float)base.Width / (float)base.Height : 1f;
+            float aspect = vp.Aspect > 0f ? vp.Aspect : 1f;
             return Matrix4.CreatePerspectiveFieldOfView(fov, aspect, near, far);
         }
     }
@@ -204,6 +203,8 @@ void main() {
             GL.Enable(EnableCap.DepthTest);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            GL.Viewport(0, 0, Math.Max(1, base.Width), Math.Max(1, base.Height));
+            vp.Aspect = (float)Math.Max(1, base.Width) / (float)Math.Max(1, base.Height);
             _glReady = true;
         }
         catch (Exception ex) { Console.WriteLine("GL init failed: " + ex.Message); }
@@ -363,7 +364,7 @@ void main() {
 
         // Material
         GlMaterial mat;
-        bool useVertexColor = false;
+        bool useVertexColor = box.Mesh != null && box.Mesh.HasVertexColors;
         if (pass == 0 && Settings.FillMode == ViewportSettingBasic.FillModes.WireframeOverlay)
         {
             mat = GetMaterial(Color.Black);
@@ -535,7 +536,7 @@ void main() {
     protected void AddAxisMesh(string txt, Color cl, Vector3 dir)
     {
         Vector3 vector = (0f - Settings.AxisScale) * Settings.LineWidth * dir;
-        MeshBox[] array = CreateLineMesh(vector, dir, 2f * Settings.AxisScale * Settings.LineWidth, GetMaterial(cl), wire: false, arrow: true);
+        MeshBox[] array = CreateLineMesh(vector, dir, 2f * Settings.AxisScale * Settings.LineWidth, GetMaterial(cl), wire: false, arrow: true, linewd: Settings.LineWidth * 0.25);
         foreach (MeshBox mb in array) { mb.IgnoreDuringCameraReset = true; }
         Meshes.AddRange(array);
         Matrix4 rotm = GetRotationMatrix(new Vector3(0f, 0f, 1f), dir);
@@ -675,7 +676,7 @@ void main() {
         base.Width = Math.Max(1, base.Width); base.Height = Math.Max(1, base.Height);
         Settings.Paused = Math.Min(base.Width, base.Height) <= 0;
         if (_glReady) { MakeCurrent(); GL.Viewport(0, 0, base.Width, base.Height); }
-        vp.Aspect = base.Height != 0 ? (float)base.Width / base.Height : 1f;
+        vp.Aspect = (float)base.Width / (float)base.Height;
         base.OnResize(e);
     }
 

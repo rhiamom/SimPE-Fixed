@@ -59,14 +59,14 @@ public class SceneToMesh : IConvertScene, IDisposable
 		Matrix4 transform = Converter.ToDx(joint);
 		MeshBox meshBox = new MeshBox(GlMesh.CreateSphere(num, 24, 24), 1,
 			DirectXPanel.GetMaterial(GetJointColor(joint)), transform);
-		meshBox.Wire = false; meshBox.JointMesh = true;
+		meshBox.Wire = false; meshBox.JointMesh = true; meshBox.ZTest = false;
 		ret.Add(meshBox);
 		if (dxp != null && !joint.Parent.Root)
 		{
 			TkVec3 stop = TkVec3.TransformPosition(TkVec3.Zero, Converter.ToDx(joint));
 			MeshBox[] arr = dxp.CreateLineMesh(TkVec3.Zero, stop,
-				DirectXPanel.GetMaterial(Color.LightYellow), wire: false, arrow: false);
-			foreach (MeshBox mb in arr) mb.JointMesh = true;
+				DirectXPanel.GetMaterial(Color.LightYellow), wire: false, arrow: false, linewd: num * 0.2);
+			foreach (MeshBox mb in arr) { mb.JointMesh = true; mb.ZTest = false; }
 			ret.AddRange(arr);
 		}
 		foreach (Joint item in joint) AddJointMesh(selected, meshBox, item);
@@ -88,6 +88,9 @@ public class SceneToMesh : IConvertScene, IDisposable
 		foreach (Mesh item in scn.SceneRoot)
 		{
 			Mesh dst = scene.CreateMesh(item.Name);
+			dst.Translation = item.Translation;
+			dst.Rotation = item.Rotation;
+			dst.Scaling = item.Scaling;
 			for (int i = 0; i < item.FaceIndices.Count; i++) CopyElement(joints, item, dst, i);
 		}
 		scn.ClearTags();
@@ -131,20 +134,24 @@ public class SceneToMesh : IConvertScene, IDisposable
 		scene.DefaultMaterial.Specular = Color.Transparent; scene.DefaultMaterial.SpecularPower = 100.0;
 		scene.DefaultMaterial.Mode = Material.TextureModes.Default;
 		MeshList meshList = new MeshList();
-		JointCollection jc = new JointCollection(); jc.Add(j);
-		AddJointMeshs(jc, meshList, scn.RootJoint); jc.Clear(); jc.Dispose();
 		foreach (Mesh item in scn.SceneRoot)
 		{
 			Envelope envelope = null;
 			foreach (Envelope e2 in item.Envelopes) { if (e2.Joint == j) { envelope = e2; break; } }
 			if (envelope == null) continue;
 			Mesh dst = scene.CreateMesh(item.Name);
+			dst.Translation = item.Translation;
+			dst.Rotation = item.Rotation;
+			dst.Scaling = item.Scaling;
 			for (int i = 0; i < item.FaceIndices.Count; i++)
 				if (HasWeight(item, i, envelope)) CopyElement(item, dst, i, mincl, maxcl, envelope);
 		}
 		scn.ClearTags();
 		SceneToMesh stm = dxp == null ? new SceneToMesh(scene, Scale) : new SceneToMesh(scene, dxp);
-		MeshList m = stm.ConvertToDx(); meshList.AddRange(m); scene.Dispose(); return meshList;
+		MeshList m = stm.ConvertToDx(); meshList.AddRange(m); scene.Dispose();
+		JointCollection jc = new JointCollection(); jc.Add(j);
+		AddJointMeshs(jc, meshList, scn.RootJoint); jc.Clear(); jc.Dispose();
+		return meshList;
 	}
 
 	private bool HasWeight(Mesh src, int findex, Envelope e)

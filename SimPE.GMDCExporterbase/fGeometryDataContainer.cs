@@ -188,8 +188,8 @@ namespace SimPe.Plugin
 				dxprev.TabIndex = 31;
 				dxprev.WorldMatrix = OpenTK.Mathematics.Matrix4.Identity;
 				dxprev.ResetDevice += new System.EventHandler(this.dxprev_ResetDevice);
-				dxprev.Settings.AddAxis = false;
-				dxprev.Settings.RenderJoints = true;
+				dxprev.Settings.AddAxis = true;
+				dxprev.Settings.RenderJoints = false;
 				this.scenesel.DirectXPanel = dxprev;
 				this.tMesh.Controls.Add(dxprev);
 			}
@@ -2253,14 +2253,15 @@ namespace SimPe.Plugin
 			GeometryDataContainer gmdc = (GeometryDataContainer) this.tMesh.Tag;
 			Wait.SubStart();
 			Wait.Message = "Loading Preview...";
-			try 
+			try
 			{
-				GeometryDataContainerExt gmdcext = new GeometryDataContainerExt(gmdc);	
+				GeometryDataContainerExt gmdcext = new GeometryDataContainerExt(gmdc);
 				if (this.scenesel.Scene!=null) this.scenesel.Scene.Dispose();
 				this.scenesel.Scene = gmdcext.GetScene(GetModelsExt(), new ElementOrder(Gmdc.ElementSorting.Preview));
 
 				ResetPreviewCamera(false);
 				dxprev?.Invalidate();
+				try { DumpPreviewDiagnostic(gmdc); } catch (Exception dex) { System.Diagnostics.Debug.WriteLine("Diag dump failed: " + dex); }
 				/*if (this.scenesel.Scene!=null) 
 				{
 					Ambertation.Scenes.Mesh m = this.scenesel.Scene.MeshCollection["body"];
@@ -2284,7 +2285,71 @@ namespace SimPe.Plugin
 				MessageBox.Show("Preview error: " + ex.Message, "Preview", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		
-			Wait.SubStop();			
+			Wait.SubStop();
+		}
+
+		void DumpPreviewDiagnostic(GeometryDataContainer gmdc)
+		{
+			if (dxprev == null || this.scenesel.Scene == null) return;
+			string path = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), "simpe_preview_diag.txt");
+			using var w = new System.IO.StreamWriter(path);
+			w.WriteLine("=== SimPE GMDC Preview Diagnostic ===");
+			w.WriteLine("Timestamp: " + System.DateTime.Now);
+			w.WriteLine();
+
+			w.WriteLine("--- Panel ---");
+			w.WriteLine("dxprev.Width=" + dxprev.Width + " dxprev.Height=" + dxprev.Height);
+			w.WriteLine("dxprev.ClientSize=" + dxprev.ClientSize);
+			w.WriteLine("dxprev.Settings.Aspect=" + dxprev.Settings.Aspect);
+			w.WriteLine("dxprev.Settings.FoV=" + dxprev.Settings.FoV + " (radians) = " + (dxprev.Settings.FoV * 180.0 / System.Math.PI) + " degrees");
+			w.WriteLine();
+
+			w.WriteLine("--- Camera ---");
+			w.WriteLine("CameraPosition=" + dxprev.Settings.CameraPosition);
+			w.WriteLine("ObjectCenter=" + dxprev.Settings.ObjectCenter);
+			w.WriteLine("BoundingSphereRadius=" + dxprev.Settings.BoundingSphereRadius);
+			w.WriteLine("NearPlane=" + dxprev.Settings.NearPlane + " FarPlane=" + dxprev.Settings.FarPlane);
+			w.WriteLine("InitialCameraOffsetScale=" + dxprev.Settings.InitialCameraOffsetScale);
+			w.WriteLine();
+
+			w.WriteLine("--- Scene Meshes (vertex bounds in scene space) ---");
+			foreach (Ambertation.Scenes.Mesh m in this.scenesel.Scene.SceneRoot)
+			{
+				double minX=double.MaxValue, minY=double.MaxValue, minZ=double.MaxValue;
+				double maxX=double.MinValue, maxY=double.MinValue, maxZ=double.MinValue;
+				foreach (Ambertation.Geometry.Vector3 v in m.Vertices)
+				{
+					if (v.X < minX) minX = v.X; if (v.X > maxX) maxX = v.X;
+					if (v.Y < minY) minY = v.Y; if (v.Y > maxY) maxY = v.Y;
+					if (v.Z < minZ) minZ = v.Z; if (v.Z > maxZ) maxZ = v.Z;
+				}
+				w.WriteLine("Mesh '" + m.Name + "' verts=" + m.Vertices.Count +
+				           " X=[" + minX.ToString("F3") + "," + maxX.ToString("F3") + "]" +
+				           " Y=[" + minY.ToString("F3") + "," + maxY.ToString("F3") + "]" +
+				           " Z=[" + minZ.ToString("F3") + "," + maxZ.ToString("F3") + "]");
+				w.WriteLine("  Transform: Scale=" + m.Scaling + " Rot=" + m.Rotation + " Trans=" + m.Translation);
+				if (m.Vertices.Count > 0)
+				{
+					w.WriteLine("  First 5 vertices:");
+					for (int i = 0; i < System.Math.Min(5, m.Vertices.Count); i++)
+						w.WriteLine("    v[" + i + "]=" + m.Vertices[i]);
+				}
+			}
+			w.WriteLine();
+
+			w.WriteLine("--- Render MeshBoxes (top-level) ---");
+			foreach (Ambertation.Graphics.MeshBox mb in dxprev.Meshes)
+			{
+				w.WriteLine("MeshBox SpecialMesh=" + mb.SpecialMesh + " JointMesh=" + mb.JointMesh +
+				           " IgnoreDuringCameraReset=" + mb.IgnoreDuringCameraReset);
+				w.WriteLine("  Transform=" + mb.Transform);
+				var bb = mb.GetBoundingBox(rec: true, all: true);
+				w.WriteLine("  BBox: min=" + bb.Min + " max=" + bb.Max);
+			}
+			w.WriteLine();
+
+			w.WriteLine("Wrote to: " + path);
+			System.Windows.Forms.MessageBox.Show("Preview diagnostic written to:\n" + path, "Diagnostic");
 		}
 
 		/// <summary>

@@ -105,7 +105,9 @@ public class RenderSelection : UserControl
 		try
 		{
 			directXPanel.Meshes.Clear(dispose: true);
-			if (lb.SelectedItem == null || !(lb.SelectedItem is Joint))
+			bool jointSelected = lb.SelectedItem is Joint;
+			directXPanel.Settings.RenderJoints = jointSelected;
+			if (!jointSelected)
 			{
 				directXPanel.Meshes.AddRange(stm.ConvertToDx());
 			}
