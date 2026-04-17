@@ -63,9 +63,9 @@ public class ViewportSetting : ViewportSettingBasic
 		flname = null; this.parent = parent; Reset();
 		autolightmesh = false; useleft = false; useeff = false; alphablend = true; paused = false;
 		acull = GlCullMode.None; mcull = GlCullMode.Clockwise;
-		ascale = 250f; lscale = 0.1f;
+		ascale = 250f; lscale = 0.01f;
 		amb = Color.FromArgb(128, 128, 128); bg = SystemColors.AppWorkspace;
-		lcol = lscol = Color.White; camoffset = 1.2f;
+		lcol = lscol = Color.White; camoffset = 0.7f;
 	}
 
 	~ViewportSetting() { try { Save(); } catch { } }

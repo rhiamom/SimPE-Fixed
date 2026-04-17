@@ -113,7 +113,7 @@ public class ViewportSettingBasic
 		usespec = true;
 		smode = GlShadeMode.Phong;
 		autoaxismesh = true;
-		jsz = 10f;
+		jsz = 1f;
 		bb = false;
 		eventpause = false;
 	}

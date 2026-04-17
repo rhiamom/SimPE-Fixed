@@ -132,7 +132,9 @@ void main() {
     {
         get
         {
-            float fov = vp.FoV, aspect = vp.Aspect, near = vp.NearPlane, far = vp.FarPlane;
+            float fov = vp.FoV, near = vp.NearPlane, far = vp.FarPlane;
+            // Use actual GL viewport dimensions to avoid DPI/WinForms scaling issues
+            float aspect = base.Height > 0 ? (float)base.Width / (float)base.Height : 1f;
             return Matrix4.CreatePerspectiveFieldOfView(fov, aspect, near, far);
         }
     }

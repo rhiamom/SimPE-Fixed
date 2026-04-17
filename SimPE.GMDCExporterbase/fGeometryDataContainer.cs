@@ -189,7 +189,7 @@ namespace SimPe.Plugin
 				dxprev.WorldMatrix = OpenTK.Mathematics.Matrix4.Identity;
 				dxprev.ResetDevice += new System.EventHandler(this.dxprev_ResetDevice);
 				dxprev.Settings.AddAxis = false;
-				dxprev.Settings.RenderJoints = false;
+				dxprev.Settings.RenderJoints = true;
 				this.scenesel.DirectXPanel = dxprev;
 				this.tMesh.Controls.Add(dxprev);
 			}
@@ -2237,9 +2237,8 @@ namespace SimPe.Plugin
 		{
 			if (!weak && dxprev != null)
 			{
-				dxprev.Settings.Aspect = (float)dxprev.Height / (float)dxprev.Width;
-				dxprev.ResetDefaultViewport();
 				dxprev.Settings.Aspect = (float)dxprev.Width / (float)dxprev.Height;
+				dxprev.ResetDefaultViewport();
 			}
 		}
 
@@ -2259,8 +2258,8 @@ namespace SimPe.Plugin
 				GeometryDataContainerExt gmdcext = new GeometryDataContainerExt(gmdc);	
 				if (this.scenesel.Scene!=null) this.scenesel.Scene.Dispose();
 				this.scenesel.Scene = gmdcext.GetScene(GetModelsExt(), new ElementOrder(Gmdc.ElementSorting.Preview));
-				
-				//ResetPreviewCamera(false);
+
+				ResetPreviewCamera(false);
 				dxprev?.Invalidate();
 				/*if (this.scenesel.Scene!=null) 
 				{
