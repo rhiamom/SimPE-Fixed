@@ -848,4 +848,19 @@
   <ItemGroup>
     <ProjectReference Include="..\NetDocks\NetDocks.csproj" />
   </ItemGroup>
+
+  <Target Name="SimPeCopyDefaultDataFiles" AfterTargets="Build">
+    <ItemGroup>
+      <_SimPeDefaultDataFiles Include="$(MSBuildProjectDirectory)\IconXmlResources\additional_careers.xml" />
+      <_SimPeDefaultDataFiles Include="$(MSBuildProjectDirectory)\IconXmlResources\additional_majors.xml" />
+      <_SimPeDefaultDataFiles Include="$(MSBuildProjectDirectory)\IconXmlResources\additional_schools.xml" />
+      <_SimPeDefaultDataFiles Include="$(MSBuildProjectDirectory)\IconXmlResources\hoods.xml" />
+      <_SimPeDefaultDataFiles Include="$(MSBuildProjectDirectory)\IconXmlResources\objddefinition.xml" />
+      <_SimPeDefaultDataFiles Include="$(MSBuildProjectDirectory)\IconXmlResources\semiglobals.xml" />
+      <_SimPeDefaultDataFiles Include="$(MSBuildProjectDirectory)\IconXmlResources\tgi.xml" />
+      <_SimPeDefaultDataFiles Include="$(MSBuildProjectDirectory)\IconXmlResources\txmtdefinition.xml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_SimPeDefaultDataFiles)" DestinationFolder="$(OutDir)Data\" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(_SimPeDefaultDataFiles)" DestinationFolder="$(SimPeUnifiedOutDir)Data\" SkipUnchangedFiles="true" Condition=" '$(SimPeUnifiedOutDir)' != '' " />
+  </Target>
 </Project>
