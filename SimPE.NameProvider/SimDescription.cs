@@ -204,26 +204,48 @@ namespace SimPe.Providers
 		System.Collections.Generic.Dictionary<int, string> turnons;
 		void LoadTurnOns()
 		{
-			if (turnons!=null) return;
-            turnons = new System.Collections.Generic.Dictionary<int, string>();
-            if (SimPe.PathProvider.Global.EPInstalled < 2 && SimPe.PathProvider.Global.STInstalled < 28) return;
-            if (Helper.WindowsRegistry.LoadOnlySimsStory == 0) to1 = 14;
-            else if (Helper.WindowsRegistry.LoadOnlySimsStory > 0) to1 = 12;
+			if (turnons != null) return;
+			turnons = new System.Collections.Generic.Dictionary<int, string>();
 
-            SimPe.Packages.File pkg = SimPe.Packages.File.LoadFromFile(System.IO.Path.Combine(PathProvider.Global.Latest.InstallFolder, @"TSData\Res\Text\UIText.package"));
-			SimPe.PackedFiles.Wrapper.Str str = new Str();
-			SimPe.Interfaces.Files.IPackedFileDescriptor pfd = pkg.FindFile(Data.MetaData.STRING_FILE, 0 , Data.MetaData.LOCAL_GROUP, 0xe1);
+			if (Helper.WindowsRegistry.LoadOnlySimsStory == 0) to1 = 14;
+			else if (Helper.WindowsRegistry.LoadOnlySimsStory > 0) to1 = 12;
 
-			if (pfd!=null) 
+			// Try the "Latest" EP's UIText.package first, then fall back to every
+			// configured expansion's install folder. UIText.package exists in every
+			// EP/Base folder but the turn-ons STR (instance 0xe1) only appears
+			// starting with Nightlife, so we take the first match.
+			var candidates = new System.Collections.Generic.List<string>();
+			string latest = PathProvider.Global.Latest?.InstallFolder;
+			if (!string.IsNullOrEmpty(latest)) candidates.Add(latest);
+			foreach (var ei in PathProvider.Global.Expansions)
 			{
-				str.ProcessData(pfd, pkg);
-				SimPe.PackedFiles.Wrapper.StrItemList strs = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
-                if (to1 == 14)
-                {
-                    for (int i = 0; i < strs.Count; i++)
-                        turnons[i] = strs[i].Title;
-                }
+				string f = ei.InstallFolder;
+				if (string.IsNullOrEmpty(f)) continue;
+				if (!candidates.Contains(f)) candidates.Add(f);
 			}
+
+			SimPe.PackedFiles.Wrapper.StrItemList strs = null;
+			foreach (string folder in candidates)
+			{
+				string pkgPath = System.IO.Path.Combine(folder, @"TSData\Res\Text\UIText.package");
+				if (!System.IO.File.Exists(pkgPath)) continue;
+				try
+				{
+					SimPe.Packages.File pkg = SimPe.Packages.File.LoadFromFile(pkgPath);
+					if (pkg == null) continue;
+					SimPe.Interfaces.Files.IPackedFileDescriptor pfd = pkg.FindFile(Data.MetaData.STRING_FILE, 0, Data.MetaData.LOCAL_GROUP, 0xe1);
+					if (pfd == null) continue;
+					var str = new Str();
+					str.ProcessData(pfd, pkg);
+					var maybe = str.FallbackedLanguageItems(Helper.WindowsRegistry.LanguageCode);
+					if (maybe != null && maybe.Count > 0) { strs = maybe; break; }
+				}
+				catch { }
+			}
+
+			if (to1 == 14 && strs != null)
+				for (int i = 0; i < strs.Count; i++)
+					turnons[i] = strs[i].Title;
 		}
 
         public TraitAlias[] GetAllTurnOns()

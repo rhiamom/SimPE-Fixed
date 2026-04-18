@@ -57,9 +57,11 @@ namespace SimPe
         [STAThread]
         static void Main(string[] args)
         {
-            // Lock DPI mode before any control is created — prevents OpenTK GLControl
-            // from changing the process DPI awareness and breaking the app layout.
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            // Lock DPI mode before any control is created. DpiUnaware lets Windows
+            // bitmap-scale the window so the 96-DPI resx-based form layouts (designed
+            // pre-.NET 8) render without clipping or overlap. Cross-platform safe;
+            // GdiScaled isn't available on Mac/Linux Avalonia targets.
+            Application.SetHighDpiMode(HighDpiMode.DpiUnaware);
 
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
                 LogCrash(e.ExceptionObject as Exception ?? new Exception(e.ExceptionObject?.ToString()), e.IsTerminating);

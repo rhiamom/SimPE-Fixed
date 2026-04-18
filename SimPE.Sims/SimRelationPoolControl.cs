@@ -176,5 +176,16 @@ namespace SimPe.PackedFiles.Wrapper
             if (intern) return;
             ShowRelatedSims = cbRelation.Checked;
         }
+
+        // When showing unrelated sims, bypass the household filter so sims from
+        // other households can appear. The household filter is only meaningful
+        // when restricting to the current sim's family.
+        public override void UpdateSimList()
+        {
+            if (shownorel)
+                base.UpdateSimList((string)null);
+            else
+                base.UpdateSimList();
+        }
     }
 }

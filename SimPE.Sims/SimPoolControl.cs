@@ -205,7 +205,7 @@ namespace SimPe.PackedFiles.Wrapper
             return GetImagePanelColor(sdsc);
         }
 
-		void UpdateSimList(string household)
+		protected void UpdateSimList(string household)
 		{
             SimPe.PackedFiles.Wrapper.ExtSDesc selectedSim = this.SelectedSim;
             if (household != null && selectedSim != null && selectedSim.HouseholdName != household) selectedSim = null;
@@ -588,7 +588,7 @@ namespace SimPe.PackedFiles.Wrapper
         /// <summary>
         /// Refresh the LIst of displayed Sims
         /// </summary>
-        public void UpdateSimList()
+        public virtual void UpdateSimList()
         {
             if (this.cbhousehold.SelectedIndex > 0)
                 this.UpdateSimList(this.cbhousehold.Text);

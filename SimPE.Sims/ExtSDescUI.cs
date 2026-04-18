@@ -115,33 +115,51 @@ namespace SimPe.PackedFiles.UserInterface
 			this.srcRel = new SimPe.PackedFiles.UserInterface.CommonSrel();
 			this.dstRel = new SimPe.PackedFiles.UserInterface.CommonSrel();
 
-			// 
-			// srcRel
-			// 
+			// Disable AutoSize on edit-container boxes so Dock=Fill on CommonSrel works.
+			// Resx has srcTb/dstTb at 8px wide with AutoSize=GrowAndShrink; combined with
+			// AutoSize on CommonSrel, layout collapses under .NET 8 WinForms scaling.
+			this.srcTb.AutoSize = false;
+			this.dstTb.AutoSize = false;
+			this.srcRel.AutoSize = false;
+			this.dstRel.AutoSize = false;
+
 			this.srcRel.Dock = DockStyle.Fill;
 			this.srcRel.Enabled = false;
 			this.srcRel.Name = "srcRel";
 			this.srcRel.Srel = null;
 			this.srcRel.Visible = true;
 
-			// 
-			// dstRel
-			// 
 			this.dstRel.Dock = DockStyle.Fill;
 			this.dstRel.Enabled = false;
 			this.dstRel.Name = "dstRel";
 			this.dstRel.Srel = null;
 			this.dstRel.Visible = true;
 
-            this.srcTb.Controls.Add(this.srcRel);
-            this.dstTb.Controls.Add(this.dstRel);
+			this.srcTb.Controls.Add(this.srcRel);
+			this.dstTb.Controls.Add(this.dstRel);
 
-            this.dstTb.Top = this.srcTb.Bottom;
+			LayoutRelationPanels();
+			this.panel3.Resize += (s, e) => LayoutRelationPanels();
 
             this.cbEp3Asgn.ResourceManager = SimPe.Localization.Manager;
-            this.cbEp3Asgn.Enum = typeof(Wrapper.JobAssignment);            
-		}		
+            this.cbEp3Asgn.Enum = typeof(Wrapper.JobAssignment);
+		}
 
+		// Resx ships srcTb/dstTb at 8 px wide with AutoSize=GrowAndShrink, which collapses
+		// under .NET 8 WinForms scaling and leaves the editing area unreachable. Stack
+		// them top/bottom inside panel3 and re-pin on resize so the SimRelations tab is
+		// actually usable.
+		void LayoutRelationPanels()
+		{
+			int w = Math.Max(1, this.panel3.ClientSize.Width - 16);
+			int halfH = Math.Max(1, (this.panel3.ClientSize.Height - 16) / 2);
+			this.srcTb.Location = new System.Drawing.Point(8, 4);
+			this.srcTb.Size = new System.Drawing.Size(w, halfH);
+			this.dstTb.Location = new System.Drawing.Point(8, 4 + halfH + 4);
+			this.dstTb.Size = new System.Drawing.Size(w, halfH);
+			this.srcTb.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			this.dstTb.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+		}
 
 		public void SelectButton(ToolStripButton b)
 		{
@@ -1303,17 +1321,21 @@ namespace SimPe.PackedFiles.UserInterface
             {
                 lv.Package = null;
                 lv.Sim = null;
+                pinnedSubject = null;
+                pinnedTarget = null;
                 return;
             }
 
             lv.Package = Sdesc.Package;
             lv.Sim = Sdesc;
 
+            // Pin the subject so thumbnail clicks populate the editing panels.
+            // Without this, SelectedSimRelationChanged bails at the pinnedSubject==null guard.
+            pinnedSubject = (PackedFiles.Wrapper.ExtSDesc)Sdesc;
+            pinnedTarget = null;
+
             // Force initial population (otherwise it waits for the dropdown event)
             lv.UpdateSimList();
-
-            // Optional: default the dropdown to the current sim�s household
-            // lv.SelectHousehold(Sdesc.HouseholdName);
 
             ResetLabel();
             loadedRel = true;
@@ -1405,26 +1427,42 @@ namespace SimPe.PackedFiles.UserInterface
 
         void UpdateLabel()
 		{
-			Image img = null;
-			srcTb.HeaderText = srcRel.SourceSimName + " " + SimPe.Localization.GetString("towards") +" " +srcRel.TargetSimName;
-			if (srcRel.TargetSim==null)img  = null;
-			else  img = (Image)srcRel.Image;
-			if (img!=null) 
-			{
-				//img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new Point(0,0), Color.Magenta);
-				img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, srcTb.IconSize.Width, srcTb.IconSize.Height, true);
-			}
-			srcTb.Icon = img;
-			
+			string towards = SimPe.Localization.GetString("towards");
+			string unknown = SimPe.Localization.GetString("Unknown");
+			string subjectName = pinnedSubject != null
+				? pinnedSubject.SimName + " " + pinnedSubject.SimFamilyName
+				: unknown;
+			Image subjectImg = pinnedSubject != null ? (Image)pinnedSubject.Image : null;
 
-			dstTb.HeaderText = dstRel.SourceSimName + " " + SimPe.Localization.GetString("towards") +" " +dstRel.TargetSimName;
-			if (dstRel.TargetSim==null) img = null;
-			else img = (Image)dstRel.Image.Clone();
-			if (img!=null) 
+			// srcTb shows "subject toward target"
+			Image img;
+			if (srcRel.Srel != null)
 			{
-				//img = Ambertation.Drawing.GraphicRoutines.KnockoutImage(img, new Point(0,0), Color.Magenta);
-				img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, srcTb.IconSize.Width, srcTb.IconSize.Height, true);
+				srcTb.HeaderText = srcRel.SourceSimName + " " + towards + " " + srcRel.TargetSimName;
+				img = srcRel.TargetSim != null ? (Image)srcRel.Image : null;
 			}
+			else
+			{
+				srcTb.HeaderText = subjectName + " " + towards + " " + unknown;
+				img = subjectImg;
+			}
+			if (img != null)
+				img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, srcTb.IconSize.Width, srcTb.IconSize.Height, true);
+			srcTb.Icon = img;
+
+			// dstTb shows "target toward subject"
+			if (dstRel.Srel != null)
+			{
+				dstTb.HeaderText = dstRel.SourceSimName + " " + towards + " " + dstRel.TargetSimName;
+				img = dstRel.TargetSim != null && dstRel.Image != null ? (Image)dstRel.Image.Clone() : null;
+			}
+			else
+			{
+				dstTb.HeaderText = unknown + " " + towards + " " + subjectName;
+				img = subjectImg;
+			}
+			if (img != null)
+				img = Ambertation.Drawing.GraphicRoutines.ScaleImage(img, dstTb.IconSize.Width, dstTb.IconSize.Height, true);
 			dstTb.Icon = img;
 		}
 
@@ -2006,26 +2044,35 @@ namespace SimPe.PackedFiles.UserInterface
 
         private void activate_miOpenScore(object sender, EventArgs e)
         {
-			try
-			{
-				SimPe.Interfaces.Files.IPackedFileDescriptor scorPfd = null;
-				foreach (SimPe.Interfaces.Files.IPackedFileDescriptor p in Sdesc.Package.Index)
-				{
-					if (p.Type == 0x3053CF74 && p.Instance == Sdesc.FileDescriptor.Instance)
-					{
-						scorPfd = p;
-						break;
-					}
-				}
-				if (scorPfd == null)
-					System.Windows.Forms.MessageBox.Show("SCOR not found");
-				else
-				{
-                    SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii =
-    FileTable.FileIndex.CreateFileIndexItem(scorPfd, Sdesc.Package);
+            try
+            {
+                SimPe.Interfaces.Files.IPackedFileDescriptor scorPfd = null;
+                foreach (SimPe.Interfaces.Files.IPackedFileDescriptor p in Sdesc.Package.Index)
+                {
+                    if (p.Type == 0x3053CF74 && p.Instance == Sdesc.FileDescriptor.Instance)
+                    {
+                        scorPfd = p;
+                        break;
+                    }
+                }
 
-                    SimPe.RemoteControl.OpenPackedFile(scorPfd, Sdesc.Package);
-			}
+                // If this sim has no SCOR resource yet, create an empty one in the
+                // package so the editor opens and the user can populate it.
+                if (scorPfd == null)
+                {
+                    var npfd = new SimPe.Packages.PackedFileDescriptor();
+                    npfd.Type = 0x3053CF74;
+                    npfd.Group = Sdesc.FileDescriptor.Group;
+                    npfd.Instance = Sdesc.FileDescriptor.Instance;
+                    npfd.SubType = 0;
+                    npfd.UserData = new byte[12]; // version + unk1 + unk2, all zero
+                    Sdesc.Package.Add(npfd);
+                    scorPfd = npfd;
+                }
+
+                SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem fii =
+                    FileTable.FileIndex.CreateFileIndexItem(scorPfd, Sdesc.Package);
+                SimPe.RemoteControl.OpenPackedFile(scorPfd, Sdesc.Package);
             }
             catch (Exception ex)
             {
