@@ -208,6 +208,10 @@ public class GlMesh : IDisposable
         return FromPositionNormalTextured(pos, nrm, uvs, idx.ToArray());
     }
 
+    // Cylinder axis = +Z. Matches DirectX (0.75) convention and the Z-aligned pyramid,
+    // so CreateLineMesh's GetRotationMatrix(Vector3.UnitZ, dir) lines up correctly.
+    // Building along Y (the previous behaviour) caused joint bones to render at a
+    // right angle to the parent→child direction.
     public static GlMesh CreateCylinder(float bottomRadius, float topRadius, float height, int slices, int stacks)
     {
         slices = Math.Max(3, slices);
@@ -217,19 +221,19 @@ public class GlMesh : IDisposable
         var nrmList = new List<Vector3>();
         var idxList = new List<int>();
 
-        // Side
+        // Side: ring in XY plane, height varies along Z
         for (int j = 0; j <= stacks; j++)
         {
             float t = j / (float)stacks;
-            float y = -halfH + t * height;
+            float z = -halfH + t * height;
             float r = bottomRadius + t * (topRadius - bottomRadius);
             for (int i = 0; i <= slices; i++)
             {
                 float theta = i / (float)slices * 2f * MathF.PI;
-                float x = MathF.Cos(theta), z = MathF.Sin(theta);
-                posList.Add(new Vector3(x * r, y, z * r));
+                float x = MathF.Cos(theta), y = MathF.Sin(theta);
+                posList.Add(new Vector3(x * r, y * r, z));
                 float slope = (bottomRadius - topRadius) / height;
-                var n = new Vector3(x, slope, z);
+                var n = new Vector3(x, y, slope);
                 nrmList.Add(Vector3.Normalize(n));
             }
         }
@@ -239,21 +243,23 @@ public class GlMesh : IDisposable
             {
                 int a = j * (slices + 1) + i;
                 int b = a + slices + 1;
-                idxList.Add(a); idxList.Add(b); idxList.Add(a + 1);
-                idxList.Add(b); idxList.Add(b + 1); idxList.Add(a + 1);
+                // Flipped from the Y-axis version: with axis=Z and ring in XY,
+                // (a, a+1, b) gives outward-facing normals.
+                idxList.Add(a); idxList.Add(a + 1); idxList.Add(b);
+                idxList.Add(b); idxList.Add(a + 1); idxList.Add(b + 1);
             }
         }
 
-        // Bottom cap
+        // Bottom cap (z = -halfH), faces -Z
         int centerBot = posList.Count;
-        posList.Add(new Vector3(0, -halfH, 0));
-        nrmList.Add(new Vector3(0, -1, 0));
+        posList.Add(new Vector3(0, 0, -halfH));
+        nrmList.Add(new Vector3(0, 0, -1));
         int firstBot = posList.Count;
         for (int i = 0; i <= slices; i++)
         {
             float theta = i / (float)slices * 2f * MathF.PI;
-            posList.Add(new Vector3(MathF.Cos(theta) * bottomRadius, -halfH, MathF.Sin(theta) * bottomRadius));
-            nrmList.Add(new Vector3(0, -1, 0));
+            posList.Add(new Vector3(MathF.Cos(theta) * bottomRadius, MathF.Sin(theta) * bottomRadius, -halfH));
+            nrmList.Add(new Vector3(0, 0, -1));
         }
         for (int i = 0; i < slices; i++)
         {
@@ -262,16 +268,16 @@ public class GlMesh : IDisposable
             idxList.Add(firstBot + i);
         }
 
-        // Top cap
+        // Top cap (z = +halfH), faces +Z
         int centerTop = posList.Count;
-        posList.Add(new Vector3(0, halfH, 0));
-        nrmList.Add(new Vector3(0, 1, 0));
+        posList.Add(new Vector3(0, 0, halfH));
+        nrmList.Add(new Vector3(0, 0, 1));
         int firstTop = posList.Count;
         for (int i = 0; i <= slices; i++)
         {
             float theta = i / (float)slices * 2f * MathF.PI;
-            posList.Add(new Vector3(MathF.Cos(theta) * topRadius, halfH, MathF.Sin(theta) * topRadius));
-            nrmList.Add(new Vector3(0, 1, 0));
+            posList.Add(new Vector3(MathF.Cos(theta) * topRadius, MathF.Sin(theta) * topRadius, halfH));
+            nrmList.Add(new Vector3(0, 0, 1));
         }
         for (int i = 0; i < slices; i++)
         {

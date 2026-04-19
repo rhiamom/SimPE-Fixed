@@ -65,7 +65,7 @@ public class SceneToMesh : IConvertScene, IDisposable
 		{
 			TkVec3 stop = TkVec3.TransformPosition(TkVec3.Zero, Converter.ToDx(joint));
 			MeshBox[] arr = dxp.CreateLineMesh(TkVec3.Zero, stop,
-				DirectXPanel.GetMaterial(Color.LightYellow), wire: false, arrow: false, linewd: num * 0.2);
+				DirectXPanel.GetMaterial(Color.DarkBlue), wire: false, arrow: false, linewd: num * 0.2);
 			foreach (MeshBox mb in arr) { mb.JointMesh = true; mb.ZTest = false; }
 			ret.AddRange(arr);
 		}
