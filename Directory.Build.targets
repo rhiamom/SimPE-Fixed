@@ -2,9 +2,9 @@
 
 	<PropertyGroup>
 		<!-- Solution-wide version -->
-		<Version>8.1.6</Version>
-		<FileVersion>8.1.6.0</FileVersion>
-		<AssemblyVersion>8.1.6.0</AssemblyVersion>
+		<Version>8.1.7</Version>
+		<FileVersion>8.1.7.0</FileVersion>
+		<AssemblyVersion>8.1.7.0</AssemblyVersion>
 		<!-- Unified output folder -->
 		<SimPeUnifiedOutDir Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)bin\$(Configuration)\</SimPeUnifiedOutDir>
 		<!-- Suppress CA1416 platform-compatibility warnings — entire solution targets net8.0-windows -->
@@ -61,14 +61,25 @@
 		  SkipUnchangedFiles="true"
 		  Condition="Exists('$(TargetDir)$(TargetName).xml')" />
 
-		<!-- If this is a plugin or wizard assembly, also copy to Plugins\ subfolder -->
-		<MakeDir
-		  Directories="$(SimPeUnifiedOutDir)Plugins"
-		  Condition=" $(AssemblyName.EndsWith('.plugin')) Or $(AssemblyName.EndsWith('.wizard')) " />
+		<!-- If this is a plugin or wizard assembly, also copy to Plugins\ subfolder of
+		     the unified bin AND to SimPE.Main\bin\$(Configuration)\Plugins\ so devs
+		     who launch SimPE.Main.exe from its own bin folder see the full plugin set. -->
+		<PropertyGroup>
+			<_IsPluginOrWizard Condition=" $(AssemblyName.EndsWith('.plugin')) Or $(AssemblyName.EndsWith('.wizard')) ">true</_IsPluginOrWizard>
+			<_SimPeMainBin Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)SimPE.Main\bin\$(Configuration)\</_SimPeMainBin>
+		</PropertyGroup>
+
+		<MakeDir Directories="$(SimPeUnifiedOutDir)Plugins" Condition=" '$(_IsPluginOrWizard)' == 'true' " />
 		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SimPeUnifiedOutDir)Plugins"
-		  SkipUnchangedFiles="true" Condition=" ($(AssemblyName.EndsWith('.plugin')) Or $(AssemblyName.EndsWith('.wizard'))) And Exists('$(TargetPath)')" />
+		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And Exists('$(TargetPath)')" />
 		<Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(SimPeUnifiedOutDir)Plugins"
-		  SkipUnchangedFiles="true" Condition=" ($(AssemblyName.EndsWith('.plugin')) Or $(AssemblyName.EndsWith('.wizard'))) And Exists('$(TargetDir)$(TargetName).pdb')" />
+		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And Exists('$(TargetDir)$(TargetName).pdb')" />
+
+		<MakeDir Directories="$(_SimPeMainBin)Plugins" Condition=" '$(_IsPluginOrWizard)' == 'true' And '$(_SimPeMainBin)' != '' " />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(_SimPeMainBin)Plugins"
+		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And '$(_SimPeMainBin)' != '' And Exists('$(TargetPath)')" />
+		<Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(_SimPeMainBin)Plugins"
+		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And '$(_SimPeMainBin)' != '' And Exists('$(TargetDir)$(TargetName).pdb')" />
 
 	</Target>
 
