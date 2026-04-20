@@ -154,7 +154,7 @@ namespace pjse
             this.btnRefreshFT.Size = new System.Drawing.Size(57, 27);
             this.btnRefreshFT.TabIndex = 7;
             this.btnRefreshFT.Text = "RFT";
-            this.btnRefreshFT.Visible = false;
+            this.btnRefreshFT.Visible = true;
             // 
             // lbLabel
             // 
@@ -174,7 +174,11 @@ namespace pjse
             // pjse_banner
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = SystemColors.Control;
+            // Was SystemColors.Control (~#F0F0F0), which blended into the parent
+            // panel after the booby.gradientpanel parent was replaced with a plain
+            // Panel during de-boobing. ControlDark gives the banner a visible gray
+            // strip matching the 0.75 PJSE editor look.
+            this.BackColor = SystemColors.ControlDark;
             this.Controls.Add(this.flpButtons);
             this.Controls.Add(this.lbLabel);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold);
