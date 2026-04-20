@@ -81,6 +81,27 @@
 		<Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(_SimPeMainBin)Plugins"
 		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And '$(_SimPeMainBin)' != '' And Exists('$(TargetDir)$(TargetName).pdb')" />
 
+		<!-- For EXE/WinExe projects (SimPE.Main, Wizards of SimPe), also copy every
+		     transitive runtime dependency (third-party DLLs, *.config, the runtimes\
+		     native folder) from the project's bin into the unified bin. Without this,
+		     bin\$(Configuration)\SimPE.Main.exe ships without WeifenLuo.WinFormsUI.Docking.dll
+		     and the OpenTK assemblies and crashes at startup with FileNotFoundException
+		     on a clean install (the per-project bin has them, but the unified one didn't).
+		     Plugin DLLs are excluded — they live under Plugins\ and the dedicated copy
+		     above already handles them. -->
+		<ItemGroup Condition=" '$(OutputType)' != 'Library' ">
+			<_SimPeAppDeps Include="$(TargetDir)*.dll" Exclude="$(TargetDir)*.plugin.dll;$(TargetDir)*.wizard.dll" />
+			<_SimPeAppConfigs Include="$(TargetDir)*.config" />
+			<_SimPeAppRuntimes Include="$(TargetDir)runtimes\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(_SimPeAppDeps)" DestinationFolder="$(SimPeUnifiedOutDir)"
+		  SkipUnchangedFiles="true" Condition=" '$(OutputType)' != 'Library' " />
+		<Copy SourceFiles="@(_SimPeAppConfigs)" DestinationFolder="$(SimPeUnifiedOutDir)"
+		  SkipUnchangedFiles="true" Condition=" '$(OutputType)' != 'Library' " />
+		<Copy SourceFiles="@(_SimPeAppRuntimes)"
+		  DestinationFiles="@(_SimPeAppRuntimes->'$(SimPeUnifiedOutDir)runtimes\%(RecursiveDir)%(Filename)%(Extension)')"
+		  SkipUnchangedFiles="true" Condition=" '$(OutputType)' != 'Library' " />
+
 	</Target>
 
 </Project>
