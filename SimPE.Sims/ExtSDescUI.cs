@@ -1154,14 +1154,47 @@ namespace SimPe.PackedFiles.UserInterface
 
 		private void Activate_miOpenCHar(object sender, System.EventArgs e)
 		{
-			try 
+			try
 			{
-				SimPe.RemoteControl.OpenPackage(Sdesc.CharacterFileName);
+				string target = Sdesc.CharacterFileName;
+				string current = Sdesc.Package?.FileName;
+
+				bool alreadyOpen = !string.IsNullOrEmpty(current)
+					&& !string.IsNullOrEmpty(target)
+					&& SamePath(current, target);
+
+				if (alreadyOpen)
+				{
+					// Character file is already the current workspace package. OpenPackage
+					// would just reload it and close this Sim Description tab for nothing.
+					// Close the Sim Description plugin tab instead so the user sees the
+					// resource browser behind it. Defer via BeginInvoke so we don't tear
+					// ourselves down while a menu-click is still on the stack.
+					var host = this.FindForm();
+					if (host != null) host.BeginInvoke(new System.Action(() => host.Close()));
+					return;
+				}
+
+				// Different package — we genuinely need to switch. OpenPackage inevitably
+				// closes the current Sim Description tab as a side effect.
+				SimPe.RemoteControl.OpenPackage(target);
 			}
 			catch (Exception ex)
 			{
 				Helper.ExceptionMessage(ex);
 			}
+		}
+
+		private static bool SamePath(string a, string b)
+		{
+			try
+			{
+				return string.Equals(
+					System.IO.Path.GetFullPath(a),
+					System.IO.Path.GetFullPath(b),
+					System.StringComparison.OrdinalIgnoreCase);
+			}
+			catch { return false; }
 		}
 
 		private void Activate_miOpenCloth(object sender, System.EventArgs e)
@@ -1204,18 +1237,18 @@ namespace SimPe.PackedFiles.UserInterface
 				pageHost.Controls.Add(pnWardrobe);
 				pageHost.Controls.SetChildIndex(pnWardrobe, 0);
 
+				// Hidden anchor button — kept out of the toolbar so the sidebar stays clean
+				// (Wardrobe is reached via More -> Open Clothing, not as a top-level tab).
+				// We still need it because SelectButton drives all the panel-visibility
+				// swapping via toolBar1.Items and the button's Tag.
 				biWardrobe = new System.Windows.Forms.ToolStripButton
 				{
 					Name = "biWardrobe",
 					Text = "Wardrobe",
-					ToolTipText = "Wardrobe — outfits this sim's family owns",
-					DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
-					TextImageRelation = TextImageRelation.ImageAboveText,
-					ImageScaling = ToolStripItemImageScaling.None,
+					Visible = false,
 					Tag = pnWardrobe,
 					CheckOnClick = false
 				};
-				biWardrobe.Click += new System.EventHandler(this.ChoosePage);
 				toolBar1.Items.Add(biWardrobe);
 			}
 			catch (Exception ex)
