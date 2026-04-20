@@ -44,6 +44,12 @@ namespace SimPe.PackedFiles.UserInterface
         private System.Resources.ResourceManager strresources;
         private ThemeManager themeManager;
 
+        // Wardrobe tab — created programmatically so we don't have to hand-edit the
+        // designer file. Lives alongside the other sidebar tabs (Overview, Skills, ...).
+        private System.Windows.Forms.Panel pnWardrobe;
+        private System.Windows.Forms.ToolStripButton biWardrobe;
+        private SimPe.WardrobeViewer.ClothingPanel wardrobePanel;
+
         public ExtSDesc()
         {
             strresources = new System.Resources.ResourceManager(typeof(ExtSDesc));
@@ -80,6 +86,8 @@ namespace SimPe.PackedFiles.UserInterface
             this.biInt.Tag = pnInt;
             this.biRel.Tag = pnRel;
             this.biMisc.Tag = pnMisc;
+
+            InitWardrobeTab();
 
             // Hidden-mode options
             this.tbsim.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
@@ -395,6 +403,10 @@ namespace SimPe.PackedFiles.UserInterface
 		
 				miOpenChar.Enabled = System.IO.File.Exists(Sdesc.CharacterFileName) && !Sdesc.IsNPC;
 				miOpenCloth.Enabled = miOpenChar.Enabled;
+
+				// Rebind the wardrobe tab to the new sim; the actual neighborhood scan
+				// is deferred inside ClothingPanel until it becomes visible.
+				if (wardrobePanel != null) wardrobePanel.SetSim(Sdesc);
 				miRelink.Enabled = /*miOpenChar.Enabled &&*/ Helper.WindowsRegistry.HiddenMode;
 
 				if (System.IO.File.Exists(Sdesc.CharacterFileName))
@@ -1154,24 +1166,61 @@ namespace SimPe.PackedFiles.UserInterface
 
 		private void Activate_miOpenCloth(object sender, System.EventArgs e)
 		{
-			try 
-			{				
-				if (System.IO.File.Exists(Sdesc.CharacterFileName)) 
-				{
-					uint inst = Convert.ToUInt32(this.tbfaminst.Text, 16);					
-					SimPe.Packages.GeneratableFile fl = SimPe.Packages.GeneratableFile.LoadFromFile(Sdesc.CharacterFileName);
-
-					Interfaces.Files.IPackedFileDescriptor[] pfds = fl.FindFile(0xAC506764, 0, 0x1);
-					if (pfds.Length>0) 
-					{
-						SimPe.RemoteControl.OpenPackage(Sdesc.CharacterFileName);						
-						SimPe.RemoteControl.OpenPackedFile(pfds[0], fl);
-					}
-				}
-			} 
-			catch (Exception ex) 
+			// The menu item is now a shortcut that switches to the Wardrobe sidebar tab.
+			// Panel is lazy-populated on first view. Previous behaviour spawned a popup
+			// and called OpenPackage (which wiped the Sim Description view).
+			try
+			{
+				if (biWardrobe != null) SelectButton(biWardrobe);
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage(ex);
+			}
+		}
+
+		// ------------------------------------------------------------
+		//   Wardrobe sidebar tab (programmatic — avoids touching the designer)
+		// ------------------------------------------------------------
+		private void InitWardrobeTab()
+		{
+			try
+			{
+				wardrobePanel = new SimPe.WardrobeViewer.ClothingPanel();
+				wardrobePanel.Dock = DockStyle.Fill;
+
+				pnWardrobe = new System.Windows.Forms.Panel
+				{
+					Name = "pnWardrobe",
+					Dock = DockStyle.Fill,
+					BackColor = pnId != null ? pnId.BackColor : System.Drawing.Color.Transparent,
+					Visible = false
+				};
+				pnWardrobe.Controls.Add(wardrobePanel);
+
+				// Insert into the same parent as the other page panels so the existing
+				// SelectButton show/hide logic covers us automatically.
+				var pageHost = pnId?.Parent ?? (System.Windows.Forms.Control)this;
+				pageHost.Controls.Add(pnWardrobe);
+				pageHost.Controls.SetChildIndex(pnWardrobe, 0);
+
+				biWardrobe = new System.Windows.Forms.ToolStripButton
+				{
+					Name = "biWardrobe",
+					Text = "Wardrobe",
+					ToolTipText = "Wardrobe — outfits this sim's family owns",
+					DisplayStyle = ToolStripItemDisplayStyle.ImageAndText,
+					TextImageRelation = TextImageRelation.ImageAboveText,
+					ImageScaling = ToolStripItemImageScaling.None,
+					Tag = pnWardrobe,
+					CheckOnClick = false
+				};
+				biWardrobe.Click += new System.EventHandler(this.ChoosePage);
+				toolBar1.Items.Add(biWardrobe);
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine("InitWardrobeTab failed: " + ex);
 			}
 		}
 
