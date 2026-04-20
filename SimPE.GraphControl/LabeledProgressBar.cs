@@ -35,28 +35,36 @@ namespace Ambertation.Windows.Forms
     public class LabeledProgressBar : Panel
     {
         private readonly Label captionLabel;
-        private readonly Label valueLabel;
+        private readonly TextBox valueBox;
         private readonly ProgressBar bar;
+        private bool syncing; // re-entrancy guard between bar click and textbox edit
 
         public LabeledProgressBar()
         {
             captionLabel = new Label();
-            valueLabel = new Label();
+            valueBox = new TextBox();
             bar = new ProgressBar();
 
             captionLabel.AutoSize = true;
             captionLabel.Dock = DockStyle.Left;
             captionLabel.TextAlign = ContentAlignment.MiddleLeft;
 
-            valueLabel.AutoSize = true;
-            valueLabel.Dock = DockStyle.Right;
-            valueLabel.TextAlign = ContentAlignment.MiddleRight;
+            // Editable numeric display: user can type a value, Enter/Leave commits.
+            valueBox.Dock = DockStyle.Right;
+            valueBox.TextAlign = HorizontalAlignment.Right;
+            valueBox.BorderStyle = BorderStyle.None;
+            valueBox.Width = 40;
+            valueBox.KeyDown += ValueBox_KeyDown;
+            valueBox.Leave += ValueBox_Leave;
 
+            // Click or drag on the bar to set the value by position.
             bar.Dock = DockStyle.Fill;
+            bar.MouseDown += Bar_MouseDownOrMove;
+            bar.MouseMove += Bar_MouseDownOrMove;
 
             // order matters with Dock: add Fill first, then the sides
             Controls.Add(bar);
-            Controls.Add(valueLabel);
+            Controls.Add(valueBox);
             Controls.Add(captionLabel);
 
             // Default values
@@ -67,6 +75,42 @@ namespace Ambertation.Windows.Forms
             UnselectedColor = SystemColors.ControlDark;
             NumberFormat = "0";
             Style = ProgresBarStyle.Normal;
+        }
+
+        private void Bar_MouseDownOrMove(object sender, MouseEventArgs e)
+        {
+            if (!Enabled || (e.Button & MouseButtons.Left) != MouseButtons.Left) return;
+            int w = Math.Max(1, bar.ClientSize.Width);
+            int range = bar.Maximum - bar.Minimum;
+            int x = Math.Max(0, Math.Min(w, e.X));
+            int newRaw = bar.Minimum + (int)Math.Round((double)x / w * range);
+            if (newRaw == bar.Value) return;
+            Value = newRaw;
+        }
+
+        private void ValueBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                CommitTypedValue();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void ValueBox_Leave(object sender, EventArgs e) => CommitTypedValue();
+
+        private void CommitTypedValue()
+        {
+            if (syncing) return;
+            if (!double.TryParse(valueBox.Text, out double typed))
+            {
+                UpdateLabelText(); // revert display
+                return;
+            }
+            // Reverse the display transform: displayed = (raw + numberOffset)*scale + displayOffset
+            double scale = numberScale == 0 ? 1 : numberScale;
+            int rawUnclamped = (int)Math.Round((typed - displayOffset) / scale) - numberOffset;
+            Value = rawUnclamped;
         }
 
         // ─────────────────────────────────────────────────────────
@@ -206,7 +250,7 @@ namespace Ambertation.Windows.Forms
             {
                 base.Font = value;
                 captionLabel.Font = value;
-                valueLabel.Font = value;
+                valueBox.Font = value;
             }
         }
 
@@ -217,7 +261,7 @@ namespace Ambertation.Windows.Forms
             {
                 base.ForeColor = value;
                 captionLabel.ForeColor = value;
-                valueLabel.ForeColor = value;
+                valueBox.ForeColor = value;
             }
         }
 
@@ -241,11 +285,19 @@ namespace Ambertation.Windows.Forms
         {
             double scaled = (bar.Value + numberOffset) * numberScale + displayOffset;
 
+            string display;
             // If numberFormat is "{0}" or "{0:N2}", treat it as a composite format string.
             if (!string.IsNullOrEmpty(numberFormat) && numberFormat.Contains("{0"))
-                valueLabel.Text = string.Format(numberFormat, scaled);
+                display = string.Format(numberFormat, scaled);
             else
-                valueLabel.Text = scaled.ToString(string.IsNullOrEmpty(numberFormat) ? "0" : numberFormat);
+                display = scaled.ToString(string.IsNullOrEmpty(numberFormat) ? "0" : numberFormat);
+
+            // Don't clobber what the user is typing.
+            if (valueBox.Focused) return;
+
+            syncing = true;
+            try { valueBox.Text = display; }
+            finally { syncing = false; }
         }
 
 
