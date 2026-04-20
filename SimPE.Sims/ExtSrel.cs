@@ -156,9 +156,14 @@ namespace SimPe.PackedFiles.Wrapper
 
                 if (isrc == null)
                 {
+                    // noone.png lives in SimPE.Helper, not the current assembly, and the
+                    // manifest path is SimPe.IconXmlResources.noone.png. Before this was
+                    // fixed, GetManifestResourceStream returned null and Image.FromStream
+                    // threw ArgumentNullException — triggered whenever a Sim Relations
+                    // entry pointed at a Sim that doesn't exist in the neighborhood.
                     isrc = Image.FromStream(
-                        this.GetType().Assembly.GetManifestResourceStream(
-                            "SimPe.PackedFiles.Wrapper.noone.png"
+                        typeof(SimPe.Helper).Assembly.GetManifestResourceStream(
+                            "SimPe.IconXmlResources.noone.png"
                         )
                     );
                 }
@@ -185,8 +190,8 @@ namespace SimPe.PackedFiles.Wrapper
                 if (idst == null)
                 {
                     idst = Image.FromStream(
-                        this.GetType().Assembly.GetManifestResourceStream(
-                            "SimPe.PackedFiles.Wrapper.noone.png"
+                        typeof(SimPe.Helper).Assembly.GetManifestResourceStream(
+                            "SimPe.IconXmlResources.noone.png"
                         )
                     );
                 }

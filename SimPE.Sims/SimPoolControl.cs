@@ -325,8 +325,8 @@ namespace SimPe.PackedFiles.Wrapper
                 {
                     // Fallback: use generic "no sim" icon
                     img = System.Drawing.Image.FromStream(
-                        typeof(SDesc).Assembly.GetManifestResourceStream(
-                            "SimPe.PackedFiles.Wrapper.noone.png"
+                        typeof(SimPe.Helper).Assembly.GetManifestResourceStream(
+                            "SimPe.IconXmlResources.noone.png"
                         )
                     );
                 }
