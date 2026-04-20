@@ -96,7 +96,11 @@ namespace pjse
 
         private bool hasLoaded = false;
         private bool isRefreshing = false;
-        public void Refresh() { this.Refresh(false); }
+        // Refresh(false) only registers the GlobalStrings package — it never scans game
+        // folders, so XWNT/CTSS/etc. lookups (e.g. PJSE Wants & Fears editor) come back
+        // empty and the UI shows raw GUIDs. Honor !LocalMode the same way UIRefresh does
+        // so the lazy-load path in the indexer actually loads expansion data.
+        public void Refresh() { this.Refresh(!SimPe.Helper.LocalMode); }
         private void Refresh(bool loadEverything)
         {
             wm("Loading PJSE File Table");
