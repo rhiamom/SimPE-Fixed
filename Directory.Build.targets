@@ -2,9 +2,9 @@
 
 	<PropertyGroup>
 		<!-- Solution-wide version -->
-		<Version>8.1.8</Version>
-		<FileVersion>8.1.8.0</FileVersion>
-		<AssemblyVersion>8.1.8.0</AssemblyVersion>
+		<Version>8.2.0</Version>
+		<FileVersion>8.2.0.0</FileVersion>
+		<AssemblyVersion>8.2.0.0</AssemblyVersion>
 		<!-- Unified output folder -->
 		<SimPeUnifiedOutDir Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)bin\$(Configuration)\</SimPeUnifiedOutDir>
 		<!-- Suppress CA1416 platform-compatibility warnings — entire solution targets net8.0-windows -->
