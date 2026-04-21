@@ -1235,8 +1235,14 @@ namespace SimPe.Plugin
             // 
             // lbmodel
             // 
+            // Anchor Top|Left|Bottom so the listbox shrinks vertically when the user
+            // pulls the splitter up, keeping a constant gap above the bottom-anchored
+            // Export/Import/Order/Preview row. Without the Bottom anchor, the listbox
+            // stayed at its design-time height and the bottom controls would crawl up
+            // and slip behind it.
             this.lbmodel.Anchor = System.Windows.Forms.AnchorStyles.Top
-                        | System.Windows.Forms.AnchorStyles.Left;
+                        | System.Windows.Forms.AnchorStyles.Left
+                        | System.Windows.Forms.AnchorStyles.Bottom;
             this.lbmodel.CheckOnClick = true;
             this.lbmodel.HorizontalScrollbar = true;
             this.lbmodel.Location = new System.Drawing.Point(16, 24);
