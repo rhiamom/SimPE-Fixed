@@ -66,7 +66,7 @@ namespace SimPe.Plugin
         private Label label19;
         private Label label20;
         private Label label21;
-        private Label label22;
+        internal Label label22;
         private Label label23;
         private Label label24;
         internal Label label25;
@@ -120,7 +120,7 @@ namespace SimPe.Plugin
         internal TextBox tbcset;
         internal ComboBox cbtype;
         internal ComboBox cbLotClas;
-        internal System.Windows.Forms.ComboBox cborient;
+        internal Ambertation.Windows.Forms.EnumComboBox cborient;
         internal CheckBox cbhidim;
         internal CheckBox cbhbmusic;
         internal CheckBox cbhbsport;
@@ -320,7 +320,7 @@ namespace SimPe.Plugin
             this.tbinst = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tbu4 = new System.Windows.Forms.TextBox();
-            this.cborient = new System.Windows.Forms.ComboBox();
+            this.cborient = new Ambertation.Windows.Forms.EnumComboBox();
             this.tbTexture = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -1101,9 +1101,11 @@ namespace SimPe.Plugin
             this.tbu4.TextChanged += new System.EventHandler(this.CommonChange);
             // 
             // cborient
-            // 
+            //
             resources.ApplyResources(this.cborient, "cborient");
             this.cborient.Name = "cborient";
+            this.cborient.ResourceManager = SimPe.Localization.Manager;
+            this.cborient.Enum = typeof(Plugin.LotOrientation);
             this.cborient.SelectedIndexChanged += new System.EventHandler(this.CommonChange);
             // 
             // tbTexture

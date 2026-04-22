@@ -174,6 +174,29 @@ namespace SimPe.Plugin
                 for (int i = 0; i < value.Length && i < unknown_5.Length; i++) unknown_5[i] = value[i];
             }
         }
+
+        // Per Chris Hatch's 0.77.69 RE: the 9 bytes of unknown_5 (apartment-version lots)
+        // decode as: byte NumberOfApts + int Price1 + int Price2 (little-endian, total 9 bytes).
+        public byte NumberOfApts
+        {
+            get { return unknown_5.Length >= 1 ? unknown_5[0] : (byte)0; }
+            set { EnsureApartmentBytes(); unknown_5[0] = value; }
+        }
+        public int Price1
+        {
+            get { return unknown_5.Length >= 5 ? BitConverter.ToInt32(unknown_5, 1) : 0; }
+            set { EnsureApartmentBytes(); Buffer.BlockCopy(BitConverter.GetBytes(value), 0, unknown_5, 1, 4); }
+        }
+        public int Price2
+        {
+            get { return unknown_5.Length >= 9 ? BitConverter.ToInt32(unknown_5, 5) : 0; }
+            set { EnsureApartmentBytes(); Buffer.BlockCopy(BitConverter.GetBytes(value), 0, unknown_5, 5, 4); }
+        }
+        private void EnsureApartmentBytes()
+        {
+            if (unknown_5 == null || unknown_5.Length < 9) unknown_5 = new byte[9];
+        }
+
         public uint LotClass { get { return clarse; } set { clarse = value; } }
         internal byte Clset { get { return clset; } set { clset = value; } }
 

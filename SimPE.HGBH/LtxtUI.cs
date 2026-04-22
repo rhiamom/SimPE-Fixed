@@ -143,9 +143,15 @@ namespace SimPe.Plugin
                 form.cbLotClas.Enabled = false;
             }
 
-            if ((wrp.Version >= LtxtVersion.Apartment || wrp.SubVersion >= LtxtSubVersion.Apartment) && (wrp.Type == Ltxt.LotType.ApartmentBase || wrp.Type == Ltxt.LotType.ApartmentSublot))
+            if (wrp.Version >= LtxtVersion.Apartment || wrp.SubVersion >= LtxtSubVersion.Apartment)
+                form.label22.Text = wrp.NumberOfApts.ToString() + " Sub Apartments:";
+            else
+                form.label22.Text = "Sub Apartments:";
+
+            form.gbApart.Visible = true;
+            bool isApartmentLot = (wrp.Version >= LtxtVersion.Apartment || wrp.SubVersion >= LtxtSubVersion.Apartment) && (wrp.Type == Ltxt.LotType.ApartmentBase || wrp.Type == Ltxt.LotType.ApartmentSublot);
+            if (isApartmentLot)
             {
-                form.gbApart.Visible = true;
                 form.gbunown.Location = new System.Drawing.Point(116, 408);
                 form.llunknone.Location = new System.Drawing.Point(41, 408);
                 form.gbhobby.Location = new System.Drawing.Point(30, 408);
@@ -153,7 +159,6 @@ namespace SimPe.Plugin
             }
             else
             {
-                form.gbApart.Visible = false;
                 form.gbunown.Location = new System.Drawing.Point(116, 333);
                 form.llunknone.Location = new System.Drawing.Point(41, 333);
                 form.gbhobby.Location = new System.Drawing.Point(30, 333);
