@@ -35,7 +35,7 @@ using static SimPe.Data.LocalizedNeighbourhoodEP;
 namespace SimPe.PackedFiles.UserInterface 
 {
 	/// <summary>
-	/// Zusammenfassung für Elements.
+	/// Zusammenfassung fï¿½r Elements.
 	/// </summary>
 	internal class Elements : System.Windows.Forms.Form
 	{
@@ -160,7 +160,7 @@ namespace SimPe.PackedFiles.UserInterface
 		public Elements()
 		{
 			//
-			// Erforderlich für die Windows Form-Designerunterstützung
+			// Erforderlich fï¿½r die Windows Form-Designerunterstï¿½tzung
 			//
 		
 			InitializeComponent();			
@@ -183,8 +183,8 @@ namespace SimPe.PackedFiles.UserInterface
 
 		#region Vom Windows Form-Designer generierter Code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung. 
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+		/// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -1557,13 +1557,14 @@ namespace SimPe.PackedFiles.UserInterface
 			System.Windows.Forms.SaveFileDialog sfd = new SaveFileDialog();
 			sfd.Filter = "Image (*.png) | *.png";
 
-			if (sfd.ShowDialog()==DialogResult.OK) 
+			if (sfd.ShowDialog()==DialogResult.OK)
 			{
-				try 
+				try
 				{
-					wrp.Image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
-				} 
-				catch (Exception ex) 
+					using (Bitmap bmp = new Bitmap(wrp.Image))
+						bmp.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+				}
+				catch (Exception ex)
 				{
 					Helper.ExceptionMessage(ex);
 				}
