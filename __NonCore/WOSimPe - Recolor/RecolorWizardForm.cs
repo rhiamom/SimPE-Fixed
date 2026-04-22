@@ -937,9 +937,10 @@ namespace SimPe.Wizards
 			sfd.Filter = "PNG Image (*.png)|*.png|Bitmap (*.bmp)|*.bmp|GIF Image (*.gif)|*.gif|Jpeg Image (*.jpg)|*.jpg|All Files (*.*)|*.*";
 			if (sfd.ShowDialog() == DialogResult.OK) 
 			{
-				SimPe.Plugin.Rcol txtr = (SimPe.Plugin.Rcol)lv.SelectedItems[0].Tag;	
+				SimPe.Plugin.Rcol txtr = (SimPe.Plugin.Rcol)lv.SelectedItems[0].Tag;
 				Image img = this.GetImageFile(txtr);
-				img.Save(sfd.FileName, SimPe.Plugin.ImageLoader.GetImageFormat(sfd.FileName));
+				using (Bitmap bmp = new Bitmap(img))
+					bmp.Save(sfd.FileName, SimPe.Plugin.ImageLoader.GetImageFormat(sfd.FileName));
 
 				if (cbalpha.Checked) 
 				{

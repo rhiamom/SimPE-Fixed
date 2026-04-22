@@ -523,7 +523,8 @@ namespace SimPe.Plugin
         public static DDSData[] BuildDDS(Image img, int levels, ImageLoader.TxtrFormats format, string parameters)
         {
             string imgname = System.IO.Path.GetTempFileName() + ".png";
-            img.Save(imgname, System.Drawing.Imaging.ImageFormat.Png);
+            using (Bitmap bmp = new Bitmap(img))
+                bmp.Save(imgname, System.Drawing.Imaging.ImageFormat.Png);
             try
             {
                 return BuildDDS(imgname, levels, format, parameters);

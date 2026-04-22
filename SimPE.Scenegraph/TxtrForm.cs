@@ -650,13 +650,14 @@ namespace SimPe.Plugin
 			if (pb.Image == null) return;
 
 			sfd.FileName = this.tbflname.Text+"_"+pb.Image.Size.Width.ToString()+"x"+pb.Image.Size.Height.ToString()+".png";
-			if (sfd.ShowDialog() == DialogResult.OK) 
+			if (sfd.ShowDialog() == DialogResult.OK)
 			{
-				try 
+				try
 				{
-					pb.Image.Save(sfd.FileName, ImageLoader.GetImageFormat(sfd.FileName));
-				} 
-				catch (Exception ex) 
+					using (Bitmap bmp = new Bitmap(pb.Image))
+						bmp.Save(sfd.FileName, ImageLoader.GetImageFormat(sfd.FileName));
+				}
+				catch (Exception ex)
 				{
 					Helper.ExceptionMessage(Localization.Manager.GetString("errwritingfile"), ex);
 				}
