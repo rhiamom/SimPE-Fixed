@@ -41,30 +41,15 @@ namespace SimPe.Plugin
 		{
 			form = new LtxtForm();
 
+			// Add every LotType regardless of installed EPs. Gating by EPInstalled
+			// silently displayed "Unknown" for unsupported types — committing a
+			// change would then rewrite the lot's type byte to Unknown, corrupting
+			// shared lots from packages built on installs with more EPs.
 			form.cbtype.Items.Clear();
-			form.cbtype.Items.Add(Ltxt.LotType.Unknown);
-			form.cbtype.Items.Add(Ltxt.LotType.Residential);
-			form.cbtype.Items.Add(Ltxt.LotType.Community);
-			if (PathProvider.Global.EPInstalled > 0)
+			foreach (Ltxt.LotType lt in (Ltxt.LotType[])Enum.GetValues(typeof(Ltxt.LotType)))
 			{
-				form.cbtype.Items.Add(Ltxt.LotType.Dorm);
-				form.cbtype.Items.Add(Ltxt.LotType.GreekHouse);
-				form.cbtype.Items.Add(Ltxt.LotType.SecretSociety);
-			}
-			if (PathProvider.Global.EPInstalled > 9)
-			{
-				form.cbtype.Items.Add(Ltxt.LotType.Hotel);
-				form.cbtype.Items.Add(Ltxt.LotType.SecretHoliday);
-			}
-			if (PathProvider.Global.EPInstalled > 11)
-			{
-				form.cbtype.Items.Add(Ltxt.LotType.Hobby);
-			}
-			if (PathProvider.Global.EPInstalled > 15)
-			{
-				form.cbtype.Items.Add(Ltxt.LotType.ApartmentBase);
-				form.cbtype.Items.Add(Ltxt.LotType.ApartmentSublot);
-				form.cbtype.Items.Add(Ltxt.LotType.Witches);
+				if (lt == Ltxt.LotType.Unknown) form.cbtype.Items.Insert(0, lt);
+				else form.cbtype.Items.Add(lt);
 			}
 		}
 
