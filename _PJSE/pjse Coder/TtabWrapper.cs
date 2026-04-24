@@ -1232,16 +1232,39 @@ namespace SimPe.PackedFiles.Wrapper
         }
 
 
+        // Pets (TTAB format 0x52+) reorders the three shorts on disk from
+        // (Min, Delta, Type) to (Type, Min, Delta). The in-memory layout is
+        // always (Min, Delta, Type); we remap at the serialization boundary.
+        private bool StreamIsTypeFirst { get { return Wrapper != null && Wrapper.Format >= 0x52; } }
+
         protected override void Unserialize(System.IO.BinaryReader reader)
         {
-            for (int i = 0; i < items.Length; i++)
-                items[i] = reader.ReadInt16();
+            if (StreamIsTypeFirst)
+            {
+                items[2] = reader.ReadInt16(); // Type
+                items[0] = reader.ReadInt16(); // Min
+                items[1] = reader.ReadInt16(); // Delta
+            }
+            else
+            {
+                for (int i = 0; i < items.Length; i++)
+                    items[i] = reader.ReadInt16();
+            }
         }
 
         internal override void Serialize(System.IO.BinaryWriter writer)
         {
-            for (int i = 0; i < items.Length; i++)
-                writer.Write(items[i]);
+            if (StreamIsTypeFirst)
+            {
+                writer.Write(items[2]); // Type
+                writer.Write(items[0]); // Min
+                writer.Write(items[1]); // Delta
+            }
+            else
+            {
+                for (int i = 0; i < items.Length; i++)
+                    writer.Write(items[i]);
+            }
         }
 
         public override bool InUse { get { return (items[0] != 0 || items[1] != 0 || items[2] != 0); } }

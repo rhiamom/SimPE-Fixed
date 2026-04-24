@@ -51,6 +51,13 @@ namespace SimPe.PackedFiles.Wrapper
 			//
 			InitializeComponent();
 
+			using (var s = typeof(SimPe.Helper).Assembly.GetManifestResourceStream("SimPe.IconXmlResources.cpf.png"))
+				if (s != null)
+					using (var bmp = new System.Drawing.Bitmap(s))
+						this.Icon = System.Drawing.Icon.FromHandle(bmp.GetHicon());
+
+			this.label5.Visible = false;
+
             this.btprev.Dock = System.Windows.Forms.DockStyle.None;
             this.btprev.Enabled = true;
 
@@ -677,7 +684,6 @@ namespace SimPe.PackedFiles.Wrapper
 			this.Controls.Add(this.CpfPanel);
 			this.Enabled = ((bool)(resources.GetObject("$this.Enabled")));
 			this.Font = ((System.Drawing.Font)(resources.GetObject("$this.Font")));
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.ImeMode = ((System.Windows.Forms.ImeMode)(resources.GetObject("$this.ImeMode")));
 			this.Location = ((System.Drawing.Point)(resources.GetObject("$this.Location")));
 			this.MaximumSize = ((System.Drawing.Size)(resources.GetObject("$this.MaximumSize")));
