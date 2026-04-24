@@ -1051,7 +1051,7 @@
     <value>176, 128</value>
   </data>
   <data name="cbsplash.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 24</value>
+    <value>160, 17</value>
   </data>
   <data name="cbsplash.TabIndex" type="System.Int32, mscorlib">
     <value>41</value>

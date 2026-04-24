@@ -44,20 +44,10 @@ namespace SimPe.Windows.Forms
             this.vis = visible;
             if (regular == null)
             {
-                if (Helper.WindowsRegistry.UseBigIcons)
-                {
-                    regular = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, System.Drawing.FontStyle.Regular, Font.Unit);
-                    strike = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, System.Drawing.FontStyle.Strikeout, Font.Unit);
-                    compress = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, Font.Style | System.Drawing.FontStyle.Bold, Font.Unit);
-                    changeed = new System.Drawing.Font(Font.FontFamily, Font.Size + 5F, Font.Style | System.Drawing.FontStyle.Italic, Font.Unit); // was 3F
-                }
-                else
-                {
-                    regular = new System.Drawing.Font(Font.FontFamily, Font.Size, System.Drawing.FontStyle.Regular, Font.Unit);
-                    strike = new System.Drawing.Font(Font.FontFamily, Font.Size, System.Drawing.FontStyle.Strikeout, Font.Unit);
-                    compress = new System.Drawing.Font(Font.FontFamily, Font.Size, Font.Style | System.Drawing.FontStyle.Bold, Font.Unit);
-                    changeed = new System.Drawing.Font(Font.FontFamily, Font.Size, Font.Style | System.Drawing.FontStyle.Italic, Font.Unit);
-                }
+                regular = new System.Drawing.Font("Tahoma", 9.0F, System.Drawing.FontStyle.Regular);
+                strike = new System.Drawing.Font("Tahoma", 9.0F, System.Drawing.FontStyle.Strikeout);
+                compress = new System.Drawing.Font("Tahoma", 9.0F, System.Drawing.FontStyle.Bold);
+                changeed = new System.Drawing.Font("Tahoma", 9.0F, System.Drawing.FontStyle.Italic);
             }
 
             this.manager = manager;

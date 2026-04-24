@@ -63,7 +63,7 @@ namespace SimPe.Windows.Forms
             sc = ResourceViewManager.SortColumn.Offset;
             asc = true;
             InitializeComponent();
-            if (Helper.WindowsRegistry.UseBigIcons) lv.Font = new System.Drawing.Font("Tahoma", this.Font.Size + 3F); // was 1F
+            lv.Font = new System.Drawing.Font("Tahoma", 9.0F);
 
             names = new ResourceViewManager.ResourceNameList();
             myhandle = Handle;

@@ -43,7 +43,7 @@ namespace SimPe.Windows.Forms
             allowselectevent = true;
             InitializeComponent();
 
-            if (Helper.WindowsRegistry.UseBigIcons) tv.Font = new System.Drawing.Font("Tahoma", this.Font.Size + 5F); // was 3F
+            tv.Font = new System.Drawing.Font("Tahoma", 9.0F);
 
             typebuilder = new ResourceTreeNodesByType();
             groupbuilder = new ResourceTreeNodesByGroup();

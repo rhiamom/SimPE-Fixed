@@ -35,7 +35,7 @@ namespace SimPe
     /// </summary>
     public partial class OptionForm : System.Windows.Forms.Form
     {
-        
+        private System.Windows.Forms.CheckBox cbbigicons;
 
         public OptionForm()
         {
@@ -47,6 +47,14 @@ namespace SimPe
                 // Erforderlich f�r die Windows Form-Designerunterst�tzung
                 //
                 InitializeComponent();
+
+                cbbigicons = new System.Windows.Forms.CheckBox();
+                cbbigicons.Name = "cbbigicons";
+                cbbigicons.Text = "Use big toolbar icons";
+                cbbigicons.AutoSize = true;
+                cbbigicons.Location = new System.Drawing.Point(176, 152);
+                cbbigicons.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular);
+                groupBox2.Controls.Add(cbbigicons);
 
                 this.cbRLExt.ResourceManager = SimPe.Localization.Manager;
                 this.cbRLNames.ResourceManager = SimPe.Localization.Manager;
@@ -99,6 +107,7 @@ namespace SimPe
             cbshowobjd.Checked = Helper.WindowsRegistry.ShowObjdNames;
             cbhidden.Checked = Helper.WindowsRegistry.HiddenMode;
             cbjointname.Checked = Helper.WindowsRegistry.ShowJointNames;
+            cbbigicons.Checked = Helper.WindowsRegistry.UseBigIcons;
             tbthumb.Text = Helper.WindowsRegistry.OWThumbSize.ToString();
             tbscale.Text = Helper.WindowsRegistry.ImportExportScaleFactor.ToString();
             //cbupdate.Checked = Helper.WindowsRegistry.CheckForUpdates;
@@ -173,6 +182,7 @@ namespace SimPe
             Helper.WindowsRegistry.ShowObjdNames = cbshowobjd.Checked;
             Helper.WindowsRegistry.HiddenMode = cbhidden.Checked;
             Helper.WindowsRegistry.ShowJointNames = cbjointname.Checked;
+            Helper.WindowsRegistry.UseBigIcons = cbbigicons.Checked;
             //Helper.WindowsRegistry.CheckForUpdates = cbupdate.Checked;
             Helper.WindowsRegistry.UsePackageMaintainer = cbpkgmaint.Checked;
             Helper.WindowsRegistry.MultipleFiles = cbmulti.Checked;
