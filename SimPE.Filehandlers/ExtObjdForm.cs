@@ -1788,7 +1788,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.btnCommit.TabIndex = 1;
             this.btnCommit.Text = "Commit";
             this.btnCommit.UseVisualStyleBackColor = true;
-            this.btnCommit.Visible = false;  // start hidden
+            this.btnCommit.Visible = true;
             this.btnCommit.Click += new System.EventHandler(this.OnCommit);
 
             // add button into the header panel

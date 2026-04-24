@@ -55,11 +55,42 @@ namespace SimPe
         {
             InitializeComponent();
 
-            // Choose a sensible default so at least one is always selected.
-            rbLegacy.Checked = true;   // Change this if you prefer another default.
-            UpdateDefaultGameRootPath();
-            UpdateDefaultDownloadsPath();
+            // Restore the previously saved edition, if any. Helper.LoadGameRootFromFile()
+            // runs at startup, so Helper.GameEdition reflects what was persisted last run.
+            string savedEdition = Helper.GameEdition ?? string.Empty;
+            bool restored = true;
+            switch (savedEdition)
+            {
+                case "Legacy":              rbLegacy.Checked = true;  break;
+                case "Ultimate Collection": rbUC.Checked     = true;  break;
+                case "Steam":               rbSteam.Checked  = true;  break;
+                case "Epic":                rbEpic.Checked   = true;  break;
+                case "Disc":                rbDisc.Checked   = true;  break;
+                case "Custom":              rbCustom.Checked = true;  break;
+                default:
+                    // First-time setup: no saved edition. Fall back to Legacy default.
+                    rbLegacy.Checked = true;
+                    restored = false;
+                    break;
+            }
 
+            // The CheckedChanged handler already filled txtGameRoot/txtDownloads with
+            // the edition's suggested defaults. If we have persisted paths, use those
+            // instead so the dialog reflects the actual saved configuration.
+            if (restored)
+            {
+                if (!string.IsNullOrEmpty(Helper.GameRootPath))
+                    txtGameRoot.Text = Helper.GameRootPath;
+                if (!string.IsNullOrEmpty(Helper.DownloadsPath))
+                    txtDownloads.Text = Helper.DownloadsPath;
+                if (!string.IsNullOrEmpty(Helper.BaseGamePath))
+                    BaseGamePath = Helper.BaseGamePath;
+            }
+            else
+            {
+                UpdateDefaultGameRootPath();
+                UpdateDefaultDownloadsPath();
+            }
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
