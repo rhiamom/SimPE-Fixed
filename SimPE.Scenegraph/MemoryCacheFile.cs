@@ -134,29 +134,32 @@ namespace SimPe.Cache
 
 		public void ReloadCache(SimPe.Interfaces.Scenegraph.IScenegraphFileIndex fileindex, bool save)
 		{
-            System.Diagnostics.Debug.WriteLine("MemoryCache ReloadCache: START");
             Interfaces.Scenegraph.IScenegraphFileIndexItem[] items = fileindex.FindFile(Data.MetaData.OBJD_FILE, true);
-            System.Diagnostics.Debug.WriteLine("MemoryCache ReloadCache: OBJD items = " + (items == null ? -1 : items.Length));
 
             bool added = false;
             Wait.MaxProgress = items.Length;
             Wait.Message = "Updating Cache";
             int ct = 0;
-			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem item in items) 
+            // Updating Wait.Progress / Wait.Message every iteration is what made
+            // the cache build take 10 minutes — each setter calls Application.DoEvents()
+            // which pumps the whole Windows message queue. Pump only once per batch.
+            int progressStep = System.Math.Max(1, items.Length / 100);
+			foreach (SimPe.Interfaces.Scenegraph.IScenegraphFileIndexItem item in items)
 			{
 				Interfaces.Scenegraph.IScenegraphFileIndexItem[] citems = this.FileIndex.FindFile(item.GetLocalFileDescriptor(), null);
-				if (citems.Length==0) 
+				if (citems.Length==0)
 				{
-					
+
 					SimPe.PackedFiles.Wrapper.ExtObjd objd = new SimPe.PackedFiles.Wrapper.ExtObjd();
 					objd.ProcessData(item);
 
-					this.AddItem(objd);					
+					this.AddItem(objd);
 					added = true;
 				}
-                Wait.Progress = ct++;
+                ct++;
+                if (ct % progressStep == 0) Wait.Progress = ct;
 			}
-            System.Diagnostics.Debug.WriteLine("MemoryCache ReloadCache: added=" + added);
+            Wait.Progress = items.Length;
             if (added) 
 			{
 				this.map = null;
@@ -190,17 +193,12 @@ namespace SimPe.Cache
 			mci.ObjdName = objd.FileName;
 			mci.ParentCacheContainer = mycc;
 
-			try 
+			try
 			{
                 Interfaces.Scenegraph.IScenegraphFileIndexItem[] sitems = FileTable.FileIndex.FindFile(Data.MetaData.CTSS_FILE, objd.FileDescriptor.Group, objd.CTSSInstance + (ulong)1, null);
                 if (sitems.Length == 0)
                     sitems = FileTable.FileIndex.FindFile(Data.MetaData.CTSS_FILE, objd.FileDescriptor.Group, objd.CTSSInstance, null);
-                System.Diagnostics.Debug.WriteLine(
-    "MemoryCache AddItem: guid=0x" + Helper.HexString(objd.Guid) +
-    " group=0x" + Helper.HexString(objd.FileDescriptor.Group) +
-    " ctssInst=0x" + objd.CTSSInstance.ToString("X") +
-    " ctssFound=" + sitems.Length);
-                if (sitems.Length>0) 
+                if (sitems.Length>0)
 				{
 					SimPe.PackedFiles.Wrapper.Str str = new SimPe.PackedFiles.Wrapper.Str();
 					str.ProcessData(sitems[0]);
@@ -242,15 +240,15 @@ namespace SimPe.Cache
                 iitems = FileTable.FileIndex.FindFile(Data.MetaData.SIM_IMAGE_FILE, objd.FileDescriptor.Group, 3, null);
             else
                 iitems = FileTable.FileIndex.FindFile(Data.MetaData.SIM_IMAGE_FILE, objd.FileDescriptor.Group, 1, null);	
-			if (iitems.Length>0) 
+			if (iitems.Length>0)
 			{
 				pic.ProcessData(iitems[0]);
 				mci.Icon = pic.Image;
-				Wait.Image = mci.Icon;
 			}
 
-			Wait.Message = mci.Name;
-			//mci.ParentCacheContainer = mycc; //why was this disbaled?
+			// Per-item Wait.Message / Wait.Image were here too — both setters call
+			// Application.DoEvents() in WaitingBar, so updating them per OBJD pumped
+			// the message queue thousands of times during cache build.
 			mycc.Items.Add(mci);
 
 			return mci;
