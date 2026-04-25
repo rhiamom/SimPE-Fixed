@@ -179,23 +179,46 @@ namespace SimPe
                 return null;
             }
 
-            // 3) Disc / Custom:
-            //    - If the chosen root itself has TSData, treat it as base (user pointed directly at base game folder).
-            //    - Otherwise we do NOT guess among child packs; we require user correction in the dialog.
+            // 3) Disc / Custom: accept several common layouts so users with Legacy/UC/wrapper
+            //    installs can pick the wrapper folder (which lets the scanner discover sibling EPs)
+            //    instead of being forced to point directly at Base (which hides the EPs).
             if (edition == "Disc" || edition == "Custom")
                 {
+                    // (a) User pointed directly at the base game folder
                     string rootTsData = Path.Combine(rootPath, "TSData");
                     if (Directory.Exists(rootTsData))
                     {
                         return rootPath;
                     }
 
-                    // Some people might choose the parent of "The Sims 2" (disc-style),
-                    // but we still keep this strict: check only the canonical disc folder name.
+                    // (b) Disc-style wrapper: chosen folder contains "The Sims 2"
                     string theSims2 = Path.Combine(rootPath, "The Sims 2");
                     if (Directory.Exists(Path.Combine(theSims2, "TSData")))
                     {
                         return theSims2;
+                    }
+
+                    // (c) Legacy / Steam / Epic wrapper: chosen folder contains "Base"
+                    string baseSubfolder = Path.Combine(rootPath, "Base");
+                    if (Directory.Exists(Path.Combine(baseSubfolder, "TSData")))
+                    {
+                        return baseSubfolder;
+                    }
+
+                    // (d) Ultimate Collection wrapper: chosen folder contains "Double Deluxe\Base"
+                    string ddBase = Path.Combine(rootPath, "Double Deluxe", "Base");
+                    if (Directory.Exists(Path.Combine(ddBase, "TSData")))
+                    {
+                        return ddBase;
+                    }
+
+                    // (e) Whatever the scanner identified as base — covers unusual layouts
+                    foreach (var p in scanResult.Packs)
+                    {
+                        if (p.HasTsData && p.IsBaseGame)
+                        {
+                            return p.FullPath;
+                        }
                     }
 
                     return null;

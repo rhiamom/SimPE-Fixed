@@ -137,38 +137,16 @@ namespace SimPe.PackedFiles.Wrapper
                 // For known GDI+ formats, try GDI+ only - never attempt Pfim
                 if (IsGdiPlusFormat(bytes))
                 {
-                    try
-                    {
-                        using (var ims = new System.IO.MemoryStream(bytes))
-                        {
-                            image = System.Drawing.Image.FromStream(ims);
-                            return true;
-                        }
-                    }
-                    catch
-                    {
-                        image = null;
-                        return false;
-                    }
+                    image = LoadViaGdiPlus(bytes);
+                    return image != null;
                 }
 
                 // Unknown format (likely TGA) - try Pfim first, then GDI+ as fallback
                 image = TryLoadWithPfim(bytes);
                 if (image != null) return true;
 
-                try
-                {
-                    using (var ims = new System.IO.MemoryStream(bytes))
-                    {
-                        image = System.Drawing.Image.FromStream(ims);
-                        return true;
-                    }
-                }
-                catch
-                {
-                    image = null;
-                    return false;
-                }
+                image = LoadViaGdiPlus(bytes);
+                return image != null;
             }
             catch
             {
@@ -258,6 +236,27 @@ namespace SimPe.PackedFiles.Wrapper
 
         #endregion
 
+        // GDI+ Image.FromStream returns an Image that holds a reference to the
+        // source stream — disposing the stream leaves the Image in a state where
+        // Save() and pixel access throw "A generic error occurred in GDI+".
+        // Clone into a stream-independent Bitmap so the cache writer can re-encode
+        // it later without surfacing that error.
+        private static Image LoadViaGdiPlus(byte[] bytes)
+        {
+            try
+            {
+                using (var ims = new System.IO.MemoryStream(bytes))
+                using (var loaded = System.Drawing.Image.FromStream(ims))
+                {
+                    return new Bitmap(loaded);
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         // Prevent infinite retry loops when image decode fails repeatedly.
         static readonly object pfimFailLock = new object();
         static readonly System.Collections.Generic.HashSet<int> pfimFailSigs =
@@ -300,6 +299,14 @@ namespace SimPe.PackedFiles.Wrapper
             }
         }
 
+        // Pfim 0.11.4 ImageFormat enum: Rgb8=0, R5g5b5=1, R5g6b5=2, R5g5b5a1=3,
+        // Rgba16=4, Rgb24=5, Rgba32=6, R16f=7, R32f=8.
+        // IMPORTANT: despite the names, Pfim's Rgba32/Rgb24 actually return data
+        // in BGR(A) byte order — they pass through the file's native bytes (TGA
+        // and DDS are both BGR-on-disk). GDI+ Format32bppArgb is also BGRA in
+        // memory, so for 32/24-bit we do a straight copy with no channel swap.
+        // The 16-bit packed formats use the standard TGA/DDS bit layout
+        // (B in low bits, R in high bits) regardless of byte order.
         private static Bitmap PfimToBitmap(IImage pfimImage)
         {
             if (pfimImage == null || pfimImage.Width <= 0 || pfimImage.Height <= 0) return null;
@@ -309,6 +316,19 @@ namespace SimPe.PackedFiles.Wrapper
             int h = pfimImage.Height;
             byte[] src = pfimImage.Data;
             int srcStride = pfimImage.Stride;
+            var fmt = pfimImage.Format;
+            int srcBpp;
+            switch (fmt)
+            {
+                case Pfim.ImageFormat.Rgba32:    srcBpp = 4; break;
+                case Pfim.ImageFormat.Rgb24:     srcBpp = 3; break;
+                case Pfim.ImageFormat.Rgba16:    srcBpp = 2; break;
+                case Pfim.ImageFormat.R5g5b5a1:  srcBpp = 2; break;
+                case Pfim.ImageFormat.R5g6b5:    srcBpp = 2; break;
+                case Pfim.ImageFormat.R5g5b5:    srcBpp = 2; break;
+                case Pfim.ImageFormat.Rgb8:      srcBpp = 1; break;
+                default: return null; // R16f / R32f (HDR float) — not used by The Sims 2
+            }
 
             Bitmap bmp = new Bitmap(w, h, PixelFormat.Format32bppArgb);
             BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, w, h),
@@ -324,21 +344,65 @@ namespace SimPe.PackedFiles.Wrapper
                     int dstRow = y * dstStride;
                     for (int x = 0; x < w; x++)
                     {
-                        int si = srcRow + x * 4;
+                        int si = srcRow + x * srcBpp;
                         int di = dstRow + x * 4;
-                        if (pfimImage.Format == Pfim.ImageFormat.Rgba32)
+                        switch (fmt)
                         {
-                            dst[di]     = src[si + 2]; // B
-                            dst[di + 1] = src[si + 1]; // G
-                            dst[di + 2] = src[si];     // R
-                            dst[di + 3] = src[si + 3]; // A
-                        }
-                        else // Bgra32 and similar
-                        {
-                            dst[di]     = src[si];     // B
-                            dst[di + 1] = src[si + 1]; // G
-                            dst[di + 2] = src[si + 2]; // R
-                            dst[di + 3] = src[si + 3]; // A
+                            case Pfim.ImageFormat.Rgba32: // really BGRA in memory
+                                dst[di]     = src[si];     // B
+                                dst[di + 1] = src[si + 1]; // G
+                                dst[di + 2] = src[si + 2]; // R
+                                dst[di + 3] = src[si + 3]; // A
+                                break;
+                            case Pfim.ImageFormat.Rgb24:  // really BGR in memory
+                                dst[di]     = src[si];     // B
+                                dst[di + 1] = src[si + 1]; // G
+                                dst[di + 2] = src[si + 2]; // R
+                                dst[di + 3] = 0xFF;
+                                break;
+                            case Pfim.ImageFormat.Rgb8:
+                            {
+                                byte g = src[si];
+                                dst[di] = g; dst[di + 1] = g; dst[di + 2] = g;
+                                dst[di + 3] = 0xFF;
+                                break;
+                            }
+                            case Pfim.ImageFormat.R5g5b5: // 0RRRRRGG GGGBBBBB (little-endian)
+                            {
+                                ushort v = (ushort)(src[si] | (src[si + 1] << 8));
+                                dst[di]     = (byte)((v & 0x1F) << 3);
+                                dst[di + 1] = (byte)(((v >> 5) & 0x1F) << 3);
+                                dst[di + 2] = (byte)(((v >> 10) & 0x1F) << 3);
+                                dst[di + 3] = 0xFF;
+                                break;
+                            }
+                            case Pfim.ImageFormat.R5g6b5: // RRRRRGGG GGGBBBBB
+                            {
+                                ushort v = (ushort)(src[si] | (src[si + 1] << 8));
+                                dst[di]     = (byte)((v & 0x1F) << 3);
+                                dst[di + 1] = (byte)(((v >> 5) & 0x3F) << 2);
+                                dst[di + 2] = (byte)(((v >> 11) & 0x1F) << 3);
+                                dst[di + 3] = 0xFF;
+                                break;
+                            }
+                            case Pfim.ImageFormat.R5g5b5a1: // ARRRRRGG GGGBBBBB
+                            {
+                                ushort v = (ushort)(src[si] | (src[si + 1] << 8));
+                                dst[di]     = (byte)((v & 0x1F) << 3);
+                                dst[di + 1] = (byte)(((v >> 5) & 0x1F) << 3);
+                                dst[di + 2] = (byte)(((v >> 10) & 0x1F) << 3);
+                                dst[di + 3] = (byte)(((v >> 15) & 0x1) * 0xFF);
+                                break;
+                            }
+                            case Pfim.ImageFormat.Rgba16: // 4 bits per channel
+                            {
+                                ushort v = (ushort)(src[si] | (src[si + 1] << 8));
+                                dst[di]     = (byte)(((v >> 4) & 0xF) * 0x11);
+                                dst[di + 1] = (byte)(((v >> 8) & 0xF) * 0x11);
+                                dst[di + 2] = (byte)(((v >> 12) & 0xF) * 0x11);
+                                dst[di + 3] = (byte)((v & 0xF) * 0x11);
+                                break;
+                            }
                         }
                     }
                 }

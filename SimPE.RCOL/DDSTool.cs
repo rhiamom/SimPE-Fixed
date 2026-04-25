@@ -428,26 +428,45 @@ namespace SimPe.Plugin
             h = pfimImage.Height;
             byte[] src = pfimImage.Data;
             int stride = pfimImage.Stride;
+            var fmt = pfimImage.Format;
+            int srcBpp;
+            switch (fmt)
+            {
+                case Pfim.ImageFormat.Rgba32: srcBpp = 4; break;
+                case Pfim.ImageFormat.Rgb24:  srcBpp = 3; break;
+                case Pfim.ImageFormat.Rgb8:   srcBpp = 1; break;
+                default: throw new NotSupportedException("Unsupported Pfim ImageFormat: " + fmt);
+            }
             byte[] rgba = new byte[w * h * 4];
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
                 {
-                    int si = y * stride + x * 4;
+                    int si = y * stride + x * srcBpp;
                     int di = (y * w + x) * 4;
-                    if (pfimImage.Format == Pfim.ImageFormat.Rgba32)
+                    // Pfim's Rgba32/Rgb24 byte order is actually BGR(A) (file
+                    // pass-through). BCnEncoder expects true RGBA, so swap.
+                    switch (fmt)
                     {
-                        rgba[di]     = src[si];     // R
-                        rgba[di + 1] = src[si + 1]; // G
-                        rgba[di + 2] = src[si + 2]; // B
-                        rgba[di + 3] = src[si + 3]; // A
-                    }
-                    else // Bgra32
-                    {
-                        rgba[di]     = src[si + 2]; // R
-                        rgba[di + 1] = src[si + 1]; // G
-                        rgba[di + 2] = src[si];     // B
-                        rgba[di + 3] = src[si + 3]; // A
+                        case Pfim.ImageFormat.Rgba32:
+                            rgba[di]     = src[si + 2]; // R (from src B-position 2)
+                            rgba[di + 1] = src[si + 1]; // G
+                            rgba[di + 2] = src[si];     // B (from src R-position 0)
+                            rgba[di + 3] = src[si + 3]; // A
+                            break;
+                        case Pfim.ImageFormat.Rgb24:
+                            rgba[di]     = src[si + 2]; // R
+                            rgba[di + 1] = src[si + 1]; // G
+                            rgba[di + 2] = src[si];     // B
+                            rgba[di + 3] = 0xFF;
+                            break;
+                        case Pfim.ImageFormat.Rgb8:
+                            byte g = src[si];
+                            rgba[di]     = g;
+                            rgba[di + 1] = g;
+                            rgba[di + 2] = g;
+                            rgba[di + 3] = 0xFF;
+                            break;
                     }
                 }
             }
