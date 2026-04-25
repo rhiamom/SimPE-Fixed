@@ -69,6 +69,19 @@ namespace SimPe
             Helper.WindowsRegistry.Layout.DefaultActionBoxExpanded = true;
             Helper.WindowsRegistry.Layout.ToolActionBoxExpanded = true;
 
+            // Persist the Object Workshop dock container so the user's choice survives restart.
+            var owPanel = Ambertation.Windows.Forms.ManagerSingelton.Global
+                .GetPanelWithName("dc.SimPe.Plugin.Tool.Dockable.ObectWorkshopDockTool");
+            if (owPanel != null)
+            {
+                string container;
+                if (owPanel.DockContainer == dockLeft)        container = "Left";
+                else if (owPanel.DockContainer == dockBottom) container = "Bottom";
+                else if (owPanel.DockContainer == dockRight)  container = "Right";
+                else                                          container = "Floating";
+                Helper.WindowsRegistry.Layout.OWDockContainer = container;
+            }
+
             resourceViewManager1.StoreLayout();
         }
 
@@ -151,12 +164,35 @@ namespace SimPe
                     dp.Close();
             }
 
-            // Default Object Workshop to dockRight (user preference).
-            // Move it there whether it is floating or in another container.
+            // Restore Object Workshop to whichever dock container the user last chose.
+            // Defaults to Right when no preference was stored. "Floating" is recorded
+            // for telemetry but we don't try to programmatically un-dock — NetDocks'
+            // DockControl throws on a null container, and leaving the panel where it
+            // already is gives the user something usable.
             var owPanel = Ambertation.Windows.Forms.ManagerSingelton.Global
                 .GetPanelWithName("dc.SimPe.Plugin.Tool.Dockable.ObectWorkshopDockTool");
-            if (owPanel != null && owPanel.DockContainer != dockRight)
-                owPanel.DockContainer = dockRight;
+            if (owPanel != null)
+            {
+                Ambertation.Windows.Forms.DockContainer target = null;
+                switch (Helper.WindowsRegistry.Layout.OWDockContainer)
+                {
+                    case "Left":     target = dockLeft;   break;
+                    case "Right":    target = dockRight;  break;
+                    case "Floating": target = null;       break;
+                    case "Bottom":
+                    default:         target = dockBottom; break;
+                }
+                if (target != null && owPanel.DockContainer != target)
+                {
+                    try { owPanel.DockContainer = target; }
+                    catch (System.Exception)
+                    {
+                        // Dock library can throw if the panel is in a transitional state.
+                        // Fall back to the safe default rather than killing the app.
+                        try { owPanel.DockContainer = dockBottom; } catch { }
+                    }
+                }
+            }
 
             resourceViewManager1.RestoreLayout();
 

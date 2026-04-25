@@ -97,7 +97,7 @@ namespace SimPe
         public bool PluginActionBoxExpanded
         {
             get { return true; }   // or false if you prefer collapsed by default
-            set { /* ignore for now, we’re not persisting this yet */ }
+            set { /* ignore for now, weï¿½re not persisting this yet */ }
         }
 
         public bool ToolActionBoxExpanded
@@ -320,6 +320,23 @@ namespace SimPe
 				xrk.SetValue("SizeColumnWidth", value);
 			}
 		}        
+
+        /// <summary>
+        /// Which dock container the Object Workshop panel was last placed in.
+        /// One of: "Bottom" (default â€” sibling tab of Plugin View), "Left", "Right", "Floating".
+        /// </summary>
+        public string OWDockContainer
+        {
+            get
+            {
+                object o = xrk.GetValue("OWDockContainer", "Bottom");
+                return o == null ? "Bottom" : o.ToString();
+            }
+            set
+            {
+                xrk.SetValue("OWDockContainer", value ?? "Bottom");
+            }
+        }
 
         /*
 		#region Obsolete
