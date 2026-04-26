@@ -65,12 +65,11 @@ namespace SimPe
             }
             set
             {
-                if (value.IndexOf("Custom") > -1)
-                {
-
-                    if (bar != null) bar.Message = value;
-                    Application.DoEvents();
-                }
+                // Old code only forwarded the message when it contained "Custom" — a
+                // debug leftover from the initial port. That hid every other wait
+                // message from the user and from anyone diagnosing slow startups.
+                if (bar != null) bar.Message = value;
+                Application.DoEvents();
             }
         }
 
