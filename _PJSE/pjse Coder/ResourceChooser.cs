@@ -307,8 +307,15 @@ namespace pjse
             list.Items.Clear();
             ListViewItem lvi;
 
+            // Each EP ships its own copy of the global BHAVs, so the FileTable's
+            // pfByTypeGroup index returns one Entry per package. Dedup by Instance
+            // (Type and Group are constant per Fill call). putLocalFirst already
+            // ordered by source priority — currentPackage → fixed → nonfixed →
+            // maxis — so the first occurrence is the correct one to keep.
+            var seen = new System.Collections.Generic.HashSet<uint>();
             foreach (pjse.FileTable.Entry item in items)
             {
+                if (!seen.Add(item.Instance)) continue;
                 lvi = new ListViewItem(new string[] { "0x" + SimPe.Helper.HexString((ushort)item.Instance), item });
                 lvi.Tag = item;
                 list.Items.Add(lvi);
