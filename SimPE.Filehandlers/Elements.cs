@@ -162,8 +162,18 @@ namespace SimPe.PackedFiles.UserInterface
 			//
 			// Erforderlich f�r die Windows Form-Designerunterst�tzung
 			//
-		
-			InitializeComponent();			
+
+			InitializeComponent();
+
+			// xmlPanel and its child rtb came from the designer with fixed sizes
+			// (xmlPanel 473×198, rtb default), so when GUIHandle hosts xmlPanel
+			// inside the much larger Plugin View dock the edit area stays tiny.
+			// Dock the panel to fill its container, dock panel3 (title strip) to
+			// the top, and fill rtb so the user gets a usable edit area.
+			this.xmlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+			this.visualStyleLinkLabel2.Dock = System.Windows.Forms.DockStyle.Top;
+			this.rtb.Dock = System.Windows.Forms.DockStyle.Fill;
 		}
 
 		/// <summary>
