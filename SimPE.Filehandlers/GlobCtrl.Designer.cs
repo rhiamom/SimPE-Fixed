@@ -55,14 +55,15 @@ namespace SimPe.Plugin
             this.label43 = new System.Windows.Forms.Label();
             this.cbseminame = new System.Windows.Forms.ComboBox();
             this.label42 = new System.Windows.Forms.Label();
-            
+            this.panel6 = new SimPe.Windows.Forms.WrapperBaseControl();
             this.lbglobfile = new System.Windows.Forms.Label();
-            
+
             this.lbBug = new System.Windows.Forms.Label();
             this.lbBloat = new System.Windows.Forms.Label();
             this.tbfilenm = new System.Windows.Forms.TextBox();
             this.lbfilenm = new System.Windows.Forms.Label();
-            
+
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbgroup
@@ -184,7 +185,15 @@ namespace SimPe.Plugin
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            //this.Controls.Add(this.pritee);
+            this.Controls.Add(this.tbgroup);
+            this.Controls.Add(this.label43);
+            this.Controls.Add(this.cbseminame);
+            this.Controls.Add(this.label42);
+            this.Controls.Add(this.tbfilenm);
+            this.Controls.Add(this.lbfilenm);
+            this.Controls.Add(this.lbBloat);
+            this.Controls.Add(this.lbBug);
+            this.Controls.Add(this.panel6);
             this.Name = "GlobCtrl";
             this.Size = new System.Drawing.Size(554, 291);
             this.panel6.ResumeLayout(false);

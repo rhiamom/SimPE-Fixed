@@ -137,11 +137,13 @@ namespace SimPe.PackedFiles.UserInterface
             this.label9.Name = "label9";
             this.label9.Text = "Format:";
 
-            // lbclst
+            // lbclst — fixed-size 300×300 listbox left tons of empty space when
+            // hosted in the Plugin View dock. Anchor it so it fills the host.
             this.lbclst.Location = new System.Drawing.Point(10, 50);
             this.lbclst.Name = "lbclst";
             this.lbclst.Sorted = true;
             this.lbclst.Size = new System.Drawing.Size(300, 300);
+            this.lbclst.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
             // panel4 (replaces Chris Hatch.panelheader)
             this.panel4.BackColor = System.Drawing.SystemColors.ControlDark;
