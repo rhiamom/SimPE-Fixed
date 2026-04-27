@@ -261,83 +261,10 @@ namespace SimPe.PackedFiles.UserInterface
 			this.cblifesection.Items.Add(new LocalizedLifeSections(Data.MetaData.LifeSections.Adult));
 			this.cblifesection.Items.Add(new LocalizedLifeSections(Data.MetaData.LifeSections.Elder));
 
-			this.cbcareer.Items.Clear();
-			foreach (SimPe.Interfaces.IAlias a in SimPe.PackedFiles.Wrapper.SDesc.AddonCarrers) this.cbcareer.Items.Add(a);
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Unknown));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Unemployed));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Science));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Medical));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Politics));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Athletic));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.LawEnforcement));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Culinary));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Economy));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Slacker));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Criminal));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Military));
+			// Default to the human career list at construction time. RefreshCareer
+			// rebuilds the list per-sim once we know the species (Nightlife data).
+			PopulateCareers(isPet: false);
 
-            if ((SimPe.PathProvider.Global.EPInstalled >= 1) || (Helper.WindowsRegistry.HiddenMode))
-            {
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Paranormal));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.NaturalScientist));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.ShowBiz));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Artist));
-            }
-
-            if ((SimPe.PathProvider.Global.EPInstalled >= 8) || (Helper.WindowsRegistry.HiddenMode))
-            {
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Adventurer));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Education));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Gamer));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Journalism));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Law));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Music));
-            }
-			
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderAthletic));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderBusiness));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderCriminal));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderCulinary));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderLawEnforcement));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderMedical));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderMilitary));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderPolitics));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderScience));
-			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderSlacker));
-
-            if ((SimPe.PathProvider.Global.EPInstalled >= 8) || (Helper.WindowsRegistry.HiddenMode))
-            {
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderAdventurer));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderEducation));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderGamer));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderJournalism));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderLaw));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderMusic));
-            }
-
-            if ((SimPe.PathProvider.Global.EPInstalled >= 6) || (Helper.WindowsRegistry.HiddenMode))
-            {
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.PetSecurity));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.PetService));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.PetShowBiz));
-            }
-
-            if ((SimPe.PathProvider.Global.EPInstalled >= 13) || (Helper.WindowsRegistry.HiddenMode))
-            {
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Construction));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Dance));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Entertainment));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Intelligence));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Ocenography));
-
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderConstruction));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderDance));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderEntertainment));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderIntelligence));
-                this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.TeenElderOcenography));
-                
-            }
-			
 
 			this.cbgrade.Items.Clear();
 			this.cbgrade.Items.Add(new LocalizedGrades(Data.MetaData.Grades.Unknown));
@@ -568,10 +495,42 @@ namespace SimPe.PackedFiles.UserInterface
 			this.rbmale.Checked = (sdesc.CharacterDescription.Gender == Data.MetaData.Gender.Male);
 		}
 
+		// Pet-only career IDs. PetSecurity/Service/ShowBiz are TS2 Pets; the
+		// Orangutan* IDs come from Sims 2 Castaway Stories' orangutan companions.
+		// Everything else in the Careers enum is human-only.
+		static readonly System.Collections.Generic.HashSet<Data.MetaData.Careers> PetCareers =
+			new System.Collections.Generic.HashSet<Data.MetaData.Careers>
+			{
+				Data.MetaData.Careers.PetSecurity,
+				Data.MetaData.Careers.PetService,
+				Data.MetaData.Careers.PetShowBiz,
+				Data.MetaData.Careers.OrangutanCrafter,
+				Data.MetaData.Careers.OrangutanGatherer,
+				Data.MetaData.Careers.OrangutanHunter,
+			};
+
+		void PopulateCareers(bool isPet)
+		{
+			this.cbcareer.Items.Clear();
+			foreach (SimPe.Interfaces.IAlias a in SimPe.PackedFiles.Wrapper.SDesc.AddonCarrers) this.cbcareer.Items.Add(a);
+			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Unknown));
+			this.cbcareer.Items.Add(new LocalizedCareers(Data.MetaData.Careers.Unemployed));
+			foreach (Data.MetaData.Careers c in (Data.MetaData.Careers[])Enum.GetValues(typeof(Data.MetaData.Careers)))
+			{
+				if (c == Data.MetaData.Careers.Unknown || c == Data.MetaData.Careers.Unemployed) continue;
+				if (PetCareers.Contains(c) != isPet) continue;
+				this.cbcareer.Items.Add(new LocalizedCareers(c));
+			}
+		}
+
 		void RefreshCareer(Wrapper.ExtSDesc sdesc)
 		{
 			this.pbCareerLevel.Value = sdesc.CharacterDescription.CareerLevel;
 			this.pbCareerPerformance.Value = sdesc.CharacterDescription.CareerPerformance;
+
+			// Rebuild career dropdown filtered by species so a sim sees only human
+			// careers and a pet sees only pet careers.
+			PopulateCareers(isPet: sdesc.Nightlife.Species != SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType.Human);
 
 			//Career
 			this.tbcareervalue.Text = "0x"+Helper.HexString((uint)sdesc.CharacterDescription.Career);
