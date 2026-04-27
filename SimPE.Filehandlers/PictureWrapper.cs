@@ -176,6 +176,9 @@ namespace SimPe.PackedFiles.Wrapper
                 reader.BaseStream.Seek(0x40, System.IO.SeekOrigin.Begin);
 
                 bw.Write(reader.ReadBytes((int)(reader.BaseStream.Length-0x40)));
+                // Rewind the new stream so DoLoad reads the copied bytes from the
+                // start instead of from end-of-stream (where the BinaryWriter left it).
+                br.BaseStream.Position = 0;
                 DoLoad(br, true);
             }
 

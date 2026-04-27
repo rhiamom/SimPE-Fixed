@@ -49,7 +49,25 @@ namespace SimPe.PackedFiles.UserInterface
 			form.picwrapper = wrapper;
 			PictureBox pb = form.pb;
 			Image img = ((SimPe.PackedFiles.Wrapper.Picture)wrapper).Image;
-			pb.Image = img;
+			pb.Image = img == null ? null : ScaleNearest(img, 1.5f);
+		}
+
+		// Scale by an integer-friendly factor with nearest-neighbour interpolation
+		// so small Sims 2 thumbnails (often 64×64 or 128×128) stay crisp instead of
+		// looking blurry from PictureBox's default bilinear stretch.
+		private static Image ScaleNearest(Image src, float factor)
+		{
+			int w = Math.Max(1, (int)Math.Round(src.Width * factor));
+			int h = Math.Max(1, (int)Math.Round(src.Height * factor));
+			Bitmap dst = new Bitmap(w, h, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+			using (Graphics g = Graphics.FromImage(dst))
+			{
+				g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+				g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
+				g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+				g.DrawImage(src, new Rectangle(0, 0, w, h));
+			}
+			return dst;
 		}
 
 		

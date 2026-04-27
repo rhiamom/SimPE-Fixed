@@ -174,6 +174,21 @@ namespace SimPe.PackedFiles.UserInterface
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
 			this.visualStyleLinkLabel2.Dock = System.Windows.Forms.DockStyle.Top;
 			this.rtb.Dock = System.Windows.Forms.DockStyle.Fill;
+
+			// JpegPanel hosts the BMP/JPEG/PNG image preview. Same designer-size
+			// problem — dock it to fill so the image preview shows in the dock area.
+			// Inside JpegPanel, panel2 (banner + Export button) goes to the top and
+			// the PictureBox fills the rest. Without this, pb keeps its tiny designer
+			// size inside the now-much-larger JpegPanel and the preview is invisible.
+			this.JpegPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+			this.pb.Dock = System.Windows.Forms.DockStyle.Fill;
+			// CenterImage: don't stretch. The Picture UI handler pre-scales the
+			// bitmap to 150% with nearest-neighbour for crisp pixel-art thumbnails.
+			this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+			// Dock layout walks Controls in reverse z-order: send pb to back so
+			// panel2 (Top) is laid out first and pb (Fill) takes what remains.
+			this.pb.SendToBack();
 		}
 
 		/// <summary>
