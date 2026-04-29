@@ -48,6 +48,10 @@ namespace SimPe.PackedFiles.Wrapper
 
             shownorel = false;
             cbNoRelation.Checked = shownorel;
+
+            showInHousehold = true;
+            cbInHousehold.Checked = showInHousehold;
+
             intern = false;
 
            
@@ -83,20 +87,37 @@ namespace SimPe.PackedFiles.Wrapper
         {
             if (sim != null)
             {
+                // Compare the numeric FamilyInstance (the FAMI resource the sim
+                // points to), not HouseholdName: the latter is a string from the
+                // FAMI name provider which returns "Unknown" for any sim whose
+                // family record isn't in the user's saved neighbourhood folder,
+                // so two unrelated sims could both read "Unknown" and falsely
+                // match. Skip FamilyInstance == 0 because that means "no
+                // household" / NPC and we don't want every NPC matching every
+                // other NPC.
+                bool inHousehold = sim.FamilyInstance != 0
+                    && sim.FamilyInstance == e.SimDescription.FamilyInstance;
                 bool hr = sim.HasRelationWith(e.SimDescription);
-                bool res = false;
-                if (hr && showrel) res = true;
-                else if (!hr && shownorel) res = true;
 
-                if (hr)
-                {
-                    MakeRelationIcon(e.Image);
-                    e.GroupIndex = 0;
-                }
-                else e.GroupIndex = 1;
+                // Categories overlap: a relative who lives in your household matches
+                // both "In household" and "Related". A sim is shown if any of the
+                // checked filters describes them.
+                bool show = false;
+                if (showInHousehold && inHousehold) show = true;
+                if (showrel && hr) show = true;
+                if (shownorel && !hr) show = true;
 
-                if (e.SimDescription.FileDescriptor.Instance == sim.FileDescriptor.Instance) res = false;
-                if (!res) e.Cancel = true;
+                // GroupIndex assigns a single bucket per sim; in-household wins over
+                // related, which wins over unrelated, so the listview groups stay
+                // tidy when all three filters are on.
+                if (inHousehold) e.GroupIndex = 0;
+                else if (hr) e.GroupIndex = 1;
+                else e.GroupIndex = 2;
+
+                if (hr) MakeRelationIcon(e.Image);
+
+                if (e.SimDescription.FileDescriptor.Instance == sim.FileDescriptor.Instance) show = false;
+                if (!show) e.Cancel = true;
             }
             base.OnAddSimToPool(e);
         }
@@ -109,7 +130,23 @@ namespace SimPe.PackedFiles.Wrapper
 
         bool intern;
 
-        bool showrel, shownorel;
+        bool showrel, shownorel, showInHousehold;
+        public bool ShowInHouseholdSims
+        {
+            get { return showInHousehold; }
+            set
+            {
+                if (value != showInHousehold)
+                {
+                    showInHousehold = value;
+                    this.UpdateSimList();
+                    intern = true;
+                    this.cbInHousehold.Checked = value;
+                    intern = false;
+                }
+            }
+        }
+
         public bool ShowRelatedSims
         {
             get { return showrel; }
@@ -146,7 +183,9 @@ namespace SimPe.PackedFiles.Wrapper
         {
             get
             {
-                return !ShowNotRelatedSims || !ShowRelatedSims;
+                // Any filter that depends on the selected sim's household or
+                // relations means we must rebuild when sim changes.
+                return showInHousehold || showrel || shownorel;
             }
         }
 
@@ -177,15 +216,18 @@ namespace SimPe.PackedFiles.Wrapper
             ShowRelatedSims = cbRelation.Checked;
         }
 
-        // When showing unrelated sims, bypass the household filter so sims from
-        // other households can appear. The household filter is only meaningful
-        // when restricting to the current sim's family.
+        private void cbInHousehold_CheckedChanged(object sender, EventArgs e)
+        {
+            if (intern) return;
+            ShowInHouseholdSims = cbInHousehold.Checked;
+        }
+
+        // Filtering happens entirely via OnAddSimToPool now (in-household /
+        // related / unrelated checkboxes). Always pass null household to the
+        // base so cross-household relatives can appear.
         public override void UpdateSimList()
         {
-            if (shownorel)
-                base.UpdateSimList((string)null);
-            else
-                base.UpdateSimList();
+            base.UpdateSimList((string)null);
         }
     }
 }

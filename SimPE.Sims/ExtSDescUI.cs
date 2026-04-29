@@ -1345,11 +1345,9 @@ namespace SimPe.PackedFiles.UserInterface
 
             }
 
-            // Force the household dropdown to the currently selected sim�s household
-            // (otherwise SimPoolControl defaults to the provider's "current"/first household, e.g. Burb)
-            lv.SelectHousehold(Sdesc.HouseholdName);
-
-            // Now build the list immediately (don�t wait for dropdown events)
+            // The relations pool handles its own household filtering via the
+            // In-household / Related / Not related checkboxes — no need to
+            // force the inherited household dropdown to a specific value.
             lv.UpdateSimList();
 
             lastpkg = Sdesc.Package;

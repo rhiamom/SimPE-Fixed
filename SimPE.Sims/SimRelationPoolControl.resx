@@ -195,11 +195,38 @@
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="cbInHousehold.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cbInHousehold.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 26</value>
+  </data>
+  <data name="cbInHousehold.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 17</value>
+  </data>
+  <data name="cbInHousehold.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="cbInHousehold.Text" xml:space="preserve">
+    <value>In household</value>
+  </data>
+  <data name="&gt;&gt;cbInHousehold.Name" xml:space="preserve">
+    <value>cbInHousehold</value>
+  </data>
+  <data name="&gt;&gt;cbInHousehold.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbInHousehold.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbInHousehold.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="cbNoRelation.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="cbNoRelation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 26</value>
+    <value>200, 26</value>
   </data>
   <data name="cbNoRelation.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 17</value>
@@ -226,7 +253,7 @@
     <value>True</value>
   </data>
   <data name="cbRelation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 26</value>
+    <value>120, 26</value>
   </data>
   <data name="cbRelation.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 17</value>

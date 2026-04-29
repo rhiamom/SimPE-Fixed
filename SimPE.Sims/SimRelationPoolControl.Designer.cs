@@ -57,6 +57,7 @@ namespace SimPe.PackedFiles.Wrapper
             this.label1 = new System.Windows.Forms.Label();
             this.cbNoRelation = new System.Windows.Forms.CheckBox();
             this.cbRelation = new System.Windows.Forms.CheckBox();
+            this.cbInHousehold = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +71,7 @@ namespace SimPe.PackedFiles.Wrapper
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.cbNoRelation);
             this.panel1.Controls.Add(this.cbRelation);
+            this.panel1.Controls.Add(this.cbInHousehold);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
@@ -92,14 +94,21 @@ namespace SimPe.PackedFiles.Wrapper
             this.cbNoRelation.Name = "cbNoRelation";
             this.cbNoRelation.UseVisualStyleBackColor = true;
             this.cbNoRelation.CheckedChanged += new System.EventHandler(this.cbNoRelation_CheckedChanged);
-            // 
+            //
             // cbRelation
-            // 
+            //
             resources.ApplyResources(this.cbRelation, "cbRelation");
             this.cbRelation.Name = "cbRelation";
             this.cbRelation.UseVisualStyleBackColor = true;
             this.cbRelation.CheckedChanged += new System.EventHandler(this.cbRelation_CheckedChanged);
-            // 
+            //
+            // cbInHousehold
+            //
+            resources.ApplyResources(this.cbInHousehold, "cbInHousehold");
+            this.cbInHousehold.Name = "cbInHousehold";
+            this.cbInHousehold.UseVisualStyleBackColor = true;
+            this.cbInHousehold.CheckedChanged += new System.EventHandler(this.cbInHousehold_CheckedChanged);
+            //
             // SimRelationPoolControl
             // 
             resources.ApplyResources(this, "$this");
@@ -120,6 +129,7 @@ namespace SimPe.PackedFiles.Wrapper
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox cbNoRelation;
         private System.Windows.Forms.CheckBox cbRelation;
+        private System.Windows.Forms.CheckBox cbInHousehold;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
     }
