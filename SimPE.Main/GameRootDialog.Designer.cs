@@ -226,7 +226,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOK.Location = new System.Drawing.Point(819, 561);
+            this.btnOK.Location = new System.Drawing.Point(819, 611);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(111, 44);
             this.btnOK.TabIndex = 13;
@@ -271,17 +271,20 @@
             // 
             // txtCepStatus
             // 
+            this.txtCepStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCepStatus.Location = new System.Drawing.Point(159, 441);
             this.txtCepStatus.Multiline = true;
             this.txtCepStatus.Name = "txtCepStatus";
-            this.txtCepStatus.Size = new System.Drawing.Size(676, 89);
+            this.txtCepStatus.ReadOnly = true;
+            this.txtCepStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCepStatus.Size = new System.Drawing.Size(676, 160);
             this.txtCepStatus.TabIndex = 18;
             this.txtCepStatus.Text = "(not checked yet)";
             // 
             // btnDownloadCep
             // 
             this.btnDownloadCep.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownloadCep.Location = new System.Drawing.Point(28, 562);
+            this.btnDownloadCep.Location = new System.Drawing.Point(28, 612);
             this.btnDownloadCep.Name = "btnDownloadCep";
             this.btnDownloadCep.Size = new System.Drawing.Size(204, 44);
             this.btnDownloadCep.TabIndex = 19;
@@ -293,7 +296,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(953, 630);
+            this.ClientSize = new System.Drawing.Size(953, 680);
             this.Controls.Add(this.btnDownloadCep);
             this.Controls.Add(this.txtCepStatus);
             this.Controls.Add(this.lblCepStatus);
