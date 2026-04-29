@@ -310,7 +310,7 @@ Emballage :  {filename}</value>
   <data name="RT_Unset_Unknown" xml:space="preserve">
     <value>Non défini ou inconnu</value>
   </data>
-  <data name="RT_Nice_Nephew" xml:space="preserve">
+  <data name="RT_Niece_Nephew" xml:space="preserve">
     <value>Nièce ou Neveu</value>
   </data>
   <data name="RT_Aunt" xml:space="preserve">
@@ -1489,7 +1489,7 @@ SimPe est dans l'impossibilité de construitre la hiérarchie des articulations.
   <data name="RT_Cousin" xml:space="preserve">
     <value>Cousin(e)</value>
   </data>
-  <data name="RT_Gradparent" xml:space="preserve">
+  <data name="RT_Grandparent" xml:space="preserve">
     <value>Grand-papa/Grand-maman</value>
   </data>
   <data name="RT_Grandchild" xml:space="preserve">

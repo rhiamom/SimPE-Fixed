@@ -312,8 +312,11 @@ Package: {filename}</value>
   <data name="RT_Unset_Unknown" xml:space="preserve">
     <value>Not defined or Unknown</value>
   </data>
-  <data name="RT_Nice_Nephew" xml:space="preserve">
-    <value>Nice or Nephew</value>
+  <data name="RT_Niece_Nephew" xml:space="preserve">
+    <value>Niece or Nephew</value>
+  </data>
+  <data name="RT_Grandparent" xml:space="preserve">
+    <value>Grandparent</value>
   </data>
   <data name="RT_Aunt" xml:space="preserve">
     <value>Aunt or Uncle</value>

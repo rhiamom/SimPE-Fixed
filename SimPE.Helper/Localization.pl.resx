@@ -309,7 +309,7 @@ Pakiet: {filename}</value>
   <data name="RT_Unset_Unknown" xml:space="preserve">
     <value>Nieokreślony lub nieznany</value>
   </data>
-  <data name="RT_Nice_Nephew" xml:space="preserve">
+  <data name="RT_Niece_Nephew" xml:space="preserve">
     <value>Siostrzeniec/a lub bratanek/a</value>
   </data>
   <data name="RT_Aunt" xml:space="preserve">

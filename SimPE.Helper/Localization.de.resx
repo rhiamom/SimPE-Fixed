@@ -592,7 +592,7 @@ Package: {filename}</value>
   <data name="RT_Unset_Unknown" xml:space="preserve">
     <value>Nicht definiert oder unbekannt</value>
   </data>
-  <data name="RT_Nice_Nephew" xml:space="preserve">
+  <data name="RT_Niece_Nephew" xml:space="preserve">
     <value>Nichte oder Neffe</value>
   </data>
   <data name="RT_Parent" xml:space="preserve">
@@ -604,7 +604,7 @@ Package: {filename}</value>
   <data name="RT_Sibling" xml:space="preserve">
     <value>Geschwister</value>
   </data>
-  <data name="RT_Gradparent" xml:space="preserve">
+  <data name="RT_Grandparent" xml:space="preserve">
     <value>Großmutter oder Großvater</value>
   </data>
   <data name="RT_Grandchild" xml:space="preserve">
