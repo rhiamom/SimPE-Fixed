@@ -56,13 +56,13 @@ namespace SimPe.PackedFiles.Wrapper.Supporting
 		/// <summary>
 		/// Returns / Sets the Instance of the Target Sim
 		/// </summary>
-		public ushort Instance 
+		public ushort Instance
 		{
 			get { return siminstance; }
-			set 
-			{ 
-				if (siminstance != value) sdesc = null;
-				siminstance = value; 
+			set
+			{
+				if (siminstance != value) { sdesc = null; sdescLoaded = false; }
+				siminstance = value;
 			}
 		}
 
@@ -72,38 +72,55 @@ namespace SimPe.PackedFiles.Wrapper.Supporting
 		protected SDesc sdesc;
 
 		/// <summary>
-		/// Loads the Description File for a Sim
+		/// Tracks whether LoadSDesc has run for the current siminstance, so a
+		/// failed lookup doesn't retry on every property access.
+		/// </summary>
+		bool sdescLoaded;
+
+		/// <summary>
+		/// Loads the Description File for a Sim. Leaves sdesc null only when the
+		/// SDesc resource itself is missing from the package (e.g., Belladonna
+		/// Cove ships with ties pointing to deleted relatives like Inigo and
+		/// Duarte Gere). When the SDesc IS present but ProcessData fails partway,
+		/// keep the partially-populated wrapper — ProcessData reads SimId early
+		/// in the parse, so the NameProvider can still resolve a display name
+		/// from the user's saved neighbourhood data even if the rest of the
+		/// record is unreadable.
 		/// </summary>
 		protected void LoadSDesc()
 		{
-			if (sdesc==null) 
-			{
-				sdesc = new SDesc(famt.NameProvider, null, null);
+			if (sdescLoaded) return;
+			sdescLoaded = true;
 
-				try 
-				{
-					SimPe.Interfaces.Files.IPackedFileDescriptor pfd = famt.Package.FindFile(MetaData.SIM_DESCRIPTION_FILE, 0, famt.FileDescriptor.Group, siminstance);
-					sdesc.ProcessData(pfd, famt.Package);					
-				} 
-				catch (Exception) {}
+			SimPe.Interfaces.Files.IPackedFileDescriptor pfd = famt.Package.FindFile(MetaData.SIM_DESCRIPTION_FILE, 0, famt.FileDescriptor.Group, siminstance);
+			if (pfd == null) return; // truly missing — leave sdesc null
+
+			sdesc = new SDesc(famt.NameProvider, null, null);
+			try
+			{
+				sdesc.ProcessData(pfd, famt.Package);
+			}
+			catch (Exception)
+			{
+				// Keep the partial sdesc — SimId is usually populated before the throw.
 			}
 		}
 
 		/// <summary>
 		/// Returns the Name of the sim
 		/// </summary>
-		public string SimName 
+		public string SimName
 		{
-			get 
+			get
 			{
 				LoadSDesc();
-				return sdesc.SimName;
+				return sdesc != null ? sdesc.SimName : "";
 			}
 		}
 
 		public SDesc SimDescription
 		{
-			get 
+			get
 			{
 				LoadSDesc();
 				return sdesc;
@@ -113,12 +130,12 @@ namespace SimPe.PackedFiles.Wrapper.Supporting
 		/// <summary>
 		/// Returns the Name of the sim
 		/// </summary>
-		public string SimFamilyName 
+		public string SimFamilyName
 		{
-			get 
+			get
 			{
 				LoadSDesc();
-				return sdesc.SimFamilyName;
+				return sdesc != null ? sdesc.SimFamilyName : "";
 			}
 		}
 
@@ -128,7 +145,9 @@ namespace SimPe.PackedFiles.Wrapper.Supporting
 		/// <returns>A String describing the Object</returns>
 		public override string ToString()
 		{
-			return SimName+" "+SimFamilyName+" (0x"+Helper.HexString(siminstance)+")";
+			LoadSDesc();
+			if (sdesc == null) return "<missing> (0x" + Helper.HexString(siminstance) + ")";
+			return SimName + " " + SimFamilyName + " (0x" + Helper.HexString(siminstance) + ")";
 		}
 	}
 
