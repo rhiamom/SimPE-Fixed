@@ -187,8 +187,11 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbBuildSort.Items.Add(new SimPe.Data.LocalizedBuildSubSort(Data.BuildFunctionSubSort.Openings_TallDoor));
             if (Helper.WindowsRegistry.HiddenMode) this.cbBuildSort.Items.Add(new SimPe.Data.LocalizedBuildSubSort(Data.BuildFunctionSubSort.unknown));
 
-			//this.cbsort.Enum = typeof(Data.ObjFunctionSubSort);
-			//.cbsort.ResourceManager = SimPe.Localization.Manager;
+			// EnumComboBox auto-populates from the enum type when Enum is set;
+			// the ResourceManager hooks up localized labels via Localization.Manager.
+			// Without these, the Overall Sort dropdown shows nothing.
+			this.cbsort.Enum = typeof(Data.ObjFunctionSubSort);
+			this.cbsort.ResourceManager = SimPe.Localization.Manager;
             
             if (Helper.WindowsRegistry.UseBigIcons) this.pg.Font = new System.Drawing.Font("Verdana", 10.25F, System.Drawing.FontStyle.Regular);
             
@@ -507,7 +510,7 @@ namespace SimPe.PackedFiles.UserInterface
                 this.cbcStreet.Checked = (objd.CommSort.InStreet);
                 this.cbcMisc.Checked = (objd.CommSort.InMiscel);
 
-                tbPrice.Text = "�" + Convert.ToString(objd.Price);
+                tbPrice.Text = "§" + Convert.ToString(objd.Price);
 
                 this.tbreqeps.Enabled = (objd.Version > 0x008b);
                 this.SetExpansionsCb(objd);
@@ -2251,7 +2254,7 @@ namespace SimPe.PackedFiles.UserInterface
             try
             {
                 string prise = this.tbPrice.Text;
-                if (prise.StartsWith("�")) prise = prise.Remove(0, 1);
+                if (prise.StartsWith("§")) prise = prise.Remove(0, 1);
                 wrapper.Price = Convert.ToInt16(prise);
             }
             catch {this.tbPrice.ForeColor = System.Drawing.Color.OrangeRed;}
