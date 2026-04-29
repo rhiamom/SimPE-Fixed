@@ -658,45 +658,62 @@ namespace SimPe.Plugin
 		bool chgraw;
 		void SetContent()
 		{
-			if (inter) return;	inter = true;
-			chgraw = false;
-			pg.SelectedObject = null;
-			pb.Image = null;
-			if (item!=null)
+			if (inter) return;
+			inter = true;
+			// try/finally guarantees inter is cleared even when the body throws.
+			// Otherwise a single null MemoryCacheItem (e.g., a memory whose GUID
+			// isn't in the object cache, or a token loaded before the cache build
+			// finishes) leaves inter stuck true, and every subsequent edit handler
+			// short-circuits — the whole property panel goes read-only with no
+			// indication why.
+			try
 			{
-				this.Enabled = true;
-				Hashtable ht = new Hashtable();
-				byte ct=0;
-				foreach (string v in item.MemoryCacheItem.ValueNames)
-					ht[Helper.HexString(ct)+": "+v] = new Ambertation.BaseChangeableNumber(item.GetValue(ct++));
+				chgraw = false;
+				pg.SelectedObject = null;
+				pb.Image = null;
+				if (item != null)
+				{
+					this.Enabled = true;
+					Hashtable ht = new Hashtable();
+					byte ct = 0;
+					SimPe.Cache.MemoryCacheItem mci = item.MemoryCacheItem;
+					if (mci != null && mci.ValueNames != null)
+					{
+						foreach (string v in mci.ValueNames)
+							ht[Helper.HexString(ct) + ": " + v] = new Ambertation.BaseChangeableNumber(item.GetValue(ct++));
+					}
 
-				while (ct<item.Data.Length) 				
-					ht[Helper.HexString(ct)+":"] = new Ambertation.BaseChangeableNumber(item.GetValue(ct++));				
+					while (ct < item.Data.Length)
+						ht[Helper.HexString(ct) + ":"] = new Ambertation.BaseChangeableNumber(item.GetValue(ct++));
 
-				Ambertation.PropertyObjectBuilderExt pob = new Ambertation.PropertyObjectBuilderExt(ht);
-				
-				pg.SelectedObject = pob.Instance;
+					Ambertation.PropertyObjectBuilderExt pob = new Ambertation.PropertyObjectBuilderExt(ht);
 
-				this.tbRawLength.Text = item.Data.Length.ToString();
-				this.cbtype.SelectedValue = item.MemoryType;
+					pg.SelectedObject = pob.Instance;
 
-				UpdateSelectedItem();
+					this.tbRawLength.Text = item.Data.Length.ToString();
+					this.cbtype.SelectedValue = item.MemoryType;
 
-				pb.Image = item.MemoryCacheItem.Image;
+					UpdateSelectedItem();
 
-				SelectOwner(this.cbOwner, item);
-				SelectSubject(item);
+					if (mci != null) pb.Image = mci.Image;
 
-				tbInv.Text = item.InventoryNumber.ToString();
-				this.tbValue.Text = item.Value.ToString();
-                tbUnk.Text = SimPe.Helper.HexString(item.UnknownNumber);
-				UpdateFlagsValue();
-			} 
-			else 
-			{
-				this.Enabled = false;
+					SelectOwner(this.cbOwner, item);
+					SelectSubject(item);
+
+					tbInv.Text = item.InventoryNumber.ToString();
+					this.tbValue.Text = item.Value.ToString();
+					tbUnk.Text = SimPe.Helper.HexString(item.UnknownNumber);
+					UpdateFlagsValue();
+				}
+				else
+				{
+					this.Enabled = false;
+				}
 			}
-			inter = false;
+			finally
+			{
+				inter = false;
+			}
 		}
 
 		void UpdateFlagsValue()
@@ -706,18 +723,21 @@ namespace SimPe.Plugin
 
 		void UpdateSelectedItem()
 		{
-			bool use = (!item.MemoryCacheItem.IsToken && !item.MemoryCacheItem.IsInventory);			
+			SimPe.Cache.MemoryCacheItem mci = item.MemoryCacheItem;
+			bool isTok = mci != null && mci.IsToken;
+			bool isInv = mci != null && mci.IsInventory;
+
+			bool use = (!isTok && !isInv);
 			this.cbMems.Visible = use;
 			this.rbMems.Checked = use;
 			if (use) SelectNgbhItem(cbMems, item);
 
-
-			use = item.MemoryCacheItem.IsToken && !item.MemoryCacheItem.IsInventory;
+			use = isTok && !isInv;
 			this.cbToks.Visible = use;
 			this.rbToks.Checked = use;
 			if (use)  SelectNgbhItem(cbToks, item);
 
-			use = (!item.MemoryCacheItem.IsToken && item.MemoryCacheItem.IsInventory);
+			use = (!isTok && isInv);
 			this.cbObjs.Visible = use;
 			this.rbObjs.Checked = use;
 			if (use) SelectNgbhItem(cbObjs, item);
