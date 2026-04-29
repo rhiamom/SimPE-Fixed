@@ -314,9 +314,32 @@ namespace SimPe.Plugin
 
 		void SetContent()
 		{
-			lv.Slot = slot;
-            lvint.Slot = slot;
-            lvfam.Slot = Slut;
+			// Populating the three listviews triggers a PNG-decode + ScaleImage
+			// for every memory/token icon (MemoryCacheItem.Image is lazy-decoded
+			// on first access). For sims with many memories that's the silent
+			// multi-second pause after the cache loads — wrap it with a wait
+			// message so the UI shows what it's doing instead of freezing.
+			int total = 0;
+			if (slot != null) { var it = slot.GetItems(this.SlotType); if (it != null) total += it.Length; }
+			if (slot != null) { var it = slot.GetItems(SimPe.Data.NeighborhoodSlots.SimsIntern); if (it != null) total += it.Length; }
+			if (Slut != null) { var it = Slut.GetItems(SimPe.Data.NeighborhoodSlots.Families); if (it != null) total += it.Length; }
+
+			bool showProgress = total > 5;
+			if (showProgress)
+			{
+				Wait.SubStart(total > 0 ? total : 1);
+				Wait.Message = "Loading sim memories...";
+			}
+			try
+			{
+				lv.Slot = slot;
+				lvint.Slot = slot;
+				lvfam.Slot = Slut;
+			}
+			finally
+			{
+				if (showProgress) Wait.SubStop();
+			}
 		}
 
 		public new void Refresh()

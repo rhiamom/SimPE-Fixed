@@ -42,9 +42,23 @@ namespace SimPe.Cache
         /// Updates and Loads the Memory Cache
         /// </summary>
         /// <returns></returns>
-        public static MemoryCacheFile InitCacheFile() 
+        public static MemoryCacheFile InitCacheFile()
 		{
-			FileTable.FileIndex.Load();
+			// FileTable.FileIndex.Load() can scan thousands of expansion files on
+			// first call; surface a message so the user knows what's happening
+			// instead of seeing a frozen UI for several seconds.
+			if (sharedCache == null && !isBuilding)
+			{
+				Wait.SubStart(100);
+				Wait.Message = "Scanning game folders...";
+				Wait.Progress = 0;
+				try { FileTable.FileIndex.Load(); }
+				finally { Wait.SubStop(); }
+			}
+			else
+			{
+				FileTable.FileIndex.Load();
+			}
 			return InitCacheFile(FileTable.FileIndex);
 		}
         /// <summary>
@@ -64,8 +78,13 @@ namespace SimPe.Cache
 
             try
             {
-                Wait.SubStart();
-                Wait.Message = "Loading MemoryCache";
+                // Use SubStart(100) so the wait bar's progress strip is visible from
+                // the very first tick — SubStart() with no arg leaves ShowProgress
+                // false and the bar shows just a "Please Wait" text that's easy to
+                // miss in the 22-pixel bottom status strip.
+                Wait.SubStart(100);
+                Wait.Message = "Loading Memory Cache...";
+                Wait.Progress = 0;
 
                 string cachePath = Helper.SimPeLanguageCache;
                 System.Diagnostics.Debug.WriteLine("MemoryCache loading from: " + cachePath);
@@ -76,6 +95,7 @@ namespace SimPe.Cache
                 {
                     try
                     {
+                        Wait.Message = "Reading Memory Cache...";
                         sharedCache.Load(cachePath, true);
                     }
                     catch (Exception ex)
@@ -109,9 +129,11 @@ namespace SimPe.Cache
                 if (missing)
                 {
                     System.Diagnostics.Debug.WriteLine("MemoryCache: rebuilding...");
+                    Wait.Message = "Building Memory Cache (first run)...";
                     sharedCache.ReloadCache(fileindex, true);
                 }
 
+                Wait.Message = "Memory Cache ready";
                 Wait.SubStop();
                 return sharedCache;
             }

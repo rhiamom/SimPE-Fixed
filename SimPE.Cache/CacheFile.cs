@@ -103,15 +103,19 @@ namespace SimPe.Cache
                     int count = reader.ReadInt32();
                     if (withprogress) Wait.MaxProgress = count;
                     var fileValidCache = new System.Collections.Generic.Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
+                    // Wait.Progress's setter calls Application.DoEvents() on every
+                    // assignment, so updating it per-item ran the message pump
+                    // count-many times. Throttle progress updates AND pump to ~100
+                    // ticks total over the file, regardless of how many containers.
+                    int progressStep = System.Math.Max(1, count / 100);
                     for (int i = 0; i < count; i++)
                     {
                         CacheContainer cc = new CacheContainer(DEFAULT_TYPE);
                         cc.Load(reader, fileValidCache);
                         containers.Add(cc);
-                        if (withprogress) Wait.Progress = i;
-                        // Only pump messages every 500 containers instead of every 10
-                        if (i % 500 == 0) System.Windows.Forms.Application.DoEvents();
+                        if (withprogress && i % progressStep == 0) Wait.Progress = i;
                     }
+                    if (withprogress) Wait.Progress = count;
                 }
                 finally
                 {

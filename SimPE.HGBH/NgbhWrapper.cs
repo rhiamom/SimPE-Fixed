@@ -268,39 +268,55 @@ namespace SimPe.Plugin
 			version = reader.ReadUInt32();
             if (version == (uint)NgbhVersion.Castaway) header = new byte[12 + 32];
 			header = reader.ReadBytes(header.Length);
-            
+
 			int textlen = reader.ReadInt32();
-			zonename = reader.ReadBytes(textlen);			
+			zonename = reader.ReadBytes(textlen);
 			if (version>=(uint)NgbhVersion.Nightlife) zero = reader.ReadBytes(0x14);
 			else zero = reader.ReadBytes(0x18);
 
 			//read preitems
 			for (int i=0; i<preitems.Length; i++) preitems[i].Unserialize(reader);
-			
 
+
+			// Drive the outer wait bar's progress as we walk the slot blocks.
+			// For populated neighbourhoods this is the multi-second silent phase
+			// when "Open Memories" is clicked from a Sim Description; the outer
+			// session sets MaxProgress=100, so map slot reads onto 0..100. The
+			// three slot blocks (a/b/c) split that range into thirds. Throttle
+			// to once per slot block via step-checks to avoid pumping the
+			// message queue per-slot — Wait.Progress's setter calls DoEvents.
 			int blocklen = reader.ReadInt32();
 			slota.Clear();
-			for (int i=0; i<blocklen; i++) 
+			int stepa = System.Math.Max(1, blocklen / 33);
+			for (int i=0; i<blocklen; i++)
 			{
 				NgbhSlot item = slota.AddNew(0);
-				item.Unserialize(reader);				
+				item.Unserialize(reader);
+				if (i % stepa == 0) Wait.Progress = (i * 33) / blocklen;
 			}
+			Wait.Progress = 33;
 
 			blocklen = reader.ReadInt32();
 			slotb.Clear();
-			for (int i=0; i<blocklen; i++) 
+			int stepb = System.Math.Max(1, blocklen / 33);
+			for (int i=0; i<blocklen; i++)
 			{
 				NgbhSlot item = slotb.AddNew(0);
 				item.Unserialize(reader);
+				if (i % stepb == 0) Wait.Progress = 33 + (i * 33) / blocklen;
 			}
+			Wait.Progress = 66;
 
 			blocklen = reader.ReadInt32();
 			slotc.Clear();
-			for (int i=0; i<blocklen; i++) 
+			int stepc = System.Math.Max(1, blocklen / 34);
+			for (int i=0; i<blocklen; i++)
 			{
 				NgbhSlot item = slotc.AddNew(0);
 				item.Unserialize(reader);
+				if (i % stepc == 0) Wait.Progress = 66 + (i * 34) / blocklen;
 			}
+			Wait.Progress = 100;
 
 			Changed = false;
 		}

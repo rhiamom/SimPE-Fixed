@@ -1268,12 +1268,27 @@ namespace SimPe.PackedFiles.UserInterface
                     return;
                 }
                
-                SimPe.RemoteControl.OpenPackedFile(pfd, Sdesc.Package);
-                
-                // Tell the NGBH UI which Sim (instance) to select, and that we want the Sims slot (memories).
-                object[] data = new object[] { Sdesc.FileDescriptor.Instance, Data.NeighborhoodSlots.Sims };
-                SimPe.RemoteControl.AddMessage(this, new SimPe.RemoteControl.ControlEventArgs(0x4E474248, data));
-                
+                // OpenPackedFile blocks while the NGBH wrapper deserializes the
+                // entire neighbourhood (every sim's slot data — hundreds of slots
+                // × hundreds of memories) and the NGBH plugin UI initializes.
+                // Hold a wait session across the whole call so the user sees a
+                // "Loading memories..." message instead of the Sim Description tab
+                // sitting frozen for several seconds with no feedback.
+                Wait.SubStart(100);
+                Wait.Message = "Loading memories...";
+                try
+                {
+                    SimPe.RemoteControl.OpenPackedFile(pfd, Sdesc.Package);
+
+                    // Tell the NGBH UI which Sim (instance) to select, and that we want the Sims slot (memories).
+                    object[] data = new object[] { Sdesc.FileDescriptor.Instance, Data.NeighborhoodSlots.Sims };
+                    SimPe.RemoteControl.AddMessage(this, new SimPe.RemoteControl.ControlEventArgs(0x4E474248, data));
+                }
+                finally
+                {
+                    Wait.SubStop();
+                }
+
             }
             catch (Exception ex)
             {
