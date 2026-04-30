@@ -226,32 +226,54 @@ namespace SimPe.PackedFiles.UserInterface
         void LoadWantTable(SDescVersions version)
         {
             wnl = null;
-            string flname = System.IO.Path.Combine(PathProvider.Global.GetExpansion(Expansions.BaseGame).InstallFolder, @"TSData\Res\Objects\objects.package");
-            if (System.IO.File.Exists(flname))
+
+            // Prefer the version-aware UI XML path. Each EP package ships a
+            // wantSimulator XML (type=0, group=0xCDA53B6F, instance=0x2D7EE26B)
+            // whose <persondata> table reflects the SDSC layout for that EP —
+            // including EP-specific labels (e.g. "kEP1 - Current Grade" for the
+            // university grade slot that was unused in the base game) and the
+            // larger field count (AL goes up to 0xC2 vs base game's ~0xA9).
+            // Fall back to base game's STR (objects.package, group 0x7FE59FD0,
+            // instance 0xc8) only when the EP XML lookup turns up nothing —
+            // that happens when the user has only the base game installed or
+            // hasn't loaded the FileTable yet.
+            try
             {
-                SimPe.Packages.File fl = SimPe.Packages.File.LoadFromFile(flname);
-                Interfaces.Files.IPackedFileDescriptor pfd = fl.FindFile(0x53545223, 0, 0x7FE59FD0, 0xc8);
-                if (pfd!=null)
+                FileTable.FileIndex.Load();
+                SimPe.Plugin.WantNameLoader candidate = new SimPe.Plugin.WantNameLoader(version);
+                ArrayList ns = candidate.GetNames(SimPe.Plugin.WantType.Undefined);
+                if (ns != null && ns.Count > 0) wnl = candidate;
+            }
+            catch { }
+
+            if (wnl == null)
+            {
+                string flname = System.IO.Path.Combine(PathProvider.Global.GetExpansion(Expansions.BaseGame).InstallFolder, @"TSData\Res\Objects\objects.package");
+                if (System.IO.File.Exists(flname))
                 {
-                    SimPe.PackedFiles.Wrapper.Str str = new Str();
-                    str.ProcessData(pfd, fl);
-                    SimPe.PackedFiles.Wrapper.StrItemList list = str.LanguageItems(1);
-                    string xml = "<wantSimulator>"+Helper.lbr;
-                    xml += "  <persondata>"+Helper.lbr;
-                    for (int sid = 0; sid<list.Length; sid++)
+                    SimPe.Packages.File fl = SimPe.Packages.File.LoadFromFile(flname);
+                    Interfaces.Files.IPackedFileDescriptor pfd = fl.FindFile(0x53545223, 0, 0x7FE59FD0, 0xc8);
+                    if (pfd != null)
                     {
-                        SimPe.PackedFiles.Wrapper.StrToken si = list[sid];
-                        xml += "    <persondata id=\""+(sid+1).ToString()+"\" name=\""+si.Title+"\" /> "+Helper.lbr;
+                        SimPe.PackedFiles.Wrapper.Str str = new Str();
+                        str.ProcessData(pfd, fl);
+                        SimPe.PackedFiles.Wrapper.StrItemList list = str.LanguageItems(1);
+                        string xml = "<wantSimulator>" + Helper.lbr;
+                        xml += "  <persondata>" + Helper.lbr;
+                        for (int sid = 0; sid < list.Length; sid++)
+                        {
+                            SimPe.PackedFiles.Wrapper.StrToken si = list[sid];
+                            xml += "    <persondata id=\"" + (sid + 1).ToString() + "\" name=\"" + si.Title + "\" /> " + Helper.lbr;
+                        }
+                        xml += "  </persondata>" + Helper.lbr;
+                        xml += "</wantSimulator>" + Helper.lbr;
+                        wnl = new SimPe.Plugin.WantNameLoader(xml);
                     }
-                    xml += "  </persondata>"+Helper.lbr;
-                    xml += "</wantSimulator>"+Helper.lbr;
-                    wnl = new SimPe.Plugin.WantNameLoader(xml);
                 }
             }
 
-            if (wnl==null)
+            if (wnl == null)
             {
-                FileTable.FileIndex.Load();
                 wnl = new SimPe.Plugin.WantNameLoader(version);
             }
         }
