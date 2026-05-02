@@ -124,7 +124,8 @@ namespace SimPe
             var packs = new List<PackFolderInfo>();
 
             string rootTsData = Path.Combine(root, "TSData");
-            if (Directory.Exists(rootTsData))
+            bool rootIsItselfABaseGame = Directory.Exists(rootTsData);
+            if (rootIsItselfABaseGame)
             {
                 packs.Add(new PackFolderInfo(
                     name: "Base Game",
@@ -139,9 +140,48 @@ namespace SimPe
             var seenPackPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             // We already handled root\\TSData above, but track it so we don't duplicate.
-            if (Directory.Exists(rootTsData))
+            if (rootIsItselfABaseGame)
             {
                 seenPackPaths.Add(root);
+            }
+
+            // Classic Origin / Mr DJ repack layouts put each EP and SP in a
+            // SIBLING folder of the base game (e.g., "The Sims 2\\TSData",
+            // "The Sims 2 University\\TSData", "The Sims 2 Apartment Life\\TSData"
+            // — all sitting next to each other under "EA Games\\"). If the
+            // user picked the base-game folder, descending its subdirectories
+            // alone never sees those siblings. When the chosen root IS itself
+            // a base game, also enqueue the siblings so the BFS below can
+            // pick them up. Only do this when we recognise the root as a
+            // base game so we don't accidentally scan a user's whole
+            // Program Files tree.
+            var rootsToWalk = new List<string> { root };
+            if (rootIsItselfABaseGame)
+            {
+                string parent = null;
+                try { parent = Path.GetDirectoryName(root); } catch { }
+                if (!string.IsNullOrEmpty(parent) && Directory.Exists(parent))
+                {
+                    string[] siblings;
+                    try { siblings = Directory.GetDirectories(parent); }
+                    catch { siblings = new string[0]; }
+                    foreach (string sib in siblings)
+                    {
+                        if (string.Equals(sib, root, StringComparison.OrdinalIgnoreCase)) continue;
+                        // Sanity-cap: only consider siblings that look like
+                        // additional Sims 2 install folders (they should
+                        // contain a TSData subfolder either directly or one
+                        // level down). The BFS will skip non-pack siblings
+                        // because they have no TSData anywhere — this just
+                        // avoids paying that cost for obviously unrelated
+                        // siblings on slow disks.
+                        string sibName = Path.GetFileName(sib) ?? "";
+                        if (sibName.IndexOf("Sims", StringComparison.OrdinalIgnoreCase) < 0 &&
+                            !Directory.Exists(Path.Combine(sib, "TSData")))
+                            continue;
+                        rootsToWalk.Add(sib);
+                    }
+                }
             }
 
             // Depth limit: prevents scanning huge directory trees if someone points at a big folder.
@@ -149,7 +189,8 @@ namespace SimPe
             const int maxDepth = 5;
 
             var queue = new Queue<Tuple<string, int>>();
-            queue.Enqueue(Tuple.Create(root, 0));
+            foreach (string r in rootsToWalk)
+                queue.Enqueue(Tuple.Create(r, 0));
 
             while (queue.Count > 0)
             {
