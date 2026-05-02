@@ -633,7 +633,7 @@ namespace SimPe.Plugin
 		public Plugin.NgbhItemsListView NgbhItemsListView
 		{
 			get {return nilv;}
-			set 
+			set
 			{
 				if (nilv!=null) nilv.SelectedIndexChanged -= new EventHandler(nilv_SelectedIndexChanged);
 				nilv = value;
@@ -764,15 +764,15 @@ namespace SimPe.Plugin
 
 		private void nilv_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (nilv!=null) 
+			if (nilv!=null)
 			{
 				Plugin.NgbhItemsListViewItem lvi = nilv.SelectedItem;
 				if (lvi!=null && !nilv.SelectedMultiple)
 					Item = lvi.Item;
-				else 
+				else
 					Item = null;
-			} 
-			else 
+			}
+			else
 				Item = null;
 		}
 

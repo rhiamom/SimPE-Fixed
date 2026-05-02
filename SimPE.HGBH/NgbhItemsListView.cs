@@ -372,14 +372,28 @@ namespace SimPe.Plugin
 		[System.ComponentModel.Browsable(false)]
 		public NgbhItemsListViewItem SelectedItem
 		{
-			get 
+			get
 			{
-				if (lv.SelectedItems.Count==0) return null;
-				
-				if (lv.FocusedItem!=null) 
-					if (lv.FocusedItem.Selected) return lv.FocusedItem as NgbhItemsListViewItem;				
-				
-				return lv.SelectedItems[0] as NgbhItemsListViewItem;
+				if (lv.SelectedItems.Count == 0) return null;
+
+				// Prefer the focused item only if it cleanly casts to
+				// NgbhItemsListViewItem. The previous logic returned `as`-cast
+				// of FocusedItem unconditionally — so when FocusedItem was a
+				// plain ListViewItem (which can happen during a swap or after
+				// virtualization), the cast returned null and SelectedItem
+				// returned null even though SelectedItems[0] was a valid
+				// NgbhItemsListViewItem. That left MemoryProperties with
+				// Item=null and the property panel stuck disabled even though
+				// the row was visibly selected and the side buttons enabled.
+				NgbhItemsListViewItem focused = lv.FocusedItem as NgbhItemsListViewItem;
+				if (focused != null && focused.Selected) return focused;
+
+				foreach (ListViewItem lvi in lv.SelectedItems)
+				{
+					NgbhItemsListViewItem ngbh = lvi as NgbhItemsListViewItem;
+					if (ngbh != null) return ngbh;
+				}
+				return null;
 			}
 		}
 

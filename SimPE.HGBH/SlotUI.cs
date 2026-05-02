@@ -119,6 +119,14 @@ namespace SimPe.Plugin
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.Size = new System.Drawing.Size(504, 165);
 			this.tabControl1.TabIndex = 3;
+			// Update memprop's bound listview whenever the active tab changes.
+			// Relying on tabPage2/3.VisibleChanged alone wasn't enough — at
+			// construction time tabControl1.SelectedTab can be null (handle
+			// not created yet), so the initial sync defaulted to lvint
+			// (Tokens) regardless of which tab the user later viewed. Then
+			// switching to Memories never re-bound memprop because tabPage1
+			// has no VisibleChanged handler.
+			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabPage2_VisibleChanged);
 			// 
 			// tabPage1
 			// 
@@ -369,12 +377,22 @@ namespace SimPe.Plugin
 
 		private void tabPage2_VisibleChanged(object sender, System.EventArgs e)
 		{
-			if (tabControl1.SelectedTab == this.tabPage1)
-				memprop.NgbhItemsListView = lv;
-            else if (tabControl1.SelectedTab == this.tabPage3)
-                memprop.NgbhItemsListView = lvfam;
-			else
-				memprop.NgbhItemsListView = lvint;
+			// Default to lv (Memories) when SelectedTab can't be resolved
+			// (null at construction before the handle is created, or when
+			// tabPage3 has been Removed in HiddenMode). The previous default
+			// to lvint left memprop bound to the wrong listview when the user
+			// landed on Memories, so clicking a memory in lv never reached
+			// the Properties panel — only Tokens-tab clicks would populate it.
+			System.Windows.Forms.TabPage selected = null;
+			try { selected = tabControl1.SelectedTab; } catch { }
+
+			NgbhItemsListView target;
+			if (selected == this.tabPage2) target = lvint;
+			else if (selected == this.tabPage3) target = lvfam;
+			else target = lv;
+
+			if (memprop.NgbhItemsListView != target)
+				memprop.NgbhItemsListView = target;
 		}
 	}
 }
