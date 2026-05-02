@@ -337,15 +337,22 @@ namespace SimPe.Cache
 		public void LoadMemList()
 		{
 			list = new ArrayList();
-			
 
-			foreach (CacheContainer cc in Containers) 
+			// Dedupe by Guid. With Sims 2 Legacy (and any classic install with
+			// all EPs), every EP's objects.package contains its own copy of
+			// the base-game memory definitions plus EP additions, so iterating
+			// every container blindly yielded N copies of every shared memory.
+			// LoadMem() above already dedupes via its Hashtable key — match
+			// that behaviour here so consumers like ObjectComboBox don't get
+			// duplicate dropdown entries.
+			System.Collections.Generic.HashSet<uint> seen = new System.Collections.Generic.HashSet<uint>();
+			foreach (CacheContainer cc in Containers)
 			{
-				if (cc.Type==ContainerType.Memory && cc.Valid) 
+				if (cc.Type == ContainerType.Memory && cc.Valid)
 				{
-					foreach (MemoryCacheItem mci in cc.Items) 
-					{						
-						list.Add(mci);
+					foreach (MemoryCacheItem mci in cc.Items)
+					{
+						if (seen.Add(mci.Guid)) list.Add(mci);
 					}
 				}
 			}//foreach
