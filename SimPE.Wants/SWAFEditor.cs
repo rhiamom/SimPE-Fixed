@@ -63,8 +63,19 @@ namespace SimPe.Wants
             lflags = new List<CheckBox>(new CheckBox[] {
                 ckbFlag1, ckbFlag2, ckbFlag3, ckbFlag4, ckbFlag5, ckbFlag6, ckbFlag7, ckbFlag8,
             });
+            // Order matters: tbUInt_TextChanged dispatches by IndexOf into a
+            // switch statement whose cases assume this exact sequence.
+            // Previously the list contained only tbSICounter, so every other
+            // textbox here (Max Fears, Max Wants, Unknown 1/2/3) returned
+            // immediately on the IndexOf<0 guard — the user could type into
+            // them but nothing would persist and Commit never lit up.
             ltbUint32 = new List<TextBox>(new TextBox[] {
-                tbSICounter,
+                tbMaxFears,    // case 0
+                tbMaxWants,    // case 1
+                tbUnknown1,    // case 2
+                tbUnknown2,    // case 3
+                tbUnknown3,    // case 4
+                tbSICounter,   // case 5
             });
             lgc = new List<SimPe.Plugin.GUIDChooser>(new SimPe.Plugin.GUIDChooser[]{
                 gcSIWant, gcSIObject, gcSICategory, gcSICareer, gcSIBadge,
@@ -575,8 +586,18 @@ namespace SimPe.Wants
             WrapperChanged(wrapper, null);
 
             internalchg = true;
+            // Force ALL four include checkboxes on. The previous code only set
+            // ckbIncWants/ckbIncLTWants, leaving ckbIncFears and ckbIncHistory
+            // at whatever the designer/Settings had — usually false. With
+            // ckbIncFears unchecked, btnAddFear stays disabled (line 437)
+            // because its enable gate is `ckbIncFears.Checked && Fears.Count <
+            // MaxFears`, so the user couldn't add fears at all. Same trap for
+            // History. 0.73 doesn't force any of these; symmetric "all on"
+            // gives a usable starting state without surprising the user.
             ckbIncWants.Checked = true;
+            ckbIncFears.Checked = true;
             ckbIncLTWants.Checked = true;
+            ckbIncHistory.Checked = true;
 
             tbUnknown3.Enabled = tbMaxWants.Enabled = tbMaxFears.Enabled = wrapper.Version >= 0x05;
             //ckbIncWants.Enabled = ckbIncFears.Enabled = ckbIncLTWants.Enabled = ckbIncHistory.Enabled = true;
@@ -947,6 +968,13 @@ namespace SimPe.Wants
 
             if (pos == -1) lvItems.SelectedIndices.Clear();
             else lvItems.Items[pos].Selected = true;
+
+            // Recompute the Add-button gates — wrapper.Wants/Fears.Count just
+            // dropped, so a deletion that brings us back below the cap should
+            // re-enable Add immediately. Without this the user had to Commit
+            // first to get the buttons to refresh.
+            btnAddWant.Enabled = ckbIncWants.Checked && wrapper.Wants.Count < wrapper.MaxWants;
+            btnAddFear.Enabled = ckbIncFears.Checked && wrapper.Fears.Count < wrapper.MaxFears;
         }
 
         private void lvItems_SelectedIndexChanged(object sender, EventArgs e)
