@@ -81,6 +81,8 @@ namespace SimPe
                     this.cbCustom.Items.Add(settings);
                 if (cbCustom.Items.Count > 0) cbCustom.SelectedIndex = 0;
 
+                BuildFileTableTab();
+                LoadCustomFileTableItems();
             }
             finally { Application.UseWaitCursor = false; }
         }
@@ -213,6 +215,8 @@ namespace SimPe
             catch { }
 
             Helper.WindowsRegistry.Flush();
+
+            SaveCustomFileTableItems();
 
             Close();
         }

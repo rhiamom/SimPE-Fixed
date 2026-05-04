@@ -97,6 +97,15 @@ namespace SimPe
                         folders.Add(new FileTableItem(System.IO.Path.Combine(tsData, "Res\\Wants"), false, false));
                     }
 
+                    // User-managed entries from Preferences -> File Table.
+                    // Lets users add specific Downloads packages or whole
+                    // mod-globals folders so PJSE can resolve their BHAVs and
+                    // SDSC labels can find their wantSimulator XMLs.
+                    foreach (FileTableItem fti in CustomFolderStore.Load())
+                    {
+                        if (fti != null && fti.Use) folders.Add(fti);
+                    }
+
                     return folders;
                 }
                 catch (Exception ex)
