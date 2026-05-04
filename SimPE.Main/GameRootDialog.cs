@@ -523,27 +523,20 @@ namespace SimPe
             cepHasZcepExtraFolder = false;
 
             string baseGamePath = BaseGamePath;
+            GameRootScanResult scan = null;
 
             string downloadsPath = txtDownloads.Text.Trim();
-            if (string.IsNullOrEmpty(baseGamePath))
+            string editionForScan = GetSelectedEdition();
+            string rootForScan = txtGameRoot.Text.Trim();
+            if (!string.IsNullOrEmpty(editionForScan) &&
+                !string.IsNullOrEmpty(rootForScan) &&
+                Directory.Exists(rootForScan))
             {
-                string edition = GetSelectedEdition();
-                string root = txtGameRoot.Text.Trim();
-
-                if (!string.IsNullOrEmpty(edition) &&
-                    !string.IsNullOrEmpty(root) &&
-                    Directory.Exists(root))
-                {
-                    try
-                    {
-                        var scan = GameRootAutoScanner.ScanRoot(root);
-                        baseGamePath = ResolveBaseGamePath(edition, scan.RootFolder, scan);
-                    }
-                    catch
-                    {
-                        // ignore; we'll just show missing
-                    }
-                }
+                try { scan = GameRootAutoScanner.ScanRoot(rootForScan); } catch { }
+            }
+            if (string.IsNullOrEmpty(baseGamePath) && scan != null)
+            {
+                try { baseGamePath = ResolveBaseGamePath(editionForScan, scan.RootFolder, scan); } catch { }
             }
 
             // --- User-side CEP (Downloads) ---
@@ -566,6 +559,30 @@ namespace SimPe
                 cepHasZcepExtraFolder = Directory.Exists(zcepExtraFolderPath);
             }
 
+            // --- Pack counts (informational; helps testers self-diagnose missing
+            //     EPs that turn into "unknown BHAV" or empty SDSC labels). ---
+            string packLine = "  Packs: (not scanned yet)";
+            if (scan != null)
+            {
+                int bg = 0, ep = 0, sp = 0, other = 0;
+                foreach (var p in scan.Packs)
+                {
+                    if (!p.HasTsData) continue;
+                    if (p.IsBaseGame) { bg++; continue; }
+                    string n = p.Name ?? "";
+                    bool isSp =
+                        n.IndexOf("Stuff", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                        System.Text.RegularExpressions.Regex.IsMatch(n, @"^SP\d+$", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                    bool isEp =
+                        System.Text.RegularExpressions.Regex.IsMatch(n, @"^EP\d+$", System.Text.RegularExpressions.RegexOptions.IgnoreCase) ||
+                        n.IndexOf("Sims 2", StringComparison.OrdinalIgnoreCase) >= 0;
+                    if (isSp) sp++;
+                    else if (isEp) ep++;
+                    else other++;
+                }
+                packLine = $"  Packs detected: {bg} base, {ep} EP, {sp} SP" + (other > 0 ? $", {other} other" : "");
+            }
+
             // --- Display ---
             if (lblCepStatus != null)
             {
@@ -574,8 +591,9 @@ namespace SimPe
                     $"  Downloads: GMND {(cepHasGmnd ? "OK" : "Missing")}, zCEP {(cepHasZcepFolder ? "OK" : "Missing")}\r\n" +
                     $"  Base game: MMAT {(cepHasMmat ? "OK" : "Missing")}, zCEP-EXTRA {(cepHasZcepExtraFolder ? "OK" : "Missing")}\r\n" +
                         (cepHasGmnd && cepHasZcepFolder && cepHasMmat && cepHasZcepExtraFolder
-        ? "  CEP is fully installed. Maxis object recolors will work."
-        : "  CEP is incomplete or missing. Maxis object recolors will NOT work.");
+        ? "  CEP is fully installed. Maxis object recolors will work.\r\n"
+        : "  CEP is incomplete or missing. Maxis object recolors will NOT work.\r\n") +
+                    packLine;
                 btnDownloadCep.Enabled = !IsCepComplete();
             }
         }
