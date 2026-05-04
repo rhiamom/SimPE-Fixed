@@ -465,6 +465,22 @@ namespace SimPe
                     // Ignore any registry read errors and fall back to "not installed"
                 }
 
+                // --- GameRoot scan fallback (Helper.PackInstallFolders) ---
+                // For installs whose installer didn't write any registry entries
+                // (Origin's UC, Mr DJ repacks, custom installs), the GameRoot
+                // scanner found this EP/SP and recorded its install folder. If
+                // that folder exists on disk, treat the pack as installed.
+                try
+                {
+                    string p;
+                    if (Helper.PackInstallFolders != null &&
+                        Helper.PackInstallFolders.TryGetValue(exp, out p) &&
+                        !string.IsNullOrEmpty(p) &&
+                        System.IO.Directory.Exists(p))
+                        return true;
+                }
+                catch { }
+
                 return false;
             }
         }
@@ -634,15 +650,28 @@ namespace SimPe
                         }
                     }
 
-                    if (o == null)
-                        return "";
-                    else
+                    if (o != null)
                         return Helper.ToLongPathName(o.ToString());
                 }
                 catch (Exception)
                 {
-                    return "";
+                    // fall through to PackInstallFolders fallback
                 }
+
+                // 3) GameRoot scan fallback — Origin/Mr DJ/custom installs that
+                // never wrote registry entries. PathProvider populates
+                // Helper.PackInstallFolders from the GameRootScanner result.
+                try
+                {
+                    string p;
+                    if (Helper.PackInstallFolders != null &&
+                        Helper.PackInstallFolders.TryGetValue(exp, out p) &&
+                        !string.IsNullOrEmpty(p))
+                        return p;
+                }
+                catch { }
+
+                return "";
             }
         }
 

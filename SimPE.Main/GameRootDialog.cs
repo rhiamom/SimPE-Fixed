@@ -333,11 +333,15 @@ namespace SimPe
                 MessageBox.Show(
                     this,
                     "The Sims 2 base game folder could not be found where it is expected for the selected edition.\n\n" +
-                    "Please use Custom and browse directly to your base game folder (the folder that contains TSData).\n\n" +
+                    "Pick the FOLDER ABOVE the base game so SimPE can also see your EPs and Stuff Packs:\n\n" +
                     "Examples:\n" +
-                    "  - Legacy/Steam/Epic: ...\\The Sims 2 Legacy Collection\\Base\n" +
-                    "  - Ultimate Collection: ...\\The Sims 2 Ultimate Collection\\Double Deluxe\\Base\n" +
-                    "  - Disc/Custom base folder: ...\\The Sims 2",
+                    "  - Legacy/Steam/Epic: ...\\The Sims 2 Legacy Collection\n" +
+                    "  - Ultimate Collection: ...\\The Sims 2 Ultimate Collection\n" +
+                    "      (or its Double Deluxe subfolder if the top folder won't work)\n" +
+                    "  - Disc/Custom: the folder containing your Sims 2 install — i.e.\n" +
+                    "      the parent of \"The Sims 2\" (base) and your EP/SP folders.\n\n" +
+                    "Avoid pointing at the base game's own folder (e.g. Double Deluxe\\Base) —\n" +
+                    "that hides your other packs from SimPE.",
                     "Base Game Folder Not Found",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
@@ -367,6 +371,23 @@ namespace SimPe
 
                 return;
             }
+            // Build per-EP install folder map from the scanner so PathProvider
+            // can find packs on installs whose installer didn't write any
+            // App Paths registry entries (Origin's UC, Mr DJ repacks, etc.).
+            // Without this, ExpansionItem.RealInstallFolder returns "" for
+            // every EP and the user only gets BG via the BaseGamePath fallback.
+            try
+            {
+                if (!string.IsNullOrEmpty(GameRootPath) && System.IO.Directory.Exists(GameRootPath))
+                {
+                    var fullScan = GameRootAutoScanner.ScanRoot(GameRootPath);
+                    var packMap = PackPathResolver.BuildMap(fullScan);
+                    Helper.PackInstallFolders = packMap;
+                    Helper.SavePackInstallFolders(packMap);
+                }
+            }
+            catch { /* non-fatal — registry path still works for users who have it */ }
+
             //Clear and rewrite the ObjectCache FileTable and FileIndex when changing game roots
             System.IO.File.Delete(SimPe.Helper.SimPeLanguageCache);
             SimPe.FileTable.Reload();
@@ -423,10 +444,16 @@ namespace SimPe
                 string p3 = @"C:\Program Files\The Sims 2 Ultimate Collection";
                 string p4 = @"C:\Program Files (x86)\The Sims 2 Ultimate Collection";
 
+                // Origin installer layout (Origin Games subfolder)
+                string p5 = @"C:\Program Files (x86)\Origin Games\The Sims 2 Ultimate Collection";
+                string p6 = @"C:\Program Files\Origin Games\The Sims 2 Ultimate Collection";
+
                 if (Directory.Exists(p1)) suggested = p1;
                 else if (Directory.Exists(p2)) suggested = p2;
                 else if (Directory.Exists(p3)) suggested = p3;
                 else if (Directory.Exists(p4)) suggested = p4;
+                else if (Directory.Exists(p5)) suggested = p5;
+                else if (Directory.Exists(p6)) suggested = p6;
                 else
                     suggested = string.Empty;   //act like custom was checked
             }
@@ -569,15 +596,9 @@ namespace SimPe
                 {
                     if (!p.HasTsData) continue;
                     if (p.IsBaseGame) { bg++; continue; }
-                    string n = p.Name ?? "";
-                    bool isSp =
-                        n.IndexOf("Stuff", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                        System.Text.RegularExpressions.Regex.IsMatch(n, @"^SP\d+$", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-                    bool isEp =
-                        System.Text.RegularExpressions.Regex.IsMatch(n, @"^EP\d+$", System.Text.RegularExpressions.RegexOptions.IgnoreCase) ||
-                        n.IndexOf("Sims 2", StringComparison.OrdinalIgnoreCase) >= 0;
-                    if (isSp) sp++;
-                    else if (isEp) ep++;
+                    string n = (p.Name ?? "").Trim();
+                    if (LooksLikeStuffPack(n)) sp++;
+                    else if (LooksLikeExpansionPack(n)) ep++;
                     else other++;
                 }
                 packLine = $"  Packs detected: {bg} base, {ep} EP, {sp} SP" + (other > 0 ? $", {other} other" : "");
@@ -596,6 +617,44 @@ namespace SimPe
                     packLine;
                 btnDownloadCep.Enabled = !IsCepComplete();
             }
+        }
+
+        // Pack-name heuristics for the diagnostic counts shown in CEP status.
+        // Folder names vary across editions: Legacy uses EP1/SP9, UC nests under
+        // descriptive container names where the leaf is the pack name itself
+        // ("Nightlife", "Pets", "Mansion and Garden Stuff"), and disc/Origin
+        // installs use full names like "The Sims 2 University". We just need to
+        // bucket each detected pack as EP, SP, or "other" for the at-a-glance
+        // sanity check — exact precision isn't required.
+        private static readonly string[] EpNames = new[]
+        {
+            "University", "Nightlife", "Open for Business", "Best of Business",
+            "Pets", "Fun with Pets", "Seasons", "Bon Voyage",
+            "FreeTime", "Free Time", "Apartment Life",
+        };
+
+        private static bool LooksLikeStuffPack(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return false;
+            if (name.IndexOf("Stuff", StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            if (System.Text.RegularExpressions.Regex.IsMatch(name, @"^SP\d+$",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase)) return true;
+            return false;
+        }
+
+        private static bool LooksLikeExpansionPack(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return false;
+            if (System.Text.RegularExpressions.Regex.IsMatch(name, @"^EP\d+$",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase)) return true;
+            // "The Sims 2 University", "The Sims 2 Pets", etc. (disc/Origin classic)
+            if (name.IndexOf("Sims 2", StringComparison.OrdinalIgnoreCase) >= 0) return true;
+            // UC layouts whose leaf folder name matches an EP descriptive name.
+            foreach (string ep in EpNames)
+            {
+                if (string.Equals(name, ep, StringComparison.OrdinalIgnoreCase)) return true;
+            }
+            return false;
         }
 
         private void btnBrowseDownloads_Click(object sender, EventArgs e)

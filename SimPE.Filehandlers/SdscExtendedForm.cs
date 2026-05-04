@@ -228,7 +228,8 @@ namespace SimPe.PackedFiles.UserInterface
             wnl = null;
 
             // For BaseGame SDSCs: read STR 0xc8 from BG's objects.package — same
-            // path classic 0.73 used.
+            // path classic 0.73 used. This restores "Generousity" etc. for sims
+            // whose SDSC is still at the unpatched BG layout.
             if (version == SDescVersions.BaseGame)
             {
                 string flname = System.IO.Path.Combine(PathProvider.Global.GetExpansion(Expansions.BaseGame).InstallFolder, @"TSData\Res\Objects\objects.package");
@@ -258,107 +259,16 @@ namespace SimPe.PackedFiles.UserInterface
                     catch { }
                 }
             }
-            else
-            {
-                // For non-BaseGame SDSCs (AL/M&G/etc.): the version-specific
-                // labels live in each EP's UI.package as a wantSimulator XML at
-                // (type=0x00000000, group=0xCDA53B6F, instance=0x2D7EE26B).
-                // Each EP's XML is cumulative (covers all slots up through that
-                // EP's SDSC layout), so the right strategy is to find the
-                // highest-version installed EP at or below the SDSC's version
-                // and read its UI.package directly.
-                //
-                // Classic 0.73's WantNameLoader(version) looks these up via
-                // FileTable.FileIndex, which works on classic Sims 2 installs
-                // where the index gets populated from each EP's UI/Res folders.
-                // On Sims 2 Legacy that lookup turns up empty for some users,
-                // so reach into the package directly.
-                wnl = LoadVersionXmlDirect(version);
-            }
 
+            // Non-BaseGame SDSCs (and BG fallthrough if STR lookup failed): use
+            // FileTable's WantNameLoader as 0.73 did. TSData/Res/Wants is in the
+            // default FileTable folders, so each EP's WantTuning.package is
+            // already indexed.
             if (wnl == null)
             {
                 FileTable.FileIndex.Load();
                 wnl = new SimPe.Plugin.WantNameLoader(version);
             }
-        }
-
-        // Search every installed BG/EP folder for a UI.package containing the
-        // wantSimulator XML, picking the highest-version one whose Version is
-        // <= the SDSC's version. Falls back to whatever EP we can read if no
-        // exact match is available.
-        SimPe.Plugin.WantNameLoader LoadVersionXmlDirect(SDescVersions version)
-        {
-            try
-            {
-                int targetVer = (int)version;
-                System.Collections.Generic.SortedDictionary<int, ExpansionItem> ordered =
-                    new System.Collections.Generic.SortedDictionary<int, ExpansionItem>();
-                foreach (ExpansionItem ei in PathProvider.Global.Expansions)
-                {
-                    if (!ei.Exists) continue;
-                    if (ei.Flag.Class != ExpansionItem.Classes.BaseGame &&
-                        ei.Flag.Class != ExpansionItem.Classes.ExpansionPack) continue;
-                    ordered[ei.Version] = ei;
-                }
-
-                // Walk highest-installed-EP-first, prefer one at or below
-                // targetVer (cumulative labels for that EP). If none qualifies,
-                // fall back to the highest installed (the user has a sim from a
-                // newer EP than they have installed — rare).
-                System.Collections.Generic.List<ExpansionItem> candidates =
-                    new System.Collections.Generic.List<ExpansionItem>();
-                foreach (var kv in ordered)
-                {
-                    if (kv.Key <= targetVer) candidates.Add(kv.Value);
-                }
-                if (candidates.Count == 0)
-                {
-                    foreach (var kv in ordered) candidates.Add(kv.Value);
-                }
-                candidates.Reverse(); // highest first
-
-                foreach (ExpansionItem ei in candidates)
-                {
-                    // wantSimulator XML lives in TSData\Res\Wants\WantTuning.package,
-                    // not in UI\ui.package. The base game and every EP/SP ship one.
-                    // FileTable.DefaultFolders doesn't include Res\Wants, which is
-                    // why FileTable.FileIndex lookups for this XML come back empty
-                    // — read the package directly.
-                    string flname = System.IO.Path.Combine(ei.InstallFolder, @"TSData\Res\Wants\WantTuning.package");
-                    if (!System.IO.File.Exists(flname)) continue;
-
-                    try
-                    {
-                        SimPe.Packages.File fl = SimPe.Packages.File.LoadFromFile(flname);
-
-                        // Subtype on the wantSimulator XML resource isn't always
-                        // zero, so iterate type=0 files and match group+instance
-                        // manually rather than relying on a fixed FindFile(t,s,g,i).
-                        Interfaces.Files.IPackedFileDescriptor[] all = fl.FindFiles(0x00000000);
-                        Interfaces.Files.IPackedFileDescriptor xmlPfd = null;
-                        foreach (var pfd in all)
-                        {
-                            if (pfd.Group == 0xCDA53B6F && pfd.Instance == 0x2D7EE26B)
-                            {
-                                xmlPfd = pfd;
-                                break;
-                            }
-                        }
-                        if (xmlPfd == null) continue;
-
-                        SimPe.PackedFiles.Wrapper.Xml xmlwrap = new SimPe.PackedFiles.Wrapper.Xml();
-                        xmlwrap.ProcessData(xmlPfd, fl);
-
-                        SimPe.Plugin.WantNameLoader candidate = new SimPe.Plugin.WantNameLoader(xmlwrap.Text);
-                        ArrayList ns = candidate.GetNames(SimPe.Plugin.WantType.Undefined);
-                        if (ns != null && ns.Count > 0) return candidate;
-                    }
-                    catch { /* try next candidate */ }
-                }
-            }
-            catch { }
-            return null;
         }
 
         void ShowData(byte[] data)

@@ -77,7 +77,52 @@ namespace SimPe
         public static string BaseGamePath { get; set; }
 
         public static string DownloadsPath = string.Empty;
-        
+
+        // Maps each detected EP/SP to its install folder, sourced from the
+        // GameRootScanner. ExpansionItem consults this when the Windows
+        // registry-based detection (App Paths) returns nothing — required for
+        // Origin's UC installer and other repacks that don't write the EA-era
+        // registry keys. Saved alongside GameRoot.cfg as Packs.cfg.
+        public static System.Collections.Generic.Dictionary<Expansions, string> PackInstallFolders { get; set; }
+            = new System.Collections.Generic.Dictionary<Expansions, string>();
+
+        public static void SavePackInstallFolders(System.Collections.Generic.Dictionary<Expansions, string> map)
+        {
+            try
+            {
+                var lines = new System.Collections.Generic.List<string>();
+                if (map != null)
+                {
+                    foreach (var kv in map)
+                        lines.Add(kv.Key.ToString() + "|" + (kv.Value ?? ""));
+                }
+                File.WriteAllLines(DataFolder.PackPathsConfigPath, lines);
+            }
+            catch { /* non-fatal */ }
+        }
+
+        static void LoadPackInstallFoldersFromFile()
+        {
+            PackInstallFolders.Clear();
+            try
+            {
+                if (!File.Exists(DataFolder.PackPathsConfigPath)) return;
+                foreach (string raw in File.ReadAllLines(DataFolder.PackPathsConfigPath))
+                {
+                    if (string.IsNullOrWhiteSpace(raw)) continue;
+                    int bar = raw.IndexOf('|');
+                    if (bar <= 0) continue;
+                    string keyName = raw.Substring(0, bar).Trim();
+                    string path = raw.Substring(bar + 1).Trim();
+                    if (string.IsNullOrEmpty(path)) continue;
+                    Expansions exp;
+                    if (Enum.TryParse<Expansions>(keyName, out exp))
+                        PackInstallFolders[exp] = path;
+                }
+            }
+            catch { /* non-fatal */ }
+        }
+
         public static void SaveGameRootToFile(string rootPath, string edition, string baseGamePath, string downloadsPath)
         {
             try
@@ -128,6 +173,31 @@ namespace SimPe
                 GameRootPath = string.Empty;
                 GameEdition  = string.Empty;
                 BaseGamePath = string.Empty;
+            }
+
+            LoadPackInstallFoldersFromFile();
+
+            // Backfill: if a user upgrades from a SimPE version that didn't
+            // persist pack folders but already has GameRoot.cfg, run the scanner
+            // once now and save the result. Without this, every existing user
+            // would have to re-enter the Game Root dialog before EP detection
+            // works for non-registry installs.
+            if (PackInstallFolders.Count == 0 && !string.IsNullOrEmpty(GameRootPath))
+            {
+                try
+                {
+                    if (Directory.Exists(GameRootPath))
+                    {
+                        var scan = GameRootAutoScanner.ScanRoot(GameRootPath);
+                        var map = PackPathResolver.BuildMap(scan);
+                        if (map.Count > 0)
+                        {
+                            PackInstallFolders = map;
+                            SavePackInstallFolders(map);
+                        }
+                    }
+                }
+                catch { /* non-fatal — registry path still works for users who have it */ }
             }
         }
         //end of new game detection
@@ -647,6 +717,15 @@ namespace SimPe
             public static string GameRootConfigPath
             {
                 get { return ProfilePath("GameRoot.cfg"); }
+            }
+
+            /// <summary>
+            /// The path to the per-EP/SP install-folder map persisted by
+            /// PackPathResolver. Sibling of GameRoot.cfg.
+            /// </summary>
+            public static string PackPathsConfigPath
+            {
+                get { return ProfilePath("Packs.cfg"); }
             }
 
             /// <summary>
