@@ -466,8 +466,24 @@ namespace SimPe
 
             else if (rbSteam.Checked)
             {
-                // Hypothetical Steam default – user can edit if wrong
-                suggested = @"C:\Program Files (x86)\Steam\steamapps\common\The Sims 2";
+                // EA's 2025 Steam release ships as "The Sims 2 Legacy Collection".
+                // Try the standard Steam install paths first; fall back to the
+                // older "The Sims 2" name in case anyone has a pre-Legacy install.
+                string s1 = @"C:\Program Files (x86)\Steam\steamapps\common\The Sims 2 Legacy Collection";
+                string s2 = @"C:\Program Files\Steam\steamapps\common\The Sims 2 Legacy Collection";
+                string s3 = @"C:\Program Files (x86)\Steam\steamapps\common\The Sims 2";
+                string s4 = @"C:\Program Files\Steam\steamapps\common\The Sims 2";
+
+                if (Directory.Exists(s1)) suggested = s1;
+                else if (Directory.Exists(s2)) suggested = s2;
+                else if (Directory.Exists(s3)) suggested = s3;
+                else if (Directory.Exists(s4)) suggested = s4;
+                else
+                {
+                    // Steam library may live on a different drive. Parse Steam's
+                    // libraryfolders.vdf if present and probe each library.
+                    suggested = FindSteamSims2LegacyInLibraries() ?? string.Empty;
+                }
             }
 
             else if (rbEpic.Checked)
@@ -518,7 +534,8 @@ namespace SimPe
 
             if (rbLegacy.Checked || rbSteam.Checked || rbEpic.Checked)
             {
-                // Steam uses the same Documents folder name as Legacy
+                // Steam uses the same Documents folder name as Legacy ("The Sims 2 Legacy"),
+                // even though its install path is "The Sims 2 Legacy Collection".
                 suggested = Path.Combine(eaGames, "The Sims 2 Legacy", "Downloads");
             }
             else if (rbUC.Checked)
@@ -617,6 +634,47 @@ namespace SimPe
                     packLine;
                 btnDownloadCep.Enabled = !IsCepComplete();
             }
+        }
+
+        // Steam users frequently install games to a library on a non-system
+        // drive (D:\SteamLibrary\, etc.). Steam keeps the list of known
+        // libraries in C:\Program Files (x86)\Steam\config\libraryfolders.vdf
+        // (or the C:\Program Files\Steam variant). Parse that file with a tiny
+        // ad-hoc lexer — VDF is a simple key/value tree — and probe each
+        // library for steamapps\common\The Sims 2 Legacy Collection.
+        private static string FindSteamSims2LegacyInLibraries()
+        {
+            string[] vdfCandidates =
+            {
+                @"C:\Program Files (x86)\Steam\config\libraryfolders.vdf",
+                @"C:\Program Files\Steam\config\libraryfolders.vdf",
+            };
+
+            string vdfPath = null;
+            foreach (string p in vdfCandidates) { if (File.Exists(p)) { vdfPath = p; break; } }
+            if (vdfPath == null) return null;
+
+            string text;
+            try { text = File.ReadAllText(vdfPath); } catch { return null; }
+
+            // Match every "path"  "C:\\SomeDir" line (Steam writes paths with
+            // doubled backslashes).
+            var pathRx = new System.Text.RegularExpressions.Regex(
+                "\"path\"\\s*\"([^\"]+)\"",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+            foreach (System.Text.RegularExpressions.Match m in pathRx.Matches(text))
+            {
+                string lib = m.Groups[1].Value.Replace(@"\\", @"\").Trim();
+                if (string.IsNullOrEmpty(lib)) continue;
+
+                string candidate = Path.Combine(lib, "steamapps", "common", "The Sims 2 Legacy Collection");
+                if (Directory.Exists(candidate)) return candidate;
+
+                string fallback = Path.Combine(lib, "steamapps", "common", "The Sims 2");
+                if (Directory.Exists(fallback)) return fallback;
+            }
+            return null;
         }
 
         // Pack-name heuristics for the diagnostic counts shown in CEP status.

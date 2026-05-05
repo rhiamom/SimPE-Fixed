@@ -81,6 +81,27 @@
 		<Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(_SimPeMainBin)Plugins"
 		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And '$(_SimPeMainBin)' != '' And Exists('$(TargetDir)$(TargetName).pdb')" />
 
+		<!-- Plugin projects can ship sidecar data files (e.g. PJSE Coder's
+		     GlobalStrings.package, which is referenced as
+		     <None Include="pjse.coder.plugin\GlobalStrings.package"> with a
+		     TargetPath of "Plugins\pjse.coder.plugin\GlobalStrings.package").
+		     The CopyToOutputDirectory rule deposits them under
+		     $(TargetDir)Plugins\<plugin-name>\* — but only the plugin DLL was
+		     being copied to the unified bin's Plugins\ folder, leaving the
+		     data files behind. Mirror the entire Plugins\ tree so any sidecar
+		     content travels with its plugin. -->
+		<ItemGroup>
+			<_SimPePluginSidecars Include="$(TargetDir)Plugins\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(_SimPePluginSidecars)"
+		  DestinationFiles="@(_SimPePluginSidecars->'$(SimPeUnifiedOutDir)Plugins\%(RecursiveDir)%(Filename)%(Extension)')"
+		  SkipUnchangedFiles="true"
+		  Condition=" '@(_SimPePluginSidecars)' != '' " />
+		<Copy SourceFiles="@(_SimPePluginSidecars)"
+		  DestinationFiles="@(_SimPePluginSidecars->'$(_SimPeMainBin)Plugins\%(RecursiveDir)%(Filename)%(Extension)')"
+		  SkipUnchangedFiles="true"
+		  Condition=" '@(_SimPePluginSidecars)' != '' And '$(_SimPeMainBin)' != '' " />
+
 		<!-- For EXE/WinExe projects (SimPE.Main, Wizards of SimPe), also copy every
 		     transitive runtime dependency (third-party DLLs, *.config, the runtimes\
 		     native folder) from the project's bin into the unified bin. Without this,

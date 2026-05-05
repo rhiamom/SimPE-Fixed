@@ -32,6 +32,7 @@ namespace SimPe
         private Button btnFtAddDownloads;
         private Button btnFtEdit;
         private Button btnFtDelete;
+        private Button btnFtReload;
 
         // Backing list mirrors the visible CheckedListBox 1:1.
         private List<FileTableItem> ftItems = new List<FileTableItem>();
@@ -66,11 +67,13 @@ namespace SimPe
             btnFtAddDownloads = MakeButton("Add Downloads Folder", BtnFtAddDownloads_Click, 170);
             btnFtEdit = MakeButton("Change", BtnFtEdit_Click);
             btnFtDelete = MakeButton("Delete", BtnFtDelete_Click);
+            btnFtReload = MakeButton("Reload FileTable", BtnFtReload_Click, 140);
 
             bottom.Controls.Add(btnFtAdd);
             bottom.Controls.Add(btnFtAddDownloads);
             bottom.Controls.Add(btnFtEdit);
             bottom.Controls.Add(btnFtDelete);
+            bottom.Controls.Add(btnFtReload);
 
             var hint = new Label
             {
@@ -240,6 +243,39 @@ namespace SimPe
             RefreshList();
             if (lbFileTable.Items.Count > 0)
                 lbFileTable.SelectedIndex = Math.Min(idx, lbFileTable.Items.Count - 1);
+        }
+
+        // Persists the user's edits and rebuilds FileIndex in place, so any
+        // newly-added Downloads file or folder is picked up immediately
+        // without restarting SimPE. Mirrors 0.77's btReload_Click.
+        private void BtnFtReload_Click(object sender, EventArgs e)
+        {
+            this.UseWaitCursor = true;
+            this.Enabled = false;
+            try
+            {
+                SaveCustomFileTableItems();
+
+                if (FileTable.FileIndex != null)
+                {
+                    FileTable.FileIndex.BaseFolders = FileTable.DefaultFolders;
+                    FileTable.FileIndex.ForceReload();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this,
+                    "FileTable reload failed:\n\n" + ex.Message,
+                    "Reload Failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
+            finally
+            {
+                this.Enabled = true;
+                this.UseWaitCursor = false;
+                Application.DoEvents();
+            }
         }
     }
 }
