@@ -54,8 +54,11 @@ namespace SimPe
 
                     bool recursive = (recAttr == "1" || recAttr.Equals("true", StringComparison.OrdinalIgnoreCase));
                     bool ignore = (ignAttr == "1" || ignAttr.Equals("true", StringComparison.OrdinalIgnoreCase));
-                    int ver = -1;
-                    int.TryParse(verAttr, out ver);
+                    // int.TryParse sets the out param to 0 on failure, so an absent/empty
+                    // version attribute would round-trip as ver=0 — which the rest of the
+                    // FileTable code reads as "only when GameVersion=0" and marks (Unused).
+                    int ver;
+                    if (!int.TryParse(verAttr, out ver)) ver = -1;
 
                     FileTableItemType type = ResolveRoot(root);
 
