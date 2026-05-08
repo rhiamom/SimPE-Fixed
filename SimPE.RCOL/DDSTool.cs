@@ -423,6 +423,61 @@ namespace SimPe.Plugin
 
         private static byte[] LoadFileAsRgba(string filename, out int w, out int h)
         {
+            // Pfim is good at DDS/TGA/BMP but does not handle PNG/JPG reliably,
+            // and the caller needs to encode arbitrary user-provided PNGs into
+            // DXT. Try Pfim first; on any failure (or for clearly common
+            // raster formats) fall back to System.Drawing.
+            string ext = System.IO.Path.GetExtension(filename).ToLowerInvariant();
+            bool preferGdi = ext == ".png" || ext == ".jpg" || ext == ".jpeg" || ext == ".gif";
+            if (preferGdi) return LoadFileAsRgbaViaGdi(filename, out w, out h);
+
+            try { return LoadFileAsRgbaViaPfim(filename, out w, out h); }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("LoadFileAsRgba: Pfim failed (" + ex.GetType().Name + ": " + ex.Message + "), falling back to GDI+");
+                return LoadFileAsRgbaViaGdi(filename, out w, out h);
+            }
+        }
+
+        private static byte[] LoadFileAsRgbaViaGdi(string filename, out int w, out int h)
+        {
+            using (var bmp = new System.Drawing.Bitmap(filename))
+            {
+                w = bmp.Width;
+                h = bmp.Height;
+                byte[] rgba = new byte[w * h * 4];
+                var rect = new System.Drawing.Rectangle(0, 0, w, h);
+                var data = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly,
+                                        System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                try
+                {
+                    int stride = data.Stride;
+                    var src = new byte[stride * h];
+                    System.Runtime.InteropServices.Marshal.Copy(data.Scan0, src, 0, src.Length);
+                    // GDI+ Format32bppArgb is BGRA in memory; BCnEncoder wants RGBA.
+                    for (int y = 0; y < h; y++)
+                    {
+                        for (int x = 0; x < w; x++)
+                        {
+                            int si = y * stride + x * 4;
+                            int di = (y * w + x) * 4;
+                            rgba[di]     = src[si + 2]; // R from BGRA's R
+                            rgba[di + 1] = src[si + 1]; // G
+                            rgba[di + 2] = src[si];     // B from BGRA's B
+                            rgba[di + 3] = src[si + 3]; // A
+                        }
+                    }
+                }
+                finally
+                {
+                    bmp.UnlockBits(data);
+                }
+                return rgba;
+            }
+        }
+
+        private static byte[] LoadFileAsRgbaViaPfim(string filename, out int w, out int h)
+        {
             using var pfimImage = Pfimage.FromFile(filename);
             w = pfimImage.Width;
             h = pfimImage.Height;
@@ -502,7 +557,11 @@ namespace SimPe.Plugin
             int w, h;
             byte[] rgba;
             try { rgba = LoadFileAsRgba(imgname, out w, out h); }
-            catch { return new DDSData[0]; }
+            catch (Exception ex)
+            {
+                Helper.ExceptionMessage("Could not decode image for DXT encoding: " + imgname, ex);
+                return new DDSData[0];
+            }
 
             string ddsfile = System.IO.Path.GetTempFileName() + ".dds";
             try

@@ -1171,23 +1171,25 @@ namespace SimPe.Plugin
 		private void ContextPopUp(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			milifo.Enabled = false;
-            this.mibuild.Enabled = System.IO.File.Exists(PathProvider.Global.NvidiaDDSTool);
+            // DXT encoding is handled in-process by BCnEncoder (see DDSTool.BuildDDS),
+            // so this menu item is always available — the legacy nvdxt.exe gate is gone.
+            this.mibuild.Enabled = true;
 			if (lbimg.SelectedIndex<0) return;
-			try 
+			try
 			{
-				if (lbimg.SelectedIndex>=0) 
+				if (lbimg.SelectedIndex>=0)
 				{
 					MipMap mm = (MipMap)lbimg.Items[lbimg.SelectedIndex];
 					Interfaces.Files.IPackedFileDescriptor pfd = GetLocalLifo(mm);
 					milifo.Enabled = (pfd != null);
-				} 
-				else 
+				}
+				else
 				{
 					milifo.Enabled = false;
 				}
-                mibuild.Enabled = (System.IO.File.Exists(PathProvider.Global.NvidiaDDSTool));
-			} 
-			catch (Exception ex) 
+                mibuild.Enabled = true;
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
 			}
@@ -1386,6 +1388,17 @@ namespace SimPe.Plugin
 			ImageData id = SelectedImageData();
 			LoadDDS(dds.Execute(Convert.ToInt32(this.tblevel.Text), id.TextureSize, id.Format));
 			id.Refresh();
+
+			// Force pb.Image to the newly-encoded mipmap directly. Setting
+			// lbimg.SelectedIndex programmatically inside LoadDDS does not
+			// always fire SelectedIndexChanged (no-op when assigning the same
+			// index, plus event-firing differences across platforms), so the
+			// picture box can otherwise keep showing the pre-build image.
+			if (lbimg.SelectedIndex >= 0)
+			{
+				MipMap sel = (MipMap)lbimg.Items[lbimg.SelectedIndex];
+				if (sel.Texture != null) pb.Image = sel.Texture;
+			}
 		}
 	}
 }

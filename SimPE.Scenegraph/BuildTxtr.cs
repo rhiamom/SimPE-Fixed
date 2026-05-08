@@ -241,7 +241,9 @@ namespace SimPe.Plugin
             //build TXTR File
             ImageData id = new SimPe.Plugin.ImageData(null);
 
-            if ((System.IO.File.Exists(PathProvider.Global.NvidiaDDSTool)) && ((format == ImageLoader.TxtrFormats.DXT1Format) || (format == ImageLoader.TxtrFormats.DXT3Format) || (format == ImageLoader.TxtrFormats.DXT5Format)))
+            // DXT compression now goes through BCnEncoder via DDSTool.BuildDDS;
+            // the legacy nvdxt.exe gate has been removed.
+            if ((format == ImageLoader.TxtrFormats.DXT1Format) || (format == ImageLoader.TxtrFormats.DXT3Format) || (format == ImageLoader.TxtrFormats.DXT5Format))
             {
                 LoadDDS(id, DDSTool.BuildDDS(filename, levels, format, "-sharpenMethod Smoothen"));
             }

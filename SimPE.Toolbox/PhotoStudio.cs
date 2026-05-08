@@ -104,11 +104,10 @@ namespace SimPe.Plugin
                 sfd.InitialDirectory = System.IO.Path.Combine(PathProvider.SimSavegameFolder, "Downloads");
 
                 cbquality.SelectedIndex = 0;
-                if (System.IO.File.Exists(PathProvider.Global.NvidiaDDSTool))
-                {
-                    cbquality.Items.Add("Use Nvidia DDS Tools");
-                    cbquality.SelectedIndex = cbquality.Items.Count - 1;
-                }
+                // BCnEncoder is always available for DXT compression — surface it as the
+                // preferred quality option (replaces the old nvdxt.exe-only branch).
+                cbquality.Items.Add("Use DXT compression (BCnEncoder)");
+                cbquality.SelectedIndex = cbquality.Items.Count - 1;
             }
             finally
             {
@@ -584,7 +583,8 @@ namespace SimPe.Plugin
                     g.DrawImage(mmimg, template.TargetRectangle, rect, System.Drawing.GraphicsUnit.Pixel);
 
 
-                    if ((System.IO.File.Exists(PathProvider.Global.NvidiaDDSTool)) && (ddstool) && ((format == ImageLoader.TxtrFormats.DXT1Format) || (format == ImageLoader.TxtrFormats.DXT3Format) || (format == ImageLoader.TxtrFormats.DXT5Format)))
+                    // BCnEncoder handles DXT compression in-process; nvdxt.exe gate dropped.
+                    if ((ddstool) && ((format == ImageLoader.TxtrFormats.DXT1Format) || (format == ImageLoader.TxtrFormats.DXT3Format) || (format == ImageLoader.TxtrFormats.DXT5Format)))
                     {
                         DDSTool.AddDDsData(id, DDSTool.BuildDDS(mm.Texture, (int)id.MipMapLevels, format, "-sharpenMethod Smoothen"));
                     }
