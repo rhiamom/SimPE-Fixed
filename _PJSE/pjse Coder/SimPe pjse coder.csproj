@@ -130,6 +130,11 @@
     <Compile Update="pjse banner.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="TreesPackedFileUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -156,6 +161,10 @@
   <ItemGroup>
     <EmbeddedResource Update="BhavOperandWizDefault.resx"><LogicalName>pjse.BhavOperandWizards.WizDefault.UI.resources</LogicalName></EmbeddedResource>
     <EmbeddedResource Update="BhavOperandWizRaw.resx"><LogicalName>pjse.BhavOperandWizards.WizRaw.UI.resources</LogicalName></EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0001.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0001.UI.resources</LogicalName></EmbeddedResource>
     <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0002.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0002.UI.resources</LogicalName></EmbeddedResource>
     <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0008.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0008.UI.resources</LogicalName></EmbeddedResource>
@@ -169,8 +178,6 @@
     <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0033.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0033.UI.resources</LogicalName></EmbeddedResource>
     <EmbeddedResource Update="Wizzy\BhavOperandWiz0x006d.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x006d.UI.resources</LogicalName></EmbeddedResource>
     <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0076.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0076.UI.resources</LogicalName></EmbeddedResource>
-    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x0079.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x0079.UI.resources</LogicalName></EmbeddedResource>
-    <EmbeddedResource Update="Wizzy\BhavOperandWiz0x007c.resx"><LogicalName>pjse.BhavOperandWizards.Wiz0x007c.UI.resources</LogicalName></EmbeddedResource>
     <EmbeddedResource Update="Wizzy\BhavOperandWizAnimate.resx"><LogicalName>pjse.BhavOperandWizards.WizAnimate.UI.resources</LogicalName></EmbeddedResource>
     <EmbeddedResource Update="Wizzy\BhavOperandWizBhav.resx"><LogicalName>pjse.BhavOperandWizards.WizBhav.UI.resources</LogicalName></EmbeddedResource>
   </ItemGroup>
@@ -184,5 +191,8 @@
     <ProjectReference Include="..\..\SimPE.Packages\SimPE.Packages.csproj" />
     <ProjectReference Include="..\..\SimPE.Splash\SimPE.Splash.csproj" />
     <ProjectReference Include="..\..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>

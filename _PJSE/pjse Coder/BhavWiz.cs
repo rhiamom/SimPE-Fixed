@@ -341,7 +341,6 @@ namespace pjse
     {
         protected Instruction instruction = null;
         protected string prefix = null;
-        static bool ismore = System.IO.File.Exists(System.IO.Path.Combine(SimPe.Helper.SimPePath, "whse.primitivewizards_0_77_69.dll"));
 
         protected BhavWiz(Instruction instruction)
         {
@@ -350,9 +349,7 @@ namespace pjse
 
         public static implicit operator BhavWiz(Instruction i)
         {
-            if (i.OpCode < 0x0100 && ismore) return (BhavWizPrim)i;
-            else if (i.OpCode < 0x0100) return (BhavWizPrimi)i;
-            return (BhavWizBhav)i;
+            return (i.OpCode < 0x0100) ? (BhavWizPrim)i : (BhavWizBhav)i;
         }
 
         public static implicit operator Instruction(BhavWiz b) { return b.instruction; }
