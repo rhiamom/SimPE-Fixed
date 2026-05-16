@@ -211,7 +211,8 @@ namespace SimPe.PackedFiles.Wrapper
                     0xCC48C51F,
                     0x8C3CE95A,
                     0xEC3126C4,
-                    0xF03D464C
+                    0xF03D464C,
+                    0x8A2482B9  //SC4 city thumbnail
                                };
                 return Types;
             }
