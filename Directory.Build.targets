@@ -61,11 +61,15 @@
 		  SkipUnchangedFiles="true"
 		  Condition="Exists('$(TargetDir)$(TargetName).xml')" />
 
-		<!-- If this is a plugin or wizard assembly, also copy to Plugins\ subfolder of
-		     the unified bin AND to SimPE.Main\bin\$(Configuration)\Plugins\ so devs
-		     who launch SimPE.Main.exe from its own bin folder see the full plugin set. -->
+		<!-- If this is a plugin, wizard, or exporter assembly, also copy to Plugins\
+		     subfolder of the unified bin AND to SimPE.Main\bin\$(Configuration)\Plugins\
+		     so devs who launch SimPE.Main.exe from its own bin folder see the full set.
+		     ExporterLoader, PluginManager, ScannerRegistry, and WizardSelector all scan
+		     Plugins\ for these specific *.plugin.dll / *.wizard.dll / *.exporter.dll
+		     suffixes — DLLs landing only at the unified-bin root won't be picked up
+		     (which is what caused "No exporter plugins available" for mesh export). -->
 		<PropertyGroup>
-			<_IsPluginOrWizard Condition=" $(AssemblyName.EndsWith('.plugin')) Or $(AssemblyName.EndsWith('.wizard')) ">true</_IsPluginOrWizard>
+			<_IsPluginOrWizard Condition=" $(AssemblyName.EndsWith('.plugin')) Or $(AssemblyName.EndsWith('.wizard')) Or $(AssemblyName.EndsWith('.exporter')) ">true</_IsPluginOrWizard>
 			<_SimPeMainBin Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)SimPE.Main\bin\$(Configuration)\</_SimPeMainBin>
 		</PropertyGroup>
 
