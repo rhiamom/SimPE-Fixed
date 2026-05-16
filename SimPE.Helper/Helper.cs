@@ -667,6 +667,12 @@ namespace SimPe
                 "semiglobals.xml",
                 "tgi.xml",
                 "txmtdefinition.xml",
+                // PathProvider reads this on every startup to enumerate EPs; without it
+                // a fresh %APPDATA%\SimPe\Data\ ends up with an empty registry and SimPE
+                // detects zero expansions. The file is declared as an <EmbeddedResource>
+                // in SimPE.Helper.csproj so it's already in the DLL — it just wasn't
+                // being extracted alongside the other defaults.
+                "expansions.xreg",
             };
             string dataPath = SimPeDataPath;
             var asm = System.Reflection.Assembly.GetExecutingAssembly();
