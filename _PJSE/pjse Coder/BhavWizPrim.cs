@@ -37,205 +37,205 @@ using SimPe.PackedFiles.Wrapper;
 
 namespace pjse.BhavNameWizards
 {
-	/// <summary>
-	/// Abstract class for primitive name providers
-	/// </summary>
-	public abstract class BhavWizPrim : BhavWiz
-	{
-		protected BhavWizPrim(Instruction i) : base (i) { prefix = pjse.Localization.GetString("lcPrim"); }
+    /// <summary>
+    /// Abstract class for primitive name providers
+    /// </summary>
+    public abstract class BhavWizPrim : BhavWiz
+    {
+        protected BhavWizPrim(Instruction i) : base(i) { prefix = pjse.Localization.GetString("lcPrim"); }
 
-		public static implicit operator BhavWizPrim(Instruction i)
-		{
-			if (i.OpCode >= 0x0100)
-				throw new Exception("OpCode not a primative");
+        public static implicit operator BhavWizPrim(Instruction i)
+        {
+            if (i.OpCode >= 0x0100)
+                throw new Exception("OpCode not a primative");
 
-			switch(i.OpCode)
-			{
-				case 0x0000: return new WizPrim0x0000(i);
-				case 0x0001: return new WizPrim0x0001(i);
-				case 0x0002: return new WizPrim0x0002(i);
-				case 0x0003: return new WizPrim0x0003(i);
-				case 0x0004:
-				case 0x0005:
-				case 0x0006:
-					return new WizPrimUnused(i);
-				case 0x0007: return new WizPrim0x0007(i);
-				case 0x0008: return new WizPrim0x0008(i);
-				case 0x0009:
-				case 0x000a:
-					return new WizPrimUnused(i);
-				case 0x000b: return new WizPrim0x000b(i);
-				case 0x000c: return new WizPrim0x000c(i);
-				case 0x000d: return new WizPrim0x000d(i);
-				case 0x000e: return new WizPrim0x000e(i);
-				case 0x000f: return new WizPrim0x000f(i);
-				case 0x0010: return new WizPrim0x0010(i);
-				case 0x0011: return new WizPrim0x0011(i);
-				case 0x0012: return new WizPrim0x0012(i);
-				case 0x0013: return new WizPrim0x0013(i);
-				case 0x0014: return new WizPrim0x0014(i);
-				case 0x0015:
-					return new WizPrimUnused(i);
-				case 0x0016: return new WizPrim0x0016(i);
-				case 0x0017: return new WizPrim0x0017(i);
-				case 0x0018:
-					return new WizPrimUnused(i);
-				case 0x0019: return new WizPrim0x0019(i);
-				case 0x001a: return new WizPrim0x001a(i);
-				case 0x001b: return new WizPrim0x001b(i);
-				case 0x001c: return new WizPrim0x001c(i);
-				case 0x001d: return new WizPrim0x001d(i);
-				case 0x001e: return new WizPrim0x001e(i);
-				case 0x001f: return new WizPrim0x001f(i);
-				case 0x0020: return new WizPrim0x0020(i);
-				case 0x0021: return new WizPrim0x0021(i);
-				case 0x0022: return new WizPrim0x0022(i);
-				case 0x0023: return new WizPrim0x0023(i);
-				case 0x0024: return new WizPrim0x0024(i);
-				case 0x0025: return new WizPrim0x0025(i);
-				case 0x0026:
-				case 0x0027:
-				case 0x0028:
-				case 0x0029:
-					return new WizPrimUnused(i);
-				case 0x002a: return new WizPrim0x002a(i);
-				case 0x002b:
-				case 0x002c:
-					return new WizPrimUnused(i);
-				case 0x002d: return new WizPrim0x002d(i);
-				case 0x002e: return new WizPrim0x002e(i);
-				case 0x002f:
-					return new WizPrimUnused(i);
-				case 0x0030: return new WizPrim0x0030(i);
-				case 0x0031: return new WizPrim0x0031(i);
-				case 0x0032: return new WizPrim0x0032(i);
-				case 0x0033: return new WizPrim0x0033(i);
-				case 0x0069: return new WizPrim0x0069(i);
-				case 0x006a: return new WizPrim0x006a(i);
-				case 0x006b: return new WizPrim0x006b(i);
-				case 0x006c: return new WizPrim0x006c(i);
-				case 0x006d: return new WizPrim0x006d(i);
-				case 0x006e: return new WizPrim0x006e(i);
-				case 0x006f: return new WizPrim0x006f(i);
-				case 0x0070: return new WizPrim0x0070(i);
-				case 0x0071: return new WizPrim0x0071(i);
-				case 0x0072: return new WizPrim0x0072(i);
-				case 0x0073: return new WizPrim0x0073(i);
-				case 0x0074: return new WizPrim0x0074(i);
-				case 0x0075: return new WizPrim0x0075(i);
-				case 0x0076: return new WizPrim0x0076(i);
-				case 0x0077: return new WizPrim0x0077(i);
-				case 0x0078: return new WizPrim0x0078(i);
-				case 0x0079: return new WizPrim0x0079(i);
-				case 0x007a: return new WizPrim0x007a(i);
-				case 0x007b: return new WizPrim0x007b(i);
-				case 0x007c: return new WizPrim0x007c(i);
-				case 0x007d: return new WizPrim0x007d(i);
-				case 0x007e: return new WizPrim0x007e(i);
-			}
+            switch (i.OpCode)
+            {
+                case 0x0000: return new WizPrim0x0000(i);
+                case 0x0001: return new WizPrim0x0001(i);
+                case 0x0002: return new WizPrim0x0002(i);
+                case 0x0003: return new WizPrim0x0003(i);
+                case 0x0004:
+                case 0x0005:
+                case 0x0006:
+                    return new WizPrimUnused(i);
+                case 0x0007: return new WizPrim0x0007(i);
+                case 0x0008: return new WizPrim0x0008(i);
+                case 0x0009:
+                case 0x000a:
+                    return new WizPrimUnused(i);
+                case 0x000b: return new WizPrim0x000b(i);
+                case 0x000c: return new WizPrim0x000c(i);
+                case 0x000d: return new WizPrim0x000d(i);
+                case 0x000e: return new WizPrim0x000e(i);
+                case 0x000f: return new WizPrim0x000f(i);
+                case 0x0010: return new WizPrim0x0010(i);
+                case 0x0011: return new WizPrim0x0011(i);
+                case 0x0012: return new WizPrim0x0012(i);
+                case 0x0013: return new WizPrim0x0013(i);
+                case 0x0014: return new WizPrim0x0014(i);
+                case 0x0015:
+                    return new WizPrimUnused(i);
+                case 0x0016: return new WizPrim0x0016(i);
+                case 0x0017: return new WizPrim0x0017(i);
+                case 0x0018:
+                    return new WizPrimUnused(i);
+                case 0x0019: return new WizPrim0x0019(i);
+                case 0x001a: return new WizPrim0x001a(i);
+                case 0x001b: return new WizPrim0x001b(i);
+                case 0x001c: return new WizPrim0x001c(i);
+                case 0x001d: return new WizPrim0x001d(i);
+                case 0x001e: return new WizPrim0x001e(i);
+                case 0x001f: return new WizPrim0x001f(i);
+                case 0x0020: return new WizPrim0x0020(i);
+                case 0x0021: return new WizPrim0x0021(i);
+                case 0x0022: return new WizPrim0x0022(i);
+                case 0x0023: return new WizPrim0x0023(i);
+                case 0x0024: return new WizPrim0x0024(i);
+                case 0x0025: return new WizPrim0x0025(i);
+                case 0x0026:
+                case 0x0027:
+                case 0x0028:
+                case 0x0029:
+                    return new WizPrimUnused(i);
+                case 0x002a: return new WizPrim0x002a(i);
+                case 0x002b:
+                case 0x002c:
+                    return new WizPrimUnused(i);
+                case 0x002d: return new WizPrim0x002d(i);
+                case 0x002e: return new WizPrim0x002e(i);
+                case 0x002f:
+                    return new WizPrimUnused(i);
+                case 0x0030: return new WizPrim0x0030(i);
+                case 0x0031: return new WizPrim0x0031(i);
+                case 0x0032: return new WizPrim0x0032(i);
+                case 0x0033: return new WizPrim0x0033(i);
+                case 0x0069: return new WizPrim0x0069(i);
+                case 0x006a: return new WizPrim0x006a(i);
+                case 0x006b: return new WizPrim0x006b(i);
+                case 0x006c: return new WizPrim0x006c(i);
+                case 0x006d: return new WizPrim0x006d(i);
+                case 0x006e: return new WizPrim0x006e(i);
+                case 0x006f: return new WizPrim0x006f(i);
+                case 0x0070: return new WizPrim0x0070(i);
+                case 0x0071: return new WizPrim0x0071(i);
+                case 0x0072: return new WizPrim0x0072(i);
+                case 0x0073: return new WizPrim0x0073(i);
+                case 0x0074: return new WizPrim0x0074(i);
+                case 0x0075: return new WizPrim0x0075(i);
+                case 0x0076: return new WizPrim0x0076(i);
+                case 0x0077: return new WizPrim0x0077(i);
+                case 0x0078: return new WizPrim0x0078(i);
+                case 0x0079: return new WizPrim0x0079(i);
+                case 0x007a: return new WizPrim0x007a(i);
+                case 0x007b: return new WizPrim0x007b(i);
+                case 0x007c: return new WizPrim0x007c(i);
+                case 0x007d: return new WizPrim0x007d(i);
+                case 0x007e: return new WizPrim0x007e(i);
+            }
 
-			if (i.OpCode >= 0x0034 && i.OpCode <= 0x0068 || i.OpCode >= 0x007f)
-				return new WizPrimUnused(i);
+            if (i.OpCode >= 0x0034 && i.OpCode <= 0x0068 || i.OpCode >= 0x007f)
+                return new WizPrimUnused(i);
 
             throw new Exception("OpCode defies understanding");
         }
 
-		protected override string OpcodeName { get { return readStr(GS.BhavStr.Primitives, instruction.OpCode); } }
+        protected override string OpcodeName { get { return readStr(GS.BhavStr.Primitives, instruction.OpCode); } }
 
-	}
-
-
-	public class WizPrimUnused : BhavWizPrim
-	{
-		public WizPrimUnused(Instruction i) : base(i) { }
-
-		protected override string Operands(bool lng) { return "-"; }
-
-	}
+    }
 
 
-	public class WizPrim0x0000 : BhavWizPrim	// Sleep
-	{
-		public WizPrim0x0000(Instruction i) : base(i) { }
+    public class WizPrimUnused : BhavWizPrim
+    {
+        public WizPrimUnused(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			return dataOwner(lng, 0x09, instruction.Operands[0], instruction.Operands[1]); // Param
-		}
+        protected override string Operands(bool lng) { return "-"; }
 
-	}
+    }
 
-	public class WizPrim0x0001 : BhavWizPrim	// Generic Sims Call
-	{
-		public WizPrim0x0001(Instruction i) : base(i) { }
 
-		public override ABhavOperandWiz Wizard()
-		{
-			return new pjse.BhavOperandWizards.BhavOperandWiz0x0001(instruction);
-		}
+    public class WizPrim0x0000 : BhavWizPrim    // Sleep
+    {
+        public WizPrim0x0000(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
+        protected override string Operands(bool lng)
+        {
+            return dataOwner(lng, 0x09, instruction.Operands[0], instruction.Operands[1]); // Param
+        }
+
+    }
+
+    public class WizPrim0x0001 : BhavWizPrim    // Generic Sims Call
+    {
+        public WizPrim0x0001(Instruction i) : base(i) { }
+
+        public override ABhavOperandWiz Wizard()
+        {
+            return new pjse.BhavOperandWizards.BhavOperandWiz0x0001(instruction);
+        }
+
+        protected override string Operands(bool lng)
+        {
             return readStr(GS.BhavStr.Generics, instruction.Operands[0])
-                + (lng ? " (" + readStr(GS.BhavStr.GenericsDesc, instruction.Operands[0]) + ")" : "" );
-		}
-	}
+                + (lng ? " (" + readStr(GS.BhavStr.GenericsDesc, instruction.Operands[0]) + ")" : "");
+        }
+    }
 
-	public class WizPrim0x0002 : BhavWizPrim	// Expression
-	{
-		public WizPrim0x0002(Instruction i) : base(i) { }
+    public class WizPrim0x0002 : BhavWizPrim    // Expression
+    {
+        public WizPrim0x0002(Instruction i) : base(i) { }
 
-		public override ABhavOperandWiz Wizard()
-		{
-			return new pjse.BhavOperandWizards.BhavOperandWiz0x0002(instruction);
-		}
+        public override ABhavOperandWiz Wizard()
+        {
+            return new pjse.BhavOperandWizards.BhavOperandWiz0x0002(instruction);
+        }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = instruction.Operands;
+        protected override string Operands(bool lng)
+        {
+            byte[] o = instruction.Operands;
 
-			byte lhs_data_owner = o[6]; // c2
-			ushort lhs_value_word = ToShort(o[0], o[1]); // w1
-			byte _operator = o[5]; // c1
-			byte rhs_data_owner = o[7]; // b[x+7]
-			ushort rhs_value_word = ToShort(o[2], o[3]); // w2
+            byte lhs_data_owner = o[6]; // c2
+            ushort lhs_value_word = ToShort(o[0], o[1]); // w1
+            byte _operator = o[5]; // c1
+            byte rhs_data_owner = o[7]; // b[x+7]
+            ushort rhs_value_word = ToShort(o[2], o[3]); // w2
 
-			string s = "";
+            string s = "";
 
-			s += dataOwner(lng, lhs_data_owner, lhs_value_word)
-				+ " " + readStr(GS.BhavStr.Operators, _operator)
-				+ " ";
+            s += dataOwner(lng, lhs_data_owner, lhs_value_word)
+                + " " + readStr(GS.BhavStr.Operators, _operator)
+                + " ";
 
-			if (lng && _operator >= 8 && _operator <= 10) // Flag operation
-			{
-				s+= pjse.Localization.GetString("flagnr") + " " + dataOwner(rhs_data_owner, rhs_value_word);
-				if (rhs_data_owner == 7 && flagname(lhs_data_owner, lhs_value_word, rhs_value_word) != null)
-					s += " (" + flagname(lhs_data_owner, lhs_value_word, rhs_value_word) + ")";
-			}
-			else
-				s += dataOwner(lng, rhs_data_owner, rhs_value_word);
+            if (lng && _operator >= 8 && _operator <= 10) // Flag operation
+            {
+                s += pjse.Localization.GetString("flagnr") + " " + dataOwner(rhs_data_owner, rhs_value_word);
+                if (rhs_data_owner == 7 && flagname(lhs_data_owner, lhs_value_word, rhs_value_word) != null)
+                    s += " (" + flagname(lhs_data_owner, lhs_value_word, rhs_value_word) + ")";
+            }
+            else
+                s += dataOwner(lng, rhs_data_owner, rhs_value_word);
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0003 : BhavWizPrim	// Find Best Interaction
-	{
-		public WizPrim0x0003(Instruction i) : base(i) { }
+    public class WizPrim0x0003 : BhavWizPrim    // Find Best Interaction
+    {
+        public WizPrim0x0003(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			if (o[2] == 0)
+            if (o[2] == 0)
                 s += pjse.Localization.GetString("bwp03_nworst");
-			else
-			{
-				int motives = ToShort(o[0], o[1]);
+            else
+            {
+                int motives = ToShort(o[0], o[1]);
                 s += pjse.Localization.GetString("bwp03_formotive")
                     + ": ";
                 bool found = false;
@@ -248,13 +248,13 @@ namespace pjse.BhavNameWizards
                 if (!found) s += "("
                     + pjse.Localization.GetString("none")
                     + ")";
-				if (lng)
+                if (lng)
                     s += ", "
                         + pjse.Localization.GetString("bwp03_remworst")
                         + ": " + ((o[2] & 0x01) != 0).ToString();
-			}
-			if (lng)
-			{
+            }
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp03_inroom") + " " + this.dataOwner(0x08, 0) // Temp
                     + ": " + ((o[3] & 0x02) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp03_oow")
@@ -266,38 +266,37 @@ namespace pjse.BhavNameWizards
                 s += ", " + pjse.Localization.GetString("bwp03_locntemp1")
                     + ": " + ((o[3] & 0x20) != 0).ToString();
             }
-			return s;
+            return s;
         }
-	}
+    }
 
-	public class WizPrim0x0007 : BhavWizPrim	// Refresh
-	{
+    public class WizPrim0x0007 : BhavWizPrim    // Refresh
+    {
         public WizPrim0x0007(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0007(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
 
-			s += readStr(GS.BhavStr.UpdateWho, ToShort(o[0], o[1])) + " " + readStr(GS.BhavStr.UpdateWhat, ToShort(o[2], o[3]));
+            s += readStr(GS.BhavStr.UpdateWho, ToShort(o[0], o[1])) + " " + readStr(GS.BhavStr.UpdateWhat, ToShort(o[2], o[3]));
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0008 : BhavWizPrim	// Random
-	{
-		public WizPrim0x0008(Instruction i) : base(i) { }
+    public class WizPrim0x0008 : BhavWizPrim    // Random
+    {
+        public WizPrim0x0008(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -305,32 +304,31 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
             return dataOwner(lng, o[2], o[0], o[1]) + " := 0 .. < " + dataOwner(lng, o[6], o[4], o[5]);
-		}
-	}
+        }
+    }
 
-	public class WizPrim0x000b : BhavWizPrim	// Get Distance To
-	{
+    public class WizPrim0x000b : BhavWizPrim    // Get Distance To
+    {
         public WizPrim0x000b(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x000b(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += dataOwner(lng, 0x08, o[0], o[1]); // temp
             s += " := ";
@@ -346,27 +344,26 @@ namespace pjse.BhavNameWizards
                     + pjse.Localization.GetString("bwp0b_100tile")
                     + ": " + ((o[6] & 0x02) != 0).ToString();
             }
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x000c : BhavWizPrim	// Get Direction To
-	{
+    public class WizPrim0x000c : BhavWizPrim    // Get Direction To
+    {
         public WizPrim0x000c(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x000c(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += dataOwner(lng, o[2], o[0], o[1]);
             s += " := ";
@@ -383,27 +380,26 @@ namespace pjse.BhavNameWizards
                     + ": " + ((o[8] & 0x02) == 0).ToString();
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x000d : BhavWizPrim	// Push Interaction -- for wizard, see edithWiki FunWithControllers
-	{
+    public class WizPrim0x000d : BhavWizPrim    // Push Interaction -- for wizard, see edithWiki FunWithControllers
+    {
         public WizPrim0x000d(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x000d(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             if (lng)
                 s += pjse.Localization.GetString("Target") + ": " + dnStkOb() + ", "; // Stack Object
@@ -413,19 +409,19 @@ namespace pjse.BhavNameWizards
 
             s += ", " + (lng ? pjse.Localization.GetString("Interaction") + ": " : "");
             if ((o[3] & 0x10) != 0)
-				s += dataOwner(lng, o[5], o[6], o[7]);
-			else if ((o[14] & 2) != 0)
+                s += dataOwner(lng, o[5], o[6], o[7]);
+            else if ((o[14] & 2) != 0)
                 s += pjse.Localization.GetString("bwp0d_lastfba");
-			else
-				s += dataOwner(lng, 0x07, o[0]); // Literal
+            else
+                s += dataOwner(lng, 0x07, o[0]); // Literal
 
             s += ", " + readStr(GS.BhavStr.Priorities, o[2]);
 
-			if (lng)
-			{
-				if ((o[3] & 0x01) != 0)
-					s += ", " + pjse.Localization.GetString("bwp0d_IconObject") + ": " + dataOwner(0x19, o[4]); // Local
-				else if ((o[14] & 4) != 0)
+            if (lng)
+            {
+                if ((o[3] & 0x01) != 0)
+                    s += ", " + pjse.Localization.GetString("bwp0d_IconObject") + ": " + dataOwner(0x19, o[4]); // Local
+                else if ((o[14] & 4) != 0)
                     s += ", " + pjse.Localization.GetString("bwp0d_IconObject") + ": " + dataOwner(0x08, 0x04) + ",5"; // Temp
 
                 s += ", " + pjse.Localization.GetString("bwp0d_IconIndex") + ": "
@@ -436,101 +432,99 @@ namespace pjse.BhavNameWizards
                     ;
 
                 if ((o[14] & 0x01) != 0) s += ", " + pjse.Localization.GetString("bwp0d_callersparams");
-				// if (o[3] & 4) ht_fprintf(outFile,TYPE_NORMAL,", continue as current");
-				if ((o[3] & 0x08) != 0) s += ", " + pjse.Localization.GetString("bwp0d_usename");
+                // if (o[3] & 4) ht_fprintf(outFile,TYPE_NORMAL,", continue as current");
+                if ((o[3] & 0x08) != 0) s += ", " + pjse.Localization.GetString("bwp0d_usename");
                 if ((o[3] & 0x20) != 0) s += ", " + pjse.Localization.GetString("bwp0d_forcerun");
                 if ((o[3] & 0x40) != 0) s += ", " + pjse.Localization.GetString("bwp0d_linkto")
                     + " " + dataOwner(o[8], o[9], o[10]);
                 if ((o[3] & 0x80) != 0) s += ", " + pjse.Localization.GetString("bwp0d_returnID")
                     + " " + dataOwner(o[11], o[12], o[13]);
-			}
-			return s;
-		}
-	}
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x000e : BhavWizPrim	// Find Best Object for Function
-	{
+    public class WizPrim0x000e : BhavWizPrim    // Find Best Object for Function
+    {
         public WizPrim0x000e(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x000e(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += readStr(GS.BhavStr.FunctionTable, o[0]);
-			if (lng)
-			{
+            s += readStr(GS.BhavStr.FunctionTable, o[0]);
+            if (lng)
+            {
                 byte[] flags = { 0x01, 0x02, 0x04, 0x00, 0x10, 0x00, 0x40, 0x00, };
                 for (int i = 0; i < flags.Length; i++)
                     if (flags[i] != 0)
-                    s += ", " + readStr(GS.BhavStr.FuncLocationFlags, (ushort)(i+1)) + ": " + ((o[2] & flags[i]) != 0).ToString();
+                        s += ", " + readStr(GS.BhavStr.FuncLocationFlags, (ushort)(i + 1)) + ": " + ((o[2] & flags[i]) != 0).ToString();
                 s += ", " + readStr(GS.BhavStr.FuncLocationFlags, 4) + ": "
                     + ((o[2] & 0x08) != 0 ? dataOwner(o[3], o[4], o[5]) : dnMe()); // Me
-			}
-			return s;
-		}
-	}
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x000f : BhavWizPrim	// Break Point (disaSim2 24b)
-	{
-		public WizPrim0x000f(Instruction i) : base(i) { }
+    public class WizPrim0x000f : BhavWizPrim    // Break Point (disaSim2 24b)
+    {
+        public WizPrim0x000f(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			return ((o[4] & 0x01) != 0)
-				? pjse.Localization.GetString("bwp0f_ignored")
-				: pjse.Localization.GetString("bwp0f_if") + " " + dataOwner(lng, o[2], o[0], o[1]) + " != 0";
-		}
-	}
+            return ((o[4] & 0x01) != 0)
+                ? pjse.Localization.GetString("bwp0f_ignored")
+                : pjse.Localization.GetString("bwp0f_if") + " " + dataOwner(lng, o[2], o[0], o[1]) + " != 0";
+        }
+    }
 
-	public class WizPrim0x0010 : BhavWizPrim	// Find location for -- for wizard, see edithWiki AkeaPostMortem
-	{
+    public class WizPrim0x0010 : BhavWizPrim    // Find location for -- for wizard, see edithWiki AkeaPostMortem
+    {
         public WizPrim0x0010(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0010(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			if ((o[2] & 0x01) != 0)
-			{
+            if ((o[2] & 0x01) != 0)
+            {
                 s += dnStkOb(); // Stack Object
-				if (lng)
+                if (lng)
                     s += ", " + pjse.Localization.GetString("bwp10_startAt") + " " + dataOwner(0x19, o[1]); // Local
-			}
-			else
-			{
-				s += dataOwner(lng, o[4], o[5], o[6]);
-				if (lng)
+            }
+            else
+            {
+                s += dataOwner(lng, o[4], o[5], o[6]);
+                if (lng)
                     s += ", " + pjse.Localization.GetString("bwp10_relativeTo") + " " + dataOwner(o[7], o[8], o[9]);
-			}
+            }
 
-			if (lng)
-			{
-				if ((o[2] & 0x08) != 0)
-				{
+            if (lng)
+            {
+                if ((o[2] & 0x08) != 0)
+                {
                     s += ", " + pjse.Localization.GetString("bwp10_facing");
                     if ((o[3] & 0x01) != 0) s += " " + pjse.Localization.GetString("compassN");
                     if ((o[3] & 0x02) != 0) s += " " + pjse.Localization.GetString("compassNE");
@@ -540,11 +534,11 @@ namespace pjse.BhavNameWizards
                     if ((o[3] & 0x20) != 0) s += " " + pjse.Localization.GetString("compassSW");
                     if ((o[3] & 0x40) != 0) s += " " + pjse.Localization.GetString("compassW");
                     if ((o[3] & 0x80) != 0) s += " " + pjse.Localization.GetString("compassNW");
-				}
+                }
 
-				s += ", " + readStr(GS.BhavStr.FindGLB, o[0]);
-				if (o[0] >= 5 && o[0] <= 8)
-					s += " 0x" + SimPe.Helper.HexString(o[10]);
+                s += ", " + readStr(GS.BhavStr.FindGLB, o[0]);
+                if (o[0] >= 5 && o[0] <= 8)
+                    s += " 0x" + SimPe.Helper.HexString(o[10]);
 
                 s += ", " + pjse.Localization.GetString("bwp10_preferEmpty") + ": " + ((o[2] & 0x02) == 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp10_userEditable") + ": " + ((o[2] & 0x04) != 0).ToString();
@@ -552,81 +546,79 @@ namespace pjse.BhavNameWizards
                 s += ", " + pjse.Localization.GetString("bwp10_withEmptyBorder") + ": " + ((o[2] & 0x20) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp10_beginInFrontOfRefobj") + ": " + ((o[2] & 0x40) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp10_withLineOfSightToCenter") + ": " + ((o[2] & 0x80) != 0).ToString();
-			}
-			return s;
-		}
-	}
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x0011 : BhavWizPrim	// Idle for Input
-	{
+    public class WizPrim0x0011 : BhavWizPrim    // Idle for Input
+    {
         public WizPrim0x0011(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0011(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			if ((o[4] & 0x01) != 0)
+            if ((o[4] & 0x01) != 0)
                 s += pjse.Localization.GetString("bwp11_handleSubQueueInteractions");
-			else
+            else
                 s += pjse.Localization.GetString("bwp_ticks") + ": " + dataOwner(lng, 0x09, o[0]) // Param
                     + ", " + pjse.Localization.GetString("bwp11_allowPush") + ": " + (ToShort(o[2], o[3]) == 0).ToString();
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0012 : BhavWizPrim	// Remove Object Instance -- for wizard, see edithWiki AkeaPostMortem
-	{
+    public class WizPrim0x0012 : BhavWizPrim    // Remove Object Instance -- for wizard, see edithWiki AkeaPostMortem
+    {
         public WizPrim0x0012(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0012(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += (o[0] == 0 ? dnMe() : dnStkOb()); // Me | Stack Object
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp12_returnImmediately") + ": " + ((o[2] & 1) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp12_cleanupAll") + ": " + ((o[2] & 2) == 0).ToString();
-			}
-			return s;
-		}
-	}
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x0013 : BhavWizPrim	// Make New Character
-	{
-		public WizPrim0x0013(Instruction i) : base(i) { }
+    public class WizPrim0x0013 : BhavWizPrim    // Make New Character
+    {
+        public WizPrim0x0013(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			if ((o[9] & 0x01) != 0)
-			{
+            if ((o[9] & 0x01) != 0)
+            {
                 s += pjse.Localization.GetString("Parent") + " 1"
                     + ((o[9] & 0x02) != 0 ? " " + pjse.Localization.GetString("NeighborID") : "")
                     + ": " + dataOwner(lng, o[6], o[7], o[8]);
@@ -634,12 +626,12 @@ namespace pjse.BhavNameWizards
                 s += pjse.Localization.GetString("Parent") + " 2"
                     + ((o[9] & 0x04) != 0 ? " " + pjse.Localization.GetString("NeighborID") : "")
                     + ": " + dataOwner(lng, o[3], o[4], o[5]);
-			}
-			else
+            }
+            else
                 s += pjse.Localization.GetString("bwp13_noParents");
 
-			if (lng)
-			{
+            if (lng)
+            {
 
                 s += ", " + pjse.Localization.GetString("bwp13_personDataSource")
                     + ": (GUID) " + dataOwner(0x08, 0x00) + ",1: " + ((o[9] & 0x08) != 0).ToString(); // Temp
@@ -654,116 +646,113 @@ namespace pjse.BhavNameWizards
                             : dataOwner(o[10], o[11], o[12]))
                         : pjse.Localization.GetString("default"));
 
-				if (o[0] != 0 && o[0] != 0xFF) 
-				{
+                if (o[0] != 0 && o[0] != 0xFF)
+                {
                     s += ", " + pjse.Localization.GetString("bwp13_skinColor")
                         + ": " + dataOwner(0x19, o[0]); // Local
                     s += ", " + pjse.Localization.GetString("bwp13_age")
                         + ": " + dataOwner(0x19, o[1]); // Local
                     s += ", " + pjse.Localization.GetString("bwp13_gender")
                         + ": " + dataOwner(0x19, o[2]); // Local
-				}
-				else
+                }
+                else
                     s += ", " + pjse.Localization.GetString("bwp13_defAgeGenderSkin");
-			}
-			return s;
-		}
-	}
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x0014 : BhavWizPrim	// Run Functional Tree
-	{
+    public class WizPrim0x0014 : BhavWizPrim    // Run Functional Tree
+    {
         public WizPrim0x0014(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0014(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += readStr(GS.BhavStr.FunctionTable, o[0]);
-			if (lng)
-			{
+            s += readStr(GS.BhavStr.FunctionTable, o[0]);
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp14_changeIcon") + ": " + ((o[2] & 0x01) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp14_callersParams") + ": " + ((o[2] & 0x02) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp14_CTonly") + ": " + ((o[2] & 0x04) != 0).ToString();
-			}
-			return s;
-		}
-	}
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x0016 : BhavWizPrim	// Turn Body
-	{
+    public class WizPrim0x0016 : BhavWizPrim    // Turn Body
+    {
         public WizPrim0x0016(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0016(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += readStr(GS.BhavStr.TurnBody, o[0]);
+            s += readStr(GS.BhavStr.TurnBody, o[0]);
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0017 : BhavWizPrim	// Play / Stop Sound Event -- for wizard, see edithWiki CreatingAChair
-	{
+    public class WizPrim0x0017 : BhavWizPrim    // Play / Stop Sound Event -- for wizard, see edithWiki CreatingAChair
+    {
         public WizPrim0x0017(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0017(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += ((o[4] & 0x40) != 0
+            s += ((o[4] & 0x40) != 0
                 ? pjse.Localization.GetString("Stop")
                 : pjse.Localization.GetString("Play")
                 );
 
-			int instance = ToShort(o[0], o[1]);
-			Scope scope = Scope.Private;
-			if (instance >= 10000 && instance < 20000)
-			{
-				scope = Scope.Global;
-				instance -= 10000;
-			}
-			else if (instance >= 20000)
-			{
-				scope = Scope.SemiGlobal;
-				instance -= 20000;
-			}
-			string temp = readStr(scope, GS.GlobalStr.Sound, (ushort)(instance), lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames);
-			if (temp.Length > 0)
-				s += " " + temp;
+            int instance = ToShort(o[0], o[1]);
+            Scope scope = Scope.Private;
+            if (instance >= 10000 && instance < 20000)
+            {
+                scope = Scope.Global;
+                instance -= 10000;
+            }
+            else if (instance >= 20000)
+            {
+                scope = Scope.SemiGlobal;
+                instance -= 20000;
+            }
+            string temp = readStr(scope, GS.GlobalStr.Sound, (ushort)(instance), lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames);
+            if (temp.Length > 0)
+                s += " " + temp;
 
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp_source")
                     + ": " + dataOwner((byte)((o[4] & 0x02) == 0 ? 0x03 : 0x04), 0x0b);
                 s += ", " + pjse.Localization.GetString("bwp17_autoVary")
@@ -773,23 +762,23 @@ namespace pjse.BhavNameWizards
                     + ": 0x" + SimPe.Helper.HexString(ToShort(o[2], o[3]));
                 s += ", " + pjse.Localization.GetString("bwp17_volume")
                     + ": 0x" + SimPe.Helper.HexString(o[5]);
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0019 : BhavWizPrim	// Alter Budget -- for wizard, see edithWiki WorkAndSchool, Chance Card - Results
-	{
-		public WizPrim0x0019(Instruction i) : base(i) { }
+    public class WizPrim0x0019 : BhavWizPrim    // Alter Budget -- for wizard, see edithWiki WorkAndSchool, Chance Card - Results
+    {
+        public WizPrim0x0019(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
 
             // expense type | operator | amount
@@ -821,27 +810,26 @@ namespace pjse.BhavNameWizards
                     : "0x" + SimPe.Helper.HexString(ToShort(o[7], o[8]));
             s += ")";
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x001a : BhavWizPrim	// Relationship
-	{
+    public class WizPrim0x001a : BhavWizPrim    // Relationship
+    {
         public WizPrim0x001a(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x001a(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             if ((o[1] & 0x04) == 0)
             {
@@ -887,13 +875,13 @@ namespace pjse.BhavNameWizards
                     s += ", " + pjse.Localization.GetString("bwp1a_noCheckObj2")
                         + ": " + ((o[1] & 0x08) != 0).ToString(); // "object to sim" relationship
                 }
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x001b : BhavWizPrim	// Go To Relative Position
-	{
-		public WizPrim0x001b(Instruction i) : base(i) { }
+    public class WizPrim0x001b : BhavWizPrim    // Go To Relative Position
+    {
+        public WizPrim0x001b(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -901,14 +889,14 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += (lng
+            s += (lng
                 ? pjse.Localization.GetString("bwp_Location")
                     + ": "
                 : ""
@@ -918,20 +906,20 @@ namespace pjse.BhavNameWizards
                     + ": "
                 : ""
                 ) + readStr(GS.BhavStr.RelativeDirections, (byte)(o[3] + 2));
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp_noFailureTrees")
                     + ": " + ((o[6] & 0x02) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp1b_differentAltitudes")
                     + ": " + ((o[6] & 0x04) != 0).ToString();
-			}
-			return s;
-		}
-	}
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x001c : BhavWizPrim	// Run Tree By Name
-	{
-		public WizPrim0x001c(Instruction i) : base(i) { }
+    public class WizPrim0x001c : BhavWizPrim    // Run Tree By Name
+    {
+        public WizPrim0x001c(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -939,16 +927,16 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
             Boolset options = (byte)(o[2] & 0x3f);
 
-			string s = "";
+            string s = "";
 
-			Scope scope = Scope.Private;
-            if      (options[0]) scope = Scope.Global;
+            Scope scope = Scope.Private;
+            if (options[0]) scope = Scope.Global;
             else if (options[1]) scope = Scope.SemiGlobal;
 
             if (lng)
@@ -973,71 +961,70 @@ namespace pjse.BhavNameWizards
                     for (int i = 0; i < 3; i++)
                         s += (i == 0 ? "" : ", ") + dataOwner(o[6 + i * 3], o[6 + (i * 3) + 1], o[6 + (i * 3) + 2]);
             }
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x001d : BhavWizPrim	// Set Motive Change -- for wizard, see edithWiki CreatingAChair
-	{
+    public class WizPrim0x001d : BhavWizPrim    // Set Motive Change -- for wizard, see edithWiki CreatingAChair
+    {
         public WizPrim0x001d(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x001d(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += ((o[3] & 0x01) != 0
+            s += ((o[3] & 0x01) != 0
                 ? pjse.Localization.GetString("bwp1d_clearAll")
-				: dataOwner(lng, 0x0E, o[2]) // My Motives
-					+ " += " + dataOwner(lng, o[0], o[4], o[5])
+                : dataOwner(lng, 0x0E, o[2]) // My Motives
+                    + " += " + dataOwner(lng, o[0], o[4], o[5])
                     + " " + (lng
                         ? pjse.Localization.GetString("bwp1d_perHour")
                             + ", " + pjse.Localization.GetString("bwp1d_stopAt")
                             + ":"
                         : "..")
                     + " " + dataOwner(lng, o[1], o[6], o[7])
-				);
+                );
 
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp1d_autoClear")
                     + ": " + ((o[3] & 0x02) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x001e : BhavWizPrim	// Gosub Action
-	{
-		public WizPrim0x001e(Instruction i) : base(i) { }
+    public class WizPrim0x001e : BhavWizPrim    // Gosub Action
+    {
+        public WizPrim0x001e(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += readStr(GS.BhavStr.GosubAction, o[0]);
+            s += readStr(GS.BhavStr.GosubAction, o[0]);
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x001f : BhavWizPrim	// Set to Next
-	{
-		public WizPrim0x001f(Instruction i) : base(i) { }
+    public class WizPrim0x001f : BhavWizPrim    // Set to Next
+    {
+        public WizPrim0x001f(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -1045,42 +1032,44 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += ((o[4] & 0x80) == 0
                 ? dnStkOb() // Stack Object
                 : dataOwner(lng, o[5], o[7])) + ", "; // ":=" didn't look right here.
 
             s += readStr(GS.BhavStr.NextObject, (ushort)(o[4] & 0x7f));
-			switch(o[4] & 0x7f)
-			{
-				case 0x04: case 0x07:
+            switch (o[4] & 0x7f)
+            {
+                case 0x04:
+                case 0x07:
                     s += ": " + BhavWiz.FormatGUID(lng, o, 0);
-					break;
-				case 0x09: case 0x22:
-					s = s.Replace("[local]", dataOwner(lng, 0x19, o[6])); // local
-					break;
-			}
+                    break;
+                case 0x09:
+                case 0x22:
+                    s = s.Replace("[local]", dataOwner(lng, 0x19, o[6])); // local
+                    break;
+            }
 
-			if (lng && instruction.NodeVersion != 0)
-			{
-				if ((o[8] & 0x02) != 0)
-					s += " && " + readStr(GS.BhavStr.DataLabels, ToShort(o[9], o[10])) + " == 0x" + SimPe.Helper.HexString(ToShort(o[11], o[12]));
+            if (lng && instruction.NodeVersion != 0)
+            {
+                if ((o[8] & 0x02) != 0)
+                    s += " && " + readStr(GS.BhavStr.DataLabels, ToShort(o[9], o[10])) + " == 0x" + SimPe.Helper.HexString(ToShort(o[11], o[12]));
                 s += ", " + pjse.Localization.GetString("bwp1f_disabledObjects")
                     + ": " + ((o[8] & 0x01) != 0).ToString();
-			}
-			return s;
-		}
-	}
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x0020 : BhavWizPrim	// Test Object Type
-	{
-		public WizPrim0x0020(Instruction i) : base(i) { }
+    public class WizPrim0x0020 : BhavWizPrim    // Test Object Type
+    {
+        public WizPrim0x0020(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -1088,22 +1077,22 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += dataOwner(lng, o[6], o[4], o[5]);
+            s += dataOwner(lng, o[6], o[4], o[5]);
 
             s += ", " + pjse.Localization.GetString("bwp20_isInstanceOf");
 
             s += ": " + BhavWiz.FormatGUID(lng, o, 0);
             if (lng)
-			{
-				//if (d1 == 0x4C7CAB2B)
-				//	s += " (temporary inventory token)";
+            {
+                //if (d1 == 0x4C7CAB2B)
+                //	s += " (temporary inventory token)";
 
                 s += ", " + pjse.Localization.GetString("bwp20_originalGUID")
                     + ": " + ((o[7] & 0x01) != 0).ToString();
@@ -1111,57 +1100,57 @@ namespace pjse.BhavNameWizards
                     + ": " + ((o[7] & 0x02) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp20_returnTemp01")
                     + ": " + ((o[7] & 0x04) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0021 : BhavWizPrim	// Find 5 Worst Motives
-	{
-		public WizPrim0x0021(Instruction i) : base(i) { }
+    public class WizPrim0x0021 : BhavWizPrim    // Find 5 Worst Motives
+    {
+        public WizPrim0x0021(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += dataOwner(0x08, 0) + "..4 :=";
 
-			s += " " + readStr(GS.BhavStr.ShortOwner, ToShort(o[4], o[5]));
+            s += " " + readStr(GS.BhavStr.ShortOwner, ToShort(o[4], o[5]));
             s += " " + readStr(GS.BhavStr.MotiveType, ToShort(o[6], o[7]));
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0022 : BhavWizPrim	// UI Effect
-	{
-		public WizPrim0x0022(Instruction i) : base(i) { }
+    public class WizPrim0x0022 : BhavWizPrim    // UI Effect
+    {
+        public WizPrim0x0022(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += readStr(GS.BhavStr.UIEffectType, o[0]);
 
-			if (o[0] < 5 || o[0] > 8)
-			{
-				Scope scope = Scope.Private;
-				if      ((o[5] & 0x04) != 0) scope = Scope.Global;
-				else if ((o[5] & 0x08) != 0) scope = Scope.SemiGlobal;
+            if (o[0] < 5 || o[0] > 8)
+            {
+                Scope scope = Scope.Private;
+                if ((o[5] & 0x04) != 0) scope = Scope.Global;
+                else if ((o[5] & 0x08) != 0) scope = Scope.SemiGlobal;
                 s += " " + readStr(scope, GS.GlobalStr.UIEffect, ToShort(o[3], o[4]), lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames);
-			}
+            }
 
-			if (lng)
-			{
+            if (lng)
+            {
                 if (o[0] != 8)
                 {
                     Scope scope = Scope.Private;
@@ -1181,57 +1170,60 @@ namespace pjse.BhavNameWizards
                         );
 
                 if (o[0] == 4 || o[0] == 8)
-					{
-						Scope scope = Scope.Global;
-						if      (o[10] == 0) scope = Scope.Private;
-						else if (o[10] == 1) scope = Scope.SemiGlobal;
-						bool found = false;
-                        s += ", " + pjse.Localization.GetString("bwp_eventTree")
-                            + ": " + bhavName(ToShort(o[8], o[9]), ref found);
-                        s += " (" + pjse.Localization.GetString(scope.ToString()) + ")";
-                    }
-			}
-			return s;
-		}
-	}
+                {
+                    Scope scope = Scope.Global;
+                    if (o[10] == 0) scope = Scope.Private;
+                    else if (o[10] == 1) scope = Scope.SemiGlobal;
+                    bool found = false;
+                    s += ", " + pjse.Localization.GetString("bwp_eventTree")
+                        + ": " + bhavName(ToShort(o[8], o[9]), ref found);
+                    s += " (" + pjse.Localization.GetString(scope.ToString()) + ")";
+                }
+            }
+            return s;
+        }
+    }
 
-	public class WizPrim0x0023 : BhavWizPrim	// Camera Control
-	{
+    public class WizPrim0x0023 : BhavWizPrim    // Camera Control
+    {
         public WizPrim0x0023(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0023(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += dnStkOb() + ": " + ((o[4] & 1) != 0
+            s += dnStkOb() + ": " + ((o[4] & 1) != 0
                 ? pjse.Localization.GetString("bwp23_visible")
                 : pjse.Localization.GetString("bwp23_notVisible")
                 );
 
             s += ", " + pjse.Localization.GetString("bwp23_zoom")
                 + ": 0x" + SimPe.Helper.HexString(o[3]) + " (";
-			switch (o[3])
-			{
-                case 1: s += pjse.Localization.GetString("bwp23_far")
+            switch (o[3])
+            {
+                case 1:
+                    s += pjse.Localization.GetString("bwp23_far")
                     ; break;
-                case 2: s += pjse.Localization.GetString("bwp23_mid")
+                case 2:
+                    s += pjse.Localization.GetString("bwp23_mid")
                     ; break;
-                case 3: s += pjse.Localization.GetString("bwp23_near")
+                case 3:
+                    s += pjse.Localization.GetString("bwp23_near")
                     ; break;
-                default: s += pjse.Localization.GetString("unk")
+                default:
+                    s += pjse.Localization.GetString("unk")
                     ; break;
-			}
-			s += ")";
+            }
+            s += ")";
 
             s += ", " + pjse.Localization.GetString("bwp23_center")
                 + ": " + ((o[4] & 0x08) != 0).ToString();
@@ -1240,25 +1232,25 @@ namespace pjse.BhavNameWizards
             s += ", " + pjse.Localization.GetString("bwp23_slowDown")
                 + ": " + ((o[4] & 0x40) == 0).ToString();
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0024 : BhavWizPrim	// Dialog
-	{
-		public WizPrim0x0024(Instruction i) : base(i) { }
+    public class WizPrim0x0024 : BhavWizPrim    // Dialog
+    {
+        public WizPrim0x0024(Instruction i) : base(i) { }
 
-		public override ABhavOperandWiz Wizard()
-		{
-			return new pjse.BhavOperandWizards.BhavOperandWiz0x0024(instruction);
-		}
+        public override ABhavOperandWiz Wizard()
+        {
+            return new pjse.BhavOperandWizards.BhavOperandWiz0x0024(instruction);
+        }
 
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
             bool tvState = false;
             bool tnsState = false;
@@ -1268,13 +1260,16 @@ namespace pjse.BhavNameWizards
 
             switch (o[5])
             {
-                case 0x00: case 0x03: case 0x04:
+                case 0x00:
+                case 0x03:
+                case 0x04:
                     states[0] = states[1] = states[4] = true; // message, button 1, title
                     break;
                 case 0x02:
                     tvState = states[0] = states[1] = states[2] = states[3] = states[4] = true; // message, button 1, button 2, button 3, title
                     break;
-                case 0x08: case 0x0a: // TNS, TNS modify
+                case 0x08:
+                case 0x0a: // TNS, TNS modify
                     tnsState = tvState = states[0] = true; // message
                     break;
                 case 0x09: // TNS stop
@@ -1289,9 +1284,17 @@ namespace pjse.BhavNameWizards
                 case 0x13:
                     states[1] = states[2] = states[4] = true; // button 1, button 2, title
                     break;
-                case 0x0b: case 0x0c: case 0x0d: case 0x10: case 0x11: case 0x12: case 0x14: case 0x15:
+                case 0x0b:
+                case 0x0c:
+                case 0x0d:
+                case 0x10:
+                case 0x11:
+                case 0x12:
+                case 0x14:
+                case 0x15:
                     break;
-                case 0x16: case 0x19:
+                case 0x16:
+                case 0x19:
                     states[0] = states[4] = true; // message, title
                     break;
                 case 0x1c: // TNS append
@@ -1306,162 +1309,161 @@ namespace pjse.BhavNameWizards
             }
 
 
-			ushort msg, cnc;
-			if (instruction.NodeVersion == 0)
-			{
-				msg = o[2];	// message
-				cnc = o[0];	// cancel
-			} 
-			else 
-			{
-				msg = ToShort(o[13], o[14]);	// message
-				cnc = ToShort(o[0], o[2]);	// cancel
-			}
+            ushort msg, cnc;
+            if (instruction.NodeVersion == 0)
+            {
+                msg = o[2]; // message
+                cnc = o[0]; // cancel
+            }
+            else
+            {
+                msg = ToShort(o[13], o[14]);    // message
+                cnc = ToShort(o[0], o[2]);  // cancel
+            }
 
-			Scope scope;
-			if      ((o[8] & 0x01) != 0) scope = Scope.SemiGlobal;
-			else if ((o[8] & 0x40) != 0) scope = Scope.Global;
-			else                         scope = Scope.Private;
+            Scope scope;
+            if ((o[8] & 0x01) != 0) scope = Scope.SemiGlobal;
+            else if ((o[8] & 0x40) != 0) scope = Scope.Global;
+            else scope = Scope.Private;
 
-			string s = "";
+            string s = "";
 
             s += readStr(GS.BhavStr.Dialog, o[5]);
 
             if (gtState) // Game Tips don't set any text from the dialogue, ignoring them speeds up loading a lot - CJH
-            s += ".  (" + readStr(GS.BhavStr.DialogDesc, o[5]) + ")";
+                s += ".  (" + readStr(GS.BhavStr.DialogDesc, o[5]) + ")";
             else
             {
-            if (lng)
-                s += ", " + pjse.Localization.GetString("bwp24_strings")
-                    + ": " + pjse.Localization.GetString(scope.ToString());
+                if (lng)
+                    s += ", " + pjse.Localization.GetString("bwp24_strings")
+                        + ": " + pjse.Localization.GetString(scope.ToString());
 
-            if (states[4]) s += ", " + pjse.Localization.GetString("bwp24_title")
-                + ": " + dialogStr(scope, (o[8] & 0x10) != 0, o[6], lng ? -1 : 60);
-            if (states[0]) s += ", " + pjse.Localization.GetString("bwp_message")
-                + ": " + dialogStr(scope, (o[8] & 0x02) != 0, msg, lng ? -1 : 60);
-            if (lng)
-            {
-                if (states[1]) s += ", " + pjse.Localization.GetString("bwp24_button1")
-                    + ": " + dialogStr(scope, (o[8] & 0x04) != 0, o[3]);
-                if (states[2]) s += ", " + pjse.Localization.GetString("bwp24_button2")
-                    + ": " + dialogStr(scope, (o[8] & 0x08) != 0, o[4]);
-                if (states[3]) s += ", " + pjse.Localization.GetString("bwp24_button3")
-                    + ": " + dialogStr(scope, (o[8] & 0x20) != 0, cnc);
-            }
-
-            if (tnsState)
-            {
-                s += ", " + pjse.Localization.GetString("bwp24_TNSStyle")
-                    + ": " + readStr(GS.BhavStr.TnsStyle, o[12]);
+                if (states[4]) s += ", " + pjse.Localization.GetString("bwp24_title")
+                    + ": " + dialogStr(scope, (o[8] & 0x10) != 0, o[6], lng ? -1 : 60);
+                if (states[0]) s += ", " + pjse.Localization.GetString("bwp_message")
+                    + ": " + dialogStr(scope, (o[8] & 0x02) != 0, msg, lng ? -1 : 60);
                 if (lng)
                 {
-                    s += ", " + pjse.Localization.GetString("bwp_priority")
-                        + ": 0x" + SimPe.Helper.HexString((byte)(o[9] + 1));
-                    s += ", " + pjse.Localization.GetString("bwp_timeout")
-                        + ": 0x" + SimPe.Helper.HexString(o[10]);
+                    if (states[1]) s += ", " + pjse.Localization.GetString("bwp24_button1")
+                        + ": " + dialogStr(scope, (o[8] & 0x04) != 0, o[3]);
+                    if (states[2]) s += ", " + pjse.Localization.GetString("bwp24_button2")
+                        + ": " + dialogStr(scope, (o[8] & 0x08) != 0, o[4]);
+                    if (states[3]) s += ", " + pjse.Localization.GetString("bwp24_button3")
+                        + ": " + dialogStr(scope, (o[8] & 0x20) != 0, cnc);
+                }
+
+                if (tnsState)
+                {
+                    s += ", " + pjse.Localization.GetString("bwp24_TNSStyle")
+                        + ": " + readStr(GS.BhavStr.TnsStyle, o[12]);
+                    if (lng)
+                    {
+                        s += ", " + pjse.Localization.GetString("bwp_priority")
+                            + ": 0x" + SimPe.Helper.HexString((byte)(o[9] + 1));
+                        s += ", " + pjse.Localization.GetString("bwp_timeout")
+                            + ": 0x" + SimPe.Helper.HexString(o[10]);
+                    }
+                }
+
+                if (lng)
+                {
+                    byte tempVar = (byte)((o[7] >> 4) & 0x07);
+                    if (tvState)
+                        s += ", " + (o[5] == 0x02
+                            ? pjse.Localization.GetString("bwp_resultIn")
+                            : pjse.Localization.GetString("bwp_TNSID")
+                            ) + ": " + dataOwner(0x08, tempVar); // temp
+
+                    if (lvState)
+                        s += ", " + pjse.Localization.GetString("bwp24_Locals")
+                            + ": " + dataOwner(0x19, o[11]); // local
+
+                    byte iconType = (byte)((o[7] >> 1) & 0x07);
+                    s += ", " + pjse.Localization.GetString("bwp_icon")
+                        + ": " + readStr(GS.BhavStr.DialogIcon, iconType);
+                    switch (iconType)
+                    {
+                        case 3: s += ": BMP = 0x" + SimPe.Helper.HexString((ushort)(o[1] + 5000)); break;
+                        case 4: s += " " + dialogStr(scope, false, o[1]); break;
+                    }
+
+                    s += ", " + pjse.Localization.GetString("bwp24_waitForUser")
+                        + ": " + ((o[7] & 0x01) == 0);
+                    s += ", " + pjse.Localization.GetString("bwp24_blockSimulation")
+                        + ": " + ((o[7] & 0x80) == 0);
+
+                    s += ".  (" + readStr(GS.BhavStr.DialogDesc, o[5]) + ")";
                 }
             }
 
-			if (lng)
-			{
-                byte tempVar = (byte)((o[7] >> 4) & 0x07);
-                if (tvState)
-                    s += ", " + (o[5] == 0x02
-                        ? pjse.Localization.GetString("bwp_resultIn")
-                        : pjse.Localization.GetString("bwp_TNSID")
-                        ) + ": " + dataOwner(0x08, tempVar); // temp
-
-                if (lvState)
-                    s += ", " + pjse.Localization.GetString("bwp24_Locals")
-                        + ": " + dataOwner(0x19, o[11]); // local
-
-                byte iconType = (byte)((o[7] >> 1) & 0x07);
-                s += ", " + pjse.Localization.GetString("bwp_icon")
-                    + ": " + readStr(GS.BhavStr.DialogIcon, iconType);
-                switch (iconType)
-                {
-                    case 3: s += ": BMP = 0x" + SimPe.Helper.HexString((ushort)(o[1] + 5000)); break;
-                    case 4: s += " " + dialogStr(scope, false, o[1]); break;
-                }
-
-                s += ", " + pjse.Localization.GetString("bwp24_waitForUser")
-                    + ": " + ((o[7] & 0x01) == 0);
-                s += ", " + pjse.Localization.GetString("bwp24_blockSimulation")
-                    + ": " + ((o[7] & 0x80) == 0);
-
-				s += ".  (" + readStr(GS.BhavStr.DialogDesc, o[5]) + ")";
-			}
+            return s;
         }
 
-			return s;
-		}
 
-
-		private string dialogStr(Scope scope, bool temp, ushort instance, int len)
-		{
-			string s = "";
-			if (temp)
-				s += GS.GlobalStr.DialogString.ToString() + ":[" + dataOwner(false, 0x08, instance) + "]"; // temp
-			else
-			{
-				if (instance != 0)
+        private string dialogStr(Scope scope, bool temp, ushort instance, int len)
+        {
+            string s = "";
+            if (temp)
+                s += GS.GlobalStr.DialogString.ToString() + ":[" + dataOwner(false, 0x08, instance) + "]"; // temp
+            else
+            {
+                if (instance != 0)
                     s += readStr(scope, (uint)GS.GlobalStr.DialogString, (ushort)(instance - 1), len, Detail.ErrorNames, true);
-				else
+                else
                     s += "[" + pjse.Localization.GetString("none") + "]";
-			}
-			return s;
-		}
+            }
+            return s;
+        }
 
-		private string dialogStr(Scope scope, bool temp, ushort instance) { return dialogStr(scope, temp, instance, -1); }
+        private string dialogStr(Scope scope, bool temp, ushort instance) { return dialogStr(scope, temp, instance, -1); }
 
-	}
+    }
 
-	public class WizPrim0x0025 : BhavWizPrim	// Test Sim Interacting With
-	{
-		public WizPrim0x0025(Instruction i) : base(i) { }
+    public class WizPrim0x0025 : BhavWizPrim    // Test Sim Interacting With
+    {
+        public WizPrim0x0025(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			return dnMe() + " .. " + dnStkOb();
-		}
+        protected override string Operands(bool lng)
+        {
+            return dnMe() + " .. " + dnStkOb();
+        }
 
-	}
+    }
 
-	public class WizPrim0x002a : BhavWizPrim	// Create new object instance -- for wizard, see edithWiki AkeaPostMortem
-	{
+    public class WizPrim0x002a : BhavWizPrim    // Create new object instance -- for wizard, see edithWiki AkeaPostMortem
+    {
         public WizPrim0x002a(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x002a(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             if ((o[5] & 0x04) != 0) s += DoidName(0x18);
             else if ((o[5] & 0x40) != 0) s += (lng ? "GUID: " : "") + DoidName(0x27);
             else if ((o[5] & 0x80) != 0) s += (lng ? "GUID: " : "") + dataOwner(0x08, 0x00) + ",1";
             else s += BhavWiz.FormatGUID(lng, o, 0);
 
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp2a_place")
                     + ": " + readStr(GS.BhavStr.CreatePlace, o[4]);
-				switch (o[4]) 
-				{
+                switch (o[4])
+                {
                     case 0x04: s = s.Replace(DoidName(0x10), dataOwner(0x10, o[9])); break;
-					case 0x08: case 0x09: s = s.Replace(dnLocal(), dataOwner(0x19, o[6])); break;
+                    case 0x08: case 0x09: s = s.Replace(dnLocal(), dataOwner(0x19, o[6])); break;
                     case 0x0A: s = s.Replace("[slot]", "0x" + SimPe.Helper.HexString(o[9])); break;
                 }
 
-				s += ", " + readStr(GS.BhavStr.CreateHow, (ushort)(o[5] & 0x03));
+                s += ", " + readStr(GS.BhavStr.CreateHow, (ushort)(o[5] & 0x03));
                 s += ", " + pjse.Localization.GetString("bwp2a_failNonEmpty")
                     + ": " + ((o[5] & 0x08) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp2a_passTemp0")
@@ -1471,87 +1473,86 @@ namespace pjse.BhavNameWizards
                     + ": " + ((o[10] & 0x01) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp2a_copyTemp5")
                     + ": " + ((o[10] & 0x02) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x002d : BhavWizPrim	// Go To Routing Slot -- for wizard, see edithWiki CreatingAChair
-	{
-		public WizPrim0x002d(Instruction i) : base(i) { }
+    public class WizPrim0x002d : BhavWizPrim    // Go To Routing Slot -- for wizard, see edithWiki CreatingAChair
+    {
+        public WizPrim0x002d(Instruction i) : base(i) { }
 
-		public override ABhavOperandWiz Wizard()
-		{
+        public override ABhavOperandWiz Wizard()
+        {
             return new pjse.BhavOperandWizards.BhavOperandWiz0x002d(instruction);
-		}
+        }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
             string s = "";
 
-			if ((o[4] & 0x02) == 0)
-				switch (ToShort(o[2], o[3])) 
-				{
-					case 0:
-						s += dataOwner(lng, 0x09, o[0], o[1]); // Param
-						break;
-					case 1:
-						s += "0x" + SimPe.Helper.HexString(ToShort(o[0], o[1]));
-						break;
-					case 2:
-						s += pjse.Localization.GetString("lcGlobal")
+            if ((o[4] & 0x02) == 0)
+                switch (ToShort(o[2], o[3]))
+                {
+                    case 0:
+                        s += dataOwner(lng, 0x09, o[0], o[1]); // Param
+                        break;
+                    case 1:
+                        s += "0x" + SimPe.Helper.HexString(ToShort(o[0], o[1]));
+                        break;
+                    case 2:
+                        s += pjse.Localization.GetString("lcGlobal")
                             + " 0x" + SimPe.Helper.HexString(ToShort(o[0], o[1]));
-						break;
-					case 3:
-						s += dataOwner(lng, 0x19, o[0], o[1]); // Local
-						break;
-					default:
-						s += "??? 0x" + SimPe.Helper.HexString(ToShort(o[0], o[1]));
-						break;
-				}
-			else
-				s += dataOwner(lng, 0x08, o[0], o[1]); // Temp
+                        break;
+                    case 3:
+                        s += dataOwner(lng, 0x19, o[0], o[1]); // Local
+                        break;
+                    default:
+                        s += "??? 0x" + SimPe.Helper.HexString(ToShort(o[0], o[1]));
+                        break;
+                }
+            else
+                s += dataOwner(lng, 0x08, o[0], o[1]); // Temp
 
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp_noFailureTrees")
                     + ": " + ((o[4] & 0x01) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp2d_ignoreDestObjFootprint")
                     + ": " + ((o[4] & 0x04) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp2d_allowDiffAltitudes")
                     + ": " + ((o[4] & 0x08) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x002e : BhavWizPrim	// Snap -- for wizard, see edithWiki CreatingAChair (assume this is s/t/r/s)
-	{
+    public class WizPrim0x002e : BhavWizPrim    // Snap -- for wizard, see edithWiki CreatingAChair (assume this is s/t/r/s)
+    {
         public WizPrim0x002e(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x002e(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			ushort snapType = ToShort(o[2], o[3]);
+            ushort snapType = ToShort(o[2], o[3]);
 
-			s += readStr(GS.BhavStr.SnapType, snapType);
+            s += readStr(GS.BhavStr.SnapType, snapType);
 
             if ((o[4] & 0x08) != 0)
             {
@@ -1568,8 +1569,8 @@ namespace pjse.BhavNameWizards
                     s = s.Replace("[slot]", "0x" + SimPe.Helper.HexString(ToShort(o[0], o[1])));
             }
 
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp2e_fromTemp1")
                     + ": " + (ToShort(o[8], o[9]) == 1).ToString();
 
@@ -1577,46 +1578,45 @@ namespace pjse.BhavNameWizards
                     + ": " + ((o[4] & 0x02) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp_testOnly")
                     + ": " + ((o[4] & 0x10) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0030 : BhavWizPrim	// Stop ALL Sounds
-	{
+    public class WizPrim0x0030 : BhavWizPrim    // Stop ALL Sounds
+    {
         public WizPrim0x0030(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0030(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			return (ToShort(o[0], o[1]) == 0 ? dnMe() : dnStkOb());
-		}
-	}
+            return (ToShort(o[0], o[1]) == 0 ? dnMe() : dnStkOb());
+        }
+    }
 
-	public class WizPrim0x0031 : BhavWizPrim	// Notify the Stack Object out of Idle
-	{
-		public WizPrim0x0031(Instruction i) : base(i) { }
+    public class WizPrim0x0031 : BhavWizPrim    // Notify the Stack Object out of Idle
+    {
+        public WizPrim0x0031(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			return "-";
-		}
+        protected override string Operands(bool lng)
+        {
+            return "-";
+        }
 
-	}
+    }
 
-	public class WizPrim0x0032 : BhavWizPrim	// Add/Change action string (disaSim2 24b)
-	{
-		public WizPrim0x0032(Instruction i) : base(i) { }
+    public class WizPrim0x0032 : BhavWizPrim    // Add/Change action string (disaSim2 24b)
+    {
+        public WizPrim0x0032(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -1624,43 +1624,43 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			if (o[9] == 0) 
-			{
-				Scope scope = Scope.Private;
-				if      ((o[2] & 0x04) != 0) scope = Scope.Global;
-				else if ((o[2] & 0x08) != 0) scope = Scope.SemiGlobal;
+            if (o[9] == 0)
+            {
+                Scope scope = Scope.Private;
+                if ((o[2] & 0x04) != 0) scope = Scope.Global;
+                else if ((o[2] & 0x08) != 0) scope = Scope.SemiGlobal;
 
-				if (lng)
-				{
+                if (lng)
+                {
                     s += pjse.Localization.GetString("bwp32_addChange");
-					if (instruction.NodeVersion != 0)
-					{
+                    if (instruction.NodeVersion != 0)
+                    {
                         s += ", " + pjse.Localization.GetString("bwp32_disabled")
                             + ": ";
-                        if      ((o[3] & 0x01) != 0) s += pjse.Localization.GetString("bwp32_propagating");
+                        if ((o[3] & 0x01) != 0) s += pjse.Localization.GetString("bwp32_propagating");
                         else if ((o[3] & 0x02) != 0) s += pjse.Localization.GetString("bwp32_nonPropagating");
-						else                         s += false.ToString();
-					}
+                        else s += false.ToString();
+                    }
                     if (instruction.NodeVersion > 2)
                         s += ", " + pjse.Localization.GetString("bwp32_subqueue")
                             + ": " + ((o[3] & 0x10) != 0);
                     s += ", ";
                 }
 
-				if ((o[2] & 0x10) != 0) s += GS.GlobalStr.MakeAction.ToString() + ":[" + dataOwner(false, 0x08, 0) + "]"; // Temp 0
-				else s += readStr(scope, GS.GlobalStr.MakeAction,
+                if ((o[2] & 0x10) != 0) s += GS.GlobalStr.MakeAction.ToString() + ":[" + dataOwner(false, 0x08, 0) + "]"; // Temp 0
+                else s += readStr(scope, GS.GlobalStr.MakeAction,
                         (ushort)((instruction.NodeVersion < 2 ? o[0x04] : ToShort(o[0x0e], o[0x0f])) - 1),
                         lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames);
-			}
-			else 
-			{
+            }
+            else
+            {
                 s += pjse.Localization.GetString("bwp32_iconChange");
 
                 s += ", " + pjse.Localization.GetString("bwp32_iconIndex")
@@ -1679,15 +1679,15 @@ namespace pjse.BhavNameWizards
                         s += ", " + pjse.Localization.GetString("Object")
                             + ": " + dataOwner(lng, o[11], o[12], o[13]);
                 }
-			}
+            }
 
-			return s;
+            return s;
         }
-	}
+    }
 
-	public class WizPrim0x0033 : BhavWizPrim	// Manage Inventory -- for wizard, see edithWiki WorkAndSchool, Career rewards (disaSim2 24b)
-	{
-		public WizPrim0x0033(Instruction i) : base(i) { }
+    public class WizPrim0x0033 : BhavWizPrim    // Manage Inventory -- for wizard, see edithWiki WorkAndSchool, Career rewards (disaSim2 24b)
+    {
+        public WizPrim0x0033(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -1695,27 +1695,27 @@ namespace pjse.BhavNameWizards
         }
 
         private string tokenType(int i, int j, bool all)
-		{
+        {
             //string[] tokType = { "any", "all", "non-visible", "visible", "non-memory", "memory", "non-shopping", "shopping", };
 
-			string s = "";
+            string s = "";
             if ((i & 0x04) != 0) s += readStr(GS.BhavStr.TokenType, (ushort)(2 + ((j & 0x10) == 0 ? 0 : 1))) + " ";
             if ((i & 0x08) != 0) s += readStr(GS.BhavStr.TokenType, (ushort)(4 + ((j & 0x20) == 0 ? 0 : 1))) + " ";
             if ((i & 0x20) != 0) s += readStr(GS.BhavStr.TokenType, (ushort)(6 + ((i & 0x01) == 0 ? 0 : 1))) + " ";
             if ((i & 0x2c) == 0) s += readStr(GS.BhavStr.TokenType, (ushort)(all ? 1 : 0)) + " ";
-			return s.Trim();
-		}
+            return s.Trim();
+        }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			byte c1 = (instruction.NodeVersion >= 1) ? o[0] : (byte)(((o[0] & 0x3C) << 1) | (o[0] & 0x83));
-			byte c2 = (instruction.NodeVersion >= 2) ? o[9] : (byte)0x0c;
+            byte c1 = (instruction.NodeVersion >= 1) ? o[0] : (byte)(((o[0] & 0x3C) << 1) | (o[0] & 0x83));
+            byte c2 = (instruction.NodeVersion >= 2) ? o[9] : (byte)0x0c;
 
             bool byGUID, index2, index, count, frominv, reversed, propno, propval, ignoreinv;
             byGUID = index2 = index = count = frominv = reversed = propno = propval = ignoreinv = false;
@@ -1825,12 +1825,12 @@ namespace pjse.BhavNameWizards
             }
 
             return s;
-		}
-	}
+        }
+    }
 
-	public class WizPrim0x0069 : BhavWizPrim	// Animate Object
-	{
-		public WizPrim0x0069(Instruction i) : base(i) { }
+    public class WizPrim0x0069 : BhavWizPrim    // Animate Object
+    {
+        public WizPrim0x0069(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -1882,11 +1882,11 @@ namespace pjse.BhavNameWizards
 
             return s;
         }
-	}
+    }
 
-	public class WizPrim0x006a : BhavWizPrim	// Animate Sim -- for wizard, see edithWiki CreatingAChair
-	{
-		public WizPrim0x006a(Instruction i) : base(i) { }
+    public class WizPrim0x006a : BhavWizPrim    // Animate Sim -- for wizard, see edithWiki CreatingAChair
+    {
+        public WizPrim0x006a(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -1894,37 +1894,37 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			Scope scope = Scope.Private;
-			GS.GlobalStr instance = GS.GlobalStr.ObjectAnims;
-			if (o[6] == 0x80)
-			{
-				instance = GS.GlobalStr.AdultAnims;
-				scope = Scope.Global;
-			}
-			else try
-				 {
-					 instance = (GS.GlobalStr)o[6];
-					 if (!instance.ToString().EndsWith("Anims"))
-						 instance = GS.GlobalStr.ObjectAnims;
-				 }
-				 catch { instance = GS.GlobalStr.ObjectAnims; }
+            Scope scope = Scope.Private;
+            GS.GlobalStr instance = GS.GlobalStr.ObjectAnims;
+            if (o[6] == 0x80)
+            {
+                instance = GS.GlobalStr.AdultAnims;
+                scope = Scope.Global;
+            }
+            else try
+                {
+                    instance = (GS.GlobalStr)o[6];
+                    if (!instance.ToString().EndsWith("Anims"))
+                        instance = GS.GlobalStr.ObjectAnims;
+                }
+                catch { instance = GS.GlobalStr.ObjectAnims; }
 
-             s += (lng ? pjse.Localization.GetString("bwp_animation") + ": " : "")
-                + ((o[2] & 0x04) != 0
-                    ? instance.ToString() + ":[" + dataOwner(lng, 0x09, o[0], o[1]) + "]" // Param
-				    + " (" + pjse.Localization.GetString(scope.ToString()) + ")"
-				: readStr(scope, instance, ToShort(o[0], o[1]), lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames)
-				);
+            s += (lng ? pjse.Localization.GetString("bwp_animation") + ": " : "")
+               + ((o[2] & 0x04) != 0
+                   ? instance.ToString() + ":[" + dataOwner(lng, 0x09, o[0], o[1]) + "]" // Param
+                   + " (" + pjse.Localization.GetString(scope.ToString()) + ")"
+               : readStr(scope, instance, ToShort(o[0], o[1]), lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames)
+               );
 
-			if (lng)
-			{
+            if (lng)
+            {
                 bool found = false;
                 s += ", " + pjse.Localization.GetString("bwp_eventTree") + ": " + bhavName(ToShort(o[4], o[5]), ref found);
 
@@ -1950,23 +1950,23 @@ namespace pjse.BhavNameWizards
 
                 s += ", " + pjse.Localization.GetString("bwp6a_IK") + ": " + dataOwner(o[9], ToShort(o[10], o[11]));
                 s += ", " + pjse.Localization.GetString("bwp_priority") + ": 0x" + SimPe.Helper.HexString(o[12]) + " (";
-				switch (o[12]) 
-				{
+                switch (o[12])
+                {
                     case 0: s += pjse.Localization.GetString("bwp_low"); break;
                     case 1: s += pjse.Localization.GetString("bwp_medium"); break;
                     case 2: s += pjse.Localization.GetString("bwp_high"); break;
-					default: s += pjse.Localization.GetString("unk"); break;
-				}
-				s += ")";
-			}
+                    default: s += pjse.Localization.GetString("unk"); break;
+                }
+                s += ")";
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x006b : BhavWizPrim	// Animate Overlay
-	{
-		public WizPrim0x006b(Instruction i) : base(i) { }
+    public class WizPrim0x006b : BhavWizPrim    // Animate Overlay
+    {
+        public WizPrim0x006b(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -1974,40 +1974,40 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += (lng ? pjse.Localization.GetString("Object") + ": " : "")
                 + dataOwner(lng, o[6], o[7], o[8]);       // target object
 
-			Scope scope = Scope.Private;
-			GS.GlobalStr instance = GS.GlobalStr.ObjectAnims;
-			if (o[9] == 0x80)
-			{
-				instance = GS.GlobalStr.AdultAnims;
-				scope = Scope.Global;
-			}
-			else try
-				 {
-					 instance = (GS.GlobalStr)o[9];
-					 if (!instance.ToString().EndsWith("Anims"))
-						 instance = GS.GlobalStr.ObjectAnims;
-				 }
-				 catch { instance = GS.GlobalStr.ObjectAnims; }
+            Scope scope = Scope.Private;
+            GS.GlobalStr instance = GS.GlobalStr.ObjectAnims;
+            if (o[9] == 0x80)
+            {
+                instance = GS.GlobalStr.AdultAnims;
+                scope = Scope.Global;
+            }
+            else try
+                {
+                    instance = (GS.GlobalStr)o[9];
+                    if (!instance.ToString().EndsWith("Anims"))
+                        instance = GS.GlobalStr.ObjectAnims;
+                }
+                catch { instance = GS.GlobalStr.ObjectAnims; }
 
-             s += ", " + (lng ? pjse.Localization.GetString("bwp_animation") + ": " : "")
-                 + ((o[2] & 0x04) != 0
-                 ? instance.ToString() + ":[" + dataOwner(lng, 0x09, o[0], o[1]) + "]" // Param
-                    + (lng ? " (" + pjse.Localization.GetString(scope.ToString()) + ")" : "")
-                 : readStr(scope, instance, ToShort(o[0], o[1]), lng ? -1 : 60, lng ? Detail.Full : Detail.ErrorNames) // variable instance
-                 );
+            s += ", " + (lng ? pjse.Localization.GetString("bwp_animation") + ": " : "")
+                + ((o[2] & 0x04) != 0
+                ? instance.ToString() + ":[" + dataOwner(lng, 0x09, o[0], o[1]) + "]" // Param
+                   + (lng ? " (" + pjse.Localization.GetString(scope.ToString()) + ")" : "")
+                : readStr(scope, instance, ToShort(o[0], o[1]), lng ? -1 : 60, lng ? Detail.Full : Detail.ErrorNames) // variable instance
+                );
 
-			if (lng)
-			{
+            if (lng)
+            {
                 bool found = false;
                 s += ", " + pjse.Localization.GetString("bwp_eventTree") + ": " + bhavName(ToShort(o[4], o[5]), ref found);
 
@@ -2030,14 +2030,14 @@ namespace pjse.BhavNameWizards
                 s += ", " + pjse.Localization.GetString("bwp_sync") + ": " + ((o[15] & 0x10) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp_alignBlend") + ": " + ((o[15] & 0x20) != 0).ToString();
 
-				byte priority;
-				if (instruction.NodeVersion != 0)
-				{
+                byte priority;
+                if (instruction.NodeVersion != 0)
+                {
                     s += ", " + pjse.Localization.GetString("bwp_notHurryable") + ": " + ((o[12] & 0x01) != 0).ToString();
-					priority = o[11];
-				}
-				else
-					priority = o[12];
+                    priority = o[11];
+                }
+                else
+                    priority = o[12];
 
                 s += ", " + pjse.Localization.GetString("bwp_priority") + ": 0x" + SimPe.Helper.HexString(priority) + " (";
                 switch (priority)
@@ -2050,27 +2050,26 @@ namespace pjse.BhavNameWizards
                 s += ")";
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x006c : BhavWizPrim	// Animate Stop (disaSim2 24b)
-	{
+    public class WizPrim0x006c : BhavWizPrim    // Animate Stop (disaSim2 24b)
+    {
         public WizPrim0x006c(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x006c(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += (lng ? pjse.Localization.GetString("Object") + ": " : "")
                 + dataOwner(lng, o[3], o[4], o[5]);       // target object
@@ -2078,32 +2077,32 @@ namespace pjse.BhavNameWizards
             s += ", " + (lng ? pjse.Localization.GetString("bwp_animation") + ": " : "");
             if (o[7] == 0)
             {
-                    Scope scope = Scope.Private;
-                    GS.GlobalStr instance = GS.GlobalStr.ObjectAnims;
-                    if (o[6] == 0x80)
-                    {
-                        instance = GS.GlobalStr.AdultAnims;
-                        scope = Scope.Global;
-                    }
-                    else try
-                        {
-                            instance = (GS.GlobalStr)o[6];
-                            if (!instance.ToString().EndsWith("Anims"))
-                                instance = GS.GlobalStr.ObjectAnims;
-                        }
-                        catch { instance = GS.GlobalStr.ObjectAnims; }
-
-                    s += ((o[2] & 0x04) != 0
-                        ? instance.ToString() + ":[" + dataOwner(lng, 0x09, o[0], o[1]) + "]" // Param
-                           + (lng ? " (" + pjse.Localization.GetString(scope.ToString()) + ")" : "")
-                        : readStr(scope, instance, ToShort(o[0], o[1]), lng ? -1 : 60, lng ? Detail.Full : Detail.ErrorNames) // variable instance
-                        );
+                Scope scope = Scope.Private;
+                GS.GlobalStr instance = GS.GlobalStr.ObjectAnims;
+                if (o[6] == 0x80)
+                {
+                    instance = GS.GlobalStr.AdultAnims;
+                    scope = Scope.Global;
                 }
-                else
-                    s += readStr(GS.BhavStr.StopAnimType, o[7]);
+                else try
+                    {
+                        instance = (GS.GlobalStr)o[6];
+                        if (!instance.ToString().EndsWith("Anims"))
+                            instance = GS.GlobalStr.ObjectAnims;
+                    }
+                    catch { instance = GS.GlobalStr.ObjectAnims; }
 
-			if (lng)
-			{
+                s += ((o[2] & 0x04) != 0
+                    ? instance.ToString() + ":[" + dataOwner(lng, 0x09, o[0], o[1]) + "]" // Param
+                       + (lng ? " (" + pjse.Localization.GetString(scope.ToString()) + ")" : "")
+                    : readStr(scope, instance, ToShort(o[0], o[1]), lng ? -1 : 60, lng ? Detail.Full : Detail.ErrorNames) // variable instance
+                    );
+            }
+            else
+                s += readStr(GS.BhavStr.StopAnimType, o[7]);
+
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp_blendOut") + ": " + ((o[2] & 0x02) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp_flipFlag") + ": " + (
                     (o[2] & 0x08) != 0 ? dataOwner(0x08, 3) // Temp 3
@@ -2123,13 +2122,13 @@ namespace pjse.BhavNameWizards
                 s += ")";
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x006d : BhavWizPrim	// Change Material
-	{
-		public WizPrim0x006d(Instruction i) : base(i) { }
+    public class WizPrim0x006d : BhavWizPrim    // Change Material
+    {
+        public WizPrim0x006d(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -2137,25 +2136,25 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += (lng ? pjse.Localization.GetString("Target") + ": " : "")
                 + dataOwner(lng, o[5], o[6], o[7]);       // target object
 
-			Scope matScope = Scope.Private;
-			if ((o[2] & 0x02) != 0) matScope = Scope.Global;
-			else if ((o[2] & 0x04) != 0) matScope = Scope.SemiGlobal;
+            Scope matScope = Scope.Private;
+            if ((o[2] & 0x02) != 0) matScope = Scope.Global;
+            else if ((o[2] & 0x04) != 0) matScope = Scope.SemiGlobal;
 
             s += ", " + (lng ? pjse.Localization.GetString("bwp6d_materialFrom") + ": " : "");
-			if ((o[13] & 0x02) == 0)
-			{
+            if ((o[13] & 0x02) == 0)
+            {
                 s += ((o[2] & 0x08) != 0 ? pjse.Localization.GetString("bwp_source") : dnMe());
-				s += " (" + (lng ? ((o[13] & 0x01) != 0
+                s += " (" + (lng ? ((o[13] & 0x01) != 0
                     ? pjse.Localization.GetString("bwp6d_movingTexture")
                     : pjse.Localization.GetString("bwp6d_material")
                     ) + ": " : "");
@@ -2163,26 +2162,26 @@ namespace pjse.BhavNameWizards
                     + "]" + (lng ? " (" + matScope.ToString() + ")" : "");
                 else if ((o[2] & 0x08) == 0) s += readStr(matScope, GS.GlobalStr.MaterialName, ToShort(o[0], o[1]), lng ? -1 : 30, lng ? Detail.Normal : Detail.ErrorNames);
                 else s += GS.GlobalStr.MaterialName.ToString() + ":[0x" + SimPe.Helper.HexString(ToShort(o[0], o[1])) + "]" + (lng ? " (" + matScope.ToString() + ")" : "");
-				s += ")";
-			}
-			else
+                s += ")";
+            }
+            else
                 s += pjse.Localization.GetString("bwp6d_screenShot");
 
-			Scope mgScope = Scope.Private;
-			if ((o[2] & 0x40) != 0) mgScope = Scope.Global;
-			else if ((o[2] & 0x80) != 0) mgScope = Scope.SemiGlobal;
+            Scope mgScope = Scope.Private;
+            if ((o[2] & 0x40) != 0) mgScope = Scope.Global;
+            else if ((o[2] & 0x80) != 0) mgScope = Scope.SemiGlobal;
 
             s += ", " + (lng ? pjse.Localization.GetString("bwp6d_meshFrom") + ": " : "") + ((o[2] & 0x01) != 0 ? pjse.Localization.GetString("bwp_source") : dnMe());
             if ((o[4] & 0x80) == 0) // w3 < 0
-			{
+            {
                 s += " (" + (lng ? pjse.Localization.GetString("bwp6d_meshGroup") + ": " : "");
                 if ((o[2] & 0x20) != 0) s += GS.GlobalStr.MeshGroup.ToString() + ":[" + dataOwner(lng, 0x08, 1) // Temp 1
                     + "]" + (lng ? " (" + mgScope.ToString() + ")" : "");
                 else if ((o[2] & 0x01) == 0) s += readStr(mgScope, GS.GlobalStr.MeshGroup, ToShort(o[3], o[4]), lng ? -1 : 30, lng ? Detail.Normal : Detail.ErrorNames);
                 else s += GS.GlobalStr.MeshGroup.ToString() + ":[0x" + SimPe.Helper.HexString(ToShort(o[3], o[4])) + "]" + (lng ? " (" + mgScope.ToString() + ")" : "");
-				s += ")";
-			}
-			else
+                s += ")";
+            }
+            else
                 s += " (" + pjse.Localization.GetString("bwp6d_allOver") + ")";
 
             if (((o[13] & 0x02) == 0 && (o[2] & 0x08) != 0) || (o[2] & 0x01) != 0)
@@ -2191,22 +2190,22 @@ namespace pjse.BhavNameWizards
                     + dataOwner(lng, o[8], o[9], o[10]);
             }
 
-			return s;
-		}
+            return s;
+        }
 
-	}
+    }
 
-	public class WizPrim0x006e : BhavWizPrim	// Look At
-	{
-		public WizPrim0x006e(Instruction i) : base(i) { }
+    public class WizPrim0x006e : BhavWizPrim    // Look At
+    {
+        public WizPrim0x006e(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += (lng ? pjse.Localization.GetString("Target") + ": " : "") + ((o[0] & 0x80) == 0
                 ? dataOwner(lng, o[1], o[2], o[3])
@@ -2215,10 +2214,10 @@ namespace pjse.BhavNameWizards
 
             s += ", " + Slot(o[14], o[8]);
 
-			if ((o[0] & 0x01) == 0) 
-			{
-				if (lng)
-				{
+            if ((o[0] & 0x01) == 0)
+            {
+                if (lng)
+                {
                     bool found = false;
                     s += ", " + pjse.Localization.GetString("bwp_eventTree") + ": " + bhavName(ToShort(o[9], o[10]), ref found);
 
@@ -2231,15 +2230,15 @@ namespace pjse.BhavNameWizards
                     s += ", " + pjse.Localization.GetString("bwp6e_includeSpine") + ": " + ((o[0] & 0x04) != 0).ToString();
                     s += ", " + pjse.Localization.GetString("bwp6e_duration") + ": "
                         + ((o[0] & 0x10) != 0 ? dataOwner(0x08, 0) : "---"); // Temp 0
-				}
-			} 
-			else
+                }
+            }
+            else
                 s += ": " + pjse.Localization.GetString("bwp6e_STOP");
 
-			if (lng)
-			{
-				if (instruction.NodeVersion != 0)
-				{
+            if (lng)
+            {
+                if (instruction.NodeVersion != 0)
+                {
                     s += ", " + pjse.Localization.GetString("bwp6e_turnTowards")
                         + ": " + ((o[0] & 0x08) != 0 ? dataOwner(0x08, 1) // Temp 1
                         : (2 * o[4]).ToString() + " " + pjse.Localization.GetString("bwp6e_deg_s"));
@@ -2250,8 +2249,8 @@ namespace pjse.BhavNameWizards
 
                     s += ", " + pjse.Localization.GetString("bwp_notHurryable")
                         + ": " + ((o[15] & 0x04) != 0).ToString();
-				}
-				else
+                }
+                else
                     s += ", " + pjse.Localization.GetString("bwp6e_speed")
                         + ": " + ((o[0] & 0x08) != 0 ? dataOwner(0x08, 1) // Temp 1
                         : o[4].ToString() + " " + pjse.Localization.GetString("bwp6e_deg_s"));
@@ -2260,63 +2259,61 @@ namespace pjse.BhavNameWizards
                     + ": " + ((o[0] & 0x20) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp6e_ignoreFrustrum")
                     + ": " + ((o[0] & 0x40) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x006f : BhavWizPrim	// Change Light
-	{
+    public class WizPrim0x006f : BhavWizPrim    // Change Light
+    {
         public WizPrim0x006f(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x006f(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += (lng ? pjse.Localization.GetString("Target") + ": " : "") + dataOwner(lng, o[2], o[3], o[4]);       // target object
+            s += (lng ? pjse.Localization.GetString("Target") + ": " : "") + dataOwner(lng, o[2], o[3], o[4]);       // target object
             s += ", " + pjse.Localization.GetString("bwp6f_light") + ": " + (o[8] == 0xFF
                 ? pjse.Localization.GetString("bwp6f_all")
                 : readStr(GS.GlobalStr.LightSource, o[8], lng ? -1 : 60, Detail.ErrorNames)); // Fixed instance and scope
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp6f_ticks") + ": "
                     + ((o[1] & 0x01) != 0 ? dataOwner(0x08, 1) : "0x" + SimPe.Helper.HexString(ToShort(o[5], o[6])));
                 s += ", " + pjse.Localization.GetString("bwp6f_intensity") + ": "
                     + ((o[1] & 0x02) != 0 ? dataOwner(0x08, 0) : o[7].ToString() + "%");
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0070 : BhavWizPrim	// Effect Stop/Start
-	{
+    public class WizPrim0x0070 : BhavWizPrim    // Effect Stop/Start
+    {
         public WizPrim0x0070(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0070(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += readStr(GS.BhavStr.EffectSSType, o[0]);
 
@@ -2325,9 +2322,9 @@ namespace pjse.BhavNameWizards
             if (lng && o[0] != 0x9 && o[0] != 0xE)
                 s += ", " + Slot(o[9], o[6]);
 
-			Scope scope = Scope.Private;
-			if      ((o[10] & 0x01) != 0) scope = Scope.Global;
-			else if ((o[10] & 0x02) != 0) scope = Scope.SemiGlobal;
+            Scope scope = Scope.Private;
+            if ((o[10] & 0x01) != 0) scope = Scope.Global;
+            else if ((o[10] & 0x02) != 0) scope = Scope.SemiGlobal;
 
             if (o[0] == 0x04 || o[0] == 0x05)
                 s += ", " + pjse.Localization.GetString("bwp70_effectID") + ": "
@@ -2341,22 +2338,22 @@ namespace pjse.BhavNameWizards
                     s += ", " + pjse.Localization.GetString("bwp70_defaultEffect");
             }
 
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp_icon") + ": ";
-				if ((o[10] & 0x04) != 0)
-					s += dataOwner(o[12], o[13], o[14]);
-				else if ((o[10] & 0x10) != 0)
+                if ((o[10] & 0x04) != 0)
+                    s += dataOwner(o[12], o[13], o[14]);
+                else if ((o[10] & 0x10) != 0)
                     s += dataOwner(o[12], o[13], o[14]) + " (" + pjse.Localization.GetString("NeighborID") + ")";
-				else if ((o[10] & 0x20) != 0)
+                else if ((o[10] & 0x20) != 0)
                     s += dataOwner(o[12], o[13], o[14]) + " (" + pjse.Localization.GetString("bwp70_conversation") + ")"
                         + ", " + pjse.Localization.GetString("bwp70_sheet")
                             + ": " + readStr(scope, pjse.GS.GlobalStr.IconTexture, o[15], -1, lng ? Detail.Normal : Detail.ErrorNames);
-				else if ((o[11] & 0x04) != 0)
+                else if ((o[11] & 0x04) != 0)
                     s += "GUID [" + dataOwner(0x08, 4) + ",5]"; // Temp 4
-				else if ((o[11] & 0x10) != 0)
+                else if ((o[11] & 0x10) != 0)
                     s += dataOwner(0x08, 6); // Temp 6
-				else
+                else
                     s += pjse.Localization.GetString("bwp70_noIcon");
 
                 s += ", " + pjse.Localization.GetString("bwp_priority") + ": " + ((o[10] & 0x80) != 0).ToString();
@@ -2364,95 +2361,93 @@ namespace pjse.BhavNameWizards
                 s += ", " + pjse.Localization.GetString("bwp70_model")
                     + ": " + ((o[11] & 0x08) != 0 ? dataOwner(0x08, 6) // Temp 6
                     : pjse.Localization.GetString("default"));
-			}
+            }
 
-			return s;
-		}
+            return s;
+        }
 
-	}
+    }
 
-	public class WizPrim0x0071 : BhavWizPrim	// Snap Into -- for wizard, see edithWiki CreatingAChair
-	{
+    public class WizPrim0x0071 : BhavWizPrim    // Snap Into -- for wizard, see edithWiki CreatingAChair
+    {
         public WizPrim0x0071(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0071(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += (lng ? pjse.Localization.GetString("Object") + ": " : "") + dataOwner(lng, o[0], o[1], o[2])
                 + ", " + (lng ? pjse.Localization.GetString("Target") + ": " : "") + dataOwner(lng, o[3], o[4], o[5]);
             s += ", " + (lng ? pjse.Localization.GetString("bwp_slot") + ": " : "")
                 + ((o[9] & 0x01) != 0 ? dataOwner(0x08, 0) : "0x" + SimPe.Helper.HexString(o[6]));
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp_testOnly") + ": " + ((o[9] & 0x02) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp71_resetRootBones") + ": " + ((o[9] & 0x04) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0072 : BhavWizPrim	// Assign Locomotion Animations
-	{
+    public class WizPrim0x0072 : BhavWizPrim    // Assign Locomotion Animations
+    {
         public WizPrim0x0072(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0072(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			switch (ToShort(o[0], o[1])) 
-			{
+            switch (ToShort(o[0], o[1]))
+            {
                 case 0: s += pjse.Localization.GetString("bwp72_popAll"); break;
                 case 1: s += pjse.Localization.GetString("bwp72_pop"); break;
-				default:
-					Scope scope = Scope.Private;
-					if      ((o[2] & 0x04) != 0) scope = Scope.Global;
-					else if ((o[2] & 0x02) != 0) scope = Scope.SemiGlobal;
+                default:
+                    Scope scope = Scope.Private;
+                    if ((o[2] & 0x04) != 0) scope = Scope.Global;
+                    else if ((o[2] & 0x02) != 0) scope = Scope.SemiGlobal;
                     s += pjse.Localization.GetString("bwp72_push") + ": "
                         + readStr(scope, GS.GlobalStr.LocoAnims, (ushort)(ToShort(o[0], o[1]) - 2), lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames);
-					break;
-			}
+                    break;
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0073 : BhavWizPrim	// Debug
-	{
-		public WizPrim0x0073(Instruction i) : base(i) { }
+    public class WizPrim0x0073 : BhavWizPrim    // Debug
+    {
+        public WizPrim0x0073(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			Scope scope = Scope.Private;
-			if ((o[14] & 0x04) != 0) scope = Scope.Global;
-			else if ((o[14] & 0x02) != 0) scope = Scope.SemiGlobal;
+            Scope scope = Scope.Private;
+            if ((o[14] & 0x04) != 0) scope = Scope.Global;
+            else if ((o[14] & 0x02) != 0) scope = Scope.SemiGlobal;
 
             if (o[13] == 0)
             {
@@ -2471,84 +2466,84 @@ namespace pjse.BhavNameWizards
                     s += ": " + readStr(scope, GS.GlobalStr.DebugString, o[12], lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames);
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0074 : BhavWizPrim	// Reach/Put
-	{
+    public class WizPrim0x0074 : BhavWizPrim    // Reach/Put
+    {
         public WizPrim0x0074(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0074(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			switch (o[10]) 
-			{
+            switch (o[10])
+            {
                 case 0: s += pjse.Localization.GetString("bwp74_pickUp") + ": " + dataOwner(lng, o[3], ToShort(o[4], o[5])); break;
-                case 1: s += pjse.Localization.GetString("bwp74_dropOnto") + ": "
+                case 1:
+                    s += pjse.Localization.GetString("bwp74_dropOnto") + ": "
                     + pjse.Localization.GetString("bwp74_floor"); break;
                 default: s += pjse.Localization.GetString("bwp74_dropOnto") + ": " + dataOwner(lng, o[3], ToShort(o[4], o[5])); break;
-			}
+            }
 
             s += ", " + pjse.Localization.GetString("bwp_slot") + ": " + ((o[9] & 0x01) != 0
                 ? dataOwner(0x08, 0) // Temp 0
                 : "0x" + SimPe.Helper.HexString(o[6]));
 
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp74_objectAnim") + ": " + (ToShort(o[13], o[14]) != 0xFFFF
                     ? readStr(GS.GlobalStr.ObjectAnims, ToShort(o[13], o[14]), -1, Detail.ErrorNames)
-					: pjse.Localization.GetString("none")
-					);
+                    : pjse.Localization.GetString("none")
+                    );
 
                 s += ", " + pjse.Localization.GetString("bwp74_graspAnim") + ": " + (ToShort(o[11], o[12]) != 0xFFFF
                     ? readStr(GS.GlobalStr.AdultAnims, ToShort(o[11], o[12]), -1, Detail.ErrorNames)
-					: pjse.Localization.GetString("none")
-					);
+                    : pjse.Localization.GetString("none")
+                    );
 
                 s += ", " + pjse.Localization.GetString("bwp74_handedness") + ": " + ((o[9] & 0x02) != 0 ? dataOwner(0x08, 3) : "---"); // Temp 3
                 s += ", " + pjse.Localization.GetString("bwp74_agedAnim") + ": " + ((o[9] & 0x04) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0075 : BhavWizPrim	// Age
-	{
-		public WizPrim0x0075(Instruction i) : base(i) { }
+    public class WizPrim0x0075 : BhavWizPrim    // Age
+    {
+        public WizPrim0x0075(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			if ((o[1] & 0x01) != 0)
-				s += dataOwner(0x08, 0);
-			else
+            if ((o[1] & 0x01) != 0)
+                s += dataOwner(0x08, 0);
+            else
                 s += readStr(pjse.GS.BhavStr.AgePrimAges, o[0]);
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0076 : BhavWizPrim	// Array Operation
-	{
-		public WizPrim0x0076(Instruction i) : base(i) { }
+    public class WizPrim0x0076 : BhavWizPrim    // Array Operation
+    {
+        public WizPrim0x0076(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
@@ -2556,12 +2551,12 @@ namespace pjse.BhavNameWizards
         }
 
         protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += pjse.Localization.GetString(o[2] == 0 ? "bwp_myArray" : "bwp_stackObjectArray");
             // See discussion around whether this is a bit vs boolean:
@@ -2569,73 +2564,80 @@ namespace pjse.BhavNameWizards
             s = s.Replace("[array]", ArrayName(lng, ToShort(o[3], o[4])));
             s += ", ";
 
-			switch (o[1]) 
-			{
+            switch (o[1])
+            {
                 case 0x00: s += pjse.Localization.GetString("bwp76_clearContents"); break;
                 case 0x01: s += pjse.Localization.GetString("bwp76_getSize") + ": " + dataOwner(lng, o[5], o[6], o[7]); break;
                 case 0x02: s += pjse.Localization.GetString("bwp76_setSize") + ": " + dataOwner(lng, o[5], o[6], o[7]); break;
                 case 0x03: s += pjse.Localization.GetString("bwp76_setAll") + ": " + dataOwner(lng, o[5], o[6], o[7]); break;
                 case 0x04: s += pjse.Localization.GetString("bwp76_unshift") + ": " + dataOwner(lng, o[5], o[6], o[7]); break;
                 case 0x05: s += pjse.Localization.GetString("bwp76_push") + ": " + dataOwner(lng, o[5], o[6], o[7]); break;
-                case 0x06: s += pjse.Localization.GetString("bwp76_insert") + ": " + dataOwner(lng, o[5], o[6], o[7])
+                case 0x06:
+                    s += pjse.Localization.GetString("bwp76_insert") + ": " + dataOwner(lng, o[5], o[6], o[7])
                     + ", " + pjse.Localization.GetString("bwp76_at")
                     + ": " + dataOwner(lng, o[8], o[9], o[10]); break;
-                case 0x07: s += pjse.Localization.GetString("bwp76_shift");
-                    s += ", ?" + pjse.Localization.GetString("bwp76_into")
-                        + ": " + dataOwner(lng, o[5], o[6], o[7]) + "?";
-					break;
-                case 0x08: s += pjse.Localization.GetString("bwp76_pop");
+                case 0x07:
+                    s += pjse.Localization.GetString("bwp76_shift");
                     s += ", ?" + pjse.Localization.GetString("bwp76_into")
                         + ": " + dataOwner(lng, o[5], o[6], o[7]) + "?";
                     break;
-                case 0x09: s += pjse.Localization.GetString("bwp76_remove") + ": " + dataOwner(lng, o[8], o[9], o[10]);
+                case 0x08:
+                    s += pjse.Localization.GetString("bwp76_pop");
                     s += ", ?" + pjse.Localization.GetString("bwp76_into")
                         + ": " + dataOwner(lng, o[5], o[6], o[7]) + "?";
                     break;
-                case 0x0a: s += pjse.Localization.GetString("bwp76_set") + ": " + dataOwner(lng, o[8], o[9], o[10])
+                case 0x09:
+                    s += pjse.Localization.GetString("bwp76_remove") + ": " + dataOwner(lng, o[8], o[9], o[10]);
+                    s += ", ?" + pjse.Localization.GetString("bwp76_into")
+                        + ": " + dataOwner(lng, o[5], o[6], o[7]) + "?";
+                    break;
+                case 0x0a:
+                    s += pjse.Localization.GetString("bwp76_set") + ": " + dataOwner(lng, o[8], o[9], o[10])
                     + ", " + pjse.Localization.GetString("bwp76_toNext")
                     + ": " + dataOwner(lng, o[5], o[6], o[7]); break;
-                case 0x0b: s += pjse.Localization.GetString("bwp76_swap") + ": " + dataOwner(lng, o[5], o[6], o[7])
+                case 0x0b:
+                    s += pjse.Localization.GetString("bwp76_swap") + ": " + dataOwner(lng, o[5], o[6], o[7])
                     + ", " + dataOwner(lng, o[8], o[9], o[10]); break;
                 case 0x0c: s += pjse.Localization.GetString("bwp76_sortHiLo"); break;
                 case 0x0d: s += pjse.Localization.GetString("bwp76_sortLoHi"); break;
-				default: s += pjse.Localization.GetString("unk") + ": 0x" + SimPe.Helper.HexString(o[1]); break;
-			}
+                default: s += pjse.Localization.GetString("unk") + ": 0x" + SimPe.Helper.HexString(o[1]); break;
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0077 : BhavWizPrim	// Message
-	{
+    public class WizPrim0x0077 : BhavWizPrim    // Message
+    {
         public WizPrim0x0077(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0077(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += (lng ? pjse.Localization.GetString("bwp_message") + ": " : "") + dataOwner(lng, o[15], o[1], o[2]);
 
-			s += ", " + (lng ? pjse.Localization.GetString("Target") + ": " : "");
-			if ((o[4] & 0x04) != 0)
-				s += dataOwner(lng, o[5], o[6], o[7]);
-			else
+            s += ", " + (lng ? pjse.Localization.GetString("Target") + ": " : "");
+            if ((o[4] & 0x04) != 0)
+                s += dataOwner(lng, o[5], o[6], o[7]);
+            else
                 switch (o[3])
                 {
                     case 0: s += pjse.Localization.GetString("bwp77_selectableSims"); break;
-                    case 1: s += pjse.Localization.GetString("bwp77_selectableSims")
+                    case 1:
+                        s += pjse.Localization.GetString("bwp77_selectableSims")
                         + " + " + pjse.Localization.GetString("bwp77_neighbors"); break;
-                    case 2: s += pjse.Localization.GetString("bwp77_selectableSims")
+                    case 2:
+                        s += pjse.Localization.GetString("bwp77_selectableSims")
                         + " + " + pjse.Localization.GetString("bwp77_npcs"); break;
                     case 3: s += pjse.Localization.GetString("bwp77_neighbors"); break;
                     case 4: s += pjse.Localization.GetString("bwp77_npcs"); break;
@@ -2650,7 +2652,8 @@ namespace pjse.BhavNameWizards
                 s += ", " + (lng ? pjse.Localization.GetString("bwp_Location") + ": " : "");
                 switch (o[0])
                 {
-                    case 0: s += pjse.Localization.GetString("bwp77_room")
+                    case 0:
+                        s += pjse.Localization.GetString("bwp77_room")
                         + ": " + ((o[4] & 0x01) == 0 ? pjse.Localization.GetString("bwp77_same") : dataOwner(o[5], o[6], o[7])); break;
                     case 1: s += pjse.Localization.GetString("bwp77_onSameLevel"); break;
                     case 2: s += pjse.Localization.GetString("bwp77_onLot"); break;
@@ -2665,29 +2668,28 @@ namespace pjse.BhavNameWizards
                     + ": (" + dataOwner(o[9], o[10], o[11]) + ", " + dataOwner(o[12], o[13], o[14]) + ")";
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0078 : BhavWizPrim	// RayTrace
-	{
+    public class WizPrim0x0078 : BhavWizPrim    // RayTrace
+    {
         public WizPrim0x0078(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0078(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += (lng ? pjse.Localization.GetString("Object") + ": " : "")
+            s += (lng ? pjse.Localization.GetString("Object") + ": " : "")
                 + dataOwner(lng, o[1], o[2], o[3]) + ", " + Slot(o[4], o[5]);
             s += ", " + (lng ? pjse.Localization.GetString("Target") + ": " : "")
                 + dataOwner(lng, o[8], o[9], o[10]) + ", " + Slot(o[11], o[12]);
@@ -2698,78 +2700,76 @@ namespace pjse.BhavNameWizards
                 s += ", " + pjse.Localization.GetString("bwp_resultIn") + ": " + dataOwner(0x08, 0); // Temp 0
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x0079 : BhavWizPrim	// Change Outfit
-	{
+    public class WizPrim0x0079 : BhavWizPrim    // Change Outfit
+    {
         public WizPrim0x0079(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x0079(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             if ((o[0] & 0x10) != 0) s += pjse.Localization.GetString("bwp79_rebuild") + ", ";
-			//else s += "change outfit";
+            //else s += "change outfit";
 
-			s += (lng ? pjse.Localization.GetString("Target") + ": " : "") + dataOwner(lng, o[9], o[10], o[11]);
+            s += (lng ? pjse.Localization.GetString("Target") + ": " : "") + dataOwner(lng, o[9], o[10], o[11]);
 
-			if (lng)
-			{
+            if (lng)
+            {
                 s += ", " + pjse.Localization.GetString("bwp_source") + ": ";
                 if ((o[0] & 0x01) != 0) s += dnStkOb();
                 else if ((o[0] & 0x02) != 0) s += BhavWiz.FormatGUID(lng, o, 4);
                 else if ((o[0] & 0x40) != 0) s += "GUID [" + dataOwner(0x08, 0) + ",1]";
                 else s += pjse.Localization.GetString("bwp79_self");
 
-				s += ", ";
+                s += ", ";
                 if ((o[0] & 4) == 0) s += pjse.Localization.GetString("bwp79_outfit") + ": " + readStr(GS.BhavStr.PersonOutfits, o[8]);
                 else s += pjse.Localization.GetString("bwp79_outfitIndex") + ": " + dataOwner(o[1], o[2], o[3]);
 
                 s += ", " + pjse.Localization.GetString("bwp79_personData") + ": " + ((o[0] & 0x20) != 0).ToString();
                 s += ", " + pjse.Localization.GetString("bwp79_save") + ": " + ((o[0] & 0x08) != 0).ToString();
-			}
+            }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x007a : BhavWizPrim	// Timer
-	{
+    public class WizPrim0x007a : BhavWizPrim    // Timer
+    {
         public WizPrim0x007a(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x007a(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			switch (o[15]) 
-			{
+            switch (o[15])
+            {
                 case 0: s += pjse.Localization.GetString("bwp7a_start"); break;
                 case 1: s += pjse.Localization.GetString("bwp7a_modify"); break;
                 case 2: s += pjse.Localization.GetString("bwp7a_delete"); break;
                 default: s += pjse.Localization.GetString("unk") + ": 0x" + SimPe.Helper.HexString(o[15]); break;
-			}
+            }
 
             if (o[15] != 2)
             {
@@ -2801,30 +2801,30 @@ namespace pjse.BhavNameWizards
                 }
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x007b : BhavWizPrim	// Cinematic
-	{
-		public WizPrim0x007b(Instruction i) : base(i) { }
+    public class WizPrim0x007b : BhavWizPrim    // Cinematic
+    {
+        public WizPrim0x007b(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			Scope scope = Scope.Private;
-			if      ((o[5] & 0x20) != 0) scope = Scope.Global;
-			else if ((o[5] & 0x40) != 0) scope = Scope.SemiGlobal;
+            Scope scope = Scope.Private;
+            if ((o[5] & 0x20) != 0) scope = Scope.Global;
+            else if ((o[5] & 0x40) != 0) scope = Scope.SemiGlobal;
 
             s += (lng ? pjse.Localization.GetString("bwp7b_scene") + ": " : "") + ((o[5] & 0x10) != 0
-				? dataOwner(lng, o[6], o[7], o[8])
+                ? dataOwner(lng, o[6], o[7], o[8])
                 : readStr(scope, GS.GlobalStr.CineCam, ToShort(o[0], o[1]), lng ? -1 : 60, lng ? Detail.Normal : Detail.ErrorNames)
-				);
+                );
 
             if (lng)
             {
@@ -2837,51 +2837,51 @@ namespace pjse.BhavNameWizards
                 s += ", " + pjse.Localization.GetString("bwp7b_showHouse") + ": " + ((o[5] & 0x08) != 0).ToString();
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x007c : BhavWizPrim	// Want Satisfy -- for wizard, see edithWiki WantSatisfacton
-	{
+    public class WizPrim0x007c : BhavWizPrim    // Want Satisfy -- for wizard, see edithWiki WantSatisfacton
+    {
         public WizPrim0x007c(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            return new pjse.BhavOperandWizards.BhavOperandWiz0x007c(instruction);
+            return new whse.PrimitiveWizards.BhavOperandWiz0x007c(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
             s += (lng ? pjse.Localization.GetString("Target") + ": " : "") + dataOwner(lng, o[7], o[8], o[9]);
             // Mmm, wants don't appear to use OBJDs, so GUID lookups don't work...
-			uint want = (uint)(o[3] | o[4] << 8 | o[5] << 16 | o[6] << 24);
+            uint want = (uint)(o[3] | o[4] << 8 | o[5] << 16 | o[6] << 24);
             s += ", " + pjse.Localization.GetString("bwp7c_want") + ": 0x" + SimPe.Helper.HexString(want);
             if (lng)
                 s += ", " + pjse.Localization.GetString("bwp7c_level") + ": " + dataOwner(o[10], o[11], o[12]);
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x007d : BhavWizPrim	// Influence
-	{
-		public WizPrim0x007d(Instruction i) : base(i) { }
+    public class WizPrim0x007d : BhavWizPrim    // Influence
+    {
+        public WizPrim0x007d(Instruction i) : base(i) { }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			string s = "";
+            string s = "";
 
-			s += (lng ? pjse.Localization.GetString("Target") + ": " : "") + dataOwner(lng, o[0], o[1], o[2]);
+            s += (lng ? pjse.Localization.GetString("Target") + ": " : "") + dataOwner(lng, o[0], o[1], o[2]);
 
             if (lng)
             {
@@ -2890,46 +2890,45 @@ namespace pjse.BhavNameWizards
                 s = s.Replace("[array]", ArrayName(lng, ToShort(o[3], o[4])));
             }
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
-	public class WizPrim0x007e : BhavWizPrim	// Lua (disaSim2 24b)
-	{
+    public class WizPrim0x007e : BhavWizPrim    // Lua (disaSim2 24b)
+    {
         public WizPrim0x007e(Instruction i) : base(i) { }
 
         public override ABhavOperandWiz Wizard()
         {
-            // WHSE primitive wizards (Chris Hatch) are not included in this build
-            return null;
+            return new whse.PrimitiveWizards.BhavOperandWiz0x007e(instruction);
         }
 
-		protected override string Operands(bool lng)
-		{
-			byte[] o = new byte[16];
-			((byte[])instruction.Operands).CopyTo(o, 0);
-			((byte[])instruction.Reserved1).CopyTo(o, 8);
+        protected override string Operands(bool lng)
+        {
+            byte[] o = new byte[16];
+            ((byte[])instruction.Operands).CopyTo(o, 0);
+            ((byte[])instruction.Reserved1).CopyTo(o, 8);
 
-			ushort o4_5 = ToShort(o[4], o[5]);
+            ushort o4_5 = ToShort(o[4], o[5]);
 
-			string s = "";
+            string s = "";
 
             if (lng)
                 s += pjse.Localization.GetString("bwp7e_script") + ": ";
 
-			if (ToShort(o[2], o[3]) != 0) 
-			{
-				Scope scope = Scope.Global;
-				if      ((o4_5 & 0x02) != 0) scope = Scope.Private;
-				else if ((o4_5 & 0x04) != 0) scope = Scope.SemiGlobal;
+            if (ToShort(o[2], o[3]) != 0)
+            {
+                Scope scope = Scope.Global;
+                if ((o4_5 & 0x02) != 0) scope = Scope.Private;
+                else if ((o4_5 & 0x04) != 0) scope = Scope.SemiGlobal;
 
                 s += readStr(scope, ToShort(o[0], o[1]), (ushort)(ToShort(o[2], o[3]) - 1), lng ? -1 : 60, lng ? Detail.Full : Detail.Errors, false);
 
-				if ((o4_5 & 0x08) != 0)
-				{
+                if ((o4_5 & 0x08) != 0)
+                {
                     s += lng ? ", " + pjse.Localization.GetString("manyArgs") + ": " : ", ";
-					for (int i = 0; i < 3; i++) s += (i != 0 ? ", " : "") + dataOwner(lng, o[6+3*i], o[7+3*i], o[8+3*i]);
-				}
+                    for (int i = 0; i < 3; i++) s += (i != 0 ? ", " : "") + dataOwner(lng, o[6 + 3 * i], o[7 + 3 * i], o[8 + 3 * i]);
+                }
 
                 if (lng)
                 {
@@ -2941,11 +2940,11 @@ namespace pjse.BhavNameWizards
                         : pjse.Localization.GetString("bwp7e_description"));
                 }
             }
-			else
-				s += pjse.Localization.GetString("none");
+            else
+                s += pjse.Localization.GetString("none");
 
-			return s;
-		}
-	}
+            return s;
+        }
+    }
 
 }
