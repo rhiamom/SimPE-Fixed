@@ -59,9 +59,8 @@ namespace SimPe.PackedFiles.UserInterface
             if (strFalse == null) strFalse = this.falseTarget.Text;
             if (SimPe.Helper.WindowsRegistry.UseBigIcons && Screen.PrimaryScreen.WorkingArea.Width > 1600)
             {
-                bhavInstListItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F); // 12 works well like this but it is a bit close, tried 11.25F was OK
-                trueTarget.Location = new System.Drawing.Point(476, 9); // up 10 back 40  - for 10F up 4 back 20 - try down 2 forward 5
-                falseTarget.Location = new System.Drawing.Point(550, 9); // up 10 back 20 - back 10
+                bhavInstListItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+                // Link labels inherit this font automatically; Padding + MiddleLeft in designer prevent clipping
             }
         }
 
@@ -240,12 +239,13 @@ namespace SimPe.PackedFiles.UserInterface
             this.trueTarget.AutoSize = true;
             this.trueTarget.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.trueTarget.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
-            this.trueTarget.Location = new System.Drawing.Point(496, 13);
+            this.trueTarget.Location = new System.Drawing.Point(496, 9);
             this.trueTarget.Name = "trueTarget";
+            this.trueTarget.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.trueTarget.Size = new System.Drawing.Size(25, 13);
             this.trueTarget.TabIndex = 3;
             this.trueTarget.Text = "true";
-            this.trueTarget.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.trueTarget.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.trueTarget.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Target_LinkClicked);
             this.trueTarget.Click += new System.EventHandler(this.Control_Click);
             // 
@@ -255,12 +255,13 @@ namespace SimPe.PackedFiles.UserInterface
             this.falseTarget.AutoSize = true;
             this.falseTarget.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.falseTarget.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
-            this.falseTarget.Location = new System.Drawing.Point(560, 13);
+            this.falseTarget.Location = new System.Drawing.Point(560, 9);
             this.falseTarget.Name = "falseTarget";
+            this.falseTarget.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.falseTarget.Size = new System.Drawing.Size(29, 13);
             this.falseTarget.TabIndex = 4;
             this.falseTarget.Text = "false";
-            this.falseTarget.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.falseTarget.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.falseTarget.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Target_LinkClicked);
             this.falseTarget.Click += new System.EventHandler(this.Control_Click);
             // 
