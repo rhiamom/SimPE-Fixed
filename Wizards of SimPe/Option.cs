@@ -339,29 +339,6 @@ namespace SimPe.Wizards
 			form1.HideOptions(sender, e);
 		}
 
-		public static bool HaveObjects
-		{
-            get
-            {
-                // Try Helper.BaseGamePath first (from GameRoot.cfg), fall back to PathProvider
-                string baseGame = Helper.BaseGamePath;
-                if (string.IsNullOrEmpty(baseGame))
-                    baseGame = PathProvider.Global[Expansions.BaseGame].InstallFolder;
-                return System.IO.File.Exists(System.IO.Path.Combine(baseGame, "TSData" + Helper.PATH_SEP + "Res" + Helper.PATH_SEP + "Objects" + Helper.PATH_SEP + "objects.package"));
-            }
-		}
-
-		public static bool HaveSavefolder
-		{
-            get
-            {
-                // Try Helper.DownloadsPath first (from GameRoot.cfg), fall back to PathProvider
-                if (!string.IsNullOrEmpty(Helper.DownloadsPath))
-                    return System.IO.Directory.Exists(Helper.DownloadsPath);
-                return System.IO.Directory.Exists(System.IO.Path.Combine(PathProvider.SimSavegameFolder, "Downloads"));
-            }
-		}
-
 		private void Change(object sender, System.EventArgs e)
 		{
 			llsims.Visible = !System.IO.File.Exists(System.IO.Path.Combine(tbsims.Text, "TSData"+Helper.PATH_SEP+"Res"+Helper.PATH_SEP+"Objects"+Helper.PATH_SEP+"objects.package"));

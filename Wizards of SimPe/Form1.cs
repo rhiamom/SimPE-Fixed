@@ -69,13 +69,8 @@ namespace SimPe.Wizards
 			step1 = new FormStep1();
 			prevsteps.Push(step1);
 			ShowStep(step1, true);
-			if ((!Option.HaveObjects) || (!Option.HaveSavefolder))
-			{
-				MessageBox.Show("Your Path settings are invalid. Wizards of SimPe will direct you to the Options Page.\n\nYou can just click on the 'Suggest' Buttons there, to get the default Paths. If the 'Suggest' Button disapears, your Path is set correct.", "Warning", MessageBoxButtons.OK);
-				this.ShowOptions(null, null);
-			}
 
-			Wait.Bar = new SimPe.Wizards.WaitBarControl(this);	
+			Wait.Bar = new SimPe.Wizards.WaitBarControl(this);
 			if (SimPe.FileTable.FileIndex==null) SimPe.FileTable.FileIndex = new SimPe.Plugin.FileIndex();
 			SimPe.Packages.PackageMaintainer.Maintainer.FileIndex = SimPe.FileTable.FileIndex;
             if (Helper.WindowsRegistry.UseBigIcons) this.pndrop.Font = new System.Drawing.Font("Tahoma", 12F);
