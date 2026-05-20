@@ -54,4 +54,10 @@
   <ItemGroup>
     <EmbeddedResource Include="slot.png" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- MMAT template loaded by ObjectRecolor.AddMMAT via GetManifestResourceStream. -->
+    <EmbeddedResource Include="mmat.simpe">
+      <LogicalName>SimPe.Plugin.mmat.simpe</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

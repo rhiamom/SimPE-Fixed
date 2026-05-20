@@ -21,6 +21,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='x86|x86'">
   </PropertyGroup>
   <ItemGroup>
+    <!-- Resource templates loaded by Surgery.Export() via GetManifestResourceStream.
+         LogicalName pins the embedded name to what the runtime code expects,
+         regardless of the project's default namespace. -->
+    <EmbeddedResource Include="3d.simpe">
+      <LogicalName>SimPe.Plugin.3d.simpe</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bin.simpe">
+      <LogicalName>SimPe.Plugin.bin.simpe</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SimPE.3IDR\SimPE.3IDR.csproj" />
     <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj" />
     <ProjectReference Include="..\SimPE.Clst\SimPE.Clst.csproj" />
