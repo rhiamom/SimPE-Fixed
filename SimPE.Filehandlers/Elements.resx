@@ -1354,11 +1354,14 @@
   <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="visualStyleLinkLabel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="visualStyleLinkLabel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>377, 5</value>
   </data>
   <data name="visualStyleLinkLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 34</value>
+    <value>90, 25</value>
   </data>
   <data name="visualStyleLinkLabel2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1367,13 +1370,13 @@
     <value>visualStyleLinkLabel2</value>
   </data>
   <data name="&gt;&gt;visualStyleLinkLabel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;visualStyleLinkLabel2.Parent" xml:space="preserve">
-    <value>xmlPanel</value>
+    <value>panel3</value>
   </data>
   <data name="&gt;&gt;visualStyleLinkLabel2.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="xmlPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 12</value>

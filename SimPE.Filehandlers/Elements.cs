@@ -49,7 +49,7 @@ namespace SimPe.PackedFiles.UserInterface
 		private System.Windows.Forms.Label label1;
 		internal System.Windows.Forms.RichTextBox rtb;
 		private System.ComponentModel.IContainer components;
-        private System.Windows.Forms.LinkLabel visualStyleLinkLabel2;
+        private System.Windows.Forms.Button visualStyleLinkLabel2;
         internal System.Windows.Forms.TextBox tbsimid;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.Panel panel6;
@@ -172,7 +172,6 @@ namespace SimPe.PackedFiles.UserInterface
 			// the top, and fill rtb so the user gets a usable edit area.
 			this.xmlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-			this.visualStyleLinkLabel2.Dock = System.Windows.Forms.DockStyle.Top;
 			this.rtb.Dock = System.Windows.Forms.DockStyle.Fill;
 
 			// JpegPanel hosts the BMP/JPEG/PNG image preview. Same designer-size
@@ -224,7 +223,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.rtb = new System.Windows.Forms.RichTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.visualStyleLinkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.visualStyleLinkLabel2 = new System.Windows.Forms.Button();
             this.objdPanel = new System.Windows.Forms.Panel();
             this.cbupdate = new System.Windows.Forms.CheckBox();
             this.label63 = new System.Windows.Forms.Label();
@@ -382,7 +381,6 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             this.xmlPanel.Controls.Add(this.rtb);
             this.xmlPanel.Controls.Add(this.panel3);
-            this.xmlPanel.Controls.Add(this.visualStyleLinkLabel2);
             resources.ApplyResources(this.xmlPanel, "xmlPanel");
             this.xmlPanel.Name = "xmlPanel";
             // 
@@ -390,6 +388,7 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             resources.ApplyResources(this.panel3, "panel3");
             this.panel3.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel3.Controls.Add(this.visualStyleLinkLabel2);
             this.panel3.Controls.Add(this.label1);
             this.panel3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel3.Name = "panel3";
@@ -402,8 +401,10 @@ namespace SimPe.PackedFiles.UserInterface
             // visualStyleLinkLabel2
             // 
             resources.ApplyResources(this.visualStyleLinkLabel2, "visualStyleLinkLabel2");
+            this.visualStyleLinkLabel2.BackColor = System.Drawing.SystemColors.Control;
             this.visualStyleLinkLabel2.Name = "visualStyleLinkLabel2";
-            this.visualStyleLinkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CommitXmlClick);
+            this.visualStyleLinkLabel2.UseVisualStyleBackColor = false;
+            this.visualStyleLinkLabel2.Click += new System.EventHandler(this.CommitXmlClick);
             // 
             // objdPanel
             // 
@@ -1099,7 +1100,7 @@ namespace SimPe.PackedFiles.UserInterface
 			}
 		}
 
-		private void CommitXmlClick(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void CommitXmlClick(object sender, System.EventArgs e)
 		{
 			if (wrapper!=null) 
 			{
