@@ -111,14 +111,14 @@ namespace SimPe.PackedFiles.UserInterface
         internal System.Windows.Forms.Button btnewtie;
 		internal System.Windows.Forms.TextBox tblottype;
 		private System.Windows.Forms.Label label65;
-        private System.Windows.Forms.LinkLabel llcommitobjd;
+        private System.Windows.Forms.Button llcommitobjd;
         private System.Windows.Forms.GroupBox gbelements;
 		internal System.Windows.Forms.Panel pnelements;
         private System.Windows.Forms.LinkLabel llgetGUID;
         internal System.Windows.Forms.Label lbtypename;
 		internal System.Windows.Forms.CheckBox cbfamily;
 		internal System.Windows.Forms.CheckBox cbbest;
-        private System.Windows.Forms.LinkLabel llsrelcommit;
+        private System.Windows.Forms.Button llsrelcommit;
         internal System.Windows.Forms.ComboBox cbfamtype;
         internal System.Windows.Forms.ComboBox cboutfamtype
         {
@@ -234,7 +234,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.llgetGUID = new System.Windows.Forms.LinkLabel();
             this.gbelements = new System.Windows.Forms.GroupBox();
             this.pnelements = new System.Windows.Forms.Panel();
-            this.llcommitobjd = new System.Windows.Forms.LinkLabel();
+            this.llcommitobjd = new System.Windows.Forms.Button();
             this.tblottype = new System.Windows.Forms.TextBox();
             this.label65 = new System.Windows.Forms.Label();
             this.tbsimname = new System.Windows.Forms.TextBox();
@@ -298,7 +298,7 @@ namespace SimPe.PackedFiles.UserInterface
             this.realPanel = new System.Windows.Forms.Panel();
             this.label91 = new System.Windows.Forms.Label();
             this.cbfamtype = new System.Windows.Forms.ComboBox();
-            this.llsrelcommit = new System.Windows.Forms.LinkLabel();
+            this.llsrelcommit = new System.Windows.Forms.Button();
             this.gbrelation = new System.Windows.Forms.GroupBox();
             this.cbbest = new System.Windows.Forms.CheckBox();
             this.cbfamily = new System.Windows.Forms.CheckBox();
@@ -416,7 +416,6 @@ namespace SimPe.PackedFiles.UserInterface
             this.objdPanel.Controls.Add(this.lbtypename);
             this.objdPanel.Controls.Add(this.llgetGUID);
             this.objdPanel.Controls.Add(this.gbelements);
-            this.objdPanel.Controls.Add(this.llcommitobjd);
             this.objdPanel.Controls.Add(this.tblottype);
             this.objdPanel.Controls.Add(this.label65);
             this.objdPanel.Controls.Add(this.tbsimname);
@@ -483,8 +482,10 @@ namespace SimPe.PackedFiles.UserInterface
             // llcommitobjd
             // 
             resources.ApplyResources(this.llcommitobjd, "llcommitobjd");
+            this.llcommitobjd.BackColor = System.Drawing.SystemColors.Control;
             this.llcommitobjd.Name = "llcommitobjd";
-            this.llcommitobjd.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.CommitObjdClicked);
+            this.llcommitobjd.UseVisualStyleBackColor = false;
+            this.llcommitobjd.Click += new System.EventHandler(this.CommitObjdClicked);
             // 
             // tblottype
             // 
@@ -521,6 +522,7 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             resources.ApplyResources(this.panel6, "panel6");
             this.panel6.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel6.Controls.Add(this.llcommitobjd);
             this.panel6.Controls.Add(this.label12);
             this.panel6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel6.Name = "panel6";
@@ -550,7 +552,6 @@ namespace SimPe.PackedFiles.UserInterface
             resources.ApplyResources(this.familytiePanel, "familytiePanel");
             this.familytiePanel.Controls.Add(this.gbties);
             this.familytiePanel.Controls.Add(this.cbtiesims);
-            this.familytiePanel.Controls.Add(this.bttiecommit);
             this.familytiePanel.Controls.Add(this.label64);
             this.familytiePanel.Controls.Add(this.panel8);
             this.familytiePanel.Name = "familytiePanel";
@@ -624,7 +625,9 @@ namespace SimPe.PackedFiles.UserInterface
             // bttiecommit
             // 
             resources.ApplyResources(this.bttiecommit, "bttiecommit");
+            this.bttiecommit.BackColor = System.Drawing.SystemColors.Control;
             this.bttiecommit.Name = "bttiecommit";
+            this.bttiecommit.UseVisualStyleBackColor = false;
             this.bttiecommit.Click += new System.EventHandler(this.CommitTieClick);
             // 
             // label64
@@ -636,6 +639,7 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             resources.ApplyResources(this.panel8, "panel8");
             this.panel8.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel8.Controls.Add(this.bttiecommit);
             this.panel8.Controls.Add(this.label68);
             this.panel8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel8.Name = "panel8";
@@ -884,7 +888,6 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             this.realPanel.Controls.Add(this.label91);
             this.realPanel.Controls.Add(this.cbfamtype);
-            this.realPanel.Controls.Add(this.llsrelcommit);
             this.realPanel.Controls.Add(this.gbrelation);
             this.realPanel.Controls.Add(this.tblongterm);
             this.realPanel.Controls.Add(this.tbshortterm);
@@ -909,9 +912,10 @@ namespace SimPe.PackedFiles.UserInterface
             // llsrelcommit
             // 
             resources.ApplyResources(this.llsrelcommit, "llsrelcommit");
+            this.llsrelcommit.BackColor = System.Drawing.SystemColors.Control;
             this.llsrelcommit.Name = "llsrelcommit";
-            this.llsrelcommit.UseCompatibleTextRendering = true;
-            this.llsrelcommit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.RelationshipFileCommit);
+            this.llsrelcommit.UseVisualStyleBackColor = false;
+            this.llsrelcommit.Click += new System.EventHandler(this.RelationshipFileCommit);
             // 
             // gbrelation
             // 
@@ -1004,6 +1008,7 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             resources.ApplyResources(this.panel7, "panel7");
             this.panel7.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel7.Controls.Add(this.llsrelcommit);
             this.panel7.Controls.Add(this.label56);
             this.panel7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel7.Name = "panel7";
@@ -1401,7 +1406,7 @@ namespace SimPe.PackedFiles.UserInterface
 
 		#region Relationships
 		
-		private void RelationshipFileCommit(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void RelationshipFileCommit(object sender, System.EventArgs e)
 		{
 		
 			if (wrapper!=null) 
@@ -1439,7 +1444,7 @@ namespace SimPe.PackedFiles.UserInterface
 		}		
 		#endregion		
 
-		private void CommitObjdClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+		private void CommitObjdClicked(object sender, System.EventArgs e)
 		{
 			if (wrapper!=null) 
 			{

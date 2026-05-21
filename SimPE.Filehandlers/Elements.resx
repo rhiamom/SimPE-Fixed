@@ -1894,11 +1894,14 @@
   <data name="&gt;&gt;pnelements.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="llcommitobjd.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="llcommitobjd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>1004, 5</value>
   </data>
   <data name="llcommitobjd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 34</value>
+    <value>90, 25</value>
   </data>
   <data name="llcommitobjd.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -1907,13 +1910,13 @@
     <value>llcommitobjd</value>
   </data>
   <data name="&gt;&gt;llcommitobjd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;llcommitobjd.Parent" xml:space="preserve">
-    <value>objdPanel</value>
+    <value>panel6</value>
   </data>
   <data name="&gt;&gt;llcommitobjd.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>0</value>
   </data>
   <data name="tblottype.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -2617,11 +2620,14 @@
   <data name="&gt;&gt;cbtiesims.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="bttiecommit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="bttiecommit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>1375, 5</value>
   </data>
   <data name="bttiecommit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 34</value>
+    <value>90, 25</value>
   </data>
   <data name="bttiecommit.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -2633,10 +2639,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;bttiecommit.Parent" xml:space="preserve">
-    <value>familytiePanel</value>
+    <value>panel8</value>
   </data>
   <data name="&gt;&gt;bttiecommit.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="label64.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3121,11 +3127,14 @@
   <data name="&gt;&gt;cbfamtype.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="llsrelcommit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="llsrelcommit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>377, 5</value>
   </data>
   <data name="llsrelcommit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 34</value>
+    <value>90, 25</value>
   </data>
   <data name="llsrelcommit.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
@@ -3134,13 +3143,13 @@
     <value>llsrelcommit</value>
   </data>
   <data name="&gt;&gt;llsrelcommit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;llsrelcommit.Parent" xml:space="preserve">
-    <value>realPanel</value>
+    <value>panel7</value>
   </data>
   <data name="&gt;&gt;llsrelcommit.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;cbbest.Name" xml:space="preserve">
     <value>cbbest</value>
