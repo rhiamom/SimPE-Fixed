@@ -283,17 +283,33 @@ namespace SimPe
 
 			//read XML File
 			System.Xml.XmlDocument xmlfile = new XmlDocument();
-            xmlfile.Load(infilename);
+            try
+            {
+                xmlfile.Load(infilename);
+            }
+            catch (System.Xml.XmlException)
+            {
+                // The file exists but is empty / malformed. The usual cause is
+                // an aborted earlier write that left a 0-byte file — once that
+                // happens, the next startup crashes here with "Root element is
+                // missing." and SimPE becomes permanently unstartable. Treat
+                // an unreadable registry as if it were missing: keep the empty
+                // in-memory root and (if we were asked to create-if-missing)
+                // overwrite the bad file with a valid empty registry so the
+                // next launch finds a clean slate.
+                if (create) Flush(outfilename);
+                return;
+            }
 
 			//seek Root Node
-			XmlNodeList XMLData = xmlfile.GetElementsByTagName("registry");					
+			XmlNodeList XMLData = xmlfile.GetElementsByTagName("registry");
 
 			//Process all Root Node Entries
 			for (int i=0; i<XMLData.Count; i++)
 			{
-				XmlNode node = XMLData.Item(i);	
-				ParseSubNode(node, root);				
-			}				
+				XmlNode node = XMLData.Item(i);
+				ParseSubNode(node, root);
+			}
 		}
 
 		/// <summary>
