@@ -1984,7 +1984,9 @@ namespace SimPe.PackedFiles.UserInterface
             this.Tag = true;
             try
             {
+                tbguid.ForeColor = Color.Red;
                 wrapper.Guid = Convert.ToUInt32(tbguid.Text, 16);
+                tbguid.ForeColor = SystemColors.WindowText;
                 wrapper.Changed = true;
             }
             catch (Exception) { }
@@ -2005,10 +2007,23 @@ namespace SimPe.PackedFiles.UserInterface
 			this.Tag = true;
 			try
 			{
+				// Red-before, reset-after per-field: if any conversion throws, the
+				// reset line for that field is skipped so it stays red. Subsequent
+				// fields never get their red applied (we exit to the catch), which
+				// is fine — the user fixes the first red one and the rest will be
+				// re-evaluated on the next text-change event.
+				tbproxguid.ForeColor = Color.Red;
 				wrapper.ProxyGuid = Convert.ToUInt32(this.tbproxguid.Text, 16);
-                wrapper.OriginalGuid = Convert.ToUInt32(this.tborgguid.Text, 16);
-                wrapper.DiagonalGuid = Convert.ToUInt32(this.tbdiag.Text, 16);
-                wrapper.GridAlignedGuid = Convert.ToUInt32(this.tbgrid.Text, 16);
+				tbproxguid.ForeColor = SystemColors.WindowText;
+				tborgguid.ForeColor = Color.Red;
+				wrapper.OriginalGuid = Convert.ToUInt32(this.tborgguid.Text, 16);
+				tborgguid.ForeColor = SystemColors.WindowText;
+				tbdiag.ForeColor = Color.Red;
+				wrapper.DiagonalGuid = Convert.ToUInt32(this.tbdiag.Text, 16);
+				tbdiag.ForeColor = SystemColors.WindowText;
+				tbgrid.ForeColor = Color.Red;
+				wrapper.GridAlignedGuid = Convert.ToUInt32(this.tbgrid.Text, 16);
+				tbgrid.ForeColor = SystemColors.WindowText;
                 wrapper.Changed = true;
                 if (!Helper.WindowsRegistry.HiddenMode && UserVerification.HaveUserId)
                 {

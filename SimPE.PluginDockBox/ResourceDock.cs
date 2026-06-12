@@ -819,8 +819,9 @@ namespace SimPe.Plugin.Tool.Dockable
                     e.Resource.FileDescriptor.Type = Convert.ToUInt32(tbtype.Text, 16);
 
                     e.Resource.FileDescriptor.Changed = true;
+                    tbtype.ForeColor = SystemColors.WindowText;
                 }
-                catch { }
+                catch { tbtype.ForeColor = Color.Red; }
             }
             guipackage.PauseIndexChangedEvents();
             guipackage.RestartIndexChangedEvents();
@@ -840,8 +841,9 @@ namespace SimPe.Plugin.Tool.Dockable
                     e.Resource.FileDescriptor.Group = Convert.ToUInt32(tbgroup.Text, 16);
 
                     e.Resource.FileDescriptor.Changed = true;
+                    tbgroup.ForeColor = SystemColors.WindowText;
                 }
-                catch { }
+                catch { tbgroup.ForeColor = Color.Red; }
             }
             guipackage.PauseIndexChangedEvents();
             guipackage.RestartIndexChangedEvents();
@@ -863,8 +865,9 @@ namespace SimPe.Plugin.Tool.Dockable
                     e.Resource.FileDescriptor.Instance = Convert.ToUInt32(tbinstance.Text, 16);
 
                     e.Resource.FileDescriptor.Changed = true;
+                    tbinstance.ForeColor = SystemColors.WindowText;
                 }
-                catch { }
+                catch { tbinstance.ForeColor = Color.Red; }
             }
 
             guipackage.PauseIndexChangedEvents();
@@ -887,8 +890,9 @@ namespace SimPe.Plugin.Tool.Dockable
                 {
                     e.Resource.FileDescriptor.SubType = Convert.ToUInt32(tbinstance2.Text, 16);
                     e.Resource.FileDescriptor.Changed = true;
+                    tbinstance2.ForeColor = SystemColors.WindowText;
                 }
-                catch { }
+                catch { tbinstance2.ForeColor = Color.Red; }
             }
             guipackage.PauseIndexChangedEvents();
             guipackage.RestartIndexChangedEvents();
