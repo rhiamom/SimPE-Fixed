@@ -1069,11 +1069,16 @@ namespace SimPe.PackedFiles.UserInterface
 				{
 					this.Cursor = Cursors.WaitCursor;
 					SimPe.PackedFiles.Wrapper.Fami fami = (Wrapper.Fami)wrapper;
-					fami.Money = Convert.ToInt32(tbmoney.Text);
-					fami.Friends = Convert.ToUInt32(tbfamily.Text);
-					fami.Flags = Convert.ToUInt32(tbflag.Text, 16);
-					fami.AlbumGUID = Convert.ToUInt32(tbalbum.Text, 16);
-					fami.SubHoodNumber = Convert.ToUInt32(tbsubhood.Text, 16);
+					// Every textbox here goes through Helper.String*Int32 with the field's
+					// current value as the fallback, so empty / non-numeric input keeps
+					// the prior value instead of throwing FormatException and aborting
+					// the commit. Three of these were already lenient (VacationLot,
+					// CurrentlyOnLot, BusinessMoney) — bringing the rest in line.
+					fami.Money = Helper.StringToInt32(tbmoney.Text, fami.Money, 10);
+					fami.Friends = Helper.StringToUInt32(tbfamily.Text, fami.Friends, 10);
+					fami.Flags = Helper.StringToUInt32(tbflag.Text, fami.Flags, 16);
+					fami.AlbumGUID = Helper.StringToUInt32(tbalbum.Text, fami.AlbumGUID, 16);
+					fami.SubHoodNumber = Helper.StringToUInt32(tbsubhood.Text, fami.SubHoodNumber, 16);
                     fami.VacationLotInstance = Helper.StringToUInt32(tbvac.Text, fami.VacationLotInstance, 16);
                     fami.CurrentlyOnLotInstance = Helper.StringToUInt32(tbblot.Text, fami.CurrentlyOnLotInstance, 16);
                     fami.BusinessMoney = Helper.StringToInt32(this.tbbmoney.Text, fami.BusinessMoney, 10);
@@ -1088,7 +1093,7 @@ namespace SimPe.PackedFiles.UserInterface
 					}
 					fami.Members = members;
 
-					fami.LotInstance = Convert.ToUInt32(this.tblotinst.Text, 16);
+					fami.LotInstance = Helper.StringToUInt32(this.tblotinst.Text, fami.LotInstance, 16);
 					//name was changed
 					if (tbname.Text != fami.Name) fami.Name = tbname.Text;
 
@@ -1414,8 +1419,10 @@ namespace SimPe.PackedFiles.UserInterface
 				try 
 				{
 					SimPe.PackedFiles.Wrapper.SRel srel = (Wrapper.SRel)wrapper;
-					srel.Shortterm = Convert.ToInt32(tbshortterm.Text);
-					srel.Longterm = Convert.ToInt32(tblongterm.Text);
+					// Empty/non-numeric textboxes used to bubble out as "Unable to Save
+					// Relationship Information!" — keep the prior value instead.
+					srel.Shortterm = Helper.StringToInt32(tbshortterm.Text, srel.Shortterm, 10);
+					srel.Longterm = Helper.StringToInt32(tblongterm.Text, srel.Longterm, 10);
 
                     List<CheckBox> ltcb = new List<CheckBox>(new CheckBox[] {
                         cbcrush, cblove, cbengaged, cbmarried, cbfriend, cbbuddie, cbsteady, cbenemy,
@@ -1462,7 +1469,10 @@ namespace SimPe.PackedFiles.UserInterface
 							{
 								string name = (string)tb.Tag;
 								Wrapper.ObjdItem item = (Wrapper.ObjdItem)objd.Attributes[name];
-								item.val = Convert.ToUInt16(tb.Text, 16);
+								// Empty/non-hex in any per-attribute textbox used to abort
+								// the whole OBJD commit with "cantcommitobjd" — keep the
+								// prior value for that attribute and continue with the rest.
+								item.val = Helper.StringToUInt16(tb.Text, item.val, 16);
 								objd.Attributes[name] = item;
 							}
 						}
