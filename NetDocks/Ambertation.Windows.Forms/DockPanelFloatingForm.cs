@@ -35,6 +35,22 @@ internal class DockPanelFloatingForm : Form, IMessageFilter
 		ManagerSingelton.Global.AddFloatForm(this);
 		base.TopMost = ManagerSingelton.Global.TopmostFloats;
 		this.dock = dock;
+
+		// Set Owner to the dock panel's original top-level form so this
+		// floating window stays z-ordered above it. Without an Owner,
+		// OnActivateApplication toggles TopMost off on focus loss and the
+		// form sinks behind the main window — which the user perceives as
+		// "the panel disappeared." LetFloat reparents `dock` into us AFTER
+		// this constructor returns, so dock.FindForm() here still walks up
+		// to the main form, which is what we want.
+		if (dock != null)
+		{
+			Form ownerForm = dock.FindForm();
+			if (ownerForm != null && ownerForm != this)
+			{
+				try { base.Owner = ownerForm; } catch { /* cross-thread or already-disposed: skip */ }
+			}
+		}
 	}
 
 	~DockPanelFloatingForm()
@@ -124,7 +140,11 @@ internal class DockPanelFloatingForm : Form, IMessageFilter
 		base.OnControlRemoved(e);
 		if (Manager == null)
 		{
+			// Detached from a manager — close and bail. Without this return,
+			// the second condition below NREs on !Manager.DockMode and the
+			// floating form has been seen to vanish entirely on focus loss.
 			Close();
+			return;
 		}
 		if (base.Controls.Count == 0 && HasContainer && !Manager.DockMode)
 		{

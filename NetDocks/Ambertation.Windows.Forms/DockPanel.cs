@@ -724,7 +724,12 @@ public class DockPanel : NCUserControl
 
 	protected override void OnNcMouseDown(NCMouseEventArgs e)
 	{
-		base.OnNcMouseUp(e);
+		// Decompilation artifact: original Ambertation NetDocks called
+		// OnNcMouseDown here. Calling OnNcMouseUp instead skipped the base
+		// class's mouse-down setup (drag origin / mouse capture), so the
+		// caption-bar drag started in a confused state — caused the
+		// "grabbed the whole container instead of just this tab" bug.
+		base.OnNcMouseDown(e);
 		startevent = e;
 		if (MouseOnSelector(e.ControlPosition) && e.MouseButtons.Left)
 		{
@@ -771,13 +776,19 @@ public class DockPanel : NCUserControl
 	{
 		if (CanUndock && !Floating)
 		{
-			_ = DockContainer;
 			Point screenPosition = e.ScreenPosition;
+
+			// Force single-panel drag. The original NetDocks logic was:
+			//     if (in caption area && container has multiple tabs)
+			//         container = true;   // drag the WHOLE container
+			// That meant grabbing any panel's caption in a multi-tab container
+			// (e.g. OW + PluginView in dockBottom) tore out the entire strip
+			// instead of just the active tab. There's no observable UI for
+			// the user to drag a single tab, so this trapped users — they
+			// could never separate panels. Always drag just the active panel
+			// instead; matches modern dock library expectations.
 			bool container = false;
-			if (Manager != null && DockContainer != null && Manager.Renderer.DockPanelRenderer.GetCaptionRect(this).Contains(e.ControlPosition))
-			{
-				container = !DockContainer.OneChild;
-			}
+
 			DockPanelFloatingForm dockPanelFloatingForm = LetFloat(screenPosition, container) as DockPanelFloatingForm;
 			Manager.StartDockMode(this);
 			dockPanelFloatingForm.Show();
