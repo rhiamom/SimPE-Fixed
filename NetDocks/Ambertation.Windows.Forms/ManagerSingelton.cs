@@ -149,6 +149,19 @@ public class ManagerSingelton : IMessageFilter
 		return null;
 	}
 
+	/// <summary>
+	/// All DockPanels currently registered with this manager. Lets the
+	/// host save/restore panel layout state on its own without going
+	/// through the Ambertation binary Serializer.
+	/// </summary>
+	public IEnumerable<DockPanel> KnownPanels
+	{
+		get
+		{
+			foreach (DockPanel dp in known) yield return dp;
+		}
+	}
+
 	public void SetDragPanelOnMouseMove(DockPanel p, NCMouseEventArgs e)
 	{
 		events = e;

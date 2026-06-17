@@ -157,12 +157,14 @@ namespace SimPe
                 if (sga.Known) this.cbsemig.Items.Add(sga);
             if (cbsemig.Items.Count > 0) cbsemig.SelectedIndex = 0;
 
-            //System.Diagnostics.Debug.WriteLine("SimPeLayout path = " + SimPe.Helper.DataFolder.SimPeLayout);
+            // Bump this constant whenever a code change makes old layout files
+            // incompatible. v2 = switched from the Ambertation binary
+            // serializer (simpe.layout file, broken) to per-panel state in
+            // layout2.xreg. Upgrading users do one ResetLayout to establish a
+            // baseline; StoreLayout then captures their next session.
+            const int CurrentLayoutVersion = 2;
 
-            // Bump this constant whenever a code change makes old layout files incompatible.
-            const int CurrentLayoutVersion = 1;
-
-            if (!System.IO.File.Exists(SimPe.Helper.DataFolder.SimPeLayout)
+            if (!Helper.WindowsRegistry.Layout.HasStoredWindowBounds
                 || Helper.WindowsRegistry.LayoutVersion < CurrentLayoutVersion)
             {
                 ResetLayout(this, null);

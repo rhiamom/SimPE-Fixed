@@ -90,26 +90,31 @@ namespace SimPe
         #endregion
 
         /// <summary>
-        /// returns a list of Strings that hold the names of all available ToolbarButtons
+        /// true if the Plugin action box should be presented expanded.
+        /// Defaults to true on fresh installs to match prior behavior.
         /// </summary>
-        /// <remarks>Adding to tha list will not update the value! You have to use the Setter again!</remarks>
-        /// 
         public bool PluginActionBoxExpanded
         {
-            get { return true; }   // or false if you prefer collapsed by default
-            set { /* ignore for now, we�re not persisting this yet */ }
+            get { return Convert.ToBoolean(xrk.GetValue("ActionPlugExpanded", true)); }
+            set { xrk.SetValue("ActionPlugExpanded", value); }
         }
 
+        /// <summary>
+        /// true if the Tool action box should be presented expanded.
+        /// </summary>
         public bool ToolActionBoxExpanded
         {
-            get { return true; }
-            set { /* ignore */ }
+            get { return Convert.ToBoolean(xrk.GetValue("ActionToolExpanded", true)); }
+            set { xrk.SetValue("ActionToolExpanded", value); }
         }
 
+        /// <summary>
+        /// true if the Default action box should be presented expanded.
+        /// </summary>
         public bool DefaultActionBoxExpanded
         {
-            get { return true; }
-            set { /* ignore */ }
+            get { return Convert.ToBoolean(xrk.GetValue("ActionDefExpanded", true)); }
+            set { xrk.SetValue("ActionDefExpanded", value); }
         }
         public ArrayList VisibleToolbarButtons
         {
@@ -337,6 +342,116 @@ namespace SimPe
                 xrk.SetValue("OWDockContainer", value ?? "Bottom");
             }
         }
+
+        #region Window bounds
+
+        // Stored as four ints under the "Window" subkey so the main form can
+        // come back at the user's last position/size. Sentinel value -1 on the
+        // getters means "no stored bounds — caller should leave the form alone."
+
+        XmlRegistryKey WindowKey { get { return xrk.CreateSubKey("Window"); } }
+
+        public int WindowX      { get { return Convert.ToInt32(WindowKey.GetValue("X",      -1)); } set { WindowKey.SetValue("X",      value); } }
+        public int WindowY      { get { return Convert.ToInt32(WindowKey.GetValue("Y",      -1)); } set { WindowKey.SetValue("Y",      value); } }
+        public int WindowWidth  { get { return Convert.ToInt32(WindowKey.GetValue("Width",  -1)); } set { WindowKey.SetValue("Width",  value); } }
+        public int WindowHeight { get { return Convert.ToInt32(WindowKey.GetValue("Height", -1)); } set { WindowKey.SetValue("Height", value); } }
+        public bool WindowMaximized { get { return Convert.ToBoolean(WindowKey.GetValue("Maximized", false)); } set { WindowKey.SetValue("Maximized", value); } }
+
+        public bool HasStoredWindowBounds
+        {
+            get { return WindowWidth > 0 && WindowHeight > 0; }
+        }
+
+        #endregion
+
+        #region Dock area split sizes
+
+        // The three side dock containers' widths/heights — i.e. where the
+        // user dragged the splitters between the main work area and the
+        // left/right/bottom panel strips. Stored under a "DockAreas" subkey
+        // with sentinel -1 = "no stored value, use designer default."
+
+        XmlRegistryKey DockAreasKey { get { return xrk.CreateSubKey("DockAreas"); } }
+
+        public int DockLeftWidth    { get { return Convert.ToInt32(DockAreasKey.GetValue("LeftWidth",    -1)); } set { DockAreasKey.SetValue("LeftWidth",    value); } }
+        public int DockRightWidth   { get { return Convert.ToInt32(DockAreasKey.GetValue("RightWidth",   -1)); } set { DockAreasKey.SetValue("RightWidth",   value); } }
+        public int DockBottomHeight { get { return Convert.ToInt32(DockAreasKey.GetValue("BottomHeight", -1)); } set { DockAreasKey.SetValue("BottomHeight", value); } }
+
+        #endregion
+
+        #region Per-panel layout state
+
+        /// <summary>
+        /// Snapshot of one DockPanel's saveable state. `Container` is one of
+        /// "Left" / "Right" / "Bottom" / "Manager" / "Floating" / null (not
+        /// stored). FloatingX/Y are only meaningful when Container=="Floating".
+        /// </summary>
+        public class PanelState
+        {
+            public string Name;
+            public string Container;
+            public bool IsOpen;
+            public int Width;
+            public int Height;
+            public int FloatingX;
+            public int FloatingY;
+        }
+
+        XmlRegistryKey PanelsKey { get { return xrk.CreateSubKey("Panels"); } }
+
+        /// <summary>
+        /// Returns the saved state for a panel by name, or null if none stored.
+        /// </summary>
+        public PanelState GetPanelState(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return null;
+            XmlRegistryKey k = PanelsKey.OpenSubKey(name, false);
+            if (k == null) return null;
+            string container = k.GetValue("Container") as string;
+            if (string.IsNullOrEmpty(container)) return null;
+            return new PanelState
+            {
+                Name      = name,
+                Container = container,
+                IsOpen    = Convert.ToBoolean(k.GetValue("IsOpen",    true)),
+                Width     = Convert.ToInt32  (k.GetValue("Width",     -1)),
+                Height    = Convert.ToInt32  (k.GetValue("Height",    -1)),
+                FloatingX = Convert.ToInt32  (k.GetValue("FloatingX", 0)),
+                FloatingY = Convert.ToInt32  (k.GetValue("FloatingY", 0)),
+            };
+        }
+
+        public void SetPanelState(PanelState s)
+        {
+            if (s == null || string.IsNullOrEmpty(s.Name)) return;
+            XmlRegistryKey k = PanelsKey.CreateSubKey(s.Name);
+            k.SetValue("Container", s.Container ?? "");
+            k.SetValue("IsOpen",    s.IsOpen);
+            k.SetValue("Width",     s.Width);
+            k.SetValue("Height",    s.Height);
+            k.SetValue("FloatingX", s.FloatingX);
+            k.SetValue("FloatingY", s.FloatingY);
+        }
+
+        public string[] StoredPanelNames
+        {
+            get { return PanelsKey.GetSubKeyNames(); }
+        }
+
+        /// <summary>
+        /// Wipes every persisted bit of UI layout state — window bounds,
+        /// dock-area splitter sizes, and every per-panel state entry. Called
+        /// from Reset Layout so the next ReloadLayout starts from the
+        /// designer defaults rather than the user's prior arrangement.
+        /// </summary>
+        public void ClearLayoutState()
+        {
+            try { xrk.DeleteSubKey("Panels",    false); } catch { }
+            try { xrk.DeleteSubKey("Window",    false); } catch { }
+            try { xrk.DeleteSubKey("DockAreas", false); } catch { }
+        }
+
+        #endregion
 
         /*
 		#region Obsolete
