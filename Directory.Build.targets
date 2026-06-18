@@ -85,6 +85,27 @@
 		<Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(_SimPeMainBin)Plugins"
 		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And '$(_SimPeMainBin)' != '' And Exists('$(TargetDir)$(TargetName).pdb')" />
 
+		<!-- Mirror the plugin's transitive DLL dependencies into Plugins\ next
+		     to the plugin DLL. Symptom this fixes: when a plugin references a
+		     non-plugin library that's NOT also referenced by SimPE.Main (e.g.
+		     simpe.ngbh.scanner.plugin needs simpe.toolbox.scanner, but SimPE.Main
+		     doesn't), .NET 8's Assembly.LoadFrom resolver for that plugin probes
+		     the plugin's own directory and the host's deps.json — NOT the parent
+		     bin\$(Configuration)\ folder. The DLL sits at bin\Release\ but
+		     stays invisible to the plugin. ReflectionTypeLoadException with
+		     "Could not load file or assembly 'simpe.X, Version=8.2.14.0'" was
+		     the silent failure that hid this from us until we added pluginlog.txt
+		     failure logging. Other plugin's *.plugin.dll outputs are excluded so
+		     plugins don't pull each other's binaries into their own folder. -->
+		<ItemGroup Condition=" '$(_IsPluginOrWizard)' == 'true' ">
+			<_SimPePluginDeps Include="$(TargetDir)*.dll"
+			  Exclude="$(TargetDir)$(TargetName).dll;$(TargetDir)*.plugin.dll;$(TargetDir)*.wizard.dll;$(TargetDir)*.exporter.dll" />
+		</ItemGroup>
+		<Copy SourceFiles="@(_SimPePluginDeps)" DestinationFolder="$(SimPeUnifiedOutDir)Plugins"
+		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And '@(_SimPePluginDeps)' != '' " />
+		<Copy SourceFiles="@(_SimPePluginDeps)" DestinationFolder="$(_SimPeMainBin)Plugins"
+		  SkipUnchangedFiles="true" Condition=" '$(_IsPluginOrWizard)' == 'true' And '$(_SimPeMainBin)' != '' And '@(_SimPePluginDeps)' != '' " />
+
 		<!-- Plugin projects can ship sidecar data files (e.g. PJSE Coder's
 		     GlobalStrings.package, which is referenced as
 		     <None Include="pjse.coder.plugin\GlobalStrings.package"> with a

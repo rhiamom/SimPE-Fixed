@@ -237,21 +237,23 @@ namespace SimPe
 
 			AssemblyName myAssemblyName;
             System.Diagnostics.Debug.WriteLine("LoadPlugin TRY: " + file);
-            try 
+            try
 			{
 				myAssemblyName = AssemblyName.GetAssemblyName(file);
-			} 
-			catch 
+			}
+			catch (Exception ex)
 			{
+				LogPluginFailure(file, "GetAssemblyName threw", ex);
 				return null;
 			}
-			
+
 			Assembly a;
 			try { a = System.Reflection.Assembly.LoadFrom(file); }
 			catch (Exception ex)
 			{
 				System.Diagnostics.Debug.WriteLine("LoadPlugin LoadFrom failed: " + file + " -- " + ex.Message);
 				Console.WriteLine("LoadPlugin LoadFrom failed: " + file + " -- " + ex.Message);
+				LogPluginFailure(file, "Assembly.LoadFrom failed", ex);
 				return null;
 			}
 			try
@@ -290,16 +292,51 @@ namespace SimPe
                     foreach (Exception lex in ex.LoaderExceptions)
                         Console.WriteLine("  LOADER: " + lex.ToString());
                 }
+
+                LogPluginFailure(file, "GetTypes ReflectionTypeLoadException", ex);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("LoadPlugin Exception: " + file);
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
                 Console.WriteLine(ex);
+                LogPluginFailure(file, "GetTypes threw", ex);
             }
 
 
             return null;
+		}
+
+		// Mirror plugin-load failures into pluginlog.txt next to the EXE.
+		// Before this, all failure paths only wrote to Debug.WriteLine (visible
+		// only with a debugger attached or DebugView running), so a *.plugin.dll
+		// that failed to load was indistinguishable from one that loaded but
+		// declined to register anything — both cases left no trace for the user.
+		// LoadDynamicWrappers writes the discovery list to the same file at
+		// startup, so failures land in context.
+		static void LogPluginFailure(string file, string context, Exception ex)
+		{
+			try
+			{
+				string log = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt");
+				var sb = new System.Text.StringBuilder();
+				sb.AppendLine("PLUGIN FAILURE: " + System.IO.Path.GetFileName(file));
+				sb.AppendLine("  context: " + context);
+				sb.AppendLine("  exception: " + ex.GetType().FullName + " — " + ex.Message);
+				var rtle = ex as System.Reflection.ReflectionTypeLoadException;
+				if (rtle != null && rtle.LoaderExceptions != null)
+				{
+					foreach (Exception lex in rtle.LoaderExceptions)
+					{
+						if (lex == null) continue;
+						sb.AppendLine("    loader: " + lex.GetType().FullName + " — " + lex.Message);
+					}
+				}
+				if (ex.InnerException != null)
+					sb.AppendLine("  inner: " + ex.InnerException.GetType().FullName + " — " + ex.InnerException.Message);
+				System.IO.File.AppendAllText(log, sb.ToString());
+			}
+			catch { /* logging failures must not break plugin discovery */ }
 		}
 
 		/// <summary>

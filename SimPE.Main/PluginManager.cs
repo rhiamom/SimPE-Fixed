@@ -137,6 +137,10 @@ namespace SimPe
         void LoadDynamicWrappers()
         {
             string log = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt");
+            // Truncate on each launch so PLUGIN FAILURE entries always reflect
+            // the current run. AppendAllText was leaving stale failures from
+            // prior runs that masked whether a fix had actually taken effect.
+            try { System.IO.File.WriteAllText(log, ""); } catch { /* non-fatal */ }
             System.IO.File.AppendAllText(log, $"SimPePluginPath={Helper.SimPePluginPath}\r\n");
 
             Splash.Screen.SetMessage("Loading Dynamic Wrappers");
