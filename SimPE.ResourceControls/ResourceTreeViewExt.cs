@@ -182,16 +182,31 @@ namespace SimPe.Windows.Forms
             SaveLastSelection();
 
             IResourceTreeNodeBuilder old = builder;
-            if (sender == tbInst) builder = instbuilder;
-            else if (sender == tbGroup) builder = groupbuilder;
-            else builder = typebuilder;
+            string persistName;
+            if (sender == tbInst) { builder = instbuilder; persistName = "Instance"; }
+            else if (sender == tbGroup) { builder = groupbuilder; persistName = "Group"; }
+            else { builder = typebuilder; persistName = "Type"; }
+
+            // Persist the choice so the next session picks it up via RestoreLayout.
+            try { Helper.WindowsRegistry.Layout.ResourceTreeBuilder = persistName; }
+            catch { /* registry hiccup shouldn't kill the click */ }
 
             if (old != builder) SetResourceMaps(true);
         }
 
         internal void RestoreLayout()
         {
-            SelectTreeBuilder(tbType, null);
+            // Restore the TGI button the user last picked. Defaults to tbType
+            // (the LayoutRegistry getter falls back to "Type" if nothing saved).
+            string saved = Helper.WindowsRegistry.Layout.ResourceTreeBuilder;
+            ToolStripButton btn;
+            switch (saved)
+            {
+                case "Group":    btn = tbGroup; break;
+                case "Instance": btn = tbInst;  break;
+                default:         btn = tbType;  break;
+            }
+            SelectTreeBuilder(btn, null);
         }
     }
 }

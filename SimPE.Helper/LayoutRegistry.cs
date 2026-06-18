@@ -327,6 +327,24 @@ namespace SimPe
 		}        
 
         /// <summary>
+        /// Which view mode the Resource Tree was last set to via its TGI
+        /// buttons. One of: "Type" (default), "Group", "Instance". Persists
+        /// across sessions so the user's chosen view sticks.
+        /// </summary>
+        public string ResourceTreeBuilder
+        {
+            get
+            {
+                object o = xrk.GetValue("ResourceTreeBuilder", "Type");
+                return o == null ? "Type" : o.ToString();
+            }
+            set
+            {
+                xrk.SetValue("ResourceTreeBuilder", value ?? "Type");
+            }
+        }
+
+        /// <summary>
         /// Which dock container the Object Workshop panel was last placed in.
         /// One of: "Bottom" (default — sibling tab of Plugin View), "Left", "Right", "Floating".
         /// </summary>
