@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <AssemblyName>simpe.alt.surgery.plugin</AssemblyName>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <RootNamespace>SimPe.Plugin</RootNamespace>
+    <!-- Theo's 0.56-era source uses .NET 2.0 patterns (Form-with-embedded-InitializeComponent,
+         manual designer fields). Don't let the SDK try to auto-include generated *.Designer.cs
+         that doesn't exist. -->
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Resources accessed at runtime via GetManifestResourceStream("SimPe.Plugin.<name>").
+         LogicalName pins the embedded name regardless of the project's default namespace.
+         Surgery.resources is the .NET 2.0 designer's pre-compiled binary resource bundle —
+         the Form's InitializeComponent reads it back via ResourceManager. -->
+    <EmbeddedResource Include="3d.simpe">
+      <LogicalName>SimPe.Plugin.3d.simpe</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bin.simpe">
+      <LogicalName>SimPe.Plugin.bin.simpe</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Network.png">
+      <LogicalName>SimPe.Plugin.Network.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimPe.Plugin.Surgery.resources">
+      <LogicalName>SimPe.Plugin.Surgery.resources</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Cache\SimPE.Cache.csproj" />
+    <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj" />
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj" />
+    <ProjectReference Include="..\SimPE.NameProvider\SimPE.NameProvider.csproj" />
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj" />
+    <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj" />
+    <ProjectReference Include="..\SimPE.Scenegraph\SimPE.Scenegraph.csproj" />
+    <ProjectReference Include="..\SimPE.Sims\SimPE.Sims.csproj" />
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj" />
+  </ItemGroup>
+</Project>
