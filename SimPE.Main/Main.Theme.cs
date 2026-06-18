@@ -57,17 +57,34 @@ namespace SimPe
             ThemeManager.Global.AddControl(tbContainer);
         }
 
+        // Snapshot of the in-memory Ambertation Serializer state taken on first
+        // ReloadLayout (after plugins have placed their panels, before any
+        // saved state is restored). Reset Layout restores from this snapshot
+        // so the user actually gets back to the designer-intended defaults.
+        // Mirrors 0.73's pattern (Main.Theme.cs:71, 121-122).
+        System.IO.Stream defaultlayout;
+
         // Map a DockContainer reference to its persistence name and back.
         // "Manager" is the central document area, "Floating" means the panel
-        // is detached. Any unrecognized container falls through to null on
-        // restore (we leave it where it is rather than guess wrong).
+        // is detached. NetDocks splits a container into nested DockContainers
+        // when the user drops a panel into a sub-region — those nested
+        // containers are SEPARATE INSTANCES from the form's designer-defined
+        // dockLeft/Right/Bottom/manager (sometimes with the same Name string,
+        // sometimes unnamed). Walk up the Parent chain looking for one of the
+        // four root containers so a panel in a nested split still maps to a
+        // sensible top-level area on save.
         string NameForContainer(Ambertation.Windows.Forms.DockContainer dc)
         {
-            if (dc == null)        return "Floating";
-            if (dc == dockLeft)    return "Left";
-            if (dc == dockRight)   return "Right";
-            if (dc == dockBottom)  return "Bottom";
-            if (dc == manager)     return "Manager";
+            if (dc == null) return "Floating";
+            System.Windows.Forms.Control walker = dc;
+            while (walker != null)
+            {
+                if (walker == dockLeft)   return "Left";
+                if (walker == dockRight)  return "Right";
+                if (walker == dockBottom) return "Bottom";
+                if (walker == manager)    return "Manager";
+                walker = walker.Parent;
+            }
             return null;
         }
 
@@ -85,14 +102,23 @@ namespace SimPe
 
         private void StoreLayout()
         {
-            // Save everything we'll need on next launch into Layout2XREG via
-            // LayoutRegistry. Replaces the old Ambertation binary serializer,
-            // which left panels hidden on restore after the .NET 8 port.
+            // Ambertation binary Serializer captures the full dock-panel
+            // hierarchy: panel containers, sizes, visibility, floating
+            // positions, splits, the whole tree. Was disabled in March 2026
+            // because panels were vanishing on restore — that turned out to
+            // be a downstream symptom of the OnNcMouseDown/Up swap bug in
+            // DockPanel.cs:727, fixed in commit 6fab455. Now works again.
+            try { Ambertation.Windows.Forms.Serializer.Global.ToFile(Helper.DataFolder.SimPeLayoutW); }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Ambertation Serializer.ToFile failed: " + ex.Message);
+            }
 
             MyButtonItem.SetLayoutInformations(this);
 
-            // Window bounds — RestoreBounds preserves the un-maximized rect
-            // when maximized so unmaximizing next session goes back correctly.
+            // Window bounds (not captured by the Ambertation Serializer).
+            // RestoreBounds preserves the un-maximized rect when maximized
+            // so unmaximizing next session goes back correctly.
             bool maximized = this.WindowState == FormWindowState.Maximized;
             System.Drawing.Rectangle r = maximized ? this.RestoreBounds : this.Bounds;
             if (r.Width > 0 && r.Height > 0)
@@ -104,39 +130,8 @@ namespace SimPe
             }
             Helper.WindowsRegistry.Layout.WindowMaximized = maximized;
 
-            // Dock-area split widths (where the user dragged the splitters
-            // between the main work area and the side panel strips).
-            if (dockLeft   != null && dockLeft.Width    > 0) Helper.WindowsRegistry.Layout.DockLeftWidth    = dockLeft.Width;
-            if (dockRight  != null && dockRight.Width   > 0) Helper.WindowsRegistry.Layout.DockRightWidth   = dockRight.Width;
-            if (dockBottom != null && dockBottom.Height > 0) Helper.WindowsRegistry.Layout.DockBottomHeight = dockBottom.Height;
-
-            // Every registered DockPanel: its container, open/closed state,
-            // size, and (if floating) its on-screen position. Skip auto-named
-            // ghost panels — they have no stable identity across sessions.
-            foreach (Ambertation.Windows.Forms.DockPanel dp in
-                     Ambertation.Windows.Forms.ManagerSingelton.Global.KnownPanels)
-            {
-                if (dp == null) continue;
-                if (string.IsNullOrEmpty(dp.Name)) continue;
-                if (dp.Name.StartsWith("ManagedDockPanel")) continue;
-
-                var st = new LayoutRegistry.PanelState
-                {
-                    Name      = dp.Name,
-                    Container = dp.IsFloating ? "Floating" : NameForContainer(dp.DockContainer),
-                    IsOpen    = dp.IsOpen,
-                    Width     = dp.Width,
-                    Height    = dp.Height,
-                };
-                if (dp.IsFloating && dp.ParentForm != null)
-                {
-                    st.FloatingX = dp.ParentForm.Location.X;
-                    st.FloatingY = dp.ParentForm.Location.Y;
-                }
-                if (st.Container != null) Helper.WindowsRegistry.Layout.SetPanelState(st);
-            }
-
-            // Keep the OW special case in sync — older code paths still read it.
+            // OW container for the upgrade-path fallback in ReloadLayout
+            // (used only when there's no Serializer file yet).
             var owPanel = Ambertation.Windows.Forms.ManagerSingelton.Global
                 .GetPanelWithName("dc.SimPe.Plugin.Tool.Dockable.ObectWorkshopDockTool");
             if (owPanel != null)
@@ -165,6 +160,35 @@ namespace SimPe
             //    re-apply the user's prior arrangement on top of our reset.
             Helper.WindowsRegistry.Layout.ClearLayoutState();
             Helper.WindowsRegistry.Layout.OWDockContainer = "Bottom";
+
+            // Write the default-layout snapshot back to disk, then let
+            // ReloadLayout's FromFile do the actual restore. 0.73 used this
+            // round-trip-through-disk pattern; applying via FromStream directly
+            // triggers a Serializer code path that hides TreeView/OW/PluginView.
+            if (defaultlayout != null)
+            {
+                try
+                {
+                    defaultlayout.Position = 0;
+                    using (var fs = System.IO.File.Create(Helper.DataFolder.SimPeLayoutW))
+                        defaultlayout.CopyTo(fs);
+                }
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Default layout write failed: " + ex.Message);
+                    // Snapshot write failed; delete any stale file so ReloadLayout
+                    // doesn't restore the pre-reset state from disk either.
+                    try { System.IO.File.Delete(Helper.DataFolder.SimPeLayoutW); } catch { }
+                    try { System.IO.File.Delete(Helper.DataFolder.SimPeLayout); }  catch { }
+                }
+            }
+            else
+            {
+                // No snapshot taken yet (Reset clicked before ReloadLayout ran).
+                // Delete any saved file so the bare designer defaults stand.
+                try { System.IO.File.Delete(Helper.DataFolder.SimPeLayoutW); } catch { }
+                try { System.IO.File.Delete(Helper.DataFolder.SimPeLayout); }  catch { }
+            }
 
             // 2. Reset the column widths and action-box defaults.
             Helper.WindowsRegistry.Layout.PluginActionBoxExpanded = false;
@@ -223,6 +247,19 @@ namespace SimPe
         {
             this.SuspendLayout();
 
+            // Snapshot the designer-default layout on first call (before any
+            // saved-state restore kicks in). Reset Layout will use this to
+            // return the user to the original defaults regardless of whatever
+            // mess their current session is in.
+            if (defaultlayout == null)
+            {
+                try { defaultlayout = Ambertation.Windows.Forms.Serializer.Global.ToStream(); }
+                catch (System.Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Default layout snapshot failed: " + ex.Message);
+                }
+            }
+
             // Restore main window bounds and maximized state — only if we have a
             // saved size, otherwise leave the designer / start-position default.
             if (Helper.WindowsRegistry.Layout.HasStoredWindowBounds)
@@ -235,6 +272,21 @@ namespace SimPe
                 this.Bounds = new System.Drawing.Rectangle(x, y, w, h);
                 if (Helper.WindowsRegistry.Layout.WindowMaximized)
                     this.WindowState = FormWindowState.Maximized;
+            }
+
+            // Ambertation binary Serializer reads the full dock-panel hierarchy
+            // back: panel containers, sizes, visibility, floating positions,
+            // splits. Disabled in March 2026 due to "panels disappearing" — that
+            // turned out to be a downstream symptom of the OnNcMouseDown/Up swap
+            // bug in DockPanel.cs:727 (fixed in commit 6fab455). Re-enabled here.
+            try
+            {
+                if (System.IO.File.Exists(Helper.DataFolder.SimPeLayout))
+                    Ambertation.Windows.Forms.Serializer.Global.FromFile(Helper.DataFolder.SimPeLayout);
+            }
+            catch (System.Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Ambertation Serializer.FromFile failed: " + ex.Message);
             }
 
             // Remove ghost DockPanels created by historical sessions for names
@@ -254,45 +306,6 @@ namespace SimPe
                     dp.Close();
             }
 
-            // Apply each saved panel state. Panels with no stored state stay
-            // wherever the designer/plugin put them.
-            foreach (Ambertation.Windows.Forms.DockPanel dp in
-                     Ambertation.Windows.Forms.ManagerSingelton.Global.KnownPanels)
-            {
-                if (dp == null || string.IsNullOrEmpty(dp.Name)) continue;
-                if (dp.Name.StartsWith("ManagedDockPanel")) continue;
-
-                var st = Helper.WindowsRegistry.Layout.GetPanelState(dp.Name);
-                if (st == null) continue;
-
-                try
-                {
-                    if (st.Container == "Floating")
-                    {
-                        // Best-effort: leave docked panels alone (the dock library
-                        // throws if we try to detach in some transitional states).
-                        // If already floating, restore the floating window position.
-                        if (dp.IsFloating && dp.ParentForm != null)
-                            dp.ParentForm.Location = new System.Drawing.Point(st.FloatingX, st.FloatingY);
-                    }
-                    else
-                    {
-                        var target = ContainerForName(st.Container);
-                        if (target != null && dp.DockContainer != target)
-                            dp.DockContainer = target;
-                    }
-
-                    // Apply open/closed last so it doesn't fight the container change.
-                    if (st.IsOpen && !dp.IsOpen)       dp.Open();
-                    else if (!st.IsOpen && dp.IsOpen)  dp.Close();
-                }
-                catch (System.Exception)
-                {
-                    // The dock library can throw if a panel is mid-transition.
-                    // Leave that panel as-is rather than killing the whole restore.
-                }
-            }
-
             // Restore dock-area splitter sizes AFTER panel placement so the
             // containers have something in them when we resize.
             try
@@ -306,23 +319,14 @@ namespace SimPe
             }
             catch { }
 
-            // OW fallback for installs that have OWDockContainer set but no
-            // per-panel state for it yet (upgrade path from the old code that
-            // ONLY persisted the OW container).
-            var owPanel = Ambertation.Windows.Forms.ManagerSingelton.Global
-                .GetPanelWithName("dc.SimPe.Plugin.Tool.Dockable.ObectWorkshopDockTool");
-            if (owPanel != null
-                && Helper.WindowsRegistry.Layout.GetPanelState(owPanel.Name) == null)
-            {
-                Ambertation.Windows.Forms.DockContainer target =
-                    ContainerForName(Helper.WindowsRegistry.Layout.OWDockContainer)
-                    ?? dockBottom;
-                if (owPanel.DockContainer != target)
-                {
-                    try { owPanel.DockContainer = target; }
-                    catch { try { owPanel.DockContainer = dockBottom; } catch { } }
-                }
-            }
+            // (The old OW-DockContainer fallback was removed here — it
+            // pre-dated the Ambertation Serializer being re-enabled. With the
+            // Serializer now handling placement, the fallback was actively
+            // moving OW OUT of wherever Serializer.FromFile placed it and
+            // forcing it into the form's `dockBottom` field — which after
+            // PrepareDeserialize is a stale detached reference. Net effect:
+            // OW ended up tabbed with dcResourceList in `manager` regardless
+            // of what the saved layout said. Trust the Serializer now.)
 
             resourceViewManager1.RestoreLayout();
 
