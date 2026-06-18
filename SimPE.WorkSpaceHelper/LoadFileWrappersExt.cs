@@ -156,7 +156,11 @@ namespace SimPe
             for (int i = 0; i < items.Count; i++)
             {
                 ToolStripMenuItem item = items[i];
-                if (item.Image == null) continue; // Keep the tools wiv no icon off my pretty toolbar
+                // 0.75 adds every item regardless of icon — icon-less items render
+                // as text-only buttons on the bar. An earlier PJSE-era filter
+                // ("Keep the tools wiv no icon off my pretty toolbar") was
+                // dropping every text-only tool, leaving tbTools empty for users
+                // whose plugins don't ship icons.
                 ToolStripButton bi = new MyButtonItem(item);
                 bool beggroup = (i == 0 && tb.Items.Count > 0) || starters.Contains(item); ;
                 if (beggroup) groupindices.Add(i);

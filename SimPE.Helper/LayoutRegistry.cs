@@ -116,11 +116,14 @@ namespace SimPe
             get { return Convert.ToBoolean(xrk.GetValue("ActionDefExpanded", true)); }
             set { xrk.SetValue("ActionDefExpanded", value); }
         }
+        // Returns null when the user has never saved a customization, so
+        // MyButtonItem.GetLayoutInformations can distinguish "no saved state"
+        // (default-show all) from an explicitly-saved empty list.
         public ArrayList VisibleToolbarButtons
         {
             get
             {
-                object o = xrk.GetValue("TBButtons", new ArrayList());
+                object o = xrk.GetValue("TBButtons");
                 return o as ArrayList;
             }
             set

@@ -51,12 +51,20 @@ namespace SimPe
             ToolStrip tb = b as ToolStrip;
             if (tb != null)
             {
+                // Null list means no saved customization yet — show every
+                // MyButtonItem so the toolbar isn't empty and the
+                // ToolStripRuntimeDesigner chevron has something to anchor
+                // against. Empty (saved) list also defaults to show-all here:
+                // SetLayoutInformations writes an empty list any time no items
+                // happen to be visible, which on a freshly-arrived bar with
+                // GetLayoutInformations hiding everything is a self-reinforcing
+                // trap — treat empty-saved as "show all" to break it.
+                bool showAll = list == null || list.Count == 0;
                 foreach (object o in tb.Items)
                 {
                     MyButtonItem mbi = o as MyButtonItem;
                     if (mbi != null)
-                        //if (!mbi.HaveDock)
-                        mbi.Visible = list.Contains(mbi.Name);
+                        mbi.Visible = showAll || list.Contains(mbi.Name);
                 }
             }
 
