@@ -56,8 +56,8 @@ namespace SimPe.PackedFiles.UserInterface
 
         #region Vom Komponenten-Designer generierter Code
         /// <summary> 
-        /// Erforderliche Methode für die Designerunterstützung. 
-        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+        /// Erforderliche Methode fï¿½r die Designerunterstï¿½tzung. 
+        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geï¿½ndert werden.
         /// </summary>
         private void InitializeComponent()
         {
@@ -90,6 +90,9 @@ namespace SimPe.PackedFiles.UserInterface
             this.biMax = new System.Windows.Forms.ToolStripButton();
             this.mbiMax = new System.Windows.Forms.ToolStripMenuItem();
             this.pnId = new System.Windows.Forms.Panel();
+            this.lbHousname = new System.Windows.Forms.Label();
+            this.lbservice = new System.Windows.Forms.Label();
+            this.cbservice = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.cbSpecies = new Ambertation.Windows.Forms.EnumComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -623,6 +626,9 @@ namespace SimPe.PackedFiles.UserInterface
             // 
             resources.ApplyResources(this.pnId, "pnId");
             this.pnId.BackColor = System.Drawing.Color.Transparent;
+            this.pnId.Controls.Add(this.lbHousname);
+            this.pnId.Controls.Add(this.lbservice);
+            this.pnId.Controls.Add(this.cbservice);
             this.pnId.Controls.Add(this.label16);
             this.pnId.Controls.Add(this.cbSpecies);
             this.pnId.Controls.Add(this.label2);
@@ -656,7 +662,25 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbSpecies.ResourceManager = null;
             this.cbSpecies.SelectionChangeCommitted += new System.EventHandler(this.ChangedEP2);
             this.cbSpecies.SelectedIndexChanged += new System.EventHandler(this.cbSpecies_SelectedIndexChanged);
-            // 
+            //
+            // lbHousname
+            //
+            resources.ApplyResources(this.lbHousname, "lbHousname");
+            this.lbHousname.Name = "lbHousname";
+            //
+            // lbservice
+            //
+            resources.ApplyResources(this.lbservice, "lbservice");
+            this.lbservice.Name = "lbservice";
+            //
+            // cbservice
+            //
+            this.cbservice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbservice.FormattingEnabled = true;
+            resources.ApplyResources(this.cbservice, "cbservice");
+            this.cbservice.Name = "cbservice";
+            this.cbservice.SelectedIndexChanged += new System.EventHandler(this.cbservice_SelectedIndexChanged);
+            //
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
@@ -3070,6 +3094,9 @@ namespace SimPe.PackedFiles.UserInterface
         private ToolStripSeparator toolStripMenuItem3;
         private Label label16;
         internal EnumComboBox cbSpecies;
+        private Label lbservice;
+        internal System.Windows.Forms.ComboBox cbservice;
+        private Label lbHousname;
         private Label label21;
         private Label label20;
         private Label label19;

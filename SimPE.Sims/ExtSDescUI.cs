@@ -300,6 +300,14 @@ namespace SimPe.PackedFiles.UserInterface
             this.cbSpecies.Enum = typeof(SimPe.PackedFiles.Wrapper.SdscNightlife.SpeciesType);
             this.cbSpecies.ResourceManager = SimPe.Localization.Manager;
 
+            // 0.77 (Chris Hatch) populates this conditionally per installed EP. We
+            // just add every known ServiceType — the user picks whatever matches
+            // the raw NPCType hex in the Other tab, regardless of which packs are
+            // present. Skips the booby.PrettyGirls adult-mod entries 0.77 had.
+            this.cbservice.Items.Clear();
+            foreach (Data.MetaData.ServiceTypes st in System.Enum.GetValues(typeof(Data.MetaData.ServiceTypes)))
+                this.cbservice.Items.Add(new LocalizedServiceTypes(st));
+
             for (int i = 0; i < cbHobbyEnth.Items.Count; i++)
             {
                 SimPe.PackedFiles.Wrapper.Hobbies hb = SimPe.PackedFiles.Wrapper.SdscFreetime.IndexToHobbies((ushort)i);
@@ -453,6 +461,7 @@ namespace SimPe.PackedFiles.UserInterface
 			this.tbvoice.Text = "0x"+Helper.HexString(sdesc.CharacterDescription.VoiceType);
 			this.tbautonomy.Text = "0x"+Helper.HexString(sdesc.CharacterDescription.AutonomyLevel);
 			this.tbnpc.Text = "0x"+Helper.HexString(sdesc.CharacterDescription.NPCType);
+			SelectServiceType(sdesc.CharacterDescription.NPCType);
 			tbstatmot.Text = "0x"+Helper.HexString(sdesc.CharacterDescription.MotivesStatic);
 
             
@@ -466,7 +475,12 @@ namespace SimPe.PackedFiles.UserInterface
 			this.tbsim.Text = "0x"+Helper.HexString(sdesc.SimId);
 			this.tbsim.ReadOnly = !Helper.WindowsRegistry.HiddenMode;
 			this.tbfaminst.Text = "0x"+Helper.HexString(sdesc.FamilyInstance);
-			
+			// Household name shown parenthetically next to the Family Instance.
+			// Useful when household differs from family name — e.g. roommates
+			// who share a household but not a surname.
+			string house = sdesc.HouseholdName;
+			this.lbHousname.Text = string.IsNullOrEmpty(house) ? "" : "(" + house + ")";
+
 			Image img = null;
 			
 			if (sdesc.Image!=null) 
@@ -1058,10 +1072,38 @@ namespace SimPe.PackedFiles.UserInterface
                 
 				Sdesc.Changed = true;
 			} 
-			finally 
+			finally
 			{
 				intern = false;
 			}
+		}
+
+		// Selects the dropdown item whose underlying ServiceType numeric value
+		// matches the raw NPCType. Caller is responsible for re-entry guarding
+		// (RefreshMisc runs inside the intern=true span).
+		void SelectServiceType(ushort npc)
+		{
+			this.cbservice.SelectedItem = null;
+			foreach (object o in this.cbservice.Items)
+			{
+				LocalizedServiceTypes lst = o as LocalizedServiceTypes;
+				if (lst != null && (uint)lst == npc)
+				{
+					this.cbservice.SelectedItem = lst;
+					break;
+				}
+			}
+		}
+
+		// Type dropdown sits over the same raw NPCType byte that tbnpc shows.
+		// On user pick, sync tbnpc.Text — its TextChanged → ChangedOther path
+		// already does the writeback to Sdesc.CharacterDescription.NPCType.
+		private void cbservice_SelectedIndexChanged(object sender, System.EventArgs e)
+		{
+			if (intern) return;
+			LocalizedServiceTypes lst = this.cbservice.SelectedItem as LocalizedServiceTypes;
+			if (lst == null) return;
+			this.tbnpc.Text = "0x" + Helper.HexString((ushort)(uint)lst);
 		}
 
 		private void ChangedEP1(object sender, System.EventArgs e)
