@@ -40,10 +40,10 @@ namespace SimPe.Plugin
         public FamiuPackedFileUI()
 		{
 			InitializeComponent();
-            booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+            SimPe.ThemeManager tm = SimPe.ThemeManager.Global.CreateChild();
             tm.AddControl(this.tbBlocks);
             tm.AddControl(this.tbEditer);
-            if (booby.ThemeManager.ThemedForms)
+            if (Helper.WindowsRegistry.ThemedForms)
             {
                 tm.AddControl(this.btDelete);
                 tm.AddControl(this.btnext);
@@ -55,7 +55,7 @@ namespace SimPe.Plugin
                 tm.AddControl(this.btnuver);
                 tm.AddControl(this.gtname);
             }
-            fundGraph.BarColour = simGraph.BarColour = booby.ThemeManager.Global.ThemeColorDark;
+            fundGraph.BarColour = simGraph.BarColour = SimPe.ThemeManager.Global.ThemeColorDark;
             if (Helper.WindowsRegistry.UseBigIcons)
             {
                 this.pbImage.Size = new System.Drawing.Size(168, 168);
@@ -63,13 +63,14 @@ namespace SimPe.Plugin
             }
 		}
 
-        protected override void RefreshGUI()
+        public override void RefreshGUI()
         {
             base.RefreshGUI();
 
             this.CanCommit = Wrapper.isnew;
-            if (Helper.WindowsRegistry.Layout.SelectedTheme == 8) this.BackgroundImage = booby.PrettyGirls.HippyGirl;
-            else if (booby.PrettyGirls.PervyMode) this.BackgroundImage = booby.PrettyGirls.RandomChick;
+            // booby.PrettyGirls (Chris Hatch's NSFW theme background images) was
+            // never distributed in source — only in GDF.dll. We don't have the
+            // assets; just leave the background untouched.
             if (Wrapper.FamiThumb != null)
                 pbImage.Image = Ambertation.Windows.Forms.Graph.ImagePanel.CreateThumbnail(Wrapper.FamiThumb, pbImage.Size, 12, Color.FromArgb(90, Color.Black), SystemColors.ControlDarkDark, Color.White, Color.FromArgb(80, Color.White), true, 4, 0);
             else pbImage.Image = null;
@@ -89,7 +90,7 @@ namespace SimPe.Plugin
             filimuptext();
             rtbAbout.Visible = tbEditer.Visible = false;
             tbBlocks.Visible = gtname.Visible = true;
-            linkyabout.LinkColour = booby.ThemeManager.Global.ThemeColorDark;
+            linkyabout.LinkColour = SimPe.ThemeManager.Global.ThemeColorDark;
         }
 
         public override void OnCommit()
@@ -344,7 +345,7 @@ namespace SimPe.Plugin
         {
             if (rtbAbout.Visible)
             {
-                linkyabout.LinkColour = booby.ThemeManager.Global.ThemeColorDark;
+                linkyabout.LinkColour = SimPe.ThemeManager.Global.ThemeColorDark;
                 linkyabout.Links[0].Visited = true;
                 rtbAbout.Visible = false;
             }

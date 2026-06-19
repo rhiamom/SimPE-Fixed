@@ -73,7 +73,7 @@
     <ProjectReference Include="..\xsi.lib\xsi.lib.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SharpCompress" Version="0.47.0" />
+    <PackageReference Include="SharpCompress" Version="0.49.1" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
   </ItemGroup>
 </Project>

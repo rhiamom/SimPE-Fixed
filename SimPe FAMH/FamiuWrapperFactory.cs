@@ -25,15 +25,14 @@ namespace SimPe.Plugin
 		{
             get
             {
-                if (Helper.StartedGui == Executable.Classic || Helper.SimPeVersionLong < 330717003785) // requires updated GDF
-                {
-                    return new IWrapper[0];
-                }
-                else
-                {
-                IWrapper[] wrappers = { new FamiuPackedFileWrapper() };
-                return wrappers;
-                }
+                // Chris Hatch's original code gated this on Helper.SimPeVersionLong
+                // and Executable.Classic, with a comment "requires updated GDF" —
+                // GDF.dll being his NSFW theme library. We don't ship GDF and the
+                // wrapper has no actual dependency on it (the booby refs were all
+                // in the UI layer and were de-boobified). Return the wrapper
+                // unconditionally so FAMH resources register and appear in the
+                // resource tree.
+                return new IWrapper[] { new FamiuPackedFileWrapper() };
             }
 		}
 

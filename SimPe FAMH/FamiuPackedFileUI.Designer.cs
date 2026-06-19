@@ -10,7 +10,7 @@ namespace SimPe.Plugin
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FamiuPackedFileUI));
-            this.tbEditer = new booby.TaskBox();
+            this.tbEditer = new Ambertation.Windows.Forms.XPTaskBoxSimple();
             this.lbInvalid = new System.Windows.Forms.Label();
             this.btnuver = new System.Windows.Forms.Button();
             this.btBady = new System.Windows.Forms.Button();
@@ -29,15 +29,15 @@ namespace SimPe.Plugin
             this.tbLadyNo = new System.Windows.Forms.TextBox();
             this.tbMenNo = new System.Windows.Forms.TextBox();
             this.tbLotNo = new System.Windows.Forms.TextBox();
-            this.linkyabout = new booby.linkyicon();
-            this.fundGraph = new booby.GraphPanel();
-            this.mateGraph = new booby.GraphPanel();
-            this.boyGraph = new booby.GraphPanel();
-            this.girlGraph = new booby.GraphPanel();
-            this.menGraph = new booby.GraphPanel();
-            this.femGraph = new booby.GraphPanel();
-            this.simGraph = new booby.GraphPanel();
-            this.tbBlocks = new booby.TaskBox();
+            this.linkyabout = new FamhLinkLabel();
+            this.fundGraph = new FamhGraphPanel();
+            this.mateGraph = new FamhGraphPanel();
+            this.boyGraph = new FamhGraphPanel();
+            this.girlGraph = new FamhGraphPanel();
+            this.menGraph = new FamhGraphPanel();
+            this.femGraph = new FamhGraphPanel();
+            this.simGraph = new FamhGraphPanel();
+            this.tbBlocks = new Ambertation.Windows.Forms.XPTaskBoxSimple();
             this.btediter = new System.Windows.Forms.Button();
             this.btRawd = new System.Windows.Forms.Button();
             this.btnext = new System.Windows.Forms.Button();
@@ -259,14 +259,16 @@ namespace SimPe.Plugin
             this.linkyabout.BackColor = System.Drawing.Color.Transparent;
             this.linkyabout.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkyabout.Gap = 2;
-            this.linkyabout.Icon = GetIcon.Support;
+            // GetIcon.Support was a static from booby/GDF.dll — not available;
+            // shim's Icon setter accepts null.
+            this.linkyabout.Icon = null;
             this.linkyabout.Label = "About...";
             this.linkyabout.Location = new System.Drawing.Point(1191, 34);
             this.linkyabout.Margin = new System.Windows.Forms.Padding(0);
             this.linkyabout.Name = "linkyabout";
             this.linkyabout.Size = new System.Drawing.Size(98, 18);
             this.linkyabout.TabIndex = 49;
-            this.linkyabout.LinkClicked += new booby.linkyicon.EventHandler(this.linkyabout_LinkClicked);
+            this.linkyabout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkyabout_LinkClicked);
             // 
             // fundGraph
             // 
@@ -405,7 +407,7 @@ namespace SimPe.Plugin
             this.tbBlocks.RightHeaderColor = System.Drawing.SystemColors.ControlDark;
             this.tbBlocks.Size = new System.Drawing.Size(272, 166);
             this.tbBlocks.TabIndex = 43;
-            this.tbBlocks.TopGap = 6;
+            // booby.TaskBox had a TopGap property our XPTaskBoxSimple substitute lacks.
             // 
             // btediter
             // 
@@ -588,20 +590,20 @@ namespace SimPe.Plugin
         private System.Windows.Forms.Label lbraw;
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Label lbcurrnt;
-        private booby.TaskBox tbBlocks;
+        private Ambertation.Windows.Forms.XPTaskBoxSimple tbBlocks;
         internal System.Windows.Forms.PictureBox pbImage;
         private System.Windows.Forms.Button btRawd;
-        private booby.GraphPanel simGraph;
-        private booby.GraphPanel menGraph;
-        private booby.GraphPanel femGraph;
-        private booby.GraphPanel boyGraph;
-        private booby.GraphPanel mateGraph;
-        private booby.GraphPanel fundGraph;
-        private booby.GraphPanel girlGraph;
-        private booby.linkyicon linkyabout;
+        private FamhGraphPanel simGraph;
+        private FamhGraphPanel menGraph;
+        private FamhGraphPanel femGraph;
+        private FamhGraphPanel boyGraph;
+        private FamhGraphPanel mateGraph;
+        private FamhGraphPanel fundGraph;
+        private FamhGraphPanel girlGraph;
+        private FamhLinkLabel linkyabout;
         private System.Windows.Forms.RichTextBox rtbAbout;
         private System.Windows.Forms.Button btediter;
-        private booby.TaskBox tbEditer;
+        private Ambertation.Windows.Forms.XPTaskBoxSimple tbEditer;
         private System.Windows.Forms.TextBox tbGirlNo;
         private System.Windows.Forms.TextBox tbBoyNo;
         private System.Windows.Forms.TextBox tbLadyNo;
