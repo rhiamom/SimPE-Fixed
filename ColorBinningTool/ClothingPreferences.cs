@@ -50,9 +50,9 @@ namespace SimPe.Plugin.UI
 		{
 			// This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
-            if (booby.ThemeManager.ThemedForms)
+            if (Helper.WindowsRegistry.ThemedForms)
             {
-                booby.ThemeManager tm = booby.ThemeManager.Global.CreateChild();
+                SimPe.ThemeManager tm = SimPe.ThemeManager.Global.CreateChild();
                 tm.AddControl(this.tabPage1);
                 tm.AddControl(this.tabPage2);
                 tm.AddControl(this.tabPage3);

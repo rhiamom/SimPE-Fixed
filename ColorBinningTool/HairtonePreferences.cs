@@ -20,7 +20,7 @@ namespace SimPe.Plugin.UI
 		{
 			// This call is required by the Windows.Forms Form Designer.
 			InitializeComponent();
-            if (booby.ThemeManager.ThemedForms) this.pnackground.BackColor = booby.ThemeManager.Global.ThemeColorLight;
+            if (Helper.WindowsRegistry.ThemedForms) this.pnackground.BackColor = SimPe.ThemeManager.Global.ThemeColorLight;
 			this.BuildProxyItemList();
 			this.Text = "Hair";			
 		}

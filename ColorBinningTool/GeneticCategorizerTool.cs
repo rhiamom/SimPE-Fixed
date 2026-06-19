@@ -18,7 +18,9 @@ namespace SimPe.Plugin
 
 		public override string ToString()
 		{
-            return "Object Creation\\Colour Binning Tool";
+            // Theo distributes this tool standalone on MTS; surface his name in
+            // the menu so users know which Color Binning Tool this is.
+            return "Object Creation\\Theo's Color Binning Tool";
 		}
 
 		#endregion

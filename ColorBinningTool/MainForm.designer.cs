@@ -105,7 +105,7 @@ namespace SimPe.Plugin.UI
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.themepanel = new booby.gradientpanel();
+            this.themepanel = new System.Windows.Forms.Panel();
             this.tbContainer = new System.Windows.Forms.ToolStripContainer();
             ((System.ComponentModel.ISupportInitialize)(this.pbTexturePreview)).BeginInit();
             this.matPanel.SuspendLayout();
@@ -180,7 +180,7 @@ namespace SimPe.Plugin.UI
             this.cbDeleter.AutoSize = true;
             this.cbDeleter.Checked = true;
             this.cbDeleter.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbDeleter.Location = new System.Drawing.Point(273, 111);
+            this.cbDeleter.Location = new System.Drawing.Point(273, 98);
             this.cbDeleter.Name = "cbDeleter";
             this.cbDeleter.Size = new System.Drawing.Size(204, 21);
             this.cbDeleter.TabIndex = 23;
@@ -678,13 +678,10 @@ namespace SimPe.Plugin.UI
             this.themepanel.Controls.Add(this.splitter1);
             this.themepanel.Controls.Add(this.matPanel);
             this.themepanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.themepanel.EndColour = System.Drawing.SystemColors.Control;
             this.themepanel.Font = new System.Drawing.Font("Verdana", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.themepanel.Location = new System.Drawing.Point(0, 24);
-            this.themepanel.MiddleColour = System.Drawing.SystemColors.Control;
             this.themepanel.Name = "themepanel";
             this.themepanel.Size = new System.Drawing.Size(704, 502);
-            this.themepanel.StartColour = System.Drawing.SystemColors.Control;
             this.themepanel.TabIndex = 7;
             // 
             // tbContainer
@@ -772,7 +769,7 @@ namespace SimPe.Plugin.UI
 		private ColumnHeader columnHeader4;
 		private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
-        private booby.gradientpanel themepanel;
+        private System.Windows.Forms.Panel themepanel;
 
         private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.OpenFileDialog dlgOpenPackageFile;
@@ -783,7 +780,7 @@ namespace SimPe.Plugin.UI
         private System.Windows.Forms.ContextMenuStrip cmListActions;
         private System.Windows.Forms.CheckBox cbEnablePreview;
         private ClothingPreferences tpClothing;
-        private MenuItem menuItem3;
+        private System.Windows.Forms.ToolStripMenuItem menuItem3;
         private MeshTable meshTable;
 
 		#endregion

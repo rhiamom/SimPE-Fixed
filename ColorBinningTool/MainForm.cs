@@ -55,7 +55,7 @@ namespace SimPe.Plugin.UI
                 tp.ImageIndex = i;
                 this.tcMain.TabPages.Add(tp);
                 ListView lv = this.CreateListView();
-                lv.ContextMenu = this.cmListActions;
+                lv.ContextMenuStrip = this.cmListActions;
                 lv.Dock = DockStyle.Fill;
                 tp.Controls.Add(lv);
             }
@@ -79,7 +79,7 @@ namespace SimPe.Plugin.UI
             ret.Columns.Add("Gender", 70);
             ret.Columns.Add("Age", 110);
             ret.Columns.Add("Materials", 76);
-            if (booby.ThemeManager.ThemedForms) ret.BackColor = booby.ThemeManager.Global.ThemeColorLighter;
+            if (Helper.WindowsRegistry.ThemedForms) ret.BackColor = SimPe.ThemeManager.Global.ThemeColorLight;
             return ret;
         }
 
@@ -90,11 +90,10 @@ namespace SimPe.Plugin.UI
             while (++i < values.Length)
             {
                 HairColor key = (HairColor)values.GetValue(i);
-                MenuItem item = new MenuItem();
-                item.Index = i;
+                ToolStripMenuItem item = new ToolStripMenuItem();
                 item.Text = key.ToString();
                 item.Click += new EventHandler(MovePackage_Command);
-                this.miMoveTo.MenuItems.Add(item);
+                this.miMoveTo.DropDownItems.Add(item);
             }
         }
 
@@ -145,7 +144,7 @@ namespace SimPe.Plugin.UI
                 int i = -1;
                 while (++i < values.Length)
                 {
-                    MenuItem item = this.miMoveTo.MenuItems[i];
+                    ToolStripMenuItem item = (ToolStripMenuItem)this.miMoveTo.DropDownItems[i];
                     HairColor key = (HairColor)values.GetValue(i);
                     if (key == this.CurrentKey || this.box.Contains(key))
                         item.Visible = false;
@@ -171,8 +170,8 @@ namespace SimPe.Plugin.UI
                 foreach (ListViewItem item in this.lvCresShpe.SelectedItems)
                 {
                     MeshTable.MeshInfo mesh = item.Tag as MeshTable.MeshInfo;
-                    MenuItem mi = new MenuItem(mesh.Description);
-                    this.miApplyMesh.MenuItems.Add(mi);
+                    ToolStripMenuItem mi = new ToolStripMenuItem(mesh.Description);
+                    this.miApplyMesh.DropDownItems.Add(mi);
                     this.miApplyMesh.Visible = true;
                     mi.Click += new EventHandler(Handle_ApplyMeshItem_Click);
                 }
@@ -241,11 +240,11 @@ namespace SimPe.Plugin.UI
         {
             if (this.lvTxmt.SelectedItems.Count == 0)
             {
-                this.lvTxmt.ContextMenu = null;
+                this.lvTxmt.ContextMenuStrip = null;
             }
             else
             {
-                this.lvTxmt.ContextMenu = this.cmTxmtListActions;
+                this.lvTxmt.ContextMenuStrip = this.cmTxmtListActions;
                 if (this.lvTxmt.SelectedItems.Count == 1)
                 {
                     this.Cursor = Cursors.WaitCursor;
@@ -373,7 +372,7 @@ namespace SimPe.Plugin.UI
 
         void MovePackage_Command(object sender, EventArgs e)
         {
-            MenuItem item = sender as MenuItem;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
             if (item != null)
             {
                 HairColor newKey = (HairColor)Enum.Parse(typeof(HairColor), item.Text);
@@ -403,7 +402,7 @@ namespace SimPe.Plugin.UI
 
         private void Handle_ApplyMeshItem_Click(object sender, EventArgs e)
         {
-            MenuItem mi = sender as MenuItem;
+            ToolStripMenuItem mi = sender as ToolStripMenuItem;
             string filePath = mi.Text;
             ApplyMesh(filePath);
         }
@@ -611,8 +610,8 @@ namespace SimPe.Plugin.UI
                     MeshTable.MeshInfo[] meshes = this.meshTable.FindMeshes(fileName);
                     foreach (MeshTable.MeshInfo mesh in meshes)
                     {
-                        MenuItem mi = new MenuItem(mesh.Description);
-                        this.miApplyMesh.MenuItems.Add(mi);
+                        ToolStripMenuItem mi = new ToolStripMenuItem(mesh.Description);
+                        this.miApplyMesh.DropDownItems.Add(mi);
                         this.miApplyMesh.Visible = true;
                         mi.Click += new EventHandler(Handle_ApplyMeshItem_Click);
                     }
@@ -783,9 +782,9 @@ namespace SimPe.Plugin.UI
         void OnSelectMeshItem()
         {
             if (this.lvCresShpe.SelectedItems.Count == 0)
-                this.lvCresShpe.ContextMenu = null;
+                this.lvCresShpe.ContextMenuStrip = null;
             else
-                this.lvCresShpe.ContextMenu = this.cmMeshListActions;
+                this.lvCresShpe.ContextMenuStrip = this.cmMeshListActions;
         }
 
         void InitDisableControls()
