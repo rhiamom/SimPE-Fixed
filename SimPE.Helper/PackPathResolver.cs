@@ -109,6 +109,21 @@ namespace SimPe
             foreach (var pack in scan.Packs)
             {
                 if (!pack.HasTsData) continue;
+
+                // Base game shortcut. The scanner sets pack.Name = "Base Game"
+                // (a display label) whenever it identifies a folder as
+                // isBaseGame=true — folder name "Base", "The Sims 2", or the
+                // root itself. Our resolver map only has the literal "Base"
+                // key, so Resolve("Base Game") returns null and the base game
+                // gets silently dropped from PackInstallFolders. Special-case
+                // it before falling through to the name lookup.
+                if (pack.IsBaseGame)
+                {
+                    if (!map.ContainsKey(Expansions.BaseGame))
+                        map[Expansions.BaseGame] = pack.FullPath;
+                    continue;
+                }
+
                 Expansions? exp = Resolve(pack.Name);
                 if (exp == null) continue;
                 // First-write wins. The scanner walks BFS so shallower (more
