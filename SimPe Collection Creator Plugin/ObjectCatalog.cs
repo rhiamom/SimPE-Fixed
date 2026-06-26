@@ -53,12 +53,66 @@ namespace SimPe.Plugin
     }
 
     /// <summary>
+    /// Tells the caller why a package couldn't be added to a collection
+    /// — useful for explaining the OBJD requirement to users who picked
+    /// a recolor by mistake.
+    /// </summary>
+    public enum PackageKind
+    {
+        /// <summary>Has at least one OBJD — addable to a collection.</summary>
+        Object,
+
+        /// <summary>No OBJD but has recolor content (MMAT/TXMT/TXTR).
+        /// Caller should explain to the user that Sims 2 catalog collections
+        /// are object-keyed; the original object has to go in first.</summary>
+        Recolor,
+
+        /// <summary>No OBJD and no recolor markers — unknown structure
+        /// (broken package, neighborhood resource, etc.).</summary>
+        Unknown,
+    }
+
+    /// <summary>
     /// Inspects an object <c>.package</c> and yields one
     /// <see cref="ObjectInfo"/> per OBJD found. Replaces JFade's
     /// <c>HandleOBJD/Pull3IDRInfo</c> family with SimPE's OBJD wrapper.
     /// </summary>
     public static class ObjectCatalog
     {
+        // Recolor packages always carry a Material Override (MMAT) entry
+        // pointing at the parent object's GUID. That's a much stronger
+        // signal than "has TXMT/TXTR" alone (object packages have those
+        // too). MMAT presence + no OBJD = definitively a recolor.
+        const uint MMAT_TYPE = 0x4C697E5A;
+
+        /// <summary>
+        /// Quick classification of <paramref name="packagePath"/> so the
+        /// caller can tell the user why a package was rejected — recolor
+        /// vs broken vs not-recognised.
+        /// </summary>
+        public static PackageKind Classify(string packagePath)
+        {
+            if (string.IsNullOrEmpty(packagePath) || !System.IO.File.Exists(packagePath))
+                return PackageKind.Unknown;
+
+            try
+            {
+                GeneratableFile pkg = GeneratableFile.LoadFromFile(packagePath);
+                bool hasObjd = false, hasMmat = false;
+                foreach (var p in pkg.Index)
+                {
+                    if (p.Type == MetaData.OBJD_FILE) { hasObjd = true; break; }
+                    if (p.Type == MMAT_TYPE) hasMmat = true;
+                }
+                if (hasObjd) return PackageKind.Object;
+                if (hasMmat) return PackageKind.Recolor;
+                return PackageKind.Unknown;
+            }
+            catch
+            {
+                return PackageKind.Unknown;
+            }
+        }
         /// <summary>
         /// Open <paramref name="objectPackagePath"/> and return all OBJDs
         /// inside it. Empty list if the package has none (not a catalog

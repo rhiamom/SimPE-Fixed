@@ -202,37 +202,79 @@ namespace SimPe.Plugin
                 ? Path.Combine(dataFolder, "MaxisObjectList.txt")
                 : null;
 
-            int added = 0, skipped = 0;
+            int added = 0;
+            var recolors = new System.Collections.Generic.List<string>();
+            var unknowns = new System.Collections.Generic.List<string>();
+
             foreach (string path in dlgAddObject.FileNames)
             {
                 try
                 {
                     var infos = ObjectCatalog.Read(path, nameTable);
-                    if (infos.Count == 0) { skipped++; continue; }
-
-                    var info = infos[0];
-                    current.Members.Add(new CollectionMember
+                    if (infos.Count > 0)
                     {
-                        ObjectType = info.ObjectType,
-                        ObjectGroup = info.ObjectGroup,
-                        ObjectInstance = info.ObjectInstance,
-                        ObjectInstanceHi = info.ObjectInstanceHi,
-                        Guid = info.Guid,
-                        DisplayName = info.DisplayName,
-                    });
-                    added++;
+                        var info = infos[0];
+                        current.Members.Add(new CollectionMember
+                        {
+                            ObjectType = info.ObjectType,
+                            ObjectGroup = info.ObjectGroup,
+                            ObjectInstance = info.ObjectInstance,
+                            ObjectInstanceHi = info.ObjectInstanceHi,
+                            Guid = info.Guid,
+                            DisplayName = info.DisplayName,
+                        });
+                        added++;
+                    }
+                    else
+                    {
+                        // Sort the no-OBJD skips into recolors vs unknowns so
+                        // the user gets a meaningful explanation instead of a
+                        // bare "no OBJD" — recolors are the common case and
+                        // the constraint is the game's, not the tool's.
+                        switch (ObjectCatalog.Classify(path))
+                        {
+                            case PackageKind.Recolor: recolors.Add(Path.GetFileName(path)); break;
+                            default:                  unknowns.Add(Path.GetFileName(path)); break;
+                        }
+                    }
                 }
                 catch
                 {
-                    skipped++;
+                    unknowns.Add(Path.GetFileName(path));
                 }
             }
 
             RefreshMemberList();
             UpdateUIState();
-            SetStatus(skipped == 0
-                ? $"Added {added} object(s)."
-                : $"Added {added} object(s); skipped {skipped} (no OBJD inside).");
+
+            // Friendly explanation for the recolor case — the constraint catches
+            // people often enough that a status-bar line isn't enough. Pop a
+            // dialog the first time it happens in a multi-select; status bar
+            // still gets a summary.
+            if (recolors.Count > 0)
+            {
+                string list = string.Join("\r\n  • ",
+                    new[] { "" }.Concat(recolors.Take(8)).ToArray());
+                if (recolors.Count > 8) list += $"\r\n  …and {recolors.Count - 8} more";
+
+                MessageBox.Show(this,
+                    $"{recolors.Count} of the files you picked are recolors, not objects:" + list + "\r\n\r\n" +
+                    "Sims 2 catalog collections are keyed by the original object's GUID — the game's catalog " +
+                    "tile shows ONE object, and the recolor swatches under it are picked at runtime, not stored " +
+                    "in the collection.\r\n\r\n" +
+                    "To include the brown variant of (e.g.) a sofa, add the ORIGINAL sofa package; the collection " +
+                    "will show it, and players pick the brown recolor from its in-game recolor swatches.\r\n\r\n" +
+                    "If you want a tile dedicated to the brown recolor specifically, you'd need to clone the " +
+                    "object in SimPE's Object Workshop (giving it a new GUID) and bind the brown recolor to the " +
+                    "clone — that's a separate workflow, not something this tool can do at collection-build time.",
+                    "Recolors can't be added directly",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            string status = $"Added {added} object(s)";
+            if (recolors.Count > 0) status += $"; skipped {recolors.Count} recolor(s)";
+            if (unknowns.Count > 0) status += $"; skipped {unknowns.Count} unrecognised";
+            SetStatus(status + ".");
         }
 
         // --- Item list reorder -------------------------------------
