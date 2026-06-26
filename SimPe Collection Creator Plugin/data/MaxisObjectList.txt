@@ -1,0 +1,1271 @@
+Group ID;GUID;CTSS Name;OBJD Name;Game Version
+0x7F26A954;0x72BBA289;The Rock Hammer;Accessory - Band - Guitar - Career;Seasons
+0x7F675AD4;0x9242611E;The Back Forty Armoire;Armoire - Medium - Country;Seasons
+0x7F944083;0x7142DA05;Vrooom! Armoire;Armoire - Small - Racecar;Seasons
+0x7F4C5B53;0xD226BDCE;Weathernaught 57X;Aspiration Reward - Weather Control Device;Seasons
+0x7F782A0F;0x921AE19A;Beach Party Bar;Bar - Island - Tiki;Seasons
+0x7FF81801;0xB24261A7;The Four Post Bed;Bed - Double - Country;Seasons
+0x7F89C1F3;0x3242621C;The Single Bed a la Mode;Bed - Single - Country;Seasons
+0x7FFA446E;0x9142DA68;Vrooom! Sleep System;Bed - Single - Racecar;Seasons
+0x7FEC4281;0x524E1066;Books First for Learning: A Bookshelf of Education;Career - Bookcase;Seasons
+0x7F195841;0x324D0D87;The Rock Hammer;Career - Guitar;Seasons
+0x7F2B6703;0xD24CE39C;The Gootentaugen Award for Excellence in Journalism;Career - Journalism Award;Seasons
+0x7F06DEB2;0x124E3138;I Object Litigator Podium;Career - Lectern;Seasons
+0x7FC56DF9;0xF24CFF80;Tribal Flame a la Coconut Pinball;Career - Pinball;Seasons
+0x7F540DC3;0xD24D09FD;Golden Skull of Jumbok IV;Career - Tiki;Seasons
+0x7FF6B370;0x523A3D31;Auntie May's Bar Stool;Chair - Barstool - Country;Seasons
+0x7F740B20;0x721C32FA;Beach Party Barstool;Chair - Barstool - Tiki;Seasons
+0x7F94CBB2;0x921ABCDF;The Exquisite Bistro Chair by Bourgeois Design;Chair - Dining - Bistro;Seasons
+0x7F89FACF;0xD23A402B;The Cozinator 450;Chair - Dining - Country;Seasons
+0x7FFA7F52;0x3142DAA2;Vrooom! Dining Chair;Chair - Dining - Racecar;Seasons
+0x7F661593;0x921C336F;Bamboo Chair by Island Lumberjacks;Chair - Dining - Tiki;Seasons
+0x7F4E54A4;0xF21C37E4;Tabu Living Chair from Nothing Atoll;Chair - Living - Tiki;Seasons
+0x7F7532D8;0x321C38BF;Final Moments Lounge from Nothing Atoll;Chair - Lounge - Tiki;Seasons
+0x7F095901;0x923A497E;Blue Ribbon Countertop;Counter - Country;Seasons
+0x7F5A9CCD;0x121AD416;CocoCounter from Nothing Atoll;Counter - Tiki;Seasons
+0x7F2901AD;0xF23A4BC8;Country Fried Island Counter from McKraken Industries;Counter Island - Country;Seasons
+0x7F244204;0x721ADAE9;Tiki Island Counter;Counter Island - Tiki;Seasons
+0x7F235A0C;0xD23AC2F8;Window Dressing;Curtains - Country Two Tile;Seasons
+0x7F653BF1;0x524262DE;The Rollin' Secretary from McKraken Industries;Desk - Country;Seasons
+0x7F16BE6C;0x9142DAFA;Vrooom! Desk;Desk - Racecar;Seasons
+0x7FB71A14;0x923A5BC6;Storm-Proof Hatch;Door - 1 Tile - Country;Seasons
+0x7FC9AB6C;0xF23A596F;Fragrancer 8000;Door - 1 Tile - Country Arch;Seasons
+0x7F3DAB9A;0x923A5CF3;The Wooden Curve;Door - 1 Tile - CountryInterior;Seasons
+0x7F563F0A;0xF242648D;The Crustikus Dresser by Earl Crustikus IV;Dresser - Medium - Country;Seasons
+0x7FEEAF47;0x7142DB52;Pit Stop Dresser by Zoom Arts;Dresser - Small - Racecar;Seasons
+0x7FF20494;0x3264ACDA;Shoddy Fireplace;Fireplace Hearth - Hobo;Seasons
+0x7F471479;0x12159F33;The Flowy Floater;Fountain - Pond;Seasons
+0x7F77963B;0xB25C8B5E;Hole-y Pots Cascading Waterfall;Fountain - TieredGarden;Seasons
+0x7F60DAF4;0xD243C736;Garden Schpritzer 180;Garden - Auto Sprinkler 180;Seasons
+0x7F09095C;0xD243C742;Garden Schpritzer 360;Garden - Auto Sprinkler 360;Seasons
+0x7FC2BA3F;0x9240E80E;Garden Schpritzer 90;Garden - Auto Sprinkler 90;Seasons
+0x7F8841AE;0x7216B78A;Lovely Ladybug Loft;Garden - Ladybug Box;Seasons
+0x7FC3B745;0xD216BAAE;Pleasant Earth Dirt;Garden - Plot;Seasons
+0x7F89B7CB;0x12422517;Toss 'n Wish Drinking Well by Gaelic Gardens;Garden Club - Wishing Well;Seasons
+0x7FADA46E;0x721BFA3C;Composting Apparatus by Apparati Aplenty;Gardening - Compost Bin;Seasons
+0x7F5260A9;0x725CEEBC;The Emperor's Gate;Gate - BambooTallGate;Seasons
+0x7F5E77C0;0xD24E8130;Green's Greenhouse Door;Gate - Greenhouse;Seasons
+0x7F824C7A;0x9212BC8A;Perfect Packets Hot Chocolate Maker;Hot Chocolate Maker;Seasons
+0x7F131B89;0xD226A80B;Small Ice Cap Skating Rink;Ice Rink;Seasons
+0x7FF844FB;0x92647B21;Large Ice Cap Skating Rink ;Ice Rink Big;Seasons
+0x7F7A7755;0x7224066E;The Main Squeezer 235X;Juicer;Seasons
+0x7F44FD86;0xB238F823;The Swinging Light;Lamp - Ceiling - Country;Seasons
+0x7F9622DD;0x9260A22D;The Toasty Garden Lamp sans Toast;Lamp - Ceiling - Plantsim Sunlamp;Seasons
+0x7FAC6762;0x125C9625;Late Nite Garden Lite;Lamp - Floor - GardenPath;Seasons
+0x7F8B15CB;0x321AD061;Pete's Postlight from Nothing Atoll;Lamp - Floor - Tiki;Seasons
+0x7F5D9BC2;0x1238FD2A;Homespun Banner Streetlamp;Lamp - Streetlight - Country;Seasons
+0x7F307475;0xB23900F7;String Lantini;Lamp - String - Country;Seasons
+0x7FA1B8F7;0x32390782;The Bloomington Lamp;Lamp - Table - Country;Seasons
+0x7FD23D6A;0x1142DB92;Speedway Table Lamp by Zoom Arts;Lamp - Table - Racecar;Seasons
+0x7F4A0E0B;0x521C28D8;Hula Dancer Lamp;Lamp - Table - TikiHula;Seasons
+0x7FF977D0;0x121C2B49;Volcano Table Torch;Lamp - Table - TikiTorch;Seasons
+0x7F7AA36C;0x12390BE2;Waffelhousen Sconce;Lamp - Wall - Sconce - Country;Seasons
+0x7F69E019;0xB2426510;Rustic Glass;Mirror - Floor - Country;Seasons
+0x7F7E26A5;0xB24265AA;The CabiMirror;Mirror - Wall - Country;Seasons
+0x7FCFF5F9;0x124A208F;Ambrosial Apple Tree;Orchard Tree - Apple;Seasons
+0x7F304972;0xB25FBBD7;Ambrosial Lemon Tree;Orchard Tree - Lemon;Seasons
+0x7F44A146;0x325FBBE5;Ambrosial Orange Tree;Orchard Tree - Orange;Seasons
+0x7FC7444B;0x124A8124;The Water's Flow by Edgar Velveete;Painting - Animated - Country Rapids;Seasons
+0x7F08CD72;0x921B2276;Nocturnal Imagination Receiver from Apparati Inc.;Painting - DreamCatcher;Seasons
+0x7F36E0BF;0xF21AECD6;Home Sweet Home from McKraken Industries;Painting - HomeSweetHome;Seasons
+0x7F8A0598;0xB21B1BA4;The Benevolent Tengu;Painting - MaskTengu;Seasons
+0x7F141B6F;0x121C41E8;Headhunter Battle Mask;Painting - MaskTiki;Seasons
+0x7F068C73;0xF21AED64;Gram Gram's Needlework from McKraken Industries;Painting - Needlework;Seasons
+0x7F890F67;0x72391DE7;Veronaville Quilting Bee - Finalist;Painting - Quilt;Seasons
+0x7F49A091;0xB264B27B;A Home for All Seasons;Painting - SeasonalHome;Seasons
+0x7FB38D85;0xF2391F05;Tiny Fake Room Wallscape;Painting - ShadowBox;Seasons
+0x7F263DFA;0x52392203;The "Naturally Stylish" Flower Barrel;Plant - Floor - FlowersBarrel;Seasons
+0x7FB88BF9;0xF25C9A79;Layers of Loveliness;Plant - Floor - TieredFlowers;Seasons
+0x7FF76084;0x925C9B46;The Decoy Trellis;Plant - Floor - TrellisPlanter;Seasons
+0x7F979D47;0x725C9E99;Umbrellas of the Water;Plant - Water - LilypadLarge;Seasons
+0x7FE6526E;0xD2314727;The Kronklehorn;Pool Slide;Seasons
+0x7F745CFF;0x5243DB36;Small Roll-O-Rama Rink;Roller Rink;Seasons
+0x7F288E7E;0x1261F205;Large Roll-O-Rama Rink;Roller Rink Big;Seasons
+0x7FA09FA7;0x721AEE24;Royal First Oval Rug;Rug - CountryOval 2x2;Seasons
+0x7FA8AFE6;0x523AABCF;A Little Patch of Country from Ruggers Unlimited;Rug - CountryRectangular;Seasons
+0x7F53C13E;0xB21EFF1A;Pit Stop Rug;Rug - Racecar;Seasons
+0x7FD5B633;0xF260B2BF;Seasonal Wishes Floor Mat;Rug -WelcomeMatSeasons;Seasons
+0x7F2E20D0;0x92393E4B;More O'This and That;Sculpture - Ceiling Utensils;Seasons
+0x7F0D4A64;0x321B277C;Major's Rooster by Franc-O-Phile Designs;Sculpture - CeramicRooster;Seasons
+0x7F741A8E;0x5277120F;A Not-So Lonely Shelf;Sculpture - CornerShelf;Seasons
+0x7F4D1990;0x921B2203;The Daruma Wishing Doll by "Suki Desu";Sculpture - Daruma;Seasons
+0x7F1FB9CB;0xF25CCD51;Coat Rack de Lovely;Sculpture - Floor - CoatRack;Seasons
+0x7F0CB854;0xB25C9D52;An Odd Foretelling;Sculpture - Floor - GazingBall;Seasons
+0x7F76BB7D;0x726BE00B;Chickenfeed Charlie Sculpture of Fun;Sculpture - Floor - LawnTacky;Seasons
+0x7FDBF32F;0x925E35DC;Pirate Herald’s Tropical Umbrella;Sculpture - Floor - Umbrella Tiki;Seasons
+0x7F7828D5;0x325CC602;Qylaron Phase-Array Atmospheric Forecaster;Sculpture - Floor - WeatherStation;Seasons
+0x7F94C53F;0xD21AEEEE;Earthenware Trio by Pastoral Poultry Designs;Sculpture - KitchenCrockery;Seasons
+0x7F0BDE99;0x721AEFC8;Utensil Silo by Pastoral Poultry Designs;Sculpture - KitchenUtensils;Seasons
+0x7F230E87;0x521B1EC1;EZ120v Lightning Finial;Sculpture - LightningRod;Seasons
+0x7FAA8B62;0xD25CCB0D;Premium Large Rock;Sculpture - RockLarge;Seasons
+0x7F1875E0;0xF25CCAC7;Deluxe Small Rock;Sculpture - RockSmall;Seasons
+0x7FBEC4CD;0x324A7914;Stuff Me Silly Scarecrow from McKraken Industries;Sculpture - Scarecrow;Seasons
+0x7FDF6789;0x121C459E;Little Tiki Idol;Sculpture - Table - Tiki;Seasons
+0x7F1EE6DD;0xD21C484C;Tiki Idol;Sculpture - Tiki;Seasons
+0x7F66384B;0x321C42CC;Lanai Privacy Screen;Sculpture - Tiki Screen;Seasons
+0x7F163189;0x3239542E;Synthetic Iron Trellis;Sculpture - TrellisWroughtIron;Seasons
+0x7FB339C1;0x325CCC7C;A Less Threatening Rack;Sculpture - Wall - DisplayRack;Seasons
+0x7F1A7EEF;0xF21B2840;Wilted Love;Sculpture - Wall - DriedFlowers;Seasons
+0x7F1C7D45;0x1239510D;Olde Tyme Skillets;Sculpture - Wall - Hanging Skillets;Seasons
+0x7F66400F;0xB21AF08D;Sizzling Cuisine Mitts;Sculpture - Wall - OvenMits;Seasons
+0x7FC77E9C;0xB2395282;Rack-O-Plates;Sculpture - Wall - PlateRack;Seasons
+0x7F5F6F5D;0xD142DC86;Flags of Victory;Sculpture - Wall - Racecar;Seasons
+0x7F7F1A86;0xD23954F4;Spice Trader Starter Kit;Sculpture - Wall - SpiceRack;Seasons
+0x7F8A06E9;0x521AF134;La Cara del Sol;Sculpture - Wall - Sun;Seasons
+0x7F360D2F;0x525E312F;The Ornery Rooster;Sculpture - WeatherVaneRooster;Seasons
+0x7F30B6DF;0x321B1FD5;Unlikely Whale Sculpture;Sculpture - Whale;Seasons
+0x7F28B838;0x525E3668;The Little Jug of Wishes;Sculpture - WishingPot;Seasons
+0x7FE10DB7;0xF2395581;Schmidt's Wünder Tub;Shower - Country;Seasons
+0x7FCC4343;0xF25CC70A;King Rainier's Sign;Sign - Address;Seasons
+0x7FF78225;0x725C9CEC;Banner for Four Seasons;Sign - BannerSeasons;Seasons
+0x7FDE8B5A;0xB24266AA;The Simple Washer from Kountry Pipes;Sink - CountryPedestal;Seasons
+0x7FD705D8;0xB25C97C1;Park Parthenon;Sofa - Loveseat - BenchArbor;Seasons
+0x7FE660B3;0xF21C4047;Stranded from Nothing Atoll;Sofa - Loveseat - Tiki;Seasons
+0x7FC8AD23;0x5264BC44;Neukum Systems "Seasonal Solstice" New Age Wall Speaker;Stereo - Community - New Age;Seasons
+0x7FA7A37B;0x9264BE23;Neukum Systems "Right On" Jam Band Wall Speaker;Stereo - Community - Remix;Seasons
+0x7F479617;0x123958C9;Cowpoke Stove from Cowboy Cookin';Stove - RangeCountry;Seasons
+0x7F6E3709;0xB237FFFE;Rocket Heifer Barbeque;Stove Grill - Country;Seasons
+0x7F3B285F;0x321C48F3;The Tiki Lifestyle from Nothing Atoll;Table - Coffee - Tiki1x2;Seasons
+0x7FC7541D;0x921AF185;Table de Bistro by Bourgeois Design;Table - Dining - Bistro;Seasons
+0x7FA2450A;0xB23A5F15;Rancher's Round Table;Table - Dining - CountryRound;Seasons
+0x7F0B8FFD;0xB21C4E36;Hula Feast Table;Table - Dining - Tiki;Seasons
+0x7F656D4D;0xF2426CD6;Home-Style End Table;Table - End - Country;Seasons
+0x7F16E8D0;0x5142DCCA;Tire Stack by Autohaus Autobahn;Table - End - Racecar;Seasons
+0x7F67D0E0;0x323959CA;Refreshing Commode from McKraken Industries;Toilet - Country;Seasons
+0x7FE0E7BF;0x7142DD0A;Drag Strip Toy Bin;Toy Box-Racecar;Seasons
+0x7F73B8EB;0xD2426D4A;Backcountry Vanity;Vanity Table - Country;Seasons
+0x7F025E7F;0x923A778B;The Truth Divider;Window - Country;Seasons
+0x7F546D21;0x923A7BF6;Just Visiting Flower Box;Window – CountryFlowerbox;Seasons
+0x7FFE6BAF;0xF175CE99;Mr. Maritime;Aquarium Saltwater;Pets
+0x7F539055;0xD1AD4FA6;Atomic Clothing Manager by Streamlined Industries;Armoire - Medium - AtomicAge;Pets
+0x7FFD3E4E;0x51A6A1B0;SpaceKid Sim’s Atomic Armoire;Armoire - Small - AtomicAgeKids;Pets
+0x7F42FBF3;0xF1A0515D;Kibble of Life;AspirationsReward - Kibble Of Life;Pets
+0x7F9A4EED;0x31AE99A6;Solo Neutrino by Astro-Tops Design;Bar - Island - AtomicAge;Pets
+0x7F6980C5;0x11AD5049;Sleepwave 42 by Streamlined Industries;Bed - Double - AtomicAge;Pets
+0x7F813102;0x71A6A108;SpaceKid Sims Sonic Sleeper;Bed - Single - AtomicAgeKids;Pets
+0x7F484095;0x31749348;Los Gatos Condominiums;Cat Condo;Pets
+0x7F6382BA;0xF1AD4FED;Barstool by Simulated Comfort;Chair - Barstool - AtomicAge;Pets
+0x7FBEF7E0;0xB1AD5092;Nuclear Family Dining Chair by Nucular Novelties;Chair - Dining - AtomicAge;Pets
+0x7F9DCB9D;0x519C5225;Little Space Rangers Chair;Chair - Dining - AtomicAgeKids;Pets
+0x7F8F0DA8;0x11AD4E3C;E-to-the-Z Chair;Chair - Living - AtomicAge;Pets
+0x7F65068C;0xF1A7F800;Lounge-O-Rama by Nucular Novelties;Chair - Lounge - AtomicAge;Pets
+0x7FA07DF1;0xB17773EB;Moonshot Thruster Clock;Clock Atomic Age;Pets
+0x7FC98B4F;0x119C57B8;The Space Column by Spitz;Column - AtomicAge;Pets
+0x7F1980BD;0xF1AF22F3;The Space Column Squared by Spitz;Column - Multistory - 2 Story - AtomicAge;Pets
+0x7FC15ACD;0xB1AE9A80;Neo-Quartzo by Astro-Tops;Counter - AtomicAge;Pets
+0x7FF9F187;0x51AE9A08;Formicium Counter by Astro-Tops Design;Counter Commercial - AtomicAge;Pets
+0x7FF3B877;0x31AE9B1A;Marbleplex Island Counter by Astro-Tops Design;Counter Island - AtomicAge;Pets
+0x7F388C8D;0xB19C5279;Andromeda Li'l Astronaut Desk;Desk - AtomicAgeKids;Pets
+0x7F9EACC0;0xF1A1F402;Cat-Crazy Pet Display;Display - Pet - Cat;Pets
+0x7F3B5391;0x3154F5D4;Doggonit Pet Display;Display - Pet - Dog;Pets
+0x7F380736;0x319C3088;Futur-Nu Prime by Zuper Tech;Door - 1 Tile - AtomicAge;Pets
+0x7FDACC97;0xD19C2F42;Futur-Nu Squared by Zuper Tech;Door - 2 Tile - AtomicAge;Pets
+0x7FEEA6C5;0x51AF2268;Futur-Nu Arch by Zuper Tech;Door - 2 Tile - AtomicAge Arch;Pets
+0x7FB18338;0x51B063EB;Paws-Way Passage from Pawsome Furnishings;Door - 2 Tile - AtomicAgePaw;Pets
+0x7F798E88;0xB1AD50F3;Zero-G Dresser;Dresser - Medium - AtomicAge;Pets
+0x7FFAF20F;0xD19C52E5;Andromeda Far Out Dresser;Dresser - Small - AtomicAgeKids;Pets
+0x7F30DAB2;0xD1B05921;Ignito Fireplace from Modern Primitives;Fireplace Hearth - Atomic;Pets
+0x7F38AC52;0x51AE96E7;Aqueduct of the Future!;Fountain - AtomicAge;Pets
+0x7FE9660F;0x119C586A;Asteroid Bowl Lamp;Lamp - Ceiling - AtomicAge;Pets
+0x7FE3E9D1;0x319C5347;Saturnocity Lighting from Galactico;Lamp - Ceiling - AtomicAgeKids;Pets
+0x7F2E66B6;0x91A7F8B0;Asteroid Standing Lamp;Lamp - Floor - AtomicAge;Pets
+0x7F75D056;0xB19C5383;Rings of Saturn Light by Galactico;Lamp - Floor - AtomicAgeKids;Pets
+0x7F339074;0x31A7FAE0;Asayake MZ-30: Soothing Sun Device;Lamp - Floor - GardenPagoda;Pets
+0x7FA3825B;0xF1AD5173;The Luna Torch by Glucolux;Lamp - Outdoor - AtomicAge;Pets
+0x7FCEEC51;0xD1A7F90C;Neo Lighto by Glucolux;Lamp - Table - AtomicAge;Pets
+0x7F7027BC;0x519C53C4;The Children's Fusion Lamp by Galactico;Lamp - Table - AtomicAgeKids;Pets
+0x7FA74F77;0x71A7F98B;The Photonic Ha’Sphere by Glucolux;Lamp - Wall - AtomicAge;Pets
+0x7F37475A;0xB1747D61;Mentionable Plastic Litter Box;Litter Box;Pets
+0x7FA69058;0x51789DD9;Discombobulated Mirrortron from Galactico;Mirror - Floor - AtomicAge;Pets
+0x7FC382CB;0xD1A7FB8E;Nova Jazz by Saturn McGee;Painting - AtomicAge;Pets
+0x7F49400C;0x919C5439;Spacious Spaces;Painting - AtomicAgeKids;Pets
+0x7F20D0FD;0x11AD5360;A Portrait of Fuzzy Babies;Painting - BabyAnimal;Pets
+0x7FE5100D;0xF19C39A4;Stumped Hound - Reprint;Painting - BirdDog;Pets
+0x7FDDBA73;0x719C3712;The Perfect Cat;Painting - CartoonCat;Pets
+0x7FDF2FD4;0x517F6379;In Memory Of Johnny Gnome;Painting - Gnome;Pets
+0x7F0600F8;0x918C3F12;Sumo!!! Kite;Painting - JapaneseKite;Pets
+0x7F0E6869;0x119C38C3;Kitten Vs. Yarn: Season 1 Print;Painting - KittenYarn;Pets
+0x7F3A4C89;0xB17F6E48;The Stodgy Badger Family Portrait;Painting - MrBadger;Pets
+0x7F8F7890;0x31AD4D0C;The Stodgy Badger Family Portrait;Painting - MrsBadger;Pets
+0x7F96FE6D;0xD1AD53A0;Tropico Birds in the Wild;Painting - PetBird;Pets
+0x7F179223;0xB19C37E2;The House Pets Comic;Painting - PetCartoon;Pets
+0x7F4EB804;0xB1ADD0E3;Yummers in My Tummers! Poster;Painting - Poster - PetFood;Pets
+0x7FBB83F9;0x91AD4C93;Scruffles the Quilted Dog;Painting - QuiltedDog;Pets
+0x7F30AA19;0xB1AD8518;Snoozing Enemies Comic;Painting - Sleeping;Pets
+0x7FB0F865;0x51A81CD7;Sirloin Shuffle Screenshot;Painting - TugOfWar;Pets
+0x7F58E5A0;0x118876B0;Tropico Avian Sanctuary;Pet - Contained Pet - Bird;Pets
+0x7FFAC714;0xB182020E;Tropico Avian Sanctuary;Pet - Contained Pet - Bird Cage;Pets
+0x7FB5735C;0xB14FF6B3;FMCU 3000;Pet - Contained Pet - Mammal;Pets
+0x7F6195DA;0xD14FC7B7;FMCU 3000;Pet - Contained Pet - Mammal Cage;Pets
+0x7F12E42A;0x31A40A6E;Pet Pillow Fantastic;Pet Bed - Basket - Expensive;Pets
+0x7F5C2E3B;0xF1A40AB5;The Comfy Critter Pallet;Pet Bed - Basket - Medium;Pets
+0x7FDF94C5;0x918C7AEC;Comfy Pet Pillow;Pet Bed - Basket - Value;Pets
+0x7F57751E;0x71A40AEA;The Basket Experience;Pet Bed - Basket - Wicker;Pets
+0x7FE568E8;0xB1A40B1A;Galactix Animal Home;Pet Bed - House - Atomic;Pets
+0x7F880D31;0xF1A40B44;Scratchpaw Manor Pet House;Pet Bed - House - Expensive;Pets
+0x7FFAE478;0x31A40B7D;Average Paws Bedding;Pet Bed - House - Medium;Pets
+0x7FE24FBB;0x1195BD65;Pets' Desires House;Pet Bed - House - Value;Pets
+0x7FEF59AC;0x11119274;Scientifically Superior Pet Dish;Pet Food Dish;Pets
+0x7F9147C3;0x11AF455C;Good Value Pet Bowl;Pet Food Dish - CheapSquare;Pets
+0x7FF5C163;0x11789D56;Affluent Animal Dinner Dish;Pet Food Dish - Expensive;Pets
+0x7F695A41;0xB16A4F4F;Feline Birdie Stick;Pet Toy - Cat Dancer;Pets
+0x7FDFAFDB;0xB1988561;Kitty Kraze Katnip;Pet Toy - Cat Nip;Pets
+0x7FF13540;0xD1419A86;The Chewinator by ChompCo;Pet Toy - Chew Toy;Pets
+0x7F614B13;0x3124350F;Talkatron 9000C by AEC Techtronics;Phone - Base - Table - Atomic;Pets
+0x7FA7BA70;0x11243517;Talkatron 9000W by AEC Techtronics;Phone - Base - Wall - Atomic;Pets
+0x7FB2E4DD;0x112437F8;(No catalog description);Phone - Handset - Atomic;Pets
+0x7FF03BF8;0xF1AE97EE;Mixed Flowers Planter by BowerFlox;Plant - Floor - FlowerBox;Pets
+0x7FF97A78;0x11AE9830;Ring-O-Posies Commercial Planter;Plant - Floor - FlowerPottedCircle;Pets
+0x7FB7A06A;0xF19C5987;Pot of Roses by Pot-a-Ree;Plant - Floor - PottedRose;Pets
+0x7F2C2FB1;0x5163A1E4;Collar Connection Display;Rack - Pet Collar - Counter;Pets
+0x7FAFDD41;0xD19C58D2;Organically Atomic Rug;Rug - AtomicAge;Pets
+0x7F6FEE7A;0xD19C5493;Planetoid Explorer Rug;Rug - AtomicAgeKids;Pets
+0x7FF5B558;0xF1AE989D;Bone Rug by Bonafide Luxury;Rug - Bone;Pets
+0x7FD84CE6;0xD1B03280;Paws-A-Plenty Rug by Bonafide Luxury;Rug - RunnerPaws;Pets
+0x7FF62A30;0xD1147496;Scratch-O-Matic Scratching Post;Scratching Post;Pets
+0x7F6EEC55;0xB1A8187E;Elemental Balance;Sculpture - Ceiling - AtomicAge;Pets
+0x7FAAA348;0xD1789ED5;The Imposing Falcon;Sculpture - Falcon;Pets
+0x7F81C0F9;0x919C591A;Shapes in Space;Sculpture - Floor - AtomicAge;Pets
+0x7FE69694;0xD1AD53E0;Johnny the Pump;Sculpture - Floor - GiantFireHydrant;Pets
+0x7FCEC78A;0xB19C59D1;A Cat Haiku by D. Marga;Sculpture - Floor - PedestalCat;Pets
+0x7F6B38DB;0x51AD540E;A Dog Haiku by D. Marga;Sculpture - Floor - PedestalDog;Pets
+0x7FF06814;0xB18C3F74;The Beckoning Cat from Worldly Stuff Inc.;Sculpture - FortuneCat;Pets
+0x7FC11077;0x919C3932;The Prototype X94 “Angsternaut” Robosuit;Sculpture - Mech;Pets
+0x7F614A1E;0xF1AD51C3;Hydrocyanic Cat No. 7;Sculpture - Table - AtomicAge;Pets
+0x7F6F6BB4;0x51A81948;Boronica by d’Lange;Sculpture - Wall - AtomicAge;Pets
+0x7F0B6C9B;0x5162900C;King Kricket Klobberin’ Klub;Sculpture - Wall - CricketBat;Pets
+0x7FC3C235;0xB1B08694;Fierce Gargoyle - Home Edition;Sculpture - Wall - Gargoyle;Pets
+0x7F856C76;0xB1B08252;Leash Racque by DeFarge;Sculpture - Wall - LeashRack;Pets
+0x7FD35649;0x11AD857D;Beware Of Pet Sign;Sign - BewareOfPet;Pets
+0x7F9B3777;0x51A6A2FC;EcoPure Park Sign;Sign - DogParkClean;Pets
+0x7FB6E028;0x71AD547D;Pet Sculpture Solution;Sign - PetCrossing;Pets
+0x7FE0DE55;0xF19C552D;Pet Store Sign by Super SignGuys;Sign - PetStore;Pets
+0x7FB20B65;0x31B060E0;Moon Hopper Sink by Atmos Furnishings;Sink - Counter - AtomicAge;Pets
+0x7F03F2DA;0xF1AD4F1C;Super Settee by Sputnix Furnishings;Sofa - AtomicAge;Pets
+0x7FAE96A9;0x31AD4ED7;Atomicles Loveseat by Nucular Novelties;Sofa - Loveseat - AtomicAge;Pets
+0x7F34775B;0x91AE9781;Atom Bench by Nucular Novelties;Sofa - Loveseat - BenchBone;Pets
+0x7FB4AA5A;0x71A06D15;New and Modern Stairs in Stainless Steel;Stair Modular - Atomic - Bridge;Pets
+0x7FE048E4;0x91AED1EC;New and Modern Stairs in Black;Stair Modular - AtomicBlack - Bridge;Pets
+0x7FEED059;0xF1AEEC14;New and Modern Stairs in Red;Stair Modular - AtomicRed - Bridge;Pets
+0x7FC06F79;0x51ADC588;Neukum Systems "Yee Haw" Country Wall Speaker;Stereo - Community - Country;Pets
+0x7F45B2D6;0x11AD5214;Zip Zap! Coffee Table;Table - Coffee - AtomicAge1x2;Pets
+0x7F9F172E;0x31AEFFD7;Beta Fomicron Dining Table;Table - Dining - AtomicAge;Pets
+0x7F516EB2;0x11AD52D6;Inner Atmos End Table;Table - End - AtomicAge;Pets
+0x7FD45BD8;0x919C5584;Junior Cosmonauts Bedside Table;Table - End - AtomicAgeKids;Pets
+0x7F589232;0x9178DE7A;Futur-Vu by Vidioblast;Television - Floor - AtomicAge;Pets
+0x7FEE408B;0x51788244;Atomotoybot by Galactico;Toy Box - Atomic Age Kids;Pets
+0x7FB21CF5;0xF18B52FB;Rectilinear Poly-Hole by Channel 17;Window - 2 Tile - AtomicAge;Pets
+0x7F6E61C3;0xB18B55A3;The Deep Space by GalactiGlass Ltd.;Window - 3 Tile - AtomicAge;Pets
+0x7FB357B4;0x1178AB39;Space Opera Panes by GalactiGlass Ltd.;Window - AtomicAge;Pets
+0x7F44C0D8;0xB1A81A55;Pet Toes Viewport from Pawsome Furnishings;Window - Paw;Pets
+0x7F4A0A57;0x715BE35C;A Luxurious Night's Sleep;Bed - Double - Luxury;Glamour
+0x7F6A28DC;0x915BE3C1;First Class Shelves by Well Bred and Co.;Bookcase - Luxury;Glamour
+0x7FB6AAA9;0x315BCBAE;Banquet Chair by Well Bred and Co.;Chair - Dining - Luxury;Glamour
+0x7FF046F8;0xF15BED15;Bureaucratic Bureau by Well Bred and Co.;Desk - Luxury;Glamour
+0x7F256ED9;0xD15E59C4;Luxurious Ingression by Well Bred and Co.;Door - 1 Tile - Luxury;Glamour
+0x7F0E3641;0xD15E5BC7;Plush Arch by Well Bred and Co.;Door - 1 Tile - Luxury Arch;Glamour
+0x7FF1F3B0;0x715BE43C;High-Class Dresser by Well Bred and Co.;Dresser - Medium - Luxury;Glamour
+0x7F651115;0xD15BD333;Fountain of Opulence;Fountain - Luxury - 2x2;Glamour
+0x7FC731DE;0x715BCDCD;R.O.I. Lighting;Lamp - Ceiling - Luxury;Glamour
+0x7F7BCA13;0xB15BE4A2;Ribbons Aplenty Lamp by Safestyle Inc;Lamp - Ceiling - LuxuryBow;Glamour
+0x7F495F6E;0xB15BE94C;Shimmering Light of Elegance;Lamp - Table - Luxury;Glamour
+0x7F1C1D67;0x915BD25F;Fancy Sycophancy Mirror;Mirror - Luxury - Horizontal;Glamour
+0x7F2BB345;0x715BD2CC;Charming Reflections Mirror;Mirror - Luxury - Vertical;Glamour
+0x7FB7E01F;0x315BD3C7;Abstrusionism by Gordon Flatcher;Painting - Large - AbstractStill;Glamour
+0x7F462A0C;0x715BD4F2;A Sim Noir Print;Painting - Large - Comic;Glamour
+0x7F7A9EDD;0x915BD434;Lifestyle of the Pharaoh Picture;Painting - Large - Egyptian;Glamour
+0x7FE21BFC;0xB15BD554;The Muse by Stella Livorno;Painting - Large - Expressionist;Glamour
+0x7F929BE1;0xF15BD4A2;Untitled by Len Bledgemann;Painting - Large - PopArtPrint;Glamour
+0x7FC5EBD7;0xF1933762;Labyrinth Rug;Rug - Luxury - Runner;Glamour
+0x7FEF569A;0xB1933922;Weirdness is the Art Rug;Rug - Luxury - Shape;Glamour
+0x7FAE4A9E;0x5193333B;Rug de Exuberance;Rug - Luxury 4x2;Glamour
+0x7FD332DF;0x515BED8B;Head on Marble;Sculpture - Floor - Classic;Glamour
+0x7FA9CCD1;0xB15BEDD7;The Ideal Sim by Van Mel;Sculpture - Floor - FigureAbstract;Glamour
+0x7FCFDFC3;0xF15BEE28;Morphic to the Maxx;Sculpture - Floor - Morphic;Glamour
+0x7F410EAC;0x515BD5AC;Convex Stoneware by Simporters Inc.;Sculpture - Table - Bowl;Glamour
+0x7F7CA711;0x115BD601;Odd Reflection of Grace;Sculpture - Table - ModernVase;Glamour
+0x7F409618;0xB15BEBA6;The Etched Life by Anonymous;Sculpture - Wall - Geometric;Glamour
+0x7FC3ACBB;0xD15BD647;Erratic Glass by Van Mel;Sculpture - Wall - SlumpedGlass;Glamour
+0x7F2709E7;0x11628551;Prosperous Perch Sofa by Well Bred and Co.;Sofa - Sectional - Luxury;Glamour
+0x7FE01D9E;0x51ABF51E;Pampered Sounds Stereo;Stereo - Luxury;Glamour
+0x7F40251C;0x515BEAD5;Coffee for Four by Well Bred and Co.;Table - Coffee - Luxury1x2;Glamour
+0x7F9B7B77;0xB15BD0CD;Banquet of Six by Well Bred and Co.;Table - Dining - Luxury - 1x2;Glamour
+0x7F1DD4B0;0xD15BEB4B;The Good Butler End Table;Table - End - Luxury;Glamour
+0x7F469180;0x51AECDA0;The "Other Side" View by PortalCo;Window - LuxuryClereStory;Glamour
+0x7FA9CFCF;0x715E5E04;Glitzy Glimpse by PortalCo;Window - TallLuxury;Glamour
+0x7F6046A1;0x1100D4BF;Vault of Mysteries Armoire by Mystical Furnishings;Armoire - Small - Fantasy;Family Fun
+0x7F090727;0x3100D534;The Aquarmoire;Armoire - Small - Underwater;Family Fun
+0x7F0E424C;0xD05FBC00;My Impregnable Fortress Bed by Mystical Furnishings;Bed - Single - Fantasy;Family Fun
+0x7F60BD5D;0x9080A4D5;Deep Blue Sleep System;Bed - Single - Underwater;Family Fun
+0x7F0E7970;0x506907C4;My Valiant Steed Dining Chair by Mystical Furnishings;Chair - Dining - Fantasy;Family Fun
+0x7F9A7E3F;0x70767993;Chair de la Mer;Chair - Dining - Underwater;Family Fun
+0x7FE2B84E;0xB0694893;My Very First Castle Desk by Mystical Furnishings;Desk - Fantasy;Family Fun
+0x7F32A1FE;0xB080A33C;First Mate's Desk;Desk - Underwater;Family Fun
+0x7F1AA965;0xF100D7E0;The Dragon's Horde by Mystical Furnishings;Dresser - Small - Fantasy;Family Fun
+0x7FEF4005;0x7100D61A;The Aquadresser;Dresser - Small - Underwater;Family Fun
+0x7F263B48;0x30FCFE89;Dreams Alight by Guildsmen Industries;Lamp - Table - Fantasy;Family Fun
+0x7F51F38D;0x90FCFE51;Stinging Jelly Light;Lamp - Table - Underwater;Family Fun
+0x7F47DF3C;0xF0AD7CE5;Power Mirror;Mirror - Floor - MetalOval;Family Fun
+0x7F51186E;0x505C129A;Kepler's Planetary Floor Mirror;Mirror - Floor - WoodOval;Family Fun
+0x7FB3DA1E;0xB05C1375;Kepler's Celestial Wall Mirror;Mirror - Wall - Oval;Family Fun
+0x7F9E1DEF;0x10C9AD81;Fancy Fairy by OgreCorp;Painting - Fantasy Tapestry;Family Fun
+0x7F05361D;0x90767EAE;Los Pescados  of the Wall;Painting - FishTilable1;Family Fun
+0x7F09AFEB;0x90767EE2;Los Pescados  of the Wall Two;Painting - FishTilable2;Family Fun
+0x7F66A619;0xB05FBB21;Tell-Me-Tall by GrowCo;Painting - GrowthChart;Family Fun
+0x7FE94EA0;0x30597224;The Disguise of Mr. Romance;Painting - MaskCasanova;Family Fun
+0x7FF58C94;0x10595493;The King's Jester;Painting - MaskJester;Family Fun
+0x7F8A4F6C;0x105ACB03;Well Rounded by Circulator;Painting - MaskRound;Family Fun
+0x7F019753;0xF05970AA;Mr. Shuffles;Plant - Decorative - GardenBunny;Family Fun
+0x7FA7C71C;0xD07E0472;Foulbreath's Mat;Rug - Fantasy;Family Fun
+0x7FACCC7E;0x507E040D;The Fishy Rug;Rug - Fish;Family Fun
+0x7F532661;0x307E04CF;The Stones of Stepping;Rug - SteppingStones;Family Fun
+0x7F9EF776;0xF07E044D;The Pounding Waves Rug;Rug - Waves;Family Fun
+0x7FA7D9D4;0x90597A2C;Globe L'Empereur;Sculpture - Globe;Family Fun
+0x7F8F038D;0x305951FF;Adorable Ocean Liner;Sculpture - OceanLiner;Family Fun
+0x7FEB2A44;0x90597B37;Itty Bitty Clay Vases;Sculpture - RakuVaseSet;Family Fun
+0x7F1C55E5;0xF1021023;Dry Land Flotation Device;Sculpture - Wall - LifeSaver;Family Fun
+0x7F02CB38;0x9102120F;Just in Case Oars;Sculpture - Wall - Oars;Family Fun
+0x7F309084;0xB102126A;Used Propellers;Sculpture - Wall - Propellers;Family Fun
+0x7F3E1066;0xD10212B7;Ship Rotation Device;Sculpture - Wall - ShipsWheel;Family Fun
+0x7FE2EEF2;0xB05FBCA2;A Fantastic End Table!;Table - End - Fantasy;Family Fun
+0x7F1BE78E;0x1080A3D3;The Reef End Table;Table - End - Underwater;Family Fun
+0x7F8D7BC4;0x70692F72;The Castle Keep Toybox;Toy Box - Fantasy;Family Fun
+0x7F590D8A;0x5080A473;Toyboxtopus;Toy Box-Underwater;Family Fun
+0x7F3D95A1;0x306520E3;Rob R. Barron "Nouveau"  Medium Wardrobe;Armoire - Medium - ArtNouveau;Open for Business
+0x7F2D381A;0x105BB393;Ye Closet;Armoire - Medium - Colonial;Open for Business
+0x7F12BB51;0x505BB3B0;Medium Decorative House Armoire;Armoire - Medium - Moroccan;Open for Business
+0x7FEB6ED7;0xB0652130;Anti-Quaint-Ed-Medium Ltd. Ed. Armoire;Armoire - Medium - Quaint;Open for Business
+0x7F2DEA88;0x704D5643;Supreme Cabinet of the Lesser Items;Armoire - Small - Central Asian;Open for Business
+0x7FA548D1;0x50D2B105;The Impossible Mission Island Bar;Bar - Island - Mission;Open for Business
+0x7F1197FF;0x906BB6A7;The Legendary Bedscalibur Sleep System by Dulac Industries;Bed - Double - Mission;Open for Business
+0x7F604E0D;0xD06BB785;The Slumber Saddle of Sleepnir by Dulac Industries;Bed - Single - Mission;Open for Business
+0x7F35AEAD;0xD09B62AD;Aunt Julianna's Old Moneymaker;Cash Register Antique;Open for Business
+0x7F1F3C8E;0xF099F9F0;The Java de Pwi Barstool;Chair - Barstool - Mission;Open for Business
+0x7F607531;0xB0751228;Sit-Up-Straight Dining Chair;Chair - Dining - Mission;Open for Business
+0x7F3E9775;0xD07CB683;Passable Mission Chair;Chair - Living - Mission;Open for Business
+0x7F155678;0x9075127A;Soldier's Quarter Recliner;Chair - Recliner - Mission;Open for Business
+0x7FD73C8F;0xD088BE9B;Ug-No-More Makeover Station;Chair - Salon;Open for Business
+0x7F186B91;0xB09C9BDF;Simply Round Column by Right Angle Industries;Column - ConcreteRound;Open for Business
+0x7F2ADA66;0x709CA68B;Simply Round Column Plus - Two Story by Right Angle Industries;Column - Multistory - 2 Story - ConcreteRound;Open for Business
+0x7F9F154B;0x109B4422;Storybook Column;Column - Storybook;Open for Business
+0x7FB7C715;0x309CA59C;Storybook Connecting Column Arches;Connected Columns - Storybook;Open for Business
+0x7FE0D6FF;0x7099FEA5;The Impossible Mission Counter;Counter - Mission;Open for Business
+0x7F67EFCF;0x909CEC39;Terribly Modern Counter;Counter Commercial - Intl;Open for Business
+0x7FAF6F83;0xB09CEED4;Good Witch Counters;Counter Commercial - Storybook;Open for Business
+0x7FC08E53;0xD09A00AC;The Impossible Mission Island Counter;Counter Island - Mission;Open for Business
+0x7F5D4939;0xD08CD7A3;The "That Smells Great!" Floral Workstation from 'Craftin' It' Industries;Crafting - Flower Station;Open for Business
+0x7F380FCE;0x308D3EDF;The "Non-Deadly" Robot Crafting Station from 'Craftin' It!' Industries;Crafting - Robot Workbench;Open for Business
+0x7FF12AA5;0x5064FF88;The Crazy Fun Toybench from 'Craftin' It!' Industries;Crafting - Toy Workbench;Open for Business
+0x7F1F9E13;0xD09A048D;Podium of Bonnappitizon;Dining - Podium - International;Open for Business
+0x7F1E761F;0xF08DFD16;Show My Ride display by Exotremo Cars;Display - Business - Car;Open for Business
+0x7F5D8723;0xD07E45FC;Magisplay Tray;Display - Business - Display Counter;Open for Business
+0x7F756FE4;0x1090DC99;Roedisplay Convex Corner by Grant Industries;Display - Business - Euro - External Corner;Open for Business
+0x7F9F2556;0xD090DD08;Roedisplay Concave Corner by Grant Industries;Display - Business - Euro - Internal Corner;Open for Business
+0x7F83B6BD;0x5090DC76;Roedisplay by Grant Industries;Display - Business - Euro - Straight;Open for Business
+0x7F30FBAC;0xF09B67AF;Just Corner Shelves;Display - Business - Intl - External Corner;Open for Business
+0x7FE40CF2;0x709B682C;Just More Corner Shelves;Display - Business - Intl - Internal Corner;Open for Business
+0x7FA981B1;0x509B6629;Just Shelves;Display - Business - Intl - Straight;Open for Business
+0x7FE6AFD5;0xD090DFDF;Quick Display by Sims Club Merchandise;Display - Business - Pedestal Short Euro;Open for Business
+0x7FCC98D9;0x509B691C;Squat Pedestal by Selfless Salesman;Display - Business - Pedestal Short Intl;Open for Business
+0x7FAD69DD;0xD084B0E5;Decra-Chill Display by Refrigifreeze;Display - Business - Refrigerator;Open for Business
+0x7F2614E5;0xB07CA974;The Tragic Stock-n-Stack Cube from UpDuggery 'n Stuff;Display - Business - Stackable Cube;Open for Business
+0x7F0C799E;0xB09CBD13;Abiding Elegance by Durabliss;Door - 1 Tile - EuroGlassPanel;Open for Business
+0x7F3AA382;0x109CB808;The Mullionaire;Door - 1 Tile - EuroMullion;Open for Business
+0x7FF0D8C1;0x109CBD77;Tallish Transom;Door - 1 Tile - EuroTransom;Open for Business
+0x7F6A1796;0x509CBE5B;The Barely There Glass Door;Door - 1 Tile - Intl Cap Full;Open for Business
+0x7FDC0F41;0x909CBEA1;Glimpse of Freedom Glass Door;Door - 1 Tile - Intl Cap Short;Open for Business
+0x7FAB3E46;0xB09CBEE1;Cloudscene Door;Door - 1 Tile - Intl Transom;Open for Business
+0x7FBE80B3;0x709CC3E4;Storybook Door by Adventure Carpentry;Door - 1 Tile - Storybook Ornate;Open for Business
+0x7FEC1EF8;0x509CC2C9;Cloudscene Transom Door- Wide;Door - 2 Tile - Intl Transom 2 Tile;Open for Business
+0x7F073581;0x109CB244;Hold Me Closer by Tiny Dresser Co.;Dresser - Medium - Colonial;Open for Business
+0x7F026B8C;0x7074E337;Werkbunnst Medium Stonewood Dresser;Dresser - Medium - Designer;Open for Business
+0x7FD839D9;0x906BB899;Touch of Teak Tansu Medium Dresser;Dresser - Medium - Loft;Open for Business
+0x7F782403;0x904D68F2;Sun King Drawers by Royale Furniture Co.;Dresser - Small - Central Asian;Open for Business
+0x7FF9542D;0x9018CAC5;The Ultravator by SchafftCo ;Elevator Base;Open for Business
+0x7F5DB48A;0x509CB3EC;The Going Somewhere by UppersCo;Elevator Base - Euro;Open for Business
+0x7F90E798;0xD018D13C;The Ultravator Shaft by SchafftCo;Elevator Extension;Open for Business
+0x7F38B13A;0x90900145;Daisy Bouquet (not in catalog);Flower - Craftable - Daisy Bouquet ;Open for Business
+0x7FFA8A18;0x909008BD;Mixed Flower Bouquet (not in catalog);Flower - Craftable - Mixed Bouquet;Open for Business
+0x7F61ECAF;0xB09008B4;Rose Bouquet (not in catalog);Flower - Craftable - Rose Bouquet;Open for Business
+0x7F0A24FD;0x5090CDCF;Snap Dragon Bouquet (not in catalog);Flower - Craftable - Snap Dragon Bouquet;Open for Business
+0x7F5F292D;0x50900897;Tulip Bouquet (not in catalog);Flower - Craftable - Tulip Bouquet;Open for Business
+0x7FDE86D3;0x3090087B;Wildflower Bouquet (not in catalog);Flower - Craftable - Wildflower Bouquet;Open for Business
+0x7F7EF9F8;0x909B7415;The Lying Fisherman Fountain;Fountain - EuroOrnate;Open for Business
+0x7FE4C91E;0x50594460;Electrono-Ticket Machine;Fun Bandatron;Open for Business
+0x7F1C10A8;0x509CB8C3;Lucitious Hanging Pendant;Lamp - Ceiling - EuroPendant;Open for Business
+0x7FDE80D3;0x109CB940;Once Upon a Glowy Glow Glowlamp;Lamp - Ceiling - PendantStorybook;Open for Business
+0x7F688439;0x909CB9AA;Single-Track Light Set;Lamp - Ceiling - Track;Open for Business
+0x7F7BCE70;0x309CBA1F;Euro-Torchiere Floor Lamp;Lamp - Floor - Euro;Open for Business
+0x7FA1CFDD;0xB09CD6D1;Ankle-Height Light by GamGleam Industries;Lamp - Floor - PathIntlGlobe;Open for Business
+0x7F78F8B2;0x309CBA82;Alas, a Lamp;Lamp - Floor - Storybook;Open for Business
+0x7F91F09F;0x709CBBD2;Worldly Hue Streetlamp;Lamp - Streetlight IntlGlobe;Open for Business
+0x7FF26771;0x909CBC3A;The Photon-Master 3000, Tabletop Edition;Lamp - Table - Euro;Open for Business
+0x7FCF64B5;0x309CB4FD;Cold Warrior Light;Lamp - Wall - Gallery;Open for Business
+0x7F7AB08A;0xF09CBD02;Entablature Brightener Wall Sconce;Lamp - Wall - Sconce - Euro;Open for Business
+0x7F4A62CC;0x909CBE05;Poetic Justice Wall Sconce;Lamp - Wall - Sconce - Storybook;Open for Business
+0x7FA7F205;0xD09CB799;Outdoor Protector;Lamp - Wall - SignLamp;Open for Business
+0x7FB7A819;0x109CD880;Sheer Radiance Vanity Light;Lamp - Wall - Vanity;Open for Business
+0x7F9C13A1;0xF057F7E6;Squeezin' It Lemonade Stand;Lemonade Stand;Open for Business
+0x7FD933B8;0xD09CB582;Reflection V;Mirror - Mission;Open for Business
+0x7F757C28;0xF09B6A64;Functional Eloquence Mirror;Mirror - Salon;Open for Business
+0x7F0D09BA;0x709B6B2B;Infinite Repetition Infinite Repetition Mirror;Mirror - Wall -Salon3x1;Open for Business
+0x7F7AD3E7;0xF09B6D73;Geometry 101 by Mrs. Wieprecht;Painting - Intl;Open for Business
+0x7F9FE8BB;0xD09B6E07;Opus by Rose Grace Wise;Painting - OrnateEuro;Open for Business
+0x7F951CCF;0x909B6E8B;In The Park by Awalck;Painting - Storybook;Open for Business
+0x7FCFC96C;0xD09B733E;Pretty Pot O' Pansies;Plant - Floor - Potted Flowers;Open for Business
+0x7FAE495D;0x905978F4;Wangoof Wall Planter;Plant - Wall - Planter;Open for Business
+0x7F0BEAE0;0xD07B8B60;Come Home Hover Base Station (not in catalog);Robot - Base Station - Hover;Open for Business
+0x7FC35F6C;0x705AA253;Come Home Rover Base Station (not in catalog);Robot - Base Station - Rover;Open for Business
+0x7F7A90F3;0xD05A98B0;CleanBot (not in catalog);Robot - Cleaner;Open for Business
+0x7F4A54F6;0x1077981A;HydroBot (not in catalog);Robot - Hydro;Open for Business
+0x7FF275F8;0x107BB691;MunchieBot (not in catalog);Robot - Munchie;Open for Business
+0x7F60F6CF;0xD0849FDD;SentryBot (not in catalog);Robot - Sentry;Open for Business
+0x7FFB8474;0x50779140;Servo (not in catalog);Robot - Servo - Uninitialized;Open for Business
+0x7F95B739;0x905C0FF7;Gleeful Welcome Mat by GleeCo;Rug -WelcomeMatRectangular;Open for Business
+0x7FC6253F;0xF05C10C4;GreetMe Mat by GleeCo;Rug -WelcomeMatSemicircular;Open for Business
+0x7F80C87C;0x109B7612;The Big Diver, by Big Yard Dudes Inc.;Sculpture - DiverStatue;Open for Business
+0x7F51FBAE;0x705972DF;Collectible Franky Bear;Sculpture - GiantBear;Open for Business
+0x7F588983;0xB09B74D5;The Big Gorilla, by Big Yard Dudes Inc.;Sculpture - GorillaStatue;Open for Business
+0x7F3D8C4A;0x909B75BA;The Big Knight, by Big Yard Dudes Inc.;Sculpture - KnightStatue;Open for Business
+0x7F5CC6E3;0xF0594DE8;Lying in Wait Screen;Sculpture - Modern Screen;Open for Business
+0x7FC92D90;0xD09B7550;The Big Ninja, by Big Yard Dudes Inc.;Sculpture - NinjaStatue ;Open for Business
+0x7F344BD7;0x909B71BD;Mr. Generic's Sign -- The Ceiling Model;Sculpture - Sign Hanging Ceiling;Open for Business
+0x7F46A859;0xD09B70DB;Super Signguy Retail Sign...on a Stick;Sculpture - Sign Post Blade;Open for Business
+0x7FC33AEF;0xD09B7260;Mr. Generic's Sign -- The Floor Model;Sculpture - Sign Standup;Open for Business
+0x7F89FCB3;0x909BBE83;Super Signguy Retail Sign;Sculpture - SignBlade;Open for Business
+0x7F43FD56;0x10597BFF;The Tray o’ Orbs from Orby Designs;Sculpture - TrayOSpheres;Open for Business
+0x7F045710;0xB05C1154;The "Towel on a Metal Rod" by DecorCorp;Sculpture - Wall - TowelRackMetal;Open for Business
+0x7FEFCA34;0x305C2437;The "Towel on a Wooden Rod" by DecorCorp;Sculpture - Wall - TowelRackWood;Open for Business
+0x7F56DBBF;0xB06CDD68;The "Towel on a Metal Ring" by DecorCorp;Sculpture - Wall - TowelRingMetal;Open for Business
+0x7FD4FC3F;0x706CDC86;The "Towel on a Wooden Ring" by DecorCorp;Sculpture - Wall - TowelRingWood;Open for Business
+0x7FF09F4D;0xF09CBF06;Nuh-Uh Nutcracker;Sculpture - Wedge Nutcracker;Open for Business
+0x7FA14881;0x109B6F40;Beary Cute Pedestal;Sculpture - WedgeTeddyBear;Open for Business
+0x7F170050;0xB0860D98;Open/Closed Sign of War and Commerce;Shops - Sign - Open&Close;Open for Business
+0x7FDE461D;0x1075245B;Lushcroft Antique Loveseat;Sofa - Loveseat - Mission;Open for Business
+0x7F86DDE3;0xD074E3C3;El Sol Sofa by Günter;Sofa - Mission;Open for Business
+0x7F2C69BC;0x70D16F52;Elleval Euro Stairs in Red;Stair Modular - Euro Dark Red - Bridge;Open for Business
+0x7F9A84C4;0x50D17282;Elleval Euro Stairs in Blue;Stair Modular - Euro Ulatramarine - Bridge;Open for Business
+0x7FF2D7C1;0x90D1627C;Elleval Euro Stairs in White;Stair Modular - Euro White - Bridge;Open for Business
+0x7F24F8EF;0x30D17531;Flight of Fancy in Yellow;Stair Modular - Storybook Pas Citronette - Bridge;Open for Business
+0x7F0A4C98;0x70D17A2A;Flight of Fancy in Rose;Stair Modular - Storybook Pas Rose - Bridge;Open for Business
+0x7F4A97F7;0x90D17CD3;Flight of Fancy in Purple;Stair Modular - Storybook Purple - Bridge;Open for Business
+0x7F225EE4;0xB07E54E3;Neukum Systems "Totally Rad" New Wave Wall Speaker;Stereo - Community - New Wave;Open for Business
+0x7F2B540E;0x507E536D;Neukum Systems "Happy Shopping" Store Soundscape Wall Speaker;Stereo - Community - Shopping;Open for Business
+0x7F5BB8A7;0x70751B75;Mission Coffee Table by Lulu Designs;Table - Coffee - Mission - 1x1 - 0, 0 - Lead;Open for Business
+0x7FE4BF46;0x509CC242;The Larger Mission Coffee Table by Lulu Designs;Table - Coffee - Mission1x2 - 0, 0 - Lead;Open for Business
+0x7F2FAE9C;0xD065204C;Missionaire Dining Table;Table - Dining - Mission - 0, 0 - Lead;Open for Business
+0x7F8CE2B3;0x306BB902;The Mighty Mighty by Gustav Stickler;Table - End - Mission;Open for Business
+0x7FDDC673;0x304D66DB;Sir Bricks-a-Lot (not in catalog);Toy - Craftable - Brick;Open for Business
+0x7FB2BFA0;0x105FAB3D;Little Heroes Fire Truck (not in catalog);Toy - Craftable - FireTruck;Open for Business
+0x7F074107;0xB052976A;Clown-In-A-Box (not in catalog);Toy - Craftable - Jack-in-the-Box;Open for Business
+0x7FBEE6CE;0x905BE34E;Brinks' Kite (not in catalog);Toy - Craftable - Kite;Open for Business
+0x7F15FF26;0xB088B05D;Toy Robot (not in catalog);Toy - Craftable - Robot;Open for Business
+0x7FC9CFF0;0x1057FFC4;Twirl, Spin and Wobble! (not in catalog);Toy - Craftable - Twirl and Wobble;Open for Business
+0x7F9BAD3A;0x706A717C;Wet n' Wild Water Wiggler (not in catalog);Toy - Craftable - Water Wiggle Sprinkler;Open for Business
+0x7F0227A1;0x90597C8A;Trash Trapper 910i;Trash Can - IndoorPlastic;Open for Business
+0x7F01BF04;0xB09CD65B;Short Fenced Crabby Tree;Tree - Crabapple Fenced Short;Open for Business
+0x7FF99AED;0xF09CD68D;Tall Fenced Crabby Tree;Tree - Crabapple Fenced Tall;Open for Business
+0x7FC6DDCB;0xF09CDCBD;Short Lollipop Crabapple;Tree - Crabapple Lollipop Short;Open for Business
+0x7FF2F097;0x109CD613;Tall Lollipop Crabapple;Tree - Crabapple Lollipop Tall;Open for Business
+0x7FE6AA74;0xD09CCC1B;Fenêtre Fantastique;Window - 2 Tile - Euro Mullion;Open for Business
+0x7FEB7A7B;0x709CCEDB;Fleur de Glee Stencil Pane Double;Window - 2 Tile - StorybookStencil;Open for Business
+0x7FF79639;0x30CAD7E1;The Artefact by Ergo;Window - 3 Tile - Intl;Open for Business
+0x7FB386FD;0x309CD2C1;The Intake by Ergo;Window - 3 Tile - Intl Transom;Open for Business
+0x7F0CCC7A;0x109CE21C;The Looky-Nook;Window - 3 Tile - Storybook Bay;Open for Business
+0x7F8169EB;0x909CCB15;The Safe-T Arch;Window - Euro Arch Midheight;Open for Business
+0x7F1A0D1E;0x309CE0C2;Belhooven Maroo Window;Window - Euro Mullion Short;Open for Business
+0x7FA4166D;0x109CCC82;The Embrasure by Ergo;Window - Intl;Open for Business
+0x7FE403E5;0x509CD214;The Breech by Ergo;Window - Intl Transom;Open for Business
+0x7FC2D6C0;0xF09CCD0F;Fleur de Glee Stencil Pane;Window - Storybook Stencil;Open for Business
+0x7FD376EE;0xB09CCCCE;The Pythagoras ;Window - Triangular Intl;Open for Business
+0x7FB828EC;0xAF6BEF67;ReNuYuSenso Orb;Aspiration Reward - ReNuYuSenso Pylon;Nightlife
+0x7F8EC8B3;0x2FACEADA;The Oasis;Bar - Island - Brasserie;Nightlife
+0x7F0BF13C;0xCFACEB09;The Grease Stands Alone Island Bar;Bar - Island - Diner;Nightlife
+0x7F16C853;0x2F8E5F8A;NeonBar by Neontrix;Bar - Lounge - Night Club;Nightlife
+0x7F0CC380;0x6F8648FA;ClubCube by Luminescent Projections;Block - Stacking;Nightlife
+0x7FAAB958;0x4F668192;Jacuster's "Last Stand" Sectional Booth;Booth - Dining;Nightlife
+0x7F43654C;0x4F7BE909;Sit 'n'Grin Photo Booth from iBurn Commerical Imagery;Booth - Photo - EP2;Nightlife
+0x7F6602FA;0x4F7F67FE;Pinmaster 300 Bowling Alley by Hurling Fun Products, Inc.;Bowling Lane;Nightlife
+0x7F89B2B9;0xAFA39EFE;The Smoogo Minima;Car Ownable - Hatchback;Nightlife
+0x7FA34261;0x0FA36FF6;The Landwhale by Heaveola;Car Ownable - MiniVan;Nightlife
+0x7FA788AB;0xEFA3B83B;The Smord P328;Car Ownable - Pickup;Nightlife
+0x7F80C916;0x2FA39A0C;The Yomoshoto Evasion;Car Ownable - Sedan;Nightlife
+0x7F79A230;0x6F43251F;Hunka 711 by Hwang Motors;Car Ownable - Super Sports;Nightlife
+0x7F7704E4;0xAF87B4B1;The Sumptuous Brasserie Barstool;Chair - Barstool - Brasserie;Nightlife
+0x7F18B9E4;0x4F6194C2;Hipster Barstool by Big Daddy;Chair - Barstool - Diner;Nightlife
+0x7F4E93F3;0x8F7E500F;Sleeka Barstool by Simplonics;Chair - Barstool - Nightclub;Nightlife
+0x7FC5E2FA;0x6F5D4D65;Hipster Metal Chair by Big Daddy;Chair - Dining - Metal 1950s;Nightlife
+0x7F93E6A9;0x4FBAB90E;More Sleeka Dining Chair by Simplonics;Chair - Dining - Nightclub;Nightlife
+0x7FE88AAB;0x8F87B5E2;Contorto Dining Chair by Ernesto Doloroso;Chair - Dining - UpscaleResturant;Nightlife
+0x7FB6CAE4;0x6F83E9A2;Deep Sleeper by Igor and Sons;Coffin - Vampire;Nightlife
+0x7FF5DF4F;0x6F910AA6;Hartford Connecting Arched Column;Connected Columns - Brasserie;Nightlife
+0x7FD5DC93;0x0F88F31F;Castanoga Counter by Wood You Believe Furnishings;Counter - Brasserie;Nightlife
+0x7F3B37D8;0xAF88F275;Fat City Counters;Counter - Diner - No Door;Nightlife
+0x7FEC4B84;0x2F8D2C66;The Forbidden Fruit Counter by Neontrix;Counter - Night Club;Nightlife
+0x7F17CD80;0x2FB49A80;Chiclettina “Fjord” All purpose Counter;Counter Commercial - Modern;Nightlife
+0x7FE73E29;0xEF910B2E;Recherché Counter Island;Counter Island - Brasserie;Nightlife
+0x7F8D70BF;0x2F910B76;The "Sometimes A Man Is An Island" Counter Island, by Fat City Counters;Counter Island - Diner;Nightlife
+0x7F9D1F58;0x0F8D2C97;NeonServe by Neontrix;Counter Island - Night Club Club;Nightlife
+0x7F38AAD5;0xEF2B31B0;Gastronomique Restaurant Podium;Dining - Podium;Nightlife
+0x7F26F636;0xCF56F9B4;The GrooveLayer 9000 Professional DJ Booth by HotBeets;DJ Booth;Nightlife
+0x7F2C8168;0x0F910FB5;OpenMe Door;Door - 1 Tile - Brasserie;Nightlife
+0x7F30F555;0x0F6286CA;Easy Swing Door;Door - 1 Tile - Diner;Nightlife
+0x7F5A008E;0x0FACEB96;Gone Legit by The Family Furnishings;Door - 1 Tile - Store Front;Nightlife
+0x7F9ACB83;0x8FB72505;OpenMe Arch;Door - 1tile - Brasserie - Arch;Nightlife
+0x7F3DAC88;0xEF9F6A3E;OpenAuto Garage Door;Door - Garage;Nightlife
+0x7F06C60A;0x2FBC5135;Driveway - Brick;Driveway - Brick;Nightlife
+0x7FBCF087;0x0FBC50C6;Driveway - Concrete;Driveway - Concrete;Nightlife
+0x7FE2CFCB;0x6FBC524A;Driveway Extension Piece - Brick;Driveway Extension - Brick;Nightlife
+0x7FB9124C;0x4FBC51CF;Driveway Extension Piece - Concrete;Driveway Extension - Concrete;Nightlife
+0x7FD277DD;0x4F6BBB1E;ElectroDance Sphere by ExtremeCO;Electro Dance Sphere;Nightlife
+0x7F9EA5B6;0xAF97D5B0;The HottCorp Burning 8-R Series Fire Jet;Fire Jet;Nightlife
+0x7F8FF653;0xCF8CC227;Chazz Gassed Incandescent Floor Tile;Floor - Dance Floor;Nightlife
+0x7FB0975D;0x4F87F6C2;Florid Font;Fountain - NightClub - 1x2;Nightlife
+0x7FCA22B7;0x2F88CF2E;The Sentry by WroughtCo;Gate - WroughtIron2x1;Nightlife
+0x7FC2FA8C;0xAF8CC2BD;VocoPhonicSim Karaoke Machine;Karaoke Machine;Nightlife
+0x7F2FB1DB;0x0F7D5DF1;The Shadow Streamer;Lamp - Gobo Corner 2;Nightlife
+0x7F42A961;0xCF5D6B74;The Gobo-a-Go-Go Spotlighter by LumiO;Lamp - Gobo Light 3;Nightlife
+0x7F082E84;0x4F7E5CDE;The Prismo RotoBall by LumiO;Lamp - Rotating Light 2;Nightlife
+0x7FDA6A0F;0x4F87F7E6;Squintimacy Votive table lamp by Dimview & Co.;Lamp - Table - Brasserie;Nightlife
+0x7FE3FD18;0x0F91FEAC;Mr. Lampy McFourlegs;Lamp - Table - NightClub;Nightlife
+0x7F6F7227;0xAF87F86A;Romantic Romance by Elle and Eey;Lamp - Table - UpscaleRestaurant;Nightlife
+0x7FB3C929;0x4F87FA74;Belle Epoque Tiffany wall lamp by Frufru Lighting Design;Lamp - Wall - Brasserie;Nightlife
+0x7FF6BF1F;0x6F87FB3C;Five Diamonds Wall Light;Lamp - Wall - Diner;Nightlife
+0x7F009DF4;0x8FA314FD;Diamonds Forever Wall Light;Lamp - Wall - Diner - Large;Nightlife
+0x7F1878BF;0xEFC82182;One Pin, Two Pin;Lamp - Wall - Neon - Bowling;Nightlife
+0x7F086CD6;0x4F87FBD4;EverGlow Uranium Rod;Lamp - Wall - Neon Tube Straight;Nightlife
+0x7FF79EEB;0x0F87FC93;EverGlow Plutonium Rod;Lamp - Wall - Neon Tube Wave;Nightlife
+0x7FA9DB6D;0xEF911D5B;BeamOLite Compacto Wall Lamp by Ray Diant;Lamp - Wall - Night Club 2x1;Nightlife
+0x7F2AD2BA;0xCFAA33C7;BeamOLite Extendo Wall Lamp by Ray Diant;Lamp - Wall - Night Club 3x1;Nightlife
+0x7F0B42A7;0x6F87F94D;Lunatech Light Disc;Lamp - Wall - NightClub - Disk;Nightlife
+0x7FA230E7;0x6FBF0DA7;Liquidacious Lighting;Lamp - Wall - Pool - New;Nightlife
+0x7F248361;0x4FCC112E;Signs of Elliptical Joy by Alexandra Workman;Lamp - Wall - Sign - Round;Nightlife
+0x7F7712CB;0x8FCC117B;The Parallelosign by Signalellocorp;Lamp - Wall - Sign - Vertical;Nightlife
+0x7F681606;0x6F87FDCB;Bigger is Better Wall Mirror by ExPand;Mirror - Wall - Brasserie1x2;Nightlife
+0x7F7DCB6D;0x6F88D061;Modart Noudeco Mirror;Mirror - Wall - Frosted2x1;Nightlife
+0x7FFEC2BA;0xCFBC3128;Modart Noudeco Mirror;Mirror - Wall - Frosted3x1;Nightlife
+0x7FDEF18E;0x0F922BEF;Pineapple by Lynn D'Saye;Painting - 1900Restaurant - LeftBank;Nightlife
+0x7F807EE7;0xEF88E101;Spring Majesty;Painting - Butterflies Scattered;Nightlife
+0x7F9C94DF;0x6F8FA7A0;Lily Pads by Myo Pia;Painting - FinDeCicle1;Nightlife
+0x7F900D29;0xAF8FA7D5;Sent to My Room Without Dinner by Picts Ellle;Painting - FinDeCicle2;Nightlife
+0x7F946C3A;0x8F923139;Grilled Cheese by Renu Tumush;Painting - Grilled Cheese;Nightlife
+0x7F4F97D4;0x4F88D20C;Reprint Serial #S-C0PU4;Painting - Horizontal - LandscapeCountry;Nightlife
+0x7F668B51;0x0F88D172;Cantankerous Splatters;Painting - Horizontal - ModernSplatter;Nightlife
+0x7FCAD3F5;0x4F88D37B;A Stroke by Alfred D'Simvo;Painting - Minimalist - Aqua;Nightlife
+0x7F1C6174;0xAF88D3A9;B Stroke by Alfred D'Simvo;Painting - Minimalist - Blue;Nightlife
+0x7FE4DFA5;0xEF88D3DB;C Stroke by Alfred D'Simvo;Painting - Minimalist - Orange;Nightlife
+0x7F228AF2;0x0F912167;Two Dogs and an Olive by Mixt Hupp;Painting - Nightlife - 4x1;Nightlife
+0x7F6C6777;0x8FCDAB9A;Marketing Print by Seph Epia;Painting - Photo - Sepia1 2x2;Nightlife
+0x7F60FE81;0xCFCDA6DA;An Anonymous Masterpiece;Painting - Photo - Sepia2 2x2;Nightlife
+0x7FF279E0;0x4F8FA770;That Place Over There by Retina Bluri;Painting - PostImpressionist-Landscape 2x2;Nightlife
+0x7FC87D99;0xCF88E18C;Nature's Perfection by E.Z. Phun;Painting - Sectioned Map;Nightlife
+0x7F63D7DD;0xCF88D2B3;Four Vegetables in repose;Painting - VibrantVegetables;Nightlife
+0x7FCA0204;0xCF628D38;Route 66;Painting - Vintage - Car;Nightlife
+0x7F9FEBCC;0x6FA31ACD;Large Flower Arrangement;Plant - Floor - Large Floral2x2;Nightlife
+0x7F91D8B1;0xCFA31ADF;Potted Ficus by Nature's Garden;Plant - Floor - Potted Ficus2x2;Nightlife
+0x7F006FF3;0x8FA30473;Potted Palm;Plant - Floor - Potted Palm 2x2;Nightlife
+0x7F2EC49F;0x4F88D6CF;Potted Plant in Spiral Elegance, an existential piece by Natural Pretzel;Plant - Floor - Spiral Topiary;Nightlife
+0x7FAA77AA;0xAF88D67A;Hanging Flower by Copur Ceramics;Plant - Hanging - FlowerPot;Nightlife
+0x7FDD93FC;0xEF923036;Children Safety Sign;Poster - Children Crossing Sign 1x1;Nightlife
+0x7FB3B3DB;0xCFACF1B0;Uber-Duper Deluxe Curves Ahead Sign;Poster - Curves Ahead 1x1;Nightlife
+0x7F7674F4;0xEF922D78;Llama Xing Sign;Poster - Llama Crossing Sign 1x1;Nightlife
+0x7F20A368;0xEFACEE6B;Restaruant Sign by Upturned Nose;Poster - Sign - Upscale Restaurant 1x1;Nightlife
+0x7F5C4106;0xCF922FFB;Exclaim! Sign;Poster - Traffic Exclamation Sign 1x1;Nightlife
+0x7F56B4E2;0xAF71660D;Sims Must Wash Hands Sign;Poster - WashHand - Sign;Nightlife
+0x7FA77411;0x4F739713;Compulsion Fragrance Display;Rack - Perfume - Counter;Nightlife
+0x7F160C72;0xCF920C81;Thirsty the bath mat;Rug - Bathmat 1x1;Nightlife
+0x7F57E4D5;0x6F922C67;The Fun Spot Kids Rug;Rug - Kids Room;Nightlife
+0x7F71EEDB;0xAF8B860E;Sung-Gyu Sunburst Oriental Rug;Rug - Oriental;Nightlife
+0x7F4BEE86;0x6F920CD6;Recalling Rug;Rug - OrientalRound 2x2;Nightlife
+0x7FDC7F29;0x6F920D3C;Unbridled Braids Oval Rug;Rug - Quaint;Nightlife
+0x7F51156E;0xEFACECE6;Recalling Rug 3x3;Rug - Round 3x3;Nightlife
+0x7FD1A9E4;0xEF920C39;Recherché Floor Runner;Rug - Runner 1x3;Nightlife
+0x7FE63DF6;0x2FB4756E;The Inlaid Medallion;Rug - Tile;Nightlife
+0x7FB00784;0x8FA8F23B;The Gray Woman of SimCity;Sculpture - Graveyard;Nightlife
+0x7FC36C96;0xEF922CFD;The Sorrowful Scions;Sculpture - Modern Vase Grass;Nightlife
+0x7FDA9BDB;0x6FAB4C11;Potted Potential;Sculpture - ModernVase;Nightlife
+0x7F53A02C;0x2F619475;Bit O'This and That;Sculpture - NapkinHolder;Nightlife
+0x7F05A55D;0xEF96506C;Rackmaster 850 Bowling Ball Rack by Hurling Matters;Sculpture - RackBowling;Nightlife
+0x7F504994;0x0F88D8BA;Bust of Tylopoda;Sculpture - Traditional - Wiseman;Nightlife
+0x7F3249F6;0x8F920BC7;Juice On The Wall Sculpture;Sculpture - Wall - JuiceRack;Nightlife
+0x7F29C13F;0xEF88D846;Feckless Accessories for the Kitchen;Sculpture - Wall - Pots and Pans;Nightlife
+0x7FCB20C0;0x8FA4AB5E;Shinytyme Kitchen Sink by Gurglomics;Sink - Counter - Kitchen2;Nightlife
+0x7F76F7A2;0x0FB9FE3B;Molded Sectional by WorldMold;Sofa - Sectional - Diner2;Nightlife
+0x7FCACC25;0x8F331FD1;Mr. Section by Comfortitude;Sofa - Sectional - Modern;Nightlife
+0x7F3BECB7;0xEFB9EAEA;Mr. Section with Arms by Comfortitude;Sofa - Sectional - Modern - With Arms;Nightlife
+0x7FC8906E;0xAF87DAC4;Neukum Systems "Isorhythm" Classical Wall Speaker;Stereo - Community - Classical;Nightlife
+0x7FF782F5;0x0F87DA68;Neukum Systems "Hep Cat" 50s Rock Wall Speaker;Stereo - Community - Oldies;Nightlife
+0x7F494708;0x0FAB55CB;Dancing Fiend Jukebox;Stereo - Jukebox;Nightlife
+0x7F2B8FB4;0x4F62BDFB;Tempest Cooktop from Cuas;Stove - Restaurant;Nightlife
+0x7F69580C;0x8F729D92;The Qube;Table - Coffee - Nightclub;Nightlife
+0x7FC8FCA1;0x8F911BC8;La Table Long Dining Table;Table - Dining - Brasserie - 1x2;Nightlife
+0x7FC46557;0xEF911CB0;La Table Square Dining Table;Table - Dining - Brasserie 1x1;Nightlife
+0x7FA4BD01;0x2F618DE8;American Tableau Table;Table - Dining - Diner - 1x2;Nightlife
+0x7FA824F7;0xEF619983;Vintage Retro Classic Dining Table;Table - Dining - Diner 1x1;Nightlife
+0x7FE7189E;0x4F911D1E;Visivue Dining Table;Table - Dining - NightClub 1x1;Nightlife
+0x7F4CA2B8;0xEFBC3DB6;Impeccable Taste Dining Table;Table - Dining - Upscale - 2x2;Nightlife
+0x7F436DCC;0x0F87DB5F;Good Taste Dining Table;Table - Dining - Upscale1x1;Nightlife
+0x7F4FF43A;0xAF87DBD5;Great Taste Dining Table;Table - Dining - Upscale1x2;Nightlife
+0x7F4EBAB0;0xEF434EBE;52 Pickup Card Table;Table - Poker;Nightlife
+0x7F4420F5;0xAF911B1F;SwingarmCo 27" Multivid V Television;Television - Wall - Tavern;Nightlife
+0x7FF0E41B;0x6F88DA95;Creaky Branches Designer Tree;Tree - Cemetery;Nightlife
+0x7FA69AAB;0x4F9231D9;OpenMe Window Wide;Window - 2 Tile - Brasserie;Nightlife
+0x7FA7D1EA;0x4F9232D6;OpenMe Window;Window - Brasserie;Nightlife
+0x7F4BBCAC;0x0EAB55E0;Pimp Viking 3D Arcade Game;Arcade - Game1;University
+0x7F47255A;0xEEAB556B;A-maz-ing Matey!;Arcade - Game2;University
+0x7FC75822;0xEEAE16BD;Genuine Buck's Famous Counterfeiting Machine;Aspiration Reward - Counterfeiting Machine;University
+0x7FAF4B2E;0x2E93883F;Way Fluid Island Bar;Bar - Lounge - Groovy;University
+0x7F39D8AC;0x2EA762E8;Simbic Bisectaur Bass;Bass;University
+0x7FCFA65C;0x2E92802F;Flowin' Protozoan Double Bed;Bed - Double - Groovy;University
+0x7F95FD72;0x2E928809;Majestically Medieval Double Bed;Bed - Double - Medieval;University
+0x7F1DB2FA;0x8E928598;Flowin' Protozoan Single Bed;Bed - Single - Groovy;University
+0x7F1A7F3B;0x2E928816;Maturely Medieval Single Bed;Bed - Single - Medieval;University
+0x7F8C96C8;0xEEAF39A4;Stack-O-Flames Bonfire;Bonfire;University
+0x7FAA1573;0x2E928D8F;Dahlen Library Bookcases;Bookcase - Tall - Library;University
+0x7FF06269;0x4E76CD3A;White Rabbit Bubble Blower;Bubble Blower;University
+0x7FEC5102;0xAEB9F591;Luminous Pro Antique Camera;Career - Camera;University
+0x7F9FDDF5;0xCEA505BB;Laganaphyllis Simnovorii;Career - Cow Plant;University
+0x7FA3FD85;0x4E9FBE5D;Dr. Vu's Automated Cosmetic Surgeon;Career - Home Plastic Surgery Kit;University
+0x7F126582;0xAE8D50B2;The Resurrect-O-Nomitron;Career - Resurrectonomitron;University
+0x7F3306A2;0x0E9286D4;AOD Disco Dining Chair;Chair - Dining - Groovy;University
+0x7F21433B;0x2E9287A2;Mysteriously Medieval Dining Chair;Chair - Dining - Medieval;University
+0x7F4084E5;0x6E92871A;Tushugger Cushy Chair;Chair - Living - Groovy;University
+0x7FEF5817;0x8E928741;Retro Overeasy Eggseater;Chair - Living - Groovy Egg;University
+0x7FA758B5;0x8E9287CA;Magnificently Medieval Armchair;Chair - Living - Medieval;University
+0x7FA236D3;0xEE92940E;Wornable Easy Chair;Chair - Living - Worn;University
+0x7F4225F1;0xAE92876F;Retro Overeasy Eggseater Recliner;Chair - Recliner - Groovy;University
+0x7FFEEA78;0xCE928B83;High Society Pillar Plus - Two-Story;Column - Multistory - 2 Story - Classical;University
+0x7F5E115F;0x4E93DE9E;High Society Pillar Plus - Three-Story;Column - Multistory - 3 Story - Classical;University
+0x7F877166;0x4EBA2165;Romanesque Column in Concrete;Column - Richardsonian - Composite;University
+0x7F236DE1;0xAEBA218C;Romanesque Column in Concrete w/ lattice;Column - Richardsonian - Concrete;University
+0x7FD93B33;0xAEBA21A2;Romanesque Column in Red Stone;Column - Richardsonian - Red Stone;University
+0x7F17B70F;0x0EC45FC5;High Society Connecting Column Arches;Connected Columns - Classical;University
+0x7FCDBD62;0x2EBA313C;Colonial Connecting Column Arches from Brace Yourself! Designs;Connected Columns - Colonial;University
+0x7FE220CB;0x0E8D1041;Romanesque Connecting Column Arches in Red Brick;Connected Columns - Richardsonian - Composite;University
+0x7F70D8C4;0x2EB762B4;Romanesque Connecting Column Arches in Concrete;Connected Columns - Richardsonian - Concrete;University
+0x7F8A8E16;0x8EB7630C;Romanesque Connecting Column Arches in Red Stone;Connected Columns - Richardsonian - Red Stone;University
+0x7FCF571D;0x8E928DD3;Way Coolinary Countertop (doors version);Counter - Groovy;University
+0x7FCF571D;0xAE928DD4;Way Coolinary Countertop (drawers version);Counter - Groovy - No Doors;University
+0x7F88AA2C;0x6E929357;Industrial Steelate Counter;Counter - Industrial;University
+0x7F2DD48B;0x2E928E28;Locker Room CounterFeet;Counter - Locker Room;University
+0x7F6BDB35;0xCED5A117;Way Coolinary Kitchen Island;Counter Island - Groovy;University
+0x7F295A41;0x4ED5A1E8;Cafeteria-Style Steelate Counter Island;Counter Island - Industrial;University
+0x7FF96ECF;0x8E656A8B;Myne Door;Door - 1 Tile - Dorm Privacy;University
+0x7FA0C2D2;0x2EBA2539;Portal of Peace;Door - 1 Tile - Groovy;University
+0x7FB6C3FA;0x4EC0D89B;Portal of Peace Archway;Door - 1 Tile - Groovy Arch;University
+0x7F1671E0;0xEEBA3013;Daniel the Lionhearted Door;Door - 2 Tile - Medieval;University
+0x4E928FC7;0x4E928FC7;Daniel the Lionhearted Arch;Door - 2 Tile - Medieval Arch;University
+0x7F8A9685;0xAEC0D185;Hey Nonny No Door;Door - 3 Tile - 2 Story - Medieval;University
+0x7F5A78DD;0x6EC0D1C4;Hey Nonny No Arch;Door - 3 Tile - 2 Story - Medieval Arch;University
+0x7FBFFB00;0x0E928C80;Groovy Dresser by Keen Co.;Dresser - Groovy;University
+0x7F85D578;0xCEBB289D;Fusty Hors D'oeuvres Gym Lockers;Dresser - Locker;University
+0x7FC913D9;0x8EA66F90;Downbeat Kit;Drum Set;University
+0x7FE94D23;0x8EA8CB66;Impresso Espress-o-Matic;Espresso Machine Cart;University
+0x7F0B8D84;0xCE9F92E3;Exerto Free Press Exercise Machine;Exercise Machine - Bench Press;University
+0x7F1F4758;0xEE9F8C0F;Exerto Butterfly Exercise Machine;Exercise Machine - Butterfly;University
+0x7FD833E6;0xCE9F9279;Exerto Leg Extension Exercise Machine;Exercise Machine - Leg Press;University
+0x7FEC3010;0x0EAB5638;Fearless Flyin' 4000 Treadmill;Exercise Machine - Treadmill;University
+0x7F510F60;0xCEA0CB06;Fallorayne Fountain;Fountain - College;University
+0x7F70EDC6;0xAEB8D6A3;Spaceship Spacious Fountain;Fountain - College Large;University
+0x7F770F95;0xEE841380;"MMM" Mini Fridge;Fridge - Mini;University
+0x7F8D909E;0x6E97B880;Wornable Fridge;Fridge - Worn;University
+0x7FAEECCE;0x4EA0E858;Superflux Über UV Guitar;Guitar;University
+0x7F429DD5;0xCEBB5AD7;"Orbs of Connectedness" Ceiling Lamp;Lamp - Ceiling - Groovy;University
+0x7F096682;0x6EBB5B33;Circle of Light Friendship Lamp;Lamp - Floor - Groovy;University
+0x7F738592;0x8E97B958;Shining Knight Standing Lamp;Lamp - Floor - Medieval;University
+0x7FCE2BEB;0x2E97B977;Flickering Mercenary Table Lamp;Lamp - Table - Medieval;University
+0x7FE5E381;0x2E97B990;Blinding Soldier Wall Lamp;Lamp - Wall - Medieval;University
+0x7F41C1B5;0x8E928AE4;Deceptico Plano Glass;Mirror - Full;University
+0x7FE36903;0x2EBB5BC5;"Stick 'Em Up" Bulletin Board;Painting - Bulletin Board;University
+0x7F23110A;0x8EE9B9CC;"Save the Sheep" Faux Sheepskin Diploma;Painting - College - Diploma;University
+0x7F704390;0x0ECB4AAE;Fighting Llamas Tri-Pennant Combo;Painting - Poster - 3 Pennants - Llama;University
+0x7F94C34F;0xCECB4A5F;Fighting Piranhas Tri-Pennant Combo;Painting - Poster - 3 Pennants - Piranha;University
+0x7F33E238;0xAEC0C65C;"Surfing the Universe" Poster;Painting - Poster - Alien Surfer;University
+0x7F1DD05F;0xCEAE2BBB;The Truth is Somewhere;Painting - Poster - Boldly Go;University
+0x7FF1DA6E;0xAEC0C63E;"Fists of Bunny" Poster;Painting - Poster - Kung Fu Bunny;University
+0x7FCF2AB7;0x0EAE2BCC;Don Meswitthis Bunny Pennant;Painting - Poster - Pennant - Bunny;University
+0x7FEA6E13;0x8EAE2BDC;Fighting Llamas Pennant;Painting - Poster - Pennant - Llama;University
+0x7F4D8BE8;0xEECB4CC8;Revolutionary Rebellion Poster;Painting - Poster - Punk Rock;University
+0x7FAF371A;0xEEBB6824;"It's Reggae, Mon" Poster;Painting - Poster - Reggae;University
+0x7F6DB7B2;0xCEBB6801;"Rugged Llamas of the North" Souvenir Rugby Jersey;Painting - Poster - Rugby Jersey;University
+0x7F623D14;0xCEBB67F0;"We Call It Football" Limited Edition Prints;Painting - Poster - Soccer;University
+0x7F864E71;0xEEAE2BEA;Space Oddity;Painting - Poster - Space Oddity;University
+0x7F9E8F4E;0x2EBB67DC;"SimCity Championship Roster" 1984-85 Season Poster;Painting - Poster - Sports Photo;University
+0x7F88F3AB;0xCEAB5758;"Wrath of Sack Man" Pinball;Pinball Machine - Sacman;University
+0x7F0949DB;0xEE9F693B;Corner Pocket Pool Table;Pool Table;University
+0x7F791F0B;0x2E928CB3;Blossoming Heart;Sculpture - Groovy;University
+0x7FD6C014;0x2E929489;Strut Your Stuff Communal Shower;Shower - Communal;University
+0x7FD59155;0x6EBB5F1C;Simgreek Letter Sign - Nagard;Sign - Greek - 1;University
+0x7FD908A3;0x4EBB6067;Simgreek Letter Sign - Hoh;Sign - Greek - 2;University
+0x7F5F4458;0x0EBB607B;Simgreek Letter Sign - Urele;Sign - Greek - 3;University
+0x7FC03B4F;0x0EBB6085;Simgreek Letter Sign - Var;Sign - Greek - 4;University
+0x7F4677B4;0x6EBB608C;Simgreek Letter Sign - Oresha;Sign - Greek - 5;University
+0x7F4AEE42;0xEEBB6093;Simgreek Letter Sign - Fruhm;Sign - Greek - 6;University
+0x7FCCA2B9;0xAEBB609B;Simgreek Letter Sign - Cham;Sign - Greek - 7;University
+0x7FF25C97;0x0EBB60F1;Simgreek Letter Sign - Annya;Sign - Greek - 8;University
+0x7F54329C;0x2E928C49;Retro Bodacious Loveseat;Sofa - Loveseat - Groovy;University
+0x7F50052A;0x2E9288B4;Mediocre Medieval Loveseat;Sofa - Loveseat - Medieval;University
+0x7F0A02C4;0xCECB42EB;Really Distressed Loveseat by Club Distress;Sofa - Loveseat - Worn;University
+0x7FB69748;0x6E9291D2;Masterfully Medieval Sofa;Sofa - Medieval;University
+0x7F3BB067;0xAE929431;Wornable Sofa;Sofa - Worn;University
+0x7FA8379C;0x4EBB5DF9;Skimmer Securities Ceiling Sprinkler;Sprinkler - Ceiling;University
+0x7FFA03C2;… … …;Almost Indestructible Stairs in Concrete;Stair Modular - Concrete;University
+0x7F0AAEDD;0xAE928EB2;ShinyTyme Cooktop;Stove - Cafeteria - Industrial;University
+0x7F35A7BD;0x0E928CF2;Psychedelic SimAtri Coffee Table;Table - Coffee - Groovy;University
+0x7F60990D;0xAE928A78;AOD Disco Dining Table;Table - Dining - Groovy;University
+0x7F61BB42;0x8E928D2A;Mini-Disco Dinette Table;Table - Dining - Groovy 1x1;University
+0x7F6603DA;0x6E928B2B;Myne Cafeteria Table;Table - Dining - Long Industrial;University
+0x7FDDB3C7;0x2E928A9F;Merry-making Dining Table;Table - Dining - Medieval;University
+0x7F9878BB;0x2E9289E3;Blooms & Boomers End Table;Table - End - Groovy;University
+0x7FA2937C;0x2E928A0E;Modest Medieval End Table;Table - End - Medieval;University
+0x7FDDF938;0x6EC1B8B9;Creeping Ivy Trellis;Tree - Ivy Trellis;University
+0x7FF73797;0x0E5ECB98;Fruit Punch Barrel;University - Juice Keg;University
+0x7FA2C05C;0xD2DCCDB5;Cornerstone Veritable Vanity;Vanity Table - Marble;University
+0x7F011AE9;0x0EAA1E75;Sellafone Gadget Kiosk;Vending Kiosk - Small Electronics;University
+0x7F2BE9C9;0x4EBB5015;Peace and Love Window;Window - Groovy;University
+0x7F1BAC50;0xAEBB4D09;Out of the Dark Ages Window;Window - Medieval;University
+0x7FDF09AA;0xABFF85C1;SimSafety V Burglar Alarm;Alarm - Burglar - Sims 2;Base Game
+0x7F97EA32;0xEEA7D425;SmokeSentry SmokeSniffer 3000;Alarm - Smoke;Base Game
+0x7F0B99A9;0xCCBC7300;AquaBox Five-Gallon Aquarium;Aquarium Expensive;Base Game
+0x7F856AA1;0x6C8EDB8E;Rob R. Barron "Nouveau" Wardrobe;Armoire - Art Nouveau;Base Game
+0x7F6AA80E;0x4C8EDC5C;Dynasty Armoire;Armoire - Central Asian;Base Game
+0x7FFDD708;0x0C8EDCD2;Su-Tove Armoire;Armoire - Colonial;Base Game
+0x7F23BF95;0x6C8ECDEB;Touch of Teak Plymouth Armoire;Armoire - Loft;Base Game
+0x7FC25443;0x6C8EDD27;Decorative House Armoire;Armoire - Moroccan;Base Game
+0x7FFA0C8F;0x8C8EDD7A;"Anti-Quaint-Ed" Ltd. Ed. Armoire;Armoire - Quaint;Base Game
+0x7F7FC366;0xADAC1188;SimVac;Aspiration Reward - Sim Vac;Base Game
+0x7FC397BB;0x4DA7F9CE;Pasteur's HomoGenius Smart Milk;Aspiration Reward - Smart Milk;Base Game
+0x7F4C66F7;0xADAD4846;Cool Shades;AspirationRewards - Cool Shades - Stand;Base Game
+0x7F8E06DB;0x6DA6AF29;Elixir of Life;AspirationsReward - Elixir Of Life;Base Game
+0x7FA323EB;0x0D99632D;Noodlesoother;AspirationsReward - Happy Helmet;Base Game
+0x7F692C12;0xED9BEC86;Thinking Cap;AspirationsReward - Thinking Cap;Base Game
+0x7FD80D6E;0x4C75C2D7;Retro Lounge "High Liquidity" Juice Bar;Bar - Art Nouveau;Base Game
+0x7F4FE346;0x4CA1C192;Bachman Busbar;Bar - Value;Base Game
+0x7F454C2E;0x77CA8B6F;Black Lacquer Bar Counter;Bar_Expensive;Base Game
+0x7F4E1314;0xAC957DBA;The Soma "Sleep Well";Bed - Double - Art Nouveau;Base Game
+0x7FA24414;0xECC4F9B3;Courtly Sleeper Day Dreamer;Bed - Double - Designer;Base Game
+0x7F74143E;0x500FE191;Colonial Ironwood Bed;Bed - Double - Expensive;Base Game
+0x7F94AFE8;0x50D89AF6;Touch of Teak Bed;Bed - Double - Loft;Base Game
+0x7FD3C474;0x2BB4C1F0;Cheap Eazzzzze Morrissey Double Bed;Bed - Double - Moderate;Base Game
+0x7F03767D;0x6CD8C620;Zenu Meditation Sleeper;Bed - Double - Oriental;Base Game
+0x7FBCF85D;0x4CDBB655;"#4234" by C. Lee Funkensnooz;Bed - Double - UM;Base Game
+0x7F29D438;0xEC3FE8C2;Craftmeister's Pine Bed;Bed - Single - Cheap;Base Game
+0x7FFBE4B4;0x9BACC04F;Bed by St. Ajoque Reproductions;Bed - Single - Expensive;Base Game
+0x7FC51D1C;0x0C85A876;The Slim System, by Jim Slimboy;Bed - Single - Loft;Base Game
+0x7F5C463D;0x2C85A905;Caress of Teak Bed;Bed - Single - Moderate;Base Game
+0x7F6A0484;0x8B65DBE6;London's Famous Birthday Cake;Birthday Cake;Base Game
+0x7F1CADEB;0x4CA3C73C;Novellas Nouveau Bookcase;Bookcase - Art Nouveau;Base Game
+0x7FB9D007;0x4456884A;Craftmeister Booknook;Bookcase - Cheap;Base Game
+0x7F499025;0xACA3C710;Renaissance Bookcase by Literary Designs;Bookcase - Colonial;Base Game
+0x7F74F18C;0x8CA3C76D;Double-Helix Designer Bookshelf;Bookcase - Loft;Base Game
+0x7F95723D;0xCC761750;BiblioFile Bookcase;Bookcase - Value;Base Game
+0x7FA924CB;0x6CC5228F;CinderBooks by Retratech;Bookcase - Value - Cinderblock;Base Game
+0x7FA739E2;0xCCAD64D1;Old Fashioned Change Room;Booth - Clothing - Colonial;Base Game
+0x7FA267EF;0x6C47BBD4;SimSentry Clothing Booth;Booth - Clothing - Designer;Base Game
+0x7F37F90B;0x0C6E194A;Simsanto Inc. Biotech Station;Career - Biotech Station;Base Game
+0x7F959124;0x8C4D2997;Schokolade 890 Chocolate Manufacturing Facility;Career - Candy Factory;Base Game
+0x7F0C6A42;0xD1CD15C8;Prints Charming Fingerprinting Scanner;Career - Fingerprint Kit;Base Game
+0x7FCEE384;0xCC58DF85;AquaGreen Hydroponic Garden;Career - Hydroponic Garden;Base Game
+0x7F714CEC;0x6C2979FB;Exerto Selfflog Obstacle Course;Career - Obstacle Course;Base Game
+0x7F73CE85;0xCC16D816;SensoTwitch Lie Finder;Career - Polygraph;Base Game
+0x7FAD14EC;0x4C2148B0;Exerto Punching Bag;Career - Punching Bag;Base Game
+0x7F55C211;0xCC20426A;Execuputter;Career - Putting Green;Base Game
+0x7F91AB8B;0x6C6CE31F;TraumaTime "Incision Precision" Surgical Training Station;Career - Surgical Dummy;Base Game
+0x7F963DA1;0xAC314A3A;Enterprise Office Concepts Bushmaster Tele-Prompter;Career - Teleprompter;Base Game
+0x7F2C536A;0x99054960;Llamark Electronic Cash Register;Cash Register;Base Game
+0x7F5DACE5;0x2CA455D1;Poppin' Party Balloon Centerpiece;Centerpiece - Balloons;Base Game
+0x7FE6E5C1;0x6C75C415;"Stiff" by Superfluous Seating;Chair - Barstool - Art Nouveau;Base Game
+0x7FAA9190;0x2C6A2E45;Regulars Only Barstool;Chair - Barstool - Club;Base Game
+0x7F1BD416;0x848AC8CF;Organic Material's Barstool;Chair - Barstool - Loft;Base Game
+0x7F6BCC79;0x8C760E7B;Ad-a-Quaint Barstool;Chair - Barstool - Quaint;Base Game
+0x7F9B6428;0x8C6375C9;"Keister Kompanion" Barstool;Chair - Barstool - Value;Base Game
+0x7FC83E1D;0x2C75C50B;Moderniste Dining Chair;Chair - Dining - Art Nouveau;Base Game
+0x7FBA9792;0x4C6C968B;Retratech Padded Egg Chair;Chair - Dining - Burke;Base Game
+0x7F9AEFDA;0xEC761C1E;Dynasty Dining Chair;Chair - Dining - Central Asian;Base Game
+0x7FB88F23;0x8C3FE510;Oaktowne Dining Chair;Chair - Dining - Club;Base Game
+0x7F2254E4;0x6C761C5E;ErgoSupreme Dining Chair;Chair - Dining - Colonial 1;Base Game
+0x7F86E2AD;0x6C761D20;Bon AppÚtit Dining Chair;Chair - Dining - Colonial 2;Base Game
+0x7F9DC8C4;0x0CFB31DD;"Outdoor Ergo" Ergonomic Chair by G³dfoer-Ebadi Furnishings;Chair - Dining - Community;Base Game
+0x7F311F17;0xAC6C9662;Contempto Penn Station Side Chair;Chair - Dining - Dining - Office Standard;Base Game
+0x7FD20C86;0x2C6C9677;Plasticity NodePod by Yoko Onasis;Chair - Dining - Loft Forked Back;Base Game
+0x7FEE4BCF;0xAC9BFF9C;Stark Inspiration Chair;Chair - Dining - Loft Office;Base Game
+0x7F677A3D;0x8C6C96A7;Oaktowne East Side Dining Chair;Chair - Dining - Moderate;Base Game
+0x7F7F1699;0xB858EB88;Zecutime Social Chair;Chair - Dining - Modern Danish;Base Game
+0x7F2C271B;0x0C761D74;Polychromed Seating Surface With Cushion;Chair - Dining - Moroccan;Base Game
+0x7F9BC13F;0xC1806083;Cowboy's Caboose Chair;Chair - Dining - Outside Wood;Base Game
+0x7F64C704;0x2C7B1003;PatioPlastics Dining Chair;Chair - Dining - Patio Plastic;Base Game
+0x7F19E9D9;0x4C761F05;Simple Sit Chair;Chair - Dining - Quaint;Base Game
+0x7FCEE87E;0xACAD6135;"Diamondback" by Desert Designs;Chair - Dining - UM Diamond;Base Game
+0x7F02CFD9;0xEC7618F6;Tea Party in Teak;Chair - Dining - Value1;Base Game
+0x7FA3A245;0xFE3E566B;Contempto Adirondack Chair;Chair - Living - Adirondack;Base Game
+0x7F7DA586;0xCC7C9837;Serenity Sitter;Chair - Living - Art Nouveau;Base Game
+0x7F90CE14;0x9C3992F4;Armchair by Club Design;Chair - Living - Club;Base Game
+0x7F95BFDE;0x4C7619D8;Luxiary King Armchair;Chair - Living - Colonial;Base Game
+0x7F90E1D3;0x6C7C98CC;Blue Suede Chair;Chair - Living - Designer;Base Game
+0x7F29AADF;0x8B2ED8D9;Studio Bakonmi Deluxe Chair;Chair - Living - Loft - Modern;Base Game
+0x7F2FEF74;0x56F95D51;Studio Bakonmi Deluxe Lounge;Chair - Living - Loft Modern;Base Game
+0x7F6A6B9E;0x8C521CA7;Recycled Relaxer;Chair - Living - Quaint;Base Game
+0x7FF8A9E9;0x8CA6BBD9;Mr. Bearlybutts;Chair - Living - Teddy Bear;Base Game
+0x7F1DD1B8;0xCCA6BBFC;The Glassic Chair;Chair - Living - UM Wine Glass;Base Game
+0x7FC58669;0x2C6A08FB;The Nofowle Armchair;Chair - Living - Value_Plain;Base Game
+0x7F9C752C;0x4C6A093C;Contempto Good Livin' Chair;Chair - Living - Value_Strip;Base Game
+0x7FF883A5;0x28DF2422;Contempto Outdoor Living Lounge;Chair - Lounge - Adirondack;Base Game
+0x7F7BE02D;0xCC80A1EE;Chez Chaise;Chair - Lounge - Art Nouveau;Base Game
+0x7FD31EE2;0xAC80A26B;? = (C^11)?;Chair - Lounge - Designer;Base Game
+0x7F24D0D3;0x4C80A38B;Kick BackYard Loungechair by Survivall;Chair - Lounge - Value;Base Game
+0x7FD1C9AE;0x8C7B1F00;The Old-Timer Recliner;Chair - Recliner - Club;Base Game
+0x7F608C28;0xB851A701;Werkbunnst/Shuttlecraft Recliner;Chair - Recliner - Loft;Base Game
+0x7F720D07;0xF5939CE9;Cheap Eazzzzze Puffy Recliner;Chair - Recliner - Puffy;Base Game
+0x7FBE7E55;0x6C833DCB;Way-Back Recliner;Chair - Recliner - Value;Base Game
+0x7FCBF87D;0x3F190741;Sanitation Station Baby Changing Table;Changing Table;Base Game
+0x7F1E93ED;0xA730C788;Grand Parlour Chess Table;Chessboard;Base Game
+0x7FF1D395;0xED49E8D2;King for a Day Outdoor Chess Table;Chessboard - Outdoors;Base Game
+0x7F863CAC;0x4C217104;Get Up! Alarm Clock;Clock - Alarm - Cheap;Base Game
+0x7FEE521A;0x0C2443CF;CyberChronometer Alarm Clock;Clock - Alarm - Expensive;Base Game
+0x7F060A95;0xD327D867;Extra Pep Coffeemaker;Coffee Machine;Base Game
+0x7FD7665C;0xCC7CB400;Amishim "Metropole" Column;Column - Art Nouveau;Base Game
+0x7F584761;0xCC7CB789;Mystery of the Coral Dragon;Column - CentralAsian;Base Game
+0x7FEE4A1C;0x0CA2BE2E;Canonical Column;Column - Club;Base Game
+0x7F30F1CE;0x6C7CB809;Colonial Column by Brace Yourself! Designs;Column - Colonial 1;Base Game
+0x7F7B1B0D;0x8C7CB8C5;High Society Pillar;Column - Colonial 2;Base Game
+0x7F35AFC3;0xEC7CB97D;Aggressive Accents Column;Column - Designer;Base Game
+0x7F0F7285;0xAC7CBAB6;"Up, Up, and Away" Column;Column - Moroccan;Base Game
+0x7FF85ED9;0x8C7CBAFF;Country Kitsch Column;Column - Quaint;Base Game
+0x7FE378D9;0x2C7CD5FE;UpRite Column;Column - Value1;Base Game
+0x7F1E0687;0x2B55B9F8;Moneywell Computer;Computer - Cheap;Base Game
+0x7F96C47B;0x6C81E133;Little Sister, WD15;Computer - Expensive;Base Game
+0x7F84067D;0xCC26F93D;Club Room Countertop;Counter - Club;Base Game
+0x7F84067D;0x6C7CD3D1;Club Room Countertop;Counter - Club - No Doors;Base Game
+0x7F832DF4;0x6C7627F9;Chez Moi French Country Counters;Counter - Colonial;Base Game
+0x7F8673F9;0x4CA19752;Epikouros "Sleek Cuisine" Counter;Counter - Designer;Base Game
+0x7F3543FB;0x8C26FB08;Chiclettina "Fjord" Kitchen Counter;Counter - Loft;Base Game
+0x7F3543FB;0xCC7CD58D;Chiclettina "Fjord" Kitchen Counter;Counter - Loft - No Doors;Base Game
+0x7F266069;0xAC70D4D4;Chiclettina "Sardinia" Kitchen Counter;Counter - Nouveau;Base Game
+0x7FE5B866;0x6C763240;Counter Culture "Surface";Counter - Quaint;Base Game
+0x7FE5B866;0x8C7CD6D1;Counter Culture "Surface";Counter - Quaint - No Doors;Base Game
+0x7FB8EA14;0x0C70D5CB;Krampft Industries Value Counter;Counter - Value;Base Game
+0x7F6399C8;0xACAA9CD3;Old Boys Club Commercial Counter;Counter Commercial - Club;Base Game
+0x7FD2DC4E;0x4CAA9CE0;CounterRevolution Commercial Counter;Counter Commercial - Loft;Base Game
+0x7F2A21EC;0xAC75ED4A;Chiclettina "Sardinia" Kitchen Island;Counter Island - Art Nouveau;Base Game
+0x7FFAD8B4;0x6C3FD796;Club Distress Butcher's Block;Counter Island - Club;Base Game
+0x7FD7501D;0x8C85A63C;Counter Cooking Conundrum;Counter Island - Colonial;Base Game
+0x7FD20E10;0xCC85A6AD;Epikouros "Sleek Cuisine" Island;Counter Island - Designer;Base Game
+0x7F4B9D32;0xEC3FD6CF;Chiclettina "Archipelago" Kitchen Island;Counter Island - Loft;Base Game
+0x7F41344E;0xCC85A6F5;Catamaran Kitchen Island;Counter Island - Quaint;Base Game
+0x7FE1161C;0x7A03BDEF;The Kinder Kontainer;Crib - Cheap;Base Game
+0x7F9B042A;0x8CA684BC;Aluminium Privacy Blinds by P. King Tom Trading Co.;Curtains - Blinds Value;Base Game
+0x7F1714FC;0x8C7B340C;Floor-Length Tieback Curtains;Curtains - Colonial Long;Base Game
+0x7F7D319D;0x8C7C99DE;Sill-Length Tieback Curtains;Curtains - Colonial Short;Base Game
+0x7F6E8098;0xAC9C1C78;Doublewide Tieback Curtains;Curtains - Colonial Wide;Base Game
+0x7FF5DF0A;0x57F68405;Antique Lace Curtains;Curtains - Lace Short;Base Game
+0x7FEC7A99;0x8CA681D7;"Ultra Funky Curtain Clothes";Curtains - Loft Short;Base Game
+0x7F3A3069;0x4CA67EA8;Loft Curtains by Sparse and Fine;Curtains - Loft Two Tile;Base Game
+0x7FC8494C;0xECA681E6;Veil of Dreams;Curtains - Quaint Short;Base Game
+0x7FD5C9FC;0x4CA67F39;Deluxe Veil of Dreams;Curtains - Quaint Two Tile;Base Game
+0x7F9E7D47;0x2C85EE25;Stewart Mourning Café Curtains;Curtains - Value;Base Game
+0x7FE6B364;0x718EA9C7;Cornerstone Victoriana Velvet Drapes;Curtains - Victorian Long;Base Game
+0x7F1920FE;0xC7DEBB1D;Burled Wood Dartboard;Dartboard;Base Game
+0x7FD374F3;0x4CA59454;Tibetan Desk;Desk - Central Asian;Base Game
+0x7FFF154E;0x8C74A494;Counter Productive Work Surface;Desk - Club;Base Game
+0x7F4E50C8;0x6C6A3079;Chiclettina Execudrone Desk;Desk - Loft;Base Game
+0x7F5F0588;0xCC74A52C;Home Office Desk by Quaint Design;Desk - Quaint;Base Game
+0x7FD6FD69;0xAC74A421;Retratech ”Office Pal” Economy Desk ;Desk - Value;Base Game
+0x7F2930A3;0xAC6E0754;Shiny Things Inc. Whisp-Aire Dishwasher;Dishwasher - Stainless;Base Game
+0x7F09EA1B;0x8C773844;Wishy-Washer from Brandname LX;Dishwasher - Value;Base Game
+0x7F1CBCF8;0x6CC52393;Imperial Plumbing Pole-Air Freezer Bin;Display - Food - Freezer Bin;Base Game
+0x7FC57232;0x6CC52A32;"Food Shrine" Commercial Display Freezer;Display - Food - Freezer Case;Base Game
+0x7FA1593E;0xED23E6CF;"Food Temple" Commercial Display Freezer;Display - Food - Freezer Case - Alt;Base Game
+0x7F95EEB0;0x8C84660F;GazeEase "Stow 'N' Show" Produce Bin;Display - Food - Produce Bin;Base Game
+0x7FC873CA;0xCD23E820;VeggiStuf Produce Bin;Display - Food - Produce Center;Base Game
+0x7FABAE0A;0xAC736FE0;Will Lloyd Wright Dollhouse;Dollhouse;Base Game
+0x7F73FD10;0xCC0C1B04;Chiclettina "Mauritania" Beveled Glass Door;Door - 1 Tile - Beveled Glass;Base Game
+0x7FD96C74;0x0C897967;Chiclettina "Mauritania" Arch;Door - 1 Tile - Beveled Glass Arch;Base Game
+0x7F653367;0x6C773D88;Oaktowne Classic Door;Door - 1 Tile - Club 1;Base Game
+0x7F80091D;0xECDA5DB1;Oaktowne Classic Arch;Door - 1 Tile - Club 1 Arch;Base Game
+0x7F147309;0x2C0C1B56;OakTowne Simple Interior Door;Door - 1 Tile - Colonial Inside;Base Game
+0x7F0C9EA3;0x4C897A32;OakTowne "Simple Interior" Arch;Door - 1 Tile - Colonial Inside Arch;Base Game
+0x7FF1AEB9;0x8D92AF17;EZ Evac, Inc.'s "Power Powder" Women's Restroom Door;Door - 1 Tile - Gender - Female;Base Game
+0x7FF017CD;0xAD92A39B;EZ Evac, Inc.'s "Brick House" Men's Restroom Door;Door - 1 Tile - Gender - Male;Base Game
+0x7FBDD1AE;0x0C774C56;Doorway to a Distant Land;Door - 1 Tile - Moroccan;Base Game
+0x7F39DBFE;0xACDBB46D;Archway to a Distant Land;Door - 1 Tile - Moroccan Arch;Base Game
+0x7F8A2DA9;0x6C774D9E;Old Yankee "4 Score" Door;Door - 1 Tile - Quaint;Base Game
+0x7F47A11D;0x0CDA5F39;Old Yankee "No Score" Arch;Door - 1 Tile - Quaint Arch;Base Game
+0x7FB32899;0x2C77520C;ValueWood Lumber's "Justa Door";Door - 1 Tile - Value;Base Game
+0x7FEF9802;0x6CDB6B83;ValueWood Lumber's "Justa Arch";Door - 1 Tile - Value Arch;Base Game
+0x7FC3CCA2;0x8C0C1BC9;Walnut Door;Door - 1 Tile - Walnut;Base Game
+0x7F6A120D;0xCC897E9C;Walnut Arch;Door - 1 Tile - Walnut Arch;Base Game
+0x7F38B5B4;0xCCB3D857;Open Sesame Door by 40 Thieves Ltd.;Door - 2 Tile - Central Asian;Base Game
+0x7F772FD8;0x8CECC4A4;VIP Deluxe Double Doors;Door - 2 Tile - Club 2;Base Game
+0x7F3EBACB;0x4CDBB48F;VIP Deluxe Arch;Door - 2 Tile - Club 2 Arch;Base Game
+0x7F8318B0;0xCC0C1BFB;Colonial Tract Door;Door - 2 Tile - Colonial Arch;Base Game
+0x7F12090D;0x4C897B86;Colonial Tract Arch;Door - 2 Tile - Colonial Empty Arch;Base Game
+0x7F876CF4;0x2D619F5A;Independent Expressions, Inc. "Big Entrance" Shop Door;Door - 2 Tile - Commerical Plate Glass;Base Game
+0x7FD3D737;0x4C0C1D8D;Touch of Teak "Pigalle" French Door;Door - 2 Tile - French Arch;Base Game
+0x7FE6DD28;0xAC897C59;Touch of Teak "Pigalle" French Arch;Door - 2 Tile - French Empty Arch;Base Game
+0x7F1E9B81;0xCC0C1E00;"Matte & Glass " Front Door;Door - 2 Tile - Front Loft;Base Game
+0x7F16B7FC;0x6C897DAC;"Matte & Glass " Glassless Arch;Door - 2 Tile - Front Loft Arch;Base Game
+0x7F0F1EB1;0xECDA60C7;Wachowt Glass Door;Door - 2 Tile - Sliding;Base Game
+0x7FDA2839;0xEC8ECE4F;Dynasty Dresser 2;Dresser - Central Asian;Base Game
+0x7F40C49E;0x8C6B3998;Chesterstick Cherry Dresser;Dresser - Colonial;Base Game
+0x7F459A93;0xAC8ECEFA;Werkbunnst Stonewood Dresser;Dresser - Designer;Base Game
+0x7F329740;0x8C6B3AD4;Touch of Teak Tansu Dresser;Dresser - Loft;Base Game
+0x7F366FCF;0x0AAD5584;Independent Expressions Inc. Easel;Easel;Base Game
+0x7F3686FF;0x0DAC06C5;The Eclectic and Enigmatic Energizer;Energizer;Base Game
+0x7F4D8EFF;0xAC293732;Ciao Time Espresso Machine;Espresso Machine;Base Game
+0x7FBD48F4;0x6A6E7EDB;Exerto 5000 Multipress Exercise Machine;Exercise Machine;Base Game
+0x7FBC19CC;0x0C7767B5;Gentrific "Flame-O-Rama" Fireplace;Fireplace - Colonial - Mantle;Base Game
+0x7F119DBC;0x9D0E1345;Gentrific "Way of the Wood" Mantel Fireplace;Fireplace - Loft - Mantle;Base Game
+0x7F222081;0xEC77701E;Casbah Casuals Fireplace by 40 Thieves Ltd.;Fireplace - Moroccan - Chimney;Base Game
+0x7FBCFB5C;0xC1ECB653;Shiny Things, Inc. "Estomago" Pot Belly Stove;Fireplace Hearth - Stove - Pot Belly;Base Game
+0x7F453AE0;0x4C638D53;Red Ember Freestanding Fireplace;Fireplace Hearth - Value;Base Game
+0x7FF23525;0xCC3A7F53;Shocking Pink Flamingo;Flamingo;Base Game
+0x7F343F48;0x2CA5A5D4;Daisies of our Lives;Flowers - Outdoor - Daisies;Base Game
+0x7F93727F;0x6CCD63E3;Daisies of our Lives;Flowers - Outdoor - Daisies - Half Tile;Base Game
+0x7FE8D4E7;0xCCCE49E9;Mundo Verde, Inc. Perpetual Pansies;Flowers - Outdoor - Pansies;Base Game
+0x7F2515CC;0xAD2EAD06;Mundo Verde, Inc. Perpetual Pansies;Flowers - Outdoor - Pansies - Half Tile;Base Game
+0x7F9676C6;0x8CA5A5B7;Papaver's Poppies;Flowers - Outdoor - Poppies;Base Game
+0x7FFA38F9;0x0D2EAD14;Papaver's Poppies;Flowers - Outdoor - Poppies - Half Tile;Base Game
+0x7F73066B;0xAD465089;Nopalito's Prickly Pears;Flowers - Outdoor - Prickly Pear;Base Game
+0x7F4B3D01;0x0DB4C64B;Nopalito's Prickly Pears;Flowers - Outdoor - Prickly Pear - Half Tile;Base Game
+0x7F5085E0;0x4CA5A5C5;TipTop Tulips;Flowers - Outdoor - Tulips;Base Game
+0x7F8C151B;0x6D2EAD20;TipTop Tulips;Flowers - Outdoor - Tulips - Half Tile;Base Game
+0x7FFC77BB;0x8C995A8D;Antonio's Prize-Winning Wedding Cake;Food - Cake - Wedding;Base Game
+0x7FC7B12F;0xF23F7AF9;XLR8R2 Food Processor;Food Processor;Base Game
+0x7F444124;0x2C92CD83;Whatay Buffet;Food Table - Buffet;Base Game
+0x7F9EEB81;0x6C50BA66;Brand Name "EconoCool" Refrigerator;Fridge - Cheap;Base Game
+0x7F3BFD0F;0x6C50BACD;Ciao Time Bovinia Refrigerator Model BRRR;Fridge - Moderate - Stainless;Base Game
+0x7F598DFD;0xECBD0456;"It's MYSHUNO!" (The Fabulously Zany Party Game);Game - Bingo;Base Game
+0x7F0EB2B2;0xCC844324;"Perfectly Square" Gate by EnTrance;Gate - ArtNouveau Fence;Base Game
+0x7FE9DACB;0x4C85B922;Longbranch Side Gate;Gate - Deck - fence;Base Game
+0x7F00B271;0x2C85E400;Longbranch Front Gate;Gate - Deck - Two Tile;Base Game
+0x7F0F2B11;0xED124CCF;"Pigue Pen" Metal Gate;Gate - Deck Metal;Base Game
+0x7F32B254;0xEC85C38A;Port of Ennui;Gate - Loft fence;Base Game
+0x7FB37E8D;0x4C85C3F2;Gate of Glorified Entry;Gate - Moroccan fence;Base Game
+0x7FA08D13;0x2D124597;"At Stake" Picket Gate;Gate - Picket Fence;Base Game
+0x7F986F88;0x4C85C458;Nice 'n Private Gate;Gate - Quaint fence;Base Game
+0x7F834988;0x2C85C522;Open and Shut Gate;Gate - Value 1 Fence;Base Game
+0x7FB1089E;0xED12486A;"Wrought Weiler" Iron Gate;Gate - Wrought Iron;Base Game
+0x7F348ECC;0x8C3E5500;Kozy Kitsch Gnome;Gnome;Base Game
+0x7F85611C;0xAC2061CC;Ol' Grandfather Clock;Grandfather Clock - Expensive;Base Game
+0x7F2E213E;0xCC32E3AB;The Kinder Koddler;High Chair - Plastic;Base Game
+0x7F139718;0x2DBA063D;Love Tub;Hot Tub - Love;Base Game
+0x7FD74008;0x4C8DA668;Bubble-Up "Soaking Zone" Hot Tub;Hot Tub - Raised - Value;Base Game
+0x7F12D58A;0x4204F620;VaporWare Submergence Spa;Hot Tub - Sunken;Base Game
+0x7F1A4351;0x2C7B6165;Floral Fancy Hanging Lamp;Lamp - Ceiling - Art Nouveau;Base Game
+0x7FB0675F;0xEC576F1F;Lunatech "Lighten Up" Lighting Fixture;Lamp - Ceiling - Canister;Base Game
+0x7FCDD26A;0x0C7B3574;Chinese Riddle Lantern;Lamp - Ceiling - Central Asian;Base Game
+0x7F663408;0x66D6E892;Legno's Modern Chandelier;Lamp - Ceiling - Chandelier - Modern;Base Game
+0x7F68B0E6;0x8C3F8BC0;Lunatech Amber Ceiling Lamp;Lamp - Ceiling - Club - Glass;Base Game
+0x7F8F7C08;0xECA16D1A;"4 by 4" Designer Chandelier;Lamp - Ceiling - Designer;Base Game
+0x7FA72D9B;0x6CC90706;Dangling Daylight Ceiling Lamp;Lamp - Ceiling - Hanging Flourescent;Base Game
+0x7FB5A14E;0x0C7B3697;Qadim Bauble Lamp;Lamp - Ceiling - Moroccan;Base Game
+0x7FBDC9BE;0x5C71E897;Paper Moon Ceiling Light;Lamp - Ceiling - Papershade;Base Game
+0x7F6872AE;0xECA16DD3;Lamp on the Half Shell;Lamp - Ceiling - Quaint;Base Game
+0x7FFD6BD7;0x2CA16E12;Light Effects Ceiling Lamp;Lamp - Ceiling - Value;Base Game
+0x7F631447;0x5200E8E9;Blazin' Buckaroos Lantern;Lamp - Deckpost - Fence;Base Game
+0x7F2605C5;0x86934BD6;Secure Sentinel Post Lamp;Lamp - Fence - Brickwall;Base Game
+0x7F0B0E12;0xCC7B377F;Little House Lantern;Lamp - Fence - Central Asian;Base Game
+0x7FCAA7F8;0x1F31ACC8;Light Orbiter Floor Lamp;Lamp - Floor - ClubSwingArm;Base Game
+0x7FB9FCC4;0xC215ACF1;Burnished Blaze Torchiere;Lamp - Floor - ClubTorch;Base Game
+0x7F2915D8;0xACC90801;City Dweller 'Dims';Lamp - Floor - Garden Bollard;Base Game
+0x7F06B8EA;0x2CC90D37;The "Spike Light";Lamp - Floor - Garden Tier;Base Game
+0x7FE4CAFD;0xED01ACE4;Tulip Light from Luxiary;Lamp - Floor - Loft;Base Game
+0x7F7EE1B2;0x0C80A983;Tornado Torch Floor Lamp;Lamp - Floor - Moroccan;Base Game
+0x7F2389F9;0x2C9585F8;Social Climbing Ivy Floor Lamp;Lamp - Floor - Quaint;Base Game
+0x7F18E068;0x2C999FED;Umbrella Light;Lamp - Floor - Studio Umbrella;Base Game
+0x7FD662C4;0xACAD66E7;"Rave Against the Machine" Nightclub Lamp;Lamp - Floor - UM;Base Game
+0x7F580A10;0xACC9120A;"Thrice As Nice" Floor Lamp by Lumpen Lumeniat;Lamp - Floor - Value;Base Game
+0x7F790084;0xB51DE8E1;Garden Glow Spotlight;Lamp - Garden - Uplight;Base Game
+0x7F87AA8E;0x6CD8D8A2;Liquidacious Lighting;Lamp - Pool - Simple;Base Game
+0x7F36F6D1;0x0C413A95;PrevenTek Luminlight Streetlamp;Lamp - Streetlight;Base Game
+0x7F507B43;0xA139E8E4;PrevenTek Tri-Luminlight Streetlamp;Lamp - Streetlight - Triple;Base Game
+0x7F1472E4;0x6CC92570;Wooden Post n' Lamp;Lamp - Streetlight - Wooden;Base Game
+0x7F03B3AF;0x2C7B39C6;The Inner Light;Lamp - Table - Art Nouveau;Base Game
+0x7FDDF213;0x0D89E35C;Lunatech Spare Fixture in "Ocean";Lamp - Table - BigBulb - Blue;Base Game
+0x7FC9EE60;0x667CE357;Lunatech Spare Fixture in "Grass";Lamp - Table - BigBulb - Green;Base Game
+0x7F3F59AE;0xBD46E3A0;Lunatech Spare Fixture in "Crimson Light";Lamp - Table - BigBulb - Red;Base Game
+0x7F90B8A3;0x2C7B3A8F;Dynasty "Enlightenment" Lamp;Lamp - Table - Central Asian;Base Game
+0x7F9C2155;0x6C7B3AD3;GentleGlow Table Lamp;Lamp - Table - Central Asian 2;Base Game
+0x7FDC267A;0x51937A06;Lunatech BCT/6;Lamp - Table - Club;Base Game
+0x7F524F55;0x8CA16F07;"Founding Fathers" Electric Lamp;Lamp - Table - Colonial;Base Game
+0x7F5ED6A3;0xACA16F8B;"Whodunnit?" Table Lamp;Lamp - Table - Colonial 2;Base Game
+0x7FF9928D;0x4CA16FDB;Ilistara Lamp;Lamp - Table - Designer;Base Game
+0x7FC34FCB;0x0C7B3B0D;Absolutely Nothing Special;Lamp - Table - Moroccan;Base Game
+0x7FE61C1E;0x2C959130;Social Climbing Ivy Table Lamp;Lamp - Table - Quaint;Base Game
+0x7F98E686;0x49F7E316;Shoji Table Lantern;Lamp - Table - Shoji;Base Game
+0x7FFD3A1E;0xAC9C3E47;Pix-Arm Drafting Lamp;Lamp - Table - Value 1;Base Game
+0x7FF1A3E8;0xCC9C46AA;The 'Watt is it' Table Lamp;Lamp - Table - Value 2;Base Game
+0x7F922A56;0x2C7B4918;Illuminating Angles by Newt Vo;Lamp - Wall - Art Nouveau;Base Game
+0x7F8870AE;0x6C3F8BDE;Torcher "Luminescence" Sconce;Lamp - Wall - Club - Sconce;Base Game
+0x7FD704EA;0x6CC92C1E;Antebellum Wall Lamp;Lamp - Wall - Colonial;Base Game
+0x7F64EC78;0xF048E8F0;Almost Deco Wall Sconce;Lamp - Wall - Decksconce;Base Game
+0x7FE887A1;0x0C7B49C2;Antique Metal Sconce;Lamp - Wall - Moroccan;Base Game
+0x7FF3B033;0xCC7B4A24;"Wall Flowers" Sconce ;Lamp - Wall - Quaint;Base Game
+0x7F6C6AC5;0xCC4406FB;Torcher Clamshell Wall Sconce;Lamp - Wall - Sconce - Clamshell;Base Game
+0x7F5A650F;0x0C44070C;Lunatech "GaulleVanizer"  Wall Sconce;Lamp - Wall - Sconce - Wave;Base Game
+0x7F7562D3;0x4CA170EA;Basically Bare Bulb from Electric Lighting;Lamp - Wall - Value;Base Game
+0x7FE40FC5;0x8CD8D06C;Prisoner of Azkalamp;Lamp - Wall - Value 2;Base Game
+0x7FE4B434;0x39CCF441;Mailbox;MailBox;Base Game
+0x7F3BF485;0xCC3569EC;Brand Name Zip Zap Microwave;Microwave;Base Game
+0x7F6A477C;0xCC6B322C;St. Ajoque Reproductions "See Plus" Mirror;Mirror - Art Nouveau;Base Game
+0x7FA02C74;0x0C7B4F13;Look Upon the Orient Mirror;Mirror - Central Asian;Base Game
+0x7FA1492F;0x8C258E74;Club Distress Wall Mirror;Mirror - Club;Base Game
+0x7F883856;0xAC258F15;Vision Mirrors "Past Reflections";Mirror - Colonial;Base Game
+0x7F8D665B;0xCC258F3C;Manor House Multi-Mirror;Mirror - Designer;Base Game
+0x7FC83200;0x0CDCC477;Modular Image Full-length Mirror;Mirror - Floor - Industrial;Base Game
+0x7F5B99A2;0x4CA678BF;Total Mirror;Mirror - Floor - Moderate;Base Game
+0x7F100CA9;0xCC258F71;"Obviously Modern" Wall Mirror;Mirror - Loft;Base Game
+0x7FB7BB1D;0x2C7B50E9;Exotic Reflections Mirror;Mirror - Moroccan;Base Game
+0x7F0995D1;0x4C258FAC;Porcelain Oval Mirror;Mirror - Quaint;Base Game
+0x7FEEC3E7;0x4C22E9A3;Reflective Glass Mirror;Mirror - Value;Base Game
+0x7F85A297;0xADACE67A;Money Tree;Money Tree;Base Game
+0x7F64B113;0xCC7B52A4;Olive Peynter's City SkyScape ;Painting - Art Nouveau Deco Print;Base Game
+0x7F0F37DE;0x6CDA04FD;"Poisonous Forest (In Love with a Curse)";Painting - Art Nouveau Swamp Print;Base Game
+0x7F9FA548;0x0C7B5397;"The Fourth Element" Wall Hanging;Painting - Central Asian Wall Tapestry;Base Game
+0x7F7D49D5;0xAC80A424;Chinese Opera Mask by Old Face;Painting - China Mask;Base Game
+0x7FF531A4;0x2CE0A6C7;Collage in Black and White;Painting - Collection;Base Game
+0x7FBE21A2;0xECC4FDBE;Open-Wall Wall Fan;Painting - Fan;Base Game
+0x7F8ACAD6;0x4C637B37;Ha-hye-tal Mask;Painting - Hahyetal;Base Game
+0x7FDECBCF;0x6CD8C11A;Oil "Fantasy Scape";Painting - Horizontal - Abstract;Base Game
+0x7FA6A5A2;0xACC50126;"In the Beginning";Painting - Horizontal - Applehead;Base Game
+0x7F9B3F3E;0x0CD8C44B;"Suspense";Painting - Horizontal - Bridge;Base Game
+0x7F31133F;0xECD8C479;"SimCity at Night";Painting - Horizontal - City;Base Game
+0x7F45EA36;0x6CDB8991;Rainy Day Main Street;Painting - Horizontal - Colorfield;Base Game
+0x7F04B12D;0xCCDA0C3F;Rolling Hills by H. Sean;Painting - Horizontal - Landscape;Base Game
+0x7F28151B;0xCCC50291;Korean Keumungo;Painting - Keumungo;Base Game
+0x7FB4A852;0x4C637E17;Bangpae Yeon from Simporters, Ltd.;Painting - Kite;Base Game
+0x7FD5F544;0x4CA170EB;Neon Flamingo;Painting - Neon Flamingo;Base Game
+0x7FD16D18;0xAC4BBE2B;"Searing Indifference" Wall Poster;Painting - Poster - Fire;Base Game
+0x7FDEB39C;0xEC4BBE63;Inverted Vertigo, Cover Art;Painting - Poster - Invert;Base Game
+0x7F94294F;0x0CDA10DE;Waderfall;Painting - Poster - Kid Painting 1;Base Game
+0x7F98B0B9;0xCCDA1122;Dreams of a Gifted Mind;Painting - Poster - Kid Painting 2;Base Game
+0x7F1EFC42;0xACDA112D;"The Monster Under My Bed" by Little Timmy;Painting - Poster - Kid Painting 3;Base Game
+0x7F02EDEC;0xECDA1186;"Winter Blossoms";Painting - Poster - Oriental Painting;Base Game
+0x7F25F67D;0x8C4BBE87;"Engineered Angst" Full-Color Poster;Painting - Poster - Teen Angst;Base Game
+0x7FB120C9;0x2CA16B7A;"Engineered Angst" Poster in Red;Painting - Poster - Teen Angst Red;Base Game
+0x7F6E1ED0;0xEC4BBEAC;"Civic Idol" by Adora Wall Arts;Painting - Poster - Worship;Base Game
+0x7F34D4BA;0x2CDA0DCC;Bella Squared;Painting - Square - Bella;Base Game
+0x7F919A78;0x4CDA0DE9;Spherical Splendor;Painting - Square - Blobs;Base Game
+0x7F2DD338;0x2CDA1013;The Lone Daisy;Painting - Square - Daisy;Base Game
+0x7F017E86;0xBCCA44AB;"Transcendence" by Joan Schnitzel;Painting - Square - Fruit;Base Game
+0x7F9B494E;0xCC6CC226;"Red vs. Blue" Oil Portrait ;Painting - Square - Meg;Base Game
+0x7F7B4C3C;0x2CDA0D83;Arghist Soldier;Painting - Square - Sailor;Base Game
+0x7FB4A9B7;0x2CDA1042;Handle and Spout;Painting - Square - Teapot;Base Game
+0x7F12205D;0xCCDA18FA;The Meaning of Fruit;Painting - Still Life;Base Game
+0x7F292E88;0xACDA11DF;The Lady On Red;Painting - Vertical - Bella;Base Game
+0x7FEF95DF;0x6C734D8C;SimLine Table Phone;Phone - Base - Table;Base Game
+0x7F94EBE8;0x6C7EF3B7;SimLine Wall Phone;Phone - Base - Wall;Base Game
+0x7FBBDB8E;0x6C734DB3;* (0x7FBBDB8E phone_handset_accessory);Phone - Handset;Base Game
+0x7FA1D352;0xECA6E041;SCTC Universal Public Phone;Phone - Public Phone Booth;Base Game
+0x7F492B69;0x11DEFEE4;Chimeway & Daughters Saloon Piano;Piano - Upright;Base Game
+0x7F67616A;0x0CDB6E2C;Sweet Tooth Survivor Pinball;Pinball Machine - Shark;Base Game
+0x7FA7321D;0xAE095B76;"Election Day" Retro Space-Age Action Pinball;Pinball Machine - UFO;Base Game
+0x7F6FC80C;0x2C75B7FB;Juniper Bonsai Tree;Plant - Decorative - Bonsai;Base Game
+0x7FB10385;0x0CC4FC63;Mystic Life "Flower Vase";Plant - Decorative - Orchid;Base Game
+0x7F8976DB;0xCC75B81E;"Blue Sky" Bonsai Tree;Plant - Decorative - Small Bonsai;Base Game
+0x7F49C4BE;0x6C75B8BD;Frost de Fleur Bud Vase;Plant - Decorative - Vase Small Bottle;Base Game
+0x7F0CA32B;0xECC4FD04;Fancifully Fuzzy Fern;Plant - Floor - Fern;Base Game
+0x7F536A23;0x4CC4FD6C;No-Fuss Ficus;Plant - Floor - Ficus;Base Game
+0x7F80BB92;0xAC75B83B;Fruitless Fig Tree;Plant - Floor - Fig Tree NEW;Base Game
+0x7F69C2B1;0x6C75B878;The Simulated Succulent;Plant - Floor - Jade NEW;Base Game
+0x7FE9A2D9;0x4C75B896;Rubber Tree Plant;Plant - Floor - Philodendron NEW;Base Game
+0x7F507958;0x2CD8BD32;Hosta La Vista;Plant - Hanging - Blue Hosta;Base Game
+0x7F3DE207;0x8C75B855;Falling Fern;Plant - Hanging - Ceiling Fern NEW;Base Game
+0x7F8ECBFD;0x6C7DA7BB;Nine Lives Cat O' Nines;Plant - Water - Cattail;Base Game
+0x7FE9B3DE;0xEC6A56CD;Genetically Engineered Water Lily;Plant - Water - Lilypad;Base Game
+0x7F5BA5F7;0x8C91C3C2;Diving Board;Pool Diving Board;Base Game
+0x7F585FFD;0xEC91BB93;In-And-Out Ladder;Pool Ladder;Base Game
+0x7F02BE2F;0x29B46D33;Tinkle Trainer 6000 Potty Chair;Potty Chair;Base Game
+0x7F8157FB;0x4CA1C5CA;Exceptionally Expensive Clothing Collator;Rack - Clothing - Expensive;Base Game
+0x7F78DB89;0xEC48333E;ClothesHorse Display Rack;Rack - Clothing - Value;Base Game
+0x7F66753A;0x0CDB971A;The Great Dress Rack;Rack - Clothing - Value - Dresses;Base Game
+0x7FB51583;0x1B2AEFA7;Deluxe Magazine Rack;Rack - Magazine;Base Game
+0x7FAE5BB0;0x0C452D3D;Enterprise Office Freestanding Game Rack;Rack - Video Games;Base Game
+0x7F41D78C;0x2CA29CF7;Countertop Game Display from Group Interaction LTD.;Rack - Video Games Counter;Base Game
+0x7F8FB402;0x6C5B5ED6;Dielectric Electrobreeze Windmill;Scenario Reward - Windmill;Base Game
+0x7F70887D;0xAC6CC548;Apple of the Eye;Sculpture - Big Apple;Base Game
+0x7FBBDBBC;0x6C6CC56F;The My-Chi Sculpture Form;Sculpture - Chi;Base Game
+0x7FAF6C4A;0x8C6CC5AC;"Immobile Chimes" Mobile in Steel;Sculpture - Chimes;Base Game
+0x7F4A3C58;0xEC6A3430;12th Century Song Dynasty Sculpted Vase;Sculpture - ChinaVase;Base Game
+0x7F6146DB;0x1427F5DF;"Bowl of Plastic Fruit";Sculpture - Fruit Bowl;Base Game
+0x7F99CA7A;0xCCD8E25A;"Flight-Away" Model Plane;Sculpture - Model Plane;Base Game
+0x7F83117D;0x2C7B5516;Exotic (Non)Screen from Simports, Ltd.;Sculpture - Moroccan Screen;Base Game
+0x7FE49C88;0xACC503CB;Anytime Candles;Sculpture - Table - Candle Collection;Base Game
+0x7F372FAC;0x8CA69948;Ancient Transport Urn Sculpture;Sculpture - Urn;Base Game
+0x7FB48C2A;0x8CC50511;MuseÚ Public "Collection Sculpture";Sculpture - Vase Collection;Base Game
+0x7FCCB85F;0xCCDB72CE;"On A Pedestal" by Yucan Byall;Sculpture - Venus;Base Game
+0x7F5EA2CF;0x8CA69957;"The Measure of a Sim" Wooden Model;Sculpture - Wooden Model;Base Game
+0x7FCA8D20;0x2C258FE8;Clean Water Shower System;Shower - Cheap;Base Game
+0x7F3D5B3F;0x4BD90A8A;"Coloratura" by Chrome Concepts;Shower - Expensive;Base Game
+0x7F222D81;0x0BFB3DBD;AquaPlus Shower Stall;ShowerTub;Base Game
+0x7FAE8CC3;0x6C7614E8;Colonial ComboCleen by Imperial Plumbing Works;ShowerTub - Colonial;Base Game
+0x7FB55248;0xCCCE4DFD;"Boxy Lady";Shrub - 4;Base Game
+0x7FA20E7C;0x0CCE4E0F;A-maze-ing Hedge;Shrub - 4 - Tall;Base Game
+0x7F702CD4;0x8CA6C064;Babbling Bougainvillea;Shrub - Bougainvillea;Base Game
+0x7F397E59;0x0CA6C09E;"Phantastic" Phlox!;Shrub - Creeping Phlox;Base Game
+0x7FB03A26;0x6C621C9D;Blue Tinged Hydrangea Shrub;Shrub - Hydrangea (New);Base Game
+0x7FB2275F;0x6CCE4E24;Garden Music "Oleander";Shrub - Oleander;Base Game
+0x7F87F8D6;0x2C635B95;The Literal Rose;Shrub - Rosebush (New);Base Game
+0x7FA2B7B0;0x6CC532FB;"Wear's the Sale?" Shop Sign;Sign - Clothing;Base Game
+0x7FAC20D8;0x6CC52D82;Produce Market Shingle;Sign - Grocery;Base Game
+0x7F7EC936;0x0CC533DD;SimCity SynapseSnapper Industrial Sign;Sign - Video Game;Base Game
+0x7FC2E960;0x92548B34;Simple Sink from Krampft Industries;Sink - Cheap;Base Game
+0x7F7C8A91;0x6C788335;Victor Victorian Pedestal Sink;Sink - Colonial;Base Game
+0x7F23D8A5;0xAC5291F8;Hydronomic CleenSheen Basin;Sink - Counter - Club;Base Game
+0x7FF69B33;0x0C7883A3;Filigree Facebowl by Imperial Plumbing Works;Sink - Counter - Colonial;Base Game
+0x7F929D23;0xCC490991;Imperial Plumbing Works Tivoli Basin;Sink - Counter - Loft;Base Game
+0x7FBC6C01;0x4C7883F5;Floral Sink;Sink - Counter - Quaint;Base Game
+0x7FC6DB4E;0x0C788436;Superlative Sink by "The Greatest Designer Alive";Sink - Counter - Value;Base Game
+0x7FA62E0E;0x8BE9EB5C;Imperial Lyon Basin;Sink - Expensive;Base Game
+0x7F8F0E90;0xEC788503;"Garden Fresh" Pedestal Sink;Sink - QuaintPedestal;Base Game
+0x7F83F7FA;0x0C75F8EE;Baroccoco Sofa by MiRE;Sofa - Art Nouveau;Base Game
+0x7F0948A0;0x5AEDE18A;Sofa by Club Distress;Sofa - Club;Base Game
+0x7F847023;0xCC78857A;Lap of Luxury Sofa;Sofa - Colonial 1;Base Game
+0x7F93C828;0x6C788604;Sofa of Substance;Sofa - Colonial 2;Base Game
+0x7F526E79;0xACA6A6EC;Contempto Adirondack Loveseat;Sofa - Loveseat - Adirondack;Base Game
+0x7F6C3994;0x6C75EDDB;Baroccoco Loveseat by MiRE;Sofa - Loveseat - Art Nouveau;Base Game
+0x7F38FA03;0x396AE1E4;Loveseat by Club Distress;Sofa - Loveseat - Club;Base Game
+0x7F51B131;0x4C7EF534;Luxuriare Loveseat;Sofa - Loveseat - Expensive Camel Back;Base Game
+0x7F1C085D;0xB8DB30F0;Zecutime Cityside Loveseat;Sofa - Loveseat - Modern;Base Game
+0x7F5D610A;0x4C787D18;Merokkan Loveseat;Sofa - Loveseat - Moroccan;Base Game
+0x7F5D0B92;0x2CC4FAB7;Piece of Quiet Park Bench;Sofa - Loveseat - Park Bench;Base Game
+0x7F7EDDE7;0x8C7EF57C;"Coming Up Roses" Loveseat by OakTowne;Sofa - Loveseat - Quaint;Base Game
+0x7F8C2B08;0xCC787FCF;Satinistics Loveseat;Sofa - Loveseat - Value;Base Game
+0x7F410931;0xFB94682F;Zecutime Cityside Sofa;Sofa - Modern;Base Game
+0x7F3836CD;0x78A01E9E;Studio Bakonmi Deluxe Loveseat;Sofa - Modern - Loft;Base Game
+0x7FBBF368;0x4C788693;Be There Designs "Bazaar Sofa";Sofa - Moroccan;Base Game
+0x7F5916D2;0x6C7886D8;Floral Fantasy Sofa by OakTowne;Sofa - Quaint;Base Game
+0x7F6ACBC2;0xCCAD84D0;Candy Coated Sofa;Sofa - UM CutOut;Base Game
+0x7FB28AB2;0x8CAD84E2;"Seatris" by Ima Hack;Sofa - UM Diamond;Base Game
+0x7F4EA924;0xCC788857;Durable Value Sofa;Sofa - Value 2;Base Game
+0x7F4230D2;0xCC7887C1;Futonesque Fantasy Sofa;Sofa - Value1;Base Game
+0x7F139DED;0x7E9D709E;Sphere - Matte;Sphere - Matte - For Light Testing;Base Game
+0x7F23BF4E;0xCCABE326;Stairs Nouveau;Stair Modular - Art Nouveau - No Railings - Bridge;Base Game
+0x7FF4606E;0x8CDB97AC;Steadfast Stairs;Stair Modular - Balustrade - No Railings - Bridge;Base Game
+0x7FC0D895;0x0C400DE0;Wooden Stairs;Stair Modular - Deck - Bridge;Base Game
+0x7F61C141;0xECAD1855;Country Stairs;Stair Modular - Loft - No Railings - Bridge;Base Game
+0x7FC5711D ;0xAD2121D7;Holy Smoke Stairs;Stair Modular - Loft Glass;Base Game
+0x7F6C670F;0x2CAD2FCD;Chic Stairs;Stair Modular - Quaint - No Railings - Bridge;Base Game
+0x7FB3B53F;0xAD212316;WroughtWright, Inc. Stairs;Stair Modular - Wrought Iron - No Railings - Bridge;Base Game
+0x7F32B262;0xAC901C39;Gothwise Staircase by I. Ron Smith;Stairs - Straight - ArtNouveau;Base Game
+0x7FD5592F;0x6C907C09;Altitude Attitude, Inc. "Step-By-Step" Staircase;Stairs - Straight - Club;Base Game
+0x7F463583;0xCC9076AA;"Stare Stepper" Staircase;Stairs - Straight - Designer;Base Game
+0x7F641CA9;0xAC907B14;Stairway to Eleven;Stairs - Straight - Loft;Base Game
+0x7F03B27C;0xAC90776E;Upwardly Mobile Staircase;Stairs - Straight - Quaint;Base Game
+0x7FBD19B4;0x8C907A78;Simple Structure Staircase;Stairs - Straight - Value;Base Game
+0x7F700B71;0x2C91B3D4;Compact Stereo by Lo-Fi Audio;Stereo - BoomBox;Base Game
+0x7F3DFEAC;0x2D832032;Neukum Systems "Bubblegum Sugar" Pop Wall Speaker;Stereo - Community - Bluegrass;Base Game
+0x7F690F6E;0xCD8320A8;Neukum Systems "The Cold Train" R&B Wall Speaker;Stereo - Community - Jazz;Base Game
+0x7F2A7DA4;0xAD832056;Neukum Systems "Art of Darkness" Heavy Metal Wall Speaker;Stereo - Community - Metal;Base Game
+0x7FE60296;0x6D832083;Neukum Systems "The Badunkadunk" Hip Hop Wall Speaker;Stereo - Community - Rap;Base Game
+0x7F43C869;0x6D8316F9;Neukum Systems "En Fuego" Salsa Wall Speaker;Stereo - Community - Salsa;Base Game
+0x7F3FF4B6;0xCD831C98;Neukum Systems "Glo Stik" Techno Wall Speaker;Stereo - Community - Techno;Base Game
+0x7FECB62D;0x9AC9AA83;Soma AudioGeek TK421 Tower System;Stereo - Expensive;Base Game
+0x7FD42482;0x2C7B5B6B;Fun-Kadelic Frequency Stereo Systemáfrom Kauker Inc. ;Stereo - Moderate;Base Game
+0x7F8D2E18;0x6C7F5EB8;Neukum Systems Wall Speaker;Stereo - Wall;Base Game
+0x7F5DB5AA;0xEC7B5CEE;Dialectric ReadyPrep Range;Stove - Cheap;Base Game
+0x7FD73F41;0x6C3BA882;Elegant Chef FlameBay Gas Range;Stove - Expensive;Base Game
+0x7FC0AE88;0xCC612060;Ciao Time "Mondo Fuego" Gas Stove;Stove - Moderate;Base Game
+0x7FAC04C8;0xCC37DEBB;Brand Name MetalKettle;Stove Grill - Cheap;Base Game
+0x7F529A97;0x2CC52C79;The Grillinator "BigBQ";Stove Grill - Community;Base Game
+0x7F6C3148;0xEC37DF1F;Shiny Things, Inc. Grandiose Grill;Stove Grill - Expensive;Base Game
+0x7F2FFF93;0xC239A78B;Durably Plush Teddy Bear;Stuffed Animal - Teddy Bear;Base Game
+0x7FF7529C;0x8CC668E1;Swing Kidz Deluxe Swing Set;Swing Set;Base Game
+0x7FBEB43F;0xEC75F9EC;Centerpieces Coffee Table;Table - Coffee - Art Nouveau;Base Game
+0x7FA28BFE;0x6C761D62;Tempered Tea Table;Table - Coffee - Central Asian;Base Game
+0x7FF55BC4;0x4CA696FD;Chabadii Chabudinky;Table - Coffee - Chabudai - 1x1;Base Game
+0x7FF60D46;0xCCD8E9D7;Chabadii "Yet Another" Coffee Table;Table - Coffee - Chabudai - 2x1;Base Game
+0x7F384C0C;0xAC429006;Club Distress Square Coffee Table;Table - Coffee - Club - 1x1;Base Game
+0x7F3B1A8E;0x4C4287EC;Club Distress Avignon Rectangular Coffee Table;Table - Coffee - Club - 2x1;Base Game
+0x7F6411AD;0x4C761D1D;Queen Anne Coffee Table;Table - Coffee - Colonial;Base Game
+0x7F29E572;0x4CA5766F;ScienStone "Dramatic" Coffee Table;Table - Coffee - Loft;Base Game
+0x7F5B92E6;0x8C761CC0;Moor is More Coffee Table;Table - Coffee - Moroccan;Base Game
+0x7FD68647;0xCC26EDB5;Scraps Ranch "CafeMate" Coffee Table;Table - Coffee - Pine;Base Game
+0x7F1F48C6;0xCC761C1B;Ad-a-Quaint Coffee Table;Table - Coffee - Quaint;Base Game
+0x7F3FE0B3;0x2CD8FBBD;Simply Spindle Coffee Table;Table - Coffee - Spindle;Base Game
+0x7FFD7F91;0x4C761710;Cozy Colonial End Table;Table - Coffee End - Colonial 1;Base Game
+0x7F49C765;0x4CA58F60;"End-to-End" Table;Table - Coffee End - Designer;Base Game
+0x7F3ECBA3;0x0C7614FA;Simple Structure End Table;Table - Coffee End - Value 1;Base Game
+0x7F0FB9C2;0x2CA7E29B;Exploding Dragon Dining Table;Table - Dining - Central Asian;Base Game
+0x7FD5154D;0xCC3FE58D;Luxiary ”Ample King” Dining Table;Table - Dining - Club;Base Game
+0x7FEF54AC;0x6CB569AC;Discourse Dining Table;Table - Dining - Colonial;Base Game
+0x7FDA83E6;0x0CFC279B;Park Plates Mini Outdoor Dining Table;Table - Dining - Community Lot;Base Game
+0x7F6A12BE;0x2C26C098;FLATWÍUD Dining Table by Iseeya;Table - Dining - Danish Modern;Base Game
+0x7FA20983;0xEC81E935;NuMica Allinall Card Table;Table - Dining - Formica;Base Game
+0x7FC11EBD;0x2C80AF5B;Milano Royale Dining Table;Table - Dining - Loft Square;Base Game
+0x7F0589B1;0x0C26DC69;Manor House Paree Dining Table;Table - Dining - Long Victorian;Base Game
+0x7FD0D7E7;0x4CA58B57;Tablablanca from Simporters, Ltd.;Table - Dining - Moroccan;Base Game
+0x7F15A32E;0x4CA58743;PINEGULTCHER Outdoor Minitable;Table - Dining - Outdoor Wood 1x1;Base Game
+0x7F4A7676;0x8C789ACE;The Talking Table;Table - Dining - Quaint;Base Game
+0x7F1E06EB;0xCC75FC48;The "Gold-end" Ratio Table;Table - End - Central Asian;Base Game
+0x7FB5A17E;0x8D211A84;Cornerstone "Sentinel" End Table;Table - End - Club;Base Game
+0x7FC15440;0x0C76174B;Curvaceous Colonial End Table;Table - End - Colonial 2;Base Game
+0x7FF4D27F;0xAC26E6F8;Contempto Adirondack End Table;Table - End - Deck Adirondack;Base Game
+0x7F04E4F8;0xAC6A40BF;Gliteri & Co. Trieste End Table;Table - End - Loft;Base Game
+0x7FAFF75C;0x8C761678;Merokkan End Table;Table - End - Moroccan;Base Game
+0x7F584129;0x8C26E7AD;Crazy 8 Table;Table - End - Octagonal;Base Game
+0x7FB297C0;0x0C761614;Country Comfort Corner Table;Table - End - Quaint;Base Game
+0x7F2BC08F;0x4C26E7FE;Tri-Tip Table;Table - End - TriangularTile;Base Game
+0x7F4221DE;0x0CA1DA75;Here and There Thing;Table - End - UM;Base Game
+0x7FA46DBF;0xE16104A3;Astrowonder Telescope;Telescope - Cheap;Base Game
+0x7F5CBE11;0xF1D086D1;Farstar e3 Telescope;Telescope - Expensive;Base Game
+0x7F4506C9;0xD627258C;Soma 44" PancakeTek Television;Television - Floor - Expensive;Base Game
+0x7F2785FB;0x3738A2E9;Trottco 27" MultiVid IV Television;Television - Floor - Moderate;Base Game
+0x7F484026;0x0C69FD67;Soma "Wall-Eye" Large Screen Flat-Panel Television;Television - Wall;Base Game
+0x7F45EADE;0x8C1581E6;TechTonic Touch Toaster Oven;Toaster Oven;Base Game
+0x7FE4D3C0;0x8C9AF669;Titania Vineyards 1914 Toasting Set;Toasting Set;Base Game
+0x7FCEBB6A;0xEF2310A1;Sewage Brothers Resteze Toilet;Toilet - Cheap;Base Game
+0x7F62173E;0x10F0FEE3;"Mentionable" Porcelain Toilet;Toilet - Expensive;Base Game
+0x7F549159;0x0C28109D;ResiStall Astro Divider 7;Toilet - Stall;Base Game
+0x7FE5ABE9;0x4C29CE24;Sewage Brothers Resteze Urinal;Toilet - Urinal;Base Game
+0x7F908503;0x8CB28476;Rip Co. Wobbly Wabbit Head;Toy - Language;Base Game
+0x7FF8BDC6;0x4C1580FA;Rip Co. Little Baker Oven;Toy - Oven;Base Game
+0x7F419E89;0xCC948545;VroomMaster 4000;Toy - Remote Control Car;Base Game
+0x7F9AA085;0x8E25E5FA;Rip Co. Xylophone;Toy - Xylophone;Base Game
+0x7F662B71;0xDEF1FDBA;Rip Co. Toy Bin;Toy Box;Base Game
+0x7FC8A133;0xEC69DA8C;Magical Mystery's "Shape, Rattle & Roll";Toy Peg Box;Base Game
+0x7FCFE070;0x8CB284A3;'Right Away' Community Trash-Can;Trash Can - Community;Base Game
+0x7FBD5792;0x1B2E275B;Narcisco Rubbish Bin;Trash Can - Inside;Base Game
+0x7F8905AA;0x6C859EC7;"Peace of Garbage" Can;Trash Can - Inside Value;Base Game
+0x7FD136BB;0xD20C0AEE;Great Outdoors Great Big Trash Can;Trash Can - Outside;Base Game
+0x7FBBE64F;0x16EA4621;Gagmia Simore "RefuseNik" Trash Compactor;Trash Compactor;Base Game
+0x7F8DD800;0xCCEDB897;Non-Proliferating Wild Bamboo;Tree - Bamboo;Base Game
+0x7F8B0F13;0x4CA6A53D;EasyShade Bay Tree;Tree - Bay;Base Game
+0x7FB87BDA;0x0C64925E;Birch Tree Sapling;Tree - Birch;Base Game
+0x7FDDA0EC;0x4D411369;Vasculito's General Cactus;Tree - Cactus;Base Game
+0x7FF2F877;0x4D49EE1A;Mescalito's Agave Simulado;Tree - Century Plant;Base Game
+0x7F965084;0x8CA6C214;Cupressus Sempervirens;Tree - Cypress;Base Game
+0x7FFE17B2;0xACD8BF27;SimCity Midbiscus;Tree - Hibiscus;Base Game
+0x7FA3B8BE;0xEC6491FB;Japanese Autumn Maple;Tree - Japanese Maple;Base Game
+0x7FED9A78;0x8D49ED60;Brevifolito's Joshua Tree;Tree - Joshua;Base Game
+0x7F3B32FE;0xCCCE5235;Plainlee Palm;Tree - Palm;Base Game
+0x7FDC050E;0x0C649181;Pointy Things Pencil Pine Tree;Tree - Pine;Base Game
+0x7F0BB1DC;0x8C648EFF; The Simple Weeping Willow;Tree - Willow;Base Game
+0x7F84D061;0x0CA980C2;The Black and White "Bare" Bath;Tub - Central Asian;Base Game
+0x7FEA801B;0xEC522CCC;Colonial Bathtub by Imperial Plumbing Works;Tub - Colonial;Base Game
+0x7FEB570F;0x0C7F5E20;Simple Tub from Krampft Industries;Tub - Rectangular;Base Game
+0x7F205E2F;0x0C7F5F19;Krampft Industries "HubbaTubba" Economy Bathtub;Tub - Value;Base Game
+0x7F1C0BCE;0x6C92CD03;Sunflowers;Vase - Sunflowers;Base Game
+0x7FE95D16;0x4D214140;MaxisÖ Game Simulator;VideoGame - System ;Base Game
+0x7F6C4753;0x0C92CDB1;Trellisor Wedding Arch;Wedding - Arch;Base Game
+0x7FD674E1;0x4C76113A;"Empeerical" Art Window;Window - 2 Tile - Art Nouveau Round;Base Game
+0x7F937E9C;0x8D3381EC;Independent Expressions, Inc., "Showcase" Shop Window;Window - 2 Tile - Display;Base Game
+0x7F6BF98D;0xB31FE716;High-Tech Loft Window;Window - 2 Tile - Loft;Base Game
+0x7FB36DAE;0x40F0FB3E;Independent Expressions Inc., "Non-Reflective" Window;Window - 2 Tile - Plate Glass;Base Game
+0x7F3A5B1C;0x8C761098;Conspicuous Views "Stained Glass with Arch";Window - Art Nouveau Stained Glass;Base Game
+0x7FF485FF;0x49FA1024;"Midnight Ride" Window by Cross-Reference;Window - Colonial Double Hung;Base Game
+0x7F9037EB;0x4CB7DD82;Lafenêtre Shuttered Window;Window - Colonial Double Hung With Shutters;Base Game
+0x7F3C1A7D;0xF48B9776;Lafenêtre Window Full-Length;Window - Colonial Tall Arch;Base Game
+0x7F6D18C5;0xCCB7DD98;Lafenêtre "Stately" Full-Length Shuttered Window;Window - Colonial Tall Arch With Shutters;Base Game
+0x7F267FDF;0x8D61A454;Independent Expressions, Inc., "Big Entrance" Shop Window;Window - Commercial Plate Glass;Base Game
+0x7F803E20;0xAC748973;Symmetric Poly-Molecular Matrix Window;Window - Craftsman;Base Game
+0x7F2C1536;0x2C761014;The "Light Pane";Window - Designer 2 Story;Base Game
+0x7F8A6384;0x2B695F3A;Breeze-easy Windows' "Double Hung" Deluxe;Window - Double Hung - Master;Base Game
+0x7F065756;0xFEC15DA4;Octothorp Atrium Window;Window - Four Tile Wide Atrium - Master;Base Game
+0x7F54D4AF;0x79B5594A;"Truly" Stained-Glass Window;Window - Gothic Stained Glass - Master;Base Game
+0x7FE8E98B;0x3FFAE351;Sheer Glass Window;Window - Loft Double Hung;Base Game
+0x7FBAEFFA;0x6C760E64;"Arch of Antiquity";Window - Moroccan With Bars;Base Game
+0x7FA78F5B;0x0C6A6F4B;The "Function of Plate Glass" Window;Window - Plate Glass - Regular;Base Game
+0x7F7E6055;0xCD69FA3B;Independent Expressions Inc., "Translucent" Window;Window - Plate Glass - Wide;Base Game
+0x7F0AD7DE;0xEC6A6FB8;Glassterpieces Privacy Window;Window - Privacy;Base Game
+0x7F0106B2;0x4C76076C;Well Wisher's Window;Window - Quaint;Base Game

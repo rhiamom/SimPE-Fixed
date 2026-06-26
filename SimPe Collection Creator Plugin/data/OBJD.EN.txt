@@ -1,0 +1,12 @@
+BuyCategories=Seating,Surfaces,Appliances,Electronics,Plumbing,Decor,Misc,Lighting,Hobbies,Aspiration,Career
+Seating=DiningChair,LivingChair,Sofas,Beds,Recreation,Unknown,Unknown,Misc
+Surfaces=Counter,Table,EndTable,Desk,CoffeeTable,Shelf,Unknown,Misc
+Appliances=Cooking,Fridges,Small,Large,Unknown,Unknown,Unknown,Misc
+Electronics=Entertainment,Video,Audio,Small,Unknown,Unknown,Unknown,Misc
+Plumbing=Toilet,ShowersandTubs,Sink,HotTub,Unknown,Unknown,Unknown,Misc
+Decor=Paintings,Sculptures,Rugs,Plants,Mirrors,Curtains,Unknown,Misc
+Misc=Unknown,Dresser,Unknown,Party,KidsStuff,Cars,Pets,Misc
+Lighting=Table,Floor,Wall,Ceiling,Outdoor,Unknown,Unknown,Misc
+Hobbies=Creative,Knowledge,Exercise,Recreation,Unknown,Unknown,Unknown,Misc
+Aspiration=,,,,,,,
+Career=,,,,,,,
