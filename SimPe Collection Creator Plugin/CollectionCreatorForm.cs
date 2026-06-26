@@ -4,8 +4,7 @@
  *                                                                          *
  *   Built on JFade's Sims 2 Collection Creator (© 2006-2007 DJS Sims /     *
  *   The Sims Programming Group), used with permission of the original     *
- *   author (granted 2026-06-26). Real UI port of frmMain (~6,900 lines)   *
- *   pending — see HANDOFF.md.                                              *
+ *   author (granted 2026-06-26).                                           *
  *                                                                          *
  *   This program is free software; you can redistribute it and/or modify   *
  *   it under the terms of the GNU General Public License as published by   *
@@ -13,50 +12,71 @@
  *   (at your option) any later version.                                    *
  ***************************************************************************/
 
+using System;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
+using SimPe.Interfaces;
+using SimPe.Interfaces.Plugin;
 
 namespace SimPe.Plugin
 {
     /// <summary>
-    /// Placeholder shell. Confirms the plugin loads, the IToolFactory wires
-    /// into the Tools menu, and ShowDialog opens. Real port of JFade's
-    /// frmMain replaces the body of this form.
+    /// Editor form for Sims 2 collection packages. UI is laid out by hand
+    /// in <see cref="InitializeComponent"/> (no Visual Studio .Designer.cs
+    /// split — simpler to maintain for a single-author plugin). All real
+    /// work delegates to <see cref="CollectionReader"/>,
+    /// <see cref="CollectionWriter"/>, and <see cref="ObjectCatalog"/>;
+    /// this file is purely UI + event glue.
     /// </summary>
-    internal class CollectionCreatorForm : Form
+    internal partial class CollectionCreatorForm : Form
     {
-        public CollectionCreatorForm()
+        // The collection currently being edited. Null when no collection is
+        // loaded (initial state and after a New click is cancelled). Every
+        // user action manipulates this object directly; saving serializes it.
+        CollectionInfo current;
+
+        // Path of the currently-open collection on disk, when it came from
+        // Open Collection. Lets Save round-trip without re-prompting.
+        string currentPath;
+
+        // OpcodeProvider for Objd parsing — passed through from the tool's
+        // factory. Null is acceptable; ObjectCatalog handles that.
+        readonly IProviderRegistry providers;
+
+        // Plugin-bundled data folder (data/) — resolved from the running DLL's
+        // location once and cached. Used as starting directory for Sample
+        // Icons picker and for the MaxisObjectList.txt lookup table.
+        readonly string dataFolder;
+
+        public CollectionCreatorForm(IProviderRegistry providers)
         {
-            Text = "Collection Creator (work in progress)";
-            ClientSize = new Size(420, 140);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
-            MinimizeBox = false;
-            StartPosition = FormStartPosition.CenterParent;
+            this.providers = providers;
+            this.dataFolder = ResolveDataFolder();
 
-            var label = new Label
+            InitializeComponent();
+            UpdateUIState();
+        }
+
+        /// <summary>Find the plugin's data folder next to the loaded DLL.</summary>
+        static string ResolveDataFolder()
+        {
+            try
             {
-                Text = "Collection Creator port is scaffolded — frmMain UI " +
-                       "transplant not yet done.\r\n\r\n" +
-                       "See SimPe Collection Creator Plugin/HANDOFF.md for " +
-                       "remaining work.",
-                Location = new Point(12, 12),
-                Size = new Size(396, 70),
-                AutoSize = false,
-            };
-
-            var btnClose = new Button
-            {
-                Text = "Close",
-                DialogResult = DialogResult.Cancel,
-                Location = new Point(333, 95),
-                Size = new Size(75, 30),
-            };
-
-            Controls.Add(label);
-            Controls.Add(btnClose);
-            CancelButton = btnClose;
-            AcceptButton = btnClose;
+                string dllPath = Assembly.GetExecutingAssembly().Location;
+                string dllDir = Path.GetDirectoryName(dllPath) ?? "";
+                // Directory.Build.targets copies data/ into bin/Release/data/
+                // (next to the plugin DLL when it sits in Plugins\).
+                string candidate = Path.Combine(dllDir, "data");
+                if (Directory.Exists(candidate)) return candidate;
+                // When launched from per-project bin, data/ also lives at
+                // ../data relative to the DLL.
+                candidate = Path.Combine(dllDir, "..", "data");
+                if (Directory.Exists(candidate)) return Path.GetFullPath(candidate);
+            }
+            catch { }
+            return null;
         }
     }
 }

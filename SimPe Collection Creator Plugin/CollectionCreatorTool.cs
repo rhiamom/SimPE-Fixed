@@ -41,7 +41,7 @@ namespace SimPe.Plugin
 
         public IToolResult ShowDialog(ref IPackedFileDescriptor pfd, ref IPackageFile package)
         {
-            using (var form = new CollectionCreatorForm())
+            using (var form = new CollectionCreatorForm(prov))
             {
                 form.ShowDialog();
             }
