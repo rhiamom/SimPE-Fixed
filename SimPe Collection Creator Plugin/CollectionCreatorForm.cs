@@ -57,6 +57,7 @@ namespace SimPe.Plugin
 
             InitializeComponent();
             UpdateUIState();
+            this.Load += (s, e) => OnFormLoadedFirstTime();
         }
 
         /// <summary>Find the plugin's data folder next to the loaded DLL.</summary>

@@ -5,8 +5,14 @@
 		<Version>8.3.0</Version>
 		<FileVersion>8.3.0.0</FileVersion>
 		<AssemblyVersion>8.3.0.0</AssemblyVersion>
-		<!-- Unified output folder -->
+		<!-- Unified output folder. $(SolutionDir) is only set when MSBuild
+		     drives a .sln; building a single .csproj from `dotnet build` or
+		     VS Code leaves it as *Undefined*. Fall back to the directory
+		     this Directory.Build.targets file lives in (always the solution
+		     root) so per-project builds still copy outputs to the unified
+		     bin and into the SimPE.Main\Plugins folder. -->
 		<SimPeUnifiedOutDir Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)bin\$(Configuration)\</SimPeUnifiedOutDir>
+		<SimPeUnifiedOutDir Condition=" '$(SimPeUnifiedOutDir)' == '' ">$(MSBuildThisFileDirectory)bin\$(Configuration)\</SimPeUnifiedOutDir>
 		<!-- Suppress CA1416 platform-compatibility warnings — entire solution targets net8.0-windows -->
 		<!-- Suppress legacy code warnings in old decompiled/ported code -->
 		<NoWarn>$(NoWarn);CA1416;CA2200;CS0067;CS0162;CS0168;CS0169;CS0414;CS0436;CS0618;CS0649;CS8981;SYSLIB0003</NoWarn>
@@ -71,6 +77,7 @@
 		<PropertyGroup>
 			<_IsPluginOrWizard Condition=" $(AssemblyName.EndsWith('.plugin')) Or $(AssemblyName.EndsWith('.wizard')) Or $(AssemblyName.EndsWith('.exporter')) ">true</_IsPluginOrWizard>
 			<_SimPeMainBin Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)SimPE.Main\bin\$(Configuration)\</_SimPeMainBin>
+			<_SimPeMainBin Condition=" '$(_SimPeMainBin)' == '' ">$(MSBuildThisFileDirectory)SimPE.Main\bin\$(Configuration)\</_SimPeMainBin>
 		</PropertyGroup>
 
 		<MakeDir Directories="$(SimPeUnifiedOutDir)Plugins" Condition=" '$(_IsPluginOrWizard)' == 'true' " />
@@ -126,6 +133,28 @@
 		  DestinationFiles="@(_SimPePluginSidecars->'$(_SimPeMainBin)Plugins\%(RecursiveDir)%(Filename)%(Extension)')"
 		  SkipUnchangedFiles="true"
 		  Condition=" '@(_SimPePluginSidecars)' != '' And '$(_SimPeMainBin)' != '' " />
+
+		<!-- A plugin can also ship a sibling data/ folder (e.g. Collection
+		     Creator's MaxisObjectList.txt and Sample Icons/, declared as
+		     <None Include="data\**\*"> with TargetPath data\... ). The
+		     CopyToOutputDirectory rule puts them at $(TargetDir)data\* but,
+		     like the Plugins\ sidecars above, nothing was promoting them to
+		     the unified-bin location next to where the plugin DLL lands.
+		     Plugins that look up "data next to my DLL" therefore found
+		     nothing once SimPE.Main ran from the unified bin. Mirror data\
+		     into Plugins\data\ at both unified destinations so the lookup
+		     finds the same files no matter which bin SimPE launches from. -->
+		<ItemGroup Condition=" '$(_IsPluginOrWizard)' == 'true' ">
+			<_SimPePluginData Include="$(TargetDir)data\**\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(_SimPePluginData)"
+		  DestinationFiles="@(_SimPePluginData->'$(SimPeUnifiedOutDir)Plugins\data\%(RecursiveDir)%(Filename)%(Extension)')"
+		  SkipUnchangedFiles="true"
+		  Condition=" '$(_IsPluginOrWizard)' == 'true' And '@(_SimPePluginData)' != '' " />
+		<Copy SourceFiles="@(_SimPePluginData)"
+		  DestinationFiles="@(_SimPePluginData->'$(_SimPeMainBin)Plugins\data\%(RecursiveDir)%(Filename)%(Extension)')"
+		  SkipUnchangedFiles="true"
+		  Condition=" '$(_IsPluginOrWizard)' == 'true' And '$(_SimPeMainBin)' != '' And '@(_SimPePluginData)' != '' " />
 
 		<!-- For EXE/WinExe projects (SimPE.Main, Wizards of SimPe), also copy every
 		     transitive runtime dependency (third-party DLLs, *.config, the runtimes\

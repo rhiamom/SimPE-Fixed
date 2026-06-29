@@ -13,6 +13,7 @@
  ***************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -46,7 +47,7 @@ namespace SimPe.Plugin
             cmdExit.Click        += (s, e) => Close();
             cmdSaveColl.Click    += CmdSaveColl_Click;
             Command1.Click       += Command1_Click;    // Add Object
-            cmdBatchAdd.Click    += (s, e) => EnterMode(UIMode.BatchAdd);
+            cmdBatchAdd.Click    += CmdBatchAdd_Click;
 
             // --- Metadata edits ------------------------------------
             cmdLoadPic.Click     += CmdLoadPic_Click;
@@ -60,13 +61,16 @@ namespace SimPe.Plugin
             cmdRemoveItem.Click  += CmdRemoveItem_Click;
 
             // --- Options mode buttons ------------------------------
-            cmdCloseOptions.Click += (s, e) => EnterMode(UIMode.Main);
+            cmdCloseOptions.Click += CmdCloseOptions_Click;
             cmdFindCollDir.Click  += (s, e) => PickFolderInto(txtCollDir);
             cmdFindThumbDir.Click += (s, e) => PickFolderInto(txtThumbDir);
 
-            // --- Batch Add mode buttons (placeholders for now) -----
-            cmdFinishBatchAdd.Click += (s, e) => EnterMode(UIMode.Main);
-            cmdCancelBatchAdd.Click += (s, e) => EnterMode(UIMode.Main);
+            // --- Batch Add mode buttons ----------------------------
+            cmdBatchAddUp.Click     += CmdBatchAddUp_Click;
+            cmdBatchAddDown.Click   += CmdBatchAddDown_Click;
+            cmdBatchAddRemove.Click += CmdBatchAddRemove_Click;
+            cmdFinishBatchAdd.Click += CmdFinishBatchAdd_Click;
+            cmdCancelBatchAdd.Click += CmdCancelBatchAdd_Click;
 
             // --- Add Item Details mode buttons (placeholders) ------
             cmdAddItem.Click += (s, e) => EnterMode(UIMode.Main);
@@ -213,17 +217,24 @@ namespace SimPe.Plugin
                     var infos = ObjectCatalog.Read(path, nameTable);
                     if (infos.Count > 0)
                     {
-                        var info = infos[0];
-                        current.Members.Add(new CollectionMember
+                        // Add every OBJD the package carries — a multi-tile
+                        // window/door set is often 3-8 OBJDs, and the Maxis
+                        // catalog merges (globalCatbundle.package etc) carry
+                        // thousands. Dropping all-but-the-first would silently
+                        // throw away most of the file's contents.
+                        foreach (var info in infos)
                         {
-                            ObjectType = info.ObjectType,
-                            ObjectGroup = info.ObjectGroup,
-                            ObjectInstance = info.ObjectInstance,
-                            ObjectInstanceHi = info.ObjectInstanceHi,
-                            Guid = info.Guid,
-                            DisplayName = info.DisplayName,
-                        });
-                        added++;
+                            current.Members.Add(new CollectionMember
+                            {
+                                ObjectType = info.ObjectType,
+                                ObjectGroup = info.ObjectGroup,
+                                ObjectInstance = info.ObjectInstance,
+                                ObjectInstanceHi = info.ObjectInstanceHi,
+                                Guid = info.Guid,
+                                DisplayName = info.DisplayName,
+                            });
+                            added++;
+                        }
                     }
                     else
                     {
@@ -308,6 +319,157 @@ namespace SimPe.Plugin
             lstListOfItems.SelectedIndex = i + 1;
         }
 
+        // --- Batch Add ---------------------------------------------
+        // JFade's flow: pick a folder, recursively scan every .package
+        // under it, stage one row per OBJD in a preview list, let the user
+        // prune/reorder, then commit the whole batch into the collection.
+
+        readonly List<CollectionMember> pendingBatchAdd = new List<CollectionMember>();
+
+        void CmdBatchAdd_Click(object sender, EventArgs e)
+        {
+            if (current == null) return;
+
+            dlgPickFolder.Description = "Choose a folder of .package files to batch-add";
+            if (dlgPickFolder.ShowDialog(this) != DialogResult.OK) return;
+            string folder = dlgPickFolder.SelectedPath;
+            if (string.IsNullOrEmpty(folder) || !Directory.Exists(folder)) return;
+
+            string nameTable = dataFolder != null
+                ? Path.Combine(dataFolder, "MaxisObjectList.txt")
+                : null;
+
+            pendingBatchAdd.Clear();
+            int objects = 0, recolors = 0, unknowns = 0, seen = 0;
+
+            // SearchOption.AllDirectories throws and bails the entire walk
+            // on the first inaccessible subfolder it hits — Windows Downloads
+            // often has leftover OneDrive metadata, junctions, or restricted
+            // system folders that would silently truncate the recursion to
+            // zero results. EnumerationOptions with IgnoreInaccessible skips
+            // those and keeps walking; AttributesToSkip = 0 also picks up
+            // hidden/system folders that the default would have excluded.
+            var enumOpts = new EnumerationOptions
+            {
+                RecurseSubdirectories = true,
+                IgnoreInaccessible    = true,
+                AttributesToSkip      = 0,
+            };
+
+            Cursor.Current = Cursors.WaitCursor;
+            try
+            {
+                foreach (string path in Directory.EnumerateFiles(folder, "*.package", enumOpts))
+                {
+                    seen++;
+                    try
+                    {
+                        var infos = ObjectCatalog.Read(path, nameTable);
+                        if (infos.Count > 0)
+                        {
+                            foreach (var info in infos)
+                            {
+                                pendingBatchAdd.Add(new CollectionMember
+                                {
+                                    ObjectType = info.ObjectType,
+                                    ObjectGroup = info.ObjectGroup,
+                                    ObjectInstance = info.ObjectInstance,
+                                    ObjectInstanceHi = info.ObjectInstanceHi,
+                                    Guid = info.Guid,
+                                    DisplayName = info.DisplayName,
+                                });
+                                objects++;
+                            }
+                        }
+                        else if (ObjectCatalog.Classify(path) == PackageKind.Recolor) recolors++;
+                        else unknowns++;
+                    }
+                    catch
+                    {
+                        unknowns++;
+                    }
+                }
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
+
+            RefreshBatchList();
+            EnterMode(UIMode.BatchAdd);
+            SetStatus($"Scanned {folder} — saw {seen} .package file(s): {objects} object(s) queued, {recolors} recolor(s), {unknowns} unrecognised.");
+        }
+
+        void CmdBatchAddRemove_Click(object sender, EventArgs e)
+        {
+            int i = lstBatchAdd.SelectedIndex;
+            if (i < 0 || i >= pendingBatchAdd.Count) return;
+            pendingBatchAdd.RemoveAt(i);
+            RefreshBatchList();
+            if (pendingBatchAdd.Count > 0)
+                lstBatchAdd.SelectedIndex = Math.Min(i, pendingBatchAdd.Count - 1);
+        }
+
+        void CmdBatchAddUp_Click(object sender, EventArgs e)
+        {
+            int i = lstBatchAdd.SelectedIndex;
+            if (i <= 0) return;
+            (pendingBatchAdd[i - 1], pendingBatchAdd[i]) = (pendingBatchAdd[i], pendingBatchAdd[i - 1]);
+            RefreshBatchList();
+            lstBatchAdd.SelectedIndex = i - 1;
+        }
+
+        void CmdBatchAddDown_Click(object sender, EventArgs e)
+        {
+            int i = lstBatchAdd.SelectedIndex;
+            if (i < 0 || i >= pendingBatchAdd.Count - 1) return;
+            (pendingBatchAdd[i + 1], pendingBatchAdd[i]) = (pendingBatchAdd[i], pendingBatchAdd[i + 1]);
+            RefreshBatchList();
+            lstBatchAdd.SelectedIndex = i + 1;
+        }
+
+        void CmdFinishBatchAdd_Click(object sender, EventArgs e)
+        {
+            if (current != null && pendingBatchAdd.Count > 0)
+            {
+                int n = pendingBatchAdd.Count;
+                current.Members.AddRange(pendingBatchAdd);
+                pendingBatchAdd.Clear();
+                RefreshMemberList();
+                SetStatus($"Added {n} object(s) from batch.");
+            }
+            EnterMode(UIMode.Main);
+        }
+
+        void CmdCancelBatchAdd_Click(object sender, EventArgs e)
+        {
+            pendingBatchAdd.Clear();
+            EnterMode(UIMode.Main);
+            SetStatus("Batch add canceled.");
+        }
+
+        void RefreshBatchList()
+        {
+            lstBatchAdd.BeginUpdate();
+            try
+            {
+                lstBatchAdd.Items.Clear();
+                foreach (var m in pendingBatchAdd)
+                {
+                    string label = !string.IsNullOrEmpty(m.DisplayName)
+                        ? m.DisplayName
+                        : $"GUID 0x{m.Guid:X8}";
+                    lstBatchAdd.Items.Add(label);
+                }
+            }
+            finally
+            {
+                lstBatchAdd.EndUpdate();
+            }
+            if (lblBatchAddTotal != null)
+                lblBatchAddTotal.Text = $"Total Items: {pendingBatchAdd.Count}";
+        }
+
         // --- Metadata edits ----------------------------------------
 
         void TxtCollName_TextChanged(object sender, EventArgs e)
@@ -345,6 +507,37 @@ namespace SimPe.Plugin
         }
 
         // --- Options helpers ---------------------------------------
+
+        // Pulled in from a persisted file on form load and pushed back out
+        // when the user leaves Options mode. JFade's original prompted on
+        // first run but never actually saved (Options.txt write was broken)
+        // — we save for real so the prompt is genuinely first-run only.
+        void OnFormLoadedFirstTime()
+        {
+            var opts = CollectionOptions.Load();
+            txtCollDir.Text    = opts.CollectionsDir;
+            txtThumbDir.Text   = opts.ThumbnailsDir;
+            chkWarningOff.Checked = opts.WarningsOff;
+            chkCompression.Checked = opts.CompressOnSave;
+
+            if (!opts.IsConfigured)
+            {
+                EnterMode(UIMode.Options);
+                SetStatus("Welcome — set your Collections folder, then click OK.");
+            }
+        }
+
+        void CmdCloseOptions_Click(object sender, EventArgs e)
+        {
+            new CollectionOptions
+            {
+                CollectionsDir = txtCollDir.Text   ?? "",
+                ThumbnailsDir  = txtThumbDir.Text  ?? "",
+                WarningsOff    = chkWarningOff.Checked,
+                CompressOnSave = chkCompression.Checked,
+            }.Save();
+            EnterMode(UIMode.Main);
+        }
 
         void PickFolderInto(TextBox target)
         {

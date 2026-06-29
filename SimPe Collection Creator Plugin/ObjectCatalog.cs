@@ -130,27 +130,37 @@ namespace SimPe.Plugin
 
             foreach (IPackedFileDescriptor pfd in pkg.Index.Where(p => p.Type == MetaData.OBJD_FILE))
             {
-                // Objd needs an OpcodeProvider for full BHAV-context parsing,
-                // but we only read the GUID/FileName/TGI fields, none of which
-                // touch opcodes. Passing null is safe for this read-only use.
-                Objd objd = new Objd(null);
-                objd.ProcessData(pfd, pkg);
-
-                var info = new ObjectInfo
+                // Per-OBJD try/catch so one malformed entry can't take out
+                // the whole bundle — merged catalogs like globalCatbundle.package
+                // carry thousands of OBJDs and a single odd-format one would
+                // otherwise drop the entire file to "unrecognised".
+                try
                 {
-                    ObjectType = pfd.Type,
-                    ObjectGroup = pfd.Group,
-                    ObjectInstance = pfd.Instance,
-                    ObjectInstanceHi = pfd.SubType,
-                    Guid = objd.Guid,
-                    ObjdName = objd.FileName ?? string.Empty,
-                };
+                    // Objd needs an OpcodeProvider for full BHAV-context parsing,
+                    // but we only read the GUID/FileName/TGI fields, none of which
+                    // touch opcodes. Passing null is safe for this read-only use.
+                    Objd objd = new Objd(null);
+                    objd.ProcessData(pfd, pkg);
 
-                // Try the lookup table for a nicer name; fall back to the
-                // FileName field inside the OBJD itself if no match.
-                info.DisplayName = MaxisObjectList.Lookup(info.Guid, nameTablePath) ?? info.ObjdName;
+                    var info = new ObjectInfo
+                    {
+                        ObjectType = pfd.Type,
+                        ObjectGroup = pfd.Group,
+                        ObjectInstance = pfd.Instance,
+                        ObjectInstanceHi = pfd.SubType,
+                        Guid = objd.Guid,
+                        ObjdName = objd.FileName ?? string.Empty,
+                    };
 
-                results.Add(info);
+                    // Try the lookup table for a nicer name; fall back to the
+                    // FileName field inside the OBJD itself if no match.
+                    info.DisplayName = MaxisObjectList.Lookup(info.Guid, nameTablePath) ?? info.ObjdName;
+
+                    results.Add(info);
+                }
+                catch
+                {
+                }
             }
 
             return results;
@@ -158,11 +168,13 @@ namespace SimPe.Plugin
     }
 
     /// <summary>
-    /// CSV lookup for GUID → friendly name. JFade's
-    /// <c>MaxisObjectList.txt</c> is a 2-column comma-separated file
-    /// (GUID hex, name) shipped in <c>data/</c>. <c>UserObjectList.txt</c>
-    /// in the same folder lets users add their own mappings — checked
-    /// first so user overrides win.
+    /// GUID → friendly-name lookup. JFade's <c>MaxisObjectList.txt</c>
+    /// is a 5-column semicolon-separated file with a header row:
+    /// <c>Group ID;GUID;CTSS Name;OBJD Name;Game Version</c>.
+    /// We key on column 2 (GUID, stored as <c>0xHHHHHHHH</c>) and return
+    /// column 3 (CTSS Name — the human-readable catalog name).
+    /// <c>UserObjectList.txt</c> in the same folder uses the same format
+    /// and is checked first so user customisations win.
     /// </summary>
     public static class MaxisObjectList
     {
@@ -184,10 +196,11 @@ namespace SimPe.Plugin
             return LookupInFile(guid, tablePath);
         }
 
-        // Linear scan of a comma-separated GUID,name file. The tables are
-        // small enough (~5,000 lines) that the overhead doesn't matter
-        // when called per-Add-Item; if it ever does, swap for a cached
-        // Dictionary keyed by GUID hex.
+        // Linear scan of a semicolon-separated 5-column file. The table
+        // is ~1,270 lines today; lookup cost is negligible per Add-Item.
+        // If it ever matters, swap for a cached Dictionary<uint, string>.
+        // Header row ("Group ID;GUID;...") is skipped automatically because
+        // its second column doesn't parse as a hex GUID.
         static string LookupInFile(uint guid, string path)
         {
             if (string.IsNullOrEmpty(path) || !System.IO.File.Exists(path)) return null;
@@ -198,17 +211,16 @@ namespace SimPe.Plugin
                 string line = raw.Trim();
                 if (line.Length == 0 || line.StartsWith("#")) continue;
 
-                int comma = line.IndexOf(',');
-                if (comma <= 0) continue;
+                // Columns: 0=Group, 1=GUID, 2=CTSS Name, 3=OBJD Name, 4=Pack
+                string[] cols = line.Split(';');
+                if (cols.Length < 3) continue;
 
-                string key = line.Substring(0, comma).Trim();
-                // JFade's files store GUIDs both as bare hex and as "0xHHHH";
-                // normalize before compare.
+                string key = cols[1].Trim();
                 if (key.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
                     key = key.Substring(2);
 
                 if (string.Equals(key, needle, StringComparison.OrdinalIgnoreCase))
-                    return line.Substring(comma + 1).Trim();
+                    return cols[2].Trim();
             }
             return null;
         }
