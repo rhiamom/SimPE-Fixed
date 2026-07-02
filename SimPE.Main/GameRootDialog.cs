@@ -587,10 +587,20 @@ namespace SimPe
             if (!string.IsNullOrEmpty(downloadsPath))
             {
                 string gmndPath = Path.Combine(downloadsPath, "_EnableColorOptionsGMND.package");
-                string zcepFolderPath = Path.Combine(Path.GetDirectoryName(downloadsPath), "zCEP-EXTRA");
+                // zCEP-EXTRA lives as a SIBLING of Downloads under the Sims 2
+                // user folder, not inside it. Directory.GetParent handles the
+                // trailing-separator case correctly; Path.GetDirectoryName
+                // does not — with a trailing backslash it returns the path
+                // itself (minus the separator), which sent the CEP check
+                // looking inside Downloads and reported CEP as Missing even
+                // when it was correctly installed.
+                var downloadsParent = Directory.GetParent(downloadsPath);
+                string zcepFolderPath = downloadsParent != null
+                    ? Path.Combine(downloadsParent.FullName, "zCEP-EXTRA")
+                    : null;
 
                 cepHasGmnd = File.Exists(gmndPath);
-                cepHasZcepFolder = Directory.Exists(zcepFolderPath);
+                cepHasZcepFolder = zcepFolderPath != null && Directory.Exists(zcepFolderPath);
             }
 
             // --- Program-side CEP (Base game folder) ---
