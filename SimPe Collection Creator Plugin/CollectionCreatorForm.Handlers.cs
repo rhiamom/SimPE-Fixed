@@ -71,6 +71,7 @@ namespace SimPe.Plugin
             cmdBatchAddRemove.Click += CmdBatchAddRemove_Click;
             cmdFinishBatchAdd.Click += CmdFinishBatchAdd_Click;
             cmdCancelBatchAdd.Click += CmdCancelBatchAdd_Click;
+            lstBatchAdd.SelectedIndexChanged += LstBatchAdd_SelectedIndexChanged;
 
             // --- Add Item Details mode buttons (placeholders) ------
             cmdAddItem.Click += (s, e) => EnterMode(UIMode.Main);
@@ -222,6 +223,7 @@ namespace SimPe.Plugin
                         // catalog merges (globalCatbundle.package etc) carry
                         // thousands. Dropping all-but-the-first would silently
                         // throw away most of the file's contents.
+                        string basename = Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
                         foreach (var info in infos)
                         {
                             current.Members.Add(new CollectionMember
@@ -232,6 +234,7 @@ namespace SimPe.Plugin
                                 ObjectInstanceHi = info.ObjectInstanceHi,
                                 Guid = info.Guid,
                                 DisplayName = info.DisplayName,
+                                SourceBasename = basename,
                             });
                             added++;
                         }
@@ -367,6 +370,7 @@ namespace SimPe.Plugin
                         var infos = ObjectCatalog.Read(path, nameTable);
                         if (infos.Count > 0)
                         {
+                            string basename = Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
                             foreach (var info in infos)
                             {
                                 pendingBatchAdd.Add(new CollectionMember
@@ -377,6 +381,7 @@ namespace SimPe.Plugin
                                     ObjectInstanceHi = info.ObjectInstanceHi,
                                     Guid = info.Guid,
                                     DisplayName = info.DisplayName,
+                                    SourceBasename = basename,
                                 });
                                 objects++;
                             }
@@ -468,6 +473,32 @@ namespace SimPe.Plugin
             }
             if (lblBatchAddTotal != null)
                 lblBatchAddTotal.Text = $"Total Items: {pendingBatchAdd.Count}";
+        }
+
+        // Selection → preview thumbnail of the highlighted pending item.
+        // Caches the per-member Image on first successful load so flipping
+        // back and forth doesn't pay the ObjectThumbnails.package lookup
+        // cost more than once per item. Empty PictureBox when the item
+        // has no modelname or the lookup returns nothing.
+        void LstBatchAdd_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = lstBatchAdd.SelectedIndex;
+            if (i < 0 || i >= pendingBatchAdd.Count) { PictureBox2.Image = null; return; }
+
+            var member = pendingBatchAdd[i];
+            if (member.Thumbnail == null)
+            {
+                member.Thumbnail = ObjectThumbnailLoader.GetThumbnail(
+                    txtThumbDir?.Text, member.SourceBasename,
+                    out string diag);
+
+                // Surface the specific failure step in the status bar so
+                // the user can tell whether it's a config problem (folder
+                // unset, package missing) or a genuine cache miss.
+                if (member.Thumbnail == null && !string.IsNullOrWhiteSpace(diag))
+                    SetStatus($"No thumbnail: {diag}");
+            }
+            PictureBox2.Image = member.Thumbnail;
         }
 
         // --- Metadata edits ----------------------------------------

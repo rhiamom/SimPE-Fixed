@@ -96,6 +96,16 @@ namespace SimPe.Plugin
         /// </summary>
         public uint Guid { get; set; }
 
+        /// <summary>
+        /// Basename (no extension, lowercase) of the .package this member
+        /// was added from. Feeds JFade's thumbnail lookup — the game
+        /// caches CC previews in <c>ObjectThumbnails.package</c> keyed by
+        /// <c>instance = 0x7F000000 | CRC24(basename)</c>. Populated at
+        /// Add/Batch-Add time; empty for members loaded from an existing
+        /// collection package (we no longer know the source file).
+        /// </summary>
+        public string SourceBasename { get; set; } = string.Empty;
+
         /// <summary>Optional per-member thumbnail (display only).</summary>
         public Image Thumbnail { get; set; }
     }
