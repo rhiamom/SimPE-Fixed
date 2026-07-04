@@ -3,7 +3,10 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <AssemblyName>simpe.toolbox.scanner</AssemblyName>
+    <!-- Assembly must end in .plugin so PluginManager loads it — otherwise
+         the "Scan Folders..." tool never registers into the menu even
+         though ScanerTool.cs is built and copied into Plugins\. -->
+    <AssemblyName>simpe.toolbox.scanner.plugin</AssemblyName>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <StartupObject />
