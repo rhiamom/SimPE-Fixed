@@ -45,10 +45,23 @@ namespace pj
                 if (!fii.Use) continue; // comment this out for errors
                 if (fii.IsFile && fii.Name.ToLowerInvariant().EndsWith(".package"))
                     packs.Insert(0, fii.Name);
-                else if (fii.Type.AsExpansions != SimPe.Expansions.Custom && Directory.Exists(fii.Name)) // && Directory.Exists(fii.Name) or frows errors
+                // Pre-.NET-8 code filtered by `fii.Type.AsExpansions != Custom`
+                // here, but the port's FileTableBase.DefaultFolders creates every
+                // entry with FileTablePaths.Absolute (0x8FFF0000), which classifies
+                // as Custom by AsExpansions' > 0x80000000 rule. That silently
+                // dropped every per-EP Sims3D / 3D folder — findAndAdd never
+                // saw Sims03/04/05/06.package and the extractor always reported
+                // "not all parts found" on BodyShop exports. Custom check
+                // dropped, and we normalise the trailing separator: the port's
+                // FileTableBase stores directory paths with a trailing "\" so
+                // the pre-.NET-8 EndsWith("\3d") suffix check also missed.
+                else if (Directory.Exists(fii.Name))
                 {
-                    if (fii.Name.ToLowerInvariant().EndsWith(SimPe.Helper.PATH_SEP + "3d") ||
-                        fii.Name.ToLowerInvariant().EndsWith(SimPe.Helper.PATH_SEP + "sims3d"))
+                    string leaf = System.IO.Path.GetFileName(
+                        fii.Name.TrimEnd(System.IO.Path.DirectorySeparatorChar,
+                                         System.IO.Path.AltDirectorySeparatorChar));
+                    if (leaf.Equals("3d", StringComparison.OrdinalIgnoreCase) ||
+                        leaf.Equals("sims3d", StringComparison.OrdinalIgnoreCase))
                         AddPack(fii.Name, fii.IsRecursive);
                 }
             }
@@ -112,16 +125,29 @@ namespace pj
 
             SimPe.Plugin.Nmap nmap = new SimPe.Plugin.Nmap(null);
             nmap.ProcessData(pfa[0], p);
-            pfa = nmap.FindFiles(name + "_");
-            if (pfa == null || pfa.Length != 1)
+            // NameMap search without a trailing underscore — the pre-.NET-8
+            // code appended one, but the user's per-EP name entries are
+            // things like "afbodydresslilblack_cres" / "afbodydresslilblack_tslocator_gmnd"
+            // and searching for "afbodydresslilblack_" narrows too aggressively.
+            pfa = nmap.FindFiles(name);
+            if (pfa == null || pfa.Length == 0)
                 return false;
 
+            // With the loosened NameMap search, pfa can now contain multiple
+            // hits (e.g. the CRES entry plus the tslocator_gmnd entry when
+            // searching Sims06.package). Try each in turn — the correct
+            // resource for this pack is the one whose group+instance matches
+            // an index entry of the requested `type`.
             IPackedFileDescriptor pfd = null;
-            for (int j = 0; j < p.Index.Length && pfd == null; j++)
-                if (p.Index[j].Type == type
-                    && p.Index[j].Group == pfa[0].Group
-                    && p.Index[j].Instance == pfa[0].Instance)
-                    pfd = p.Index[j];
+            foreach (IPackedFileDescriptor cand in pfa)
+            {
+                for (int j = 0; j < p.Index.Length && pfd == null; j++)
+                    if (p.Index[j].Type == type
+                        && p.Index[j].Group == cand.Group
+                        && p.Index[j].Instance == cand.Instance)
+                        pfd = p.Index[j];
+                if (pfd != null) break;
+            }
             if (pfd == null)
                 return false;
             if (isInPFDList(currentPackage.Index, pfd))
@@ -356,16 +382,62 @@ namespace pj
                 if (mesh.ToLower().StartsWith("ym")) mesh = "am" + mesh.Substring(2);
                 if (mesh.ToLower().StartsWith("yf")) mesh = "af" + mesh.Substring(2);
 
-                bool success = true;
                 SimPe.RemoteControl.ApplicationForm.Cursor = Cursors.WaitCursor;
-                success = success && findAndAdd(mesh, SimPe.Data.MetaData.GMDC, "Sims03.package");
-                success = success && findAndAdd(mesh, SimPe.Data.MetaData.GMND, "Sims04.package");
-                success = success && findAndAdd(mesh, SimPe.Data.MetaData.SHPE, "Sims05.package");
-                success = success && findAndAdd(mesh, SimPe.Data.MetaData.CRES, "Sims06.package");
+                // Diagnostic: track each of the four parts individually so
+                // when something fails we can tell whether it was the pack
+                // list itself (empty → wrong SetPacks) or the NameMap match
+                // inside addFromPkg (probably wrong `mesh` from the split).
+                bool okGmdc = findAndAdd(mesh, SimPe.Data.MetaData.GMDC, "Sims03.package");
+                bool okGmnd = findAndAdd(mesh, SimPe.Data.MetaData.GMND, "Sims04.package");
+                bool okShpe = findAndAdd(mesh, SimPe.Data.MetaData.SHPE, "Sims05.package");
+                bool okCres = findAndAdd(mesh, SimPe.Data.MetaData.CRES, "Sims06.package");
+                bool success = okGmdc && okGmnd && okShpe && okCres;
                 SimPe.RemoteControl.ApplicationForm.Cursor = Cursors.Default;
                 if (!success)
-                    MessageBox.Show(L.Get("notAllPartsFound") + m,
+                {
+                    int sims03 = 0, sims04 = 0, sims05 = 0, sims06 = 0, other = 0;
+                    foreach (string p in packs)
+                    {
+                        string tail = System.IO.Path.GetFileName(p).ToLowerInvariant();
+                        if (tail == "sims03.package") sims03++;
+                        else if (tail == "sims04.package") sims04++;
+                        else if (tail == "sims05.package") sims05++;
+                        else if (tail == "sims06.package") sims06++;
+                        else other++;
+                    }
+
+                    // Enumerate DefaultFolders to explain WHY per-EP Sims3D/3D
+                    // folders (each of which contains Sims03-06.package) are
+                    // not making it into packs. Show the first several
+                    // directory-type entries verbatim so we can see the
+                    // ACTUAL string shape (trailing separators, different
+                    // suffixes, etc).
+                    int totalFolders = 0, folderUse = 0, folderExists = 0;
+                    System.Text.StringBuilder sample = new System.Text.StringBuilder();
+                    int shown = 0;
+                    foreach (SimPe.FileTableItem fii in SimPe.FileTable.DefaultFolders)
+                    {
+                        totalFolders++;
+                        if (fii.Use) folderUse++;
+                        if (!fii.IsFile && System.IO.Directory.Exists(fii.Name)) folderExists++;
+
+                        if (!fii.IsFile && shown < 6)
+                        {
+                            sample.Append($"  [{fii.Name}]\r\n");
+                            shown++;
+                        }
+                    }
+
+                    string diag =
+                        "\r\n\r\nDiagnostic:\r\n" +
+                        $"mesh name searched: \"{mesh}\"\r\n" +
+                        $"packs list: {packs.Count} total ({sims03} sims03, {sims04} sims04, {sims05} sims05, {sims06} sims06, {other} other)\r\n" +
+                        $"parts found: GMDC={okGmdc}, GMND={okGmnd}, SHPE={okShpe}, CRES={okCres}\r\n" +
+                        $"DefaultFolders: {totalFolders} entries, {folderUse} Use=true, {folderExists} directory exists\r\n" +
+                        $"First few directory entries (verbatim):\r\n{sample}";
+                    MessageBox.Show(L.Get("notAllPartsFound") + m + diag,
                         L.Get("pjSME"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             #endregion
         }
