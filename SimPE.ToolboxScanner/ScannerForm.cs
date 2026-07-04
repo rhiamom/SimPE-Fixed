@@ -483,10 +483,14 @@ namespace SimPe.Plugin
             // 
             // pb
             // 
-            this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pb.BackColor = System.Drawing.Color.Transparent;
-            
+            // .NET 8's WinForms ProgressBar refuses Color.Transparent
+            // (throws ArgumentException("Control does not support
+            // transparent background colors") on construction). The
+            // designer serialized this from the WinForms 2.0 era where
+            // it worked. Leaving the property at its default gives the
+            // native theme-drawn ProgressBar the classic look.
             this.pb.Location = new System.Drawing.Point(14, 574);
             this.pb.Maximum = 1000;
             this.pb.Minimum = 0;
@@ -840,8 +844,10 @@ namespace SimPe.Plugin
             this.sfd.Filter = "Comma Seperated Values (*.csv)|*.csv|All Files (*.*)|*.*";
             // 
             // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            //
+            // Same .NET 8 restriction as the ProgressBar above: Panel
+            // throws on Color.Transparent. Default BackColor gives the
+            // parent-inherited look these controls originally wanted.
             this.panel1.Controls.Add(this.btscan);
             this.panel1.Controls.Add(this.cbrec);
             this.panel1.Controls.Add(this.tabControl1);
