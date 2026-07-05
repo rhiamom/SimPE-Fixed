@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <!-- AssemblyName ending in .plugin so Directory.Build.targets auto-copies
+         the output DLL to bin/Release/Plugins/ for PluginManager discovery. -->
+    <AssemblyName>simpe.collectioncreator.plugin</AssemblyName>
+    <RootNamespace>SimPe.Plugin</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Configurations>Debug;Release;x86</Configurations>
+    <!-- Keep ILSpy decompile + reference docs out of the build. decompiled-source
+         is the format SPEC (JFade's VB-decompiled C# with VisualBasic runtime
+         calls); reference/ is markdown + the byte-template .dat fragments. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);decompiled-source\**\*;reference\**\*;data\**\*</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Filehandlers\SimPE.Filehandlers.csproj" />
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />
+    <ProjectReference Include="..\SimPE.Interfaces\SimPE.Interfaces.csproj" />
+    <ProjectReference Include="..\SimPE.Packages\SimPE.Packages.csproj" />
+    <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj" />
+    <ProjectReference Include="..\SimPE.WorkSpaceHelper\SimPE.WorkSpaceHelper.csproj" />
+  </ItemGroup>
+
+  <!-- Ship the data/ folder next to the plugin DLL so the port can find
+       OBJD.EN.txt, MaxisObjectList.txt, Sample Icons/, etc. at runtime.
+       PreserveNewest means re-builds skip unchanged files. -->
+  <ItemGroup>
+    <None Include="data\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>data\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </None>
+  </ItemGroup>
+</Project>

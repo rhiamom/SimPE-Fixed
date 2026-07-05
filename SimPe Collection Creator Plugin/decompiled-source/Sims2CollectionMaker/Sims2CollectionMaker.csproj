@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>Sims2CollectionMaker</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>True</UseWindowsForms>
+    <TargetFramework>net10</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>11.0</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System.Data">
+      <HintPath>../../../../../../../../opt/homebrew/Cellar/dotnet@8/8.0.125/libexec/shared/Microsoft.NETCore.App/8.0.25/System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>../../../../../../../../opt/homebrew/Cellar/dotnet@8/8.0.125/libexec/shared/Microsoft.NETCore.App/8.0.25/System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="CCB.IO">
+      <HintPath>../../../../../../../../Users/catherinegramze/Library/Developer/Sims2CollectionCreator2/CCB.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="CCB.IOTools">
+      <HintPath>../../../../../../../../Users/catherinegramze/Library/Developer/Sims2CollectionCreator2/CCB.IOTools.dll</HintPath>
+    </Reference>
+    <Reference Include="CCB.Math">
+      <HintPath>../../../../../../../../Users/catherinegramze/Library/Developer/Sims2CollectionCreator2/CCB.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="CCB.OBJD">
+      <HintPath>../../../../../../../../Users/catherinegramze/Library/Developer/Sims2CollectionCreator2/CCB.OBJD.dll</HintPath>
+    </Reference>
+    <Reference Include="CCB.Common">
+      <HintPath>../../../../../../../../Users/catherinegramze/Library/Developer/Sims2CollectionCreator2/CCB.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Classless.Hasher">
+      <HintPath>../../../../../../../../Users/catherinegramze/Library/Developer/Sims2CollectionCreator2/Classless.Hasher.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
