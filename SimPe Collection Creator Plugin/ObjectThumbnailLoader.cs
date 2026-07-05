@@ -83,16 +83,19 @@ namespace SimPe.Plugin
             uint inst = 0x7F000000u | (Hashes.GetCrc24(sourceBasename.ToLowerInvariant()) & 0x00FFFFFFu);
             try
             {
-                // JFade compared instance IDs as strings across whatever
-                // groups the file happened to use — his lstInstance2 was
-                // populated by a prior full-file scan. FindFile-by-instance
-                // isn't available; we fall through to a full index scan
-                // for any entry matching (THUMB_TYPE, inst) regardless of
-                // group descriptor.
+                // JFade's `lstInstance2` was the DBPF v1.2 **SubType**
+                // (InstanceHi) column — verified against the live game
+                // cache: every ObjectThumbnails.package entry stores the
+                // filename-CRC24 key in SubType, not Instance. The
+                // Instance column is a separate resource-identifier hash
+                // we don't care about for lookup. Full-index scan by
+                // SubType (grouped as 0xFFFFFFFF wildcard) mirrors what
+                // JFade's HandleThumbnail does after his FindResource
+                // pass populated lstInstance2.
                 IPackedFileDescriptor matched = null;
                 foreach (var p in pkg.Index)
                 {
-                    if (p.Type == THUMB_TYPE && p.Instance == inst)
+                    if (p.Type == THUMB_TYPE && p.SubType == inst)
                     {
                         matched = p;
                         break;
