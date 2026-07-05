@@ -106,6 +106,14 @@ namespace SimPe.Plugin
         /// </summary>
         public string SourceBasename { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Human-readable catalog-sort labels for JFade's category
+        /// listbox — populated at Add/Batch-Add time from the OBJD's
+        /// RoomSort / FunctionSort / BuildType / CommSort bitfields.
+        /// UI-only; not written to the collection package.
+        /// </summary>
+        public List<string> Categories { get; } = new List<string>();
+
         /// <summary>Optional per-member thumbnail (display only).</summary>
         public Image Thumbnail { get; set; }
     }

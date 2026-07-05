@@ -73,9 +73,9 @@ namespace SimPe.Plugin
             cmdCancelBatchAdd.Click += CmdCancelBatchAdd_Click;
             lstBatchAdd.SelectedIndexChanged += LstBatchAdd_SelectedIndexChanged;
 
-            // --- Add Item Details mode buttons (placeholders) ------
-            cmdAddItem.Click += (s, e) => EnterMode(UIMode.Main);
-            cmdCancel.Click  += (s, e) => EnterMode(UIMode.Main);
+            // --- Add Item Details mode buttons ---------------------
+            cmdAddItem.Click += CmdAddItem_Click;
+            cmdCancel.Click  += CmdCancel_Click;
         }
 
         // --- Top-level actions: New / Open / Save / Backup / Sort --
@@ -196,99 +196,130 @@ namespace SimPe.Plugin
         }
 
         // --- Add Object (Command1) ---------------------------------
-        // Pass 2 keeps this as a direct add (file picker → ObjectCatalog
-        // → append to list) rather than entering GroupBox4 AddItem-preview
-        // mode. AddItem-preview UX is reserved for Pass 4 polish.
+        // JFade-faithful: pick a single .package, extract its first OBJD,
+        // populate the AddItem preview panel (GroupBox4), and let the
+        // user commit or cancel. Multi-file adds go through Batch Add.
         void Command1_Click(object sender, EventArgs e)
         {
             if (current == null || dlgAddObject.ShowDialog(this) != DialogResult.OK) return;
 
+            string path = dlgAddObject.FileName;
             string nameTable = dataFolder != null
                 ? Path.Combine(dataFolder, "MaxisObjectList.txt")
                 : null;
 
-            int added = 0;
-            var recolors = new System.Collections.Generic.List<string>();
-            var unknowns = new System.Collections.Generic.List<string>();
-
-            foreach (string path in dlgAddObject.FileNames)
+            IList<ObjectInfo> infos;
+            try { infos = ObjectCatalog.Read(path, nameTable); }
+            catch
             {
-                try
-                {
-                    var infos = ObjectCatalog.Read(path, nameTable);
-                    if (infos.Count > 0)
-                    {
-                        // Add every OBJD the package carries — a multi-tile
-                        // window/door set is often 3-8 OBJDs, and the Maxis
-                        // catalog merges (globalCatbundle.package etc) carry
-                        // thousands. Dropping all-but-the-first would silently
-                        // throw away most of the file's contents.
-                        string basename = Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
-                        foreach (var info in infos)
-                        {
-                            current.Members.Add(new CollectionMember
-                            {
-                                ObjectType = info.ObjectType,
-                                ObjectGroup = info.ObjectGroup,
-                                ObjectInstance = info.ObjectInstance,
-                                ObjectInstanceHi = info.ObjectInstanceHi,
-                                Guid = info.Guid,
-                                DisplayName = info.DisplayName,
-                                SourceBasename = basename,
-                            });
-                            added++;
-                        }
-                    }
-                    else
-                    {
-                        // Sort the no-OBJD skips into recolors vs unknowns so
-                        // the user gets a meaningful explanation instead of a
-                        // bare "no OBJD" — recolors are the common case and
-                        // the constraint is the game's, not the tool's.
-                        switch (ObjectCatalog.Classify(path))
-                        {
-                            case PackageKind.Recolor: recolors.Add(Path.GetFileName(path)); break;
-                            default:                  unknowns.Add(Path.GetFileName(path)); break;
-                        }
-                    }
-                }
-                catch
-                {
-                    unknowns.Add(Path.GetFileName(path));
-                }
+                ShowError("Couldn't read package", Path.GetFileName(path));
+                return;
             }
 
-            RefreshMemberList();
-            UpdateUIState();
-
-            // Friendly explanation for the recolor case — the constraint catches
-            // people often enough that a status-bar line isn't enough. Pop a
-            // dialog the first time it happens in a multi-select; status bar
-            // still gets a summary.
-            if (recolors.Count > 0)
+            if (infos.Count == 0)
             {
-                string list = string.Join("\r\n  • ",
-                    new[] { "" }.Concat(recolors.Take(8)).ToArray());
-                if (recolors.Count > 8) list += $"\r\n  …and {recolors.Count - 8} more";
-
-                MessageBox.Show(this,
-                    $"{recolors.Count} of the files you picked are recolors, not objects:" + list + "\r\n\r\n" +
-                    "Sims 2 catalog collections are keyed by the original object's GUID — the game's catalog " +
-                    "tile shows ONE object, and the recolor swatches under it are picked at runtime, not stored " +
-                    "in the collection.\r\n\r\n" +
-                    "To include the brown variant of (e.g.) a sofa, add the ORIGINAL sofa package; the collection " +
-                    "will show it, and players pick the brown recolor from its in-game recolor swatches.\r\n\r\n" +
-                    "If you want a tile dedicated to the brown recolor specifically, you'd need to clone the " +
-                    "object in SimPE's Object Workshop (giving it a new GUID) and bind the brown recolor to the " +
-                    "clone — that's a separate workflow, not something this tool can do at collection-build time.",
-                    "Recolors can't be added directly",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Same recolor / unknown split as Batch Add; explain the
+                // constraint instead of a bare "no OBJD".
+                if (ObjectCatalog.Classify(path) == PackageKind.Recolor)
+                    ShowRecolorExplanation(Path.GetFileName(path));
+                else
+                    ShowError("Not an object package",
+                        $"{Path.GetFileName(path)} has no OBJD and no MMAT — probably neighborhood or wall/floor content that this tool doesn't collect.");
+                return;
             }
 
-            string status = $"Added {added} object(s)";
-            if (recolors.Count > 0) status += $"; skipped {recolors.Count} recolor(s)";
-            if (unknowns.Count > 0) status += $"; skipped {unknowns.Count} unrecognised";
-            SetStatus(status + ".");
+            // Preview the first OBJD (matches JFade — single-select, first
+            // resource in the package). Multi-OBJD windows/doors get all
+            // their tiles via the SINGLE Add click; the preview panel
+            // shows the first one as a representative.
+            pendingSingleAdd = infos[0];
+            pendingSingleAddBasename = Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
+            pendingSingleAddInfos = infos;
+
+            txtFileName.Text  = path;
+            txtGUID.Text      = $"0x{pendingSingleAdd.Guid:X8}";
+            txtGroup.Text     = $"0x{pendingSingleAdd.ObjectGroup:X8}";
+            txtCTSSName.Text  = pendingSingleAdd.DisplayName;
+            txtCTSSDesc.Text  = pendingSingleAdd.CtssDesc;
+
+            PictureBox1.Image = ObjectThumbnailLoader.GetThumbnail(
+                txtThumbDir?.Text, pendingSingleAddBasename);
+
+            lstCategories.BeginUpdate();
+            try
+            {
+                lstCategories.Items.Clear();
+                foreach (var c in pendingSingleAdd.Categories) lstCategories.Items.Add(c);
+            }
+            finally { lstCategories.EndUpdate(); }
+
+            EnterMode(UIMode.AddItem);
+            SetStatus($"Previewing {Path.GetFileName(path)} — click ✓ to add, ✕ to cancel.");
+        }
+
+        // Explanation MessageBox for a single-file recolor pick, mirroring
+        // the multi-file text Batch Add uses.
+        void ShowRecolorExplanation(string filename)
+        {
+            MessageBox.Show(this,
+                $"{filename} is a recolor, not an object.\r\n\r\n" +
+                "Sims 2 catalog collections are keyed by the original object's GUID — the game's catalog " +
+                "tile shows ONE object, and the recolor swatches under it are picked at runtime, not stored " +
+                "in the collection.\r\n\r\n" +
+                "To include a recolor of (e.g.) a sofa, add the ORIGINAL sofa package; the collection " +
+                "will show it, and players pick the recolor from its in-game recolor swatches.",
+                "Recolors can't be added directly",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Pending state for the AddItem preview mode. Cleared on
+        // commit (CmdAddItem_Click) or discard (CmdCancel_Click).
+        ObjectInfo pendingSingleAdd;
+        string     pendingSingleAddBasename;
+        IList<ObjectInfo> pendingSingleAddInfos;
+
+        void CmdAddItem_Click(object sender, EventArgs e)
+        {
+            if (current != null && pendingSingleAdd != null && pendingSingleAddInfos != null)
+            {
+                // Add EVERY OBJD from the previewed package — multi-tile
+                // windows/doors and the like ship 3-8 tile OBJDs and the
+                // collection needs all of them. The preview panel shows
+                // the first as representative.
+                int n = 0;
+                foreach (var info in pendingSingleAddInfos)
+                {
+                    var m = new CollectionMember
+                    {
+                        ObjectType = info.ObjectType,
+                        ObjectGroup = info.ObjectGroup,
+                        ObjectInstance = info.ObjectInstance,
+                        ObjectInstanceHi = info.ObjectInstanceHi,
+                        Guid = info.Guid,
+                        DisplayName = info.DisplayName,
+                        SourceBasename = pendingSingleAddBasename,
+                    };
+                    m.Categories.AddRange(info.Categories);
+                    current.Members.Add(m);
+                    n++;
+                }
+                RefreshMemberList();
+                UpdateUIState();
+                SetStatus(n == 1 ? "Added item." : $"Added {n} tiles from package.");
+            }
+            pendingSingleAdd = null;
+            pendingSingleAddInfos = null;
+            pendingSingleAddBasename = null;
+            EnterMode(UIMode.Main);
+        }
+
+        void CmdCancel_Click(object sender, EventArgs e)
+        {
+            pendingSingleAdd = null;
+            pendingSingleAddInfos = null;
+            pendingSingleAddBasename = null;
+            EnterMode(UIMode.Main);
+            SetStatus("Add canceled.");
         }
 
         // --- Item list reorder -------------------------------------
@@ -373,7 +404,7 @@ namespace SimPe.Plugin
                             string basename = Path.GetFileNameWithoutExtension(path).ToLowerInvariant();
                             foreach (var info in infos)
                             {
-                                pendingBatchAdd.Add(new CollectionMember
+                                var m = new CollectionMember
                                 {
                                     ObjectType = info.ObjectType,
                                     ObjectGroup = info.ObjectGroup,
@@ -382,7 +413,9 @@ namespace SimPe.Plugin
                                     Guid = info.Guid,
                                     DisplayName = info.DisplayName,
                                     SourceBasename = basename,
-                                });
+                                };
+                                m.Categories.AddRange(info.Categories);
+                                pendingBatchAdd.Add(m);
                                 objects++;
                             }
                         }
@@ -483,7 +516,12 @@ namespace SimPe.Plugin
         void LstBatchAdd_SelectedIndexChanged(object sender, EventArgs e)
         {
             int i = lstBatchAdd.SelectedIndex;
-            if (i < 0 || i >= pendingBatchAdd.Count) { PictureBox2.Image = null; return; }
+            if (i < 0 || i >= pendingBatchAdd.Count)
+            {
+                PictureBox2.Image = null;
+                lstBatchCategories.Items.Clear();
+                return;
+            }
 
             var member = pendingBatchAdd[i];
             if (member.Thumbnail == null)
@@ -499,6 +537,17 @@ namespace SimPe.Plugin
                     SetStatus($"No thumbnail: {diag}");
             }
             PictureBox2.Image = member.Thumbnail;
+
+            // Populate JFade's category listbox from the member's cached
+            // sort labels — matches his behaviour when selecting a row in
+            // the batch preview.
+            lstBatchCategories.BeginUpdate();
+            try
+            {
+                lstBatchCategories.Items.Clear();
+                foreach (var c in member.Categories) lstBatchCategories.Items.Add(c);
+            }
+            finally { lstBatchCategories.EndUpdate(); }
         }
 
         // --- Metadata edits ----------------------------------------

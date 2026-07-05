@@ -50,6 +50,19 @@ namespace SimPe.Plugin
         /// against the GUID. Falls back to <see cref="ObjdName"/> if no match.
         /// </summary>
         public string DisplayName { get; set; } = string.Empty;
+
+        /// <summary>Catalog description (CTSS index 1). Shown in the Add
+        /// Item Details preview panel; not written to the collection.</summary>
+        public string CtssDesc { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Human-readable catalog-sort labels ("Room: Kitchen",
+        /// "Function: Seating", etc.) built from the OBJD's RoomSort /
+        /// FunctionSort / BuildType / CommSort bitfields. Feeds the
+        /// AddItem panel's <c>lstCategories</c> and Batch Add's
+        /// <c>lstBatchCategories</c>. Not persisted.
+        /// </summary>
+        public List<string> Categories { get; } = new List<string>();
     }
 
     /// <summary>
@@ -136,10 +149,12 @@ namespace SimPe.Plugin
                 // otherwise drop the entire file to "unrecognised".
                 try
                 {
-                    // Objd needs an OpcodeProvider for full BHAV-context parsing,
-                    // but we only read the GUID/FileName/TGI fields, none of which
-                    // touch opcodes. Passing null is safe for this read-only use.
-                    Objd objd = new Objd(null);
+                    // ExtObjd exposes CTSSInstance + the four sort bitfields
+                    // (RoomSort, FunctionSort, BuildType, CommSort). We need
+                    // all of them for the Add Item Details preview panel.
+                    // Same Guid/FileName the plain Objd wrapper exposes,
+                    // no OpcodeProvider needed.
+                    ExtObjd objd = new ExtObjd();
                     objd.ProcessData(pfd, pkg);
 
                     var info = new ObjectInfo
@@ -152,9 +167,20 @@ namespace SimPe.Plugin
                         ObjdName = objd.FileName ?? string.Empty,
                     };
 
-                    // Try the lookup table for a nicer name; fall back to the
-                    // FileName field inside the OBJD itself if no match.
-                    info.DisplayName = MaxisObjectList.Lookup(info.Guid, nameTablePath) ?? info.ObjdName;
+                    // CTSS name + description: the same STR# resource
+                    // supplies both; index 0 = catalog name, index 1 =
+                    // catalog description. Falls back to MaxisObjectList
+                    // + the OBJD's FileName field if CTSS is absent.
+                    ReadCtssStrings(pkg, pfd.Group, objd.CTSSInstance,
+                                    out string ctssName, out string ctssDesc);
+                    info.CtssDesc = ctssDesc;
+                    info.DisplayName = !string.IsNullOrEmpty(ctssName)
+                        ? ctssName
+                        : (MaxisObjectList.Lookup(info.Guid, nameTablePath) ?? info.ObjdName);
+
+                    // Catalog-sort labels for the Add Item Details panel /
+                    // Batch Add's categories listbox.
+                    AppendCategories(info.Categories, objd);
 
                     results.Add(info);
                 }
@@ -164,6 +190,90 @@ namespace SimPe.Plugin
             }
 
             return results;
+        }
+
+        // CTSS resource (Type=0x43545353) is the catalog string set —
+        // a two-item STR# where index 0 is the catalog name and index 1
+        // is the description. Some Maxis packs store it at the OBJD's
+        // CTSSInstance + 1 rather than CTSSInstance itself (see
+        // SimPE.Scenegraph.MemoryCacheFile:220 for the same fallback).
+        static void ReadCtssStrings(IPackageFile pkg, uint group, ushort ctssInstance,
+                                    out string name, out string desc)
+        {
+            name = string.Empty;
+            desc = string.Empty;
+            try
+            {
+                var pfd = pkg.FindFile(MetaData.CTSS_FILE, 0, group, (uint)ctssInstance + 1)
+                       ?? pkg.FindFile(MetaData.CTSS_FILE, 0, group, ctssInstance);
+                if (pfd == null) return;
+
+                var str = new Str();
+                str.ProcessData(pfd, pkg);
+                var items = str.LanguageItems(MetaData.Languages.English);
+                if (items == null) return;
+                if (items.Length > 0) name = (items[0]?.Title ?? string.Empty).Trim();
+                if (items.Length > 1) desc = (items[1]?.Title ?? string.Empty).Trim();
+            }
+            catch
+            {
+            }
+        }
+
+        // Build the human-readable catalog-sort labels JFade's original
+        // showed in the Add Item Details and Batch Add category listboxes.
+        // Each bit set in the four sort bitfields becomes one line like
+        // "Room: Kitchen" or "Function: Seating". Property names come
+        // from SimPE.Filehandlers/ExtObjdWrapper.cs (RoomSort at line 647,
+        // CommSort at 709, FunctionSort at 750, BuildType at 824).
+        static void AppendCategories(List<string> cats, ExtObjd objd)
+        {
+            try
+            {
+                if (objd.RoomSort != null)
+                {
+                    if (objd.RoomSort.InBathroom)   cats.Add("Room: Bathroom");
+                    if (objd.RoomSort.InBedroom)    cats.Add("Room: Bedroom");
+                    if (objd.RoomSort.InDiningRoom) cats.Add("Room: Dining Room");
+                    if (objd.RoomSort.InKitchen)    cats.Add("Room: Kitchen");
+                    if (objd.RoomSort.InLivingRoom) cats.Add("Room: Living Room");
+                    if (objd.RoomSort.InOutside)    cats.Add("Room: Outside");
+                    if (objd.RoomSort.InStudy)      cats.Add("Room: Study");
+                    if (objd.RoomSort.InKids)       cats.Add("Room: Kids");
+                    if (objd.RoomSort.InMisc)       cats.Add("Room: Misc");
+                }
+                if (objd.FunctionSort != null)
+                {
+                    if (objd.FunctionSort.InSeating)           cats.Add("Function: Seating");
+                    if (objd.FunctionSort.InSurfaces)          cats.Add("Function: Surfaces");
+                    if (objd.FunctionSort.InAppliances)        cats.Add("Function: Appliances");
+                    if (objd.FunctionSort.InElectronics)       cats.Add("Function: Electronics");
+                    if (objd.FunctionSort.InPlumbing)          cats.Add("Function: Plumbing");
+                    if (objd.FunctionSort.InDecorative)        cats.Add("Function: Decorative");
+                    if (objd.FunctionSort.InGeneral)           cats.Add("Function: General");
+                    if (objd.FunctionSort.InLighting)          cats.Add("Function: Lighting");
+                    if (objd.FunctionSort.InHobbies)           cats.Add("Function: Hobbies");
+                    if (objd.FunctionSort.InAspirationRewards) cats.Add("Function: Aspiration Rewards");
+                    if (objd.FunctionSort.InCareerRewards)     cats.Add("Function: Career Rewards");
+                }
+                if (objd.BuildType != null)
+                {
+                    if (objd.BuildType.InGeneral)  cats.Add("Build: General");
+                    if (objd.BuildType.InGarden)   cats.Add("Build: Garden");
+                    if (objd.BuildType.InOpenings) cats.Add("Build: Openings");
+                }
+                if (objd.CommSort != null)
+                {
+                    if (objd.CommSort.InDining)   cats.Add("Community: Dining");
+                    if (objd.CommSort.InShopping) cats.Add("Community: Shopping");
+                    if (objd.CommSort.InOutdoors) cats.Add("Community: Outdoors");
+                    if (objd.CommSort.InStreet)   cats.Add("Community: Street");
+                    if (objd.CommSort.InMiscel)   cats.Add("Community: Misc");
+                }
+            }
+            catch
+            {
+            }
         }
     }
 

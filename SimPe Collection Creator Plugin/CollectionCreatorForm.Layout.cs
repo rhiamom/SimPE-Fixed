@@ -395,7 +395,10 @@ namespace SimPe.Plugin
             {
                 Title = "Pick an object package to add",
                 Filter = "Sims 2 package (*.package)|*.package|All files (*.*)|*.*",
-                Multiselect = true,
+                // JFade's cdlOpenFile was single-select — Add Object goes
+                // through the AddItem preview one file at a time. Batch
+                // Add is the way to add many packages at once.
+                Multiselect = false,
             };
             dlgPickThumbnail = new OpenFileDialog
             {
