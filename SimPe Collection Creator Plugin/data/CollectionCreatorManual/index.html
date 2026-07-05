@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Sims 2 Collection Creator — Program Manual</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #222; color: #eee; font-family: system-ui, "Segoe UI", sans-serif; }
+  header { padding: 0.5em 1em; background: #111; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 1em; }
+  header h1 { font-size: 1em; font-weight: normal; margin: 0; flex: 1; color: #ccc; }
+  header .counter { color: #999; font-size: 0.9em; min-width: 5em; text-align: right; }
+  header button {
+    background: #333; color: #eee; border: 1px solid #555;
+    padding: 0.3em 0.8em; border-radius: 4px; cursor: pointer; font-size: 0.9em;
+  }
+  header button:hover:not(:disabled) { background: #444; }
+  header button:disabled { color: #555; cursor: default; }
+  main { display: flex; justify-content: center; align-items: flex-start; padding: 1em; }
+  main img { max-width: 100%; height: auto; box-shadow: 0 2px 12px rgba(0,0,0,0.6); background: #fff; }
+  footer { padding: 0.5em 1em; background: #111; border-top: 1px solid #333; color: #888; font-size: 0.85em; text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <button id="prev" title="Previous page (← key)">← Prev</button>
+  <button id="next" title="Next page (→ key)">Next →</button>
+  <h1>The Sims 2 Collection Creator — Program Manual (v1.0, © 2006 JFade / DJS Sims)</h1>
+  <span class="counter" id="counter">1 / 4</span>
+</header>
+
+<main>
+  <img id="page" alt="Manual page" src="CollectionCreatorManual_1.jpg">
+</main>
+
+<footer>
+  Original manual by JFade / DJS Sims and the Sims Programming Group.
+  Reproduced here with permission (granted 2026-06-26) for the SimPE plugin port.
+</footer>
+
+<script>
+  const total = 4;
+  let i = 1;
+  const img = document.getElementById('page');
+  const counter = document.getElementById('counter');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+
+  function show(n) {
+    if (n < 1 || n > total) return;
+    i = n;
+    img.src = 'CollectionCreatorManual_' + i + '.jpg';
+    counter.textContent = i + ' / ' + total;
+    prev.disabled = (i === 1);
+    next.disabled = (i === total);
+    // Scroll back to the top so the header stays useful on tall pages.
+    window.scrollTo(0, 0);
+  }
+
+  prev.addEventListener('click', () => show(i - 1));
+  next.addEventListener('click', () => show(i + 1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft'  || e.key === 'PageUp')   show(i - 1);
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') show(i + 1);
+    if (e.key === 'Home') show(1);
+    if (e.key === 'End')  show(total);
+  });
+
+  show(1);
+</script>
+
+</body>
+</html>
