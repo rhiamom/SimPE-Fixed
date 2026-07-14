@@ -2,9 +2,9 @@
 
 	<PropertyGroup>
 		<!-- Solution-wide version -->
-		<Version>8.3.1</Version>
-		<FileVersion>8.3.1.0</FileVersion>
-		<AssemblyVersion>8.3.1.0</AssemblyVersion>
+		<Version>8.3.4</Version>
+		<FileVersion>8.3.4.0</FileVersion>
+		<AssemblyVersion>8.3.4.0</AssemblyVersion>
 		<!-- Unified output folder. $(SolutionDir) is only set when MSBuild
 		     drives a .sln; building a single .csproj from `dotnet build` or
 		     VS Code leaves it as *Undefined*. Fall back to the directory
