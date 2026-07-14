@@ -93,6 +93,7 @@ namespace SimPe.Plugin
 
             IPackedFileDescriptor pfd = pkg.NewDescriptor(COLL, 0, coll.Group, coll.Instance);
             cpf.Save(pfd);
+            pkg.Add(pfd, true);
         }
 
         // STR# holds the collection's display name. One line, English-default.
@@ -103,6 +104,7 @@ namespace SimPe.Plugin
 
             IPackedFileDescriptor pfd = pkg.NewDescriptor(MetaData.STRING_FILE, 0, coll.Group, coll.Instance);
             str.Save(pfd);
+            pkg.Add(pfd, true);
         }
 
         // IMG = the collection's thumbnail. Optional; skip the resource if
@@ -120,6 +122,7 @@ namespace SimPe.Plugin
 
             IPackedFileDescriptor pfd = pkg.NewDescriptor(MetaData.SIM_IMAGE_FILE, 0, coll.Group, coll.Instance);
             pfd.UserData = png;
+            pkg.Add(pfd, true);
         }
 
         // One BINX + 3IDR pair per member. The two share an instance ID
@@ -171,6 +174,7 @@ namespace SimPe.Plugin
 
             IPackedFileDescriptor pfd = pkg.NewDescriptor(MetaData.REF_FILE, 0, group, instance);
             pfd.UserData = data;
+            pkg.Add(pfd, true);
         }
 
         // BINX (0x0C560F39) — cGZPropertySetString with the four uint index
@@ -185,6 +189,7 @@ namespace SimPe.Plugin
 
             IPackedFileDescriptor pfd = pkg.NewDescriptor(MetaData.BINX, 0, group, instance);
             cpf.Save(pfd);
+            pkg.Add(pfd, true);
         }
 
         // --- small helpers ---------------------------------------------------

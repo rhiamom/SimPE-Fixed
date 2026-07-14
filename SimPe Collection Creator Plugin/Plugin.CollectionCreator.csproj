@@ -26,9 +26,15 @@
 
   <!-- Ship the data/ folder next to the plugin DLL so the port can find
        OBJD.EN.txt, MaxisObjectList.txt, Sample Icons/, etc. at runtime.
-       PreserveNewest means re-builds skip unchanged files. -->
+       PreserveNewest means re-builds skip unchanged files.
+       PDF files are excluded from the release ship (kept in the repo for
+       reference only) — MTS's upload validator rejects zips containing
+       PDFs because PDF is a script-embedding vector. JFade's original
+       user manual (CollectionCreatorManual.pdf) still lives at
+       data/CollectionCreatorManual.pdf in the repo; users can download
+       it directly from GitHub if they want it. -->
   <ItemGroup>
-    <None Include="data\**\*">
+    <None Include="data\**\*" Exclude="data\**\*.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>data\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>

@@ -188,7 +188,7 @@ namespace SimPe.Plugin
                 "Ported as a SimPE plugin by GramzeSweatshop, 2026, with the original author's " +
                 "permission (granted 2026-06-26).\r\n\r\n" +
                 "JFade's original user manual ships in this plugin's data folder " +
-                "(CollectionCreatorManual.pdf).\r\n\r\n" +
+                "(open CollectionCreatorManual/index.html).\r\n\r\n" +
                 "Plugin source: github.com/rhiamom/SimPE-Fixed";
 
             MessageBox.Show(this, text, "About JFade's Collection Creator",

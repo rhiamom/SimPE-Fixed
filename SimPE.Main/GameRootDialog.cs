@@ -388,13 +388,12 @@ namespace SimPe
             }
             catch { /* non-fatal — registry path still works for users who have it */ }
 
-            //Clear and rewrite the ObjectCache FileTable and FileIndex when changing game roots
-            System.IO.File.Delete(SimPe.Helper.SimPeLanguageCache);
-            SimPe.FileTable.Reload();
-            // (recommended for your “no restart” feature)
-            SimPe.FileTable.FileIndex.Load();
-
-            // Make it available globally for this run
+            // Make Helper.GameRootPath (and friends) available BEFORE the
+            // FileTable reload — FileTableBase.DefaultFolders reads
+            // Helper.GameRootPath directly to know where to scan. If we
+            // reloaded first the FileTable would come back empty because
+            // GameRootPath was still stale (or blank on first run), and
+            // the user had to click OK twice to get a populated table.
             Helper.GameRootPath = GameRootPath;
             Helper.GameEdition  = SelectedEdition;
             Helper.BaseGamePath = BaseGamePath;
@@ -402,6 +401,12 @@ namespace SimPe
 
             // Persist them so we don't lose them after this run
             Helper.SaveGameRootToFile(GameRootPath, SelectedEdition, BaseGamePath, DownloadsPath);
+
+            //Clear and rewrite the ObjectCache FileTable and FileIndex when changing game roots
+            System.IO.File.Delete(SimPe.Helper.SimPeLanguageCache);
+            SimPe.FileTable.Reload();
+            // (recommended for your “no restart” feature)
+            SimPe.FileTable.FileIndex.Load();
 
             Helper.LocalMode = false;
             this.DialogResult = DialogResult.OK;

@@ -125,19 +125,23 @@ namespace pj
 
             SimPe.Plugin.Nmap nmap = new SimPe.Plugin.Nmap(null);
             nmap.ProcessData(pfa[0], p);
-            // NameMap search without a trailing underscore — the pre-.NET-8
-            // code appended one, but the user's per-EP name entries are
-            // things like "afbodydresslilblack_cres" / "afbodydresslilblack_tslocator_gmnd"
-            // and searching for "afbodydresslilblack_" narrows too aggressively.
-            pfa = nmap.FindFiles(name);
+            // Nmap.FindFiles is a StartsWith match, not exact — so
+            // searching for "afbodydress" also matches "afbodydresslilblack_cres"
+            // and every other mesh that happens to share the prefix.
+            // Restore JFade's original trailing underscore so only entries
+            // for THIS specific mesh come back. The pre-Pass-3 code required
+            // `Length == 1`, which failed on multi-tile meshes; we keep the
+            // trailing-underscore prefix AND accept multiple hits by
+            // iterating below.
+            pfa = nmap.FindFiles(name + "_");
             if (pfa == null || pfa.Length == 0)
                 return false;
 
-            // With the loosened NameMap search, pfa can now contain multiple
-            // hits (e.g. the CRES entry plus the tslocator_gmnd entry when
-            // searching Sims06.package). Try each in turn — the correct
-            // resource for this pack is the one whose group+instance matches
-            // an index entry of the requested `type`.
+            // pfa can hold multiple hits per package (CRES + tslocator_gmnd
+            // + untagged0_shpe etc all share the "<meshname>_" prefix in
+            // the same file). Try each — the correct resource is the one
+            // whose group+instance matches an index entry of the requested
+            // `type`.
             IPackedFileDescriptor pfd = null;
             foreach (IPackedFileDescriptor cand in pfa)
             {
