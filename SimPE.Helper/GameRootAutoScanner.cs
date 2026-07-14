@@ -145,18 +145,33 @@ namespace SimPe
                 seenPackPaths.Add(root);
             }
 
-            // Classic Origin / Mr DJ repack layouts put each EP and SP in a
-            // SIBLING folder of the base game (e.g., "The Sims 2\\TSData",
-            // "The Sims 2 University\\TSData", "The Sims 2 Apartment Life\\TSData"
-            // — all sitting next to each other under "EA Games\\"). If the
-            // user picked the base-game folder, descending its subdirectories
-            // alone never sees those siblings. When the chosen root IS itself
-            // a base game, also enqueue the siblings so the BFS below can
-            // pick them up. Only do this when we recognise the root as a
-            // base game so we don't accidentally scan a user's whole
-            // Program Files tree.
+            // Two layouts need the chosen root's SIBLINGS scanned too, not
+            // just its descendants:
+            //
+            // (1) Classic Origin / Mr DJ repack: each EP/SP sits as a
+            //     sibling of the base game (e.g., "The Sims 2\\TSData",
+            //     "The Sims 2 University\\TSData", ...). If the user picked
+            //     the base-game folder itself, the BFS from there can't see
+            //     the sibling packs. Triggered when the chosen root has
+            //     TSData directly (rootIsItselfABaseGame).
+            //
+            // (2) Magipacks-style UC bundles: root contains bundle folders
+            //     like "Double Deluxe", "Fun with Pets", "Best of Business",
+            //     each of which contains "Base" / "EPn" / "SPn" subfolders
+            //     with TSData. If the user picked one of the bundles
+            //     directly (very natural — Double Deluxe visually feels
+            //     like "the install"), the BFS from Double Deluxe finds
+            //     Base/EP2/SP4 inside but never sees the sibling bundle
+            //     folders. Triggered when root has a Base subfolder with
+            //     TSData (rootLooksLikeUcBundle).
+            //
+            // Only these two narrow signals trigger sibling-widening so we
+            // don't accidentally scan a user's whole Program Files tree.
+            bool rootLooksLikeUcBundle = !rootIsItselfABaseGame &&
+                Directory.Exists(Path.Combine(root, "Base", "TSData"));
+
             var rootsToWalk = new List<string> { root };
-            if (rootIsItselfABaseGame)
+            if (rootIsItselfABaseGame || rootLooksLikeUcBundle)
             {
                 string parent = null;
                 try { parent = Path.GetDirectoryName(root); } catch { }
@@ -168,18 +183,27 @@ namespace SimPe
                     foreach (string sib in siblings)
                     {
                         if (string.Equals(sib, root, StringComparison.OrdinalIgnoreCase)) continue;
-                        // Sanity-cap: only consider siblings that look like
-                        // additional Sims 2 install folders (they should
-                        // contain a TSData subfolder either directly or one
-                        // level down). The BFS will skip non-pack siblings
-                        // because they have no TSData anywhere — this just
-                        // avoids paying that cost for obviously unrelated
-                        // siblings on slow disks.
+                        // Include a sibling if it looks like ANY of:
+                        //   (a) A single-pack folder — has TSData directly
+                        //       (Magipacks "Apartment Life", "Bon Voyage",
+                        //       "Free Time", "Glamour Life Stuff", "Seasons").
+                        //   (b) A UC bundle folder — has Base/TSData child
+                        //       (Magipacks "Double Deluxe").
+                        //   (c) A UC bundle folder — has ANY EPn/SPn child
+                        //       with TSData (Magipacks "Best of Business",
+                        //       "Fun with Pets", "University Life" — none
+                        //       have TSData directly and none contain Base).
+                        //   (d) Has "Sims" in the name (classic disc layout).
+                        // Otherwise skip — avoids paying enumeration cost
+                        // for unrelated siblings on slow disks.
                         string sibName = Path.GetFileName(sib) ?? "";
-                        if (sibName.IndexOf("Sims", StringComparison.OrdinalIgnoreCase) < 0 &&
-                            !Directory.Exists(Path.Combine(sib, "TSData")))
-                            continue;
-                        rootsToWalk.Add(sib);
+                        bool include = false;
+                        if (sibName.IndexOf("Sims", StringComparison.OrdinalIgnoreCase) >= 0) include = true;
+                        else if (Directory.Exists(Path.Combine(sib, "TSData"))) include = true;
+                        else if (Directory.Exists(Path.Combine(sib, "Base", "TSData"))) include = true;
+                        else if (SiblingHasPackChild(sib)) include = true;
+
+                        if (include) rootsToWalk.Add(sib);
                     }
                 }
             }
@@ -257,6 +281,29 @@ namespace SimPe
             return new GameRootScanResult(
                 rootFolder: root,
                 packs: new ReadOnlyCollection<PackFolderInfo>(packs));
+        }
+
+        // Cheap one-level probe used by the sibling-widening filter above:
+        // does this sibling contain at least one immediate child folder that
+        // itself has TSData? Catches Magipacks bundle folders like "Best of
+        // Business" / "Fun with Pets" / "University Life" — these have no
+        // TSData directly and no "Base" child, only EPn/SPn children.
+        static bool SiblingHasPackChild(string sib)
+        {
+            string[] children;
+            try { children = Directory.GetDirectories(sib); }
+            catch { return false; }
+
+            foreach (string child in children)
+            {
+                try
+                {
+                    if (Directory.Exists(Path.Combine(child, "TSData")))
+                        return true;
+                }
+                catch { }
+            }
+            return false;
         }
     }
 }
