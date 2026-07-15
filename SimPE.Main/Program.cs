@@ -59,9 +59,15 @@ namespace SimPe
         {
             // Lock DPI mode before any control is created. DpiUnaware lets Windows
             // bitmap-scale the window so the 96-DPI resx-based form layouts (designed
-            // pre-.NET 8) render without clipping or overlap. Cross-platform safe;
-            // GdiScaled isn't available on Mac/Linux Avalonia targets.
+            // pre-.NET 8) render without clipping or overlap.
             Application.SetHighDpiMode(HighDpiMode.DpiUnaware);
+
+            // Follow the Windows system light/dark setting. .NET 10 made this a
+            // stable API; the framework themes most standard controls. Custom-
+            // drawn surfaces (BHAV connectors, resource icons) and third-party
+            // controls (WeifenLuo docking, OpenTK) don't auto-follow and may
+            // need per-site work if this spike proves worth continuing.
+            Application.SetColorMode(SystemColorMode.System);
 
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
                 LogCrash(e.ExceptionObject as Exception ?? new Exception(e.ExceptionObject?.ToString()), e.IsTerminating);
