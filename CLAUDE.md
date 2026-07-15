@@ -41,4 +41,6 @@ This project is developed across multiple machines. Authoritative state lives on
 
 ## Currently outstanding
 
-- The BHAV row clip fix from commit `ca4d496` needs to be propagated into `rhiamom/SimPE-Fixed-Linux` (same source change: `_PJSE/pjse Coder/BhavInstListItemUI.cs`). Mac builds already pick it up via the vendor bump in `SimPE-Mac-Wine`.
+- Nothing tracked right now.
+
+The `rhiamom/SimPE-Fixed-Linux` fork carries all the Wine-compat fixes: the BHAV row clip fix (`ca4d496`, propagated via a "Merge windows master"), the legacy-file-dialog fix (`AutoUpgradeEnabled = false` on all Open/Save sites — a Wine-only fix that intentionally lives in the Linux/Mac forks, NOT here, since the Vista dialog is the better UX on native Windows), and the FileIndex skip-foreign-files fix (`6d601fe`, cherry-picked). Mac builds pick these up via the vendor bump in `SimPE-Mac-Wine`.
