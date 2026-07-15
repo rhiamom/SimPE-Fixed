@@ -73,6 +73,20 @@ namespace SimPe
                 foreach (SimPe.GuiTheme gt in gts) cbThemes.Items.Add(gt);
                 cbThemes.SelectedIndex = 0;
 
+                // Theme groupbox was buried under later-added controls in
+                // the tpSettings tab. Move it to the empty slot on the
+                // right side of the tab (originally reserved for the
+                // never-shown "Game Settings" groupbox) and bring it
+                // forward so it renders on top of any siblings.
+                if (!tpSettings.Controls.Contains(groupBox5))
+                    tpSettings.Controls.Add(groupBox5);
+                groupBox5.Text = "Theme:";
+                groupBox5.Location = new Point(432, 152);
+                groupBox5.Size = new Size(232, 60);
+                groupBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                groupBox5.Visible = true;
+                groupBox5.BringToFront();
+
                 SimPe.Registry.ReportFormats[] rfs = (SimPe.Registry.ReportFormats[])System.Enum.GetValues(typeof(SimPe.Registry.ReportFormats));
                 foreach (SimPe.Registry.ReportFormats rf in rfs) cbReport.Items.Add(rf);
                 cbReport.SelectedIndex = 0;
