@@ -611,15 +611,29 @@ namespace SimPe.Plugin
             if (this.ignoredfl.Contains(file.Trim().ToLower())) return;
 
 			Wait.Message = SimPe.Localization.GetString("Loading")+" \""+System.IO.Path.GetFileNameWithoutExtension(file)+"\"";
-			try 
+			try
 			{
 				SimPe.Interfaces.Files.IPackageFile package = SimPe.Packages.File.LoadFromFile(file, false);
 				AddIndexFromPackage(package, false);
-			} 
-			catch (Exception ex) 
+			}
+			catch (InvalidOperationException ioe)
+			{
+				// The file has a .package extension but isn't a Sims2 DBPF
+				// package (HeaderData.Load throws this for a bad magic number or
+				// an unsupported DBPF version). Some genuine Maxis files live in
+				// the scanned folders like this â€” e.g. Bon Voyage's
+				// TSData/Res/Catalog/Skins/Skins.package, which starts with the
+				// bytes "book", not "DBPF". During a bulk FileTable scan we skip
+				// these quietly rather than interrupting the user with a modal
+				// error dialog for every foreign file. The loud "Sims2 packages
+				// only" message is still shown on the interactive File>Open path,
+				// which is where it actually helps.
+				System.Diagnostics.Debug.WriteLine("[FileIndex] skipping unsupported file: " + file + " (" + ioe.Message.Split('\n')[0].Trim() + ")");
+			}
+			catch (Exception ex)
 			{
 				Helper.ExceptionMessage("", ex);
-			}			
+			}
 		}
 		/// <summary>
 		/// Add all Files stored in the passed package
@@ -1278,7 +1292,7 @@ namespace SimPe.Plugin
 		/// <summary>
 		/// Looks for a File based on the Filename
 		/// </summary>
-		/// <param name="filename">The name of the File (applies only to Scenegraüh Resources)</param>
+		/// <param name="filename">The name of the File (applies only to Scenegraï¿½h Resources)</param>
 		/// <param name="type">The Type of the File you are looking for</param>
 		/// <param name="defgroup">If the Filename has no group Hash, use this one</param>
 		/// <param name="betolerant">
