@@ -372,8 +372,29 @@ namespace SimPe.PackedFiles.UserInterface
 
 				if (csel >= 0) flowitems[csel].MakeSelected();
 
+				// Un-dock pnflow so it participates in AutoScroll. Docked
+				// Right, pnflow stays glued to the visible client rect and
+				// its connector-arrow image (drawn to full content height)
+				// gets clipped — nothing scrolls into view, and when the
+				// rows scroll, the arrows would end up pointing at the
+				// wrong rows. Re-position pnflow as a normal child sized
+				// to the full content extent so scrolling moves it in
+				// lockstep with the rows. Anchor Top|Right keeps it glued
+				// to the right edge as the container resizes.
+				int totalHeight = flowitems.Length * (BhavInstListItemUI.rowHeight + 4);
+				const int pnflowWidth = 120; // designer-configured width
+				pnflow.Dock = DockStyle.None;
+				pnflow.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+				pnflow.Size = new Size(pnflowWidth, Math.Max(totalHeight, this.ClientSize.Height));
+				pnflow.Location = new Point(Math.Max(0, this.ClientSize.Width - pnflowWidth), 0);
+
 				pnflow.Image = DrawConnectors();
 				this.Controls.Add(pnflow);
+
+				// Belt-and-suspenders: also set AutoScrollMinSize so the
+				// scrollbar appears reliably even if the framework's
+				// extent-from-children inference is unreliable under .NET 8.
+				this.AutoScrollMinSize = new Size(0, totalHeight);
 
 				this.Visible = true;
 				this.ResumeLayout(true);
@@ -413,12 +434,36 @@ namespace SimPe.PackedFiles.UserInterface
 			i.TargetClick += new LinkLabelLinkClickedEventHandler(bhavInst_TargetClick);
 			i.KeyDown += new KeyEventHandler(bhavInst_KeyDown);
 
+			// .NET 8 routes MouseWheel to the focused control, not the
+			// control under the pointer. When the user clicks in a row,
+			// focus lands inside the row's TextBox / labels, so wheel
+			// events die there. Hook every descendant of the row and
+			// forward the wheel to this container's AutoScroll.
+			HookMouseWheelRecursive(i);
+
 			this.Controls.Add(i);
 			this.Controls.SetChildIndex(i, ct);
 
 			i.Wrapper = wrapper;
 
 			return i;
+		}
+
+		private void HookMouseWheelRecursive(Control c)
+		{
+			c.MouseWheel += ForwardMouseWheel;
+			foreach (Control child in c.Controls)
+				HookMouseWheelRecursive(child);
+		}
+
+		private void ForwardMouseWheel(object sender, MouseEventArgs e)
+		{
+			// AutoScrollPosition is returned negative but must be assigned
+			// as a positive offset — flip signs on read, assign the desired
+			// offset directly. Positive e.Delta means wheel scrolled up
+			// (toward the top of the list), so subtract from Y offset.
+			int currentY = -this.AutoScrollPosition.Y;
+			this.AutoScrollPosition = new Point(-this.AutoScrollPosition.X, currentY - e.Delta);
 		}
 
 		private Bitmap DrawConnectors()
