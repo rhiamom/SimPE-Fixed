@@ -87,6 +87,13 @@ namespace SimPe
                 groupBox5.Visible = true;
                 groupBox5.BringToFront();
 
+                // Tab Browsing (groupBox6) was designer-anchored Top+Left+Right,
+                // which stretches it past the visible tab edge at runtime when
+                // font/DPI scaling widens the form beyond its 794px design. Pin
+                // it to Top+Left so it keeps its design width and stays inside
+                // the tab area.
+                groupBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+
                 SimPe.Registry.ReportFormats[] rfs = (SimPe.Registry.ReportFormats[])System.Enum.GetValues(typeof(SimPe.Registry.ReportFormats));
                 foreach (SimPe.Registry.ReportFormats rf in rfs) cbReport.Items.Add(rf);
                 cbReport.SelectedIndex = 0;
