@@ -140,7 +140,7 @@ namespace SimPe
         /// <summary>
         /// gets / sets the Theme for SimPe
         /// </summary>
-        /// <remarks>Math.Min caps the maximum theme to 10 to prevent errors, must be increased to add another theme</remarks>
+        /// <remarks>Cap must be incremented whenever a new GuiTheme enum value is added.</remarks>
         public byte SelectedTheme
         {
             get
@@ -154,9 +154,9 @@ namespace SimPe
 
                 int n = Convert.ToInt32(o);
 
-                // Clamp to [0, 10] as in the original logic
+                // Clamp to [0, 11] — highest current GuiTheme value (Dark).
                 if (n < 0) n = 0;
-                if (n > 10) n = 10;
+                if (n > 11) n = 11;
 
                 return (byte)n;
             }

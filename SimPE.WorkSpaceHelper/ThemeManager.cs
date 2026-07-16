@@ -72,7 +72,10 @@ namespace SimPe
         /// <summary>Cool blue</summary>
         Coolblue = 9,
         /// <summary>Golden mustard tones</summary>
-        Golden = 10
+        Golden = 10,
+        /// <summary>Modern dark theme — dark backgrounds, light text.
+        /// Not part of the historical 0.77 palette; introduced 2026-07-16.</summary>
+        Dark = 11
     }
 
     /// <summary>
@@ -247,6 +250,7 @@ namespace SimPe
         void SetTheme(System.Windows.Forms.Control c)
         {
             c.BackColor = ThemeColorLight;
+            c.ForeColor = ThemeTextColor;
         }
 
         // Button styling for ExtendedTheme mode. On modern Windows a plain
@@ -254,26 +258,32 @@ namespace SimPe
         // FlatStyle=Standard defers to the OS visual style. Flip to
         // FlatStyle=Flat so BackColor/border/hover values are actually
         // painted, then apply the theme's palette.
+        //
+        // BackColor is ThemeColorMild (not Light) so buttons stand out
+        // from surrounding containers, which use Light — otherwise button
+        // and panel blur together on the Dark theme in particular.
         void SetTheme(System.Windows.Forms.Button btn)
         {
             btn.UseVisualStyleBackColor = false;
             btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btn.BackColor = ThemeColorLight;
-            btn.ForeColor = ThemeColourXdark;
+            btn.BackColor = ThemeColorMild;
+            btn.ForeColor = ThemeTextColor;
             btn.FlatAppearance.BorderColor = ThemeColorDark;
             btn.FlatAppearance.BorderSize = 1;
             btn.FlatAppearance.MouseOverBackColor = ThemeColorLighter;
-            btn.FlatAppearance.MouseDownBackColor = ThemeColorMild;
+            btn.FlatAppearance.MouseDownBackColor = ThemeColor;
         }
 
         void SetTheme(System.Windows.Forms.Panel gp)
         {
             gp.BackColor = ThemeColorLight;
+            gp.ForeColor = ThemeTextColor;
         }
 
         void SetTheme(SimPe.Windows.Forms.WrapperBaseControl gp)
         {
             gp.BackColor = ThemeColorLight;
+            gp.ForeColor = ThemeTextColor;
             gp.GradientColor = ThemeColor;
         }
 
@@ -329,8 +339,18 @@ namespace SimPe
                 || c is System.Windows.Forms.Splitter
                 || c is System.Windows.Forms.Form
                 || c is System.Windows.Forms.UserControl
+                || c is System.Windows.Forms.TabControl
                 || c is System.Windows.Forms.TabPage
-                || c is System.Windows.Forms.GroupBox)
+                || c is System.Windows.Forms.GroupBox
+                || c is System.Windows.Forms.TreeView
+                || c is System.Windows.Forms.ListView
+                || c is System.Windows.Forms.ListBox
+                || c is System.Windows.Forms.TextBoxBase   // TextBox, RichTextBox, MaskedTextBox
+                || c is System.Windows.Forms.ComboBox
+                || c is System.Windows.Forms.NumericUpDown
+                || c is System.Windows.Forms.Label         // includes LinkLabel
+                || c is System.Windows.Forms.CheckBox
+                || c is System.Windows.Forms.RadioButton)
             {
                 mgr.Theme(c);
             }
@@ -414,6 +434,7 @@ namespace SimPe
                     case GuiTheme.Psychedelic: return Color.FromArgb(0xF0, 0xB4, 0x18);
                     case GuiTheme.Coolblue: return Color.FromArgb(0xA2, 0xC8, 0xFF);
                     case GuiTheme.Golden: return Color.FromArgb(0xC8, 0x96, 0x18);
+                    case GuiTheme.Dark: return Color.FromArgb(0x3C, 0x3C, 0x3C);
                     default: return c; // Whidbey — initialized from WhidbeyColorTable in ctor
                 }
             }
@@ -435,6 +456,7 @@ namespace SimPe
                     case GuiTheme.Psychedelic: return Color.FromArgb(0xFF, 0x60, 0xA0);
                     case GuiTheme.Coolblue: return Color.FromArgb(0xE4, 0xF0, 0xFF);
                     case GuiTheme.Golden: return Color.FromArgb(0xF0, 0xE6, 0xC8);
+                    case GuiTheme.Dark: return Color.FromArgb(0x2D, 0x2D, 0x2D);
                     default: return clight;
                 }
             }
@@ -456,6 +478,7 @@ namespace SimPe
                     case GuiTheme.Psychedelic: return Color.FromArgb(0xC8, 0x08, 0x10);
                     case GuiTheme.Coolblue: return Color.FromArgb(0x50, 0x8C, 0xF0);
                     case GuiTheme.Golden: return Color.FromArgb(0x8C, 0x64, 0x0A);
+                    case GuiTheme.Dark: return Color.FromArgb(0x1E, 0x1E, 0x1E);
                     default: return cdark;
                 }
             }
@@ -479,6 +502,7 @@ namespace SimPe
                     case GuiTheme.Psychedelic: return Color.FromArgb(0x60, 0x04, 0x04);
                     case GuiTheme.Coolblue: return Color.FromArgb(0x18, 0x32, 0x70);
                     case GuiTheme.Golden: return Color.FromArgb(0x50, 0x28, 0x00);
+                    case GuiTheme.Dark: return Color.FromArgb(0x0F, 0x0F, 0x0F);
                     default: return cdark;
                 }
             }
@@ -502,6 +526,7 @@ namespace SimPe
                     case GuiTheme.Psychedelic: return Color.FromArgb(0xFF, 0xFF, 0xC8);
                     case GuiTheme.Coolblue: return Color.FromArgb(0xEE, 0xF8, 0xFF);
                     case GuiTheme.Golden: return Color.FromArgb(0xFF, 0xFA, 0xE9);
+                    case GuiTheme.Dark: return Color.FromArgb(0x4A, 0x4A, 0x4A);
                     default: return clight;
                 }
             }
@@ -525,7 +550,46 @@ namespace SimPe
                     case GuiTheme.Psychedelic: return Color.FromArgb(0xFF, 0xA0, 0x50);
                     case GuiTheme.Coolblue: return Color.FromArgb(0xC8, 0xDC, 0xFF);
                     case GuiTheme.Golden: return Color.FromArgb(0xDC, 0xB4, 0x40);
+                    case GuiTheme.Dark: return Color.FromArgb(0x3C, 0x3C, 0x3C);
                     default: return c;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Semantic text color for readable text on this theme's
+        /// backgrounds. Dark themes flip to a light text color; light
+        /// themes return the existing dark accent. Use this instead of
+        /// hardcoding ThemeColourXdark in control ForeColor assignments
+        /// so future dark themes render legibly without per-theme code.
+        /// </summary>
+        public Color ThemeTextColor
+        {
+            get
+            {
+                switch (ctheme)
+                {
+                    case GuiTheme.Dark: return Color.FromArgb(0xE0, 0xE0, 0xE0);
+                    default: return ThemeColourXdark;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Accent color for highlighted or "distinguished" text on this
+        /// theme's backgrounds. Used for e.g. compressed-but-not-dirty
+        /// resource list items. Light themes reuse the OS Highlight color
+        /// (blue); Dark theme uses a light cyan-ish accent that stays
+        /// readable on dark backgrounds.
+        /// </summary>
+        public Color ThemeHighlightColor
+        {
+            get
+            {
+                switch (ctheme)
+                {
+                    case GuiTheme.Dark: return Color.FromArgb(0x4E, 0xC9, 0xB0);
+                    default: return SystemColors.Highlight;
                 }
             }
         }

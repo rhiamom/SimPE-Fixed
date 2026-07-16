@@ -162,7 +162,10 @@ namespace SimPe.Windows.Forms
                 this.SubItems[6].Text = "0x" + Helper.HexString(pfd.Descriptor.Size);
             }
 
-            System.Drawing.Color fg = System.Drawing.SystemColors.WindowText;
+            // Route through the theme so items stay readable under Dark
+            // theme (where SystemColors.WindowText / Highlight would give
+            // dark-on-dark and cyan-on-dark respectively).
+            System.Drawing.Color fg = SimPe.ThemeManager.Global.ThemeTextColor;
             System.Drawing.Font font = regular;
 
             if (pfd.Descriptor.MarkForDelete)
@@ -172,7 +175,7 @@ namespace SimPe.Windows.Forms
             }
             if (pfd.Descriptor.MarkForReCompress || (pfd.Descriptor.WasCompressed && !pfd.Descriptor.HasUserdata))
             {
-                fg = System.Drawing.SystemColors.Highlight;
+                fg = SimPe.ThemeManager.Global.ThemeHighlightColor;
                 //font = new System.Drawing.Font(font.FontFamily, font.Size, font.Style, font.Unit);
             }
 
