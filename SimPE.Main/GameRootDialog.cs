@@ -55,10 +55,6 @@ namespace SimPe
         {
             InitializeComponent();
 
-            // If Extended Theme is enabled, style every Button on this
-            // dialog with the theme's palette. No-op when off.
-            SimPe.ThemeManager.ApplyExtendedThemeToButtons(this);
-
             // Restore the previously saved edition, if any. Helper.LoadGameRootFromFile()
             // runs at startup, so Helper.GameEdition reflects what was persisted last run.
             string savedEdition = Helper.GameEdition ?? string.Empty;

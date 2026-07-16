@@ -120,10 +120,6 @@ namespace SimPe
 
                 BuildFileTableTab();
                 LoadCustomFileTableItems();
-
-                // If Extended Theme is enabled, style every Button on this
-                // dialog with the theme's palette. No-op when off.
-                ThemeManager.ApplyExtendedThemeToButtons(this);
             }
             finally { Application.UseWaitCursor = false; }
         }

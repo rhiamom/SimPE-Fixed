@@ -297,24 +297,99 @@ namespace SimPe
 
         /// <summary>
         /// Walk the descendant tree of <paramref name="root"/> and apply
-        /// the current theme's button styling to every <see cref="System.Windows.Forms.Button"/>
-        /// found — but only when <see cref="ExtendedTheme"/> is enabled.
-        /// Call this from a form's constructor (or Load) after
-        /// InitializeComponent so all Button instances are realised.
-        /// A no-op when ExtendedTheme is off, so it's safe to always call.
+        /// the current theme to every themable control (Button, Panel,
+        /// Splitter, WrapperBaseControl) found — but only when
+        /// <see cref="ExtendedTheme"/> is enabled. A no-op when off, so
+        /// safe to always call.
         /// </summary>
+        /// <remarks>
+        /// Usually you don't need to call this manually — the global idle
+        /// hook installed by <see cref="Global"/> takes care of every form
+        /// as it opens. Call this explicitly only for controls that live
+        /// outside a Form (e.g. a docked plugin surface added dynamically
+        /// after the form is already themed).
+        /// </remarks>
         public static void ApplyExtendedThemeToButtons(System.Windows.Forms.Control root)
         {
             if (!ExtendedTheme) return;
             if (root == null) return;
-            WalkButtons(root, Global);
+            WalkAndTheme(root, Global);
         }
 
-        static void WalkButtons(System.Windows.Forms.Control c, ThemeManager mgr)
+        static void WalkAndTheme(System.Windows.Forms.Control c, ThemeManager mgr)
         {
-            if (c is System.Windows.Forms.Button) mgr.Theme(c);
+            // Theme buttons + common container types (whose BackColor shows
+            // through to the user). Skip leaf controls like Label / TextBox /
+            // CheckBox / ComboBox / ListView — tinting those uniformly with
+            // the theme color usually looks wrong; they render on top of a
+            // themed container anyway.
+            if (c is System.Windows.Forms.Button
+                || c is SimPe.Windows.Forms.WrapperBaseControl
+                || c is System.Windows.Forms.Panel
+                || c is System.Windows.Forms.Splitter
+                || c is System.Windows.Forms.Form
+                || c is System.Windows.Forms.UserControl
+                || c is System.Windows.Forms.TabPage
+                || c is System.Windows.Forms.GroupBox)
+            {
+                mgr.Theme(c);
+            }
             foreach (System.Windows.Forms.Control child in c.Controls)
-                WalkButtons(child, mgr);
+                WalkAndTheme(child, mgr);
+        }
+
+        // Global "theme every form as it opens" hook.
+        // Application.OpenForms only tracks forms that have been Shown, so
+        // an Idle-time walk over that collection reliably catches every
+        // new form shortly after it appears — without requiring each form
+        // to opt in manually. We track already-processed handles in a
+        // HashSet, and remove entries when the form closes so the set
+        // doesn't grow forever in a long session.
+        private static readonly System.Collections.Generic.HashSet<System.IntPtr> _themedFormHandles
+            = new System.Collections.Generic.HashSet<System.IntPtr>();
+        private static bool _idleHookInstalled;
+
+        static void EnsureGlobalIdleHook()
+        {
+            if (_idleHookInstalled) return;
+            _idleHookInstalled = true;
+            System.Windows.Forms.Application.Idle += OnAppIdle;
+        }
+
+        static void OnAppIdle(object sender, System.EventArgs e)
+        {
+            if (!ExtendedTheme) return;
+            foreach (System.Windows.Forms.Form f in System.Windows.Forms.Application.OpenForms)
+            {
+                if (f == null || !f.IsHandleCreated) continue;
+                System.IntPtr h = f.Handle;
+                if (_themedFormHandles.Add(h))
+                {
+                    ApplyExtendedThemeToButtons(f);
+                    HookControlAdded(f);
+                    // Prune on close so the set doesn't accumulate stale handles.
+                    f.FormClosed += (s2, e2) => _themedFormHandles.Remove(h);
+                }
+            }
+        }
+
+        // Recursively subscribe to ControlAdded on every existing descendant
+        // so plugin editors and other dynamically-appearing subtrees get
+        // themed at the moment they're inserted into an already-themed
+        // form (e.g. opening a BHAV/BCON/GLOB wrapper in the docking pane
+        // long after MainForm was first walked).
+        static void HookControlAdded(System.Windows.Forms.Control parent)
+        {
+            parent.ControlAdded += OnControlAdded;
+            foreach (System.Windows.Forms.Control child in parent.Controls)
+                HookControlAdded(child);
+        }
+
+        static void OnControlAdded(object sender, System.Windows.Forms.ControlEventArgs e)
+        {
+            if (!ExtendedTheme || e.Control == null) return;
+            WalkAndTheme(e.Control, Global);
+            HookControlAdded(e.Control);
         }
         #endregion
 
@@ -535,6 +610,10 @@ namespace SimPe
             get
             {
                 if (tm==null) tm = new ThemeManager((GuiTheme)Helper.WindowsRegistry.Layout.SelectedTheme);
+                // Install the app-wide idle hook on first access. Runs
+                // once per process, and does nothing if ExtendedTheme is
+                // off, so the cost is a single subscription.
+                EnsureGlobalIdleHook();
                 return tm;
             }
         }
