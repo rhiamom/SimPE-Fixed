@@ -38,8 +38,15 @@ namespace SimPe
             this.dcResourceList.Visible = true;
             this.dcResource.Visible = true;
 
-            // WeifenLuo DockPanelSuite requires a theme before content can be shown
-            this.dc.Theme = new WeifenLuo.WinFormsUI.Docking.VS2015LightTheme();
+            // WeifenLuo DockPanelSuite requires a theme before content can be shown.
+            // Swap in the Dark VS2015 theme when the user is on GuiTheme.Dark so the
+            // pane tab strip, splitters and empty-document area match the app-wide
+            // dark palette; otherwise stay on the Light theme which reads well under
+            // the 11 legacy palette themes.
+            if (ThemeManager.Global.CurrentTheme == GuiTheme.Dark)
+                this.dc.Theme = new WeifenLuo.WinFormsUI.Docking.VS2015DarkTheme();
+            else
+                this.dc.Theme = new WeifenLuo.WinFormsUI.Docking.VS2015LightTheme();
 
             //setup the Theme Manager
 
