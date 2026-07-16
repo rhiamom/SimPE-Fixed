@@ -253,6 +253,21 @@ namespace SimPe
             c.ForeColor = ThemeTextColor;
         }
 
+        // LinkLabel exposes a distinct LinkColor (default hardcoded blue)
+        // that is NOT the same as ForeColor. On the Dark theme those
+        // default blue links become dark-blue-on-dark-bg — unreadable.
+        // Reuse ThemeHighlightColor for links so they stay accent-visible
+        // on any background.
+        void SetTheme(System.Windows.Forms.LinkLabel link)
+        {
+            link.BackColor = ThemeColorLight;
+            link.ForeColor = ThemeTextColor;
+            link.LinkColor = ThemeHighlightColor;
+            link.ActiveLinkColor = ThemeHighlightColor;
+            link.VisitedLinkColor = ThemeHighlightColor;
+            link.DisabledLinkColor = ThemeColorMild;
+        }
+
         // Button styling for ExtendedTheme mode. On modern Windows a plain
         // BackColor change (as 0.77 did) is invisible on Buttons because
         // FlatStyle=Standard defers to the OS visual style. Flip to
@@ -295,6 +310,10 @@ namespace SimPe
         {
             if (o is Ambertation.Windows.Forms.DockManager) SetTheme((Ambertation.Windows.Forms.DockManager)o);
             else if (o is System.Windows.Forms.Button) SetTheme((System.Windows.Forms.Button)o);
+            // LinkLabel MUST come before Panel/Label/Control checks below —
+            // LinkLabel is-a Label so the generic Control handler would
+            // otherwise swallow it and skip the LinkColor properties.
+            else if (o is System.Windows.Forms.LinkLabel) SetTheme((System.Windows.Forms.LinkLabel)o);
             else if (o is System.Windows.Forms.Panel) SetTheme((System.Windows.Forms.Panel)o);
             else if (o is SimPe.Windows.Forms.WrapperBaseControl) SetTheme((SimPe.Windows.Forms.WrapperBaseControl)o);
             else if (o is System.Windows.Forms.Splitter) SetTheme((System.Windows.Forms.Splitter)o);
