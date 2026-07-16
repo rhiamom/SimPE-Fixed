@@ -2,6 +2,11 @@
  *   Copyright (C) 2005 by Ambertation                                     *
  *   quaxi@ambertation.de                                                  *
  *                                                                         *
+ *   Copyright (C) 2010 by Chris Hatch                                     *
+ *   ExtendedTheme (originally booby.ThemeManager.ThemedForms in the       *
+ *   SimPE 0.77 GDF.dll theme system) — persisted layout flag that gates   *
+ *   extended button/control styling by the selected theme.                *
+ *                                                                         *
  *   Copyright (C) 2025 by GramzeSweatshop                                 *
  *   rhiamom@mac.com                                                       *
  *                                                                         *
@@ -161,6 +166,25 @@ namespace SimPe
             }
         }
 
+
+        /// <summary>
+        /// When true, the current theme also styles buttons and other
+        /// standard controls (0.77's "extended theme" / booby.ThemeManager
+        /// ThemedForms). When false, only ToolStrips / MenuStrips /
+        /// DockManager chrome follows the theme.
+        /// </summary>
+        public bool ExtendedTheme
+        {
+            get
+            {
+                object o = xrk.GetValue("ExtendedTheme", false);
+                return Convert.ToBoolean(o);
+            }
+            set
+            {
+                xrk.SetValue("ExtendedTheme", value);
+            }
+        }
 
         /// <summary>
         /// true if classic pre-set has been launched

@@ -46,6 +46,11 @@ namespace SimPe
 			InitializeComponent();
 
             SetupMainForm();
+
+            // If Extended Theme is enabled, style every Button on the main
+            // form (including plugin-loaded dock panels that are children
+            // of this form by now) with the theme's palette. No-op when off.
+            SimPe.ThemeManager.ApplyExtendedThemeToButtons(this);
         }
 
 
