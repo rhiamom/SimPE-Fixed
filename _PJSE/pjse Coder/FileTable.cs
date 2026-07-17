@@ -155,6 +155,13 @@ namespace pjse
 
             if (loadEverything)
             {
+                // These four include packages carry the Maxis global / semi-global
+                // / private / relationship label constants that the BCON editor's
+                // Label column and TRCN button resolve against. They're shipped
+                // embedded in this plugin's DLL and extracted on first load to
+                // %APPDATA%\SimPe\Data\Plugins\pjse.coder.plugin\Includes\ —
+                // matching the historical path pjse.coder used in 0.75/0.77.
+                EnsureIncludesExtracted();
                 this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\GLOBALS.package"), false, SimPe.Expansions.Custom, true);
                 this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\SemiGlobals.package"), false, SimPe.Expansions.Custom, true);
                 this.Add(Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes\\Private.package"), false, SimPe.Expansions.Custom, true);
@@ -175,6 +182,41 @@ namespace pjse
 
             CurrentPackage = cp;
             SimPe.Wait.Message = "";
+        }
+
+        /// <summary>
+        /// Extract the four embedded BCON label include packages
+        /// (GLOBALS / SemiGlobals / Private / RelLabels) into
+        /// %APPDATA%\SimPe\Data\Plugins\pjse.coder.plugin\Includes\ if
+        /// they aren't already present. First-run idempotent — any file
+        /// that already exists is left alone so the user can drop in
+        /// their own replacement without it being overwritten.
+        /// </summary>
+        private static void EnsureIncludesExtracted()
+        {
+            string includesDir = Path.Combine(SimPe.Helper.SimPePluginDataPath, "pjse.coder.plugin\\Includes");
+            try
+            {
+                if (!Directory.Exists(includesDir))
+                    Directory.CreateDirectory(includesDir);
+            }
+            catch { return; }
+
+            string[] names = new[] { "GLOBALS.package", "SemiGlobals.package", "Private.package", "RelLabels.package" };
+            var asm = System.Reflection.Assembly.GetExecutingAssembly();
+            foreach (string name in names)
+            {
+                string dest = Path.Combine(includesDir, name);
+                if (File.Exists(dest)) continue;
+                using System.IO.Stream s = asm.GetManifestResourceStream("pjse.Includes." + name);
+                if (s == null) continue;
+                try
+                {
+                    using var fs = File.Create(dest);
+                    s.CopyTo(fs);
+                }
+                catch { }
+            }
         }
 
         /// <summary>

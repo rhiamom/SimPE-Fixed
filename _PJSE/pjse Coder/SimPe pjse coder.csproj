@@ -157,6 +157,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>Plugins\pjse.coder.plugin\GlobalStrings.package</TargetPath>
     </None>
+    <!-- BCON label include packages, extracted to
+         %APPDATA%\SimPe\Data\Plugins\pjse.coder.plugin\Includes\ on first
+         plugin load via FileTable.EnsureIncludesExtracted. Originally
+         shipped with SimPE 0.75/0.77 in the SimPe Commandline data folder
+         and required for the PJSE BCON editor's Label column and TRCN
+         button to resolve constants against Maxis global namespaces. -->
+    <EmbeddedResource Include="Includes\GLOBALS.package"><LogicalName>pjse.Includes.GLOBALS.package</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="Includes\SemiGlobals.package"><LogicalName>pjse.Includes.SemiGlobals.package</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="Includes\Private.package"><LogicalName>pjse.Includes.Private.package</LogicalName></EmbeddedResource>
+    <EmbeddedResource Include="Includes\RelLabels.package"><LogicalName>pjse.Includes.RelLabels.package</LogicalName></EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="BhavOperandWizDefault.resx"><LogicalName>pjse.BhavOperandWizards.WizDefault.UI.resources</LogicalName></EmbeddedResource>

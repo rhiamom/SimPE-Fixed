@@ -22,6 +22,37 @@
 		<GenerateResourceWarnOnBinaryFormatterUse>false</GenerateResourceWarnOnBinaryFormatterUse>
 	</PropertyGroup>
 
+	<!-- Guard rail: the four PJSE BCON label include packages must exist in
+	     the source tree so they can be embedded into pjse.coder.plugin.dll.
+	     Without them, the PJSE BCON editor's Label column and TRCN button
+	     silently break — no compile error, just missing labels at runtime.
+	     Historical precedent: semi-globals was silently dropped once before;
+	     see the "recurring class of regression" note in
+	     project_directory_build_targets_gaps memory. Failing the build here
+	     is louder than waiting for a user bug report.
+
+	     If a file is missing, restore it from
+	     SimPe_0_77_69-Source\SimPe Commandline\<name>.package.
+	     The csproj declaration is in
+	     _PJSE\pjse Coder\SimPe pjse coder.csproj under an ItemGroup that
+	     includes each as an EmbeddedResource with an explicit LogicalName
+	     ("pjse.Includes.<name>"). The runtime extraction that seeds them
+	     to %APPDATA%\SimPe\Data\Plugins\pjse.coder.plugin\Includes\ lives
+	     in _PJSE\pjse Coder\FileTable.cs (EnsureIncludesExtracted). -->
+	<Target Name="SimPeVerifyPjseIncludes" BeforeTargets="Build">
+		<PropertyGroup>
+			<_PjseIncludesDir>$(MSBuildThisFileDirectory)_PJSE\pjse Coder\Includes\</_PjseIncludesDir>
+		</PropertyGroup>
+		<Error Condition=" !Exists('$(_PjseIncludesDir)GLOBALS.package') "
+		       Text="Missing PJSE include package: $(_PjseIncludesDir)GLOBALS.package. Restore from SimPe_0_77_69-Source\SimPe Commandline\GLOBALS.package or the BCON editor's label lookup breaks." />
+		<Error Condition=" !Exists('$(_PjseIncludesDir)SemiGlobals.package') "
+		       Text="Missing PJSE include package: $(_PjseIncludesDir)SemiGlobals.package. Restore from SimPe_0_77_69-Source\SimPe Commandline\SemiGlobals.package or the BCON editor's label lookup breaks." />
+		<Error Condition=" !Exists('$(_PjseIncludesDir)Private.package') "
+		       Text="Missing PJSE include package: $(_PjseIncludesDir)Private.package. Restore from SimPe_0_77_69-Source\SimPe Commandline\Private.package or the BCON editor's label lookup breaks." />
+		<Error Condition=" !Exists('$(_PjseIncludesDir)RelLabels.package') "
+		       Text="Missing PJSE include package: $(_PjseIncludesDir)RelLabels.package. Restore from SimPe_0_77_69-Source\SimPe Commandline\RelLabels.package or the BCON editor's label lookup breaks." />
+	</Target>
+
 	<Target Name="SimPeCopyToUnifiedBin" AfterTargets="Build" Condition=" '$(SimPeUnifiedOutDir)' != '' ">
 		<!-- Ensure destination exists -->
 		<MakeDir Directories="$(SimPeUnifiedOutDir)"

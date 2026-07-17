@@ -138,7 +138,34 @@ namespace pjse
         {
             if (FileDescriptor == null) return null;
 
+            // 1. Same package's group first — a mod that ships its own TRCN
+            //    alongside a BCON is the direct match and always wins.
             pjse.FileTable.Entry[] items = pjse.FileTable.GFT[type, FileDescriptor.Group, FileDescriptor.Instance];
+
+            // 2. Fall through the Maxis instance-range groups. Sims 2's
+            //    BCON/BHAV/TPRP/TRCN convention is that instance ranges
+            //    map to specific groups: <0x1000 = Global (Maxis globals),
+            //    0x1000-0x1FFF = Private (this object's own group),
+            //    >=0x2000 = SemiGlobal. When a BCON's own group has no
+            //    matching TRCN, the label almost certainly lives in the
+            //    include package covering that instance range. This is
+            //    the lookup ResourceByInstance already does; SiblingResource
+            //    needs the same behavior for the Label column to populate
+            //    and the TRCN button to light up.
+            if ((items == null || items.Length == 0)
+                && (type == SimPe.Data.MetaData.BHAV_FILE
+                    || type == 0x42434F4E   // BCON
+                    || type == 0x54505250   // TPRP
+                    || type == 0x5452434E)) // TRCN
+            {
+                uint fallbackGroup;
+                if (FileDescriptor.Instance < 0x1000) fallbackGroup = GlobalGroup;
+                else if (FileDescriptor.Instance >= 0x2000) fallbackGroup = SemiGroup;
+                else fallbackGroup = PrivateGroup;
+                if (fallbackGroup != FileDescriptor.Group)
+                    items = pjse.FileTable.GFT[type, fallbackGroup, FileDescriptor.Instance];
+            }
+
             if (items == null || items.Length == 0) return null;
 
             SimPe.Interfaces.Plugin.Internal.IPackedFileWrapper wrp = SimPe.FileTable.WrapperRegistry.FindHandler(type);
