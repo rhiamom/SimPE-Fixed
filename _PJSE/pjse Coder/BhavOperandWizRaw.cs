@@ -82,6 +82,19 @@ namespace pjse.BhavOperandWizards.WizRaw
 			for (int i = 0; i < 8; i++)
 				s += SimPe.Helper.HexString(inst.Reserved1[i]);
 			tbRaw.Text = s;
+
+			// Auto-select so the user can immediately type over the whole
+			// hex string — matches 0.75.69.23 behavior. Deferred to
+			// Shown so the selection actually paints (SelectAll on a
+			// not-yet-visible TextBox loses the selection state when it
+			// receives focus for the first time).
+			void selectAllOnShown(object sender, EventArgs e)
+			{
+				tbRaw.SelectAll();
+				tbRaw.Focus();
+				this.Shown -= selectAllOnShown;
+			}
+			this.Shown += selectAllOnShown;
 		}
 
         public Instruction Write(Instruction inst)
