@@ -287,7 +287,29 @@ namespace pjse
             }
 
             else if (!v.ToLowerInvariant().EndsWith(SimPe.Helper.PATH_SEP+"globalcatbin.bundle.package") && File.Exists(v))
-                Add(SimPe.Packages.File.LoadFromFile(v), ep != SimPe.Expansions.Custom, isFixed);
+            {
+                try
+                {
+                    Add(SimPe.Packages.File.LoadFromFile(v), ep != SimPe.Expansions.Custom, isFixed);
+                }
+                catch (InvalidOperationException ioe)
+                {
+                    // The file has a .package extension but isn't a Sims2 DBPF
+                    // package (HeaderData.Load throws this for a bad magic number
+                    // or an unsupported DBPF version). Some genuine Maxis files
+                    // live in the scanned game folders like this — e.g. Bon
+                    // Voyage's TSData/Res/Catalog/Skins/Skins.package, which
+                    // starts with the bytes "book", not "DBPF". This bulk scan
+                    // runs whenever the BCON/BHAV editor rebuilds its label
+                    // sources, so it MUST skip foreign files quietly: letting the
+                    // exception escape both pops a modal "Sims2 packages only"
+                    // dialog AND aborts the rest of Refresh, so the include
+                    // packages (GLOBALS/SemiGlobals/Private/RelLabels) never load
+                    // and BCON labels resolve to 0xFFFFFFFF. Mirrors the guard in
+                    // SimPE.Scenegraph.FileIndex.AddIndexFromPackage (commit 6d601fe).
+                    System.Diagnostics.Debug.WriteLine("[pjse.FileTable] skipping unsupported file: " + v + " (" + ioe.Message.Split('\n')[0].Trim() + ")");
+                }
+            }
         }
 
 
