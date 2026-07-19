@@ -90,6 +90,14 @@ namespace SimPe.Plugin.Tool.Dockable
 
 			wizard1.Start();
 			SimPe.ThemeManager tm = SimPe.ThemeManager.Global.CreateChild();
+			// rightSandDock (Dock=Right) and its AutoScroll host dcObjectWorkshop
+			// wrap the themed xpGradientPanel1. AddControl is per-control (not
+			// recursive), so without registering these two wrappers their default
+			// (light) BackColor shows through on the right edge — invisible under
+			// the light themes but a glaring light strip under the Dark theme.
+			// Theme them too so the whole Object Workshop pane follows the palette.
+			tm.AddControl(this.rightSandDock);
+			tm.AddControl(this.dcObjectWorkshop);
 			tm.AddControl(this.xpGradientPanel1);
 			tm.AddControl(this.toolBar1);
 			tm.AddControl(this.splitter1);
