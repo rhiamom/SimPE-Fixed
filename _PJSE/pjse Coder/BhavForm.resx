@@ -199,9 +199,6 @@ text for copying</value>
   <data name="&gt;&gt;tbInst_Longname.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="btnOperandRaw.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Wingdings, 14.25pt</value>
-  </data>
   <data name="btnOperandRaw.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -218,7 +215,7 @@ text for copying</value>
     <value>25</value>
   </data>
   <data name="btnOperandRaw.Text" xml:space="preserve">
-    <value>~</value>
+    <value>»</value>
   </data>
   <data name="btnOperandRaw.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopCenter</value>
@@ -271,9 +268,6 @@ text for copying</value>
   <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="btnOperandWiz.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Webdings, 10.8pt</value>
-  </data>
   <data name="btnOperandWiz.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -290,7 +284,7 @@ text for copying</value>
     <value>24</value>
   </data>
   <data name="btnOperandWiz.Text" xml:space="preserve">
-    <value>@</value>
+    <value>⚙</value>
   </data>
   <data name="btnOperandWiz.ToolTip" xml:space="preserve">
     <value>Pop-up Wizard</value>
@@ -1129,9 +1123,6 @@ text for copying</value>
   <data name="btnOpCode.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>System</value>
   </data>
-  <data name="btnOpCode.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Webdings, 10pt</value>
-  </data>
   <data name="btnOpCode.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1148,7 +1139,7 @@ text for copying</value>
     <value>2</value>
   </data>
   <data name="btnOpCode.Text" xml:space="preserve">
-    <value>4</value>
+    <value>▶</value>
   </data>
   <data name="&gt;&gt;btnOpCode.Name" xml:space="preserve">
     <value>btnOpCode</value>
@@ -1659,7 +1650,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 18</value>
+    <value>60, 20</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -1692,7 +1683,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="cmpBHAV.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 18</value>
+    <value>73, 20</value>
   </data>
   <data name="cmpBHAV.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -1725,7 +1716,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnPasteListing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 18</value>
+    <value>48, 20</value>
   </data>
   <data name="btnPasteListing.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1758,7 +1749,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnAppend.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 18</value>
+    <value>100, 20</value>
   </data>
   <data name="btnAppend.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1791,7 +1782,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnInsTrue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 18</value>
+    <value>60, 20</value>
   </data>
   <data name="btnInsTrue.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1824,7 +1815,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnInsFalse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 18</value>
+    <value>60, 20</value>
   </data>
   <data name="btnInsFalse.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1857,7 +1848,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnDelPescado.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 18</value>
+    <value>100, 20</value>
   </data>
   <data name="btnDelPescado.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1890,7 +1881,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnLinkInge.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 18</value>
+    <value>100, 20</value>
   </data>
   <data name="btnLinkInge.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1923,7 +1914,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnGUIDIndex.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 18</value>
+    <value>48, 20</value>
   </data>
   <data name="btnGUIDIndex.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1956,7 +1947,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnInsUnlinked.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 18</value>
+    <value>124, 20</value>
   </data>
   <data name="btnInsUnlinked.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1989,7 +1980,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnDelMerola.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 18</value>
+    <value>89, 20</value>
   </data>
   <data name="btnDelMerola.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -2022,7 +2013,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnCopyListing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 18</value>
+    <value>48, 20</value>
   </data>
   <data name="btnCopyListing.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -2055,7 +2046,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="btnTPRPMaker.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 18</value>
+    <value>48, 20</value>
   </data>
   <data name="btnTPRPMaker.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -2076,7 +2067,7 @@ to BHAV</value>
     <value>12</value>
   </data>
   <data name="gbSpecial.Location" type="System.Drawing.Point, System.Drawing">
-    <value>395, 336</value>
+    <value>395, 350</value>
   </data>
   <data name="gbSpecial.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -2085,7 +2076,7 @@ to BHAV</value>
     <value>2, 2, 2, 2</value>
   </data>
   <data name="gbSpecial.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 86</value>
+    <value>341, 96</value>
   </data>
   <data name="gbSpecial.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -2570,9 +2561,6 @@ to BHAV</value>
   <data name="gbMove.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="btnUp.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Wingdings, 8.25pt</value>
-  </data>
   <data name="btnUp.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -2589,7 +2577,7 @@ to BHAV</value>
     <value>2</value>
   </data>
   <data name="btnUp.Text" xml:space="preserve">
-    <value>á         &amp;Up</value>
+    <value>▲</value>
   </data>
   <data name="&gt;&gt;btnUp.Name" xml:space="preserve">
     <value>btnUp</value>
@@ -2602,9 +2590,6 @@ to BHAV</value>
   </data>
   <data name="&gt;&gt;btnUp.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="btnDown.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Wingdings, 8.25pt</value>
   </data>
   <data name="btnDown.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2622,7 +2607,7 @@ to BHAV</value>
     <value>3</value>
   </data>
   <data name="btnDown.Text" xml:space="preserve">
-    <value>â         &amp;Down</value>
+    <value>▼</value>
   </data>
   <data name="&gt;&gt;btnDown.Name" xml:space="preserve">
     <value>btnDown</value>

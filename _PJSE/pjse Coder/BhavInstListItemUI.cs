@@ -330,6 +330,11 @@ namespace SimPe.PackedFiles.UserInterface
 		private void Control_Click(object sender, System.EventArgs e)
 		{
 			this.Focus();
+			// Under Wine/Linux, Focus() on a UserControl doesn't reliably
+			// raise Enter, so the Enter-driven selection path never fires
+			// and the clicked row never gets highlighted. Raise Selected
+			// explicitly so the click always registers.
+			OnSelected(System.EventArgs.Empty);
 		}
 
 		private void Target_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)

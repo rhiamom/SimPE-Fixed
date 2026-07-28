@@ -150,6 +150,13 @@ namespace SimPe.PackedFiles.UserInterface
 				{
 					if (csel >= 0) flowitems[csel].MakeUnselected();
 					csel = value;
+					// Drive the highlight from the model, not from the
+					// UserControl Enter event. Under Wine/Linux, Focus()
+					// on a Panel-hosted UserControl doesn't reliably raise
+					// Enter, so PowderBlue via bhavInstListItemUI_Enter
+					// isn't guaranteed to paint. MakeSelected here means
+					// the selected row is always visibly marked.
+					if (csel >= 0) flowitems[csel].MakeSelected();
 					pnflow.Image = DrawConnectors();
 					OnSelectedInstChanged(new EventArgs());
 				}
