@@ -213,6 +213,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnBrowse.Location = new System.Drawing.Point(834, 327);
             this.btnBrowse.Margin = new System.Windows.Forms.Padding(4);
             this.btnBrowse.Name = "btnBrowse";
@@ -220,7 +221,7 @@
             this.btnBrowse.TabIndex = 12;
             this.btnBrowse.Text = "Browse...";
             this.btnBrowse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnBrowse.Padding = new System.Windows.Forms.Padding(0, 12, 0, 0);
+            this.btnBrowse.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
@@ -255,13 +256,14 @@
             // btnBrowseDownloads
             // 
             this.btnBrowseDownloads.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBrowseDownloads.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnBrowseDownloads.Location = new System.Drawing.Point(834, 378);
             this.btnBrowseDownloads.Name = "btnBrowseDownloads";
             this.btnBrowseDownloads.Size = new System.Drawing.Size(96, 35);
             this.btnBrowseDownloads.TabIndex = 16;
             this.btnBrowseDownloads.Text = "Browse...";
             this.btnBrowseDownloads.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnBrowseDownloads.Padding = new System.Windows.Forms.Padding(0, 12, 0, 0);
+            this.btnBrowseDownloads.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.btnBrowseDownloads.UseVisualStyleBackColor = true;
             this.btnBrowseDownloads.Click += new System.EventHandler(this.btnBrowseDownloads_Click);
             //
