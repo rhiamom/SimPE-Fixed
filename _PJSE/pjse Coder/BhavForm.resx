@@ -134,6 +134,12 @@
   <data name="btnZero.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 19</value>
   </data>
+  <data name="btnZero.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="btnZero.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 3</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnZero.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -218,7 +224,7 @@ text for copying</value>
     <value>»</value>
   </data>
   <data name="btnOperandRaw.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
+    <value>MiddleCenter</value>
   </data>
   <data name="btnOperandRaw.ToolTip" xml:space="preserve">
     <value>Pop-up raw entry box</value>
