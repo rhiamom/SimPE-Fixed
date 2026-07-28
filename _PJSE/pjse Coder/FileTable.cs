@@ -727,6 +727,14 @@ namespace pjse
         public IToolResult ShowDialog(ref IPackedFileDescriptor pfd, ref IPackageFile package)
         {
             SimPe.FileTable.Reload();
+            // SimPe.FileTable.Reload() only rebuilds the main game resource
+            // index. The PJSE label table (GLOBALS/SemiGlobals/Private/
+            // RelLabels + bulk scan for BCON/OBJF lookups) is a separate
+            // singleton that's otherwise only refreshed indirectly via the
+            // FileIndex.FILoad event — and only if pjse.FileTable.GFT had
+            // already been instantiated once before. Refresh it explicitly
+            // so this menu item actually does what it says.
+            pjse.FileTable.GFT.Refresh();
             return new SimPe.Plugin.ToolResult(false, false);
         }
 
