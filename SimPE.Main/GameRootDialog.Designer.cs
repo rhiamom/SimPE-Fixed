@@ -142,7 +142,7 @@
             this.rbMac.Size = new System.Drawing.Size(222, 29);
             this.rbMac.TabIndex = 6;
             this.rbMac.TabStop = true;
-            this.rbMac.Text = "Mac (coming soon)";
+            this.rbMac.Text = "Mac";
             this.rbMac.UseVisualStyleBackColor = true;
             this.rbMac.CheckedChanged += new System.EventHandler(this.EditionRadio_CheckedChanged);
             // 
@@ -219,6 +219,8 @@
             this.btnBrowse.Size = new System.Drawing.Size(96, 35);
             this.btnBrowse.TabIndex = 12;
             this.btnBrowse.Text = "Browse...";
+            this.btnBrowse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnBrowse.Padding = new System.Windows.Forms.Padding(0, 12, 0, 0);
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
@@ -258,16 +260,19 @@
             this.btnBrowseDownloads.Size = new System.Drawing.Size(96, 35);
             this.btnBrowseDownloads.TabIndex = 16;
             this.btnBrowseDownloads.Text = "Browse...";
+            this.btnBrowseDownloads.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnBrowseDownloads.Padding = new System.Windows.Forms.Padding(0, 12, 0, 0);
             this.btnBrowseDownloads.UseVisualStyleBackColor = true;
             this.btnBrowseDownloads.Click += new System.EventHandler(this.btnBrowseDownloads_Click);
-            // 
+            //
             // lblCepStatus
-            // 
+            //
             this.lblCepStatus.Location = new System.Drawing.Point(23, 441);
             this.lblCepStatus.Name = "lblCepStatus";
-            this.lblCepStatus.Size = new System.Drawing.Size(177, 27);
+            this.lblCepStatus.Size = new System.Drawing.Size(220, 34);
             this.lblCepStatus.TabIndex = 17;
             this.lblCepStatus.Text = "CEP Status:";
+            this.lblCepStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCepStatus
             // 
