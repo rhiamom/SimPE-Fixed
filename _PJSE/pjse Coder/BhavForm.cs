@@ -1798,20 +1798,22 @@ namespace SimPe.PackedFiles.UserInterface
             this.gbMove.TabStop = false;
             // 
             // btnUp
-            // 
+            //
             this.btnUp.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.btnUp, "btnUp");
             this.btnUp.Name = "btnUp";
             this.btnUp.UseVisualStyleBackColor = false;
             this.btnUp.Click += new System.EventHandler(this.btnMove_Clicked);
-            // 
+            this.btnUp.Paint += new System.Windows.Forms.PaintEventHandler(this.btnUpDown_Paint);
+            //
             // btnDown
-            // 
+            //
             this.btnDown.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.btnDown, "btnDown");
             this.btnDown.Name = "btnDown";
             this.btnDown.UseVisualStyleBackColor = false;
             this.btnDown.Click += new System.EventHandler(this.btnMove_Clicked);
+            this.btnDown.Paint += new System.Windows.Forms.PaintEventHandler(this.btnUpDown_Paint);
             // 
             // lbUpDown
             // 
@@ -2470,6 +2472,40 @@ namespace SimPe.PackedFiles.UserInterface
             {
                 this.gbMove.Enabled = true;
             }
+        }
+
+        /// <summary>
+        /// Draws btnUp/btnDown's arrow glyph directly instead of relying on a
+        /// symbol-font-codepoint trick (Wingdings originally, then a Unicode
+        /// triangle ▲/▼ — neither renders under Wine here; drawing it as a
+        /// filled polygon has no font/glyph dependency at all).
+        /// </summary>
+        private void btnUpDown_Paint(object sender, PaintEventArgs e)
+        {
+            Button btn = (Button)sender;
+            bool pointsUp = (btn == this.btnUp);
+
+            int w = btn.ClientSize.Width;
+            int h = btn.ClientSize.Height;
+            int triW = Math.Max(4, w / 2);
+            int triH = Math.Max(3, h / 3);
+            int cx = w / 2;
+            int cy = h / 2;
+
+            Point[] pts = pointsUp
+                ? new Point[] {
+                    new Point(cx - triW / 2, cy + triH / 2),
+                    new Point(cx + triW / 2, cy + triH / 2),
+                    new Point(cx, cy - triH / 2)
+                }
+                : new Point[] {
+                    new Point(cx - triW / 2, cy - triH / 2),
+                    new Point(cx + triW / 2, cy - triH / 2),
+                    new Point(cx, cy + triH / 2)
+                };
+
+            using (SolidBrush brush = new SolidBrush(btn.Enabled ? SystemColors.ControlText : SystemColors.GrayText))
+                e.Graphics.FillPolygon(brush, pts);
         }
 
 		private void btnAdd_Clicked(object sender, EventArgs e)

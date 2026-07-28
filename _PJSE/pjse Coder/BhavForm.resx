@@ -284,7 +284,7 @@ text for copying</value>
     <value>24</value>
   </data>
   <data name="btnOperandWiz.Text" xml:space="preserve">
-    <value>⚙</value>
+    <value>W</value>
   </data>
   <data name="btnOperandWiz.ToolTip" xml:space="preserve">
     <value>Pop-up Wizard</value>
@@ -2175,19 +2175,22 @@ to BHAV</value>
     <value>Top, Right</value>
   </data>
   <data name="cbSpecial.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+    <value>False</value>
   </data>
   <data name="cbSpecial.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="cbSpecial.Location" type="System.Drawing.Point, System.Drawing">
-    <value>652, 312</value>
+    <value>641, 300</value>
   </data>
   <data name="cbSpecial.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
+  <data name="cbSpecial.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 2, 0, 2</value>
+  </data>
   <data name="cbSpecial.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 17</value>
+    <value>110, 32</value>
   </data>
   <data name="cbSpecial.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -2577,7 +2580,7 @@ to BHAV</value>
     <value>2</value>
   </data>
   <data name="btnUp.Text" xml:space="preserve">
-    <value>▲</value>
+    <value></value>
   </data>
   <data name="&gt;&gt;btnUp.Name" xml:space="preserve">
     <value>btnUp</value>
@@ -2607,7 +2610,7 @@ to BHAV</value>
     <value>3</value>
   </data>
   <data name="btnDown.Text" xml:space="preserve">
-    <value>▼</value>
+    <value></value>
   </data>
   <data name="&gt;&gt;btnDown.Name" xml:space="preserve">
     <value>btnDown</value>
