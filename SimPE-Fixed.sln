@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simpeGameTipplugin", "SimPe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.GMDCExporter", "SimPe GMDC Exporter\Plugin.GMDCExporter.csproj", "{F7DD4A1A-8C32-4247-9AE9-AE4372455A24}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.SMDImporterExporter", "SimPe SMD ImporterExporter\Plugin.SMDImporterExporter.csproj", "{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "language Extractor", "SimPe LangExtracter\language Extractor.csproj", "{3D13FA23-1B13-4FA8-8654-D5E7C1BAD823}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simpeMoreplugin", "SimPe More Plugins\simpeMoreplugin.csproj", "{2AE83F37-E52A-4ADC-82E9-243465953FFD}"
@@ -207,6 +209,18 @@ Global
 		{F7DD4A1A-8C32-4247-9AE9-AE4372455A24}.Release|x64.Build.0 = Release|Any CPU
 		{F7DD4A1A-8C32-4247-9AE9-AE4372455A24}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
 		{F7DD4A1A-8C32-4247-9AE9-AE4372455A24}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Debug|x64.Build.0 = Debug|Any CPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Release|x64.ActiveCfg = Release|Any CPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Release|x64.Build.0 = Release|Any CPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{211F4A5F-AFC9-4F6E-9A50-F8493F6E340B}.Release|AnyCPU.Build.0 = Release|AnyCPU
 		{3D13FA23-1B13-4FA8-8654-D5E7C1BAD823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D13FA23-1B13-4FA8-8654-D5E7C1BAD823}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D13FA23-1B13-4FA8-8654-D5E7C1BAD823}.Debug|x64.ActiveCfg = Debug|Any CPU
