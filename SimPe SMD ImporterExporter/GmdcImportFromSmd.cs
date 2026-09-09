@@ -1,0 +1,753 @@
+using System;
+using System.Collections;
+using System.IO;
+using SimPe.Geometry;
+using SimPe_SmdImporterExporter;
+
+namespace SimPe.Plugin.Gmdc.Importer;
+
+public class GmdcImportFromSmd : AbstractGmdcImporter
+{
+	public BonesWeightOptions sksmdDialog;
+
+	private string lineerror;
+
+	public override string FileExtension => ".smd";
+
+	public override string FileDescription => "Smd File";
+
+	public override string Author => "Skankyboy";
+
+	protected override ImportedGroups LoadGroups()
+	{
+		ImportedGroups val = new ImportedGroups();
+		LineParser(val);
+		return val;
+	}
+
+	private void LineParser(ImportedGroups grps)
+	{
+		ImportedGroup val = PrepareGroup();
+		val.Group.Name = "SmdMesh";
+		base.error = "";
+		string[] array = new string[255];
+		string[] array2 = new string[100000];
+		string[] array3 = new string[100000];
+		string[] array4 = new string[100000];
+		string[] array5 = new string[100000];
+		string[] array6 = new string[100000];
+		bool[,] array7 = new bool[100000, 2];
+		int[] array8 = new int[256];
+		string[] array9 = new string[256];
+		int num = 0;
+		int num2 = 0;
+		Vector3f[] array10 = (Vector3f[])(object)new Vector3f[100000];
+		Vector3f[] array11 = (Vector3f[])(object)new Vector3f[100000];
+		Vector3f[] array12 = (Vector3f[])(object)new Vector3f[100000];
+		Vector3f[] array13 = (Vector3f[])(object)new Vector3f[3];
+		Vector3f[] array14 = (Vector3f[])(object)new Vector3f[3];
+		int num3 = 3;
+		StreamReader streamReader = new StreamReader(File.OpenRead(FileName));
+		string text = streamReader.ReadLine();
+		if (text.Length > 100)
+		{
+			throw new Warning("Smd File Not Valid !", "Please reload and resave your file on your smd editor program, this should correct the problem");
+		}
+		streamReader.Close();
+		sksmdDialog = new BonesWeightOptions();
+		string text2 = FileName.Substring(0, FileName.Length - 4) + "-morph.smd";
+		string text3 = FileName.Substring(0, FileName.Length - 4) + "-morph2.smd";
+		if (File.Exists(text2))
+		{
+			sksmdDialog.MorphFile1 = text2;
+		}
+		if (File.Exists(text3))
+		{
+			sksmdDialog.MorphFile2 = text3;
+		}
+		sksmdDialog.Checkvalues(FileName);
+		int boneType = 0;
+		foreach (GmdcGroup item in (ArrayList)(object)Gmdc.Groups)
+		{
+			GmdcGroup val2 = item;
+			foreach (object item2 in (ArrayList)(object)val2.Link.ReferencedElement)
+			{
+				int num4 = (int)item2;
+				if ((int)Gmdc.Elements[num4].Identity == 1003946245 && Gmdc.Elements[num4].Values.Length > 0)
+				{
+					if ((int)Gmdc.Elements[num4].BlockFormat == 0)
+					{
+						boneType = 1;
+					}
+					else if ((int)Gmdc.Elements[num4].BlockFormat == 1)
+					{
+						boneType = 2;
+					}
+					else if ((int)Gmdc.Elements[num4].BlockFormat == 2)
+					{
+						boneType = 3;
+					}
+				}
+			}
+		}
+		sksmdDialog.BoneType = boneType;
+		sksmdDialog.CheckBT();
+		sksmdDialog.ShowDialog();
+		int bWType = sksmdDialog.BWType;
+		bool bumpType = sksmdDialog.BumpType;
+		int morphType = sksmdDialog.MorphType;
+		bool flag = false;
+		bool flag2 = false;
+		text2 = sksmdDialog.MorphFile1;
+		text3 = sksmdDialog.MorphFile2;
+		if (morphType > 0)
+		{
+			if (File.Exists(text2))
+			{
+				flag = true;
+			}
+			if (File.Exists(text3) && flag && morphType == 2)
+			{
+				flag2 = true;
+			}
+		}
+		bool flag3 = false;
+		GmdcNamePairs blendGroupDefinition = Gmdc.Model.BlendGroupDefinition;
+		if (blendGroupDefinition.Length > 2)
+		{
+			GmdcNamePair val3 = blendGroupDefinition[2];
+			if (val3.AssignedElementName == "fatbot" || val3.AssignedElementName == "fattop")
+			{
+				flag3 = true;
+			}
+		}
+		if (flag && flag2)
+		{
+			array3 = ReadMorphFile(text2);
+			array4 = ReadMorphFile(text3);
+		}
+		else if (flag)
+		{
+			array3 = ReadMorphFile(text2);
+		}
+		if (bWType > 0)
+		{
+			IntArrayList val4 = Gmdc.SortJoints();
+			num = val4.Length;
+			for (int i = 0; i < val4.Length; i++)
+			{
+				array9[i] = Gmdc.Joints[i].Name;
+			}
+			GmdcElement val5 = new GmdcElement(Gmdc);
+			val.Elements.Add(val5);
+			val5.Identity = (ElementIdentity)unchecked((uint)-69795567);
+			val5.BlockFormat = (BlockFormat)4;
+			val5.SetFormat = (SetFormat)3;
+			GmdcElement val6 = new GmdcElement(Gmdc);
+			val.Elements.Add(val6);
+			val6.Identity = (ElementIdentity)1003946245;
+			val6.SetFormat = (SetFormat)3;
+			if (bWType > 2)
+			{
+				val6.BlockFormat = (BlockFormat)2;
+			}
+			else if (bWType > 1)
+			{
+				val6.BlockFormat = (BlockFormat)1;
+			}
+			else
+			{
+				val6.BlockFormat = (BlockFormat)0;
+			}
+			num3 += 2;
+		}
+		int num5 = num3;
+		int num6 = num3;
+		int num7 = num3 + 1;
+		if (flag)
+		{
+			GmdcElement val7 = new GmdcElement(Gmdc);
+			val.Elements.Add(val7);
+			val7.Identity = (ElementIdentity)1559416801;
+			val7.BlockFormat = (BlockFormat)2;
+			val7.SetFormat = (SetFormat)3;
+			if (flag2)
+			{
+				GmdcElement val8 = new GmdcElement(Gmdc);
+				val.Elements.Add(val8);
+				val8.Identity = (ElementIdentity)1559416801;
+				val8.BlockFormat = (BlockFormat)2;
+				val8.SetFormat = (SetFormat)3;
+				val8.GroupId = 1;
+				num7++;
+			}
+			GmdcElement val9 = new GmdcElement(Gmdc);
+			val.Elements.Add(val9);
+			val9.Identity = (ElementIdentity)unchecked((uint)-881902998);
+			val9.BlockFormat = (BlockFormat)2;
+			val9.SetFormat = (SetFormat)3;
+			num5 += 2;
+			if (flag2)
+			{
+				GmdcElement val10 = new GmdcElement(Gmdc);
+				val.Elements.Add(val10);
+				val10.Identity = (ElementIdentity)unchecked((uint)-881902998);
+				val10.BlockFormat = (BlockFormat)2;
+				val10.SetFormat = (SetFormat)3;
+				val10.GroupId = 1;
+				num5 += 2;
+			}
+			GmdcElement val11 = new GmdcElement(Gmdc);
+			val.Elements.Add(val11);
+			val11.Identity = (ElementIdentity)unchecked((uint)-588066852);
+			val11.BlockFormat = (BlockFormat)4;
+			val11.SetFormat = (SetFormat)3;
+			num5++;
+		}
+		while (Input.Peek() != -1)
+		{
+			string line = Input.ReadLine();
+			line = CleanLine(line);
+			if (line == "nodes")
+			{
+				int num8 = 0;
+				int num9 = 0;
+				while (true)
+				{
+					line = Input.ReadLine();
+					line = CleanLine(line);
+					if (line == "end")
+					{
+						break;
+					}
+					string[] array15 = line.Split(" ".ToCharArray());
+					array[num9] = array15[1];
+					num9++;
+				}
+				num8 = num9;
+				int num10 = 0;
+				bool flag4 = false;
+				for (int j = 0; j < num8; j++)
+				{
+					int num11 = array[j].IndexOf("_trans0");
+					if (num11 >= 0)
+					{
+						string text4 = array[j].Substring(num11, array[j].Length - num11);
+						num10 = text4.Length - 6;
+						flag4 = true;
+						break;
+					}
+				}
+				if (flag4 && num10 > 0)
+				{
+					for (int k = 0; k < num8; k++)
+					{
+						array[k] = array[k].Substring(0, array[k].Length - num10);
+					}
+				}
+				for (int l = 0; l < num8; l++)
+				{
+					for (int m = 0; m < num; m++)
+					{
+						if (array[l] == array9[m])
+						{
+							array8[l] = m;
+							break;
+						}
+					}
+					if (array[l] == "SmdMiscBone")
+					{
+						array8[l] = 250;
+					}
+				}
+				for (int n = 0; n < num8; n++)
+				{
+					int length = array[n].Length;
+					if (length > 4 && array[n].Substring(0, 5) == "Name-")
+					{
+						string text5 = array[n].Substring(5, length - 5);
+						if (text5.Substring(text5.Length - 1, 1) == "0")
+						{
+							text5 = text5.Substring(0, text5.Length - 1);
+						}
+						val.Group.Name = text5;
+					}
+				}
+			}
+			if (!(line == "triangles"))
+			{
+				continue;
+			}
+			int num12 = -1;
+			int num13 = 0;
+			while (true)
+			{
+				line = Input.ReadLine();
+				if (line != null)
+				{
+					line = CleanLine(line);
+				}
+				if (num13 % 4 != 0)
+				{
+					num12++;
+					bool flag5 = false;
+					for (int num14 = 0; num14 < num2; num14++)
+					{
+						if (line == array2[num14] && array3[num12] == array5[num14] && array4[num12] == array6[num14])
+						{
+							flag5 = true;
+							val.Group.Faces.Add(num14);
+							break;
+						}
+					}
+					if (!flag5)
+					{
+						array2[num2] = line;
+						val.Group.Faces.Add(num2);
+						if (flag)
+						{
+							array5[num2] = array3[num12];
+						}
+						if (flag2)
+						{
+							array6[num2] = array4[num12];
+						}
+						string[] array16 = line.Split(" ".ToCharArray());
+						float[] array17 = new float[8];
+						for (int num15 = 1; num15 < 9; num15++)
+						{
+							array17[num15 - 1] = Convert.ToSingle(array16[num15], AbstractGmdcImporter.DefaultCulture);
+						}
+						Vector3f val12 = new Vector3f((double)array17[0], (double)array17[1], (double)array17[2]);
+						val12 = Component.InverseTransformScaled(val12);
+						val.Elements[0].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat((float)((Vector2f)val12).X, (float)((Vector2f)val12).Y, (float)val12.Z));
+						Vector3f val13 = new Vector3f((double)array17[3], (double)array17[4], (double)array17[5]);
+						val13 = Component.InverseTransformNormal(val13);
+						val.Elements[1].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat((float)((Vector2f)val13).X, (float)((Vector2f)val13).Y, (float)val13.Z));
+						val.Elements[2].Values.Add((GmdcElementValueBase)new GmdcElementValueTwoFloat(array17[6], 1f - array17[7]));
+						array10[num2] = val12;
+						array11[num2] = val13;
+						array12[num2] = new Vector3f((double)array17[6], (double)array17[7], 0.0);
+						if (bWType > 0)
+						{
+							int[] array18 = new int[4] { 255, 255, 255, 255 };
+							float[] array19 = new float[4];
+							float[] array20 = array19;
+							if (array16.Length > 11)
+							{
+								int num16 = Convert.ToInt32(array16[9]);
+								int num17 = 0;
+								for (int num18 = 0; num18 < num16; num18++)
+								{
+									if (num17 == bWType)
+									{
+										break;
+									}
+									int num19 = num18 * 2;
+									float num20 = Convert.ToSingle(array16[num19 + 11], AbstractGmdcImporter.DefaultCulture);
+									if (num20 != 0f)
+									{
+										array18[num17] = array8[Convert.ToInt32(array16[num19 + 10])];
+										array20[num17] = num20;
+										num17++;
+									}
+								}
+							}
+							else if (array16.Length > 10)
+							{
+								array18[0] = array8[Convert.ToInt32(array16[10])];
+								array20[0] = 1f;
+							}
+							else
+							{
+								array18[0] = array8[Convert.ToInt32(array16[0])];
+								array20[0] = 1f;
+							}
+							for (int num21 = 0; num21 < bWType; num21++)
+							{
+								if (array18[num21] >= 255)
+								{
+									continue;
+								}
+								int num22 = array18[num21];
+								if (num22 == 250)
+								{
+									array18[num21] = 64;
+								}
+								else if (!val.Group.UsedJoints.Contains(num22))
+								{
+									val.Group.UsedJoints.Add(num22);
+									num22 = val.Group.UsedJoints.Length - 1;
+								}
+								else
+								{
+									for (int num23 = 0; num23 < val.Group.UsedJoints.Length; num23++)
+									{
+										if (val.Group.UsedJoints[num23] == num22)
+										{
+											num22 = num23;
+											break;
+										}
+									}
+								}
+								if (num22 != 250)
+								{
+									array18[num21] = num22;
+								}
+							}
+							byte[] array21 = new byte[4];
+							for (int num24 = 0; num24 < 4; num24++)
+							{
+								array21[num24] = (byte)array18[num24];
+							}
+							val.Elements[3].Values.Add((GmdcElementValueBase)new GmdcElementValueOneInt(BitConverter.ToInt32(array21, 0)));
+							switch (bWType)
+							{
+							case 1:
+								val.Elements[4].Values.Add((GmdcElementValueBase)new GmdcElementValueOneFloat(1f));
+								break;
+							case 2:
+							{
+								float num27 = array20[0] + array20[1];
+								if (num27 != 1f)
+								{
+									num27 = (1f - num27) / 2f;
+									float[] array26;
+									(array26 = array20)[0] = array26[0] + num27;
+									float[] array27;
+									(array27 = array20)[1] = array27[1] + num27;
+								}
+								val.Elements[4].Values.Add((GmdcElementValueBase)new GmdcElementValueTwoFloat(array20[0], array20[1]));
+								break;
+							}
+							case 3:
+							{
+								float num28 = array20[0] + array20[1] + array20[2];
+								if (num28 < 1f)
+								{
+									num28 = (1f - num28) / 3f;
+									float[] array28;
+									(array28 = array20)[0] = array28[0] + num28;
+									float[] array29;
+									(array29 = array20)[1] = array29[1] + num28;
+									float[] array30;
+									(array30 = array20)[2] = array30[2] + num28;
+									float num29 = array20[0] + array20[1] + array20[2];
+									if (num29 > 1f)
+									{
+										array20[0] -= num29 - 1f;
+									}
+								}
+								val.Elements[4].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat(array20[0], array20[1], array20[2]));
+								break;
+							}
+							case 4:
+							{
+								float num25 = array20[0] + array20[1] + array20[2] + array20[3];
+								if (num25 < 1f)
+								{
+									num25 = (1f - num25) / 4f;
+									float[] array22;
+									(array22 = array20)[0] = array22[0] + num25;
+									float[] array23;
+									(array23 = array20)[1] = array23[1] + num25;
+									float[] array24;
+									(array24 = array20)[2] = array24[2] + num25;
+									float[] array25;
+									(array25 = array20)[3] = array25[3] + num25;
+									float num26 = array20[0] + array20[1] + array20[2] + array20[3];
+									if (num26 > 1f)
+									{
+										array20[0] -= num26 - 1f;
+									}
+								}
+								val.Elements[4].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat(array20[0], array20[1], array20[2]));
+								break;
+							}
+							}
+						}
+						if (flag)
+						{
+							byte[] array31 = new byte[4];
+							IntArrayList val14 = new IntArrayList();
+							if (flag)
+							{
+								string[] array32 = array3[num12].Split(" ".ToCharArray());
+								float[] array33 = new float[6];
+								for (int num30 = 1; num30 < 7; num30++)
+								{
+									array33[num30 - 1] = Convert.ToSingle(array32[num30], AbstractGmdcImporter.DefaultCulture);
+								}
+								Vector3f val15 = new Vector3f((double)array33[0], (double)array33[1], (double)array33[2]);
+								val15 = Component.InverseTransformScaled(val15);
+								Vector3f val16 = new Vector3f((double)array33[3], (double)array33[4], (double)array33[5]);
+								val16 = Component.InverseTransformNormal(val16);
+								if (val15.ToString2() == val12.ToString2())
+								{
+									val.Elements[num6].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat(0f, 0f, 0f));
+								}
+								else
+								{
+									Vector3f val17 = val15 - val12;
+									val.Elements[num6].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat((float)((Vector2f)val17).X, (float)((Vector2f)val17).Y, (float)val17.Z));
+									if (flag3)
+									{
+										array31[0] = 2;
+									}
+									else
+									{
+										array31[0] = 1;
+									}
+								}
+								if (val16.ToString2() == val13.ToString2())
+								{
+									val.Elements[num7].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat(0f, 0f, 0f));
+								}
+								else
+								{
+									Vector3f val18 = val16 - val13;
+									val.Elements[num7].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat((float)((Vector2f)val18).X, (float)((Vector2f)val18).Y, (float)val18.Z));
+									if (flag3)
+									{
+										array31[0] = 2;
+									}
+									else
+									{
+										array31[0] = 1;
+									}
+								}
+							}
+							if (flag2)
+							{
+								string[] array34 = array4[num12].Split(" ".ToCharArray());
+								float[] array35 = new float[6];
+								for (int num31 = 1; num31 < 7; num31++)
+								{
+									array35[num31 - 1] = Convert.ToSingle(array34[num31], AbstractGmdcImporter.DefaultCulture);
+								}
+								Vector3f val19 = new Vector3f((double)array35[0], (double)array35[1], (double)array35[2]);
+								val19 = Component.InverseTransformScaled(val19);
+								Vector3f val20 = new Vector3f((double)array35[3], (double)array35[4], (double)array35[5]);
+								val20 = Component.InverseTransformNormal(val20);
+								if (val19.ToString2() == val12.ToString2())
+								{
+									val.Elements[num6 + 1].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat(0f, 0f, 0f));
+								}
+								else
+								{
+									Vector3f val21 = val19 - val12;
+									val.Elements[num6 + 1].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat((float)((Vector2f)val21).X, (float)((Vector2f)val21).Y, (float)val21.Z));
+									if (flag3)
+									{
+										array31[1] = 1;
+									}
+									else
+									{
+										array31[1] = 2;
+									}
+								}
+								if (val20.ToString2() == val13.ToString2())
+								{
+									val.Elements[num7 + 1].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat(0f, 0f, 0f));
+								}
+								else
+								{
+									Vector3f val22 = val20 - val13;
+									val.Elements[num7 + 1].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat((float)((Vector2f)val22).X, (float)((Vector2f)val22).Y, (float)val22.Z));
+									if (flag3)
+									{
+										array31[1] = 1;
+									}
+									else
+									{
+										array31[1] = 2;
+									}
+								}
+							}
+							byte[] array36 = new byte[4];
+							int num32 = 0;
+							foreach (object item3 in (ArrayList)(object)val14)
+							{
+								int num33 = (int)item3;
+								array36[num32] = (byte)num33;
+								num32++;
+							}
+							Array.Sort((Array)array31);
+							Array.Reverse(array31);
+							if (array31[1] != 0 && !flag3)
+							{
+								array31[0] = 1;
+								array31[1] = 2;
+							}
+							val.Elements[num5 - 1].Values.Add((GmdcElementValueBase)new GmdcElementValueOneInt(BitConverter.ToInt32(array31, 0)));
+						}
+						num2++;
+					}
+				}
+				if (line == "end")
+				{
+					break;
+				}
+				num13++;
+			}
+			if (bumpType)
+			{
+				GmdcElement val23 = new GmdcElement(Gmdc);
+				val.Elements.Add(val23);
+				val23.Identity = (ElementIdentity)unchecked((uint)-1982256224);
+				val23.BlockFormat = (BlockFormat)2;
+				val23.SetFormat = (SetFormat)3;
+				int num34 = num2;
+				int num35 = ((ArrayList)(object)val.Group.Faces).Count / 3;
+				string[] array37 = new string[num34];
+				Vector3f[] array38 = (Vector3f[])(object)new Vector3f[num35];
+				int num36 = 0;
+				for (int num37 = 0; num37 < ((ArrayList)(object)val.Group.Faces).Count; num37 += 3)
+				{
+					int num38 = val.Group.Faces[num37];
+					int num39 = val.Group.Faces[num37 + 1];
+					int num40 = val.Group.Faces[num37 + 2];
+					string[] array40;
+					string[] array39 = (array40 = array37);
+					nint num41 = num38;
+					array39[num38] = array40[num41] + num36 + " ";
+					string[] array42;
+					string[] array41 = (array42 = array37);
+					nint num42 = num39;
+					array41[num39] = array42[num42] + num36 + " ";
+					string[] array44;
+					string[] array43 = (array44 = array37);
+					nint num43 = num40;
+					array43[num40] = array44[num43] + num36 + " ";
+					Vector3f val24 = array10[num38];
+					Vector3f val25 = array12[num38];
+					Vector3f val26 = array10[num39];
+					Vector3f val27 = array12[num39];
+					Vector3f val28 = array10[num40];
+					Vector3f val29 = array12[num40];
+					val28 -= val24;
+					val24 = val26 - val24;
+					val26 = val28;
+					val29 -= val25;
+					val25 = val27 - val25;
+					val27 = val29;
+					double num44 = 1.0 / (((Vector2f)val25).X * ((Vector2f)val27).Y - ((Vector2f)val27).X * ((Vector2f)val25).Y);
+					if (num44 > 10000000000000000.0)
+					{
+						num44 = 10000000000000000.0;
+					}
+					if (num44 < -10000000000000000.0)
+					{
+						num44 = -10000000000000000.0;
+					}
+					Vector3f val30 = ((Vector2f)val27).Y * val24 - ((Vector2f)val25).Y * val26;
+					val30 *= num44;
+					array38[num36] = val30;
+					num36++;
+				}
+				for (int num45 = 0; num45 < num34; num45++)
+				{
+					string[] tokens = array37[num45].Split(" ".ToCharArray());
+					tokens = RemoveDuplicates(tokens);
+					int num46 = tokens.Length;
+					int[] array45 = new int[num46];
+					for (int num47 = 0; num47 < num46; num47++)
+					{
+						array45[num47] = Convert.ToInt16(tokens[num47]);
+					}
+					Vector3f val31 = new Vector3f(0.0, 0.0, 0.0);
+					for (int num48 = 0; num48 < num46; num48++)
+					{
+						val31 += array38[array45[num48]];
+					}
+					val31 = val31.UnitVector;
+					val31 -= array11[num45] * (val31 * array11[num45]);
+					val31 = val31.UnitVector;
+					val.Elements[num5].Values.Add((GmdcElementValueBase)new GmdcElementValueThreeFloat((float)((Vector2f)val31).X, (float)((Vector2f)val31).Y, (float)val31.Z));
+				}
+			}
+			grps.Add(val);
+		}
+		Input.Close();
+		if (lineerror == null)
+		{
+			lineerror = "";
+		}
+		base.error = lineerror;
+	}
+
+	private string CleanLine(string line)
+	{
+		while (line.Substring(0, 1) == " ")
+		{
+			line = line.Substring(1, line.Length - 1);
+		}
+		while (line.Substring(line.Length - 1, 1) == " ")
+		{
+			line = line.Substring(0, line.Length - 1);
+		}
+		while (line.IndexOf("  ") != -1)
+		{
+			line = line.Replace("  ", " ");
+		}
+		line = line.Replace("\"", "");
+		return line;
+	}
+
+	private string[] RemoveDuplicates(string[] tokens)
+	{
+		ArrayList arrayList = new ArrayList();
+		for (int i = 0; i < tokens.Length - 1; i++)
+		{
+			if (!arrayList.Contains(tokens[i]))
+			{
+				arrayList.Add(tokens[i]);
+			}
+		}
+		string[] array = new string[arrayList.Count];
+		for (int j = 0; j < arrayList.Count; j++)
+		{
+			array[j] = arrayList[j].ToString();
+		}
+		return array;
+	}
+
+	private string[] ReadMorphFile(string filename)
+	{
+		string[] array = new string[100000];
+		StreamReader streamReader = new StreamReader(File.OpenRead(filename));
+		while (streamReader.Peek() != -1)
+		{
+			string text = streamReader.ReadLine();
+			if (text.Length < 1)
+			{
+				break;
+			}
+			text = CleanLine(text);
+			if (!(text == "triangles"))
+			{
+				continue;
+			}
+			int num = 0;
+			int num2 = 0;
+			while (true)
+			{
+				text = streamReader.ReadLine();
+				text = CleanLine(text);
+				if (num2 % 4 != 0)
+				{
+					string[] array2 = text.Split(" ".ToCharArray());
+					array[num] = array2[0] + " " + array2[1] + " " + array2[2] + " " + array2[3] + " " + array2[4] + " " + array2[5] + " " + array2[6];
+					num++;
+				}
+				if (text == "end")
+				{
+					break;
+				}
+				num2++;
+			}
+		}
+		streamReader.Close();
+		return array;
+	}
+}

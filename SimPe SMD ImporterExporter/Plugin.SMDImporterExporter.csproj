@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <AssemblyName>simpe.default.smd.exporter</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SimPe.Plugin.Gmdc</RootNamespace>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <AssemblyTitle>Valve SMD Importer/Exporter for GMDC Mesh Data</AssemblyTitle>
+    <Company>Skankyboy (original 2006 plugin), ported to .NET 8 by GramzeSweatshop</Company>
+    <Product>SimPE-Fixed</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimPE.Geometry\SimPE.Geometry.csproj" />
+    <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterBase.csproj" />
+    <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />
+    <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj" />
+  </ItemGroup>
+</Project>
