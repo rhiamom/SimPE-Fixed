@@ -318,7 +318,7 @@ namespace SimPe
 		{
 			try
 			{
-				string log = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt");
+				string log = System.IO.Path.Combine(SimPe.Helper.SimPeDataPath, "pluginlog.txt");
 				var sb = new System.Text.StringBuilder();
 				sb.AppendLine("PLUGIN FAILURE: " + System.IO.Path.GetFileName(file));
 				sb.AppendLine("  context: " + context);

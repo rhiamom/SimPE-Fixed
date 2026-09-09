@@ -136,12 +136,14 @@ namespace SimPe
 		/// </summary>
         void LoadDynamicWrappers()
         {
-            string log = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt");
-            // Truncate on each launch so PLUGIN FAILURE entries always reflect
-            // the current run. AppendAllText was leaving stale failures from
-            // prior runs that masked whether a fix had actually taken effect.
+            // Log to %APPDATA%\SimPe\Data\ (always writable) rather than the
+            // install folder, which can be read-only under Controlled Folder
+            // Access, restricted user accounts, or OneDrive-managed Desktops.
+            // Every write is try/catch so a filesystem failure never breaks
+            // plugin discovery.
+            string log = System.IO.Path.Combine(Helper.SimPeDataPath, "pluginlog.txt");
             try { System.IO.File.WriteAllText(log, ""); } catch { /* non-fatal */ }
-            System.IO.File.AppendAllText(log, $"SimPePluginPath={Helper.SimPePluginPath}\r\n");
+            try { System.IO.File.AppendAllText(log, $"SimPePluginPath={Helper.SimPePluginPath}\r\n"); } catch { }
 
             Splash.Screen.SetMessage("Loading Dynamic Wrappers");
             string folder = Helper.SimPePluginPath;
@@ -150,9 +152,9 @@ namespace SimPe
             var fileList = new System.Collections.Generic.List<string>(System.IO.Directory.GetFiles(folder, "*.plugin.dll"));
             fileList.AddRange(System.IO.Directory.GetFiles(folder, "*.wizard.dll"));
             string[] files = fileList.ToArray();
-            System.IO.File.AppendAllText(log, $"Found {files.Length} *.plugin.dll\r\n");
+            try { System.IO.File.AppendAllText(log, $"Found {files.Length} *.plugin.dll\r\n"); } catch { }
             foreach (var f in files)
-                System.IO.File.AppendAllText(log, $"  {f}\r\n");
+                try { System.IO.File.AppendAllText(log, $"  {f}\r\n"); } catch { }
 
 
             foreach (string file in files)

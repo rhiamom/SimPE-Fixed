@@ -70,38 +70,20 @@ namespace SimPe
             remote = new RemoteHandler(this, package, resloader, miWindow);
 
             SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Loading Plugins..."));
-            try
-            {
-                System.IO.File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt"),
-                    "Before PluginManager\n");
-
-                plugger = new PluginManager(
-                    miTools,
-                    tbTools,
-                    dc,
-                    package,
-                    tbDefaultAction,
-                    miAction,
-                    tbExtAction,
-                    tbPlugAction,
-                    tbAction,
-                    dockBottom,
-                    this.mbiTopics,
-                    lv
-                );
-
-                System.IO.File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt"),
-                    "After PluginManager\n");
-            }
-            catch (Exception ex)
-            {
-                System.IO.File.AppendAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pluginlog.txt"),
-                    "PluginManager EXCEPTION:\n" + ex + "\n");
-
-                throw; // let it crash so you see the normal crash path too
-            }
-
-            //MessageBox.Show("After PluginManager");
+            plugger = new PluginManager(
+                miTools,
+                tbTools,
+                dc,
+                package,
+                tbDefaultAction,
+                miAction,
+                tbExtAction,
+                tbPlugAction,
+                tbAction,
+                dockBottom,
+                this.mbiTopics,
+                lv
+            );
             SimPe.Splash.Screen.SetMessage(SimPe.Localization.GetString("Loaded Plugins"));
             plugger.ClosedToolPlugin += new ToolMenuItemExt.ExternalToolNotify(ClosedToolPlugin);
             remote.SetPlugger(plugger);
