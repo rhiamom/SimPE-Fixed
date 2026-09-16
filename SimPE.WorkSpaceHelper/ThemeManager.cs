@@ -247,10 +247,18 @@ namespace SimPe
             tb.BackColor = ThemeColorDark;
         }
 
+        // Matches GDF.dll's own generic Control handler: BackColor only,
+        // ForeColor untouched. Chris Hatch's 10 original themes are all
+        // light/pastel palettes, so the default (near-black) text stays
+        // legible without any override — that's why 0.77 never touched it.
+        // Our Dark theme didn't exist in that design and gets no such free
+        // pass — a dark BackColor with untouched near-black text would be
+        // illegible, so it's the one case that still needs an explicit
+        // ForeColor.
         void SetTheme(System.Windows.Forms.Control c)
         {
             c.BackColor = ThemeColorLight;
-            c.ForeColor = ThemeTextColor;
+            if (ctheme == GuiTheme.Dark) c.ForeColor = ThemeTextColor;
         }
 
         // LinkLabel exposes a distinct LinkColor (default hardcoded blue)
@@ -268,11 +276,16 @@ namespace SimPe
             link.DisabledLinkColor = ThemeColorMild;
         }
 
-        // Button styling for ExtendedTheme mode. On modern Windows a plain
-        // BackColor change (as 0.77 did) is invisible on Buttons because
-        // FlatStyle=Standard defers to the OS visual style. Flip to
-        // FlatStyle=Flat so BackColor/border/hover values are actually
-        // painted, then apply the theme's palette.
+        // Decompiled from GDF.dll for reference: the real 0.77 SetTheme(Button)
+        // sets FlatStyle=Flat and a theme-specific BackgroundImage bitmap
+        // (Resources.Butdef / Butpink / Butgreen / ...) — it never touches
+        // ForeColor OR BackColor at all. We don't have Chris Hatch's bitmap
+        // assets, so BackColor is our practical substitute for the missing
+        // background image (needed anyway since FlatStyle=Standard defers to
+        // the OS visual style and a bare BackColor change is invisible).
+        // ForeColor we now leave alone, matching the original, for the same
+        // reason as SetTheme(Control) above — except Dark, which needs it
+        // for legibility since it never existed in 0.77's design space.
         //
         // BackColor is ThemeColorMild (not Light) so buttons stand out
         // from surrounding containers, which use Light — otherwise button
@@ -282,7 +295,7 @@ namespace SimPe
             btn.UseVisualStyleBackColor = false;
             btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btn.BackColor = ThemeColorMild;
-            btn.ForeColor = ThemeTextColor;
+            if (ctheme == GuiTheme.Dark) btn.ForeColor = ThemeTextColor;
             btn.FlatAppearance.BorderColor = ThemeColorDark;
             btn.FlatAppearance.BorderSize = 1;
             btn.FlatAppearance.MouseOverBackColor = ThemeColorLighter;
@@ -347,6 +360,15 @@ namespace SimPe
 
         static void WalkAndTheme(System.Windows.Forms.Control c, ThemeManager mgr)
         {
+            // Stop at the root of an exempt subtree (e.g. BhavForm) — don't
+            // theme it AND don't recurse into its children. BhavForm is
+            // opened as a docked panel embedded inside MainForm rather than
+            // its own Application.OpenForms entry, so it's reached here via
+            // OnControlAdded on the already-hooked MainForm, not via the
+            // OnAppIdle top-level pass — the exemption has to live in this
+            // shared walker to catch it regardless of entry point.
+            if (_extendedThemeExemptFormNames.Contains(c.Name)) return;
+
             // Theme buttons + common container types (whose BackColor shows
             // through to the user). Skip leaf controls like Label / TextBox /
             // CheckBox / ComboBox / ListView — tinting those uniformly with
@@ -395,6 +417,17 @@ namespace SimPe
             System.Windows.Forms.Application.Idle += OnAppIdle;
         }
 
+        // Forms whose button/control styling is hand-tuned for Wine rendering
+        // (padding, TextAlign, custom Paint handlers) and must NOT be swept
+        // by the generic extended-theme walker — it forces FlatStyle.Flat on
+        // every Button and overwrites BackColor on every UserControl, which
+        // silently undoes that tuning and the BHAV row selection highlight
+        // (which also manages its own BackColor). Checked by Name rather
+        // than type to avoid a circular assembly reference from this shared
+        // helper back into the plugin that defines these forms.
+        private static readonly System.Collections.Generic.HashSet<string> _extendedThemeExemptFormNames
+            = new System.Collections.Generic.HashSet<string> { "BhavForm" };
+
         static void OnAppIdle(object sender, System.EventArgs e)
         {
             if (!ExtendedTheme) return;
@@ -404,10 +437,10 @@ namespace SimPe
                 System.IntPtr h = f.Handle;
                 if (_themedFormHandles.Add(h))
                 {
+                    f.FormClosed += (s2, e2) => _themedFormHandles.Remove(h);
+                    if (_extendedThemeExemptFormNames.Contains(f.Name)) continue;
                     ApplyExtendedThemeToButtons(f);
                     HookControlAdded(f);
-                    // Prune on close so the set doesn't accumulate stale handles.
-                    f.FormClosed += (s2, e2) => _themedFormHandles.Remove(h);
                 }
             }
         }

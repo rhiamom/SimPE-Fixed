@@ -147,14 +147,35 @@ namespace SimPe.PackedFiles.UserInterface
                 this.toolTip1.SetToolTip(this.instrText, tip);
         }
 
+        // This row's own hand-tuned styling is deliberately excluded from
+        // ThemeManager's global Extended-theme sweep (see the BhavForm
+        // exemption there), so it was never theme-aware at all — always
+        // these hardcoded literals regardless of the active theme. With
+        // Extended theme on, that looked wrong (a plain-white/gray row
+        // against a colored theme), so pick a themed equivalent for each
+        // of the three states when Extended theme is active; otherwise
+        // keep the exact original literals unchanged.
+        private static Color UnselectedColor
+        {
+            get { return SimPe.ThemeManager.ExtendedTheme ? SimPe.ThemeManager.Global.ThemeColorLight : System.Drawing.Color.White; }
+        }
+        private static Color SelectedColor
+        {
+            get { return SimPe.ThemeManager.ExtendedTheme ? SimPe.ThemeManager.Global.ThemeColorMild : System.Drawing.Color.LightGray; }
+        }
+        private static Color FocusedColor
+        {
+            get { return SimPe.ThemeManager.ExtendedTheme ? SimPe.ThemeManager.Global.ThemeHighlightColor : System.Drawing.Color.PowderBlue; }
+        }
+
 		public void MakeSelected()
         {
-            this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.LightGray;// .PowderBlue;
+            this.BackColor = this.bhavInstListItem.BackColor = this.instrText.BackColor = SelectedColor;
 		}
 
 		public void MakeUnselected()
 		{
-			this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.White;
+			this.BackColor = this.bhavInstListItem.BackColor = this.instrText.BackColor = UnselectedColor;
 		}
 
         private static string fmt = "0x{0} ({1}): {2}";
@@ -311,14 +332,14 @@ namespace SimPe.PackedFiles.UserInterface
 		private void bhavInstListItemUI_Enter(object sender, System.EventArgs e)
 		{
             //MakeSelected();
-            
-			this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.PowderBlue;
+
+			this.BackColor = this.bhavInstListItem.BackColor = this.instrText.BackColor = FocusedColor;
 			OnSelected(e);
 		}
 
 		private void bhavInstListItemUI_Leave(object sender, System.EventArgs e)
         {
-            this.BackColor = this.bhavInstListItem.BackColor = System.Drawing.Color.LightGray;
+            this.BackColor = this.bhavInstListItem.BackColor = this.instrText.BackColor = SelectedColor;
 			OnUnselected(e);
 		}
 

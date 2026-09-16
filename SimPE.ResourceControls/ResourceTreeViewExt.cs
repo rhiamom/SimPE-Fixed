@@ -45,6 +45,23 @@ namespace SimPe.Windows.Forms
 
             tv.Font = new System.Drawing.Font("Tahoma", 9.0F);
 
+            // tv.HideSelection = false keeps the selected node visibly
+            // marked even after focus moves elsewhere (e.g. clicking into
+            // the Resource List) — deliberate, so the user keeps their
+            // place. But Windows/Wine render that "selected, not focused"
+            // state using hardcoded system colors our ThemeManager can't
+            // reach, which clashes badly under the Dark theme: the node's
+            // own (correctly light, for readability against a dark
+            // background) text color stays as-is, but the background
+            // becomes system-default light gray/white — light text on a
+            // light background, unreadable. OwnerDrawText scopes our
+            // control to just that text/background painting (icons,
+            // expand glyphs, indentation all stay natively drawn), so we
+            // only override the one state that's actually broken and let
+            // Windows/Wine handle every other state exactly as before.
+            tv.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            tv.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(tv_DrawNode);
+
             typebuilder = new ResourceTreeNodesByType();
             groupbuilder = new ResourceTreeNodesByGroup();
             instbuilder = new ResourceTreeNodesByInstance();
@@ -58,6 +75,26 @@ namespace SimPe.Windows.Forms
         ~ResourceTreeViewExt()
         {
             ThemeManager.Global.RemoveControl(this.toolStrip1);
+        }
+
+        private void tv_DrawNode(object sender, System.Windows.Forms.DrawTreeNodeEventArgs e)
+        {
+            bool selectedButUnfocused = e.Node == tv.SelectedNode && !tv.Focused;
+            if (!selectedButUnfocused)
+            {
+                e.DrawDefault = true;
+                return;
+            }
+
+            Color back = ThemeManager.ExtendedTheme ? ThemeManager.Global.ThemeColorLighter : System.Drawing.SystemColors.Control;
+            Color fore = ThemeManager.ExtendedTheme ? ThemeManager.Global.ThemeTextColor : System.Drawing.SystemColors.ControlText;
+
+            using (System.Drawing.SolidBrush brush = new System.Drawing.SolidBrush(back))
+                e.Graphics.FillRectangle(brush, e.Bounds);
+
+            System.Windows.Forms.TextRenderer.DrawText(
+                e.Graphics, e.Node.Text, tv.Font, e.Bounds, fore, back,
+                System.Windows.Forms.TextFormatFlags.VerticalCenter | System.Windows.Forms.TextFormatFlags.Left);
         }
 
         internal void SetManager(ResourceViewManager manager)
