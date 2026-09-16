@@ -940,7 +940,9 @@ namespace pjse
 
         public static Glob GlobByGroup(uint group)
         {
-            pjse.FileTable.Entry[] items = pjse.FileTable.GFT[(uint)SimPe.Data.MetaData.GLOB_FILE, group];
+            pjse.FileTable gft = pjse.FileTable.GFT;
+            if (gft == null) return null;
+            pjse.FileTable.Entry[] items = gft[(uint)SimPe.Data.MetaData.GLOB_FILE, group];
             if (items == null || items.Length == 0) return null;
 
             Glob glob = new Glob();

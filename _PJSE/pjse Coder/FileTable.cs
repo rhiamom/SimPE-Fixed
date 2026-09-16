@@ -43,10 +43,23 @@ namespace pjse
         {
             get
             {
+                // Must never return null: ~60 call sites across this plugin
+                // index straight into GFT[...] with no null check, on the
+                // (previously false) assumption it's always safe once the
+                // app is running. The old gate — only construct once
+                // SimPe.FileTable.FileIndex is non-null — could leave gft
+                // permanently null if first accessed too early (e.g.
+                // switching BHAV/BCON nodes before FileIndex settles),
+                // crashing every one of those call sites with a
+                // NullReferenceException. The constructor already handles
+                // a null FileIndex gracefully (skips the FILoad
+                // subscription), and every indexer already lazy-refreshes
+                // via "if (!hasLoaded) Refresh();", so there's no need to
+                // gate construction on FileIndex readiness at all.
                 if (gft == null)
                 {
-                    if (SimPe.FileTable.FileIndex != null) gft = new FileTable();
-                    if (gft != null && FileTableSettings.FTS.LoadAtStartup) gft.Refresh();
+                    gft = new FileTable();
+                    if (FileTableSettings.FTS.LoadAtStartup) gft.Refresh();
                 }
                 return gft;
             }
@@ -103,6 +116,19 @@ namespace pjse
         public void Refresh() { this.Refresh(!SimPe.Helper.LocalMode); }
         private void Refresh(bool loadEverything)
         {
+            // Only UIRefresh() (the explicit "PJSE > Refresh" menu path) used
+            // to wrap this in Wait.SubStart()/SubStop(). The indexers' lazy
+            // "if (!hasLoaded) Refresh();" — e.g. the first time a BHAV/BCON
+            // editor asks for a sibling resource — called straight into here
+            // with no wait bar running at all, so the progress reporting a
+            // few lines down (gated on SimPe.Wait.Running) silently did
+            // nothing and a genuinely slow first-time full folder scan
+            // looked like the UI had just hung. Wait.SubStart()/SubStop()
+            // nest safely (stack-based), so wrapping here too is a no-op
+            // when UIRefresh() already has one active.
+            SimPe.Wait.SubStart();
+            try
+            {
             wm("Loading PJSE File Table");
             IPackageFile cp = currentPackage;
             CurrentPackage = null;
@@ -175,6 +201,11 @@ namespace pjse
 
             CurrentPackage = cp;
             SimPe.Wait.Message = "";
+            }
+            finally
+            {
+                SimPe.Wait.SubStop();
+            }
         }
 
         /// <summary>

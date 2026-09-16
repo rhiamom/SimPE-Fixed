@@ -138,9 +138,17 @@ namespace pjse
         {
             if (FileDescriptor == null) return null;
 
+            // GFT is null until SimPe.FileTable.FileIndex has been set up —
+            // e.g. during an on-startup "reopen last session" that opens a
+            // BHAV/BCON editor before the main FileTable is ready. Treat
+            // "not ready yet" the same as "no sibling found" rather than
+            // crashing.
+            pjse.FileTable gft = pjse.FileTable.GFT;
+            if (gft == null) return null;
+
             // 1. Same package's group first — a mod that ships its own TRCN
             //    alongside a BCON is the direct match and always wins.
-            pjse.FileTable.Entry[] items = pjse.FileTable.GFT[type, FileDescriptor.Group, FileDescriptor.Instance];
+            pjse.FileTable.Entry[] items = gft[type, FileDescriptor.Group, FileDescriptor.Instance];
 
             // 2. Fall through the Maxis instance-range groups. Sims 2's
             //    BCON/BHAV/TPRP/TRCN convention is that instance ranges
@@ -163,7 +171,7 @@ namespace pjse
                 else if (FileDescriptor.Instance >= 0x2000) fallbackGroup = SemiGroup;
                 else fallbackGroup = PrivateGroup;
                 if (fallbackGroup != FileDescriptor.Group)
-                    items = pjse.FileTable.GFT[type, fallbackGroup, FileDescriptor.Instance];
+                    items = gft[type, fallbackGroup, FileDescriptor.Instance];
             }
 
             if (items == null || items.Length == 0) return null;
