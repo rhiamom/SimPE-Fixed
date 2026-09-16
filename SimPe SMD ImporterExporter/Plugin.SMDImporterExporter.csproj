@@ -14,7 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimPE.Geometry\SimPE.Geometry.csproj" />
-    <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterBase.csproj" />
+    <ProjectReference Include="..\SimPE.GMDCExporterbase\SimPE.GMDCExporterbase.csproj" />
     <ProjectReference Include="..\SimPE.Helper\SimPE.Helper.csproj" />
     <ProjectReference Include="..\SimPE.RCOL\SimPE.RCOL.csproj" />
   </ItemGroup>
