@@ -918,6 +918,30 @@ public class DockPanel : NCUserControl
 				}
 				return;
 			}
+			// last.Container still exists (we remember it) but is
+			// currently detached — e.g. DockContainer.CleanUp() removed it
+			// once every panel inside it got closed. Re-attach the SAME
+			// container rather than falling through to
+			// Manager.DockPanelInt() below, which creates a brand new
+			// container at the same DockStyle edge: that loses the
+			// original's saved size/identity and, worse, leaves a second
+			// (now genuinely empty) container sitting around as a stray
+			// tab the next time something else tries to reopen into that
+			// edge. Only handles top-level containers (parented directly
+			// under the manager) — a container nested under another
+			// DockContainer via a live split would need re-attaching to
+			// its actual ParentContainer instead, not covered here.
+			if (last.Container.Manager != null)
+			{
+				last.Container.Manager.RestoreDetachedContainer(last.Container);
+				last.Container.AddDock(this);
+				EnsureVisible();
+				if (this.Opened != null)
+				{
+					this.Opened(this, new EventArgs());
+				}
+				return;
+			}
 			if (Manager != null)
 			{
 				Manager.DockPanelInt(this, last.Container.Dock);
