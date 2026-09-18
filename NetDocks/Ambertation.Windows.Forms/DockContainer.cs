@@ -642,6 +642,28 @@ public class DockContainer : NCUserControl, IButtonContainer
 		OnDockContainerAdded(dc);
 	}
 
+	/// <summary>
+	/// Re-instates a top-level container (dc) that ended up detached from
+	/// this manager — e.g. DockContainer.CleanUp() removes any child whose
+	/// SubControls hits 0 (all its panels closed via their own close
+	/// button), and nothing normally re-adds it afterward. Plain
+	/// Controls.Add(dc) alone isn't enough: DockContainer.OnControlAdded()
+	/// only re-registers dc in the `containers` list, it never calls
+	/// RearrangeControls() — that only happens via SetupContainer's own
+	/// explicit OnDockContainerAdded(dc) call, which is private and only
+	/// ever invoked for brand-new containers created through
+	/// CreateNewContainer/SetupContainer. Unlike SetupContainer, this does
+	/// NOT reset dc's size (SetDefaultSize() would discard whatever width/
+	/// height the user had previously saved for it) and does not touch
+	/// dc.Visible — callers should EnsureVisible() a panel inside dc
+	/// afterward to make it the active, visible tab.
+	/// </summary>
+	public void RestoreDetachedContainer(DockContainer dc)
+	{
+		if (dc.Parent != this) base.Controls.Add(dc);
+		OnDockContainerAdded(dc);
+	}
+
 	public DockButtonBar.DockPanelList GetDockedPanels()
 	{
 		return panels;

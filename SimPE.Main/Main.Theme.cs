@@ -361,14 +361,78 @@ namespace SimPe
         }
 
         /// <summary>
-        /// Forces the three primary panels to be the active (visible) panel in their
+        /// Forces the primary panels to be the active (visible) panel in their
         /// respective dock containers. Called both from Shown (on first load) and via
         /// BeginInvoke from ReloadLayout (on subsequent layout resets).
         /// </summary>
+        /// <remarks>
+        /// DockPanel.EnsureVisible() -&gt; DockContainer.SetActiveDock() is what actually
+        /// marks a panel Visible and gives its container's active tab a claim on
+        /// screen space (see DockPanel.MakeVisibleByParentDockContainer()). The
+        /// Ambertation Serializer's saved layout never restores which tab was active
+        /// (no "hldp"/Highlight field in its data), so a container whose panels never
+        /// get this call stays with no active tab — and effectively invisible,
+        /// regardless of any saved size. dcAction/dcFilter (dockRight's two tabs,
+        /// "Resource Actions" / "Filter Resources") were missing from this list,
+        /// so the right dock panel never appeared at all after a fresh load.
+        /// Only dcAction needs the call — it and dcFilter share the same container,
+        /// so activating either one is enough to make that container's tab strip
+        /// (both tabs) appear.
+        ///
+        /// Separately: dockRight has NoCleanup = false, so if both its panels are
+        /// ever closed (e.g. the user clicked each tab's close button at some
+        /// point), the now-empty container gets removed from manager.Controls
+        /// entirely. Nothing ever re-adds it afterward — confirmed live via
+        /// diagnostic logging showing dockRight.Parent == null even though its
+        /// own Width (185) was perfectly reasonable. Re-attach it here if that's
+        /// happened, mirroring its original InitializeComponent placement
+        /// (manager.Controls.Add(dockRight)).
+        /// </remarks>
         void EnsureKeyPanelsVisible()
         {
+            // dockRight has NoCleanup = false, so if both dcAction and
+            // dcFilter are ever closed via their own tab's close button
+            // (rather than just moved elsewhere), DockContainer.CleanUp()
+            // removes the now-empty container from manager entirely.
+            // Nothing normally re-adds it afterward. A plain
+            // manager.Controls.Add(dockRight) alone isn't enough — that
+            // only re-registers it in the internal `containers` list, it
+            // never re-triggers a real layout pass (RearrangeControls()),
+            // so it stays parented but with stale/default Bounds and
+            // Visible=false — confirmed live via diagnostic logging.
+            // RestoreDetachedContainer mirrors what SetupContainer does for
+            // brand-new containers, minus the SetDefaultSize() call (which
+            // would discard dockRight's own saved width).
+            if (dockRight.Parent == null) manager.RestoreDetachedContainer(dockRight);
+
+            // Mirrors the same defensive reassignment ResetLayout() already
+            // does for dcAction/dcFilter's container, in case they got
+            // reassigned/detached independently of dockRight itself.
+            if (dcAction != null && dcAction.DockContainer != dockRight) dcAction.DockContainer = dockRight;
+            if (dcFilter != null && dcFilter.DockContainer != dockRight) dcFilter.DockContainer = dockRight;
+
+            // Whatever set dockRight.Visible = false when it got cleaned up
+            // (see above) never gets undone by re-adding it — dockLeft/
+            // dockBottom never went through that cycle so they kept their
+            // original Visible=true from construction. And neither
+            // DockManager's nor DockContainer's RearrangeControls() actually
+            // computes a container's Bounds (confirmed by reading both —
+            // real positioning normally only happens as a side effect of
+            // live drag-and-drop completing, which a plain re-add never
+            // triggers) so force a standard WinForms Dock layout recompute
+            // by toggling Dock off and back on.
+            if (!dockRight.Visible)
+            {
+                dockRight.Visible = true;
+                System.Windows.Forms.DockStyle savedDock = dockRight.Dock;
+                dockRight.Dock = System.Windows.Forms.DockStyle.None;
+                dockRight.Dock = savedDock;
+                manager.PerformLayout();
+            }
+
             dcResource.EnsureVisible();
             dcPlugin.EnsureVisible();
+            dcAction.EnsureVisible();
             var ow = Ambertation.Windows.Forms.ManagerSingelton.Global
                 .GetPanelWithName("dc.SimPe.Plugin.Tool.Dockable.ObectWorkshopDockTool");
             if (ow != null) ow.EnsureVisible();
