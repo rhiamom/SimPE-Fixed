@@ -135,7 +135,7 @@ namespace SimPe.Plugin.Tool.Dockable
 			InitializeComponent();
                 this.wizard1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 
-            this.xpAdvanced.Visible = UserVerification.HaveUserId; 
+            this.xpAdvanced.Visible = UserVerification.HaveUserId || Helper.WindowsRegistry.HiddenMode;
                 this.op1 = new SimPe.Plugin.Tool.Dockable.ObjectPreview();
 			this.op2 = new SimPe.Plugin.Tool.Dockable.ObjectPreview();
             // op1.SuspendLayout(); - (prevented op1 layout, causung the title to be scrolled and the description to be cut off) Chris Hatch
