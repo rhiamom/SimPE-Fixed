@@ -107,16 +107,8 @@
 		     (which is what caused "No exporter plugins available" for mesh export). -->
 		<PropertyGroup>
 			<_IsPluginOrWizard Condition=" $(AssemblyName.EndsWith('.plugin')) Or $(AssemblyName.EndsWith('.wizard')) Or $(AssemblyName.EndsWith('.exporter')) ">true</_IsPluginOrWizard>
-			<!-- SimPE.Main builds self-contained with RuntimeIdentifier=win-x64, so its
-			     real exe (and the Plugins\ folder PluginManager looks for next to
-			     Application.ExecutablePath) lives under bin\$(Configuration)\win-x64\,
-			     not bin\$(Configuration)\ itself. Missing this segment silently copied
-			     every plugin DLL one directory too high — SimPE.Main would start fine
-			     and built-in wrappers (e.g. MMAT) would work, but every plugin-provided
-			     wrapper (BHAV, BCON, TRCN, ...) would resolve to no handler at all,
-			     since FindHandler had nothing registered for those types. -->
-			<_SimPeMainBin Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)SimPE.Main\bin\$(Configuration)\win-x64\</_SimPeMainBin>
-			<_SimPeMainBin Condition=" '$(_SimPeMainBin)' == '' ">$(MSBuildThisFileDirectory)SimPE.Main\bin\$(Configuration)\win-x64\</_SimPeMainBin>
+			<_SimPeMainBin Condition=" '$(SolutionDir)' != '' And '$(SolutionDir)' != '*Undefined*' ">$(SolutionDir)SimPE.Main\bin\$(Configuration)\</_SimPeMainBin>
+			<_SimPeMainBin Condition=" '$(_SimPeMainBin)' == '' ">$(MSBuildThisFileDirectory)SimPE.Main\bin\$(Configuration)\</_SimPeMainBin>
 		</PropertyGroup>
 
 		<MakeDir Directories="$(SimPeUnifiedOutDir)Plugins" Condition=" '$(_IsPluginOrWizard)' == 'true' " />
