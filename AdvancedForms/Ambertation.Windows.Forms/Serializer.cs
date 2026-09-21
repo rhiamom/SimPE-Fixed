@@ -141,6 +141,9 @@ public class Serializer
 		map[typeof(object)] = new SerilaizeDescriptor(0, SerializeGeneric, DeserializeGeneric);
 		map[typeof(ToolStripItem)] = new SerilaizeDescriptor(1, SerializeToolStripItem, DeserializeToolStripItem);
 		map[typeof(ToolStrip)] = new SerilaizeDescriptor(2, SerializeToolStrip, DeserializeToolStrip);
+		// Lookup is by exact runtime type, so the subclass must share the ToolStrip descriptor
+		// (same id 2) or its layout would fall back to the generic one and stop persisting.
+		map[typeof(ClickThroughToolStrip)] = map[typeof(ToolStrip)];
 		map[typeof(DockManager)] = new SerilaizeDescriptor(3, SerializeDockManager, DeserializeDockManager);
 		reorderstrips = new List<Pass2ToolStripDescriptor>();
 		revmap = new Dictionary<int, SerilaizeDescriptor>();

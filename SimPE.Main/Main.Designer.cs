@@ -163,7 +163,7 @@ namespace SimPe
             this.dockBottom = new Ambertation.Windows.Forms.DockContainer();
             this.dcPlugin = new Ambertation.Windows.Forms.DockPanel();
             this.dc = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.toolBar1 = new System.Windows.Forms.ToolStrip();
+            this.toolBar1 = new Ambertation.Windows.Forms.ClickThroughToolStrip();
             this.biNew = new System.Windows.Forms.ToolStripButton();
             this.biOpen = new System.Windows.Forms.ToolStripButton();
             this.biSave = new System.Windows.Forms.ToolStripButton();
@@ -172,9 +172,9 @@ namespace SimPe
             this.biNewDc = new System.Windows.Forms.ToolStripButton();
             this.biUpdate = new System.Windows.Forms.ToolStripButton();
             this.biReset = new System.Windows.Forms.ToolStripButton();
-            this.tbTools = new System.Windows.Forms.ToolStrip();
-            this.tbWindow = new System.Windows.Forms.ToolStrip();
-            this.tbAction = new System.Windows.Forms.ToolStrip();
+            this.tbTools = new Ambertation.Windows.Forms.ClickThroughToolStrip();
+            this.tbWindow = new Ambertation.Windows.Forms.ClickThroughToolStrip();
+            this.tbAction = new Ambertation.Windows.Forms.ClickThroughToolStrip();
             this.dockCenter = new Ambertation.Windows.Forms.DockContainer();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
             this.miNew = new System.Windows.Forms.ToolStripMenuItem();
