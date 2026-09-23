@@ -1417,17 +1417,44 @@ namespace SimPe
 		/// <param name="flname"></param>
 		/// <returns></returns>
         static string neighborhood_package = "_neighborhood.package";
-		public static string GetMainNeighborhoodFile(string filename) 
+		public static string GetMainNeighborhoodFile(string filename)
 		{
 			if (filename==null) return "";
 			string flname = Path.GetFileName(filename);
 			flname = flname.Trim().ToLower();
 
-            if (flname.EndsWith(neighborhood_package)) return filename;	
+            if (flname.EndsWith(neighborhood_package)) return filename;
 			flname = Path.GetFileNameWithoutExtension(flname);
 			string[] parts = flname.Split(new char[] {'_'}, 2);
 			if (parts.Length==0) return filename;
-            return Path.Combine(Path.GetDirectoryName(filename), parts[0] + neighborhood_package);
+
+			string dir = Path.GetDirectoryName(filename);
+			string candidate = parts[0] + neighborhood_package;
+			string built = Path.Combine(dir, candidate);
+
+			// The real on-disk name is mixed-case (e.g. "N002_Neighborhood.package");
+			// `built` above is forced all-lowercase. That's a no-op on a
+			// case-insensitive filesystem (Windows NTFS, default macOS APFS), but
+			// on a case-sensitive one (Linux ext4, or Wine's Z: mapping into a
+			// case-sensitive-behaving host path) the lowercase name can fail to
+			// resolve, silently handing back a nonexistent path. Confirm the
+			// lowercase guess exists and, if not, fall back to a case-insensitive
+			// scan of the directory for the real filename.
+			try
+			{
+				if (File.Exists(built)) return built;
+				if (Directory.Exists(dir))
+				{
+					foreach (string f in Directory.GetFiles(dir))
+					{
+						if (string.Equals(Path.GetFileName(f), candidate, StringComparison.OrdinalIgnoreCase))
+							return f;
+					}
+				}
+			}
+			catch { }
+
+			return built;
 		}
 
         // static string HoodsFile { get { return Path.Combine(Helper.SimPeDataPath, "hoods.xml"); ; } }
