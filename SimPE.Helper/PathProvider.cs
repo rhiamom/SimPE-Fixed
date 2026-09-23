@@ -281,7 +281,13 @@ namespace SimPe
                     tk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\Sims2EP9.exe", false);
                 else
                     tk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\App Paths\\" + Latest.ExeName, false);
-                if (tk == null) return "English";
+                // No EA "App Paths" registry key: the game registry is absent entirely
+                // (Wine/Mac/Linux, and non-registry Windows repacks). Returning "English"
+                // here used to be read by GetMatchingLanguage as the Maxis language NAME
+                // "English", which maps to English_uk -- silently forcing UK English and
+                // short-circuiting the culture detection below it. Return nothing so the
+                // caller falls through to detecting the language from the current culture.
+                if (tk == null) return "";
                 object gr = tk.GetValue("Game Registry", "");
                 Microsoft.Win32.RegistryKey rk = Microsoft.Win32.Registry.LocalMachine.OpenSubKey((string)gr + "\\1.0", false);
                 if (rk != null)
