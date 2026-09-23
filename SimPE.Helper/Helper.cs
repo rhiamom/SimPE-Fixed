@@ -1161,7 +1161,26 @@ namespace SimPe
                 case "Hungarian": return Data.MetaData.Languages.Hungarian;
             }
 
-			s = System.Threading.Thread.CurrentThread.CurrentCulture.ThreeLetterISOLanguageName.ToUpper();
+			System.Globalization.CultureInfo ci = System.Threading.Thread.CurrentThread.CurrentCulture;
+
+			// The codes below mix Windows three-letter names (ENU, ESP, CHS, ...) with
+			// ISO 639-2 names (POR, ...). ThreeLetterISOLanguageName returns "ENG" for
+			// EVERY English culture, so en-US matched the English_uk case and never
+			// reached "ENU". Try the Windows name first, then fall back to the ISO name
+			// so the ISO-only entries keep matching.
+			Data.MetaData.Languages? match = MatchLanguageCode(ci.ThreeLetterWindowsLanguageName.ToUpper());
+			if (match == null) match = MatchLanguageCode(ci.ThreeLetterISOLanguageName.ToUpper());
+			if (match != null) return match.Value;
+
+			return lng;
+		}
+
+		/// <summary>
+		/// Maps a three-letter language code (Windows or ISO 639-2) to a SimPE Language
+		/// </summary>
+		/// <returns>the matching Language, or null when the code is not known</returns>
+		private static Data.MetaData.Languages? MatchLanguageCode(string s)
+		{
 			switch (s)
             {
                 case "ENA": return Data.MetaData.Languages.English_uk;
@@ -1189,7 +1208,7 @@ namespace SimPe
                 case "HUN": return Data.MetaData.Languages.Hungarian;
 			}
 
-			return lng;
+			return null;
 		}
 		/// <summary>
 		/// Creates a HexList from teh Byte Array
