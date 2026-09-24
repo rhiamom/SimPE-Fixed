@@ -111,6 +111,21 @@ This project is developed across multiple machines. Authoritative state lives on
 
 ## Currently outstanding
 
-- `"FRE"` and `"DUT"` in `GetMatchingLanguage`'s culture switch match neither
-  property (.NET returns `fra` and `nld`), so French and Dutch fall through to
-  the English default. Pre-existing, untested, left alone deliberately.
+Nothing known at present.
+
+### Fixed: French/Dutch language fall-through (2026-09-24)
+
+`"FRE"` and `"DUT"` in `MatchLanguageCode`'s switch matched neither
+`ThreeLetterWindowsLanguageName` nor `ThreeLetterISOLanguageName` for any real
+French or Dutch culture, so both fell through to the English default —
+the same class of bug as the Sim-name fix above, just two more codes that were
+never reachable. Verified empirically (a throwaway `dotnet run` probing
+`CultureInfo`, same technique as the English case):
+
+    fr-FR: Windows=FRA ISO=fra      nl-NL: Windows=NLD ISO=nld
+    fr-CA: Windows=FRC ISO=fra      nl-BE: Windows=NLB ISO=nld
+
+Changed the cases to `"FRA"`/`"NLD"` — the primary locales (fr-FR, nl-NL) match
+on the Windows-name pass; regional variants (fr-CA, nl-BE) fall through to the
+ISO-name pass already in place, same two-tier lookup as every other entry in
+this table.

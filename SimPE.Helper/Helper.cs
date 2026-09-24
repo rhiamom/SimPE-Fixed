@@ -1194,10 +1194,10 @@ namespace SimPe
 				case "FIN": return Data.MetaData.Languages.Finnish;
 				case "CHS": return Data.MetaData.Languages.SimplifiedChinese;
 				case "CHT": return Data.MetaData.Languages.TraditionalChinese;
-				case "FRE": return Data.MetaData.Languages.French;
+				case "FRA": return Data.MetaData.Languages.French;
 				case "JPN": return Data.MetaData.Languages.Japanese;
 				case "ITA": return Data.MetaData.Languages.Italian;
-				case "DUT": return Data.MetaData.Languages.Dutch;
+				case "NLD": return Data.MetaData.Languages.Dutch;
 				case "DAN": return Data.MetaData.Languages.Danish;
 				case "NOR": return Data.MetaData.Languages.Norwegian;
 				case "RUS": return Data.MetaData.Languages.Russian;
