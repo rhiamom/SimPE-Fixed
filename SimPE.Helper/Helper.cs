@@ -1449,6 +1449,15 @@ namespace SimPe
 
 			string dir = Path.GetDirectoryName(filename);
 			string candidate = parts[0] + neighborhood_package;
+
+			// The hood code is the folder name, and it may itself contain '_'
+			// (e.g. "My_Town"), which the split above would cut short. Prefer
+			// the folder name when its main package is really there.
+			string folder = Path.GetFileName(dir ?? "");
+			if (!string.IsNullOrEmpty(folder)
+				&& flname.StartsWith(folder.ToLower() + "_")
+				&& File.Exists(Path.Combine(dir, folder + "_Neighborhood.package")))
+				return Path.Combine(dir, folder + "_Neighborhood.package");
 			string built = Path.Combine(dir, candidate);
 
 			// The real on-disk name is mixed-case (e.g. "N002_Neighborhood.package");
@@ -1532,13 +1541,14 @@ namespace SimPe
             if (fn.EndsWith("_Neighborhood.package", StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            // Optional: keep a strict KnownHoods prefix rule (NOT "Contains")
-            // Only if your KnownHoods are truly the 4-char codes:
+            // Subhood files are "<hood>_University001.package" etc. The KnownHoods
+            // entries are subhood types, so match them after the hood code,
+            // whatever that code's length.
             foreach (string hood in KnownHoods)
             {
                 if (string.IsNullOrWhiteSpace(hood)) continue;
                 string h = hood.Trim();
-                if (fn.StartsWith(h + "_", StringComparison.OrdinalIgnoreCase) &&
+                if (fn.IndexOf("_" + h, StringComparison.OrdinalIgnoreCase) > 0 &&
                     fn.EndsWith(".package", StringComparison.OrdinalIgnoreCase))
                     return true;
             }
@@ -1548,18 +1558,15 @@ namespace SimPe
 
         private static bool IsNeighborhoodFolderPath(string folderPath)
         {
-            // Folder name must be exactly 4 chars, all letters/digits
+            // Any folder name is valid. The game does not require the
+            // 4-character "N001" style; players rename hood folders to longer
+            // names and the game loads them fine (CJH removed this limit in
+            // the original SimPE too).
             string folder = Path.GetFileName(
                 folderPath.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
             );
 
-            if (folder == null || folder.Length != 4) return false;
-
-            for (int i = 0; i < 4; i++)
-            {
-                char c = folder[i];
-                if (!char.IsLetterOrDigit(c)) return false;
-            }
+            if (string.IsNullOrEmpty(folder)) return false;
 
             // Must contain "<folder>_Neighborhood.package"
             string required = Path.Combine(folderPath, folder + "_Neighborhood.package");

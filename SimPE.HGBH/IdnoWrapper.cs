@@ -419,10 +419,12 @@ namespace SimPe.Plugin
 			ArrayList names = new ArrayList();
 			if (!scanall) 
 			{
-				string[] a = System.IO.Directory.GetFiles(folder, "N???_Neighborhood.package");			
+				// Hood codes are not always "N" + 3 chars (Maxis ships B001,
+				// E001, ...; players use longer names), so match any prefix.
+				string[] a = System.IO.Directory.GetFiles(folder, "*_Neighborhood.package");
 				foreach (string s in a) names.Add(s);
 
-				a = System.IO.Directory.GetFiles(folder, "N???_University???.package");
+				a = System.IO.Directory.GetFiles(folder, "*_University???.package");
 				foreach (string s in a) names.Add(s);
 			} 
 			else 
