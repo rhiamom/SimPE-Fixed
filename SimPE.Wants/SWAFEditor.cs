@@ -58,7 +58,12 @@ namespace SimPe.Wants
             lvItems.Sorting = SortOrder.Ascending;
             groupColumn = Settings.SWAFSortColumn;
 
-            lbtn = new List<Button>(new Button[] { btnAddWant, btnAddFear, btnAddLTWant, });
+            // btnAddHistory must be at index 3 — btnAddWantFear_Click dispatches
+            // via lbtn.IndexOf and its switch has a case 3: //History branch
+            // ready. Without this entry, clicking Add History returned at the
+            // IndexOf < 0 guard and the button did nothing. (Carried in every
+            // SimPE version going back years; nobody tested that one button.)
+            lbtn = new List<Button>(new Button[] { btnAddWant, btnAddFear, btnAddLTWant, btnAddHistory, });
             lincs = new List<CheckBox>(new CheckBox[] { ckbIncWants, ckbIncFears, ckbIncLTWants, ckbIncHistory, });
             lflags = new List<CheckBox>(new CheckBox[] {
                 ckbFlag1, ckbFlag2, ckbFlag3, ckbFlag4, ckbFlag5, ckbFlag6, ckbFlag7, ckbFlag8,
