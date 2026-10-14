@@ -320,7 +320,14 @@ namespace SimPe.Wants
             get { return history[key]; }
             set
             {
-                if (!history[key].Equals(value))
+                // Reading history[key] inside the "only-set-if-changed" guard
+                // threw KeyNotFoundException when the key wasn't already in
+                // the dict — which was always the path a brand-new History
+                // item took, since no bucket exists until Unserialize creates
+                // one. Guard with TryGetValue so an unknown key assigns
+                // directly instead of throwing on the comparison read.
+                List<SWAFItem> existing;
+                if (!history.TryGetValue(key, out existing) || !existing.Equals(value))
                 {
                     history[key] = value;
                     OnWrapperChanged(items, new EventArgs());

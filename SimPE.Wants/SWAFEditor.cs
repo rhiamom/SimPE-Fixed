@@ -551,7 +551,13 @@ namespace SimPe.Wants
                     history[i.WantId].Remove(i);
                 i.WantId = newWantId;
                 if (i.ItemType == SWAFItem.SWAFItemType.History)
+                {
+                    // Create destination bucket on demand — see note in
+                    // btnAddWantFear_Click for why.
+                    if (!history.ContainsKey(i.WantId))
+                        history[i.WantId] = new List<SWAFItem>();
                     history[i.WantId].Add(i);
+                }
             }
 
             if (!xwnts.ContainsKey(i.WantId))
@@ -938,7 +944,16 @@ namespace SimPe.Wants
                 }
                 i.SimID = (ushort)wrapper.FileDescriptor.Instance;
                 if (i.ItemType == SWAFItem.SWAFItemType.History)
+                {
+                    // Buckets only exist for WantIds that were serialized in the
+                    // file; a brand-new History item defaults to WantId=0 and
+                    // the Sim's dict may not have that key yet. Create the
+                    // bucket on demand. (The SWAFWrapper indexer setter now
+                    // handles unknown keys safely too, as of the sibling fix.)
+                    if (!history.ContainsKey(i.WantId))
+                        history[i.WantId] = new List<SWAFItem>();
                     history[i.WantId].Add(i);
+                }
                 else
                     current.Add(i);
                 lvItems.Items.Add(MakeLVI(i));
