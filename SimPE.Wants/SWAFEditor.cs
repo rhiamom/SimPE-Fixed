@@ -1024,7 +1024,9 @@ namespace SimPe.Wants
                     SWAFItem i = lvItems.SelectedItems[0].Tag as SWAFItem;
                     lbSIItemType.Text = "" + i.ItemType;
                     cbSIVersion.SelectedIndex = SWAFItem.ValidVersions.IndexOf(i.Version);
-                    lbXWNTIntOp.Visible = label13.Visible = tbSIArg2.Visible = lbTimes.Visible = lbXWNTIntMult.Visible = (i.Arg2 != 0);
+                    // Arg2 is serialized for every item and version, so it must stay editable
+                    // even when it is 0 (it used to be hidden then, leaving no way to set it).
+                    lbXWNTIntOp.Visible = label13.Visible = tbSIArg2.Visible = true;
                     tbSISimID.Text = "0x" + Helper.HexString(i.SimID);
                     sdsc = FileTable.ProviderRegistry.SimDescriptionProvider.FindSim(i.SimID) as ExtSDesc;
                     if (sdsc == null) { btnSim.Image = SimPe.GetImage.NoOne.GetThumbnailImage(64, 64, null, System.IntPtr.Zero); llSimName.Text = ""; }
@@ -1336,7 +1338,7 @@ namespace SimPe.Wants
             if (i.ArgType == SWAFItem.ArgTypes.Sim)
             {
                 llSimName2.Visible = llSREL.Visible = tbSISimID2.Visible = btnSim2.Visible = true;
-                lbXWNTIntOp.Visible = label13.Visible = tbSIArg2.Visible = lbTimes.Visible = lbXWNTIntMult.Visible = false;
+                lbXWNTIntOp.Visible = lbTimes.Visible = lbXWNTIntMult.Visible = false;
                 tbSISimID2.Text = llSimName2.Text = ""; llSREL.Visible = false;
                 btnSim2.Image = SimPe.LoadIcon.load("simbrowser.png");
             }
