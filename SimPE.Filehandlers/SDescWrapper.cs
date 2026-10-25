@@ -2540,10 +2540,18 @@ namespace SimPe.PackedFiles.Wrapper
 
         public static SDescVersions GetMinVersion(Expansions exp)
         {
+            // Matched by enum name, but two names differ between the enums:
+            // Expansions.Apartments vs SDescVersions.Apartment, and FreeTime vs
+            // Freetime. Without these, WantNameLoader never found the Apartment
+            // Life / FreeTime pack folder and fell back to the latest pack's,
+            // leaving the Extended SDSC Browser empty for AL/FT sims on installs
+            // (e.g. Ultimate Collection) whose latest pack isn't that EP.
+            if (exp == Expansions.Apartments) return SDescVersions.Apartment;
+
             string[] names = Enum.GetNames(typeof(SDescVersions));
             string name = exp.ToString();
             foreach (string n in names)
-                if (name == n) return (SDescVersions)Enum.Parse(typeof(SDescVersions), n);
+                if (string.Equals(name, n, StringComparison.OrdinalIgnoreCase)) return (SDescVersions)Enum.Parse(typeof(SDescVersions), n);
 
             return SDescVersions.Unknown;
         }

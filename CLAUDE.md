@@ -111,7 +111,41 @@ This project is developed across multiple machines. Authoritative state lives on
 
 ## Currently outstanding
 
-Nothing known at present.
+### Extended SDSC Browser empty for Apartment Life / FreeTime sims — fix UNTESTED (2026-10-25)
+
+User report (Windows 11 under Parallels, SimPE 8.4.8, Magipack Ultimate
+Collection from r/sims2help): Sim Description → extended browser shows an
+empty box, title "(version=Apartment)", for all sims. Works on the Mac Super
+Collection (no AL/FT there — its sims are Voyage version).
+
+Cause found in code (not reproduced): `WantNameLoader.ParseXml(SDescVersions)`
+keeps only the `WantTuning.package` (wantSimulator XML) whose path starts with
+the install folder of the pack matching the sim's version. That pack is found
+via `SDesc.GetMinVersion(Expansions)`, which matched **enum names as strings**
+— `Expansions.Apartments` ≠ `SDescVersions.Apartment` and `FreeTime` ≠
+`Freetime`. So AL/FT sims fell back to `PathProvider.Global.Latest`'s folder;
+on UC that is not Apartment Life, every WantTuning was filtered out, and
+`SdscExtendedForm.ShowData` got zero names → empty property grid.
+
+Fix committed in `SimPE.Filehandlers/SDescWrapper.cs` `GetMinVersion`:
+explicit `Apartments → Apartment`, case-insensitive name match (fixes
+FreeTime). Its only caller is WantNameLoader.
+
+**To do on the Windows PC (needs a UC/Legacy install with Apartment Life):**
+1. Build and run; open a neighborhood, open an Apartment Life-version sim's
+   Sim Description, open the extended browser. It should list labelled values.
+   Also try a FreeTime-version sim if available.
+2. If still empty: check `PathProvider.Global[Expansions.Apartments].InstallFolder`
+   (set from the GameRoot scan via `PackPathResolver` — leaf names "EP8" /
+   "Apartment Life"), that AL's `TSData\Res\Wants\WantTuning.package` is in
+   `FileTable.FileIndex` (group 0xCDA53B6F, instance 0x2D7EE26B, type 0), and
+   that its `Package.SaveFileName` really starts with that folder (the filter
+   is a lowercase `StartsWith`).
+3. Then: cherry-pick to SimPE-Fixed-Linux, bump SimPE-Mac-Wine vendor, rebuild
+   the unreleased 0.8.4.9 Mac DMG (version intentionally stays 8.4.9 — no tag
+   exists yet). The other 8.4.9 fixes (STR# PJSE scan, resource-list first
+   click, memory icons) are already pushed to all three repos; the Mac app in
+   /Applications was not yet redeployed/re-signed with the memory-icon build.
 
 ### Fixed: French/Dutch language fall-through (2026-09-24)
 
