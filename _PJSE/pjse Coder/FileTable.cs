@@ -156,10 +156,10 @@ namespace pjse
 
                 if (loadEverything)
                 {
-                    if (SimPe.Wait.Running) { SimPe.Wait.Progress = 0; SimPe.Wait.MaxProgress = SimPe.FileTable.DefaultFolders.Count; }
-                    foreach (SimPe.FileTableItem fii in SimPe.FileTable.DefaultFolders)
-                        if (fii.Use)
-                            Add(fii.Name, fii.IsRecursive, fii.Type.AsExpansions, true);
+                    System.Collections.Generic.List<ScanFolder> folders = PjseFolders();
+                    if (SimPe.Wait.Running) { SimPe.Wait.Progress = 0; SimPe.Wait.MaxProgress = folders.Count; }
+                    foreach (ScanFolder f in folders)
+                        Add(f.Path, f.Recursive, f.Label, f.IsMaxis, true);
                     if (SimPe.Wait.Running) SimPe.Wait.MaxProgress = 0;
                 }
 
@@ -243,6 +243,28 @@ namespace pjse
             }
         }
 
+        private IPackageFile parsingPackage = null;
+        /// <summary>
+        /// Lookup in GlobalStrings.package alone, used before the full table
+        /// has loaded (see the type/group/instance indexer).
+        /// </summary>
+        private Entry[] ParsingEntries(uint type, uint instance)
+        {
+            if (parsingPackage == null)
+            {
+                string path = Path.Combine(SimPe.Helper.SimPePluginPath, "pjse.coder.plugin\\GlobalStrings.package");
+                if (!File.Exists(path)) return new Entry[0];
+                try { parsingPackage = SimPe.Packages.File.LoadFromFile(path); }
+                catch (InvalidOperationException) { return new Entry[0]; }
+            }
+
+            System.Collections.Generic.List<Entry> result = new System.Collections.Generic.List<Entry>();
+            foreach (IPackedFileDescriptor pfd in parsingPackage.Index)
+                if (!pfd.MarkForDelete && pfd.Type == type && pfd.Group == (uint)Group.Parsing && pfd.Instance == instance)
+                    result.Add(new Entry(parsingPackage, pfd, false, true));
+            return result.ToArray();
+        }
+
         /// <summary>
 		/// Indicates the Refresh() was called
 		/// </summary>
@@ -304,24 +326,126 @@ namespace pjse
         }
 
 
+        /// <summary>
+        /// One folder (or file) for PJSE's bulk scan. Label is what the wait
+        /// bar shows ("Loading Bon Voyage objects"); IsMaxis marks game data.
+        /// </summary>
+        private sealed class ScanFolder
+        {
+            public readonly string Path;
+            public readonly bool Recursive;
+            public readonly string Label;
+            public readonly bool IsMaxis;
+            public ScanFolder(string path, bool recursive, string label, bool isMaxis)
+            {
+                Path = path; Recursive = recursive; Label = label; IsMaxis = isMaxis;
+            }
+        }
+
+        /// <summary>
+        /// The folders PJSE's bulk scan reads. This is deliberately NOT
+        /// SimPe.FileTable.DefaultFolders: that list serves the main file
+        /// index (catalog, textures, meshes) and covers every pack's Objects,
+        /// 3D/Sims3D, Materials and the whole Catalog tree — ~1.08M index
+        /// entries on a Super Collection install. PJSE only resolves BHAV,
+        /// BCON, TRCN, TPRP, STR#, CTSS, TTAs, OBJD, OBJf, TTAB and GLOB, and
+        /// measured on real game folders:
+        /// - every EP/SP ships a complete objects.package and the game uses
+        ///   only the newest, so older packs' copies are duplicates (~60% of
+        ///   the entries). The newest is the largest, which works for any
+        ///   install layout, so only the largest is read;
+        /// - 3D, Sims3D, Materials and Catalog\Skins hold none of those types;
+        /// - Catalog\Patterns holds only pattern-name STR#s.
+        /// Catalog\Bins IS kept: it carries real object BHAV/BCON/TRCN/OBJD
+        /// data (0.77's default folder list dropped it).
+        /// </summary>
+        private static System.Collections.Generic.List<ScanFolder> PjseFolders()
+        {
+            var folders = new System.Collections.Generic.List<ScanFolder>();
+            string root = SimPe.Helper.GameRootPath;
+            if (!string.IsNullOrEmpty(root) && Directory.Exists(root))
+            {
+                string newestObjects = null, newestLabel = null;
+                uint newestCount = 0;
+                string[] catalogSkip = { "Skins", "Patterns", "Materials" };
+
+                foreach (var pack in SimPe.GameRootAutoScanner.ScanRoot(root).Packs)
+                {
+                    string res = Path.Combine(pack.FullPath, "TSData\\Res");
+                    string objects = Path.Combine(res, "Objects");
+                    if (Directory.Exists(objects))
+                        foreach (string f in Directory.GetFiles(objects, "*.package"))
+                        {
+                            if (!Path.GetFileName(f).Equals("objects.package", StringComparison.OrdinalIgnoreCase))
+                                folders.Add(new ScanFolder(f, false, pack.Name, true));
+                            else
+                            {
+                                uint n = IndexCount(f);
+                                if (newestObjects == null || n > newestCount) { newestObjects = f; newestCount = n; newestLabel = pack.Name; }
+                            }
+                        }
+
+                    foreach (string sub in new[] { "Overrides", "StuffPack\\Objects", "UI", "Wants" })
+                        folders.Add(new ScanFolder(Path.Combine(res, sub), false, pack.Name, true));
+
+                    string catalog = Path.Combine(res, "Catalog");
+                    if (Directory.Exists(catalog))
+                    {
+                        folders.Add(new ScanFolder(catalog, false, pack.Name, true));
+                        foreach (string d in Directory.GetDirectories(catalog))
+                            if (Array.IndexOf(catalogSkip, Path.GetFileName(d)) < 0)
+                                folders.Add(new ScanFolder(d, true, pack.Name, true));
+                    }
+                }
+
+                if (newestObjects != null) folders.Insert(0, new ScanFolder(newestObjects, false, newestLabel, true));
+            }
+
+            // User-managed entries from Preferences -> File Table.
+            foreach (SimPe.FileTableItem fti in SimPe.CustomFolderStore.Load())
+                if (fti != null && fti.Use) folders.Add(new ScanFolder(fti.Name, fti.IsRecursive, "Custom", false));
+
+            return folders;
+        }
+
+        /// <summary>DBPF index entry count (header offset 36); 0 if unreadable.</summary>
+        private static uint IndexCount(string path)
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    byte[] h = new byte[40];
+                    if (fs.Read(h, 0, 40) < 40 || h[0] != 'D' || h[1] != 'B' || h[2] != 'P' || h[3] != 'F') return 0;
+                    return BitConverter.ToUInt32(h, 36);
+                }
+            }
+            catch { return 0; }
+        }
+
         private void Add(string v, bool recurse, SimPe.Expansions ep, bool isFixed)
         {
-            wm("Loading " + ep + " " + System.IO.Path.GetFileName(v).Replace(".package", ""));
+            Add(v, recurse, ep.ToString(), ep != SimPe.Expansions.Custom, isFixed);
+        }
+
+        private void Add(string v, bool recurse, string label, bool isMaxis, bool isFixed)
+        {
+            wm("Loading " + label + " " + System.IO.Path.GetFileName(v).Replace(".package", ""));
             if (Directory.Exists(v))
             {
                 foreach (string i in Directory.GetFiles(v, "*.package"))
-                    Add(i, false, ep, isFixed);
+                    Add(i, false, label, isMaxis, isFixed);
 
                 if (recurse)
                     foreach (string i in Directory.GetDirectories(v))
-                        Add(i, true, ep, isFixed);
+                        Add(i, true, label, isMaxis, isFixed);
             }
 
             else if (!v.ToLowerInvariant().EndsWith(SimPe.Helper.PATH_SEP+"globalcatbin.bundle.package") && File.Exists(v))
             {
                 try
                 {
-                    Add(SimPe.Packages.File.LoadFromFile(v), ep != SimPe.Expansions.Custom, isFixed);
+                    Add(SimPe.Packages.File.LoadFromFile(v), isMaxis, isFixed);
                 }
                 catch (InvalidOperationException ioe)
                 {
@@ -684,6 +808,14 @@ namespace pjse
         {
             get
             {
+                // PJSE's own UI strings (language names, opcode labels...) all
+                // live in GlobalStrings.package. Answer them from that one file
+                // rather than triggering the full game-folder scan — otherwise
+                // merely opening a STR# (its language list) loads every game
+                // package. Once the table has loaded, it holds these too.
+                if (!hasLoaded && !isRefreshing && group == (uint)Group.Parsing)
+                    return ParsingEntries(packedFileType, instance);
+
                 if (!hasLoaded) Refresh();
 
                 Hashtable tgit = (Hashtable)pfByTypeGroupInstance[packedFileType];
