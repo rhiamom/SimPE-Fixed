@@ -135,8 +135,13 @@ namespace SimPe.Cache
                 {
                     try
                     {
+                        // GDI+ needs the source stream for the image's whole
+                        // lifetime, so copy into a stream-independent Bitmap
+                        // before the stream is disposed. Without the copy,
+                        // icons read back from the saved cache never draw.
                         using (var ms = new MemoryStream(thumbData))
-                            thumb = Image.FromStream(ms);
+                        using (var img = Image.FromStream(ms))
+                            thumb = new Bitmap(img);
                     }
                     catch
                     {
@@ -266,7 +271,15 @@ namespace SimPe.Cache
 			writer.Write(pfd.LongInstance);
 			writer.Write(guid);
 
-			if (thumb==null)
+			if (thumb==null && thumbData!=null)
+			{
+				// Loaded from the cache file but never displayed: write the
+				// stored PNG back unchanged. Writing 0 here dropped every
+				// undisplayed icon each time the cache was re-saved.
+				writer.Write(thumbData.Length);
+				writer.Write(thumbData);
+			}
+			else if (thumb==null)
 			{
 				writer.Write((int)0);
 			}
