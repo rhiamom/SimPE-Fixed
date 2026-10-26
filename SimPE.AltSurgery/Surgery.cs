@@ -67,6 +67,40 @@ namespace SimPe.Plugin
 			//
 			InitializeComponent();
 
+			// Multi-column sim pool: a modern Sims 2 neighborhood can hold 100+
+			// sims, and the original single-column stack of 75px thumbnails
+			// made scrolling to find a specific sim tedious. Switch to a
+			// flowed LargeIcon grid wide enough for several thumbnails per
+			// row. Width + Anchor retune so the Patient/Archetype panels on
+			// the right still get the rest of the form.
+			lv.View = System.Windows.Forms.View.LargeIcon;
+			lv.AutoArrange = true;
+			lv.LabelWrap = true;
+			lv.Alignment = System.Windows.Forms.ListViewAlignment.Top;
+			int oldPoolWidth = lv.Width;
+			lv.Width = 440;   // room for 4 thumbnail columns at ~110px each
+			lv.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+			// Grow the form itself by the extra width the pool just claimed
+			// so the right-side Patient/Archetype panels get the same room
+			// they had before.
+			int poolGrew = lv.Width - oldPoolWidth;
+			if (poolGrew > 0) this.Width += poolGrew;
+			// Push the Patient/Archetype groupboxes over so the wider pool
+			// doesn't overlap them. If they're already further right than
+			// the new pool width + a 20px gutter, leave them alone.
+			int wantedLeft = lv.Right + 16;
+			foreach (System.Windows.Forms.Control c in this.Controls)
+			{
+				if (c == lv) continue;
+				if (c.Left < wantedLeft)
+				{
+					int delta = wantedLeft - c.Left;
+					c.Left += delta;
+					if ((c.Anchor & System.Windows.Forms.AnchorStyles.Right) != 0 && c.Width > delta)
+						c.Width -= delta;
+				}
+			}
+
 			LoadSkins();
 		}
 
