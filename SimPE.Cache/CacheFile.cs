@@ -140,10 +140,12 @@ namespace SimPe.Cache
 		/// Save a Cache File to the Disk
 		/// </summary>
 		/// <param name="flname">the name of the File</param>
-		public void Save(string flname) 
+		public void Save(string flname)
 		{
 			this.filename = flname;
 			this.version = VERSION;
+
+			MergeContainersFromDisk(flname);
 
 			StreamItem si = StreamFactory.UseStream(flname, FileAccess.Write, true);
 			try 
@@ -177,6 +179,33 @@ namespace SimPe.Cache
 			finally 
 			{
 				si.Close();
+			}
+		}
+
+		// Several independent CacheFile instances share one file (objcache_XX:
+		// the memory cache, WantLoader, GoalLoader, Scenegraph, ...), each loading
+		// it once and saving the whole file later. Save truncates and writes only
+		// this instance's containers, so a stale snapshot silently deleted every
+		// container another instance had saved in between - e.g. Wants & Fears
+		// loading the not-yet-built cache, then saving over the freshly built
+		// memory cache and dropping every memory icon. Before writing, carry over
+		// valid containers from disk that this instance does not hold.
+		void MergeContainersFromDisk(string flname)
+		{
+			if (!System.IO.File.Exists(flname)) return;
+
+			CacheFile onDisk = new CacheFile();
+			try { onDisk.Load(flname, false); }
+			catch { return; }
+
+			var held = new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			foreach (CacheContainer cc in containers)
+				held.Add(((byte)cc.Type) + "|" + cc.FileName);
+
+			foreach (CacheContainer cc in onDisk.Containers)
+			{
+				if (!cc.Valid) continue;
+				if (held.Add(((byte)cc.Type) + "|" + cc.FileName)) containers.Add(cc);
 			}
 		}
 

@@ -97,6 +97,16 @@ namespace SimPe.Cache
                     {
                         Wait.Message = "Reading Memory Cache...";
                         sharedCache.Load(cachePath, true);
+
+                        // The file can exist without any memory data: another cache
+                        // user (e.g. Wants & Fears) used to save a stale snapshot over
+                        // it, dropping the memory containers. Treat that like a missing
+                        // cache so it rebuilds instead of staying icon-less until the
+                        // user deletes the file by hand.
+                        bool hasMemory = false;
+                        foreach (CacheContainer cc in sharedCache.Containers)
+                            if (cc.Type == ContainerType.Memory && cc.Valid) { hasMemory = true; break; }
+                        if (!hasMemory) missing = true;
                     }
                     catch (Exception ex)
                     {
