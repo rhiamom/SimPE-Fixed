@@ -111,7 +111,7 @@ This project is developed across multiple machines. Authoritative state lives on
 
 ## Currently outstanding
 
-### Extended SDSC Browser empty for Apartment Life / FreeTime sims — fix UNTESTED (2026-10-25)
+### Fixed: Extended SDSC Browser empty for Apartment Life / FreeTime sims (2026-10-25; tested on her Windows PC, ships in 8.4.10)
 
 User report (Windows 11 under Parallels, SimPE 8.4.8, Magipack Ultimate
 Collection from r/sims2help): Sim Description → extended browser shows an
